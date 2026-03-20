@@ -81,17 +81,36 @@ export default function Navbar() {
     ];
     const currentLang = languages.find(l => i18n.language.startsWith(l.code)) || languages[0];
 
+    // 🌟 核心：引入统一的动画变体配置
+    const staggerContainer = {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+    };
+
+    const fadeInUp = {
+        hidden: { opacity: 0, y: -10 },
+        show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 120, damping: 20 } }
+    };
+
     return (
         <nav className="flex items-center justify-between px-8 py-5 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
-            {/* Logo 部分 */}
+            {/* Logo 部分 (保持静态，不需要随语言切换而动画) */}
             <Link to="/" className="text-2xl font-black text-blue-600 tracking-tighter flex items-center gap-2 group">
                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-sm shadow-lg shadow-blue-200 group-hover:scale-110 transition-transform">C</div>
                 CHILAN <span className="text-slate-400 font-light text-xl italic font-serif">LRS</span>
             </Link>
 
-            <div className="flex items-center gap-4 md:gap-6">
+            {/* 🌟 核心魔法：使用 motion.div 包裹右侧功能区，并绑定 key={i18n.language} */}
+            <motion.div 
+                key={i18n.language} 
+                variants={staggerContainer}
+                initial="hidden"
+                animate="show"
+                className="flex items-center gap-4 md:gap-6"
+            >
                 {/* --- 语言选择模块 --- */}
-                <div className="relative" ref={langRef} onMouseMove={resetTimer} onMouseLeave={clearTimer}>
+                {/* 🌟 给子元素加上 variants={fadeInUp} */}
+                <motion.div variants={fadeInUp} className="relative" ref={langRef} onMouseMove={resetTimer} onMouseLeave={clearTimer}>
                     <button 
                         onClick={() => setIsLangOpen(!isLangOpen)} 
                         className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all text-slate-600 font-bold text-sm"
@@ -122,11 +141,12 @@ export default function Navbar() {
                             </motion.div>
                         )}
                     </AnimatePresence>
-                </div>
+                </motion.div>
 
                 {/* --- 账户/登录模块 --- */}
                 {isLoggedIn ? (
-                    <div className="relative" ref={userRef} onMouseMove={resetTimer} onMouseLeave={clearTimer}>
+                    // 🌟 给子元素加上 variants={fadeInUp}
+                    <motion.div variants={fadeInUp} className="relative" ref={userRef} onMouseMove={resetTimer} onMouseLeave={clearTimer}>
                         <button 
                             onClick={() => setIsUserMenuOpen(!isUserMenuOpen)} 
                             className="flex items-center gap-3 pl-3 pr-2 py-1.5 bg-slate-50 hover:bg-white rounded-2xl transition-all border border-slate-200 shadow-sm group"
@@ -169,14 +189,17 @@ export default function Navbar() {
                                 </motion.div>
                             )}
                         </AnimatePresence>
-                    </div>
+                    </motion.div>
                 ) : (
-                    <Link to="/auth" className="group flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 shadow-xl shadow-slate-200 transition-all active:scale-95">
-                        <User size={18} className="text-slate-400 group-hover:text-white" />
-                        <span>{t('nav_auth')}</span>
-                    </Link>
+                    // 🌟 给子元素加上 variants={fadeInUp}
+                    <motion.div variants={fadeInUp}>
+                        <Link to="/auth" className="group flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 shadow-xl shadow-slate-200 transition-all active:scale-95">
+                            <User size={18} className="text-slate-400 group-hover:text-white" />
+                            <span>{t('nav_auth')}</span>
+                        </Link>
+                    </motion.div>
                 )}
-            </div>
+            </motion.div>
         </nav>
     );
 }

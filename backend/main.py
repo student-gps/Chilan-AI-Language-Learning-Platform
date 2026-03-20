@@ -2,6 +2,7 @@ import os
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import List
 from routers import auth, study
 from database.connection import get_connection
 from core.evaluator import Evaluator
@@ -33,10 +34,15 @@ class EnrollReq(BaseModel):
     user_id: str
     course_id: int
 
-class AnswerReq(BaseModel):
-    user_id: str 
+# 🌟 新的判题请求模型，严格对齐前端传来的 JSON
+class EvaluateRequest(BaseModel):
+    user_id: str
+    lesson_id: int
     question_id: int
-    user_input: str
+    question_type: str
+    original_text: str
+    standard_answers: List[str]
+    user_answer: str
 
 def get_db():
     conn = get_connection()
@@ -101,24 +107,86 @@ async def get_daily_tasks(user_id: str, db=Depends(get_db)):
         return [{"id": r[0], "type": r[1], "text": r[2]} for r in cur.fetchall()]
     finally: cur.close()
 
-@app.post("/evaluate")
-async def evaluate(req: AnswerReq, db=Depends(get_db)):
+# --- 判题与 FSRS 记忆更新系统 ---
+@app.post("/study/evaluate")
+async def evaluate_answer(req: EvaluateRequest, db=Depends(get_db)):
     cur = db.cursor()
     try:
-        user_vec = evaluator.get_embedding(req.user_input)
-        cur.execute("SELECT q.original_text, q.standard_answers, q.question_type, p.stability, p.difficulty, p.recent_history, 1 - (q.primary_embedding <=> %s::vector) AS score FROM language_items q LEFT JOIN user_progress_of_language_items p ON q.question_id = p.question_id AND p.user_id::text = %s WHERE q.question_id = %s;", (user_vec, req.user_id, req.question_id))
+        # 1. 将用户的回答转换为向量
+        user_vec = evaluator.get_embedding(req.user_answer)
+        
+        # 2. 查询数据库，获取该题目的历史进度，并利用 pgvector 极速计算余弦相似度
+        query = """
+            SELECT 
+                p.stability, 
+                p.difficulty, 
+                p.recent_history, 
+                1 - (q.primary_embedding <=> %s::vector) AS score 
+            FROM language_items q 
+            LEFT JOIN user_progress_of_language_items p 
+                   ON q.question_id = p.question_id AND p.user_id::text = %s 
+            WHERE q.question_id = %s;
+        """
+        cur.execute(query, (user_vec, req.user_id, req.question_id))
         row = cur.fetchone()
-        if not row: raise HTTPException(status_code=404, detail="Question not found")
-        orig_text, std_ans, q_type, s, d, hist, sim = row
-        res = await evaluator.judge(q_type, req.user_input, orig_text, std_ans, sim)
+        
+        # 容错：如果题目由于某种原因在数据库中丢失，给出默认分数
+        stability, difficulty, history, sim_score = row if row else (0.5, 5.0, [], 0.0)
+        
+        # 3. 调用 AI 判卷大脑 (传入计算好的相似度)
+        res = await evaluator.judge(
+            q_type=req.question_type, 
+            user_input=req.user_answer, 
+            orig_text=req.original_text, 
+            std_answers=req.standard_answers, 
+            score=sim_score
+        )
+        
+        # --------- 以下为 FSRS 记忆算法更新逻辑 ---------
+        # 根据 AI 的评分 (1-4级)，反转为 FSRS 评分 (4为掌握，1为遗忘)
         fsrs_rating = 5 - res["level"]
-        new_s, new_d, next_r = scheduler.calc_next_review(s or 0.5, d or 5.0, fsrs_rating)
-        new_hist = ((hist or []) + [fsrs_rating])[-5:]
-        cur.execute("INSERT INTO review_logs (user_id, question_id, rating, state, stability, difficulty) VALUES (%s, %s, %s, %s, %s, %s)", (req.user_id, req.question_id, fsrs_rating, 2 if s else 0, new_s, new_d))
-        cur.execute("INSERT INTO user_progress_of_language_items (user_id, question_id, stability, difficulty, recent_history, is_mastered, last_review, next_review) VALUES (%s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s) ON CONFLICT (user_id, question_id) DO UPDATE SET stability=EXCLUDED.stability, difficulty=EXCLUDED.difficulty, recent_history=EXCLUDED.recent_history, is_mastered=EXCLUDED.is_mastered, last_review=CURRENT_TIMESTAMP, next_review=EXCLUDED.next_review;", (req.user_id, req.question_id, new_s, new_d, new_hist, scheduler.check_mastery(new_hist), next_r))
+        
+        # 计算下一次复习的时间和新的稳定性/难度
+        new_s, new_d, next_r = scheduler.calc_next_review(stability or 0.5, difficulty or 5.0, fsrs_rating)
+        new_hist = ((history or []) + [fsrs_rating])[-5:]
+        
+        # 记录用户的本次复习日志
+        log_query = """
+            INSERT INTO review_logs (user_id, question_id, rating, state, stability, difficulty) 
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """
+        cur.execute(log_query, (req.user_id, req.question_id, fsrs_rating, 2 if stability else 0, new_s, new_d))
+        
+        # 更新该题目的总体掌握进度和下一次复习时间 (Upsert 逻辑)
+        upsert_query = """
+            INSERT INTO user_progress_of_language_items 
+                (user_id, question_id, stability, difficulty, recent_history, is_mastered, last_review, next_review) 
+            VALUES (%s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s) 
+            ON CONFLICT (user_id, question_id) 
+            DO UPDATE SET 
+                stability = EXCLUDED.stability, 
+                difficulty = EXCLUDED.difficulty, 
+                recent_history = EXCLUDED.recent_history, 
+                is_mastered = EXCLUDED.is_mastered, 
+                last_review = CURRENT_TIMESTAMP, 
+                next_review = EXCLUDED.next_review;
+        """
+        cur.execute(upsert_query, (req.user_id, req.question_id, new_s, new_d, new_hist, scheduler.check_mastery(new_hist), next_r))
+        
         db.commit()
-        return {"verdict": "Correct" if res["is_correct"] else "Incorrect", "explanation": res["explanation"], "level": res["level"]}
-    except Exception as e: db.rollback(); raise HTTPException(status_code=500, detail=str(e))
+        
+        # 4. 返回前端期待的统一格式
+        return {
+            "status": "success", 
+            "data": res
+        }
+        
+    except Exception as e:
+        db.rollback()
+        print(f"Evaluate Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        cur.close()
 
 if __name__ == "__main__":
     import uvicorn

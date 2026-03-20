@@ -1,0 +1,858 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 101,
+    "title": "Lesson 101: 问好与介绍"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "王朋",
+            "english": "Hello!",
+            "words": [
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": true
+              },
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": true
+              },
+              {
+                "cn": "！",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "Hello!",
+            "words": [
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "好",
+                "py": "hǎo"
+              },
+              {
+                "cn": "！",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Excuse me, what is your honorable surname?",
+            "words": [
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "问",
+                "py": "wèn",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "贵",
+                "py": "guì",
+                "highlight": true
+              },
+              {
+                "cn": "姓",
+                "py": "xìng",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "My surname is Li. And you?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": true
+              },
+              {
+                "cn": "姓",
+                "py": "xìng"
+              },
+              {
+                "cn": "李",
+                "py": "Lǐ",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              },
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "呢",
+                "py": "ne",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "My surname is Wang. Miss Li, what is your name?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "姓",
+                "py": "xìng"
+              },
+              {
+                "cn": "王",
+                "py": "Wáng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              },
+              {
+                "cn": "李",
+                "py": "Lǐ"
+              },
+              {
+                "cn": "小姐",
+                "py": "xiǎojiě",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "叫",
+                "py": "jiào",
+                "highlight": true
+              },
+              {
+                "cn": "什么",
+                "py": "shénme",
+                "highlight": true
+              },
+              {
+                "cn": "名字",
+                "py": "míngzi",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "My name is Li You. Mr. Wang, what is your name?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "叫",
+                "py": "jiào"
+              },
+              {
+                "cn": "李友",
+                "py": "Lǐ Yǒu",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              },
+              {
+                "cn": "王",
+                "py": "Wáng"
+              },
+              {
+                "cn": "先生",
+                "py": "xiānsheng",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "叫",
+                "py": "jiào"
+              },
+              {
+                "cn": "什么",
+                "py": "shénme"
+              },
+              {
+                "cn": "名字",
+                "py": "míngzi"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "My name is Wang Peng.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "叫",
+                "py": "jiào"
+              },
+              {
+                "cn": "王朋",
+                "py": "Wáng Péng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "你",
+        "pinyin": "nǐ",
+        "part_of_speech": "Pronoun",
+        "definition": "you",
+        "example_sentence": {
+          "cn": "你好吗？",
+          "py": "Nǐ hǎo ma?",
+          "en": "How are you?"
+        }
+      },
+      {
+        "word": "好",
+        "pinyin": "hǎo",
+        "part_of_speech": "Adjective",
+        "definition": "fine, good, nice, OK, it's settled",
+        "example_sentence": {
+          "cn": "我很好。",
+          "py": "Wǒ hěn hǎo.",
+          "en": "I am very good."
+        }
+      },
+      {
+        "word": "请",
+        "pinyin": "qǐng",
+        "part_of_speech": "Verb",
+        "definition": "please (polite form of request), to treat or to invite (somebody)",
+        "example_sentence": {
+          "cn": "请问，你贵姓？",
+          "py": "Qǐng wèn, nǐ guì xìng?",
+          "en": "Excuse me, what is your honorable surname?"
+        }
+      },
+      {
+        "word": "问",
+        "pinyin": "wèn",
+        "part_of_speech": "Verb",
+        "definition": "to ask (a question)",
+        "example_sentence": {
+          "cn": "我可以问一个问题吗？",
+          "py": "Wǒ kěyǐ wèn yí gè wèntí ma?",
+          "en": "Can I ask a question?"
+        }
+      },
+      {
+        "word": "贵",
+        "pinyin": "guì",
+        "part_of_speech": "Adjective",
+        "definition": "honorable, expensive",
+        "example_sentence": {
+          "cn": "这是很贵的礼物。",
+          "py": "Zhè shì hěn guì de lǐwù.",
+          "en": "This is a very expensive gift."
+        }
+      },
+      {
+        "word": "姓",
+        "pinyin": "xìng",
+        "part_of_speech": "Verb/Noun",
+        "definition": "(one's) family name is...; family name",
+        "example_sentence": {
+          "cn": "我姓王。",
+          "py": "Wǒ xìng Wáng.",
+          "en": "My family name is Wang."
+        }
+      },
+      {
+        "word": "我",
+        "pinyin": "wǒ",
+        "part_of_speech": "Pronoun",
+        "definition": "I, me",
+        "example_sentence": {
+          "cn": "我是学生。",
+          "py": "Wǒ shì xuésheng.",
+          "en": "I am a student."
+        }
+      },
+      {
+        "word": "呢",
+        "pinyin": "ne",
+        "part_of_speech": "Question Particle",
+        "definition": "(question particle)",
+        "example_sentence": {
+          "cn": "我姓李，你呢？",
+          "py": "Wǒ xìng Lǐ, nǐ ne?",
+          "en": "My family name is Li, and you?"
+        }
+      },
+      {
+        "word": "小姐",
+        "pinyin": "xiǎojiě",
+        "part_of_speech": "Noun",
+        "definition": "Miss, young lady",
+        "example_sentence": {
+          "cn": "李小姐，你好。",
+          "py": "Lǐ xiǎojiě, nǐ hǎo.",
+          "en": "Miss Li, hello."
+        }
+      },
+      {
+        "word": "叫",
+        "pinyin": "jiào",
+        "part_of_speech": "Verb",
+        "definition": "to be called, to call",
+        "example_sentence": {
+          "cn": "我叫王朋。",
+          "py": "Wǒ jiào Wáng Péng.",
+          "en": "My name is Wang Peng."
+        }
+      },
+      {
+        "word": "什么",
+        "pinyin": "shénme",
+        "part_of_speech": "Question Pronoun",
+        "definition": "what",
+        "example_sentence": {
+          "cn": "你叫什么名字？",
+          "py": "Nǐ jiào shénme míngzi?",
+          "en": "What is your name?"
+        }
+      },
+      {
+        "word": "名字",
+        "pinyin": "míngzi",
+        "part_of_speech": "Noun",
+        "definition": "name",
+        "example_sentence": {
+          "cn": "你的名字是什么？",
+          "py": "Nǐ de míngzi shì shénme?",
+          "en": "What is your name?"
+        }
+      },
+      {
+        "word": "先生",
+        "pinyin": "xiānsheng",
+        "part_of_speech": "Noun",
+        "definition": "Mr., husband, teacher",
+        "example_sentence": {
+          "cn": "王先生是老师。",
+          "py": "Wáng xiānsheng shì lǎoshī.",
+          "en": "Mr. Wang is a teacher."
+        }
+      },
+      {
+        "word": "李友",
+        "pinyin": "Lǐ Yǒu",
+        "part_of_speech": "Proper Noun",
+        "definition": "(a personal name)",
+        "example_sentence": {
+          "cn": "她叫李友。",
+          "py": "Tā jiào Lǐ Yǒu.",
+          "en": "Her name is Li You."
+        }
+      },
+      {
+        "word": "李",
+        "pinyin": "lǐ",
+        "part_of_speech": "Proper Noun/Noun",
+        "definition": "(a family name); plum",
+        "example_sentence": {
+          "cn": "他姓李。",
+          "py": "Tā xìng Lǐ.",
+          "en": "His family name is Li."
+        }
+      },
+      {
+        "word": "王朋",
+        "pinyin": "Wáng Péng",
+        "part_of_speech": "Proper Noun",
+        "definition": "(a personal name)",
+        "example_sentence": {
+          "cn": "他叫王朋。",
+          "py": "Tā jiào Wáng Péng.",
+          "en": "His name is Wang Peng."
+        }
+      },
+      {
+        "word": "王",
+        "pinyin": "wáng",
+        "part_of_speech": "Proper Noun/Noun",
+        "definition": "(a family name); king",
+        "example_sentence": {
+          "cn": "她姓王。",
+          "py": "Tā xìng Wáng.",
+          "en": "Her family name is Wang."
+        }
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 101,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你",
+      "standard_answers": [
+        "you"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "好",
+      "standard_answers": [
+        "good",
+        "fine",
+        "nice",
+        "OK"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "请",
+      "standard_answers": [
+        "please",
+        "to treat",
+        "to invite"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "问",
+      "standard_answers": [
+        "to ask"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "贵",
+      "standard_answers": [
+        "honorable",
+        "expensive"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "姓",
+      "standard_answers": [
+        "surname",
+        "family name",
+        "(one's) family name is"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我",
+      "standard_answers": [
+        "I",
+        "me"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "呢",
+      "standard_answers": [
+        "(question particle)"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "小姐",
+      "standard_answers": [
+        "Miss",
+        "young lady"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "叫",
+      "standard_answers": [
+        "to be called",
+        "to call"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "什么",
+      "standard_answers": [
+        "what"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "名字",
+      "standard_answers": [
+        "name"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "先生",
+      "standard_answers": [
+        "Mr.",
+        "husband",
+        "teacher"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "李",
+      "standard_answers": [
+        "Li",
+        "plum"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "王",
+      "standard_answers": [
+        "Wang",
+        "king"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "you",
+      "standard_answers": [
+        "你"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "good",
+      "standard_answers": [
+        "好"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "please",
+      "standard_answers": [
+        "请"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to ask",
+      "standard_answers": [
+        "问"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "honorable",
+      "standard_answers": [
+        "贵"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "surname",
+      "standard_answers": [
+        "姓"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "I",
+      "standard_answers": [
+        "我"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Miss",
+      "standard_answers": [
+        "小姐"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to be called",
+      "standard_answers": [
+        "叫"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "what",
+      "standard_answers": [
+        "什么"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "name",
+      "standard_answers": [
+        "名字"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Mr.",
+      "standard_answers": [
+        "先生"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你好！",
+      "standard_answers": [
+        "Hello!",
+        "Hi!"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "请问，你贵姓？",
+      "standard_answers": [
+        "Excuse me, what is your honorable surname?",
+        "May I ask your family name?"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我姓王。",
+      "standard_answers": [
+        "My family name is Wang.",
+        "My surname is Wang."
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你呢？",
+      "standard_answers": [
+        "And you?",
+        "How about you?"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你叫什么名字？",
+      "standard_answers": [
+        "What is your name?"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我叫李友。",
+      "standard_answers": [
+        "My name is Li You."
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Hello!",
+      "standard_answers": [
+        "你好！"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "What is your name?",
+      "standard_answers": [
+        "你叫什么名字？"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "My family name is Li.",
+      "standard_answers": [
+        "我姓李。"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "My name is Wang Peng.",
+      "standard_answers": [
+        "我叫王朋。"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Excuse me, may I ask your family name?",
+      "standard_answers": [
+        "请问，你贵姓？",
+        "请问，你姓什么？"
+      ]
+    }
+  ],
+  "aigc_visual_prompt": "A vibrant, friendly illustration for a Chinese language textbook cover. A young Chinese man and a young Caucasian woman are meeting for the first time on a modern university campus in China. They are smiling and greeting each other warmly. The style is clean, modern, and inviting, with soft, bright colors. Focus on positive and welcoming expressions. --ar 16:9 --style expressive"
+}

@@ -1,6 +1,7 @@
 import os
 import json
 import psycopg2
+import shutil
 from psycopg2.extras import Json
 from google import genai
 from pathlib import Path
@@ -12,7 +13,6 @@ from connection import get_connection
 # ==========================================
 # 1. 环境与配置初始化
 # ==========================================
-# 自动定位项目根目录下的 .env 文件
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
@@ -20,7 +20,6 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     raise ValueError("❌ 未在 .env 中找到 GEMINI_API_KEY")
 
-# 初始化大模型客户端 (推荐使用最新的多语言 embedding 模型)
 client = genai.Client(api_key=GEMINI_API_KEY)
 EMBEDDING_MODEL = "gemini-embedding-001" 
 
@@ -36,8 +35,8 @@ def get_embedding(text: str) -> list[float]:
 # ==========================================
 # 2. 核心入库逻辑
 # ==========================================
-def sync_lesson_data(json_file_path: str):
-    # 读取 Agent 生成的完美 JSON 文件
+def sync_lesson_data(json_file_path: str) -> bool:
+    """处理单个 JSON 文件，成功返回 True，失败返回 False"""
     with open(json_file_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
@@ -47,9 +46,8 @@ def sync_lesson_data(json_file_path: str):
 
     if not lesson_metadata or not database_items:
         print("❌ JSON 数据不完整，缺少 metadata 或 database_items！")
-        return
+        return False
 
-    # 提取 metadata 变量
     course_id = lesson_metadata.get("course_id")
     lesson_id = lesson_metadata.get("lesson_id")
     title = lesson_metadata.get("title")
@@ -58,20 +56,17 @@ def sync_lesson_data(json_file_path: str):
     cur = None
     
     try:
-        # 🌟 直接使用你封装的数据库连接函数！
         conn = get_connection()
         cur = conn.cursor()
-        print("✅ 成功通过 connection.py 连接到 PostgreSQL 数据库！\n")
+        print("✅ 成功连接到 PostgreSQL 数据库！")
 
         # ---------------------------------------------------------
         # 任务一：同步 `lessons` 表 (写入 JSONB 课件数据)
         # ---------------------------------------------------------
         print(f"📦 正在同步 Lesson {lesson_id} 基础课件数据...")
         
-        # 检查是否已存在该课
         cur.execute("SELECT 1 FROM lessons WHERE course_id = %s AND lesson_id = %s", (course_id, lesson_id))
         if cur.fetchone():
-            # 已存在，执行更新 (利用 psycopg2.extras.Json 自动处理 dict 到 JSONB 的转换)
             cur.execute("""
                 UPDATE lessons 
                 SET title = %s, structured_content = %s
@@ -79,13 +74,11 @@ def sync_lesson_data(json_file_path: str):
             """, (title, Json(course_content), course_id, lesson_id))
             print(f"   -> 🔄 更新了已存在的 Lesson {lesson_id} 数据。")
         else:
-            # 不存在，执行插入
             cur.execute("""
                 INSERT INTO lessons (course_id, lesson_id, title, structured_content)
                 VALUES (%s, %s, %s, %s)
             """, (course_id, lesson_id, title, Json(course_content)))
             print(f"   -> 🆕 插入了全新的 Lesson {lesson_id} 数据。")
-
 
         # ---------------------------------------------------------
         # 任务二：同步 `language_items` 表 (生成向量并写入题库)
@@ -97,13 +90,12 @@ def sync_lesson_data(json_file_path: str):
             q_id = item['question_id']
             q_type = item['question_type']
             q_text = item['original_text']
-            s_answers = item['standard_answers'] # 这是一个数组
+            s_answers = item['standard_answers']
             
-            # 生成向量 (取第一个标准答案作为基准)
+            # 生成向量
             primary_embedding = get_embedding(s_answers[0])
-            embedding_str = str(primary_embedding) # 转换为 PostgreSQL 接受的向量字符串格式
+            embedding_str = str(primary_embedding)
 
-            # 检查题目是否已存在
             cur.execute("""
                 SELECT 1 FROM language_items 
                 WHERE course_id = %s AND lesson_id = %s AND question_id = %s
@@ -126,24 +118,46 @@ def sync_lesson_data(json_file_path: str):
             
             success_count += 1
 
-        # 完美运行，提交所有事务！
         conn.commit()
         print(f"\n🎉 大功告成！课件本体和 {success_count} 道向量题库全部落盘！")
+        return True
 
     except Exception as e:
         print(f"\n❌ 数据库操作失败，已回滚: {e}")
         if conn: conn.rollback()
+        return False
     finally:
         if cur: cur.close()
         if conn: conn.close()
 
 if __name__ == "__main__":
-    # 使用 pathlib 优雅地定位跨文件夹的 JSON 路径
     current_dir = Path(__file__).resolve().parent
-    target_json = current_dir.parent / "content_builder" / "output_json" / "lesson1_data.json"
+    # 定位到 content_builder 下的 output_json 文件夹
+    output_dir = current_dir.parent / "content_builder" / "output_json"
     
-    if target_json.exists():
-        print(f"🔍 成功找到数据文件: {target_json}")
-        sync_lesson_data(str(target_json))
+    # 🌟 新增：建立一个已同步归档文件夹，防重复 embedding
+    synced_dir = current_dir.parent / "content_builder" / "synced_json"
+    synced_dir.mkdir(parents=True, exist_ok=True)
+    
+    if not output_dir.exists():
+        print(f"❌ 找不到数据文件夹: {output_dir}")
     else:
-        print(f"❌ 找不到文件，请检查路径: {target_json}")
+        # 批量获取所有的 json 文件
+        json_files = list(output_dir.glob("*.json"))
+        
+        if not json_files:
+            print(f"📭 {output_dir.name} 文件夹为空，没有需要入库的数据。")
+        else:
+            print(f"📦 发现 {len(json_files)} 个 JSON 文件等待入库...")
+            
+            for target_json in json_files:
+                print(f"\n=====================================")
+                print(f"▶️ 开始处理: {target_json.name}")
+                
+                # 执行入库
+                is_success = sync_lesson_data(str(target_json))
+                
+                # 入库成功后，把 JSON 文件移走
+                if is_success:
+                    shutil.move(str(target_json), str(synced_dir / target_json.name))
+                    print(f"📁 {target_json.name} 已安全归档至 synced_json 文件夹。")
