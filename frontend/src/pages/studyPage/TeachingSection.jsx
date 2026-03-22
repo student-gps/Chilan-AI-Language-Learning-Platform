@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Volume2, ArrowRight, Languages, BookOpen } from 'lucide-react';
+import axios from 'axios';
+import { Eye, EyeOff, Volume2, ArrowRight, Languages, BookOpen, Loader2 } from 'lucide-react';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -12,14 +13,17 @@ const formatLessonId = (id) => {
     return numId < 100 ? id : `${Math.floor(numId / 100)}.${numId % 100}`;
 };
 
-export default function TeachingSection({ data, onStartPractice }) {
-    // 🌟 1. 状态拆分：课文专用
+export default function TeachingSection({ data, courseId, userId, onStartPractice }) {
+    // 1. 状态拆分：课文专用
     const [diagPinyin, setDiagPinyin] = useState(true);
     const [diagTrans, setDiagTrans] = useState(true);
 
-    // 🌟 2. 状态拆分：生词专用
+    // 2. 状态拆分：生词专用
     const [vocabPinyin, setVocabPinyin] = useState(true);
     const [vocabTrans, setVocabTrans] = useState(true);
+
+    // 新增状态：处理打书签的加载中状态
+    const [isSaving, setIsSaving] = useState(false);
 
     if (!data) return null;
     const { lesson_metadata, course_content, aigc_visual_prompt } = data;
@@ -30,7 +34,7 @@ export default function TeachingSection({ data, onStartPractice }) {
         new Audio(`http://127.0.0.1:8000/study/tts?text=${encodeURIComponent(text)}`).play();
     };
 
-    // 🌟 3. 通用控制组件：接收 props 实现局部控制
+    // 3. 通用控制组件：接收 props 实现局部控制
     const ControlCapsule = ({ pinyin, setPinyin, trans, setTrans }) => (
         <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-2xl border border-slate-200/50 shadow-inner">
             <button 
@@ -54,8 +58,26 @@ export default function TeachingSection({ data, onStartPractice }) {
         </div>
     );
 
+    // 打书签逻辑
+    const handleStartPracticeClick = async () => {
+        if (isSaving) return;
+        setIsSaving(true);
+        try {
+            await axios.post('http://127.0.0.1:8000/study/content_viewed', {
+                user_id: userId,
+                course_id: courseId,
+                lesson_id: lesson_metadata.lesson_id
+            });
+        } catch (error) {
+            console.error("记录阅读进度失败:", error);
+        } finally {
+            setIsSaving(false);
+            onStartPractice(); 
+        }
+    };
+
     return (
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto px-6 pt-24">
             {/* 顶部页眉 */}
             <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex items-center gap-3 mb-4">
                 <span className="px-3 py-1 bg-slate-900 text-white text-[10px] font-black rounded-full uppercase tracking-widest">New Unit</span>
@@ -80,11 +102,10 @@ export default function TeachingSection({ data, onStartPractice }) {
                 </p>
             </motion.div>
 
-            {/* 4. 课文对话区 (使用 diag 状态) */}
+            {/* 4. 课文对话区 (使用全新清爽蓝配色) */}
             <motion.section variants={fadeInUp} initial="hidden" animate="show" className="mb-24">
                 <div className="flex justify-between items-end mb-8">
                     <h2 className="text-2xl font-black text-slate-800">💬 课文对话</h2>
-                    {/* 🌟 传入课文专用的状态开关 */}
                     <ControlCapsule 
                         pinyin={diagPinyin} setPinyin={setDiagPinyin} 
                         trans={diagTrans} setTrans={setDiagTrans} 
@@ -96,25 +117,42 @@ export default function TeachingSection({ data, onStartPractice }) {
                         const isLeft = idx % 2 === 0;
                         return (
                             <div key={idx} className={`flex flex-col ${isLeft ? 'items-start' : 'items-end'}`}>
-                                <span className="text-[10px] font-black text-slate-300 mb-2 px-4 uppercase tracking-widest">{line.role}</span>
+                                <span className="text-2xl font-black text-slate-300 mb-2 px-4 uppercase tracking-widest">{line.role}</span>
+                                
                                 <div className={`px-7 py-5 rounded-[2.2rem] max-w-[85%] group relative transition-all hover:shadow-lg ${
-                                    isLeft ? 'bg-slate-50 border border-slate-100 rounded-tl-none' : 'bg-slate-900 border border-slate-800 rounded-tr-none text-white'
+                                    isLeft 
+                                        ? 'bg-slate-50 border border-slate-100 rounded-tl-none text-slate-800' 
+                                        : 'bg-blue-50 border border-blue-100 rounded-tr-none text-slate-800'
                                 }`}>
                                     <div className="flex items-end flex-wrap gap-x-2 gap-y-4">
                                         {line.words?.map((w, wIdx) => (
                                             <ruby key={wIdx} className="flex flex-col items-center">
-                                                <rt className={`text-[12px] font-mono mb-1 transition-all duration-500 ${
+                                                <rt className={`text-xl font-mono mb-1 transition-all duration-500 ${
                                                     diagPinyin ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'
-                                                } ${isLeft ? 'text-slate-400' : 'text-slate-500'}`}>{w.py}</rt>
-                                                <span className={`text-2xl ${w.highlight ? 'text-blue-500 font-black' : 'font-medium'}`}>{w.cn}</span>
+                                                } ${isLeft ? 'text-slate-400' : 'text-blue-400'}`}>{w.py}</rt>
+                                                
+                                                <span className={`text-3xl ${
+                                                    w.highlight 
+                                                        ? 'text-blue-600 font-black' 
+                                                        : 'font-medium'
+                                                }`}>{w.cn}</span>
                                             </ruby>
                                         ))}
-                                        <button onClick={() => playAudio(line.words.map(w=>w.cn).join(''))} className="p-2 ml-2 text-slate-400 hover:text-blue-500 transition-colors">
+                                        
+                                        <button onClick={() => playAudio(line.words.map(w=>w.cn).join(''))} 
+                                            className={`p-2 ml-2 transition-colors ${
+                                                isLeft ? 'text-slate-400 hover:text-blue-500' : 'text-blue-400 hover:text-blue-600'
+                                            }`}>
                                             <Volume2 size={20} />
                                         </button>
                                     </div>
+                                    
                                     {diagTrans && line.english && (
-                                        <p className={`text-sm mt-5 pt-4 border-t ${isLeft ? 'text-slate-500 border-slate-200/60' : 'text-slate-400 border-white/10'}`}>
+                                        <p className={`text-xl mt-5 pt-4 border-t ${
+                                            isLeft 
+                                                ? 'text-slate-500 border-slate-200/60' 
+                                                : 'text-blue-700/70 border-blue-200/60'
+                                        }`}>
                                             {line.english}
                                         </p>
                                     )}
@@ -125,11 +163,10 @@ export default function TeachingSection({ data, onStartPractice }) {
                 </div>
             </motion.section>
 
-            {/* 5. 生词区 (使用 vocab 状态) */}
+            {/* 5. 生词区 */}
             <motion.section variants={fadeInUp} initial="hidden" animate="show" className="mb-20">
                 <div className="flex justify-between items-end mb-8">
                     <h2 className="text-2xl font-black text-slate-800">🔤 本课生词</h2>
-                    {/* 🌟 传入生词专用的状态开关 */}
                     <ControlCapsule 
                         pinyin={vocabPinyin} setPinyin={setVocabPinyin} 
                         trans={vocabTrans} setTrans={setVocabTrans} 
@@ -189,10 +226,15 @@ export default function TeachingSection({ data, onStartPractice }) {
             {/* 6. 底部按钮 */}
             <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex justify-center pt-8 pb-24">
                 <button 
-                    onClick={onStartPractice} 
-                    className="px-14 py-5 bg-slate-900 text-white font-black text-lg rounded-[2rem] hover:bg-blue-600 transition-all shadow-xl hover:-translate-y-1 flex items-center gap-4"
+                    onClick={handleStartPracticeClick} 
+                    disabled={isSaving}
+                    className="px-14 py-5 bg-slate-900 text-white font-black text-lg rounded-[2rem] hover:bg-blue-600 disabled:bg-slate-400 disabled:hover:translate-y-0 transition-all shadow-xl hover:-translate-y-1 flex items-center gap-4"
                 >
-                    完成学习，进入测验 <ArrowRight size={22} />
+                    {isSaving ? (
+                        <>正在生成测验... <Loader2 className="animate-spin" size={22} /></>
+                    ) : (
+                        <>完成学习，进入测验 <ArrowRight size={22} /></>
+                    )}
                 </button>
             </motion.div>
         </div>

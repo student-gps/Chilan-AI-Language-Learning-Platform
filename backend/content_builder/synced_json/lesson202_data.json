@@ -1,0 +1,1179 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 202,
+    "title": "Lesson 202: 讨论家庭和职业"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "李友",
+            "english": "Bai Ying'ai, how many people are in your family?",
+            "words": [
+              {
+                "cn": "白",
+                "py": "Bái"
+              },
+              {
+                "cn": "英",
+                "py": "Yīng"
+              },
+              {
+                "cn": "爱",
+                "py": "ài"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu"
+              },
+              {
+                "cn": "几",
+                "py": "jǐ",
+                "highlight": true
+              },
+              {
+                "cn": "口",
+                "py": "kǒu",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "There are six people in my family: my dad, my mom, one older brother, two younger sisters, and me. Li You, how many people are in your family?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "Wǒ"
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu"
+              },
+              {
+                "cn": "六",
+                "py": "liù"
+              },
+              {
+                "cn": "口",
+                "py": "kǒu",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "爸",
+                "py": "bà"
+              },
+              {
+                "cn": "爸",
+                "py": "ba"
+              },
+              {
+                "cn": "、",
+                "py": ""
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "妈",
+                "py": "mā"
+              },
+              {
+                "cn": "妈",
+                "py": "ma"
+              },
+              {
+                "cn": "、",
+                "py": ""
+              },
+              {
+                "cn": "一",
+                "py": "yí"
+              },
+              {
+                "cn": "个",
+                "py": "ge"
+              },
+              {
+                "cn": "哥",
+                "py": "gē"
+              },
+              {
+                "cn": "哥",
+                "py": "ge",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": ""
+              },
+              {
+                "cn": "两",
+                "py": "liǎng",
+                "highlight": true
+              },
+              {
+                "cn": "个",
+                "py": "ge"
+              },
+              {
+                "cn": "妹",
+                "py": "mèi"
+              },
+              {
+                "cn": "妹",
+                "py": "mei",
+                "highlight": true
+              },
+              {
+                "cn": "和",
+                "py": "hé",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "。",
+                "py": ""
+              },
+              {
+                "cn": "李",
+                "py": "Lǐ"
+              },
+              {
+                "cn": "友",
+                "py": "Yǒu"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu"
+              },
+              {
+                "cn": "几",
+                "py": "jǐ",
+                "highlight": true
+              },
+              {
+                "cn": "口",
+                "py": "kǒu",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "There are five people in my family: dad, mom, oldest sister, second oldest sister, and me. What do your dad and mom do for work?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "Wǒ"
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu"
+              },
+              {
+                "cn": "五",
+                "py": "wǔ"
+              },
+              {
+                "cn": "口",
+                "py": "kǒu",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén"
+              },
+              {
+                "cn": "：",
+                "py": ""
+              },
+              {
+                "cn": "爸",
+                "py": "bà"
+              },
+              {
+                "cn": "爸",
+                "py": "ba"
+              },
+              {
+                "cn": "、",
+                "py": ""
+              },
+              {
+                "cn": "妈",
+                "py": "mā"
+              },
+              {
+                "cn": "妈",
+                "py": "ma"
+              },
+              {
+                "cn": "、",
+                "py": ""
+              },
+              {
+                "cn": "大",
+                "py": "dà"
+              },
+              {
+                "cn": "姐",
+                "py": "jiě",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": ""
+              },
+              {
+                "cn": "二",
+                "py": "èr"
+              },
+              {
+                "cn": "姐",
+                "py": "jiě",
+                "highlight": true
+              },
+              {
+                "cn": "和",
+                "py": "hé",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "。",
+                "py": ""
+              },
+              {
+                "cn": "你",
+                "py": "Nǐ"
+              },
+              {
+                "cn": "爸",
+                "py": "bà"
+              },
+              {
+                "cn": "爸",
+                "py": "ba"
+              },
+              {
+                "cn": "妈",
+                "py": "mā"
+              },
+              {
+                "cn": "妈",
+                "py": "ma"
+              },
+              {
+                "cn": "做",
+                "py": "zuò",
+                "highlight": true
+              },
+              {
+                "cn": "什",
+                "py": "shén"
+              },
+              {
+                "cn": "么",
+                "py": "me"
+              },
+              {
+                "cn": "工",
+                "py": "gōng"
+              },
+              {
+                "cn": "作",
+                "py": "zuò",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "My dad is a lawyer, my mom is an English teacher. My older brother and younger sister are both college students.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "Wǒ"
+              },
+              {
+                "cn": "爸",
+                "py": "bà"
+              },
+              {
+                "cn": "爸",
+                "py": "ba"
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "律",
+                "py": "lǜ"
+              },
+              {
+                "cn": "师",
+                "py": "shī",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "妈",
+                "py": "mā"
+              },
+              {
+                "cn": "妈",
+                "py": "ma"
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "英",
+                "py": "Yīng"
+              },
+              {
+                "cn": "文",
+                "py": "wén",
+                "highlight": true
+              },
+              {
+                "cn": "老",
+                "py": "lǎo"
+              },
+              {
+                "cn": "师",
+                "py": "shī"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "哥",
+                "py": "gē"
+              },
+              {
+                "cn": "哥",
+                "py": "ge",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": ""
+              },
+              {
+                "cn": "妹",
+                "py": "mèi"
+              },
+              {
+                "cn": "妹",
+                "py": "mei",
+                "highlight": true
+              },
+              {
+                "cn": "都",
+                "py": "dōu",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "大",
+                "py": "dà"
+              },
+              {
+                "cn": "学",
+                "py": "xué"
+              },
+              {
+                "cn": "生",
+                "py": "shēng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "My mom is also a teacher, my dad is a doctor.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "Wǒ"
+              },
+              {
+                "cn": "妈",
+                "py": "mā"
+              },
+              {
+                "cn": "妈",
+                "py": "ma"
+              },
+              {
+                "cn": "也",
+                "py": "yě"
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "老",
+                "py": "lǎo"
+              },
+              {
+                "cn": "师",
+                "py": "shī"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "爸",
+                "py": "bà"
+              },
+              {
+                "cn": "爸",
+                "py": "ba"
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "医",
+                "py": "yī"
+              },
+              {
+                "cn": "生",
+                "py": "shēng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "家",
+        "pinyin": "jiā",
+        "part_of_speech": "n",
+        "definition": "family, home",
+        "example_sentence": {
+          "cn": "你家有几口人？",
+          "py": "Nǐ jiā yǒu jǐ kǒu rén?",
+          "en": "How many people are in your family?"
+        }
+      },
+      {
+        "word": "几",
+        "pinyin": "jǐ",
+        "part_of_speech": "nu",
+        "definition": "how many, some, a few",
+        "example_sentence": {
+          "cn": "你家有几口人？",
+          "py": "Nǐ jiā yǒu jǐ kǒu rén?",
+          "en": "How many people are in your family?"
+        }
+      },
+      {
+        "word": "口",
+        "pinyin": "kǒu",
+        "part_of_speech": "m",
+        "definition": "measure word for number of family members",
+        "example_sentence": {
+          "cn": "我家有五口人。",
+          "py": "Wǒ jiā yǒu wǔ kǒu rén.",
+          "en": "There are five people in my family."
+        }
+      },
+      {
+        "word": "哥哥",
+        "pinyin": "gēge",
+        "part_of_speech": "n",
+        "definition": "older brother",
+        "example_sentence": {
+          "cn": "我有一个哥哥。",
+          "py": "Wǒ yǒu yí ge gēge.",
+          "en": "I have one older brother."
+        }
+      },
+      {
+        "word": "两",
+        "pinyin": "liǎng",
+        "part_of_speech": "nu",
+        "definition": "two, a couple of",
+        "example_sentence": {
+          "cn": "我有两个妹妹。",
+          "py": "Wǒ yǒu liǎng ge mèimei.",
+          "en": "I have two younger sisters."
+        }
+      },
+      {
+        "word": "妹妹",
+        "pinyin": "mèimei",
+        "part_of_speech": "n",
+        "definition": "younger sister",
+        "example_sentence": {
+          "cn": "她有两个妹妹。",
+          "py": "Tā yǒu liǎng ge mèimei.",
+          "en": "She has two younger sisters."
+        }
+      },
+      {
+        "word": "和",
+        "pinyin": "hé",
+        "part_of_speech": "conj",
+        "definition": "and",
+        "example_sentence": {
+          "cn": "哥哥和妹妹都是学生。",
+          "py": "Gēge hé mèimei dōu shì xuésheng.",
+          "en": "The older brother and younger sister are both students."
+        }
+      },
+      {
+        "word": "大姐",
+        "pinyin": "dàjiě",
+        "part_of_speech": "n",
+        "definition": "eldest/oldest sister",
+        "example_sentence": {
+          "cn": "我的大姐是医生。",
+          "py": "Wǒ de dàjiě shì yīshēng.",
+          "en": "My eldest sister is a doctor."
+        }
+      },
+      {
+        "word": "二姐",
+        "pinyin": "èrjiě",
+        "part_of_speech": "n",
+        "definition": "second oldest sister",
+        "example_sentence": {
+          "cn": "我的二姐是律师。",
+          "py": "Wǒ de èrjiě shì lǜshī.",
+          "en": "My second oldest sister is a lawyer."
+        }
+      },
+      {
+        "word": "做",
+        "pinyin": "zuò",
+        "part_of_speech": "v",
+        "definition": "to do",
+        "example_sentence": {
+          "cn": "你做什么工作？",
+          "py": "Nǐ zuò shénme gōngzuò?",
+          "en": "What do you do for work?"
+        }
+      },
+      {
+        "word": "工作",
+        "pinyin": "gōngzuò",
+        "part_of_speech": "n/v",
+        "definition": "job; to work",
+        "example_sentence": {
+          "cn": "你爸爸做什么工作？",
+          "py": "Nǐ bàba zuò shénme gōngzuò?",
+          "en": "What does your father do for work?"
+        }
+      },
+      {
+        "word": "律师",
+        "pinyin": "lǜshī",
+        "part_of_speech": "n",
+        "definition": "lawyer",
+        "example_sentence": {
+          "cn": "我爸爸是律师。",
+          "py": "Wǒ bàba shì lǜshī.",
+          "en": "My father is a lawyer."
+        }
+      },
+      {
+        "word": "英文",
+        "pinyin": "Yīngwén",
+        "part_of_speech": "n",
+        "definition": "the English language",
+        "example_sentence": {
+          "cn": "我妈妈是英文老师。",
+          "py": "Wǒ māma shì Yīngwén lǎoshī.",
+          "en": "My mother is an English teacher."
+        }
+      },
+      {
+        "word": "都",
+        "pinyin": "dōu",
+        "part_of_speech": "adv",
+        "definition": "both, all",
+        "example_sentence": {
+          "cn": "我们都是大学生。",
+          "py": "Wǒmen dōu shì dàxuéshēng.",
+          "en": "We are all college students."
+        }
+      },
+      {
+        "word": "大学生",
+        "pinyin": "dàxuéshēng",
+        "part_of_speech": "n",
+        "definition": "college student",
+        "example_sentence": {
+          "cn": "哥哥妹妹都是大学生。",
+          "py": "Gēge mèimei dōu shì dàxuéshēng.",
+          "en": "My older brother and younger sister are both college students."
+        }
+      },
+      {
+        "word": "大学",
+        "pinyin": "dàxué",
+        "part_of_speech": "n",
+        "definition": "university, college",
+        "example_sentence": {
+          "cn": "他在上大学。",
+          "py": "Tā zài shàng dàxué.",
+          "en": "He is in college."
+        }
+      },
+      {
+        "word": "医生",
+        "pinyin": "yīshēng",
+        "part_of_speech": "n",
+        "definition": "doctor, physician",
+        "example_sentence": {
+          "cn": "我爸爸是医生。",
+          "py": "Wǒ bàba shì yīshēng.",
+          "en": "My father is a doctor."
+        }
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 202,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "家",
+      "standard_answers": [
+        "family",
+        "home"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "哥哥",
+      "standard_answers": [
+        "older brother"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "两",
+      "standard_answers": [
+        "two",
+        "a couple of"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "妹妹",
+      "standard_answers": [
+        "younger sister"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "和",
+      "standard_answers": [
+        "and"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "大姐",
+      "standard_answers": [
+        "eldest sister",
+        "oldest sister"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "二姐",
+      "standard_answers": [
+        "second oldest sister"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "做",
+      "standard_answers": [
+        "to do"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "工作",
+      "standard_answers": [
+        "job",
+        "work",
+        "to work"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "律师",
+      "standard_answers": [
+        "lawyer"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "英文",
+      "standard_answers": [
+        "English",
+        "the English language"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "大学生",
+      "standard_answers": [
+        "college student",
+        "university student"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "大学",
+      "standard_answers": [
+        "university",
+        "college"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "医生",
+      "standard_answers": [
+        "doctor",
+        "physician"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "family",
+      "standard_answers": [
+        "家"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "older brother",
+      "standard_answers": [
+        "哥哥"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "two",
+      "standard_answers": [
+        "两"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "younger sister",
+      "standard_answers": [
+        "妹妹"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "and",
+      "standard_answers": [
+        "和"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "eldest sister",
+      "standard_answers": [
+        "大姐"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "second oldest sister",
+      "standard_answers": [
+        "二姐"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to do",
+      "standard_answers": [
+        "做"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "job; to work",
+      "standard_answers": [
+        "工作"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "lawyer",
+      "standard_answers": [
+        "律师"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "English language",
+      "standard_answers": [
+        "英文"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "college student",
+      "standard_answers": [
+        "大学生"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "university",
+      "standard_answers": [
+        "大学"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "doctor",
+      "standard_answers": [
+        "医生"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你家有几口人？",
+      "standard_answers": [
+        "How many people are in your family?"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我家有六口人。",
+      "standard_answers": [
+        "There are six people in my family.",
+        "I have six people in my family."
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你爸爸妈妈做什么工作？",
+      "standard_answers": [
+        "What do your father and mother do?",
+        "What are your parents' jobs?"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我爸爸是律师。",
+      "standard_answers": [
+        "My father is a lawyer."
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我妈妈是英文老师。",
+      "standard_answers": [
+        "My mother is an English teacher."
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "哥哥、妹妹都是大学生。",
+      "standard_answers": [
+        "My older brother and younger sister are both college students.",
+        "Both my older brother and younger sister are college students."
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我爸爸是医生。",
+      "standard_answers": [
+        "My father is a doctor."
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "How many people are in your family?",
+      "standard_answers": [
+        "你家有几口人？"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "There are five people in my family.",
+      "standard_answers": [
+        "我家有五口人。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "What does your father do?",
+      "standard_answers": [
+        "你爸爸做什么工作？"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "My father is a lawyer.",
+      "standard_answers": [
+        "我爸爸是律师。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "My mother is an English teacher.",
+      "standard_answers": [
+        "我妈妈是英文老师。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "They are all college students.",
+      "standard_answers": [
+        "他们都是大学生。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "My father is a doctor.",
+      "standard_answers": [
+        "我爸爸是医生。"
+      ]
+    }
+  ],
+  "aigc_visual_prompt": "A warm, inviting digital illustration of a multi-generational Chinese family in a modern, cozy living room. The family members, including parents, grandparents, and children, are smiling and chatting. In the background, subtly integrated icons represent various professions: a lawyer's scale, a doctor's stethoscope, and a teacher's book. The art style is clean, friendly, and slightly stylized, with a soft, warm color palette. --ar 16:9 --style expressive --v 6.0"
+}

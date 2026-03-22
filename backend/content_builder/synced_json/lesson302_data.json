@@ -1,0 +1,1178 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 302,
+    "title": "Lesson 302: 邀请吃晚饭"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "王朋",
+            "english": "Bai Ying'ai, what time is it now?",
+            "words": [
+              {
+                "cn": "白",
+                "py": "Bái"
+              },
+              {
+                "cn": "英",
+                "py": "Yīng"
+              },
+              {
+                "cn": "爱",
+                "py": "ài"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "现在",
+                "py": "xiànzài",
+                "highlight": true
+              },
+              {
+                "cn": "几",
+                "py": "jǐ"
+              },
+              {
+                "cn": "点",
+                "py": "diǎn"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "A quarter to six.",
+            "words": [
+              {
+                "cn": "五",
+                "py": "Wǔ"
+              },
+              {
+                "cn": "点",
+                "py": "diǎn"
+              },
+              {
+                "cn": "三",
+                "py": "sān"
+              },
+              {
+                "cn": "刻",
+                "py": "kè",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "I have something to do at a quarter past six.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "Wǒ"
+              },
+              {
+                "cn": "六",
+                "py": "liù"
+              },
+              {
+                "cn": "点",
+                "py": "diǎn"
+              },
+              {
+                "cn": "一",
+                "py": "yí"
+              },
+              {
+                "cn": "刻",
+                "py": "kè",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu"
+              },
+              {
+                "cn": "事儿",
+                "py": "shìr",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "You are very busy today. Are you busy tomorrow?",
+            "words": [
+              {
+                "cn": "你",
+                "py": "Nǐ"
+              },
+              {
+                "cn": "今天",
+                "py": "jīntiān",
+                "highlight": true
+              },
+              {
+                "cn": "很",
+                "py": "hěn",
+                "highlight": true
+              },
+              {
+                "cn": "忙",
+                "py": "máng",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "明天",
+                "py": "míngtiān",
+                "highlight": true
+              },
+              {
+                "cn": "忙",
+                "py": "máng",
+                "highlight": true
+              },
+              {
+                "cn": "不",
+                "py": "bu"
+              },
+              {
+                "cn": "忙",
+                "py": "máng",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "I'm very busy today, but I'm not busy tomorrow. What's up?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "Wǒ"
+              },
+              {
+                "cn": "今天",
+                "py": "jīntiān",
+                "highlight": true
+              },
+              {
+                "cn": "很",
+                "py": "hěn",
+                "highlight": true
+              },
+              {
+                "cn": "忙",
+                "py": "máng",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "可是",
+                "py": "kěshì"
+              },
+              {
+                "cn": "明天",
+                "py": "míngtiān",
+                "highlight": true
+              },
+              {
+                "cn": "不",
+                "py": "bù"
+              },
+              {
+                "cn": "忙",
+                "py": "máng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              },
+              {
+                "cn": "有",
+                "py": "Yǒu"
+              },
+              {
+                "cn": "事儿",
+                "py": "shìr",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "I'd like to invite you to dinner tomorrow. How about it?",
+            "words": [
+              {
+                "cn": "明天",
+                "py": "Míngtiān",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "请",
+                "py": "qǐng"
+              },
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "吃",
+                "py": "chī"
+              },
+              {
+                "cn": "晚饭",
+                "py": "wǎnfàn",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "怎么样",
+                "py": "zěnmeyàng"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Why are you inviting me to dinner?",
+            "words": [
+              {
+                "cn": "你",
+                "py": "Nǐ"
+              },
+              {
+                "cn": "为什么",
+                "py": "wèishénme",
+                "highlight": true
+              },
+              {
+                "cn": "请",
+                "py": "qǐng"
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "吃",
+                "py": "chī"
+              },
+              {
+                "cn": "饭",
+                "py": "fàn"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "Because tomorrow is Gao Wenzhong's birthday.",
+            "words": [
+              {
+                "cn": "因为",
+                "py": "Yīnwèi",
+                "highlight": true
+              },
+              {
+                "cn": "明天",
+                "py": "míngtiān",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "高",
+                "py": "Gāo"
+              },
+              {
+                "cn": "文",
+                "py": "Wén"
+              },
+              {
+                "cn": "中",
+                "py": "zhōng"
+              },
+              {
+                "cn": "的",
+                "py": "de"
+              },
+              {
+                "cn": "生日",
+                "py": "shēngrì"
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Really? Great. Who else are you inviting?",
+            "words": [
+              {
+                "cn": "是",
+                "py": "Shì"
+              },
+              {
+                "cn": "吗",
+                "py": "ma"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              },
+              {
+                "cn": "好",
+                "py": "Hǎo"
+              },
+              {
+                "cn": "。",
+                "py": ""
+              },
+              {
+                "cn": "还",
+                "py": "Hái",
+                "highlight": true
+              },
+              {
+                "cn": "请",
+                "py": "qǐng"
+              },
+              {
+                "cn": "谁",
+                "py": "shéi"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "I'm also inviting my classmate Li You.",
+            "words": [
+              {
+                "cn": "还",
+                "py": "Hái",
+                "highlight": true
+              },
+              {
+                "cn": "请",
+                "py": "qǐng"
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "的",
+                "py": "de"
+              },
+              {
+                "cn": "同学",
+                "py": "tóngxué",
+                "highlight": true
+              },
+              {
+                "cn": "李",
+                "py": "Lǐ"
+              },
+              {
+                "cn": "友",
+                "py": "Yǒu"
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "That's great. I know Li You. She is also my friend. What time tomorrow?",
+            "words": [
+              {
+                "cn": "那",
+                "py": "Nà"
+              },
+              {
+                "cn": "太",
+                "py": "tài"
+              },
+              {
+                "cn": "好",
+                "py": "hǎo"
+              },
+              {
+                "cn": "了",
+                "py": "le"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "认识",
+                "py": "rènshi",
+                "highlight": true
+              },
+              {
+                "cn": "李",
+                "py": "Lǐ"
+              },
+              {
+                "cn": "友",
+                "py": "Yǒu"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "她",
+                "py": "tā"
+              },
+              {
+                "cn": "也",
+                "py": "yě"
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "的",
+                "py": "de"
+              },
+              {
+                "cn": "朋友",
+                "py": "péngyou",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              },
+              {
+                "cn": "明天",
+                "py": "Míngtiān",
+                "highlight": true
+              },
+              {
+                "cn": "几",
+                "py": "jǐ"
+              },
+              {
+                "cn": "点",
+                "py": "diǎn"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "Seven-thirty tomorrow evening.",
+            "words": [
+              {
+                "cn": "明天",
+                "py": "Míngtiān",
+                "highlight": true
+              },
+              {
+                "cn": "晚上",
+                "py": "wǎnshang"
+              },
+              {
+                "cn": "七",
+                "py": "qī"
+              },
+              {
+                "cn": "点",
+                "py": "diǎn"
+              },
+              {
+                "cn": "半",
+                "py": "bàn"
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "OK, see you at seven-thirty tomorrow.",
+            "words": [
+              {
+                "cn": "好",
+                "py": "Hǎo"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "明天",
+                "py": "míngtiān",
+                "highlight": true
+              },
+              {
+                "cn": "七",
+                "py": "qī"
+              },
+              {
+                "cn": "点",
+                "py": "diǎn"
+              },
+              {
+                "cn": "半",
+                "py": "bàn"
+              },
+              {
+                "cn": "见",
+                "py": "jiàn"
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "现在",
+        "pinyin": "xiànzài",
+        "part_of_speech": "t",
+        "definition": "now",
+        "example_sentence": {
+          "cn": "现在几点？",
+          "py": "Xiànzài jǐ diǎn?",
+          "en": "What time is it now?"
+        }
+      },
+      {
+        "word": "刻",
+        "pinyin": "kè",
+        "part_of_speech": "m",
+        "definition": "quarter (of an hour)",
+        "example_sentence": {
+          "cn": "现在是五点三刻。",
+          "py": "Xiànzài shì wǔ diǎn sān kè.",
+          "en": "It's 5:45 now."
+        }
+      },
+      {
+        "word": "事(儿)",
+        "pinyin": "shì(r)",
+        "part_of_speech": "n",
+        "definition": "matter, affair, event",
+        "example_sentence": {
+          "cn": "我明天有事儿。",
+          "py": "Wǒ míngtiān yǒu shìr.",
+          "en": "I have something to do tomorrow."
+        }
+      },
+      {
+        "word": "今天",
+        "pinyin": "jīntiān",
+        "part_of_speech": "t",
+        "definition": "today",
+        "example_sentence": {
+          "cn": "你今天忙吗？",
+          "py": "Nǐ jīntiān máng ma?",
+          "en": "Are you busy today?"
+        }
+      },
+      {
+        "word": "很",
+        "pinyin": "hěn",
+        "part_of_speech": "adv",
+        "definition": "very",
+        "example_sentence": {
+          "cn": "我今天很忙。",
+          "py": "Wǒ jīntiān hěn máng.",
+          "en": "I am very busy today."
+        }
+      },
+      {
+        "word": "忙",
+        "pinyin": "máng",
+        "part_of_speech": "adj",
+        "definition": "busy",
+        "example_sentence": {
+          "cn": "明天我不忙。",
+          "py": "Míngtiān wǒ bù máng.",
+          "en": "I am not busy tomorrow."
+        }
+      },
+      {
+        "word": "明天",
+        "pinyin": "míngtiān",
+        "part_of_speech": "t",
+        "definition": "tomorrow",
+        "example_sentence": {
+          "cn": "明天我请你吃晚饭。",
+          "py": "Míngtiān wǒ qǐng nǐ chī wǎnfàn.",
+          "en": "I'll treat you to dinner tomorrow."
+        }
+      },
+      {
+        "word": "晚饭",
+        "pinyin": "wǎnfàn",
+        "part_of_speech": "n",
+        "definition": "dinner, supper",
+        "example_sentence": {
+          "cn": "我们几点吃晚饭？",
+          "py": "Wǒmen jǐ diǎn chī wǎnfàn?",
+          "en": "What time do we have dinner?"
+        }
+      },
+      {
+        "word": "为什么",
+        "pinyin": "wèishénme",
+        "part_of_speech": "qpr",
+        "definition": "why",
+        "example_sentence": {
+          "cn": "你为什么不吃饭？",
+          "py": "Nǐ wèishénme bù chī fàn?",
+          "en": "Why aren't you eating?"
+        }
+      },
+      {
+        "word": "因为",
+        "pinyin": "yīnwèi",
+        "part_of_speech": "conj",
+        "definition": "because",
+        "example_sentence": {
+          "cn": "因为我不饿。",
+          "py": "Yīnwèi wǒ bú è.",
+          "en": "Because I'm not hungry."
+        }
+      },
+      {
+        "word": "还",
+        "pinyin": "hái",
+        "part_of_speech": "adv",
+        "definition": "also, too, as well",
+        "example_sentence": {
+          "cn": "我还请了王朋。",
+          "py": "Wǒ hái qǐng le Wáng Péng.",
+          "en": "I also invited Wang Peng."
+        }
+      },
+      {
+        "word": "同学",
+        "pinyin": "tóngxué",
+        "part_of_speech": "n",
+        "definition": "classmate",
+        "example_sentence": {
+          "cn": "他是我的同学。",
+          "py": "Tā shì wǒ de tóngxué.",
+          "en": "He is my classmate."
+        }
+      },
+      {
+        "word": "认识",
+        "pinyin": "rènshi",
+        "part_of_speech": "v",
+        "definition": "to be acquainted with, to recognize",
+        "example_sentence": {
+          "cn": "你认识她吗？",
+          "py": "Nǐ rènshi tā ma?",
+          "en": "Do you know her?"
+        }
+      },
+      {
+        "word": "朋友",
+        "pinyin": "péngyou",
+        "part_of_speech": "n",
+        "definition": "friend",
+        "example_sentence": {
+          "cn": "李友是我的好朋友。",
+          "py": "Lǐ Yǒu shì wǒ de hǎo péngyou.",
+          "en": "Li You is my good friend."
+        }
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 302,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "现在",
+      "standard_answers": [
+        "now"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "刻",
+      "standard_answers": [
+        "quarter (of an hour)"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "事",
+      "standard_answers": [
+        "matter",
+        "affair",
+        "event"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "今天",
+      "standard_answers": [
+        "today"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "很",
+      "standard_answers": [
+        "very"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "忙",
+      "standard_answers": [
+        "busy"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "明天",
+      "standard_answers": [
+        "tomorrow"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "晚饭",
+      "standard_answers": [
+        "dinner",
+        "supper"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "为什么",
+      "standard_answers": [
+        "why"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "因为",
+      "standard_answers": [
+        "because"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "还",
+      "standard_answers": [
+        "also",
+        "too",
+        "as well"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "同学",
+      "standard_answers": [
+        "classmate"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "认识",
+      "standard_answers": [
+        "to know (someone)",
+        "to recognize",
+        "to be acquainted with"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "朋友",
+      "standard_answers": [
+        "friend"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "now",
+      "standard_answers": [
+        "现在"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "quarter (of an hour)",
+      "standard_answers": [
+        "刻"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "matter, affair, event",
+      "standard_answers": [
+        "事",
+        "事儿"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "today",
+      "standard_answers": [
+        "今天"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "very",
+      "standard_answers": [
+        "很"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "busy",
+      "standard_answers": [
+        "忙"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "tomorrow",
+      "standard_answers": [
+        "明天"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "dinner, supper",
+      "standard_answers": [
+        "晚饭"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "why",
+      "standard_answers": [
+        "为什么"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "because",
+      "standard_answers": [
+        "因为"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "also, too, as well",
+      "standard_answers": [
+        "还"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "classmate",
+      "standard_answers": [
+        "同学"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to know (someone), to recognize",
+      "standard_answers": [
+        "认识"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "friend",
+      "standard_answers": [
+        "朋友"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "现在几点？",
+      "standard_answers": [
+        "What time is it now?"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我今天很忙。",
+      "standard_answers": [
+        "I am very busy today."
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "明天我请你吃晚饭。",
+      "standard_answers": [
+        "I'll treat you to dinner tomorrow.",
+        "I am inviting you to dinner tomorrow."
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你为什么请我吃饭？",
+      "standard_answers": [
+        "Why are you inviting me to dinner?"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "因为明天是他的生日。",
+      "standard_answers": [
+        "Because tomorrow is his birthday."
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我认识他，他也是我的朋友。",
+      "standard_answers": [
+        "I know him, he is also my friend."
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "What time is it now?",
+      "standard_answers": [
+        "现在几点？"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "I am very busy today.",
+      "standard_answers": [
+        "我今天很忙。"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "I'll treat you to dinner tomorrow.",
+      "standard_answers": [
+        "明天我请你吃晚饭。"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Why are you inviting me to dinner?",
+      "standard_answers": [
+        "你为什么请我吃饭？"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Because tomorrow is his birthday.",
+      "standard_answers": [
+        "因为明天是他的生日。"
+      ]
+    },
+    {
+      "lesson_id": 302,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "I know her, she is also my friend.",
+      "standard_answers": [
+        "我认识她，她也是我的朋友。"
+      ]
+    }
+  ],
+  "aigc_visual_prompt": "Two young East Asian friends, a man and a woman, happily chatting and making plans for dinner in a cozy, modern cafe. The atmosphere is warm and friendly, suggesting a pleasant invitation. Realistic style, vibrant colors, cinematic lighting. --ar 16:9"
+}

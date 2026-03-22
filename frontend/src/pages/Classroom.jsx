@@ -93,7 +93,7 @@ export default function Classroom() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
+        <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20 pt-24">
             
             {/* 🌟 核心修复：加入 AnimatePresence 并设置 mode="wait" (先出后进) */}
             <AnimatePresence mode="wait">

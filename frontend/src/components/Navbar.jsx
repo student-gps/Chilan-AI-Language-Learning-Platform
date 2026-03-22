@@ -93,8 +93,8 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="flex items-center justify-between px-8 py-5 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
-            {/* Logo 部分 (保持静态，不需要随语言切换而动画) */}
+        <nav className="flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-md fixed top-0 left-0 w-full z-50 border-b border-slate-100">
+            {/* Logo 部分 */}
             <Link to="/" className="text-2xl font-black text-blue-600 tracking-tighter flex items-center gap-2 group">
                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-sm shadow-lg shadow-blue-200 group-hover:scale-110 transition-transform">C</div>
                 CHILAN <span className="text-slate-400 font-light text-xl italic font-serif">LRS</span>

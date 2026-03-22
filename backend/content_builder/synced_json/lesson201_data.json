@@ -1,0 +1,1130 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 201,
+    "title": "Lesson 201: 看家庭照片"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "王朋",
+            "english": "Gao Wenzhong, is that your photo?",
+            "words": [
+              {
+                "cn": "高文中",
+                "py": "Gāo Wénzhōng"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "那",
+                "py": "nà",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": true
+              },
+              {
+                "cn": "照片",
+                "py": "zhàopiàn",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "Yes. This is my dad, this is my mom.",
+            "words": [
+              {
+                "cn": "是",
+                "py": "Shì"
+              },
+              {
+                "cn": "。",
+                "py": ""
+              },
+              {
+                "cn": "这",
+                "py": "zhè",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "爸爸",
+                "py": "bàba",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "这",
+                "py": "zhè"
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "妈妈",
+                "py": "māma",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Who is this girl?",
+            "words": [
+              {
+                "cn": "这",
+                "py": "zhè"
+              },
+              {
+                "cn": "个",
+                "py": "ge",
+                "highlight": true
+              },
+              {
+                "cn": "女孩子",
+                "py": "nǚ háizi",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "谁",
+                "py": "shéi",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "She is my older sister.",
+            "words": [
+              {
+                "cn": "她",
+                "py": "Tā",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "姐姐",
+                "py": "jiějie",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Is this boy your younger brother?",
+            "words": [
+              {
+                "cn": "这",
+                "py": "zhè"
+              },
+              {
+                "cn": "个",
+                "py": "ge"
+              },
+              {
+                "cn": "男孩子",
+                "py": "nán háizi",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "你",
+                "py": "nǐ"
+              },
+              {
+                "cn": "弟弟",
+                "py": "dìdi",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "No, he is my oldest brother's son.",
+            "words": [
+              {
+                "cn": "不是",
+                "py": "Bú shì"
+              },
+              {
+                "cn": "，",
+                "py": ""
+              },
+              {
+                "cn": "他",
+                "py": "tā",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì"
+              },
+              {
+                "cn": "我",
+                "py": "wǒ"
+              },
+              {
+                "cn": "大哥",
+                "py": "dàgē",
+                "highlight": true
+              },
+              {
+                "cn": "的",
+                "py": "de"
+              },
+              {
+                "cn": "儿子",
+                "py": "érzi",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Does your oldest brother have a daughter?",
+            "words": [
+              {
+                "cn": "你",
+                "py": "Nǐ"
+              },
+              {
+                "cn": "大哥",
+                "py": "dàgē"
+              },
+              {
+                "cn": "有",
+                "py": "yǒu",
+                "highlight": true
+              },
+              {
+                "cn": "女儿",
+                "py": "nǚ'ér",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma"
+              },
+              {
+                "cn": "？",
+                "py": ""
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "He doesn't have a daughter.",
+            "words": [
+              {
+                "cn": "他",
+                "py": "Tā"
+              },
+              {
+                "cn": "没有",
+                "py": "méiyǒu",
+                "highlight": true
+              },
+              {
+                "cn": "女儿",
+                "py": "nǚ'ér"
+              },
+              {
+                "cn": "。",
+                "py": ""
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "那",
+        "pinyin": "nà",
+        "part_of_speech": "pr",
+        "definition": "that",
+        "example_sentence": {
+          "cn": "那个人是谁？",
+          "py": "Nà ge rén shì shéi?",
+          "en": "Who is that person?"
+        }
+      },
+      {
+        "word": "的",
+        "pinyin": "de",
+        "part_of_speech": "p",
+        "definition": "(a possessive or descriptive particle)",
+        "example_sentence": {
+          "cn": "这是我的照片。",
+          "py": "Zhè shì wǒ de zhàopiàn.",
+          "en": "This is my photo."
+        }
+      },
+      {
+        "word": "照片",
+        "pinyin": "zhàopiàn",
+        "part_of_speech": "n",
+        "definition": "picture, photo",
+        "example_sentence": {
+          "cn": "我喜欢这张照片。",
+          "py": "Wǒ xǐhuān zhè zhāng zhàopiàn.",
+          "en": "I like this photo."
+        }
+      },
+      {
+        "word": "这",
+        "pinyin": "zhè",
+        "part_of_speech": "pr",
+        "definition": "this",
+        "example_sentence": {
+          "cn": "这是我爸爸。",
+          "py": "Zhè shì wǒ bàba.",
+          "en": "This is my dad."
+        }
+      },
+      {
+        "word": "爸爸",
+        "pinyin": "bàba",
+        "part_of_speech": "n",
+        "definition": "father, dad",
+        "example_sentence": {
+          "cn": "我爸爸是老师。",
+          "py": "Wǒ bàba shì lǎoshī.",
+          "en": "My dad is a teacher."
+        }
+      },
+      {
+        "word": "妈妈",
+        "pinyin": "māma",
+        "part_of_speech": "n",
+        "definition": "mother, mom",
+        "example_sentence": {
+          "cn": "我爱我妈妈。",
+          "py": "Wǒ ài wǒ māma.",
+          "en": "I love my mom."
+        }
+      },
+      {
+        "word": "个",
+        "pinyin": "gè/ge",
+        "part_of_speech": "m",
+        "definition": "(measure word for many common everyday objects)",
+        "example_sentence": {
+          "cn": "我有一个姐姐。",
+          "py": "Wǒ yǒu yí ge jiějie.",
+          "en": "I have one older sister."
+        }
+      },
+      {
+        "word": "女",
+        "pinyin": "nǚ",
+        "part_of_speech": "adj",
+        "definition": "female",
+        "example_sentence": {
+          "cn": "她是一个女孩子。",
+          "py": "Tā shì yí ge nǚ háizi.",
+          "en": "She is a girl."
+        }
+      },
+      {
+        "word": "孩子",
+        "pinyin": "háizi",
+        "part_of_speech": "n",
+        "definition": "child",
+        "example_sentence": {
+          "cn": "这个孩子是谁？",
+          "py": "Zhè ge háizi shì shéi?",
+          "en": "Who is this child?"
+        }
+      },
+      {
+        "word": "谁",
+        "pinyin": "shéi",
+        "part_of_speech": "qpr",
+        "definition": "who, whom",
+        "example_sentence": {
+          "cn": "你是谁？",
+          "py": "Nǐ shì shéi?",
+          "en": "Who are you?"
+        }
+      },
+      {
+        "word": "她",
+        "pinyin": "tā",
+        "part_of_speech": "pr",
+        "definition": "she, her",
+        "example_sentence": {
+          "cn": "她是我的同学。",
+          "py": "Tā shì wǒ de tóngxué.",
+          "en": "She is my classmate."
+        }
+      },
+      {
+        "word": "姐姐",
+        "pinyin": "jiějie",
+        "part_of_speech": "n",
+        "definition": "older sister",
+        "example_sentence": {
+          "cn": "我姐姐是医生。",
+          "py": "Wǒ jiějie shì yīshēng.",
+          "en": "My older sister is a doctor."
+        }
+      },
+      {
+        "word": "男",
+        "pinyin": "nán",
+        "part_of_speech": "adj",
+        "definition": "male",
+        "example_sentence": {
+          "cn": "他是一个男孩子。",
+          "py": "Tā shì yí ge nán háizi.",
+          "en": "He is a boy."
+        }
+      },
+      {
+        "word": "弟弟",
+        "pinyin": "dìdi",
+        "part_of_speech": "n",
+        "definition": "younger brother",
+        "example_sentence": {
+          "cn": "我没有弟弟。",
+          "py": "Wǒ méiyǒu dìdi.",
+          "en": "I don't have a younger brother."
+        }
+      },
+      {
+        "word": "他",
+        "pinyin": "tā",
+        "part_of_speech": "pr",
+        "definition": "he, him",
+        "example_sentence": {
+          "cn": "他是我的朋友。",
+          "py": "Tā shì wǒ de péngyǒu.",
+          "en": "He is my friend."
+        }
+      },
+      {
+        "word": "大哥",
+        "pinyin": "dàgē",
+        "part_of_speech": "n",
+        "definition": "eldest/oldest brother",
+        "example_sentence": {
+          "cn": "我大哥很高。",
+          "py": "Wǒ dàgē hěn gāo.",
+          "en": "My eldest brother is very tall."
+        }
+      },
+      {
+        "word": "儿子",
+        "pinyin": "érzi",
+        "part_of_speech": "n",
+        "definition": "son",
+        "example_sentence": {
+          "cn": "他有两个儿子。",
+          "py": "Tā yǒu liǎng ge érzi.",
+          "en": "He has two sons."
+        }
+      },
+      {
+        "word": "有",
+        "pinyin": "yǒu",
+        "part_of_speech": "v",
+        "definition": "to have, to exist",
+        "example_sentence": {
+          "cn": "你有弟弟吗？",
+          "py": "Nǐ yǒu dìdi ma?",
+          "en": "Do you have a younger brother?"
+        }
+      },
+      {
+        "word": "女儿",
+        "pinyin": "nǚ'ér",
+        "part_of_speech": "n",
+        "definition": "daughter",
+        "example_sentence": {
+          "cn": "她没有女儿。",
+          "py": "Tā méiyǒu nǚ'ér.",
+          "en": "She doesn't have a daughter."
+        }
+      },
+      {
+        "word": "没",
+        "pinyin": "méi",
+        "part_of_speech": "adv",
+        "definition": "not",
+        "example_sentence": {
+          "cn": "我没有弟弟。",
+          "py": "Wǒ méiyǒu dìdi.",
+          "en": "I don't have a younger brother."
+        }
+      },
+      {
+        "word": "高",
+        "pinyin": "gāo",
+        "part_of_speech": "pn/adj",
+        "definition": "(a family name); tall, high",
+        "example_sentence": {
+          "cn": "他很高。",
+          "py": "Tā hěn gāo.",
+          "en": "He is very tall."
+        }
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 201,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "那",
+      "standard_answers": [
+        "that"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "的",
+      "standard_answers": [
+        "(a possessive or descriptive particle)"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "照片",
+      "standard_answers": [
+        "picture",
+        "photo"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "这",
+      "standard_answers": [
+        "this"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "爸爸",
+      "standard_answers": [
+        "father",
+        "dad"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "妈妈",
+      "standard_answers": [
+        "mother",
+        "mom"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "个",
+      "standard_answers": [
+        "(measure word for many common everyday objects)",
+        "(measure word)"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "女",
+      "standard_answers": [
+        "female"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "孩子",
+      "standard_answers": [
+        "child"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "谁",
+      "standard_answers": [
+        "who",
+        "whom"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "她",
+      "standard_answers": [
+        "she",
+        "her"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "姐姐",
+      "standard_answers": [
+        "older sister"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "男",
+      "standard_answers": [
+        "male"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "弟弟",
+      "standard_answers": [
+        "younger brother"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "他",
+      "standard_answers": [
+        "he",
+        "him"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "大哥",
+      "standard_answers": [
+        "eldest brother",
+        "oldest brother"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "儿子",
+      "standard_answers": [
+        "son"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "有",
+      "standard_answers": [
+        "to have",
+        "to exist"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "女儿",
+      "standard_answers": [
+        "daughter"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "没",
+      "standard_answers": [
+        "not"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "高",
+      "standard_answers": [
+        "tall",
+        "high",
+        "(family name) Gao"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "that",
+      "standard_answers": [
+        "那"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "(a possessive or descriptive particle)",
+      "standard_answers": [
+        "的"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "picture, photo",
+      "standard_answers": [
+        "照片"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "this",
+      "standard_answers": [
+        "这"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "father, dad",
+      "standard_answers": [
+        "爸爸"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "mother, mom",
+      "standard_answers": [
+        "妈妈"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "(measure word)",
+      "standard_answers": [
+        "个"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "female",
+      "standard_answers": [
+        "女"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "child",
+      "standard_answers": [
+        "孩子"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "who, whom",
+      "standard_answers": [
+        "谁"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "she, her",
+      "standard_answers": [
+        "她"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "older sister",
+      "standard_answers": [
+        "姐姐"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "male",
+      "standard_answers": [
+        "男"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "younger brother",
+      "standard_answers": [
+        "弟弟"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "he, him",
+      "standard_answers": [
+        "他"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "eldest brother, oldest brother",
+      "standard_answers": [
+        "大哥"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "son",
+      "standard_answers": [
+        "儿子"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to have, to exist",
+      "standard_answers": [
+        "有"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "daughter",
+      "standard_answers": [
+        "女儿"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "not",
+      "standard_answers": [
+        "没"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "tall, high",
+      "standard_answers": [
+        "高"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 43,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "那是你的照片吗？",
+      "standard_answers": [
+        "Is that your photo?",
+        "Is that your picture?"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 44,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "这是我爸爸。",
+      "standard_answers": [
+        "This is my father.",
+        "This is my dad."
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 45,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "这个女孩子是谁？",
+      "standard_answers": [
+        "Who is this girl?"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 46,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "她是我姐姐。",
+      "standard_answers": [
+        "She is my older sister."
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 47,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "他是我大哥的儿子。",
+      "standard_answers": [
+        "He is my oldest brother's son.",
+        "He is my eldest brother's son."
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 48,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你大哥有女儿吗？",
+      "standard_answers": [
+        "Does your oldest brother have a daughter?",
+        "Does your eldest brother have a daughter?"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 49,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "他没有女儿。",
+      "standard_answers": [
+        "He doesn't have a daughter.",
+        "He has no daughter."
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 50,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Is that your photo?",
+      "standard_answers": [
+        "那是你的照片吗？"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 51,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "This is my father.",
+      "standard_answers": [
+        "这是我爸爸。"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 52,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Who is this girl?",
+      "standard_answers": [
+        "这个女孩子是谁？"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 53,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "She is my older sister.",
+      "standard_answers": [
+        "她是我姐姐。"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 54,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "He is my oldest brother's son.",
+      "standard_answers": [
+        "他是我大哥的儿子。"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 55,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Does your oldest brother have a daughter?",
+      "standard_answers": [
+        "你大哥有女儿吗？"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 56,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "He doesn't have a daughter.",
+      "standard_answers": [
+        "他没有女儿。"
+      ]
+    }
+  ],
+  "aigc_visual_prompt": "A young Asian man and a young Caucasian man are looking at a family photograph together in a cozy, modern student dorm room. The photo shows a happy Asian family. The atmosphere is warm and friendly. Detailed, realistic illustration, soft lighting, cinematic style. --ar 16:9"
+}
