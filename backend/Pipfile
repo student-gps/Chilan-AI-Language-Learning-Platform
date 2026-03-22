@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+edge-tts = "==7.2.7"
+fastapi = "==0.135.1"
+httpx = "==0.28.1"
+numpy = "==2.4.3"
+passlib = "==1.7.4"
+protobuf = "==7.34.1"
+psycopg2-binary = "==2.9.11"
+pydantic = "==2.12.5"
+pyjwt = "==2.12.1"
+python-dotenv = "==1.2.2"
+python-jose = "==3.5.0"
+requests = "==2.32.5"
+uvicorn = "==0.42.0"
+email-validator = "*"
+google-generativeai = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13"
