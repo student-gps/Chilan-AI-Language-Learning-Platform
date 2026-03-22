@@ -15,7 +15,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://chilan-ai-language-learning-platform-9apcf1evg.vercel.app/"
+        "https://chilan-ai-language-learning-platform.vercel.app",
+        "https://chilan-ai-language-learning-platfor.vercel.app"
     ], 
     allow_credentials=True,
     allow_methods=["*"],
