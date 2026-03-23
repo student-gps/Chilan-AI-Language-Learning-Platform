@@ -96,7 +96,7 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
         if (isEvaluating) return;
         setIsEvaluating(true);
         try {
-            const res = await axios.post(`http://127.0.0.1:8000/study/evaluate`, {
+            const res = await axios.post(`https://chilan-ai-language-learning-platform.onrender.com/study/evaluate`, {
                 user_id: localStorage.getItem('chilan_user_id') || 'test-user-id',
                 lesson_id: currentQuestion.lesson_id || 101,
                 question_id: currentQuestion.question_id,

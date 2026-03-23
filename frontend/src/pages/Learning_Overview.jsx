@@ -14,7 +14,7 @@ export default function Learning_Overview() {
         const fetchTasks = async () => {
             const userId = localStorage.getItem('chilan_user_id');
             try {
-                const res = await axios.get(`http://127.0.0.1:8000/daily_tasks/${userId}`);
+                const res = await axios.get(`https://chilan-ai-language-learning-platform.onrender.com/daily_tasks/${userId}`);
                 setTasks(res.data);
             } catch (err) { console.error(err); }
             finally { setLoading(false); }

@@ -2,7 +2,7 @@ import requests
 import json
 
 # 后端地址
-URL = "http://127.0.0.1:8000/evaluate"
+URL = "https://chilan-ai-language-learning-platform.onrender.com/evaluate"
 
 def run_tests():
     # 你想要测试的各种变体

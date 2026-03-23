@@ -33,8 +33,8 @@ export default function Classroom() {
         setIsLoading(true);
         try {
             const [statRes, myCourseRes] = await Promise.all([
-                axios.get(`http://127.0.0.1:8000/classroom/stats/${userId}`),
-                axios.get(`http://127.0.0.1:8000/my-courses/${userId}`)
+                axios.get(`https://chilan-ai-language-learning-platform.onrender.com/classroom/stats/${userId}`),
+                axios.get(`https://chilan-ai-language-learning-platform.onrender.com/my-courses/${userId}`)
             ]);
             setStats(statRes.data);
             setMyCourses(myCourseRes.data);
@@ -49,7 +49,7 @@ export default function Classroom() {
         setIsModalOpen(true);
         setIsCoursesLoading(true);
         try {
-            const res = await axios.get('http://127.0.0.1:8000/courses');
+            const res = await axios.get('https://chilan-ai-language-learning-platform.onrender.com/courses');
             setAllCourses(res.data);
         } catch (err) {
             console.error("加载课程库失败", err);
@@ -60,7 +60,7 @@ export default function Classroom() {
 
     const handleEnroll = async (courseId) => {
         try {
-            await axios.post(`http://127.0.0.1:8000/courses/enroll`, { 
+            await axios.post(`https://chilan-ai-language-learning-platform.onrender.com/courses/enroll`, { 
                 user_id: userId, 
                 course_id: courseId 
             });

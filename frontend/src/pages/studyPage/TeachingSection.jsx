@@ -31,7 +31,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
 
     const playAudio = (text) => {
         if (!text) return;
-        new Audio(`http://127.0.0.1:8000/study/tts?text=${encodeURIComponent(text)}`).play();
+        new Audio(`https://chilan-ai-language-learning-platform.onrender.com/study/tts?text=${encodeURIComponent(text)}`).play();
     };
 
     // 3. 通用控制组件：接收 props 实现局部控制
@@ -63,7 +63,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
         if (isSaving) return;
         setIsSaving(true);
         try {
-            await axios.post('http://127.0.0.1:8000/study/content_viewed', {
+            await axios.post('https://chilan-ai-language-learning-platform.onrender.com/study/content_viewed', {
                 user_id: userId,
                 course_id: courseId,
                 lesson_id: lesson_metadata.lesson_id

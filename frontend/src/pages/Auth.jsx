@@ -42,7 +42,7 @@ export default function Auth() {
         setError('');
 
         try {
-            const API_BASE = "http://127.0.0.1:8000/auth";
+            const API_BASE = "https://chilan-ai-language-learning-platform.onrender.com/auth";
 
             if (step === 'forgot') {
                 await axios.post(`${API_BASE}/forgot-password`, { email });
@@ -80,7 +80,7 @@ export default function Auth() {
         onSuccess: async (tokenResponse) => {
             setIsLoading(true);
             try {
-                const res = await axios.post('http://127.0.0.1:8000/auth/google', { access_token: tokenResponse.access_token });
+                const res = await axios.post('https://chilan-ai-language-learning-platform.onrender.com/auth/google', { access_token: tokenResponse.access_token });
                 localStorage.setItem('chilan_token', res.data.access_token);
                 localStorage.setItem('chilan_user_id', res.data.user_id);
                 setStep('success');

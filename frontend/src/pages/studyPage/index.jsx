@@ -16,7 +16,7 @@ export default function StudyPage() {
     const initFlow = async () => {
         setMode('loading');
         try {
-            const res = await axios.get(`http://127.0.0.1:8000/study/init`, {
+            const res = await axios.get(`https://chilan-ai-language-learning-platform.onrender.com/study/init`, {
                 params: { course_id: courseId, user_id: userId }
             });
             const { mode: responseMode, data } = res.data;
@@ -41,7 +41,7 @@ export default function StudyPage() {
         
         // 如果是从新课 (practice) 过来的，更新总体进度
         if (lessonId && mode === 'practice') {
-            await axios.post(`http://127.0.0.1:8000/study/complete_lesson`, {
+            await axios.post(`https://chilan-ai-language-learning-platform.onrender.com/study/complete_lesson`, {
                 user_id: userId,
                 course_id: courseId,
                 lesson_id: lessonId 
