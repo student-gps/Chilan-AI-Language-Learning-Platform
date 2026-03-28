@@ -13,7 +13,7 @@ import voyageai
 import datetime
 from pathlib import Path  
 from dotenv import load_dotenv
-
+# 测试secret
 current_file_path = Path(__file__).resolve()
 backend_dir = current_file_path.parent.parent
 env_path = backend_dir / ".env"
