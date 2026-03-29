@@ -3557,5 +3557,200 @@
       },
       "lesson_id": 701
     }
+  ],
+  "平常": [
+    {
+      "definition": "usually",
+      "pinyin": "píngcháng",
+      "part_of_speech": "adv",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "早": [
+    {
+      "definition": "early",
+      "pinyin": "zǎo",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "这么": [
+    {
+      "definition": "so, this (late, etc.)",
+      "pinyin": "zhème",
+      "part_of_speech": "pr",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "晚": [
+    {
+      "definition": "late",
+      "pinyin": "wǎn",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "小白很喜欢学中文。她晚上预习课文、复习语法、练习写汉字, 常常很晚才睡觉。",
+        "py": "Xiǎo Bái hěn xǐhuan xué Zhōngwén. Tā wǎnshang yùxí kèwén, fùxí yǔfǎ, liànxí xiě Hànzì, chángcháng hěn wǎn cái shuì jiào.",
+        "en": "Little Bai likes to study Chinese a lot. At night, she previews the text, reviews the grammar, and practices writing the characters. Often she doesn't go to bed until very late."
+      },
+      "lesson_id": 702
+    }
+  ],
+  "早上": [
+    {
+      "definition": "morning",
+      "pinyin": "zǎoshang",
+      "part_of_speech": "t",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "功课": [
+    {
+      "definition": "homework, schoolwork",
+      "pinyin": "gōngkè",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "大家": [
+    {
+      "definition": "everybody",
+      "pinyin": "dàjiā",
+      "part_of_speech": "pr",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "上课": [
+    {
+      "definition": "to go to a class, to start a class, to be in class",
+      "pinyin": "shàng kè",
+      "part_of_speech": "vo",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "开始": [
+    {
+      "definition": "to begin, to start; beginning",
+      "pinyin": "kāishǐ",
+      "part_of_speech": "v/n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "念": [
+    {
+      "definition": "to read aloud",
+      "pinyin": "niàn",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "课文": [
+    {
+      "definition": "text of a lesson",
+      "pinyin": "kèwén",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "她晚上预习课文、复习语法、练习写汉字,常常很晚才睡觉。",
+        "py": "Tā wǎnshang yùxí kèwén, fùxí yǔfǎ, liànxí xiě Hànzì, chángcháng hěn wǎn cái shuì jiào.",
+        "en": "At night, she previews the text, reviews the grammar, and practices writing the characters. Often she doesn't go to bed until very late."
+      },
+      "lesson_id": 702
+    }
+  ],
+  "录音": [
+    {
+      "definition": "sound recording; to record",
+      "pinyin": "lùyīn",
+      "part_of_speech": "n/vo",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "学习": [
+    {
+      "definition": "to study, to learn",
+      "pinyin": "xuéxí",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "帅": [
+    {
+      "definition": "handsome",
+      "pinyin": "shuài",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
+  ],
+  "酷": [
+    {
+      "definition": "cool (appearance, behavior)",
+      "pinyin": "kù",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 702
+    }
   ]
 }
