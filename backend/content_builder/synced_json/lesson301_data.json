@@ -1,0 +1,2269 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 301,
+    "title": "生日晚餐"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "高文中",
+            "english": "Bai Ying'ai, what day of the week is September 12th?",
+            "words": [
+              {
+                "cn": "白英爱",
+                "py": "Bái Yīng'ài",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "九月",
+                "py": "jiǔyuè",
+                "highlight": true
+              },
+              {
+                "cn": "十二号",
+                "py": "shí'èr hào",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "星期几",
+                "py": "xīngqījǐ",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "It's Thursday.",
+            "words": [
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "星期四",
+                "py": "xīngqīsì",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "That day is my birthday.",
+            "words": [
+              {
+                "cn": "那",
+                "py": "nà",
+                "highlight": true
+              },
+              {
+                "cn": "天",
+                "py": "tiān",
+                "highlight": false
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "生日",
+                "py": "shēngrì",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "Really? How old are you this year?",
+            "words": [
+              {
+                "cn": "是吗",
+                "py": "shì ma",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "今年",
+                "py": "jīnnián",
+                "highlight": true
+              },
+              {
+                "cn": "多大",
+                "py": "duō dà",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "Eighteen.",
+            "words": [
+              {
+                "cn": "十八岁",
+                "py": "shíbā suì",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "How about I treat you to a meal on Thursday?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "星期四",
+                "py": "xīngqīsì",
+                "highlight": true
+              },
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "吃饭",
+                "py": "chīfàn",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "怎么样",
+                "py": "zěnmeyàng",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "That's great! Thank you, thank you.",
+            "words": [
+              {
+                "cn": "太好了",
+                "py": "tài hǎo le",
+                "highlight": true
+              },
+              {
+                "cn": "!",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "谢谢",
+                "py": "xièxie",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "谢谢",
+                "py": "xièxie",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "Do you like to eat Chinese food or American food?",
+            "words": [
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "喜欢",
+                "py": "xǐhuān",
+                "highlight": true
+              },
+              {
+                "cn": "吃",
+                "py": "chī",
+                "highlight": true
+              },
+              {
+                "cn": "中国",
+                "py": "Zhōngguó",
+                "highlight": false
+              },
+              {
+                "cn": "菜",
+                "py": "cài",
+                "highlight": true
+              },
+              {
+                "cn": "还是",
+                "py": "háishì",
+                "highlight": true
+              },
+              {
+                "cn": "美国",
+                "py": "Měiguó",
+                "highlight": false
+              },
+              {
+                "cn": "菜",
+                "py": "cài",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "I'm British, but I like to eat Chinese food.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "英国",
+                "py": "Yīngguó",
+                "highlight": false
+              },
+              {
+                "cn": "人",
+                "py": "rén",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "可是",
+                "py": "kěshì",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "喜欢",
+                "py": "xǐhuān",
+                "highlight": true
+              },
+              {
+                "cn": "吃",
+                "py": "chī",
+                "highlight": true
+              },
+              {
+                "cn": "中国",
+                "py": "Zhōngguó",
+                "highlight": false
+              },
+              {
+                "cn": "菜",
+                "py": "cài",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "Great, we'll eat Chinese food.",
+            "words": [
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我们",
+                "py": "wǒmen",
+                "highlight": false
+              },
+              {
+                "cn": "吃",
+                "py": "chī",
+                "highlight": true
+              },
+              {
+                "cn": "中国",
+                "py": "Zhōngguó",
+                "highlight": false
+              },
+              {
+                "cn": "菜",
+                "py": "cài",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "What time on Thursday?",
+            "words": [
+              {
+                "cn": "星期四",
+                "py": "xīng qī sì",
+                "highlight": true
+              },
+              {
+                "cn": "几",
+                "py": "jǐ",
+                "highlight": true
+              },
+              {
+                "cn": "点",
+                "py": "diǎn",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "How about seven-thirty?",
+            "words": [
+              {
+                "cn": "七",
+                "py": "qī",
+                "highlight": false
+              },
+              {
+                "cn": "点",
+                "py": "diǎn",
+                "highlight": true
+              },
+              {
+                "cn": "半",
+                "py": "bàn",
+                "highlight": true
+              },
+              {
+                "cn": "怎么样",
+                "py": "zěn me yàng",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "english": "OK, see you Thursday evening.",
+            "words": [
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "星期四",
+                "py": "xīng qī sì",
+                "highlight": true
+              },
+              {
+                "cn": "晚上",
+                "py": "wǎn shang",
+                "highlight": true
+              },
+              {
+                "cn": "见",
+                "py": "jiàn",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "Goodbye!",
+            "words": [
+              {
+                "cn": "再见",
+                "py": "zài jiàn",
+                "highlight": true
+              },
+              {
+                "cn": "!",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "九月",
+        "pinyin": "jiŭyuè",
+        "part_of_speech": "n",
+        "definition": "September",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "月",
+        "pinyin": "yuè",
+        "part_of_speech": "n",
+        "definition": "month",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "十二",
+        "pinyin": "shí'èr",
+        "part_of_speech": "nu",
+        "definition": "twelve",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "号",
+        "pinyin": "hào",
+        "part_of_speech": "m",
+        "definition": "(measure word for position in a numerical series, day of the month)",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "星期",
+        "pinyin": "xīngqī",
+        "part_of_speech": "n",
+        "definition": "week",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "星期四",
+        "pinyin": "xīngqīsì",
+        "part_of_speech": "n",
+        "definition": "Thursday",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "天",
+        "pinyin": "tiān",
+        "part_of_speech": "n",
+        "definition": "day",
+        "example_sentence": {
+          "cn": "明天李先生请你吃中国菜。",
+          "py": "Míngtiān Lǐ xiānsheng qǐng nǐ chī Zhōngguó cài.",
+          "en": "Mr. Li is inviting you to have Chinese food tomorrow."
+        }
+      },
+      {
+        "word": "生日",
+        "pinyin": "shēngrì",
+        "part_of_speech": "n",
+        "definition": "birthday",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "生",
+        "pinyin": "shēng",
+        "part_of_speech": "v",
+        "definition": "to give birth to, to be born",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "日",
+        "pinyin": "rì",
+        "part_of_speech": "n",
+        "definition": "day, sun",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "今年",
+        "pinyin": "jīnnián",
+        "part_of_speech": "t",
+        "definition": "this year",
+        "example_sentence": {
+          "cn": "你今年多大?",
+          "py": "Nǐ jīnnián duō dà?",
+          "en": "Say this to find out someone's age."
+        }
+      },
+      {
+        "word": "年",
+        "pinyin": "nián",
+        "part_of_speech": "n",
+        "definition": "year",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "多",
+        "pinyin": "duō",
+        "part_of_speech": "adv",
+        "definition": "how many/much, to what extent",
+        "example_sentence": {
+          "cn": "你今年多大?",
+          "py": "Nǐ jīnnián duō dà?",
+          "en": "Say this to find out someone's age."
+        }
+      },
+      {
+        "word": "大",
+        "pinyin": "dà",
+        "part_of_speech": "adj",
+        "definition": "big, old",
+        "example_sentence": {
+          "cn": "你今年多大?",
+          "py": "Nǐ jīnnián duō dà?",
+          "en": "Say this to find out someone's age."
+        }
+      },
+      {
+        "word": "十八",
+        "pinyin": "shíbā",
+        "part_of_speech": "nu",
+        "definition": "eighteen",
+        "example_sentence": {
+          "cn": "我十八岁",
+          "py": "wǒ shíbā suì",
+          "en": "I'm eighteen years old"
+        }
+      },
+      {
+        "word": "岁",
+        "pinyin": "suì",
+        "part_of_speech": "n",
+        "definition": "year (of age)",
+        "example_sentence": {
+          "cn": "我十八岁。",
+          "py": "Wǒ shíbā suì.",
+          "en": "I'm eighteen years old."
+        }
+      },
+      {
+        "word": "吃",
+        "pinyin": "chī",
+        "part_of_speech": "v",
+        "definition": "to eat",
+        "example_sentence": {
+          "cn": "明天李先生请你吃中国菜。",
+          "py": "Míngtiān Lǐ xiānsheng qǐng nǐ chī Zhōngguó cài.",
+          "en": "Mr. Li is inviting you to have Chinese food tomorrow."
+        }
+      },
+      {
+        "word": "饭",
+        "pinyin": "fàn",
+        "part_of_speech": "n",
+        "definition": "meal, (cooked) rice",
+        "example_sentence": {
+          "cn": "我请你吃饭。",
+          "py": "wǒ qǐng nǐ chī fàn.",
+          "en": "I will treat you to dinner."
+        }
+      },
+      {
+        "word": "怎么样",
+        "pinyin": "zěnmeyàng",
+        "part_of_speech": "qpr",
+        "definition": "Is it OK? How is that? How does that sound?",
+        "example_sentence": {
+          "cn": "今天晚上我请你和你妹妹吃美国菜，怎么样？",
+          "py": "Jīntiān wǎnshang wǒ qǐng nǐ hé nǐ mèimei chī Měiguó cài, zěnmeyàng?",
+          "en": "I'll treat you and your younger sister to American food tonight. How about it?"
+        }
+      },
+      {
+        "word": "太…了",
+        "pinyin": "tài... le",
+        "part_of_speech": "",
+        "definition": "too, extremely",
+        "example_sentence": {
+          "cn": "太好了！",
+          "py": "Tài hǎo le!",
+          "en": "That's great!"
+        }
+      },
+      {
+        "word": "谢谢",
+        "pinyin": "xièxie",
+        "part_of_speech": "v",
+        "definition": "to thank",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "喜欢",
+        "pinyin": "xǐhuan",
+        "part_of_speech": "v",
+        "definition": "to like",
+        "example_sentence": {
+          "cn": "他(是)喜欢吃中国菜还是喜欢吃美国菜?",
+          "py": "Tā (shì) xǐhuan chī Zhōngguó cài háishi xǐhuan chī Měiguó cài?",
+          "en": "Does he like to eat Chinese or American food?"
+        }
+      },
+      {
+        "word": "菜",
+        "pinyin": "cài",
+        "part_of_speech": "n",
+        "definition": "dish, cuisine",
+        "example_sentence": {
+          "cn": "明天李先生请你吃中国菜。",
+          "py": "Míngtiān Lǐ xiānsheng qǐng nǐ chī Zhōngguó cài.",
+          "en": "Mr. Li is inviting you to have Chinese food tomorrow."
+        }
+      },
+      {
+        "word": "还是",
+        "pinyin": "háishi",
+        "part_of_speech": "conj",
+        "definition": "or [See Grammar 6.]",
+        "example_sentence": {
+          "cn": "你哥哥是老师还是学生?",
+          "py": "Nǐ gēge shì lǎoshī háishi xuésheng?",
+          "en": "Is your older brother a teacher or a student?"
+        }
+      },
+      {
+        "word": "可是",
+        "pinyin": "kěshì",
+        "part_of_speech": "conj",
+        "definition": "but",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "我们",
+        "pinyin": "wǒmen",
+        "part_of_speech": "pr",
+        "definition": "we, us",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "点",
+        "pinyin": "diǎn",
+        "part_of_speech": "m",
+        "definition": "o'clock (lit. dot, point, thus \"points on the clock\")",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "半",
+        "pinyin": "bàn",
+        "part_of_speech": "nu",
+        "definition": "half, half an hour",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "晚上",
+        "pinyin": "wǎnshang",
+        "part_of_speech": "t",
+        "definition": "evening, night",
+        "example_sentence": {
+          "cn": "今天晚上我请你和你妹妹吃美国菜, 怎么样?",
+          "py": "Jīntiān wǎnshang wǒ qǐng nǐ hé nǐ mèimei chī Měiguó cài, zěnmeyàng?",
+          "en": "I'll treat you and your younger sister to American food tonight. How about it?"
+        }
+      },
+      {
+        "word": "见",
+        "pinyin": "jiàn",
+        "part_of_speech": "v",
+        "definition": "to see",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "再见",
+        "pinyin": "zàijiàn",
+        "part_of_speech": "v",
+        "definition": "goodbye, see you again",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "再",
+        "pinyin": "zài",
+        "part_of_speech": "adv",
+        "definition": "again",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "英国",
+        "pinyin": "Yīngguó",
+        "part_of_speech": "pn",
+        "definition": "Britain",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 301,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "九月",
+      "original_pinyin": "jiŭyuè",
+      "standard_answers": [
+        "September"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "月",
+      "original_pinyin": "yuè",
+      "standard_answers": [
+        "month"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "十二",
+      "original_pinyin": "shí'èr",
+      "standard_answers": [
+        "twelve"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "号",
+      "original_pinyin": "hào",
+      "standard_answers": [
+        "(measure word for position in a numerical series, day of the month)"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "星期",
+      "original_pinyin": "xīngqī",
+      "standard_answers": [
+        "week"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "星期四",
+      "original_pinyin": "xīngqīsì",
+      "standard_answers": [
+        "Thursday"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "天",
+      "original_pinyin": "tiān",
+      "standard_answers": [
+        "day"
+      ],
+      "context_examples": [
+        {
+          "cn": "明天李先生请你吃中国菜。",
+          "py": "Míngtiān Lǐ xiānsheng qǐng nǐ chī Zhōngguó cài.",
+          "en": "Mr. Li is inviting you to have Chinese food tomorrow."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "生日",
+      "original_pinyin": "shēngrì",
+      "standard_answers": [
+        "birthday"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "生",
+      "original_pinyin": "shēng",
+      "standard_answers": [
+        "to give birth to, to be born"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "日",
+      "original_pinyin": "rì",
+      "standard_answers": [
+        "day, sun"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "今年",
+      "original_pinyin": "jīnnián",
+      "standard_answers": [
+        "this year"
+      ],
+      "context_examples": [
+        {
+          "cn": "你今年多大?",
+          "py": "Nǐ jīnnián duō dà?",
+          "en": "Say this to find out someone's age."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "年",
+      "original_pinyin": "nián",
+      "standard_answers": [
+        "year"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "多",
+      "original_pinyin": "duō",
+      "standard_answers": [
+        "how many/much, to what extent"
+      ],
+      "context_examples": [
+        {
+          "cn": "你今年多大?",
+          "py": "Nǐ jīnnián duō dà?",
+          "en": "Say this to find out someone's age."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "大",
+      "original_pinyin": "dà",
+      "standard_answers": [
+        "big, old"
+      ],
+      "context_examples": [
+        {
+          "cn": "你今年多大?",
+          "py": "Nǐ jīnnián duō dà?",
+          "en": "Say this to find out someone's age."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "十八",
+      "original_pinyin": "shíbā",
+      "standard_answers": [
+        "eighteen"
+      ],
+      "context_examples": [
+        {
+          "cn": "我十八岁",
+          "py": "wǒ shíbā suì",
+          "en": "I'm eighteen years old"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "岁",
+      "original_pinyin": "suì",
+      "standard_answers": [
+        "year (of age)"
+      ],
+      "context_examples": [
+        {
+          "cn": "我十八岁。",
+          "py": "Wǒ shíbā suì.",
+          "en": "I'm eighteen years old."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "吃",
+      "original_pinyin": "chī",
+      "standard_answers": [
+        "to eat"
+      ],
+      "context_examples": [
+        {
+          "cn": "明天李先生请你吃中国菜。",
+          "py": "Míngtiān Lǐ xiānsheng qǐng nǐ chī Zhōngguó cài.",
+          "en": "Mr. Li is inviting you to have Chinese food tomorrow."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "饭",
+      "original_pinyin": "fàn",
+      "standard_answers": [
+        "meal, (cooked) rice"
+      ],
+      "context_examples": [
+        {
+          "cn": "我请你吃饭。",
+          "py": "wǒ qǐng nǐ chī fàn.",
+          "en": "I will treat you to dinner."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "怎么样",
+      "original_pinyin": "zěnmeyàng",
+      "standard_answers": [
+        "Is it OK? How is that? How does that sound?"
+      ],
+      "context_examples": [
+        {
+          "cn": "今天晚上我请你和你妹妹吃美国菜，怎么样？",
+          "py": "Jīntiān wǎnshang wǒ qǐng nǐ hé nǐ mèimei chī Měiguó cài, zěnmeyàng?",
+          "en": "I'll treat you and your younger sister to American food tonight. How about it?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "太…了",
+      "original_pinyin": "tài... le",
+      "standard_answers": [
+        "too, extremely"
+      ],
+      "context_examples": [
+        {
+          "cn": "太好了！",
+          "py": "Tài hǎo le!",
+          "en": "That's great!"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "谢谢",
+      "original_pinyin": "xièxie",
+      "standard_answers": [
+        "to thank"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "喜欢",
+      "original_pinyin": "xǐhuan",
+      "standard_answers": [
+        "to like"
+      ],
+      "context_examples": [
+        {
+          "cn": "他(是)喜欢吃中国菜还是喜欢吃美国菜?",
+          "py": "Tā (shì) xǐhuan chī Zhōngguó cài háishi xǐhuan chī Měiguó cài?",
+          "en": "Does he like to eat Chinese or American food?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "菜",
+      "original_pinyin": "cài",
+      "standard_answers": [
+        "dish, cuisine"
+      ],
+      "context_examples": [
+        {
+          "cn": "明天李先生请你吃中国菜。",
+          "py": "Míngtiān Lǐ xiānsheng qǐng nǐ chī Zhōngguó cài.",
+          "en": "Mr. Li is inviting you to have Chinese food tomorrow."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "还是",
+      "original_pinyin": "háishi",
+      "standard_answers": [
+        "or"
+      ],
+      "context_examples": [
+        {
+          "cn": "你哥哥是老师还是学生?",
+          "py": "Nǐ gēge shì lǎoshī háishi xuésheng?",
+          "en": "Is your older brother a teacher or a student?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "可是",
+      "original_pinyin": "kěshì",
+      "standard_answers": [
+        "but"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我们",
+      "original_pinyin": "wǒmen",
+      "standard_answers": [
+        "we",
+        "us"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "点",
+      "original_pinyin": "diǎn",
+      "standard_answers": [
+        "o'clock (lit. dot, point, thus \"points on the clock\")"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "半",
+      "original_pinyin": "bàn",
+      "standard_answers": [
+        "half",
+        "half an hour"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "晚上",
+      "original_pinyin": "wǎnshang",
+      "standard_answers": [
+        "evening, night"
+      ],
+      "context_examples": [
+        {
+          "cn": "今天晚上我请你和你妹妹吃美国菜, 怎么样?",
+          "py": "Jīntiān wǎnshang wǒ qǐng nǐ hé nǐ mèimei chī Měiguó cài, zěnmeyàng?",
+          "en": "I'll treat you and your younger sister to American food tonight. How about it?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "见",
+      "original_pinyin": "jiàn",
+      "standard_answers": [
+        "to see"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "再见",
+      "original_pinyin": "zàijiàn",
+      "standard_answers": [
+        "goodbye, see you again"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "再",
+      "original_pinyin": "zài",
+      "standard_answers": [
+        "again"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "英国",
+      "original_pinyin": "Yīngguó",
+      "standard_answers": [
+        "Britain"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "白英爱,九月十二号是星期几?",
+      "original_pinyin": "Bái Yīng'ài jiǔyuè shí'èr hào shì xīngqījǐ",
+      "standard_answers": [
+        "Bai Ying'ai, what day of the week is September 12th?"
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我星期四请你吃饭,怎么样?",
+      "original_pinyin": "wǒ xīngqīsì qǐng nǐ chīfàn zěnmeyàng",
+      "standard_answers": [
+        "How about I treat you to a meal on Thursday?"
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你喜欢吃中国菜还是美国菜?",
+      "original_pinyin": "nǐ xǐhuān chī Zhōngguó cài háishì Měiguó cài",
+      "standard_answers": [
+        "Do you like to eat Chinese food or American food?"
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我是英国人,可是我喜欢吃中国菜。",
+      "original_pinyin": "wǒ shì Yīngguó rén kěshì wǒ xǐhuān chī Zhōngguó cài",
+      "standard_answers": [
+        "I'm British, but I like to eat Chinese food."
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "September",
+      "original_pinyin": null,
+      "standard_answers": [
+        "九月"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "month",
+      "original_pinyin": null,
+      "standard_answers": [
+        "月"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "twelve",
+      "original_pinyin": null,
+      "standard_answers": [
+        "十二"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Hào (measure word for position in a numerical series, day of the month)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "号"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "week",
+      "original_pinyin": null,
+      "standard_answers": [
+        "星期"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 43,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Thursday",
+      "original_pinyin": null,
+      "standard_answers": [
+        "星期四"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 44,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "day",
+      "original_pinyin": null,
+      "standard_answers": [
+        "天"
+      ],
+      "context_examples": [
+        {
+          "cn": "明天李先生请你吃中国菜。",
+          "py": "Míngtiān Lǐ xiānsheng qǐng nǐ chī Zhōngguó cài.",
+          "en": "Mr. Li is inviting you to have Chinese food tomorrow."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 45,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "birthday",
+      "original_pinyin": null,
+      "standard_answers": [
+        "生日"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 46,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to give birth to, to be born",
+      "original_pinyin": null,
+      "standard_answers": [
+        "生"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 47,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "day, sun",
+      "original_pinyin": null,
+      "standard_answers": [
+        "日"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 48,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "this year",
+      "original_pinyin": null,
+      "standard_answers": [
+        "今年"
+      ],
+      "context_examples": [
+        {
+          "cn": "你今年多大?",
+          "py": "Nǐ jīnnián duō dà?",
+          "en": "Say this to find out someone's age."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 49,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "year",
+      "original_pinyin": null,
+      "standard_answers": [
+        "年"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 50,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "how many/much, to what extent",
+      "original_pinyin": null,
+      "standard_answers": [
+        "多"
+      ],
+      "context_examples": [
+        {
+          "cn": "你今年多大?",
+          "py": "Nǐ jīnnián duō dà?",
+          "en": "Say this to find out someone's age."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 51,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "big, old",
+      "original_pinyin": null,
+      "standard_answers": [
+        "大"
+      ],
+      "context_examples": [
+        {
+          "cn": "你今年多大?",
+          "py": "Nǐ jīnnián duō dà?",
+          "en": "Say this to find out someone's age."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 52,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "eighteen",
+      "original_pinyin": null,
+      "standard_answers": [
+        "十八"
+      ],
+      "context_examples": [
+        {
+          "cn": "我十八岁",
+          "py": "wǒ shíbā suì",
+          "en": "I'm eighteen years old"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 53,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "year (of age)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "岁"
+      ],
+      "context_examples": [
+        {
+          "cn": "我十八岁。",
+          "py": "Wǒ shíbā suì.",
+          "en": "I'm eighteen years old."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 54,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to eat",
+      "original_pinyin": null,
+      "standard_answers": [
+        "吃"
+      ],
+      "context_examples": [
+        {
+          "cn": "明天李先生请你吃中国菜。",
+          "py": "Míngtiān Lǐ xiānsheng qǐng nǐ chī Zhōngguó cài.",
+          "en": "Mr. Li is inviting you to have Chinese food tomorrow."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 55,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "meal, (cooked) rice",
+      "original_pinyin": null,
+      "standard_answers": [
+        "饭"
+      ],
+      "context_examples": [
+        {
+          "cn": "我请你吃饭。",
+          "py": "wǒ qǐng nǐ chī fàn.",
+          "en": "I will treat you to dinner."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 56,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Is it OK? How is that? How does that sound?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "怎么样"
+      ],
+      "context_examples": [
+        {
+          "cn": "今天晚上我请你和你妹妹吃美国菜，怎么样？",
+          "py": "Jīntiān wǎnshang wǒ qǐng nǐ hé nǐ mèimei chī Měiguó cài, zěnmeyàng?",
+          "en": "I'll treat you and your younger sister to American food tonight. How about it?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 57,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "too, extremely",
+      "original_pinyin": null,
+      "standard_answers": [
+        "太…了"
+      ],
+      "context_examples": [
+        {
+          "cn": "太好了！",
+          "py": "Tài hǎo le!",
+          "en": "That's great!"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 58,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to thank",
+      "original_pinyin": null,
+      "standard_answers": [
+        "谢谢"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 59,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to like",
+      "original_pinyin": null,
+      "standard_answers": [
+        "喜欢"
+      ],
+      "context_examples": [
+        {
+          "cn": "他(是)喜欢吃中国菜还是喜欢吃美国菜?",
+          "py": "Tā (shì) xǐhuan chī Zhōngguó cài háishi xǐhuan chī Měiguó cài?",
+          "en": "Does he like to eat Chinese or American food?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 60,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "dish, cuisine",
+      "original_pinyin": null,
+      "standard_answers": [
+        "菜"
+      ],
+      "context_examples": [
+        {
+          "cn": "明天李先生请你吃中国菜。",
+          "py": "Míngtiān Lǐ xiānsheng qǐng nǐ chī Zhōngguó cài.",
+          "en": "Mr. Li is inviting you to have Chinese food tomorrow."
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 61,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "or",
+      "original_pinyin": null,
+      "standard_answers": [
+        "还是"
+      ],
+      "context_examples": [
+        {
+          "cn": "你哥哥是老师还是学生?",
+          "py": "Nǐ gēge shì lǎoshī háishi xuésheng?",
+          "en": "Is your older brother a teacher or a student?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 62,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "but",
+      "original_pinyin": null,
+      "standard_answers": [
+        "可是"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 63,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "we, us",
+      "original_pinyin": null,
+      "standard_answers": [
+        "我们"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 64,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "o'clock (lit. dot, point, thus \"points on the clock\")",
+      "original_pinyin": null,
+      "standard_answers": [
+        "点"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 65,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "half, half an hour",
+      "original_pinyin": null,
+      "standard_answers": [
+        "半"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 66,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "evening, night",
+      "original_pinyin": null,
+      "standard_answers": [
+        "晚上"
+      ],
+      "context_examples": [
+        {
+          "cn": "今天晚上我请你和你妹妹吃美国菜, 怎么样?",
+          "py": "Jīntiān wǎnshang wǒ qǐng nǐ hé nǐ mèimei chī Měiguó cài, zěnmeyàng?",
+          "en": "I'll treat you and your younger sister to American food tonight. How about it?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 67,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to see",
+      "original_pinyin": null,
+      "standard_answers": [
+        "见"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 68,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "goodbye, see you again",
+      "original_pinyin": null,
+      "standard_answers": [
+        "再见"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 69,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "again",
+      "original_pinyin": null,
+      "standard_answers": [
+        "再"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 70,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Britain",
+      "original_pinyin": null,
+      "standard_answers": [
+        "英国"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 71,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Really? How old are you this year?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "是吗?你今年多大?"
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 72,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "How about seven-thirty?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "七点半怎么样?"
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 73,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "OK, see you Thursday evening.",
+      "original_pinyin": null,
+      "standard_answers": [
+        "好,星期四晚上见。"
+      ]
+    },
+    {
+      "lesson_id": 301,
+      "question_id": 74,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Is Wang Peng a student or a teacher?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "王朋是学生还是老师？"
+      ]
+    }
+  ],
+  "video_global_config": {
+    "visual_style": "Vibrant and warm 3D Pixar style, with soft lighting and detailed textures, reminiscent of modern animated family films. The color palette is bright and inviting.",
+    "character_definitions": [
+      {
+        "name": "高文中",
+        "appearance_description_en": "A friendly-looking young Asian male, around 18 years old, with short, neat black hair, expressive dark eyes, and a warm smile. He wears a casual blue hoodie and jeans."
+      },
+      {
+        "name": "白英爱",
+        "appearance_description_en": "A cheerful young Caucasian female, around 18 years old, with long, wavy blonde hair, bright blue eyes, and a curious expression. She wears a stylish pink sweater and a light scarf."
+      }
+    ]
+  },
+  "video_scenes": [
+    {
+      "scene_id": 1,
+      "scene_description_cn": "在一个阳光明媚的大学校园咖啡馆里，高文中看着手机上的日历，然后抬头好奇地问白英爱一个关于日期的问题。",
+      "video_api_prompt_en": "3D Pixar style. A young Asian male (Gao Wenzhong) and a young Caucasian female (Bai Ying'ai) are sitting at a small wooden table in a bright, modern university campus cafe. Sunlight streams through large windows, creating a warm and inviting atmosphere. Gao Wenzhong looks at his smartphone displaying a calendar, then turns to Bai Ying'ai with a curious expression. Medium shot, shallow depth of field.",
+      "camera_movement": "Slow push-in",
+      "voice_over": {
+        "role": "高文中",
+        "content": "白英爱, 九月十二号是星期几?",
+        "pinyin": "Bái Yīng'ài, jiǔyuè shí'èr hào shì xīngqījǐ?"
+      },
+      "screen_overlay": {
+        "main_text": "九月十二号是星期几？",
+        "sub_text": "jiǔyuè shí'èr hào shì xīngqījǐ?"
+      }
+    },
+    {
+      "scene_id": 2,
+      "scene_description_cn": "高文中听到答案后，开心地宣布那天是他的生日。一个可爱的卡通生日蛋糕图标在他头顶上方短暂出现并闪烁。",
+      "video_api_prompt_en": "3D Pixar style. Close-up on Gao Wenzhong's face as he smiles happily. A whimsical, stylized birthday cake icon with a lit candle briefly pops up above his head with a subtle sparkle effect. The background is the soft-focused cafe. The lighting is warm and celebratory.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "高文中",
+        "content": "那天是我的生日。",
+        "pinyin": "Nà tiān shì wǒ de shēngrì."
+      },
+      "screen_overlay": {
+        "main_text": "生日 (shēngrì)",
+        "sub_text": "Birthday"
+      }
+    },
+    {
+      "scene_id": 3,
+      "scene_description_cn": "高文中做出一个热情邀请的手势，提议请白英爱吃饭。白英爱则露出惊喜又高兴的表情，连连点头。",
+      "video_api_prompt_en": "3D Pixar style. Two-shot of Gao Wenzhong and Bai Ying'ai at the cafe table. Gao Wenzhong makes a friendly, inviting gesture with his hands, leaning forward slightly. Bai Ying'ai's face lights up with a surprised and delighted expression, her eyes wide as she nods enthusiastically. The camera is at eye level, capturing their positive interaction.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "高文中",
+        "content": "我星期四请你吃饭, 怎么样?",
+        "pinyin": "Wǒ xīngqīsì qǐng nǐ chīfàn, zěnmeyàng?"
+      },
+      "screen_overlay": {
+        "main_text": "请你吃饭 (qǐng nǐ chīfàn)",
+        "sub_text": "To treat you to a meal"
+      }
+    },
+    {
+      "scene_id": 4,
+      "scene_description_cn": "画面分割成两半，动态展示两种美食选择。左边是热气腾腾的中国菜，右边是经典的美国菜。白英爱的手从画面下方伸出，指向中国菜。",
+      "video_api_prompt_en": "3D Pixar style. Dynamic split-screen effect. On the left, a vibrant, steaming spread of delicious Chinese food (dumplings, kung pao chicken) on traditional porcelain. On the right, a classic American meal (juicy hamburger, golden fries). Bai Ying'ai's hand enters from the bottom of the frame and points decisively towards the Chinese food side. Graphic and visually engaging.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "白英爱",
+        "content": "我是英国人, 可是我喜欢吃中国菜。",
+        "pinyin": "Wǒ shì Yīngguó rén, kěshì wǒ xǐhuān chī Zhōngguó cài."
+      },
+      "screen_overlay": {
+        "main_text": "中国菜 (Zhōngguó cài) 还是 (háishì) 美国菜 (Měiguó cài)?",
+        "sub_text": "Chinese food or American food?"
+      }
+    },
+    {
+      "scene_id": 5,
+      "scene_description_cn": "场景切换到一个温馨的中餐馆。高文中指着墙上一个漂亮的中国风时钟，时钟的指针清晰地指向七点半。",
+      "video_api_prompt_en": "3D Pixar style. Gao Wenzhong and Bai Ying'ai are seated in a cozy, warmly lit Chinese restaurant decorated with red lanterns. Gao Wenzhong points to a beautiful, ornate wall clock with Chinese numerals. The camera zooms in to show the clock hands clearly pointing to 7:30. The atmosphere is cheerful.",
+      "camera_movement": "Zoom in",
+      "voice_over": {
+        "role": "高文中",
+        "content": "七点半怎么样?",
+        "pinyin": "Qī diǎn bàn zěnmeyàng?"
+      },
+      "screen_overlay": {
+        "main_text": "七点半 (qī diǎn bàn)",
+        "sub_text": "7:30"
+      }
+    },
+    {
+      "scene_id": 6,
+      "scene_description_cn": "两人站在中餐馆门口，在夜晚柔和的灯光下愉快地挥手告别。背景是灯火阑珊的城市夜景。",
+      "video_api_prompt_en": "3D Pixar style. Exterior shot at night, in front of the charming Chinese restaurant entrance. The restaurant's neon sign casts a warm glow. Gao Wenzhong and Bai Ying'ai are smiling and waving goodbye to each other. The city street in the background has a soft, out-of-focus bokeh effect. Wide shot, cinematic and heartwarming feel.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "白英爱",
+        "content": "好, 星期四晚上见。",
+        "pinyin": "Hǎo, xīngqīsì wǎnshang jiàn."
+      },
+      "screen_overlay": {
+        "main_text": "晚上见 (wǎnshang jiàn)",
+        "sub_text": "See you in the evening"
+      }
+    }
+  ]
+}

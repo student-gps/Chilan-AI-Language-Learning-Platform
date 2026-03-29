@@ -52,7 +52,7 @@
           },
           {
             "role": "王朋",
-            "english": "Excuse me, what is your surname?",
+            "english": "Excuse me, what is your surname, please?",
             "words": [
               {
                 "cn": "请问",
@@ -290,9 +290,9 @@
         "part_of_speech": "pr",
         "definition": "you",
         "example_sentence": {
-          "cn": "请问, 你贵姓?",
-          "py": "Qǐng wèn, nǐ guì xìng?",
-          "en": "What's your family name, please?"
+          "cn": "你叫什么名字?",
+          "py": "Nǐ jiào shénme míngzi?",
+          "en": "What is your name?"
         }
       },
       {
@@ -334,9 +334,9 @@
         "part_of_speech": "adj",
         "definition": "honorable, expensive",
         "example_sentence": {
-          "cn": "请问, 你贵姓?",
-          "py": "Qǐng wèn, nǐ guì xìng?",
-          "en": "What's your family name, please?"
+          "cn": "你贵姓?",
+          "py": "Nǐ guì xìng?",
+          "en": "What is your family name? (Lit. Your honorable family name is...?)"
         }
       },
       {
@@ -356,9 +356,9 @@
         "part_of_speech": "pr",
         "definition": "I, me",
         "example_sentence": {
-          "cn": "我姓李。",
-          "py": "Wǒ xìng Lǐ.",
-          "en": "My family name is Li."
+          "cn": "我叫王朋。",
+          "py": "Wǒ jiào Wáng Péng.",
+          "en": "My name is Wang Peng."
         }
       },
       {
@@ -378,8 +378,8 @@
         "part_of_speech": "n",
         "definition": "Miss, young lady",
         "example_sentence": {
-          "cn": "",
-          "py": "",
+          "cn": "李小姐, 你叫什么名字?",
+          "py": "Lǐ xiǎojiě, nǐ jiào shénme míngzi?",
           "en": ""
         }
       },
@@ -400,9 +400,9 @@
         "part_of_speech": "qpr",
         "definition": "what",
         "example_sentence": {
-          "cn": "你姓什么?",
-          "py": "Nǐ xìng shénme?",
-          "en": "What is your family name?"
+          "cn": "你叫什么名字?",
+          "py": "Nǐ jiào shénme míngzi?",
+          "en": "What is your name?"
         }
       },
       {
@@ -413,7 +413,7 @@
         "example_sentence": {
           "cn": "你叫什么名字?",
           "py": "Nǐ jiào shénme míngzi?",
-          "en": "What's your name?"
+          "en": "What is your name?"
         }
       },
       {
@@ -455,7 +455,7 @@
         "part_of_speech": "pn",
         "definition": "(a personal name)",
         "example_sentence": {
-          "cn": "我叫王朋, 你呢?",
+          "cn": "我叫王朋,你呢?",
           "py": "Wǒ jiào Wáng Péng, nǐ ne?",
           "en": "My name is Wang Peng. How about you?"
         }
@@ -486,9 +486,9 @@
       ],
       "context_examples": [
         {
-          "cn": "请问, 你贵姓?",
-          "py": "Qǐng wèn, nǐ guì xìng?",
-          "en": "What's your family name, please?"
+          "cn": "你叫什么名字?",
+          "py": "Nǐ jiào shénme míngzi?",
+          "en": "What is your name?"
         }
       ]
     },
@@ -558,9 +558,9 @@
       ],
       "context_examples": [
         {
-          "cn": "请问, 你贵姓?",
-          "py": "Qǐng wèn, nǐ guì xìng?",
-          "en": "What's your family name, please?"
+          "cn": "你贵姓?",
+          "py": "Nǐ guì xìng?",
+          "en": "What is your family name? (Lit. Your honorable family name is...?)"
         }
       ]
     },
@@ -594,9 +594,9 @@
       ],
       "context_examples": [
         {
-          "cn": "我姓李。",
-          "py": "Wǒ xìng Lǐ.",
-          "en": "My family name is Li."
+          "cn": "我叫王朋。",
+          "py": "Wǒ jiào Wáng Péng.",
+          "en": "My name is Wang Peng."
         }
       ]
     },
@@ -630,8 +630,8 @@
       ],
       "context_examples": [
         {
-          "cn": "",
-          "py": "",
+          "cn": "李小姐, 你叫什么名字?",
+          "py": "Lǐ xiǎojiě, nǐ jiào shénme míngzi?",
           "en": ""
         }
       ]
@@ -644,7 +644,7 @@
       "original_text": "叫",
       "original_pinyin": "jiào",
       "standard_answers": [
-        "to be called, to call [See Grammar 3.]"
+        "to be called, to call"
       ],
       "context_examples": [
         {
@@ -666,9 +666,9 @@
       ],
       "context_examples": [
         {
-          "cn": "你姓什么?",
-          "py": "Nǐ xìng shénme?",
-          "en": "What is your family name?"
+          "cn": "你叫什么名字?",
+          "py": "Nǐ jiào shénme míngzi?",
+          "en": "What is your name?"
         }
       ]
     },
@@ -686,7 +686,7 @@
         {
           "cn": "你叫什么名字?",
           "py": "Nǐ jiào shénme míngzi?",
-          "en": "What's your name?"
+          "en": "What is your name?"
         }
       ]
     },
@@ -698,7 +698,9 @@
       "original_text": "先生",
       "original_pinyin": "xiānsheng",
       "standard_answers": [
-        "Mr., husband, teacher"
+        "Mr.",
+        "husband",
+        "teacher"
       ],
       "context_examples": [
         {
@@ -716,7 +718,7 @@
       "original_text": "李友",
       "original_pinyin": "Lǐ Yǒu",
       "standard_answers": [
-        "(a personal name)"
+        "Li You (a personal name)"
       ],
       "context_examples": [
         {
@@ -734,7 +736,8 @@
       "original_text": "李",
       "original_pinyin": "lǐ",
       "standard_answers": [
-        "(a family name); plum"
+        "Li (a family name)",
+        "plum"
       ],
       "context_examples": [
         {
@@ -752,11 +755,11 @@
       "original_text": "王朋",
       "original_pinyin": "Wáng Péng",
       "standard_answers": [
-        "(a personal name)"
+        "Wang Peng (a personal name)"
       ],
       "context_examples": [
         {
-          "cn": "我叫王朋, 你呢?",
+          "cn": "我叫王朋,你呢?",
           "py": "Wǒ jiào Wáng Péng, nǐ ne?",
           "en": "My name is Wang Peng. How about you?"
         }
@@ -770,8 +773,7 @@
       "original_text": "王",
       "original_pinyin": "wáng",
       "standard_answers": [
-        "(a family name)",
-        "king"
+        "(a family name); king"
       ],
       "context_examples": [
         {
@@ -786,10 +788,11 @@
       "question_id": 18,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "你好!",
-      "original_pinyin": "Nǐ hǎo!",
+      "original_text": "请问，你贵姓？",
+      "original_pinyin": "qǐngwèn nǐ guìxìng",
       "standard_answers": [
-        "Hello!"
+        "Excuse me, what is your surname, please?",
+        "Excuse me, what is your honorable surname?"
       ]
     },
     {
@@ -797,10 +800,10 @@
       "question_id": 19,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "请问,你贵姓?",
-      "original_pinyin": "Qǐngwèn, nǐ guì xìng?",
+      "original_text": "我姓李。你呢？",
+      "original_pinyin": "wǒ xìng lǐ nǐ ne",
       "standard_answers": [
-        "Excuse me, what is your honorable surname?"
+        "My surname is Li. And you?"
       ]
     },
     {
@@ -808,10 +811,10 @@
       "question_id": 20,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "你姓什么?",
-      "original_pinyin": "Nǐ xìng shénme?",
+      "original_text": "你叫什么名字？",
+      "original_pinyin": "nǐ jiào shénme míngzi",
       "standard_answers": [
-        "What is your family name?"
+        "what is your name?"
       ]
     },
     {
@@ -819,10 +822,10 @@
       "question_id": 21,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "请问,你叫什么名字?",
-      "original_pinyin": "Qǐngwèn, nǐ jiào shénme míngzi?",
+      "original_text": "我叫李友。",
+      "original_pinyin": "wǒ jiào lǐ yǒu",
       "standard_answers": [
-        "Excuse me, what is your name?"
+        "My name is Li You."
       ]
     },
     {
@@ -837,9 +840,9 @@
       ],
       "context_examples": [
         {
-          "cn": "请问, 你贵姓?",
-          "py": "Qǐng wèn, nǐ guì xìng?",
-          "en": "What's your family name, please?"
+          "cn": "你叫什么名字?",
+          "py": "Nǐ jiào shénme míngzi?",
+          "en": "What is your name?"
         }
       ]
     },
@@ -903,14 +906,15 @@
       "course_id": 1,
       "question_type": "EN_TO_CN",
       "original_text": "honorable, expensive",
+      "original_pinyin": null,
       "standard_answers": [
         "贵"
       ],
       "context_examples": [
         {
-          "cn": "请问, 你贵姓?",
-          "py": "Qǐng wèn, nǐ guì xìng?",
-          "en": "What's your family name, please?"
+          "cn": "你贵姓?",
+          "py": "Nǐ guì xìng?",
+          "en": "What is your family name? (Lit. Your honorable family name is...?)"
         }
       ]
     },
@@ -919,7 +923,8 @@
       "question_id": 27,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "(one's) family name is . . . ; family name",
+      "original_text": "Xìng (one's) family name is . . . ; family name",
+      "original_pinyin": null,
       "standard_answers": [
         "姓"
       ],
@@ -937,14 +942,15 @@
       "course_id": 1,
       "question_type": "EN_TO_CN",
       "original_text": "I, me",
+      "original_pinyin": null,
       "standard_answers": [
         "我"
       ],
       "context_examples": [
         {
-          "cn": "我姓李。",
-          "py": "Wǒ xìng Lǐ.",
-          "en": "My family name is Li."
+          "cn": "我叫王朋。",
+          "py": "Wǒ jiào Wáng Péng.",
+          "en": "My name is Wang Peng."
         }
       ]
     },
@@ -953,7 +959,8 @@
       "question_id": 29,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "(question particle)",
+      "original_text": "Ne (question particle)",
+      "original_pinyin": null,
       "standard_answers": [
         "呢"
       ],
@@ -977,8 +984,8 @@
       ],
       "context_examples": [
         {
-          "cn": "",
-          "py": "",
+          "cn": "李小姐, 你叫什么名字?",
+          "py": "Lǐ xiǎojiě, nǐ jiào shénme míngzi?",
           "en": ""
         }
       ]
@@ -988,7 +995,7 @@
       "question_id": 31,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "to be called, to call [See Grammar 3.]",
+      "original_text": "to be called, to call",
       "original_pinyin": null,
       "standard_answers": [
         "叫"
@@ -1013,9 +1020,9 @@
       ],
       "context_examples": [
         {
-          "cn": "你姓什么?",
-          "py": "Nǐ xìng shénme?",
-          "en": "What is your family name?"
+          "cn": "你叫什么名字?",
+          "py": "Nǐ jiào shénme míngzi?",
+          "en": "What is your name?"
         }
       ]
     },
@@ -1033,7 +1040,7 @@
         {
           "cn": "你叫什么名字?",
           "py": "Nǐ jiào shénme míngzi?",
-          "en": "What's your name?"
+          "en": "What is your name?"
         }
       ]
     },
@@ -1060,7 +1067,7 @@
       "question_id": 35,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "(a personal name)",
+      "original_text": "Lǐ Yǒu Li You (a personal name)",
       "original_pinyin": null,
       "standard_answers": [
         "李友"
@@ -1078,7 +1085,7 @@
       "question_id": 36,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "(a family name); plum",
+      "original_text": "Lǐ Li (a family name); plum",
       "original_pinyin": null,
       "standard_answers": [
         "李"
@@ -1096,14 +1103,14 @@
       "question_id": 37,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "(a personal name)",
+      "original_text": "Wáng Péng Wang Peng (a personal name)",
       "original_pinyin": null,
       "standard_answers": [
         "王朋"
       ],
       "context_examples": [
         {
-          "cn": "我叫王朋, 你呢?",
+          "cn": "我叫王朋,你呢?",
           "py": "Wǒ jiào Wáng Péng, nǐ ne?",
           "en": "My name is Wang Peng. How about you?"
         }
@@ -1114,7 +1121,7 @@
       "question_id": 38,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "(a family name); king",
+      "original_text": "Wáng Wang (a family name); king",
       "original_pinyin": null,
       "standard_answers": [
         "王"
@@ -1132,10 +1139,10 @@
       "question_id": 39,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "What is your name?",
+      "original_text": "My name is Wang Peng.",
       "original_pinyin": null,
       "standard_answers": [
-        "你叫什么名字?"
+        "我叫王朋。"
       ]
     },
     {
@@ -1143,10 +1150,10 @@
       "question_id": 40,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "And you?",
+      "original_text": "Excuse me, what is your name?",
       "original_pinyin": null,
       "standard_answers": [
-        "你呢?"
+        "请问,你叫什么名字?"
       ]
     },
     {
@@ -1154,32 +1161,32 @@
       "question_id": 41,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "Is your name Li Hao?",
+      "original_text": "What is your family name?",
       "original_pinyin": null,
       "standard_answers": [
-        "你叫李好吗?"
+        "你姓什么?"
       ]
     }
   ],
   "video_global_config": {
-    "visual_style": "Vibrant and friendly 3D animation, Pixar style, with soft lighting and detailed textures, set in a beautiful university campus with green lawns and modern buildings.",
+    "visual_style": "3D Pixar animation style, vibrant colors, soft lighting, cinematic quality, friendly and expressive characters.",
     "character_definitions": [
       {
         "name": "王朋",
-        "appearance_description_en": "A friendly young Chinese man in his early 20s, named Wang Peng. He has short, neat black hair, wears a casual blue polo shirt and glasses, and has a warm, approachable smile. Consistent character."
+        "appearance_description_en": "Wang Peng, a friendly Chinese male university student in his early 20s. He has short, neat black hair, warm brown eyes, and a kind smile. He wears a modern casual outfit: a light blue polo shirt and dark gray trousers. His character design should be consistent across all scenes."
       },
       {
         "name": "李友",
-        "appearance_description_en": "A cheerful young Chinese woman in her early 20s, named Li You. She has shoulder-length dark brown hair, wears a light yellow sweater, and has bright, curious eyes. Consistent character."
+        "appearance_description_en": "Li You, a cheerful Chinese female university student in her early 20s. She has shoulder-length dark brown hair, bright, curious eyes, and a friendly expression. She wears a stylish yet comfortable outfit: a yellow sweater and blue jeans. Her character design should be consistent across all scenes."
       }
     ]
   },
   "video_scenes": [
     {
       "scene_id": 1,
-      "scene_description_cn": "在一个阳光明媚的大学校园里，王朋看到了李友，他友好地走上前去打招呼。",
-      "video_api_prompt_en": "3D Pixar style. On a sunny university campus with lush green grass, Wang Peng, a young Chinese man, spots Li You, a young Chinese woman. He walks towards her with a friendly smile. Medium long shot, warm sunlight, cinematic. --ar 16:9",
-      "camera_movement": "Pan",
+      "scene_description_cn": "开场：在一个阳光明媚的大学校园里，王朋和李友迎面走来，微笑着互相打招呼。",
+      "video_api_prompt_en": "3D Pixar style animation. A medium shot of Wang Peng and Li You meeting on a beautiful, sunny university campus path. Modern glass buildings and lush green trees in the background. They make eye contact, smile warmly, and wave hello. The sunlight creates a soft, welcoming glow. Cinematic, shallow depth of field.",
+      "camera_movement": "Slow dolly in",
       "voice_over": {
         "role": "王朋",
         "content": "你好！",
@@ -1187,43 +1194,28 @@
       },
       "screen_overlay": {
         "main_text": "你好",
-        "sub_text": "nǐ hǎo / Hello"
+        "sub_text": "nǐ hǎo (Hello)"
       }
     },
     {
       "scene_id": 2,
-      "scene_description_cn": "李友停下脚步，微笑着回应王朋的问候。",
-      "video_api_prompt_en": "3D Pixar style. Medium shot of Li You on the university campus path. She stops walking, turns towards Wang Peng, and replies with a bright, welcoming smile. The background shows a modern university building. --ar 16:9",
+      "scene_description_cn": "王朋特写：他停下脚步，带着礼貌和好奇的表情，询问李友的姓氏。",
+      "video_api_prompt_en": "3D Pixar style animation. A close-up shot of Wang Peng. He has a polite and inquisitive expression, with a slight, friendly smile. He gestures gently with an open hand as he speaks. The campus background is softly blurred, focusing on his clear facial expression. Warm, natural lighting.",
       "camera_movement": "Static",
-      "voice_over": {
-        "role": "李友",
-        "content": "你好！",
-        "pinyin": "Nǐ hǎo!"
-      },
-      "screen_overlay": {
-        "main_text": "你好",
-        "sub_text": "nǐ hǎo / Hello"
-      }
-    },
-    {
-      "scene_id": 3,
-      "scene_description_cn": "镜头拉近，王朋礼貌地询问李友的姓氏。",
-      "video_api_prompt_en": "3D Pixar style. Close-up shot of Wang Peng's friendly and curious face. He has a polite expression as he asks a question. The background is softly blurred with green campus foliage. The lighting highlights his expressive eyes. --ar 16:9",
-      "camera_movement": "Slow Zoom in",
       "voice_over": {
         "role": "王朋",
         "content": "请问，你贵姓？",
         "pinyin": "Qǐngwèn, nǐ guìxìng?"
       },
       "screen_overlay": {
-        "main_text": "请问, 你贵姓？",
-        "sub_text": "qǐngwèn, nǐ guìxìng? / Excuse me, what is your surname?"
+        "main_text": "请问 (qǐngwèn) & 贵姓 (guìxìng)",
+        "sub_text": "Excuse me... / your honorable surname?"
       }
     },
     {
-      "scene_id": 4,
-      "scene_description_cn": "李友自信地回答，然后歪着头，用“呢”这个词反问王朋。",
-      "video_api_prompt_en": "3D Pixar style. Medium shot of Li You. She smiles confidently as she answers, then tilts her head slightly with an inquisitive look, gesturing subtly towards Wang Peng. Warm, inviting atmosphere. --ar 16:9",
+      "scene_id": 3,
+      "scene_description_cn": "李友特写：她自信地回答自己的姓氏，然后歪着头，微笑着反问王朋。",
+      "video_api_prompt_en": "3D Pixar style animation. A close-up shot of Li You. She responds with a confident and friendly smile. As she asks '你呢?', she tilts her head slightly, showing curiosity. Her eyes are bright and engaging. The lighting highlights her cheerful expression. The background is out of focus.",
       "camera_movement": "Static",
       "voice_over": {
         "role": "李友",
@@ -1231,53 +1223,53 @@
         "pinyin": "Wǒ xìng Lǐ. Nǐ ne?"
       },
       "screen_overlay": {
-        "main_text": "我姓... 你呢？",
-        "sub_text": "wǒ xìng... nǐ ne? / My surname is... And you?"
+        "main_text": "我姓... (wǒ xìng...) / 呢 (ne)",
+        "sub_text": "My surname is... / (question particle)"
       }
     },
     {
-      "scene_id": 5,
-      "scene_description_cn": "王朋先回答了自己的姓，然后称呼对方为“李小姐”，并询问她的全名。",
-      "video_api_prompt_en": "3D Pixar style. Medium shot of Wang Peng. He first states his surname, then looks at Li You with a friendly smile and asks for her full name. His polite and engaging body language is visible. --ar 16:9",
-      "camera_movement": "Static",
+      "scene_id": 4,
+      "scene_description_cn": "中景镜头：王朋先介绍自己的姓，然后礼貌地称呼李友为“李小姐”，并询问她的全名。",
+      "video_api_prompt_en": "3D Pixar style animation. Medium two-shot. Wang Peng gestures slightly towards himself when saying '我姓王', then looks at Li You politely. The interaction feels natural and friendly. The camera angle is at eye level, creating a sense of being part of the conversation.",
+      "camera_movement": "Pan",
       "voice_over": {
         "role": "王朋",
         "content": "我姓王。李小姐，你叫什么名字？",
         "pinyin": "Wǒ xìng Wáng. Lǐ xiǎojiě, nǐ jiào shénme míngzi?"
       },
       "screen_overlay": {
-        "main_text": "小姐 / 你叫什么名字？",
-        "sub_text": "xiǎojiě / nǐ jiào shénme míngzi?"
+        "main_text": "小姐 (xiǎojiě) / 叫什么名字 (jiào shénme míngzi)",
+        "sub_text": "Miss / what is your name?"
       }
     },
     {
-      "scene_id": 6,
-      "scene_description_cn": "李友说出自己的名字，并称呼对方为“王先生”，礼貌地问他叫什么名字。",
-      "video_api_prompt_en": "3D Pixar style. Close-up on Li You's cheerful face as she introduces herself. She then looks at Wang Peng and asks for his name, her expression is friendly and open. Soft focus background of the campus. --ar 16:9",
-      "camera_movement": "Static",
+      "scene_id": 5,
+      "scene_description_cn": "李友回答并反问：李友大方地介绍自己的名字，并称呼王朋为“王先生”，反问他的名字。",
+      "video_api_prompt_en": "3D Pixar style animation. Medium shot focusing on Li You as she introduces herself with a pleasant smile. The camera then performs a subtle rack focus to Wang Peng as she addresses him as '王先生', shifting the viewer's attention. Both characters maintain friendly eye contact.",
+      "camera_movement": "Rack focus",
       "voice_over": {
         "role": "李友",
         "content": "我叫李友。王先生，你叫什么名字？",
         "pinyin": "Wǒ jiào Lǐ Yǒu. Wáng xiānsheng, nǐ jiào shénme míngzi?"
       },
       "screen_overlay": {
-        "main_text": "我叫... / 先生",
-        "sub_text": "wǒ jiào... / xiānsheng"
+        "main_text": "我叫... (wǒ jiào...) / 先生 (xiānsheng)",
+        "sub_text": "My name is... / Mr."
       }
     },
     {
-      "scene_id": 7,
-      "scene_description_cn": "王朋说出自己的全名。两人互相微笑并握手，成功地完成了初次见面的问候。",
-      "video_api_prompt_en": "3D Pixar style. A two-shot of Wang Peng and Li You. Wang Peng says his name with a confident smile. They then share a friendly handshake, solidifying their new acquaintance. The campus setting is bright and optimistic. Cinematic, warm lighting. --ar 16:9",
-      "camera_movement": "Slow Zoom out",
+      "scene_id": 6,
+      "scene_description_cn": "结尾：王朋说出自己的名字，两人友好地握手，画面定格在他们愉快的笑容上。",
+      "video_api_prompt_en": "3D Pixar style animation. Medium shot of Wang Peng and Li You. After Wang Peng says his name, they extend hands for a friendly handshake. They are both smiling warmly, concluding the pleasant introduction. The afternoon sun creates a beautiful lens flare in the background. The scene conveys a sense of new friendship.",
+      "camera_movement": "Slow pull out",
       "voice_over": {
         "role": "王朋",
         "content": "我叫王朋。",
         "pinyin": "Wǒ jiào Wáng Péng."
       },
       "screen_overlay": {
-        "main_text": "我叫王朋",
-        "sub_text": "wǒ jiào Wáng Péng / My name is Wang Peng."
+        "main_text": "王朋 (Wáng Péng) & 李友 (Lǐ Yǒu)",
+        "sub_text": "Nice to meet you!"
       }
     }
   ]

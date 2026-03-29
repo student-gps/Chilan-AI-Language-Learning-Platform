@@ -1,4 +1,5 @@
 import json
+import os
 import time
 from pathlib import Path
 from llm_providers import BaseLLMProvider
@@ -9,6 +10,8 @@ class Task2QuizGenerator:
         self.memory_file = memory_dir / "global_vocab_memory.json"
         # 🚀 这里的 global_vocab 现在的结构是字典: { "单词": [ {词义1...}, {词义2...} ] }
         self.global_vocab = self._load_memory()
+        self.example_batch_size = max(1, int(os.getenv("CB_TASK2_EXAMPLE_BATCH_SIZE", "5")))
+        self.word_quiz_batch_size = max(1, int(os.getenv("CB_TASK2_WORD_QUIZ_BATCH_SIZE", "4")))
 
     def _load_memory(self) -> dict:
         if self.memory_file.exists():
@@ -62,6 +65,61 @@ class Task2QuizGenerator:
                 v["historical_usages"] = self.global_vocab[word]
         return current_vocab
 
+    def _chunk_items(self, items: list, batch_size: int):
+        for start in range(0, len(items), batch_size):
+            yield items[start:start + batch_size]
+
+    def _dedupe_sentence_materials(self, items: list) -> list:
+        seen = set()
+        deduped = []
+
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+
+            cn = (item.get("cn") or "").strip()
+            en = (item.get("en") or "").strip()
+            py = (item.get("py") or "").strip()
+
+            if not cn and not en:
+                continue
+
+            dedupe_key = (cn, en)
+            if dedupe_key in seen:
+                continue
+
+            seen.add(dedupe_key)
+            deduped.append({"cn": cn, "py": py, "en": en})
+
+        return deduped
+
+    def _extract_dialogue_sentence_fallback(self, source_dialogues: list) -> list:
+        fallback_items = []
+
+        for dialogue_block in source_dialogues or []:
+            lines = dialogue_block.get("lines", []) if isinstance(dialogue_block, dict) else []
+            for line in lines:
+                if not isinstance(line, dict):
+                    continue
+
+                words = line.get("words", [])
+                cn = "".join(
+                    token.get("cn", "")
+                    for token in words
+                    if isinstance(token, dict)
+                ).strip()
+                en = (line.get("english") or "").strip()
+                py = " ".join(
+                    token.get("py", "").strip()
+                    for token in words
+                    if isinstance(token, dict) and token.get("py")
+                ).strip()
+
+                if cn and en:
+                    fallback_items.append({"cn": cn, "py": py, "en": en})
+
+        return self._dedupe_sentence_materials(fallback_items)
+
     # --- Task 2.1a: 提取单词基本信息 (骨架) ---
     def _build_vocab_base_prompt(self) -> str:
         return """
@@ -101,26 +159,44 @@ class Task2QuizGenerator:
           ]
         """
 
-    # --- Task 2.2a: 专门提取重点句子 ---
-    def _build_key_sentences_prompt(self) -> str:
-        return """
-        你是一名数据提取专家。请解析 PDF，并【直接搬运】书中的“重点句子/Key Sentences”部分。
-        只输出合法的 JSON 格式。
+    def _fill_vocab_examples_in_batches(self, new_vocab_base: list, file_path: str = None, file_obj=None) -> list:
+        if not new_vocab_base:
+            return []
 
-        【🚨 提取准则】
-        1. 必须定位到 PDF 中专门的“重点句子”或“核心句型”区域。
-        2. 严禁推测，严禁根据课文内容自己拼凑句子。
-        3. 每一个条目必须包含：中文全文(cn)、纯拼音(py) 和 英文翻译(en)。
+        if len(new_vocab_base) <= self.example_batch_size:
+            v_ex_res = self.llm.generate_structured_json(
+                self._build_vocab_example_prompt(new_vocab_base),
+                file_path=file_path,
+                file_obj=file_obj
+            )
+            if isinstance(v_ex_res, list) and len(v_ex_res) == len(new_vocab_base):
+                return [
+                    {**vocab, "example_sentence": v_ex_res[idx]}
+                    for idx, vocab in enumerate(new_vocab_base)
+                ]
+            return new_vocab_base
 
-        【强制输出结构】
-        - 如果在 PDF 中未发现该板块，请务必返回：{{ "key_sentences": [] }}
-        - 正常结构示例：
-          {{
-            "key_sentences": [
-                {{ "cn": "句子原文", "py": "jùzi yuánwén", "en": "sentence" }}
-            ]
-          }}
-        """
+        print(f"     📦 Task 2.1b 将按批次回填官方例句 (共 {len(new_vocab_base)} 个词义, 每批 {self.example_batch_size} 个)...")
+        merged_vocab = []
+
+        for index, batch in enumerate(self._chunk_items(new_vocab_base, self.example_batch_size), start=1):
+            print(f"     📦 正在回填第 {index} 组官方例句...")
+            v_ex_res = self.llm.generate_structured_json(
+                self._build_vocab_example_prompt(batch),
+                file_path=file_path,
+                file_obj=file_obj
+            )
+
+            if isinstance(v_ex_res, list) and len(v_ex_res) == len(batch):
+                for vocab_idx, vocab in enumerate(batch):
+                    vocab["example_sentence"] = v_ex_res[vocab_idx]
+                    merged_vocab.append(vocab)
+            else:
+                merged_vocab.extend(batch)
+
+            time.sleep(1)
+
+        return merged_vocab
 
     def _build_grammar_extract_prompt(self) -> str:
         return """
@@ -167,6 +243,13 @@ class Task2QuizGenerator:
         3. **禁止幻觉**：
            - 题目和例句必须 100% 来源于提供的素材，严禁引入清单外的任何主题或复杂句型。
 
+        4. **专名题面可答性**：
+           - 如果词条是人名、姓氏或其他专有名词，题目的 original_text 不能只写抽象释义（例如 "(a personal name)"）。
+           - 对于 EN_TO_CN 题目，必须把具体词面一并写出，使用户知道要翻译的是哪一个名字或姓氏。
+           - 示例：
+             * "李友" 应写成 "Li You (a personal name)"
+             * "李" 应写成 "Li (a family name); plum"
+
         【强制输出结构】
         {{
             "database_items": [
@@ -185,6 +268,38 @@ class Task2QuizGenerator:
             ]
         }}
         """
+
+    def _build_answer_display_text(self, vocab_item: dict) -> str:
+        word = (vocab_item.get("word") or "").strip()
+        pinyin = (vocab_item.get("pinyin") or "").strip()
+
+        if not pinyin:
+            return word
+
+        display_name = " ".join(part.capitalize() for part in pinyin.replace("'", " ").split())
+        return display_name or word
+
+    def _normalize_word_quiz_item(self, item: dict, vocab_lookup: dict) -> dict:
+        if not isinstance(item, dict):
+            return item
+
+        question_type = item.get("question_type")
+        standard_answers = item.get("standard_answers") or []
+        answer_word = standard_answers[0] if standard_answers else ""
+        vocab_item = vocab_lookup.get(answer_word)
+
+        if question_type == "EN_TO_CN" and vocab_item:
+            original_text = (item.get("original_text") or "").strip()
+            answer_display = self._build_answer_display_text(vocab_item)
+
+            if answer_display and (
+                original_text.startswith("(")
+                or "personal name" in original_text.lower()
+                or "family name" in original_text.lower()
+            ):
+                item["original_text"] = f"{answer_display} {original_text}".strip()
+
+        return item
 
     # --- Task 2.3b: 专门生成句子题 (精选生成) ---
     def _build_sentence_quiz_prompt(self, lesson_id: int, course_id: int, combined_practice: list) -> str:
@@ -223,7 +338,7 @@ class Task2QuizGenerator:
         }}
         """
 
-    def run(self, lesson_id: int, course_id: int, file_path: str = None, file_obj=None):
+    def run(self, lesson_id: int, course_id: int, file_path: str = None, file_obj=None, source_dialogues: list = None):
         # --- [Task 2.1a] 提取词汇基本信息 ---
         print(f"  ▶️ [Task 2.1a] 提取词汇基本信息 (骨架)...")
         v_base_res = self.llm.generate_structured_json(self._build_vocab_base_prompt(), file_path=file_path, file_obj=file_obj)
@@ -250,27 +365,25 @@ class Task2QuizGenerator:
         new_vocab = []
         if new_vocab_base:
             print(f"  ▶️ [Task 2.1b] 正在回填官方例句 (针对 {len(new_vocab_base)} 个新词义)...")
-            v_ex_res = self.llm.generate_structured_json(self._build_vocab_example_prompt(new_vocab_base), file_path=file_path, file_obj=file_obj)
-            if isinstance(v_ex_res, list) and len(v_ex_res) == len(new_vocab_base):
-                for i, v in enumerate(new_vocab_base):
-                    v["example_sentence"] = v_ex_res[i]
-                    new_vocab.append(v)
-            else:
-                new_vocab = new_vocab_base
+            new_vocab = self._fill_vocab_examples_in_batches(
+                new_vocab_base,
+                file_path=file_path,
+                file_obj=file_obj
+            )
 
         time.sleep(2)
 
         # --- [Task 2.2a/b] 提取素材 ---
-        print(f"  ▶️ [Task 2.2a/b] 提取核心重点句与语法练习...")
-        s_result = self.llm.generate_structured_json(self._build_key_sentences_prompt(), file_path=file_path, file_obj=file_obj)
-        key_sentences = s_result.get("key_sentences", []) if isinstance(s_result, dict) and isinstance(s_result.get("key_sentences"), list) else []
-        
+        print(f"  ▶️ [Task 2.2a/b] 提取课文原文句与语法练习...")
+        dialogue_sentences = self._extract_dialogue_sentence_fallback(source_dialogues)
         g_result = self.llm.generate_structured_json(self._build_grammar_extract_prompt(), file_path=file_path, file_obj=file_obj)
         grammar_exercises = g_result.get("grammar_practice", []) if isinstance(g_result, dict) and isinstance(g_result.get("grammar_practice"), list) else []
 
-        combined_practice = []
-        for item in (key_sentences + grammar_exercises):
-            if isinstance(item, dict): combined_practice.append(item)
+        combined_practice = self._dedupe_sentence_materials(dialogue_sentences + grammar_exercises)
+
+        print(f"     📊 课文原文句提取: {len(dialogue_sentences)} 条")
+        print(f"     📊 语法练习提取: {len(grammar_exercises)} 条")
+        print(f"     📊 句子题素材池: {len(combined_practice)} 条")
 
         # 注入历史上下文
         vocab_with_history = self._inject_historical_context(new_vocab)
@@ -280,7 +393,12 @@ class Task2QuizGenerator:
         
         # 🚀 2.3a 单词翻译题 (分批生成)
         all_word_items = []
-        batch_size = 4  
+        batch_size = self.word_quiz_batch_size  
+        vocab_lookup = {
+            (v.get("word") or "").strip(): v
+            for v in vocab_with_history
+            if isinstance(v, dict) and (v.get("word") or "").strip()
+        }
         
         if vocab_with_history:
             print(f"  ▶️ [Task 2.3a] 开始微批处理单词题 (共 {len(vocab_with_history)} 个词)...")
@@ -294,6 +412,10 @@ class Task2QuizGenerator:
                 
                 if word_q_res and isinstance(word_q_res, dict):
                     batch_items = word_q_res.get("database_items", [])
+                    batch_items = [
+                        self._normalize_word_quiz_item(batch_item, vocab_lookup)
+                        for batch_item in batch_items
+                    ]
                     all_word_items.extend(batch_items)
                 
                 time.sleep(2)
@@ -329,5 +451,6 @@ class Task2QuizGenerator:
 
         return {
             "vocabulary": new_vocab,
-            "database_items": valid_items
+            "database_items": valid_items,
+            "grammar_practice": combined_practice
         }

@@ -1,0 +1,1444 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 402,
+    "title": "这个周末你想做什么？"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "王朋",
+            "english": "Little Gao, long time no see. How are you?",
+            "words": [
+              {
+                "cn": "小高",
+                "py": "xiǎo gāo",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "好久不见",
+                "py": "hǎo jiǔ bú jiàn",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": false
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "I'm fine. How about you?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "很",
+                "py": "hěn",
+                "highlight": false
+              },
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "怎么样",
+                "py": "zěn me yàng",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "I'm doing well, too. What would you like to do this weekend? Would you like to play ball?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "也",
+                "py": "yě",
+                "highlight": false
+              },
+              {
+                "cn": "不错",
+                "py": "bú cuò",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "这个",
+                "py": "zhè ge",
+                "highlight": true
+              },
+              {
+                "cn": "周末",
+                "py": "zhōu mò",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "想",
+                "py": "xiǎng",
+                "highlight": true
+              },
+              {
+                "cn": "做",
+                "py": "zuò",
+                "highlight": true
+              },
+              {
+                "cn": "什么",
+                "py": "shén me",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "想不想",
+                "py": "xiǎng bu xiǎng",
+                "highlight": true
+              },
+              {
+                "cn": "去",
+                "py": "qù",
+                "highlight": true
+              },
+              {
+                "cn": "打球",
+                "py": "dǎ qiú",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "Play ball? I don't like playing ball.",
+            "words": [
+              {
+                "cn": "打球",
+                "py": "dǎ qiú",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "不",
+                "py": "bù",
+                "highlight": false
+              },
+              {
+                "cn": "喜欢",
+                "py": "xǐ huan",
+                "highlight": true
+              },
+              {
+                "cn": "打球",
+                "py": "dǎ qiú",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Then let's go watch a ball game. How's that?",
+            "words": [
+              {
+                "cn": "那",
+                "py": "nà",
+                "highlight": true
+              },
+              {
+                "cn": "我们",
+                "py": "wǒ men",
+                "highlight": false
+              },
+              {
+                "cn": "去",
+                "py": "qù",
+                "highlight": true
+              },
+              {
+                "cn": "看球",
+                "py": "kàn qiú",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "怎么样",
+                "py": "zěn me yàng",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "Watch a ball game? I think watching a ball game is boring, too.",
+            "words": [
+              {
+                "cn": "看球",
+                "py": "kàn qiú",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "觉得",
+                "py": "jué de",
+                "highlight": true
+              },
+              {
+                "cn": "看球",
+                "py": "kàn qiú",
+                "highlight": true
+              },
+              {
+                "cn": "也",
+                "py": "yě",
+                "highlight": false
+              },
+              {
+                "cn": "没有意思",
+                "py": "méi yǒu yì si",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Then what do you want to do this weekend?",
+            "words": [
+              {
+                "cn": "那",
+                "py": "nà",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "这个",
+                "py": "zhè ge",
+                "highlight": true
+              },
+              {
+                "cn": "周末",
+                "py": "zhōu mò",
+                "highlight": true
+              },
+              {
+                "cn": "想",
+                "py": "xiǎng",
+                "highlight": true
+              },
+              {
+                "cn": "做",
+                "py": "zuò",
+                "highlight": true
+              },
+              {
+                "cn": "什么",
+                "py": "shén me",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "I only want to eat and sleep.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "只",
+                "py": "zhǐ",
+                "highlight": true
+              },
+              {
+                "cn": "想",
+                "py": "xiǎng",
+                "highlight": true
+              },
+              {
+                "cn": "吃饭",
+                "py": "chī fàn",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "睡觉",
+                "py": "shuì jiào",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Never mind. I'll go ask someone else.",
+            "words": [
+              {
+                "cn": "算了",
+                "py": "suàn le",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "去",
+                "py": "qù",
+                "highlight": true
+              },
+              {
+                "cn": "找",
+                "py": "zhǎo",
+                "highlight": true
+              },
+              {
+                "cn": "别人",
+                "py": "bié rén",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "小",
+        "pinyin": "xiǎo",
+        "part_of_speech": "adj",
+        "definition": "small, little",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "好久",
+        "pinyin": "hǎo jiǔ",
+        "part_of_speech": "",
+        "definition": "a long time",
+        "example_sentence": {
+          "cn": "好久不见",
+          "py": "hǎo jiǔ bú jiàn",
+          "en": "Long time no see"
+        }
+      },
+      {
+        "word": "好",
+        "pinyin": "hǎo",
+        "part_of_speech": "adv",
+        "definition": "very",
+        "example_sentence": {
+          "cn": "我很好",
+          "py": "Wǒ hěn hǎo",
+          "en": "I am fine"
+        }
+      },
+      {
+        "word": "久",
+        "pinyin": "jiǔ",
+        "part_of_speech": "adj",
+        "definition": "long (of time)",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "不错",
+        "pinyin": "búcuò",
+        "part_of_speech": "adj",
+        "definition": "pretty good",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "错",
+        "pinyin": "cuò",
+        "part_of_speech": "adj",
+        "definition": "wrong",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "想",
+        "pinyin": "xiǎng",
+        "part_of_speech": "mv",
+        "definition": "to want to, would like to [See Grammar 6.]",
+        "example_sentence": {
+          "cn": "你想听音乐吗?",
+          "py": "Nǐ xiǎng tīng yīnyuè ma?",
+          "en": "Would you like to listen to some music?"
+        }
+      },
+      {
+        "word": "觉得",
+        "pinyin": "juéde",
+        "part_of_speech": "v",
+        "definition": "to feel, to think [See Grammar 6.]",
+        "example_sentence": {
+          "cn": "我觉得看电影没有意思",
+          "py": "Wǒ juéde kàn diànyǐng méiyǒu yìsi",
+          "en": "I think going to the movies is not much fun."
+        }
+      },
+      {
+        "word": "有意思",
+        "pinyin": "yǒu yìsi",
+        "part_of_speech": "adj",
+        "definition": "interesting",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "意思",
+        "pinyin": "yìsi",
+        "part_of_speech": "n",
+        "definition": "meaning",
+        "example_sentence": {
+          "cn": "我觉得看电影没有意思",
+          "py": "Wǒ juéde kàn diànyǐng méiyǒu yìsi",
+          "en": "I think going to the movies is not much fun."
+        }
+      },
+      {
+        "word": "只",
+        "pinyin": "zhǐ",
+        "part_of_speech": "adv",
+        "definition": "only",
+        "example_sentence": {
+          "cn": "我只想吃饭、睡觉。",
+          "py": "Wǒ zhǐ xiǎng chī fàn, shuì jiào.",
+          "en": ""
+        }
+      },
+      {
+        "word": "睡觉",
+        "pinyin": "shuì jiào",
+        "part_of_speech": "vo",
+        "definition": "to sleep",
+        "example_sentence": {
+          "cn": "我只想吃饭、睡觉。",
+          "py": "Wǒ zhǐ xiǎng chī fàn, shuì jiào.",
+          "en": ""
+        }
+      },
+      {
+        "word": "睡",
+        "pinyin": "shuì",
+        "part_of_speech": "v",
+        "definition": "to sleep",
+        "example_sentence": {
+          "cn": "睡一个好觉",
+          "py": "shuì yí ge hǎo jiào",
+          "en": "have a good sleep"
+        }
+      },
+      {
+        "word": "觉",
+        "pinyin": "jiào",
+        "part_of_speech": "n",
+        "definition": "sleep",
+        "example_sentence": {
+          "cn": "睡一个好觉",
+          "py": "shuì yí ge hǎo jiào",
+          "en": "have a good sleep"
+        }
+      },
+      {
+        "word": "算了",
+        "pinyin": "suàn le",
+        "part_of_speech": "",
+        "definition": "forget it, never mind",
+        "example_sentence": {
+          "cn": "算了, 我去找别人。",
+          "py": "Suàn le, wǒ qù zhǎo biérén.",
+          "en": ""
+        }
+      },
+      {
+        "word": "找",
+        "pinyin": "zhǎo",
+        "part_of_speech": "v",
+        "definition": "to look for",
+        "example_sentence": {
+          "cn": "算了,我去找别人。",
+          "py": "Suàn le, wǒ qù zhǎo biérén.",
+          "en": ""
+        }
+      },
+      {
+        "word": "别人",
+        "pinyin": "biérén",
+        "part_of_speech": "n",
+        "definition": "other people, another person",
+        "example_sentence": {
+          "cn": "算了,我去找别人。",
+          "py": "Suàn le, wǒ qù zhǎo biérén.",
+          "en": ""
+        }
+      },
+      {
+        "word": "别(的)",
+        "pinyin": "bié (de)",
+        "part_of_speech": "adj",
+        "definition": "other",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 402,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "小",
+      "original_pinyin": "xiǎo",
+      "standard_answers": [
+        "small, little"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "好久",
+      "original_pinyin": "hǎo jiǔ",
+      "standard_answers": [
+        "a long time"
+      ],
+      "context_examples": [
+        {
+          "cn": "好久不见",
+          "py": "hǎo jiǔ bú jiàn",
+          "en": "Long time no see"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "好",
+      "original_pinyin": "hǎo",
+      "standard_answers": [
+        "very"
+      ],
+      "context_examples": [
+        {
+          "cn": "我很好",
+          "py": "Wǒ hěn hǎo",
+          "en": "I am fine"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "久",
+      "original_pinyin": "jiǔ",
+      "standard_answers": [
+        "long (of time)"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "不错",
+      "original_pinyin": "búcuò",
+      "standard_answers": [
+        "pretty good"
+      ],
+      "context_examples": []
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "错",
+      "original_pinyin": "cuò",
+      "standard_answers": [
+        "wrong"
+      ],
+      "context_examples": []
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "想",
+      "original_pinyin": "xiǎng",
+      "standard_answers": [
+        "to want to, would like to"
+      ],
+      "context_examples": [
+        {
+          "cn": "你想听音乐吗?",
+          "py": "Nǐ xiǎng tīng yīnyuè ma?",
+          "en": "Would you like to listen to some music?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "觉得",
+      "original_pinyin": "juéde",
+      "standard_answers": [
+        "to feel, to think"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得看电影没有意思",
+          "py": "Wǒ juéde kàn diànyǐng méiyǒu yìsi",
+          "en": "I think going to the movies is not much fun."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "有意思",
+      "original_pinyin": "yǒu yìsi",
+      "standard_answers": [
+        "interesting"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得看电影很有意思。",
+          "py": "Wǒ juéde kàn diànyǐng hěn yǒu yìsi.",
+          "en": "I think watching movies is very interesting."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "意思",
+      "original_pinyin": "yìsi",
+      "standard_answers": [
+        "meaning"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得看电影没有意思",
+          "py": "Wǒ juéde kàn diànyǐng méiyǒu yìsi",
+          "en": "I think going to the movies is not much fun."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "只",
+      "original_pinyin": "zhǐ",
+      "standard_answers": [
+        "only"
+      ],
+      "context_examples": [
+        {
+          "cn": "我只想吃饭、睡觉。",
+          "py": "Wǒ zhǐ xiǎng chī fàn, shuì jiào.",
+          "en": "I only want to eat and sleep."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "睡觉",
+      "original_pinyin": "shuì jiào",
+      "standard_answers": [
+        "to sleep"
+      ],
+      "context_examples": [
+        {
+          "cn": "我只想吃饭、睡觉。",
+          "py": "Wǒ zhǐ xiǎng chī fàn, shuì jiào.",
+          "en": "I only want to eat and sleep."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "睡",
+      "original_pinyin": "shuì",
+      "standard_answers": [
+        "to sleep"
+      ],
+      "context_examples": [
+        {
+          "cn": "睡一个好觉",
+          "py": "shuì yí ge hǎo jiào",
+          "en": "have a good sleep"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "觉",
+      "original_pinyin": "jiào",
+      "standard_answers": [
+        "sleep"
+      ],
+      "context_examples": [
+        {
+          "cn": "睡一个好觉",
+          "py": "shuì yí ge hǎo jiào",
+          "en": "have a good sleep"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "算了",
+      "original_pinyin": "suàn le",
+      "standard_answers": [
+        "forget it, never mind"
+      ],
+      "context_examples": [
+        {
+          "cn": "算了, 我去找别人。",
+          "py": "Suàn le, wǒ qù zhǎo biérén.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "找",
+      "original_pinyin": "zhǎo",
+      "standard_answers": [
+        "to look for"
+      ],
+      "context_examples": [
+        {
+          "cn": "算了,我去找别人。",
+          "py": "Suàn le, wǒ qù zhǎo biérén.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "别人",
+      "original_pinyin": "biérén",
+      "standard_answers": [
+        "other people",
+        "another person"
+      ],
+      "context_examples": [
+        {
+          "cn": "算了,我去找别人。",
+          "py": "Suàn le, wǒ qù zhǎo biérén.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "别(的)",
+      "original_pinyin": "bié (de)",
+      "standard_answers": [
+        "other"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我也不错。这个周末你想做什么?想不想去打球?",
+      "original_pinyin": "wǒ yě bú cuò zhè ge zhōu mò nǐ xiǎng zuò shén me xiǎng bu xiǎng qù dǎ qiú",
+      "standard_answers": [
+        "I'm doing well, too. What would you like to do this weekend? Would you like to play ball?"
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我觉得看球也没有意思。",
+      "original_pinyin": "wǒ jué de kàn qiú yě méi yǒu yì si",
+      "standard_answers": [
+        "I think watching a ball game is boring, too."
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我只想吃饭、睡觉。",
+      "original_pinyin": "wǒ zhǐ xiǎng chī fàn shuì jiào",
+      "standard_answers": [
+        "I only want to eat and sleep."
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "白英爱有的时候也喜欢看书。",
+      "original_pinyin": "Bái Yīng'ài yǒu de shíhou yě xǐhuan kàn shū.",
+      "standard_answers": [
+        "Bai Ying'ai also likes to read books sometimes."
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "白英爱周末常常去看电影。",
+      "original_pinyin": "Bái Yīng'ài zhōumò chángcháng qù kàn diànyǐng.",
+      "standard_answers": [
+        "Bai Ying'ai often goes to watch movies on weekends."
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "small, little",
+      "original_pinyin": null,
+      "standard_answers": [
+        "小"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "a long time",
+      "original_pinyin": null,
+      "standard_answers": [
+        "好久"
+      ],
+      "context_examples": [
+        {
+          "cn": "好久不见",
+          "py": "hǎo jiǔ bú jiàn",
+          "en": "Long time no see"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "very",
+      "original_pinyin": null,
+      "standard_answers": [
+        "好"
+      ],
+      "context_examples": [
+        {
+          "cn": "我很好",
+          "py": "Wǒ hěn hǎo",
+          "en": "I am fine"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "long (of time)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "久"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "pretty good",
+      "original_pinyin": null,
+      "standard_answers": [
+        "不错"
+      ],
+      "context_examples": []
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "wrong",
+      "original_pinyin": null,
+      "standard_answers": [
+        "错"
+      ],
+      "context_examples": []
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to want to, would like to",
+      "original_pinyin": null,
+      "standard_answers": [
+        "想"
+      ],
+      "context_examples": [
+        {
+          "cn": "你想听音乐吗?",
+          "py": "Nǐ xiǎng tīng yīnyuè ma?",
+          "en": "Would you like to listen to some music?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to feel, to think",
+      "original_pinyin": null,
+      "standard_answers": [
+        "觉得"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得看电影没有意思",
+          "py": "Wǒ juéde kàn diànyǐng méiyǒu yìsi",
+          "en": "I think going to the movies is not much fun."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "interesting",
+      "original_pinyin": null,
+      "standard_answers": [
+        "有意思"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得看电影很有意思。",
+          "py": "Wǒ juéde kàn diànyǐng hěn yǒu yìsi.",
+          "en": "I think watching movies is very interesting."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "meaning",
+      "original_pinyin": null,
+      "standard_answers": [
+        "意思"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得看电影没有意思",
+          "py": "Wǒ juéde kàn diànyǐng méiyǒu yìsi",
+          "en": "I think going to the movies is not much fun."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "only",
+      "original_pinyin": null,
+      "standard_answers": [
+        "只"
+      ],
+      "context_examples": [
+        {
+          "cn": "我只想吃饭、睡觉。",
+          "py": "Wǒ zhǐ xiǎng chī fàn, shuì jiào.",
+          "en": "I only want to eat and sleep."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to sleep",
+      "original_pinyin": null,
+      "standard_answers": [
+        "睡觉"
+      ],
+      "context_examples": [
+        {
+          "cn": "我只想吃饭、睡觉。",
+          "py": "Wǒ zhǐ xiǎng chī fàn, shuì jiào.",
+          "en": "I only want to eat and sleep."
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to sleep",
+      "original_pinyin": null,
+      "standard_answers": [
+        "睡"
+      ],
+      "context_examples": [
+        {
+          "cn": "睡一个好觉",
+          "py": "shuì yí ge hǎo jiào",
+          "en": "have a good sleep"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "sleep",
+      "original_pinyin": null,
+      "standard_answers": [
+        "觉"
+      ],
+      "context_examples": [
+        {
+          "cn": "睡一个好觉",
+          "py": "shuì yí ge hǎo jiào",
+          "en": "have a good sleep"
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "forget it, never mind",
+      "original_pinyin": null,
+      "standard_answers": [
+        "算了"
+      ],
+      "context_examples": [
+        {
+          "cn": "算了, 我去找别人。",
+          "py": "Suàn le, wǒ qù zhǎo biérén.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to look for",
+      "original_pinyin": null,
+      "standard_answers": [
+        "找"
+      ],
+      "context_examples": [
+        {
+          "cn": "算了,我去找别人。",
+          "py": "Suàn le, wǒ qù zhǎo biérén.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "other people, another person",
+      "original_pinyin": null,
+      "standard_answers": [
+        "别人"
+      ],
+      "context_examples": [
+        {
+          "cn": "算了,我去找别人。",
+          "py": "Suàn le, wǒ qù zhǎo biérén.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "other",
+      "original_pinyin": null,
+      "standard_answers": [
+        "别(的)"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "I'm fine. How about you?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "我很好。你怎么样?"
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 43,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Then let's go watch a ball game. How's that?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "那我们去看球,怎么样?"
+      ]
+    },
+    {
+      "lesson_id": 402,
+      "question_id": 44,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Never mind. I'll go ask someone else.",
+      "original_pinyin": null,
+      "standard_answers": [
+        "算了,我去找别人。"
+      ]
+    }
+  ],
+  "video_global_config": {
+    "visual_style": "3D Pixar animation style, cinematic, vibrant colors, soft and warm lighting, university campus setting.",
+    "character_definitions": [
+      {
+        "name": "Wang Peng",
+        "appearance_description_en": "An energetic and cheerful Chinese male in his early 20s, with short, neat black hair, bright eyes, wearing a stylish red and white sports jacket over a t-shirt and blue jeans."
+      },
+      {
+        "name": "Gao Wenzhong",
+        "appearance_description_en": "A laid-back and slightly tired-looking Chinese male in his early 20s, with slightly messy black hair, wearing a comfortable oversized grey hoodie and dark sweatpants."
+      }
+    ]
+  },
+  "video_scenes": [
+    {
+      "scene_id": 1,
+      "scene_description_cn": "在一个阳光明媚的大学校园里，充满活力的王朋看到了他略显疲惫的朋友高文中，高兴地向他打招呼。",
+      "video_api_prompt_en": "3D Pixar style, medium shot of a vibrant university campus with green lawns and brick buildings. Wang Peng, an energetic young man, spots his friend Gao Wenzhong, who looks tired. Wang Peng smiles broadly and waves. Cinematic, soft sunlight, depth of field.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "王朋",
+        "content": "小高, 好久不见, 你好吗?",
+        "pinyin": "xiǎo gāo, hǎo jiǔ bú jiàn, nǐ hǎo ma?"
+      },
+      "screen_overlay": {
+        "main_text": "好久不见",
+        "sub_text": "hǎo jiǔ bú jiàn / Long time no see"
+      }
+    },
+    {
+      "scene_id": 2,
+      "scene_description_cn": "王朋热情地建议周末去打球，他做了一个投篮的动作，眼神充满期待。",
+      "video_api_prompt_en": "3D Pixar style, close-up on Wang Peng's excited face. He enthusiastically mimics shooting a basketball. A stylized, transparent basketball icon briefly appears next to him. The background is slightly blurred. Dynamic and expressive animation.",
+      "camera_movement": "Zoom in",
+      "voice_over": {
+        "role": "王朋",
+        "content": "这个周末你想做什么? 想不想去打球?",
+        "pinyin": "zhè ge zhōu mò nǐ xiǎng zuò shén me? xiǎng bu xiǎng qù dǎ qiú?"
+      },
+      "screen_overlay": {
+        "main_text": "这个周末 (zhè ge zhōu mò) ... 打球 (dǎ qiú)?",
+        "sub_text": "This weekend... play ball?"
+      }
+    },
+    {
+      "scene_id": 3,
+      "scene_description_cn": "高文中面无表情地摇了摇头，拒绝了打球的提议。王朋没有放弃，又提议去看球。",
+      "video_api_prompt_en": "3D Pixar style, medium shot. Gao Wenzhong shakes his head with a deadpan expression, looking unimpressed. Wang Peng, still hopeful, then points to the distance as if towards a stadium, changing his suggestion. Split-second transition in Wang Peng's gesture.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "高文中",
+        "content": "打球? 我不喜欢打球。",
+        "pinyin": "dǎ qiú? wǒ bù xǐ huan dǎ qiú."
+      },
+      "screen_overlay": {
+        "main_text": "不喜欢",
+        "sub_text": "bù xǐ huan / don't like"
+      }
+    },
+    {
+      "scene_id": 4,
+      "scene_description_cn": "高文中觉得看球也很无聊，他头顶出现一个幻想气泡，里面是他最想做的事：吃饭和睡觉。",
+      "video_api_prompt_en": "3D Pixar style, close-up on Gao Wenzhong, who looks bored. A large, dreamy thought bubble appears above his head. Inside the bubble, a cozy scene shows him happily eating a steaming bowl of noodles, which then cross-fades to him sleeping soundly in a comfortable bed. The main scene's lighting dims slightly to emphasize the thought bubble.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "高文中",
+        "content": "我觉得看球也没有意思。我只想吃饭、睡觉。",
+        "pinyin": "wǒ jué de kàn qiú yě méi yǒu yì si. wǒ zhǐ xiǎng chī fàn, shuì jiào."
+      },
+      "screen_overlay": {
+        "main_text": "觉得...没有意思 (jué de... méi yǒu yì si)",
+        "sub_text": "think... is boring"
+      }
+    },
+    {
+      "scene_id": 5,
+      "scene_description_cn": "王朋无奈地耸耸肩，笑着挥手告别，决定去找别人一起玩。",
+      "video_api_prompt_en": "3D Pixar style, wide shot. Wang Peng gives a friendly shrug and a small wave, turning to walk away from Gao Wenzhong. The late afternoon sun casts long shadows on the campus lawn. Wang Peng walks out of frame, leaving Gao Wenzhong standing alone, looking content with his decision.",
+      "camera_movement": "Pan Right",
+      "voice_over": {
+        "role": "王朋",
+        "content": "算了, 我去找别人。",
+        "pinyin": "suàn le, wǒ qù zhǎo bié rén."
+      },
+      "screen_overlay": {
+        "main_text": "算了 (suàn le)",
+        "sub_text": "Never mind / Forget it"
+      }
+    }
+  ]
+}

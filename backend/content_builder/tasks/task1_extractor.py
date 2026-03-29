@@ -1,9 +1,11 @@
 import json
+import os
 from llm_providers import BaseLLMProvider
 
 class Task1Extractor:
     def __init__(self, llm_provider: BaseLLMProvider):
         self.llm = llm_provider
+        self.pinyin_batch_size = max(1, int(os.getenv("CB_TASK1_PINYIN_BATCH_SIZE", "10")))
 
     def _build_extract_prompt(self, lesson_id: int, course_id: int) -> str:
         # 🚀 第一步：文本提取 + 强力去噪
@@ -59,6 +61,32 @@ class Task1Extractor:
         ]
         """
 
+    def _chunk_dialogues(self, dialogues: list):
+        for start in range(0, len(dialogues), self.pinyin_batch_size):
+            yield dialogues[start:start + self.pinyin_batch_size]
+
+    def _annotate_pinyin_in_batches(self, raw_dialogues: list) -> list:
+        if not raw_dialogues:
+            return []
+
+        if len(raw_dialogues) <= self.pinyin_batch_size:
+            pinyin_prompt = self._build_pinyin_prompt(raw_dialogues)
+            return self.llm.generate_structured_json(pinyin_prompt, file_path=None)
+
+        print(f"     📦 Task 1.2 将按批次处理拼音标注 (共 {len(raw_dialogues)} 句, 每批 {self.pinyin_batch_size} 句)...")
+        merged_result = []
+
+        for index, batch in enumerate(self._chunk_dialogues(raw_dialogues), start=1):
+            print(f"     📦 正在处理第 {index} 组拼音标注...")
+            pinyin_prompt = self._build_pinyin_prompt(batch)
+            batch_result = self.llm.generate_structured_json(pinyin_prompt, file_path=None)
+            if isinstance(batch_result, list):
+                merged_result.extend(batch_result)
+            else:
+                raise ValueError(f"❌ Task 1.2 第 {index} 组返回结构异常，期望 list。")
+
+        return merged_result
+
     def run(self, lesson_id: int, course_id: int, file_path: str = None, file_obj=None):
         print(f"  ▶️ [Task 1.1] 正在从 PDF 提取纯净对话文本...")
         extract_prompt = self._build_extract_prompt(lesson_id, course_id)
@@ -68,9 +96,7 @@ class Task1Extractor:
 
         print(f"  ▶️ [Task 1.2] 正在标注拼音并识别重点词汇...")
         raw_dialogues = raw_result.get("course_content", {}).get("dialogues", [])
-        
-        pinyin_prompt = self._build_pinyin_prompt(raw_dialogues)
-        pinyin_result = self.llm.generate_structured_json(pinyin_prompt, file_path=None)
+        pinyin_result = self._annotate_pinyin_in_batches(raw_dialogues)
 
         # 🚀 【结构封装】：匹配前端 .flatMap(t => t.lines)
         raw_result["course_content"]["dialogues"] = [

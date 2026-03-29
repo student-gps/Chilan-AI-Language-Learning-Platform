@@ -13,18 +13,8 @@
             "english": "Bai Ying'ai, how many people are in your family?",
             "words": [
               {
-                "cn": "白",
-                "py": "Bái",
-                "highlight": false
-              },
-              {
-                "cn": "英",
-                "py": "Yīng",
-                "highlight": false
-              },
-              {
-                "cn": "爱",
-                "py": "ài",
+                "cn": "白英爱",
+                "py": "bái yīng ài",
                 "highlight": false
               },
               {
@@ -91,7 +81,7 @@
               {
                 "cn": "六",
                 "py": "liù",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "口",
@@ -141,12 +131,12 @@
               {
                 "cn": "一",
                 "py": "yí",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "个",
                 "py": "ge",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "哥哥",
@@ -161,12 +151,12 @@
               {
                 "cn": "两",
                 "py": "liǎng",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "个",
                 "py": "ge",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "妹妹",
@@ -199,13 +189,8 @@
                 "highlight": false
               },
               {
-                "cn": "李",
-                "py": "Lǐ",
-                "highlight": false
-              },
-              {
-                "cn": "友",
-                "py": "Yǒu",
+                "cn": "李友",
+                "py": "lǐ yǒu",
                 "highlight": false
               },
               {
@@ -272,7 +257,7 @@
               {
                 "cn": "五",
                 "py": "wǔ",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "口",
@@ -362,7 +347,7 @@
               {
                 "cn": "什么",
                 "py": "shénme",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "工作",
@@ -393,7 +378,7 @@
               {
                 "cn": "是",
                 "py": "shì",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "律师",
@@ -413,11 +398,11 @@
               {
                 "cn": "是",
                 "py": "shì",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "英文",
-                "py": "Yīngwén",
+                "py": "yīngwén",
                 "highlight": true
               },
               {
@@ -453,7 +438,7 @@
               {
                 "cn": "是",
                 "py": "shì",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "大学生",
@@ -489,7 +474,7 @@
               {
                 "cn": "是",
                 "py": "shì",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "老师",
@@ -514,7 +499,7 @@
               {
                 "cn": "是",
                 "py": "shì",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": "医生",
@@ -648,9 +633,9 @@
         "part_of_speech": "n/v",
         "definition": "job; to work",
         "example_sentence": {
-          "cn": "他/她做什么工作? 你呢?",
-          "py": "Tā zuò shénme gōngzuò? Nǐ ne?",
-          "en": "What does he/she do? How about you?"
+          "cn": "你爸爸妈妈做什么工作?",
+          "py": "Nǐ bàba māma zuò shénme gōngzuò?",
+          "en": ""
         }
       },
       {
@@ -659,9 +644,9 @@
         "part_of_speech": "n",
         "definition": "lawyer",
         "example_sentence": {
-          "cn": "王朋和李友都不是律师。",
-          "py": "Wáng Péng hé Lǐ Yǒu dōu bú shì lǜshī.",
-          "en": "Neither Wang Peng nor Li You is a lawyer."
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "en": ""
         }
       },
       {
@@ -670,8 +655,8 @@
         "part_of_speech": "n",
         "definition": "the English language",
         "example_sentence": {
-          "cn": "",
-          "py": "",
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
           "en": ""
         }
       },
@@ -921,14 +906,13 @@
       "original_text": "工作",
       "original_pinyin": "gōngzuò",
       "standard_answers": [
-        "job",
-        "to work"
+        "job; to work"
       ],
       "context_examples": [
         {
-          "cn": "他/她做什么工作? 你呢?",
-          "py": "Tā zuò shénme gōngzuò? Nǐ ne?",
-          "en": "What does he/she do? How about you?"
+          "cn": "你爸爸妈妈做什么工作?",
+          "py": "Nǐ bàba māma zuò shénme gōngzuò?",
+          "en": ""
         }
       ]
     },
@@ -944,9 +928,9 @@
       ],
       "context_examples": [
         {
-          "cn": "王朋和李友都不是律师。",
-          "py": "Wáng Péng hé Lǐ Yǒu dōu bú shì lǜshī.",
-          "en": "Neither Wang Peng nor Li You is a lawyer."
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "en": ""
         }
       ]
     },
@@ -960,7 +944,13 @@
       "standard_answers": [
         "the English language"
       ],
-      "context_examples": []
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "en": ""
+        }
+      ]
     },
     {
       "lesson_id": 202,
@@ -1008,7 +998,13 @@
       "standard_answers": [
         "university, college"
       ],
-      "context_examples": []
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
     },
     {
       "lesson_id": 202,
@@ -1052,10 +1048,10 @@
       "question_id": 19,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "我家有五口人。",
-      "original_pinyin": "Wǒ jiā yǒu wǔ kǒu rén.",
+      "original_text": "白英爱,你家有几口人?",
+      "original_pinyin": "bái yīng ài nǐ jiā yǒu jǐ kǒu rén",
       "standard_answers": [
-        "There are five people in my family."
+        "Bai Ying'ai, how many people are in your family?"
       ]
     },
     {
@@ -1063,10 +1059,10 @@
       "question_id": 20,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "白英爱的妈妈是老师，李友的妈妈也是老师。",
-      "original_pinyin": "Bái Yīng'ài de māma shì lǎoshī, Lǐ Yǒu de māma yě shì lǎoshī.",
+      "original_text": "你爸爸妈妈做什么工作?",
+      "original_pinyin": "nǐ bàba māma zuò shénme gōngzuò",
       "standard_answers": [
-        "Bai Ying'ai's mother is a teacher, and Li You's mother is also a teacher."
+        "What do your dad and mom do for work?"
       ]
     },
     {
@@ -1074,10 +1070,10 @@
       "question_id": 21,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "我姐姐有两个女儿。",
-      "original_pinyin": "Wǒ jiějiě yǒu liǎng ge nǚ'ér.",
+      "original_text": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+      "original_pinyin": "wǒ bàba shì lǜshī māma shì yīngwén lǎoshī gēge mèimei dōu shì dàxuéshēng",
       "standard_answers": [
-        "My older sister has two daughters."
+        "My dad is a lawyer, my mom is an English teacher, and my older brother and younger sisters are all college students."
       ]
     },
     {
@@ -1085,10 +1081,10 @@
       "question_id": 22,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "请问，你家有几口人？",
-      "original_pinyin": "Qǐng wèn, nǐ jiā yǒu jǐ kǒu rén?",
+      "original_text": "王朋没有哥哥, 李友也没有哥哥。",
+      "original_pinyin": "Wáng Péng méiyǒu gēge, Lǐ Yǒu yě méiyǒu gēge.",
       "standard_answers": [
-        "Excuse me, how many people are in your family?"
+        "Wang Peng doesn't have an older brother, and Li You doesn't have an older brother either."
       ]
     },
     {
@@ -1132,7 +1128,7 @@
       "question_id": 25,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "(measure word for number of family members)",
+      "original_text": "Kǒu (measure word for number of family members)",
       "original_pinyin": null,
       "standard_answers": [
         "口"
@@ -1283,9 +1279,9 @@
       ],
       "context_examples": [
         {
-          "cn": "他/她做什么工作? 你呢?",
-          "py": "Tā zuò shénme gōngzuò? Nǐ ne?",
-          "en": "What does he/she do? How about you?"
+          "cn": "你爸爸妈妈做什么工作?",
+          "py": "Nǐ bàba māma zuò shénme gōngzuò?",
+          "en": ""
         }
       ]
     },
@@ -1301,9 +1297,9 @@
       ],
       "context_examples": [
         {
-          "cn": "王朋和李友都不是律师。",
-          "py": "Wáng Péng hé Lǐ Yǒu dōu bú shì lǜshī.",
-          "en": "Neither Wang Peng nor Li You is a lawyer."
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "en": ""
         }
       ]
     },
@@ -1317,7 +1313,13 @@
       "standard_answers": [
         "英文"
       ],
-      "context_examples": []
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "en": ""
+        }
+      ]
     },
     {
       "lesson_id": 202,
@@ -1365,7 +1367,13 @@
       "standard_answers": [
         "大学"
       ],
-      "context_examples": []
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
     },
     {
       "lesson_id": 202,
@@ -1390,7 +1398,7 @@
       "question_id": 40,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "Bai Ying'ai",
+      "original_text": "Bái Yīng’ài Bai Ying'ai (a personal name)",
       "original_pinyin": null,
       "standard_answers": [
         "白英爱"
@@ -1408,10 +1416,10 @@
       "question_id": 41,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "How many people are in Bai Ying'ai's family?",
+      "original_text": "There are six people in my family: my dad, my mom, an older brother, two younger sisters, and me.",
       "original_pinyin": null,
       "standard_answers": [
-        "白英爱家有几口人？"
+        "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。"
       ]
     },
     {
@@ -1419,10 +1427,10 @@
       "question_id": 42,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "Li You's father is a doctor.",
+      "original_text": "My mom is also a teacher, and my dad is a doctor.",
       "original_pinyin": null,
       "standard_answers": [
-        "李友的爸爸是医生。"
+        "我妈妈也是老师,我爸爸是医生。"
       ]
     },
     {
@@ -1430,43 +1438,32 @@
       "question_id": 43,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "Wang Peng doesn't have an older brother, and Li You doesn't have an older brother either.",
+      "original_text": "Bai Ying'ai's mother is a teacher, and Li You's mother is also a teacher.",
       "original_pinyin": null,
       "standard_answers": [
-        "王朋没有哥哥，李友也没有哥哥。"
-      ]
-    },
-    {
-      "lesson_id": 202,
-      "question_id": 44,
-      "course_id": 1,
-      "question_type": "EN_TO_CN",
-      "original_text": "Gao Wenzhong's oldest brother has a son.",
-      "original_pinyin": null,
-      "standard_answers": [
-        "高文中的大哥有儿子。"
+        "白英爱的妈妈是老师, 李友的妈妈也是老师。"
       ]
     }
   ],
   "video_global_config": {
-    "visual_style": "3D Pixar style, vibrant colors, soft lighting, detailed textures, expressive characters, set in a cozy modern cafe.",
+    "visual_style": "3D Pixar animation style, vibrant colors, soft lighting, cinematic quality, highly detailed characters and environments.",
     "character_definitions": [
       {
         "name": "李友",
-        "appearance_description_en": "A young Chinese woman in her early 20s, with short, stylish black hair, wearing modern black-rimmed glasses. She has a curious and friendly expression. She wears a comfortable, light-blue knitted sweater."
+        "appearance_description_en": "A friendly young East Asian woman in her early 20s, with a stylish short bob haircut, dark brown eyes, wearing a casual yellow sweater and jeans. Expressive and cheerful."
       },
       {
         "name": "白英爱",
-        "appearance_description_en": "A young Chinese woman in her early 20s, with long, wavy dark brown hair. She has a warm, gentle smile and an artistic vibe. She wears a cream-colored blouse with a simple silver necklace."
+        "appearance_description_en": "A gentle young East Asian woman in her early 20s, with long, straight black hair tied in a loose ponytail, warm brown eyes, wearing a light blue blouse and a skirt. Calm and thoughtful."
       }
     ]
   },
   "video_scenes": [
     {
       "scene_id": 1,
-      "scene_description_cn": "开场镜头，李友和白英爱坐在一家阳光明媚的咖啡馆里。李友微笑着向白英爱提问，开启了关于家庭的话题。",
-      "video_api_prompt_en": "3D Pixar style. Two young Chinese women, Li You and Bai Ying'ai, are sitting at a small wooden table in a cozy, sunlit cafe. Li You, with short black hair and glasses, leans forward with a friendly smile, asking a question. Bai Ying'ai, with long wavy brown hair, listens attentively. The background shows soft-focus cafe details like a bookshelf and plants. Medium shot, warm, natural lighting.",
-      "camera_movement": "Slow push-in",
+      "scene_description_cn": "开场镜头。李友和白英爱坐在一家明亮舒适的咖啡馆里，桌上放着咖啡。李友身体前倾，微笑着向白英爱提问。",
+      "video_api_prompt_en": "3D Pixar style. A medium shot of two young East Asian women, Li You and Bai Ying'ai, sitting at a small wooden table in a bright, cozy coffee shop with plants in the background. Sunlight streams through the window. Li You leans forward with a friendly smile, asking a question. The focus is on her. Cinematic, warm lighting, depth of field.",
+      "camera_movement": "Slow zoom in",
       "voice_over": {
         "role": "李友",
         "content": "白英爱, 你家有几口人?",
@@ -1474,28 +1471,28 @@
       },
       "screen_overlay": {
         "main_text": "你家有几口人？",
-        "sub_text": "Nǐ jiā yǒu jǐ kǒu rén? / How many people are in your family?"
+        "sub_text": "Nǐ jiā yǒu jǐ kǒu rén? (How many people are in your family?)"
       }
     },
     {
       "scene_id": 2,
-      "scene_description_cn": "白英爱愉快地回答，随着她的讲述，她家人的可爱卡通形象（爸爸、妈妈、哥哥、两个妹妹）依次出现在她身边。",
-      "video_api_prompt_en": "3D Pixar style. Close-up on Bai Ying'ai as she speaks happily. As she lists her family members, cute, stylized animated icons of each person (a dad, a mom, an older brother, two younger sisters) pop up around her head with a gentle glowing effect. She looks proud. The cafe background is softly blurred.",
+      "scene_description_cn": "白英爱一边回答，一边用手指数数。随着她提到每一位家庭成员，他们可爱的3D卡通头像会像气泡一样出现在她身边。",
+      "video_api_prompt_en": "3D Pixar style. The camera focuses on Bai Ying'ai in the coffee shop. As she speaks, cute, stylized 3D animated portraits of her family members (a kind-looking father, a gentle mother, a cool older brother, and two identical twin younger sisters) pop up around her head like thought bubbles. She looks happy and proud. Soft, glowing effect on the portraits.",
       "camera_movement": "Static",
       "voice_over": {
         "role": "白英爱",
-        "content": "我家有六口人, 我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+        "content": "我家有六口人, 我爸爸、我妈妈、一个哥哥、两个妹妹和“我”。",
         "pinyin": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ."
       },
       "screen_overlay": {
-        "main_text": "爸爸, 妈妈, 哥哥, 妹妹",
-        "sub_text": "bàba, māma, gēge, mèimei"
+        "main_text": "爸爸 bàba, 妈妈 māma, 哥哥 gēge, 妹妹 mèimei",
+        "sub_text": "六 (liù) - six, 两 (liǎng) - two"
       }
     },
     {
       "scene_id": 3,
-      "scene_description_cn": "镜头切换回李友，她也介绍自己的家庭成员，同样用卡通形象（爸爸、妈妈、大姐、二姐）展示出来。",
-      "video_api_prompt_en": "3D Pixar style. The shot returns to a medium shot of Li You. As she lists her family, animated icons of her family members (a dad, a mom, an eldest sister, a second eldest sister) appear beside her. She gestures towards the icons as she speaks. The cafe setting remains consistent.",
+      "scene_description_cn": "白英爱问完问题后，镜头切换回李友。李友也开心地介绍自己的家庭，同样，她的家人头像也浮现在她身边。然后她带着好奇的表情提问。",
+      "video_api_prompt_en": "3D Pixar style. The shot cuts back to Li You. She smiles and introduces her family. Stylized 3D portraits of her father, mother, and two distinct older sisters appear next to her. Her expression then shifts to curiosity as she asks Bai Ying'ai about her parents' jobs. The background remains the cozy coffee shop.",
       "camera_movement": "Static",
       "voice_over": {
         "role": "李友",
@@ -1503,38 +1500,38 @@
         "pinyin": "Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, dàjiě, èrjiě hé wǒ. Nǐ bàba māma zuò shénme gōngzuò?"
       },
       "screen_overlay": {
-        "main_text": "大姐, 二姐, 做什么工作？",
-        "sub_text": "dàjiě, èrjiě, zuò shénme gōngzuò?"
+        "main_text": "做什么工作？",
+        "sub_text": "zuò shénme gōngzuò? (What do they do for work?)"
       }
     },
     {
       "scene_id": 4,
-      "scene_description_cn": "白英爱介绍父母的职业。画面快速切换，生动地展示了她爸爸作为律师和妈妈作为英文老师的工作场景。",
-      "video_api_prompt_en": "3D Pixar style. Quick cross-dissolve cuts. First, a shot of a confident-looking Asian man (Bai Ying'ai's father) in a lawyer's suit, standing in a stylized, bright courtroom holding a book. Second, a shot of a kind Asian woman (Bai Ying'ai's mother) as an English teacher, pointing to a whiteboard with 'Hello' on it in a colorful classroom.",
-      "camera_movement": "Pan",
+      "scene_description_cn": "画面转为动态插画蒙太奇。首先展示一位穿着西装、自信的律师爸爸在法庭上。然后是一位温柔的英文老师妈妈在教室黑板前讲课。最后是她的哥哥和妹妹们在美丽的大学校园里看书、交谈。",
+      "video_api_prompt_en": "Dynamic montage sequence in 3D Pixar animation style. Scene 1: A confident East Asian man in a lawyer's suit standing in a stylized, bright courtroom. Scene 2: A kind East Asian woman, an English teacher, pointing to a chalkboard with English words in a colorful classroom. Scene 3: Three young students (one male, two female) laughing together on a beautiful, sunlit university campus with green lawns and classic architecture. Quick, smooth transitions between scenes.",
+      "camera_movement": "Quick cuts",
       "voice_over": {
         "role": "白英爱",
         "content": "我爸爸是律师, 妈妈是英文老师, 哥哥、妹妹都是大学生。",
         "pinyin": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng."
       },
       "screen_overlay": {
-        "main_text": "律师 (lǜshī), 英文老师 (Yīngwén lǎoshī), 大学生 (dàxuéshēng)",
-        "sub_text": "lawyer, English teacher, college student"
+        "main_text": "律师 lǜshī, 老师 lǎoshī, 大学生 dàxuéshēng",
+        "sub_text": "Lawyer, Teacher, College Student"
       }
     },
     {
       "scene_id": 5,
-      "scene_description_cn": "最后，李友也介绍了自己父母的职业。画面中出现一位老师和一位医生的形象，最后两人一起举杯喝咖啡，愉快地结束对话。",
-      "video_api_prompt_en": "3D Pixar style. The scene cuts back to Li You in the cafe. As she speaks, illustrative thought bubbles appear above her, one showing a friendly female teacher and another showing a kind male doctor with a stethoscope. The scene then transitions to a final wide shot of both Li You and Bai Ying'ai smiling and clinking their coffee mugs together. Warm, concluding atmosphere.",
-      "camera_movement": "Slow zoom out",
+      "scene_description_cn": "画面切回咖啡馆的李友。她微笑着说话，她身后出现分屏画面：左边是她的医生爸爸，穿着白大褂，和蔼可亲；右边是她的老师妈妈，和白英爱的妈妈形象相似。最后，两个女孩相视而笑。",
+      "video_api_prompt_en": "3D Pixar style. Cut back to Li You in the coffee shop. As she speaks, a split-screen effect appears behind her. On the left, her father, a friendly East Asian doctor in a white coat with a stethoscope. On the right, her mother, also a teacher, smiling warmly. The split-screen fades, and the final shot is a wide shot of Li You and Bai Ying'ai smiling at each other across the table, concluding their conversation warmly.",
+      "camera_movement": "Pan out",
       "voice_over": {
         "role": "李友",
         "content": "我妈妈也是老师, 我爸爸是医生。",
         "pinyin": "Wǒ māma yě shì lǎoshī, wǒ bàba shì yīshēng."
       },
       "screen_overlay": {
-        "main_text": "也 (yě), 老师 (lǎoshī), 医生 (yīshēng)",
-        "sub_text": "also, teacher, doctor"
+        "main_text": "也 yě (also), 医生 yīshēng (doctor)",
+        "sub_text": ""
       }
     }
   ]

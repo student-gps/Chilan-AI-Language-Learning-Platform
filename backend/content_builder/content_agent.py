@@ -38,7 +38,8 @@ class ContentCreatorAgent:
                 lesson_id=lesson_id, 
                 course_id=course_id, 
                 file_path=None, 
-                file_obj=shared_file
+                file_obj=shared_file,
+                source_dialogues=base_data.get("course_content", {}).get("dialogues", [])
             )
             
             # 合并 Task 2 的官方词汇和题库到最终结果

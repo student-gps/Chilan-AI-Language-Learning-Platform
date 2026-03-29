@@ -2,7 +2,7 @@
   "lesson_metadata": {
     "course_id": 1,
     "lesson_id": 102,
-    "title": "你是哪儿人？"
+    "title": "你是哪国人？"
   },
   "course_content": {
     "dialogues": [
@@ -14,13 +14,13 @@
             "words": [
               {
                 "cn": "王",
-                "py": "Wáng",
+                "py": "wáng",
                 "highlight": false
               },
               {
                 "cn": "先生",
                 "py": "xiānsheng",
-                "highlight": false
+                "highlight": true
               },
               {
                 "cn": ",",
@@ -56,7 +56,7 @@
           },
           {
             "role": "王朋",
-            "english": "I am not a teacher, I am a student. Li You, what about you?",
+            "english": "I am not a teacher, I am a student.",
             "words": [
               {
                 "cn": "我",
@@ -102,15 +102,16 @@
                 "cn": "。",
                 "py": "",
                 "highlight": false
-              },
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Li You, and you?",
+            "words": [
               {
-                "cn": "李",
-                "py": "Lǐ",
-                "highlight": false
-              },
-              {
-                "cn": "友",
-                "py": "Yǒu",
+                "cn": "李友",
+                "py": "lǐ yǒu",
                 "highlight": false
               },
               {
@@ -175,8 +176,13 @@
                 "highlight": true
               },
               {
-                "cn": "中国人",
-                "py": "Zhōngguórén",
+                "cn": "中国",
+                "py": "zhōngguó",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén",
                 "highlight": true
               },
               {
@@ -216,8 +222,13 @@
                 "highlight": true
               },
               {
-                "cn": "北京人",
-                "py": "Běijīngrén",
+                "cn": "北京",
+                "py": "běijīng",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén",
                 "highlight": true
               },
               {
@@ -236,8 +247,13 @@
                 "highlight": true
               },
               {
-                "cn": "美国人",
-                "py": "Měiguórén",
+                "cn": "美国",
+                "py": "měiguó",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén",
                 "highlight": true
               },
               {
@@ -277,8 +293,13 @@
                 "highlight": true
               },
               {
-                "cn": "纽约人",
-                "py": "Niǔyuērén",
+                "cn": "纽约",
+                "py": "niǔyuē",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén",
                 "highlight": true
               },
               {
@@ -309,7 +330,7 @@
         "part_of_speech": "n",
         "definition": "teacher",
         "example_sentence": {
-          "cn": "你是老师吗？",
+          "cn": "你是老师吗?",
           "py": "Nǐ shì lǎoshī ma?",
           "en": "Are you a teacher?"
         }
@@ -320,7 +341,7 @@
         "part_of_speech": "qp",
         "definition": "(question particle) [See Grammar 6.]",
         "example_sentence": {
-          "cn": "你是老师吗？",
+          "cn": "你是老师吗?",
           "py": "Nǐ shì lǎoshī ma?",
           "en": "Are you a teacher?"
         }
@@ -331,9 +352,9 @@
         "part_of_speech": "adv",
         "definition": "not, no [See Grammar 7.]",
         "example_sentence": {
-          "cn": "我不是北京人。",
-          "py": "Wǒ bú shì Běijīng rén.",
-          "en": "I am not from Beijing."
+          "cn": "王朋不是美国人。",
+          "py": "Wáng Péng bú shì Měiguó rén.",
+          "en": "Wang Peng is not American."
         }
       },
       {
@@ -446,7 +467,7 @@
       ],
       "context_examples": [
         {
-          "cn": "你是老师吗？",
+          "cn": "你是老师吗?",
           "py": "Nǐ shì lǎoshī ma?",
           "en": "Are you a teacher?"
         }
@@ -460,11 +481,11 @@
       "original_text": "吗",
       "original_pinyin": "ma",
       "standard_answers": [
-        "question particle"
+        "(question particle)"
       ],
       "context_examples": [
         {
-          "cn": "你是老师吗？",
+          "cn": "你是老师吗?",
           "py": "Nǐ shì lǎoshī ma?",
           "en": "Are you a teacher?"
         }
@@ -478,13 +499,14 @@
       "original_text": "不",
       "original_pinyin": "bù",
       "standard_answers": [
-        "not; no"
+        "not",
+        "no"
       ],
       "context_examples": [
         {
-          "cn": "我不是北京人。",
-          "py": "Wǒ bú shì Běijīng rén.",
-          "en": "I am not from Beijing."
+          "cn": "王朋不是美国人。",
+          "py": "Wáng Péng bú shì Měiguó rén.",
+          "en": "Wang Peng is not American."
         }
       ]
     },
@@ -619,10 +641,10 @@
       "question_id": 12,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "王朋是学生吗？",
-      "original_pinyin": "Wáng Péng shì xuésheng ma?",
+      "original_text": "王先生,你是老师吗？",
+      "original_pinyin": "wáng xiānsheng nǐ shì lǎoshī ma",
       "standard_answers": [
-        "Is Wang Peng a student?"
+        "Mr. Wang, are you a teacher?"
       ]
     },
     {
@@ -630,10 +652,10 @@
       "question_id": 13,
       "course_id": 1,
       "question_type": "CN_TO_EN",
-      "original_text": "李友不是老师。",
-      "original_pinyin": "Lǐ Yōu bú shì lǎoshī.",
+      "original_text": "我不是老师,我是学生。",
+      "original_pinyin": "wǒ bú shì lǎoshī wǒ shì xuésheng",
       "standard_answers": [
-        "Li You is not a teacher."
+        "I am not a teacher, I am a student."
       ]
     },
     {
@@ -653,7 +675,7 @@
       "course_id": 1,
       "question_type": "CN_TO_EN",
       "original_text": "李友不是中国人，你呢？",
-      "original_pinyin": "Lǐ Yōu bú shì Zhōngguó rén, nǐ ne?",
+      "original_pinyin": "Lǐ Yǒu bú shì Zhōngguó rén, nǐ ne?",
       "standard_answers": [
         "Li You is not Chinese, how about you?"
       ]
@@ -688,7 +710,7 @@
       ],
       "context_examples": [
         {
-          "cn": "你是老师吗？",
+          "cn": "你是老师吗?",
           "py": "Nǐ shì lǎoshī ma?",
           "en": "Are you a teacher?"
         }
@@ -699,14 +721,14 @@
       "question_id": 18,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "question particle",
+      "original_text": "Ma (question particle)",
       "original_pinyin": null,
       "standard_answers": [
         "吗"
       ],
       "context_examples": [
         {
-          "cn": "你是老师吗？",
+          "cn": "你是老师吗?",
           "py": "Nǐ shì lǎoshī ma?",
           "en": "Are you a teacher?"
         }
@@ -717,16 +739,16 @@
       "question_id": 19,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "not; no",
+      "original_text": "not, no",
       "original_pinyin": null,
       "standard_answers": [
         "不"
       ],
       "context_examples": [
         {
-          "cn": "我不是北京人。",
-          "py": "Wǒ bú shì Běijīng rén.",
-          "en": "I am not from Beijing."
+          "cn": "王朋不是美国人。",
+          "py": "Wáng Péng bú shì Měiguó rén.",
+          "en": "Wang Peng is not American."
         }
       ]
     },
@@ -861,9 +883,10 @@
       "question_id": 27,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "Li You is an American.",
+      "original_text": "I am a student, too. Are you Chinese?",
+      "original_pinyin": null,
       "standard_answers": [
-        "李友是美国人"
+        "我也是学生。你是中国人吗？"
       ]
     },
     {
@@ -871,9 +894,10 @@
       "question_id": 28,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "Is Wang Peng a teacher?",
+      "original_text": "Yes, I am from Beijing. Are you American?",
+      "original_pinyin": null,
       "standard_answers": [
-        "王朋是老师吗？"
+        "是,我是北京人。你是美国人吗？"
       ]
     },
     {
@@ -881,9 +905,10 @@
       "question_id": 29,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "I am an American, how about you?",
+      "original_text": "Wang Peng is not a teacher, how about you?",
+      "original_pinyin": null,
       "standard_answers": [
-        "我是美国人，你呢？"
+        "王朋不是老师，你呢？"
       ]
     },
     {
@@ -891,99 +916,100 @@
       "question_id": 30,
       "course_id": 1,
       "question_type": "EN_TO_CN",
-      "original_text": "Is Li You from Beijing?",
+      "original_text": "Li You is from New York, are you also from New York?",
+      "original_pinyin": null,
       "standard_answers": [
-        "李友是北京人吗？"
+        "李友是纽约人，你也是纽约人吗？"
       ]
     }
   ],
   "video_global_config": {
-    "visual_style": "Vibrant 3D animation, Pixar style, warm and friendly lighting, shallow depth of field, cinematic.",
+    "visual_style": "3D Pixar style, vibrant colors, soft lighting, friendly and expressive characters, cinematic.",
     "character_definitions": [
       {
         "name": "李友",
-        "appearance_description_en": "A female college student in her early 20s, American, with wavy light brown hair tied in a loose ponytail, bright green eyes, and a curious, friendly expression. She wears a comfortable turquoise sweater and jeans. Consistent character design: LiYou_char_v1."
+        "appearance_description_en": "A young woman in her early 20s, with wavy light brown hair tied in a loose ponytail, bright curious blue eyes, and a friendly smile. She wears a casual light blue sweater and jeans. 3D Pixar style character."
       },
       {
         "name": "王朋",
-        "appearance_description_en": "A male college student in his early 20s, Chinese, with short, neat black hair, warm brown eyes, and a gentle smile. He wears a gray hoodie over a white t-shirt and carries a backpack. Consistent character design: WangPeng_char_v1."
+        "appearance_description_en": "A young man in his early 20s, with short, neat black hair, warm brown eyes, and a gentle demeanor. He wears glasses, a simple grey hoodie over a white t-shirt, and dark pants. 3D Pixar style character."
       }
     ]
   },
   "video_scenes": [
     {
       "scene_id": 1,
-      "scene_description_cn": "在一个阳光明媚的大学校园里，绿草如茵，背景是现代风格的教学楼。李友看到正在看书的王朋，友好地走上前去询问。",
-      "video_api_prompt_en": "A vibrant 3D animation in Pixar style. On a sunny university campus with lush green lawns and modern academic buildings in the background. The character LiYou_char_v1 walks towards WangPeng_char_v1, who is sitting on a bench reading a book. Li You has a friendly, inquisitive expression. Close-up shot as she begins to speak. Warm, natural lighting.",
-      "camera_movement": "Pan and track Li You, then settle into a medium close-up.",
+      "scene_description_cn": "在一个阳光明媚的大学校园里，李友看到王朋，友好地走上前去询问他是不是老师。",
+      "video_api_prompt_en": "A medium shot of Li You approaching Wang Peng on a bright, modern university campus green. Trees and a brick building are in the background. Li You has a curious and friendly expression. 3D Pixar style, cinematic, soft natural lighting, depth of field.",
+      "camera_movement": "Pan right",
       "voice_over": {
         "role": "李友",
         "content": "王先生, 你是老师吗？",
         "pinyin": "Wáng xiānsheng, nǐ shì lǎoshī ma?"
       },
       "screen_overlay": {
-        "main_text": "你 是 老师 吗？",
-        "sub_text": "Nǐ shì lǎoshī ma? (Are you a teacher?)"
+        "main_text": "老师 (lǎoshī)",
+        "sub_text": "teacher"
       }
     },
     {
       "scene_id": 2,
-      "scene_description_cn": "王朋听到声音，抬起头，微笑着摇了摇头。他指了指自己身上的学生背包，然后反问李友。",
-      "video_api_prompt_en": "Vibrant 3D animation, Pixar style. Close-up on WangPeng_char_v1's face. He looks up from his book, smiles warmly, and shakes his head 'no'. The camera pulls back slightly as he gestures to the student backpack on his shoulder. He then looks at LiYou_char_v1 and asks a question. Soft sunlight filters through the trees.",
-      "camera_movement": "Static close-up, then a slight zoom out.",
+      "scene_description_cn": "王朋微笑着摇摇头，澄清自己不是老师，而是一名学生。",
+      "video_api_prompt_en": "Close-up shot of Wang Peng, he smiles gently and shakes his head 'no'. A subtle thought bubble appears above his head showing a teacher icon with a red cross over it, which then transforms into a student icon with a green checkmark. The campus background is softly blurred. 3D Pixar style, expressive animation, shallow depth of field.",
+      "camera_movement": "Static",
       "voice_over": {
         "role": "王朋",
-        "content": "我不是老师, 我是学生。李友, 你呢？",
-        "pinyin": "Wǒ bú shì lǎoshī, wǒ shì xuésheng. Lǐ Yǒu, nǐ ne?"
+        "content": "我不是老师, 我是学生。",
+        "pinyin": "Wǒ bú shì lǎoshī, wǒ shì xuésheng."
       },
       "screen_overlay": {
-        "main_text": "我 不 是 老师，是 学生。",
-        "sub_text": "Wǒ bú shì lǎoshī, shì xuésheng. (I am not a teacher, I am a student.)"
+        "main_text": "不 (bú) / 学生 (xuésheng)",
+        "sub_text": "not / student"
       }
     },
     {
       "scene_id": 3,
-      "scene_description_cn": "李友开心地笑了，表示自己也是学生。接着，她带着好奇的表情，询问王朋的国籍。",
-      "video_api_prompt_en": "Vibrant 3D animation, Pixar style. Medium shot of LiYou_char_v1. She smiles brightly, nodding in understanding. Her expression then shifts to one of curiosity. A stylized, semi-transparent globe icon briefly appears next to her head, focusing on China. The campus background is softly blurred.",
-      "camera_movement": "Static",
+      "scene_description_cn": "李友也笑着说自己也是学生，然后好奇地问王朋是不是中国人。",
+      "video_api_prompt_en": "Medium shot of Li You, she smiles brightly and points to herself, then gestures towards Wang Peng with an inquisitive look. A small, stylized icon of the Chinese flag subtly appears next to Wang Peng in a thought bubble. 3D Pixar style, clear character expressions, warm and friendly atmosphere.",
+      "camera_movement": "Zoom in",
       "voice_over": {
         "role": "李友",
         "content": "我也是学生。你是中国人吗？",
-        "pinyin": "Wǒ yě shì xuésheng. Nǐ shì Zhōngguórén ma?"
+        "pinyin": "Wǒ yě shì xuésheng. Nǐ shì Zhōngguó rén ma?"
       },
       "screen_overlay": {
-        "main_text": "我 也 是 学生。你是 中国人 吗？",
-        "sub_text": "Wǒ yě shì xuésheng. Nǐ shì Zhōngguórén ma? (I'm a student, too. Are you Chinese?)"
+        "main_text": "也 (yě) / 中国人 (Zhōngguó rén)",
+        "sub_text": "also, too / Chinese person"
       }
     },
     {
       "scene_id": 4,
-      "scene_description_cn": "王朋自豪地点点头。他的身后，校园背景渐渐淡化，浮现出北京天坛的卡通动画形象。然后他看着李友反问。",
-      "video_api_prompt_en": "Vibrant 3D animation, Pixar style. WangPeng_char_v1 nods with a proud smile. The real-world campus background smoothly cross-fades into a beautiful, stylized animated backdrop of the Temple of Heaven in Beijing under a clear blue sky. He then turns his gaze back to LiYou_char_v1. Cinematic lighting.",
-      "camera_movement": "Slow zoom in on Wang Peng.",
+      "scene_description_cn": "王朋自豪地点点头，说自己是北京人。同时，他反问李友是不是美国人。",
+      "video_api_prompt_en": "Close-up on Wang Peng, he nods affirmatively with a proud smile. A stylized, animated map of China appears beside him, with a glowing pin dropping on Beijing. The background shows a subtle, artistic rendering of the Temple of Heaven. 3D Pixar style, dynamic graphic overlay.",
+      "camera_movement": "Static",
       "voice_over": {
         "role": "王朋",
         "content": "是, 我是北京人。你是美国人吗？",
-        "pinyin": "Shì, wǒ shì Běijīngrén. Nǐ shì Měiguórén ma?"
+        "pinyin": "Shì, wǒ shì Běijīng rén. Nǐ shì Měiguó rén ma?"
       },
       "screen_overlay": {
-        "main_text": "是，我是 北京人。你是 美国人 吗？",
-        "sub_text": "Shì, wǒ shì Běijīngrén. Nǐ shì Měiguórén ma? (Yes, I am from Beijing. Are you American?)"
+        "main_text": "是 (shì) / 北京人 (Běijīng rén)",
+        "sub_text": "Yes / Person from Beijing"
       }
     },
     {
       "scene_id": 5,
-      "scene_description_cn": "李友也自豪地回答。她的身后，背景切换成纽约自由女神像和城市天际线的卡通动画。两人相视而笑，气氛友好。",
-      "video_api_prompt_en": "Vibrant 3D animation, Pixar style. LiYou_char_v1 nods confidently. The background transitions to a stylized animated view of the Statue of Liberty and the New York City skyline at sunset. After she speaks, the background returns to the campus setting, and both LiYou_char_v1 and WangPeng_char_v1 share a friendly smile. Golden hour lighting.",
-      "camera_movement": "Medium two-shot.",
+      "scene_description_cn": "李友也开心地承认，并告诉王朋自己来自纽约。",
+      "video_api_prompt_en": "Close-up on Li You, she nods with a warm smile. A stylized, animated map of the USA appears beside her, with a glowing pin dropping on New York City. The background shows a subtle, artistic rendering of the Statue of Liberty. 3D Pixar style, dynamic graphic overlay, joyful expression.",
+      "camera_movement": "Static",
       "voice_over": {
         "role": "李友",
         "content": "是, 我是纽约人。",
-        "pinyin": "Shì, wǒ shì Niǔyuērén."
+        "pinyin": "Shì, wǒ shì Niǔyuē rén."
       },
       "screen_overlay": {
-        "main_text": "是，我是 纽约人。",
-        "sub_text": "Shì, wǒ shì Niǔyuērén. (Yes, I am from New York.)"
+        "main_text": "美国人 (Měiguó rén) / 纽约人 (Niǔyuē rén)",
+        "sub_text": "American / Person from New York"
       }
     }
   ]
