@@ -1,0 +1,2178 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 501,
+    "title": "看朋友"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "高文中",
+            "english": "Who is it?",
+            "words": [
+              {
+                "cn": "谁",
+                "py": "shéi",
+                "highlight": true
+              },
+              {
+                "cn": "呀",
+                "py": "ya",
+                "highlight": false
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "It's me, Wang Peng. Li You is here, too.",
+            "words": [
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "王朋",
+                "py": "Wáng Péng",
+                "highlight": false
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "还",
+                "py": "hái",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu",
+                "highlight": true
+              },
+              {
+                "cn": "李友",
+                "py": "Lǐ Yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "Come in, come in, please come in! Let me introduce you, this is my older sister, Gao Xiaoyin.",
+            "words": [
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "进",
+                "py": "jìn",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "进",
+                "py": "jìn",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "快",
+                "py": "kuài",
+                "highlight": true
+              },
+              {
+                "cn": "进来",
+                "py": "jìn lai",
+                "highlight": true
+              },
+              {
+                "cn": "！",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "来",
+                "py": "lái",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "介绍",
+                "py": "jièshào",
+                "highlight": true
+              },
+              {
+                "cn": "一下",
+                "py": "yíxià",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "这",
+                "py": "zhè",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "姐姐",
+                "py": "jiějie",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "高小音",
+                "py": "Gāo Xiǎoyīn",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Hi, Xiaoyin. Pleased to meet you.",
+            "words": [
+              {
+                "cn": "小音",
+                "py": "Xiǎoyīn",
+                "highlight": false
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "认识",
+                "py": "rènshi",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "很",
+                "py": "hěn",
+                "highlight": true
+              },
+              {
+                "cn": "高兴",
+                "py": "gāoxìng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高小音",
+            "english": "Pleased to meet you, too.",
+            "words": [
+              {
+                "cn": "认识",
+                "py": "rènshi",
+                "highlight": true
+              },
+              {
+                "cn": "你们",
+                "py": "nǐmen",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "也",
+                "py": "yě",
+                "highlight": true
+              },
+              {
+                "cn": "很",
+                "py": "hěn",
+                "highlight": true
+              },
+              {
+                "cn": "高兴",
+                "py": "gāoxìng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "Your home is very big, and very beautiful, too.",
+            "words": [
+              {
+                "cn": "你们",
+                "py": "nǐmen",
+                "highlight": true
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "很",
+                "py": "hěn",
+                "highlight": false
+              },
+              {
+                "cn": "大",
+                "py": "dà",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "也",
+                "py": "yě",
+                "highlight": false
+              },
+              {
+                "cn": "很",
+                "py": "hěn",
+                "highlight": false
+              },
+              {
+                "cn": "漂亮",
+                "py": "piàoliang",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "english": "Really? Please sit, please sit.",
+            "words": [
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": false
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "坐",
+                "py": "zuò",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "坐",
+                "py": "zuò",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Xiaoyin, where do you work?",
+            "words": [
+              {
+                "cn": "小音",
+                "py": "Xiǎoyīn",
+                "highlight": false
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": true
+              },
+              {
+                "cn": "在",
+                "py": "zài",
+                "highlight": true
+              },
+              {
+                "cn": "哪儿",
+                "py": "nǎr",
+                "highlight": true
+              },
+              {
+                "cn": "工作",
+                "py": "gōngzuò",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高小音",
+            "english": "I work at a school. What would you like to drink? Tea or coffee?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": true
+              },
+              {
+                "cn": "在",
+                "py": "zài",
+                "highlight": true
+              },
+              {
+                "cn": "学校",
+                "py": "xuéxiào",
+                "highlight": true
+              },
+              {
+                "cn": "工作",
+                "py": "gōngzuò",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你们",
+                "py": "nǐmen",
+                "highlight": true
+              },
+              {
+                "cn": "想",
+                "py": "xiǎng",
+                "highlight": true
+              },
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "点儿",
+                "py": "diǎnr",
+                "highlight": false
+              },
+              {
+                "cn": "什么",
+                "py": "shénme",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "茶",
+                "py": "chá",
+                "highlight": true
+              },
+              {
+                "cn": "还是",
+                "py": "háishi",
+                "highlight": false
+              },
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "咖啡",
+                "py": "kāfēi",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "I'll have tea.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": true
+              },
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "茶",
+                "py": "chá",
+                "highlight": true
+              },
+              {
+                "cn": "吧",
+                "py": "ba",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "I'd like a bottle of cola, is that okay?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "要",
+                "py": "yào",
+                "highlight": true
+              },
+              {
+                "cn": "一",
+                "py": "yì",
+                "highlight": false
+              },
+              {
+                "cn": "瓶",
+                "py": "píng",
+                "highlight": true
+              },
+              {
+                "cn": "可乐",
+                "py": "kělè",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "可以",
+                "py": "kěyǐ",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": false
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高小音",
+            "english": "I'm sorry, we don't have cola.",
+            "words": [
+              {
+                "cn": "对不起",
+                "py": "duìbuqǐ",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我们",
+                "py": "wǒmen",
+                "highlight": true
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "没有",
+                "py": "méiyǒu",
+                "highlight": true
+              },
+              {
+                "cn": "可乐",
+                "py": "kělè",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "Then please give me a glass of water.",
+            "words": [
+              {
+                "cn": "那",
+                "py": "nà",
+                "highlight": true
+              },
+              {
+                "cn": "给",
+                "py": "gěi",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "一",
+                "py": "yì",
+                "highlight": false
+              },
+              {
+                "cn": "杯",
+                "py": "bēi",
+                "highlight": true
+              },
+              {
+                "cn": "水",
+                "py": "shuǐ",
+                "highlight": true
+              },
+              {
+                "cn": "吧",
+                "py": "ba",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "呀",
+        "pinyin": "ya",
+        "part_of_speech": "p",
+        "definition": "(interjectory particle used to soften a question)",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "进",
+        "pinyin": "jìn",
+        "part_of_speech": "v",
+        "definition": "to enter",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "快",
+        "pinyin": "kuài",
+        "part_of_speech": "adv/adj",
+        "definition": "fast, quick; quickly",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "进来",
+        "pinyin": "jìn lai",
+        "part_of_speech": "vc",
+        "definition": "to come in",
+        "example_sentence": {
+          "cn": "你进来一下。",
+          "py": "Nǐ jìn lai yí xià.",
+          "en": "Come in for a minute."
+        }
+      },
+      {
+        "word": "来",
+        "pinyin": "lái",
+        "part_of_speech": "v",
+        "definition": "to come",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "介绍",
+        "pinyin": "jièshào",
+        "part_of_speech": "v",
+        "definition": "to introduce",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "一下",
+        "pinyin": "yí xià",
+        "part_of_speech": "n+m",
+        "definition": "once, a bit [See Grammar 1.]",
+        "example_sentence": {
+          "cn": "你看一下, 这是谁的照片?",
+          "py": "Nǐ kàn yí xià, zhè shì shéi de zhàopiàn?",
+          "en": "Take a look. Whose photo is this?"
+        }
+      },
+      {
+        "word": "高兴",
+        "pinyin": "gāoxìng",
+        "part_of_speech": "adj",
+        "definition": "happy, pleased",
+        "example_sentence": {
+          "cn": "我今天很高兴。",
+          "py": "Wǒ jīntiān hěn gāoxìng.",
+          "en": "I'm very happy today."
+        }
+      },
+      {
+        "word": "漂亮",
+        "pinyin": "piàoliang",
+        "part_of_speech": "adj",
+        "definition": "pretty",
+        "example_sentence": {
+          "cn": "他妹妹很漂亮。",
+          "py": "Tā mèimei hěn piàoliang.",
+          "en": "His younger sister is very pretty."
+        }
+      },
+      {
+        "word": "坐",
+        "pinyin": "zuò",
+        "part_of_speech": "v",
+        "definition": "to sit",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "在",
+        "pinyin": "zài",
+        "part_of_speech": "prep",
+        "definition": "at, in, on [See Grammar 3.]",
+        "example_sentence": {
+          "cn": "你在哪儿工作？",
+          "py": "Nǐ zài nǎr gōngzuò?",
+          "en": "Where do you work?"
+        }
+      },
+      {
+        "word": "哪儿",
+        "pinyin": "năr",
+        "part_of_speech": "qpr",
+        "definition": "where",
+        "example_sentence": {
+          "cn": "你在哪儿工作？",
+          "py": "Nǐ zài nǎr gōngzuò?",
+          "en": "Where do you work?"
+        }
+      },
+      {
+        "word": "学校",
+        "pinyin": "xuéxiào",
+        "part_of_speech": "n",
+        "definition": "school",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "喝",
+        "pinyin": "hē",
+        "part_of_speech": "v",
+        "definition": "to drink",
+        "example_sentence": {
+          "cn": "你喝一点儿茶吧。",
+          "py": "Nǐ hē yì diǎnr chá ba.",
+          "en": "Have some tea."
+        }
+      },
+      {
+        "word": "点(儿)",
+        "pinyin": "diăn(r)",
+        "part_of_speech": "m",
+        "definition": "a little, a bit, some [See Grammar 1.]",
+        "example_sentence": {
+          "cn": "你想吃点儿什么？",
+          "py": "Nǐ xiǎng chī diǎnr shénme?",
+          "en": "What would you like to eat?"
+        }
+      },
+      {
+        "word": "茶",
+        "pinyin": "chá",
+        "part_of_speech": "n",
+        "definition": "tea",
+        "example_sentence": {
+          "cn": "你喝一点儿茶吧。",
+          "py": "Nǐ hē yì diǎnr chá ba.",
+          "en": "Have some tea."
+        }
+      },
+      {
+        "word": "咖啡",
+        "pinyin": "kāfēi",
+        "part_of_speech": "n",
+        "definition": "coffee",
+        "example_sentence": {
+          "cn": "你喝咖啡吧。",
+          "py": "Nǐ hē kāfēi ba.",
+          "en": "Why don't you have some coffee?"
+        }
+      },
+      {
+        "word": "吧",
+        "pinyin": "ba",
+        "part_of_speech": "p",
+        "definition": "(a sentence-final particle) [See Grammar 4.]",
+        "example_sentence": {
+          "cn": "请进来吧。",
+          "py": "Qǐng jìn lai ba.",
+          "en": "Come in, please."
+        }
+      },
+      {
+        "word": "要",
+        "pinyin": "yào",
+        "part_of_speech": "v",
+        "definition": "to want",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "瓶",
+        "pinyin": "píng",
+        "part_of_speech": "m",
+        "definition": "(measure word for bottled liquid, etc.)",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "可乐",
+        "pinyin": "kělè",
+        "part_of_speech": "n",
+        "definition": "cola",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "可以",
+        "pinyin": "kěyǐ",
+        "part_of_speech": "mv",
+        "definition": "can, may",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "对不起",
+        "pinyin": "duìbuqǐ",
+        "part_of_speech": "v",
+        "definition": "sorry",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "给",
+        "pinyin": "gěi",
+        "part_of_speech": "v",
+        "definition": "to give",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "杯",
+        "pinyin": "bēi",
+        "part_of_speech": "m",
+        "definition": "(measure word for things contained in a cup or glass)",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "水",
+        "pinyin": "shuǐ",
+        "part_of_speech": "n",
+        "definition": "water",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "高小音",
+        "pinyin": "Gāo Xiǎoyīn",
+        "part_of_speech": "pn",
+        "definition": "(a personal name)",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 501,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "呀",
+      "original_pinyin": "ya",
+      "standard_answers": [
+        "(interjectory particle used to soften a question)"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "进",
+      "original_pinyin": "jìn",
+      "standard_answers": [
+        "to enter"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "快",
+      "original_pinyin": "kuài",
+      "standard_answers": [
+        "fast, quick; quickly"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "进来",
+      "original_pinyin": "jìn lai",
+      "standard_answers": [
+        "to come in"
+      ],
+      "context_examples": [
+        {
+          "cn": "你进来一下。",
+          "py": "Nǐ jìn lai yí xià.",
+          "en": "Come in for a minute."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "来",
+      "original_pinyin": "lái",
+      "standard_answers": [
+        "to come"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "介绍",
+      "original_pinyin": "jièshào",
+      "standard_answers": [
+        "to introduce"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "一下",
+      "original_pinyin": "yí xià",
+      "standard_answers": [
+        "once, a bit"
+      ],
+      "context_examples": [
+        {
+          "cn": "你看一下, 这是谁的照片?",
+          "py": "Nǐ kàn yí xià, zhè shì shéi de zhàopiàn?",
+          "en": "Take a look. Whose photo is this?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "高兴",
+      "original_pinyin": "gāoxìng",
+      "standard_answers": [
+        "happy, pleased"
+      ],
+      "context_examples": [
+        {
+          "cn": "我今天很高兴。",
+          "py": "Wǒ jīntiān hěn gāoxìng.",
+          "en": "I'm very happy today."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "漂亮",
+      "original_pinyin": "piàoliang",
+      "standard_answers": [
+        "pretty"
+      ],
+      "context_examples": [
+        {
+          "cn": "他妹妹很漂亮。",
+          "py": "Tā mèimei hěn piàoliang.",
+          "en": "His younger sister is very pretty."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "坐",
+      "original_pinyin": "zuò",
+      "standard_answers": [
+        "to sit"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "在",
+      "original_pinyin": "zài",
+      "standard_answers": [
+        "at, in, on"
+      ],
+      "context_examples": [
+        {
+          "cn": "你在哪儿工作？",
+          "py": "Nǐ zài nǎr gōngzuò?",
+          "en": "Where do you work?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "哪儿",
+      "original_pinyin": "năr",
+      "standard_answers": [
+        "where"
+      ],
+      "context_examples": [
+        {
+          "cn": "你在哪儿工作？",
+          "py": "Nǐ zài nǎr gōngzuò?",
+          "en": "Where do you work?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "学校",
+      "original_pinyin": "xuéxiào",
+      "standard_answers": [
+        "school"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "喝",
+      "original_pinyin": "hē",
+      "standard_answers": [
+        "to drink"
+      ],
+      "context_examples": [
+        {
+          "cn": "你喝一点儿茶吧。",
+          "py": "Nǐ hē yì diǎnr chá ba.",
+          "en": "Have some tea."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "点(儿)",
+      "original_pinyin": "diăn(r)",
+      "standard_answers": [
+        "a little, a bit, some"
+      ],
+      "context_examples": [
+        {
+          "cn": "你想吃点儿什么？",
+          "py": "Nǐ xiǎng chī diǎnr shénme?",
+          "en": "What would you like to eat?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "茶",
+      "original_pinyin": "chá",
+      "standard_answers": [
+        "tea"
+      ],
+      "context_examples": [
+        {
+          "cn": "你喝一点儿茶吧。",
+          "py": "Nǐ hē yì diǎnr chá ba.",
+          "en": "Have some tea."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "咖啡",
+      "original_pinyin": "kāfēi",
+      "standard_answers": [
+        "coffee"
+      ],
+      "context_examples": [
+        {
+          "cn": "你喝咖啡吧。",
+          "py": "Nǐ hē kāfēi ba.",
+          "en": "Why don't you have some coffee?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "吧",
+      "original_pinyin": "ba",
+      "standard_answers": [
+        "(a sentence-final particle) [See Grammar 4.]"
+      ],
+      "context_examples": [
+        {
+          "cn": "请进来吧。",
+          "py": "Qǐng jìn lai ba.",
+          "en": "Come in, please."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "要",
+      "original_pinyin": "yào",
+      "standard_answers": [
+        "to want"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "瓶",
+      "original_pinyin": "píng",
+      "standard_answers": [
+        "(measure word for bottled liquid, etc.)"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "可乐",
+      "original_pinyin": "kělè",
+      "standard_answers": [
+        "cola"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "可以",
+      "original_pinyin": "kěyǐ",
+      "standard_answers": [
+        "can",
+        "may"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "对不起",
+      "original_pinyin": "duìbuqǐ",
+      "standard_answers": [
+        "sorry"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "给",
+      "original_pinyin": "gěi",
+      "standard_answers": [
+        "to give"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "杯",
+      "original_pinyin": "bēi",
+      "standard_answers": [
+        "(measure word for things contained in a cup or glass)"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "水",
+      "original_pinyin": "shuǐ",
+      "standard_answers": [
+        "water"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "高小音",
+      "original_pinyin": "Gāo Xiǎoyīn",
+      "standard_answers": [
+        "(a personal name)"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "来，我介绍一下，这是我姐姐，高小音。",
+      "original_pinyin": "lái wǒ jièshào yíxià zhè shì wǒ jiějie Gāo Xiǎoyīn",
+      "standard_answers": [
+        "Let me introduce you, this is my older sister, Gao Xiaoyin."
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "你们家很大，也很漂亮。",
+      "original_pinyin": "nǐmen jiā hěn dà yě hěn piàoliang",
+      "standard_answers": [
+        "Your home is very big, and very beautiful, too."
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我在学校工作。你们想喝点儿什么？喝茶还是喝咖啡？",
+      "original_pinyin": "wǒ zài xuéxiào gōngzuò nǐmen xiǎng hē diǎnr shénme hē chá háishi hē kāfēi",
+      "standard_answers": [
+        "I work at a school. What would you like to drink? Tea or coffee?"
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我们明天去看中国电影。",
+      "original_pinyin": "Wǒmen míngtiān qù kàn Zhōngguó diànyǐng.",
+      "standard_answers": [
+        "We are going to see a Chinese movie tomorrow."
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Ya (interjectory particle used to soften a question)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "呀"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to enter",
+      "original_pinyin": null,
+      "standard_answers": [
+        "进"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "fast, quick; quickly",
+      "original_pinyin": null,
+      "standard_answers": [
+        "快"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to come in",
+      "original_pinyin": null,
+      "standard_answers": [
+        "进来"
+      ],
+      "context_examples": [
+        {
+          "cn": "你进来一下。",
+          "py": "Nǐ jìn lai yí xià.",
+          "en": "Come in for a minute."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to come",
+      "original_pinyin": null,
+      "standard_answers": [
+        "来"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to introduce",
+      "original_pinyin": null,
+      "standard_answers": [
+        "介绍"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "once, a bit",
+      "original_pinyin": null,
+      "standard_answers": [
+        "一下"
+      ],
+      "context_examples": [
+        {
+          "cn": "你看一下, 这是谁的照片?",
+          "py": "Nǐ kàn yí xià, zhè shì shéi de zhàopiàn?",
+          "en": "Take a look. Whose photo is this?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "happy, pleased",
+      "original_pinyin": null,
+      "standard_answers": [
+        "高兴"
+      ],
+      "context_examples": [
+        {
+          "cn": "我今天很高兴。",
+          "py": "Wǒ jīntiān hěn gāoxìng.",
+          "en": "I'm very happy today."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "pretty",
+      "original_pinyin": null,
+      "standard_answers": [
+        "漂亮"
+      ],
+      "context_examples": [
+        {
+          "cn": "他妹妹很漂亮。",
+          "py": "Tā mèimei hěn piàoliang.",
+          "en": "His younger sister is very pretty."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to sit",
+      "original_pinyin": null,
+      "standard_answers": [
+        "坐"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "at, in, on",
+      "original_pinyin": null,
+      "standard_answers": [
+        "在"
+      ],
+      "context_examples": [
+        {
+          "cn": "你在哪儿工作？",
+          "py": "Nǐ zài nǎr gōngzuò?",
+          "en": "Where do you work?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 43,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "where",
+      "original_pinyin": null,
+      "standard_answers": [
+        "哪儿"
+      ],
+      "context_examples": [
+        {
+          "cn": "你在哪儿工作？",
+          "py": "Nǐ zài nǎr gōngzuò?",
+          "en": "Where do you work?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 44,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "school",
+      "original_pinyin": null,
+      "standard_answers": [
+        "学校"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 45,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to drink",
+      "original_pinyin": null,
+      "standard_answers": [
+        "喝"
+      ],
+      "context_examples": [
+        {
+          "cn": "你喝一点儿茶吧。",
+          "py": "Nǐ hē yì diǎnr chá ba.",
+          "en": "Have some tea."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 46,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "a little, a bit, some",
+      "original_pinyin": null,
+      "standard_answers": [
+        "点(儿)"
+      ],
+      "context_examples": [
+        {
+          "cn": "你想吃点儿什么？",
+          "py": "Nǐ xiǎng chī diǎnr shénme?",
+          "en": "What would you like to eat?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 47,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "tea",
+      "original_pinyin": null,
+      "standard_answers": [
+        "茶"
+      ],
+      "context_examples": [
+        {
+          "cn": "你喝一点儿茶吧。",
+          "py": "Nǐ hē yì diǎnr chá ba.",
+          "en": "Have some tea."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 48,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "coffee",
+      "original_pinyin": null,
+      "standard_answers": [
+        "咖啡"
+      ],
+      "context_examples": [
+        {
+          "cn": "你喝咖啡吧。",
+          "py": "Nǐ hē kāfēi ba.",
+          "en": "Why don't you have some coffee?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 49,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Ba (a sentence-final particle) [See Grammar 4.]",
+      "original_pinyin": null,
+      "standard_answers": [
+        "吧"
+      ],
+      "context_examples": [
+        {
+          "cn": "请进来吧。",
+          "py": "Qǐng jìn lai ba.",
+          "en": "Come in, please."
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 50,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to want",
+      "original_pinyin": null,
+      "standard_answers": [
+        "要"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 51,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Píng (measure word for bottled liquid, etc.)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "瓶"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 52,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "cola",
+      "original_pinyin": null,
+      "standard_answers": [
+        "可乐"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 53,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "can, may",
+      "original_pinyin": null,
+      "standard_answers": [
+        "可以"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 54,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "sorry",
+      "original_pinyin": null,
+      "standard_answers": [
+        "对不起"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 55,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to give",
+      "original_pinyin": null,
+      "standard_answers": [
+        "给"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 56,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Bēi (measure word for things contained in a cup or glass)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "杯"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 57,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "water",
+      "original_pinyin": null,
+      "standard_answers": [
+        "水"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 58,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Gāo Xiǎoyīn Gao Xiaoyin (a personal name)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "高小音"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 59,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "It's me, Wang Peng. Li You is here, too.",
+      "original_pinyin": null,
+      "standard_answers": [
+        "是我，王朋，还有李友。"
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 60,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Pleased to meet you, too.",
+      "original_pinyin": null,
+      "standard_answers": [
+        "认识你们我也很高兴。"
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 61,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "I'd like a bottle of cola, is that okay?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "我要一瓶可乐，可以吗？"
+      ]
+    },
+    {
+      "lesson_id": 501,
+      "question_id": 62,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Excuse me, the doctor is busy right now.",
+      "original_pinyin": null,
+      "standard_answers": [
+        "对不起, 医生现在有事儿。"
+      ]
+    }
+  ],
+  "video_global_config": {
+    "visual_style": "3D Pixar animation style, cinematic, warm and inviting lighting, vibrant colors, detailed textures, creating a cozy and friendly atmosphere.",
+    "character_definitions": [
+      {
+        "name": "高文中",
+        "appearance_description_en": "Gao Wenzhong, a friendly young man in his early 20s, with short, neat black hair, wearing stylish black-rimmed glasses. Dressed in a comfortable light gray hoodie and casual pants. He has a warm, welcoming smile."
+      },
+      {
+        "name": "王朋",
+        "appearance_description_en": "Wang Peng, an energetic young man in his early 20s, with slightly spiky black hair. He wears a stylish blue bomber jacket over a white t-shirt and jeans. He has a cheerful and outgoing expression."
+      },
+      {
+        "name": "李友",
+        "appearance_description_en": "Li You, a curious and polite young woman in her early 20s, with long dark brown hair tied in a high ponytail. She wears a cozy cream-colored turtleneck sweater and a plaid skirt. She has bright, expressive eyes."
+      },
+      {
+        "name": "高小音",
+        "appearance_description_en": "Gao Xiaoyin, Gao Wenzhong's older sister, in her mid-20s. She is elegant and calm, with shoulder-length, silky black hair. She is wearing a simple yet chic light-green A-line dress. Her demeanor is graceful and kind."
+      }
+    ]
+  },
+  "video_scenes": [
+    {
+      "scene_id": 1,
+      "scene_description_cn": "公寓门口，高文中听到门铃声，从猫眼向外看。他打开门，看到王朋和李友正微笑着站在门外。",
+      "video_api_prompt_en": "3D Pixar style. Interior shot from Gao Wenzhong's perspective inside a modern, clean apartment. He opens the front door, revealing his friends Wang Peng and Li You standing outside in the hallway. They are smiling warmly. The lighting from the hallway spills into the apartment. Cinematic, eye-level shot. Gao Wenzhong, Wang Peng, Li You.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "高文中",
+        "content": "谁呀？",
+        "pinyin": "shéi ya?"
+      },
+      "screen_overlay": {
+        "main_text": "谁呀？",
+        "sub_text": "shéi ya? (Who is it?)"
+      }
+    },
+    {
+      "scene_id": 2,
+      "scene_description_cn": "高文中热情地邀请他们进来，并向他们介绍正坐在客厅沙发上看书的姐姐高小音。",
+      "video_api_prompt_en": "3D Pixar style. Medium shot from behind Wang Peng and Li You as they step into a bright, spacious living room with modern Chinese decor. Gao Wenzhong gestures enthusiastically towards his sister, Gao Xiaoyin, who is sitting elegantly on a beige sofa, looking up from her book with a gentle smile. Sunlight streams through a large window. Cinematic, warm lighting. Gao Wenzhong, Wang Peng, Li You, Gao Xiaoyin.",
+      "camera_movement": "Pan Right",
+      "voice_over": {
+        "role": "高文中",
+        "content": "请进，请进，快进来！来，我介绍一下，这是我姐姐，高小音。",
+        "pinyin": "qǐng jìn, qǐng jìn, kuài jìn lai! lái, wǒ jièshào yíxià, zhè shì wǒ jiějie, Gāo Xiǎoyīn."
+      },
+      "screen_overlay": {
+        "main_text": "请进 (qǐng jìn) / 介绍一下 (jièshào yíxià)",
+        "sub_text": "Come in / Let me introduce"
+      }
+    },
+    {
+      "scene_id": 3,
+      "scene_description_cn": "王朋和李友向高小音问好。李友环顾四周，真诚地称赞房子又大又漂亮。",
+      "video_api_prompt_en": "3D Pixar style. A sequence of shots: close-up on Wang Peng's friendly face as he greets Gao Xiaoyin, then a close-up on Gao Xiaoyin's smiling reply. Cut to a wide shot where Li You looks around the beautifully decorated living room with an impressed expression, gesturing slightly to show her admiration. The room is filled with plants and art. Cinematic. Gao Wenzhong, Wang Peng, Li You, Gao Xiaoyin.",
+      "camera_movement": "Static shots with cuts",
+      "voice_over": {
+        "role": "李友",
+        "content": "你们家很大，也很漂亮。",
+        "pinyin": "nǐmen jiā hěn dà, yě hěn piàoliang."
+      },
+      "screen_overlay": {
+        "main_text": "很大 (hěn dà), 很漂亮 (hěn piàoliang)",
+        "sub_text": "very big, very beautiful"
+      }
+    },
+    {
+      "scene_id": 4,
+      "scene_description_cn": "大家在沙发上坐下后，高小音微笑着询问大家想喝点什么。",
+      "video_api_prompt_en": "3D Pixar style. Medium shot of the four characters sitting comfortably in the living room, engaged in light conversation. Gao Xiaoyin leans forward slightly, asking what they would like to drink. The coffee table in front of them has a delicate tea set on it. The atmosphere is relaxed and friendly. Soft, warm indoor lighting. Cinematic. Gao Wenzhong, Wang Peng, Li You, Gao Xiaoyin.",
+      "camera_movement": "Slow Zoom In",
+      "voice_over": {
+        "role": "高小音",
+        "content": "你们想喝点儿什么？喝茶还是喝咖啡？",
+        "pinyin": "nǐmen xiǎng hē diǎnr shénme? hē chá háishi hē kāfēi?"
+      },
+      "screen_overlay": {
+        "main_text": "喝茶 (hē chá) 还是 (háishi) 喝咖啡 (hē kāfēi)？",
+        "sub_text": "Drink tea or drink coffee?"
+      }
+    },
+    {
+      "scene_id": 5,
+      "scene_description_cn": "王朋选择了茶。李友想要可乐，但高小音抱歉地表示家里没有，于是李友礼貌地改要了一杯水。",
+      "video_api_prompt_en": "3D Pixar style. Close-up on Li You's face as she asks for cola. Cut to a close-up of Gao Xiaoyin with a polite, slightly apologetic expression as she explains they don't have any. Li You's expression quickly changes to an understanding smile as she requests water instead. The interaction is smooth and polite. Soft focus on the background. Cinematic. Li You, Gao Xiaoyin.",
+      "camera_movement": "Static shots with cuts",
+      "voice_over": {
+        "role": "高小音",
+        "content": "对不起，我们家没有可乐。",
+        "pinyin": "duìbuqǐ, wǒmen jiā méiyǒu kělè."
+      },
+      "screen_overlay": {
+        "main_text": "对不起 (duìbuqǐ), 没有 (méiyǒu) 可乐 (kělè)",
+        "sub_text": "Sorry, don't have cola"
+      }
+    },
+    {
+      "scene_id": 6,
+      "scene_description_cn": "高小音起身去厨房准备饮料，她端着一杯茶和一杯水走出来，递给王朋和李友，大家愉快地继续聊天。",
+      "video_api_prompt_en": "3D Pixar style. Gao Xiaoyin returns from the kitchen holding a tray with a steaming cup of traditional Chinese tea and a tall glass of water. She gracefully places them on the coffee table in front of Wang Peng and Li You. Everyone is smiling, resuming their pleasant conversation. The scene ends with a warm, happy group shot. Cinematic. Gao Wenzhong, Wang Peng, Li You, Gao Xiaoyin.",
+      "camera_movement": "Pan Left",
+      "voice_over": {
+        "role": "李友",
+        "content": "那给我一杯水吧。",
+        "pinyin": "nà gěi wǒ yì bēi shuǐ ba."
+      },
+      "screen_overlay": {
+        "main_text": "给我一杯水 (gěi wǒ yì bēi shuǐ)",
+        "sub_text": "Give me a glass of water"
+      }
+    }
+  ]
+}

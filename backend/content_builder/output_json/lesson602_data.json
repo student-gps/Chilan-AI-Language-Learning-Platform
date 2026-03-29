@@ -1,0 +1,1479 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 602,
+    "title": "打电话约朋友帮忙"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "李友",
+            "english": "Hello, is Wang Peng there?",
+            "words": [
+              {
+                "cn": "喂",
+                "py": "wèi",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "请问",
+                "py": "qǐngwèn",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "王朋",
+                "py": "Wáng Péng",
+                "highlight": false
+              },
+              {
+                "cn": "在",
+                "py": "zài",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "This is he. You must be Li You?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "就",
+                "py": "jiù",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": false
+              },
+              {
+                "cn": "李友",
+                "py": "Lǐ Yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "吧",
+                "py": "ba",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "Wang Peng, I have a Chinese exam next week. Could you help me prepare and practice speaking Chinese with me?",
+            "words": [
+              {
+                "cn": "王朋",
+                "py": "Wáng Péng",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "下个",
+                "py": "xià ge",
+                "highlight": true
+              },
+              {
+                "cn": "星期",
+                "py": "xīngqī",
+                "highlight": true
+              },
+              {
+                "cn": "要",
+                "py": "yào",
+                "highlight": true
+              },
+              {
+                "cn": "考",
+                "py": "kǎo",
+                "highlight": true
+              },
+              {
+                "cn": "中文",
+                "py": "Zhōngwén",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "帮",
+                "py": "bāng",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "准备",
+                "py": "zhǔnbèi",
+                "highlight": true
+              },
+              {
+                "cn": "一下",
+                "py": "yíxià",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "跟",
+                "py": "gēn",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "练习",
+                "py": "liànxí",
+                "highlight": true
+              },
+              {
+                "cn": "说",
+                "py": "shuō",
+                "highlight": true
+              },
+              {
+                "cn": "中文",
+                "py": "Zhōngwén",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Sure, but you must treat me to coffee.",
+            "words": [
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": "啊",
+                "py": "a",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "但是",
+                "py": "dànshì",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "得",
+                "py": "děi",
+                "highlight": true
+              },
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "咖啡",
+                "py": "kāfēi",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "Coffee, no problem. So, when can I see you? Are you free this evening?",
+            "words": [
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "咖啡",
+                "py": "kāfēi",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "没问题",
+                "py": "méi wèntí",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "那",
+                "py": "nà",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "什么时候",
+                "py": "shénme shíhou",
+                "highlight": true
+              },
+              {
+                "cn": "跟",
+                "py": "gēn",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "见面",
+                "py": "jiànmiàn",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "今天",
+                "py": "jīntiān",
+                "highlight": false
+              },
+              {
+                "cn": "晚上",
+                "py": "wǎnshang",
+                "highlight": false
+              },
+              {
+                "cn": "有空儿",
+                "py": "yǒu kòngr",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Bai Ying'ai is taking me out to dinner this evening.",
+            "words": [
+              {
+                "cn": "今天",
+                "py": "jīntiān",
+                "highlight": false
+              },
+              {
+                "cn": "晚上",
+                "py": "wǎnshang",
+                "highlight": false
+              },
+              {
+                "cn": "白英爱",
+                "py": "Bái Yīng'ài",
+                "highlight": false
+              },
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "吃饭",
+                "py": "chī fàn",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "Really? Bai Ying'ai is treating you to dinner?",
+            "words": [
+              {
+                "cn": "是吗",
+                "py": "shì ma",
+                "highlight": false
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "白英爱",
+                "py": "Bái Yīng'ài",
+                "highlight": false
+              },
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "吃饭",
+                "py": "chī fàn",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "That's right. I will call you after I get back.",
+            "words": [
+              {
+                "cn": "对",
+                "py": "duì",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "回来",
+                "py": "huí lai",
+                "highlight": true
+              },
+              {
+                "cn": "以后",
+                "py": "yǐhòu",
+                "highlight": true
+              },
+              {
+                "cn": "给",
+                "py": "gěi",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "打电话",
+                "py": "dǎ diànhuà",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "OK. I'll wait for your call.",
+            "words": [
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "等",
+                "py": "děng",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "电话",
+                "py": "diànhuà",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "下个",
+        "pinyin": "xià ge",
+        "part_of_speech": "",
+        "definition": "next",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "下",
+        "pinyin": "xià",
+        "part_of_speech": "",
+        "definition": "below, next",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "中文",
+        "pinyin": "Zhōngwén",
+        "part_of_speech": "n",
+        "definition": "Chinese language",
+        "example_sentence": {
+          "cn": "我学中文, 你呢?",
+          "py": "Wǒ xué Zhōngwén, nǐ ne?",
+          "en": "I study Chinese. How about you?"
+        }
+      },
+      {
+        "word": "文",
+        "pinyin": "wén",
+        "part_of_speech": "n",
+        "definition": "language, script, written language",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "帮",
+        "pinyin": "bāng",
+        "part_of_speech": "v",
+        "definition": "to help",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "准备",
+        "pinyin": "zhǔnbèi",
+        "part_of_speech": "v",
+        "definition": "to prepare",
+        "example_sentence": {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      },
+      {
+        "word": "练习",
+        "pinyin": "liànxí",
+        "part_of_speech": "v",
+        "definition": "to practice",
+        "example_sentence": {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      },
+      {
+        "word": "说",
+        "pinyin": "shuō",
+        "part_of_speech": "v",
+        "definition": "to say, to speak",
+        "example_sentence": {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      },
+      {
+        "word": "啊",
+        "pinyin": "a",
+        "part_of_speech": "p",
+        "definition": "(a sentence-final particle of exclamation, interrogation, etc.)",
+        "example_sentence": {
+          "cn": "好啊, 但是你得请我喝咖啡。",
+          "py": "Hǎo a, dànshì nǐ děi qǐng wǒ hē kāfēi.",
+          "en": ""
+        }
+      },
+      {
+        "word": "但是",
+        "pinyin": "dànshì",
+        "part_of_speech": "conj",
+        "definition": "but",
+        "example_sentence": {
+          "cn": "好啊, 但是你得请我喝咖啡。",
+          "py": "Hǎo a, dànshì nǐ děi qǐng wǒ hē kāfēi.",
+          "en": ""
+        }
+      },
+      {
+        "word": "得",
+        "pinyin": "děi",
+        "part_of_speech": "av",
+        "definition": "must, to have to",
+        "example_sentence": {
+          "cn": "我现在得去开会, 没空儿跟你聊天儿。",
+          "py": "Wǒ xiànzài děi qù kāi huì, méi kòngr gēn nǐ liáo tiānr.",
+          "en": "I have to go to a meeting right now, and don't have time to chat with you."
+        }
+      },
+      {
+        "word": "跟",
+        "pinyin": "gēn",
+        "part_of_speech": "prep",
+        "definition": "with",
+        "example_sentence": {
+          "cn": "我现在得去开会, 没空儿跟你聊天儿。",
+          "py": "Wǒ xiànzài děi qù kāi huì, méi kòngr gēn nǐ liáo tiānr.",
+          "en": "I have to go to a meeting right now, and don't have time to chat with you."
+        }
+      },
+      {
+        "word": "见面",
+        "pinyin": "jiàn miàn",
+        "part_of_speech": "vo",
+        "definition": "to meet up, to meet with",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "面",
+        "pinyin": "miàn",
+        "part_of_speech": "n",
+        "definition": "face",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "回来",
+        "pinyin": "huí lai",
+        "part_of_speech": "vc",
+        "definition": "to come back",
+        "example_sentence": {
+          "cn": "你什么时候回来?",
+          "py": "Nǐ shénme shíhou huí lai?",
+          "en": "When are you coming back?"
+        }
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 602,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "下个",
+      "original_pinyin": "xià ge",
+      "standard_answers": [
+        "next"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "下",
+      "original_pinyin": "xià",
+      "standard_answers": [
+        "below",
+        "next"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "中文",
+      "original_pinyin": "Zhōngwén",
+      "standard_answers": [
+        "Chinese language"
+      ],
+      "context_examples": [
+        {
+          "cn": "我学中文, 你呢?",
+          "py": "Wǒ xué Zhōngwén, nǐ ne?",
+          "en": "I study Chinese. How about you?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "文",
+      "original_pinyin": "wén",
+      "standard_answers": [
+        "language",
+        "script",
+        "written language"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "帮",
+      "original_pinyin": "bāng",
+      "standard_answers": [
+        "to help"
+      ],
+      "context_examples": [
+        {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "准备",
+      "original_pinyin": "zhǔnbèi",
+      "standard_answers": [
+        "to prepare"
+      ],
+      "context_examples": [
+        {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "练习",
+      "original_pinyin": "liànxí",
+      "standard_answers": [
+        "to practice"
+      ],
+      "context_examples": [
+        {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "说",
+      "original_pinyin": "shuō",
+      "standard_answers": [
+        "to say, to speak"
+      ],
+      "context_examples": [
+        {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "啊",
+      "original_pinyin": "a",
+      "standard_answers": [
+        "(a sentence-final particle of exclamation, interrogation, etc.)"
+      ],
+      "context_examples": [
+        {
+          "cn": "好啊, 但是你得请我喝咖啡。",
+          "py": "Hǎo a, dànshì nǐ děi qǐng wǒ hē kāfēi.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "但是",
+      "original_pinyin": "dànshì",
+      "standard_answers": [
+        "but"
+      ],
+      "context_examples": [
+        {
+          "cn": "好啊, 但是你得请我喝咖啡。",
+          "py": "Hǎo a, dànshì nǐ děi qǐng wǒ hē kāfēi.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "得",
+      "original_pinyin": "děi",
+      "standard_answers": [
+        "must, to have to"
+      ],
+      "context_examples": [
+        {
+          "cn": "我现在得去开会, 没空儿跟你聊天儿。",
+          "py": "Wǒ xiànzài děi qù kāi huì, méi kòngr gēn nǐ liáo tiānr.",
+          "en": "I have to go to a meeting right now, and don't have time to chat with you."
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "跟",
+      "original_pinyin": "gēn",
+      "standard_answers": [
+        "with"
+      ],
+      "context_examples": [
+        {
+          "cn": "我现在得去开会, 没空儿跟你聊天儿。",
+          "py": "Wǒ xiànzài děi qù kāi huì, méi kòngr gēn nǐ liáo tiānr.",
+          "en": "I have to go to a meeting right now, and don't have time to chat with you."
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "见面",
+      "original_pinyin": "jiàn miàn",
+      "standard_answers": [
+        "to meet up, to meet with"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "面",
+      "original_pinyin": "miàn",
+      "standard_answers": [
+        "face"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "回来",
+      "original_pinyin": "huí lai",
+      "standard_answers": [
+        "to come back"
+      ],
+      "context_examples": [
+        {
+          "cn": "你什么时候回来?",
+          "py": "Nǐ shénme shíhou huí lai?",
+          "en": "When are you coming back?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "王朋,我下个星期要考中文,你帮我准备一下,跟我练习说中文,好吗?",
+      "original_pinyin": "Wáng Péng wǒ xià ge xīngqī yào kǎo Zhōngwén nǐ bāng wǒ zhǔnbèi yíxià gēn wǒ liànxí shuō Zhōngwén hǎo ma",
+      "standard_answers": [
+        "Wang Peng, I have a Chinese exam next week. Could you help me prepare and practice speaking Chinese with me?"
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "好啊,但是你得请我喝咖啡。",
+      "original_pinyin": "hǎo a dànshì nǐ děi qǐng wǒ hē kāfēi",
+      "standard_answers": [
+        "Sure, but you must treat me to coffee."
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "我回来以后给你打电话。",
+      "original_pinyin": "wǒ huí lai yǐhòu gěi nǐ dǎ diànhuà",
+      "standard_answers": [
+        "I will call you after I get back."
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "常老师星期四下午四点以后才有空。",
+      "original_pinyin": "Cháng lǎoshī xīngqīsì xiàwǔ sì diǎn yǐhòu cái yǒu kòng.",
+      "standard_answers": [
+        "Teacher Chang won't be free until after 4:00 on Thursday afternoon."
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "next",
+      "original_pinyin": null,
+      "standard_answers": [
+        "下个"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "below, next",
+      "original_pinyin": null,
+      "standard_answers": [
+        "下"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Chinese language",
+      "original_pinyin": null,
+      "standard_answers": [
+        "中文"
+      ],
+      "context_examples": [
+        {
+          "cn": "我学中文, 你呢?",
+          "py": "Wǒ xué Zhōngwén, nǐ ne?",
+          "en": "I study Chinese. How about you?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "language, script, written language",
+      "original_pinyin": null,
+      "standard_answers": [
+        "文"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to help",
+      "original_pinyin": null,
+      "standard_answers": [
+        "帮"
+      ],
+      "context_examples": [
+        {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to prepare",
+      "original_pinyin": null,
+      "standard_answers": [
+        "准备"
+      ],
+      "context_examples": [
+        {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to practice",
+      "original_pinyin": null,
+      "standard_answers": [
+        "练习"
+      ],
+      "context_examples": [
+        {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to say, to speak",
+      "original_pinyin": null,
+      "standard_answers": [
+        "说"
+      ],
+      "context_examples": [
+        {
+          "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+          "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "A (a sentence-final particle of exclamation, interrogation, etc.)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "啊"
+      ],
+      "context_examples": [
+        {
+          "cn": "好啊, 但是你得请我喝咖啡。",
+          "py": "Hǎo a, dànshì nǐ děi qǐng wǒ hē kāfēi.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "but",
+      "original_pinyin": null,
+      "standard_answers": [
+        "但是"
+      ],
+      "context_examples": [
+        {
+          "cn": "好啊, 但是你得请我喝咖啡。",
+          "py": "Hǎo a, dànshì nǐ děi qǐng wǒ hē kāfēi.",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "must, to have to",
+      "original_pinyin": null,
+      "standard_answers": [
+        "得"
+      ],
+      "context_examples": [
+        {
+          "cn": "我现在得去开会, 没空儿跟你聊天儿。",
+          "py": "Wǒ xiànzài děi qù kāi huì, méi kòngr gēn nǐ liáo tiānr.",
+          "en": "I have to go to a meeting right now, and don't have time to chat with you."
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "with",
+      "original_pinyin": null,
+      "standard_answers": [
+        "跟"
+      ],
+      "context_examples": [
+        {
+          "cn": "我现在得去开会, 没空儿跟你聊天儿。",
+          "py": "Wǒ xiànzài děi qù kāi huì, méi kòngr gēn nǐ liáo tiānr.",
+          "en": "I have to go to a meeting right now, and don't have time to chat with you."
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to meet up, to meet with",
+      "original_pinyin": null,
+      "standard_answers": [
+        "见面"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "face",
+      "original_pinyin": null,
+      "standard_answers": [
+        "面"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to come back",
+      "original_pinyin": null,
+      "standard_answers": [
+        "回来"
+      ],
+      "context_examples": [
+        {
+          "cn": "你什么时候回来?",
+          "py": "Nǐ shénme shíhou huí lai?",
+          "en": "When are you coming back?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Are you free this evening?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "你今天晚上有空儿吗?"
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Don't chat, you have to read.",
+      "original_pinyin": null,
+      "standard_answers": [
+        "你别聊天儿，你得看书。"
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "What are you going to do next Wednesday afternoon?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "你下个星期三下午要做什么？"
+      ]
+    },
+    {
+      "lesson_id": 602,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Li You wants to go ask Teacher Chang questions on Thursday afternoon.",
+      "original_pinyin": null,
+      "standard_answers": [
+        "李友想星期四下午去问常老师问题。"
+      ]
+    }
+  ],
+  "video_global_config": {
+    "visual_style": "3D Pixar style animation, vibrant colors, warm and soft lighting, detailed character expressions, educational and friendly atmosphere.",
+    "character_definitions": [
+      {
+        "name": "李友",
+        "appearance_description_en": "A young East Asian woman in her early 20s, with long black hair tied in a neat ponytail, wearing stylish round glasses. She has a studious and earnest look, dressed in a cozy cream-colored cable-knit sweater."
+      },
+      {
+        "name": "王朋",
+        "appearance_description_en": "A friendly young East Asian man in his early 20s, with short, slightly messy black hair. He has a warm, approachable smile and is dressed in a casual green t-shirt. He appears relaxed and easygoing."
+      }
+    ]
+  },
+  "video_scenes": [
+    {
+      "scene_id": 1,
+      "scene_description_cn": "分屏画面：左边是李友在书桌前，表情略带焦虑地打电话。右边是王朋在家中，轻松地接起电话。",
+      "video_api_prompt_en": "Split screen, 3D Pixar style. On the left, Li You, a studious young woman with glasses, sits at a desk cluttered with Chinese textbooks, looking anxious as she holds her phone. On the right, Wang Peng, a friendly young man, relaxes on a sofa in a cozy living room, smiling as he answers his phone. Cinematic, soft lighting.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "李友",
+        "content": "喂, 请问, 王朋在吗?",
+        "pinyin": "wèi, qǐngwèn, Wáng Péng zài ma?"
+      },
+      "screen_overlay": {
+        "main_text": "喂 (wèi), 请问...在吗 (qǐngwèn... zài ma)?",
+        "sub_text": "Hello, is... there?"
+      }
+    },
+    {
+      "scene_id": 2,
+      "scene_description_cn": "镜头切换到李友，她真诚地请求帮助。旁边出现一个日历图标，上面写着“下个星期”和“中文考试”，强调事情的紧迫性。",
+      "video_api_prompt_en": "Medium close-up on Li You, 3D Pixar style. She has an earnest and pleading expression. A cute, animated calendar icon pops up beside her head, displaying '下个星期' and '中文考试'. The background is her study room with a warm desk lamp. Shallow depth of field.",
+      "camera_movement": "Slow Zoom in",
+      "voice_over": {
+        "role": "李友",
+        "content": "王朋, 我下个星期要考中文, 你帮我准备一下, 跟我练习说中文, 好吗?",
+        "pinyin": "Wáng Péng, wǒ xià ge xīngqī yào kǎo Zhōngwén, nǐ bāng wǒ zhǔnbèi yíxià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?"
+      },
+      "screen_overlay": {
+        "main_text": "帮我准备 (bāng wǒ zhǔnbèi) / 跟我练习 (gēn wǒ liànxí)",
+        "sub_text": "Help me prepare / Practice with me"
+      }
+    },
+    {
+      "scene_id": 3,
+      "scene_description_cn": "镜头切换到王朋，他调皮地笑了笑，做了一个“请喝咖啡”的手势，表示同意的条件。",
+      "video_api_prompt_en": "Medium shot of Wang Peng, 3D Pixar style. He has a playful, friendly smile and winks. He makes a gesture of holding and offering a coffee cup. The background is his bright, modern living room. Warm, inviting light.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "王朋",
+        "content": "好啊, 但是你得请我喝咖啡。",
+        "pinyin": "hǎo a, dànshì nǐ děi qǐng wǒ hē kāfēi."
+      },
+      "screen_overlay": {
+        "main_text": "但是 (dànshì) 你得 (děi) 请我喝咖啡",
+        "sub_text": "But you have to treat me to coffee"
+      }
+    },
+    {
+      "scene_id": 4,
+      "scene_description_cn": "李友爽快地答应了，然后看着日历，思考着见面的时间。",
+      "video_api_prompt_en": "Medium shot of Li You, 3D Pixar style. She smiles brightly and gives a confident 'OK' gesture. Her eyes then shift thoughtfully towards a wall calendar, tapping her chin as she thinks. Soft, natural light fills the room.",
+      "camera_movement": "Pan",
+      "voice_over": {
+        "role": "李友",
+        "content": "喝咖啡, 没问题。那我什么时候跟你见面? 你今天晚上有空儿吗?",
+        "pinyin": "hē kāfēi, méi wèntí. nà wǒ shénme shíhou gēn nǐ jiànmiàn? nǐ jīntiān wǎnshang yǒu kòngr ma?"
+      },
+      "screen_overlay": {
+        "main_text": "什么时候 (shénme shíhou) / 有空儿吗 (yǒu kòngr ma)?",
+        "sub_text": "When? / Are you free?"
+      }
+    },
+    {
+      "scene_id": 5,
+      "scene_description_cn": "王朋看着手机，微笑着做出一个“打电话”的手势，承诺之后会联系李友。",
+      "video_api_prompt_en": "Close-up on Wang Peng, 3D Pixar style. He looks at his phone screen (off-camera) then looks up with a reassuring smile, making a 'call me' hand gesture (thumb and pinky extended). The lighting is soft and highlights his friendly expression.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "王朋",
+        "content": "我回来以后给你打电话。",
+        "pinyin": "wǒ huí lai yǐhòu gěi nǐ dǎ diànhuà."
+      },
+      "screen_overlay": {
+        "main_text": "回来以后 (huí lai yǐhòu) / 给你打电话 (gěi nǐ dǎ diànhuà)",
+        "sub_text": "After I get back / I'll call you"
+      }
+    },
+    {
+      "scene_id": 6,
+      "scene_description_cn": "画面切回李友，她听到后松了口气，开心地笑着点头，表示会等待电话。",
+      "video_api_prompt_en": "Medium shot of Li You, 3D Pixar style. Her expression changes from anxious to relieved and happy. She nods with a bright smile, holding her phone to her chest. The warm light from her desk lamp illuminates her face. Bokeh background.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "李友",
+        "content": "好, 我等你的电话。",
+        "pinyin": "hǎo, wǒ děng nǐ de diànhuà."
+      },
+      "screen_overlay": {
+        "main_text": "等你的电话 (děng nǐ de diànhuà)",
+        "sub_text": "I'll wait for your call."
+      }
+    }
+  ]
+}

@@ -994,6 +994,17 @@
         "en": "Mr. Li is inviting you to have Chinese food tomorrow."
       },
       "lesson_id": 301
+    },
+    {
+      "definition": "sky",
+      "pinyin": "tiān",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "今天妈妈喝了三杯水。",
+        "py": "Jīntiān Māma hē le sān bēi shuǐ.",
+        "en": "Mom drank three glasses of water today."
+      },
+      "lesson_id": 502
     }
   ],
   "生日": [
@@ -1072,6 +1083,17 @@
         "en": "Say this to find out someone's age."
       },
       "lesson_id": 301
+    },
+    {
+      "definition": "many, much",
+      "pinyin": "duō",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "你和我两个人吃饭,五个菜太多了。",
+        "py": "Nǐ hé wǒ liǎng ge rén chī fàn, wǔ ge cài tài duō le.",
+        "en": "It's just the two of us eating. Five dishes are too many."
+      },
+      "lesson_id": 701
     }
   ],
   "大": [
@@ -2112,6 +2134,1428 @@
         "en": ""
       },
       "lesson_id": 402
+    }
+  ],
+  "呀": [
+    {
+      "definition": "(interjectory particle used to soften a question)",
+      "pinyin": "ya",
+      "part_of_speech": "p",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "进": [
+    {
+      "definition": "to enter",
+      "pinyin": "jìn",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "快": [
+    {
+      "definition": "fast, quick; quickly",
+      "pinyin": "kuài",
+      "part_of_speech": "adv/adj",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "进来": [
+    {
+      "definition": "to come in",
+      "pinyin": "jìn lai",
+      "part_of_speech": "vc",
+      "example": {
+        "cn": "你进来一下。",
+        "py": "Nǐ jìn lai yí xià.",
+        "en": "Come in for a minute."
+      },
+      "lesson_id": 501
+    }
+  ],
+  "来": [
+    {
+      "definition": "to come",
+      "pinyin": "lái",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "介绍": [
+    {
+      "definition": "to introduce",
+      "pinyin": "jièshào",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "一下": [
+    {
+      "definition": "once, a bit [See Grammar 1.]",
+      "pinyin": "yí xià",
+      "part_of_speech": "n+m",
+      "example": {
+        "cn": "你看一下, 这是谁的照片?",
+        "py": "Nǐ kàn yí xià, zhè shì shéi de zhàopiàn?",
+        "en": "Take a look. Whose photo is this?"
+      },
+      "lesson_id": 501
+    }
+  ],
+  "高兴": [
+    {
+      "definition": "happy, pleased",
+      "pinyin": "gāoxìng",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "我今天很高兴。",
+        "py": "Wǒ jīntiān hěn gāoxìng.",
+        "en": "I'm very happy today."
+      },
+      "lesson_id": 501
+    }
+  ],
+  "漂亮": [
+    {
+      "definition": "pretty",
+      "pinyin": "piàoliang",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "他妹妹很漂亮。",
+        "py": "Tā mèimei hěn piàoliang.",
+        "en": "His younger sister is very pretty."
+      },
+      "lesson_id": 501
+    }
+  ],
+  "坐": [
+    {
+      "definition": "to sit",
+      "pinyin": "zuò",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "在": [
+    {
+      "definition": "at, in, on [See Grammar 3.]",
+      "pinyin": "zài",
+      "part_of_speech": "prep",
+      "example": {
+        "cn": "你在哪儿工作？",
+        "py": "Nǐ zài nǎr gōngzuò?",
+        "en": "Where do you work?"
+      },
+      "lesson_id": 501
+    },
+    {
+      "definition": "to be present, to be at (a place)",
+      "pinyin": "zài",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "我们在哪儿见面？",
+        "py": "Wǒmen zài nǎr jiànmiàn?",
+        "en": "Where will we meet?"
+      },
+      "lesson_id": 601
+    }
+  ],
+  "哪儿": [
+    {
+      "definition": "where",
+      "pinyin": "năr",
+      "part_of_speech": "qpr",
+      "example": {
+        "cn": "你在哪儿工作？",
+        "py": "Nǐ zài nǎr gōngzuò?",
+        "en": "Where do you work?"
+      },
+      "lesson_id": 501
+    }
+  ],
+  "学校": [
+    {
+      "definition": "school",
+      "pinyin": "xuéxiào",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "喝": [
+    {
+      "definition": "to drink",
+      "pinyin": "hē",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "你喝一点儿茶吧。",
+        "py": "Nǐ hē yì diǎnr chá ba.",
+        "en": "Have some tea."
+      },
+      "lesson_id": 501
+    }
+  ],
+  "点(儿)": [
+    {
+      "definition": "a little, a bit, some [See Grammar 1.]",
+      "pinyin": "diăn(r)",
+      "part_of_speech": "m",
+      "example": {
+        "cn": "你想吃点儿什么？",
+        "py": "Nǐ xiǎng chī diǎnr shénme?",
+        "en": "What would you like to eat?"
+      },
+      "lesson_id": 501
+    }
+  ],
+  "茶": [
+    {
+      "definition": "tea",
+      "pinyin": "chá",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "你喝一点儿茶吧。",
+        "py": "Nǐ hē yì diǎnr chá ba.",
+        "en": "Have some tea."
+      },
+      "lesson_id": 501
+    }
+  ],
+  "咖啡": [
+    {
+      "definition": "coffee",
+      "pinyin": "kāfēi",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "你喝咖啡吧。",
+        "py": "Nǐ hē kāfēi ba.",
+        "en": "Why don't you have some coffee?"
+      },
+      "lesson_id": 501
+    }
+  ],
+  "吧": [
+    {
+      "definition": "(a sentence-final particle) [See Grammar 4.]",
+      "pinyin": "ba",
+      "part_of_speech": "p",
+      "example": {
+        "cn": "请进来吧。",
+        "py": "Qǐng jìn lai ba.",
+        "en": "Come in, please."
+      },
+      "lesson_id": 501
+    }
+  ],
+  "要": [
+    {
+      "definition": "to want",
+      "pinyin": "yào",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    },
+    {
+      "definition": "will, to be going to, to want to, to have a desire to [See Grammar 2.]",
+      "pinyin": "yào",
+      "part_of_speech": "mv",
+      "example": {
+        "cn": "明天下午三点我要给二年级考试。",
+        "py": "Míngtiān xiàwù sān diǎn wǒ yào gěi èr niánjí kǎo shì.",
+        "en": "I'm going to give the second-year class a test at 3:00 p.m. tomorrow."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "瓶": [
+    {
+      "definition": "(measure word for bottled liquid, etc.)",
+      "pinyin": "píng",
+      "part_of_speech": "m",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "可乐": [
+    {
+      "definition": "cola",
+      "pinyin": "kělè",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "可以": [
+    {
+      "definition": "can, may",
+      "pinyin": "kěyǐ",
+      "part_of_speech": "mv",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "对不起": [
+    {
+      "definition": "sorry",
+      "pinyin": "duìbuqǐ",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "给": [
+    {
+      "definition": "to give",
+      "pinyin": "gěi",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    },
+    {
+      "definition": "to, for [See Grammar 1.]",
+      "pinyin": "gěi",
+      "part_of_speech": "prep",
+      "example": {
+        "cn": "他给我打了一个电话。",
+        "py": "Tā gěi wǒ dǎ le yí ge diànhuà.",
+        "en": "He gave me a call."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "杯": [
+    {
+      "definition": "(measure word for things contained in a cup or glass)",
+      "pinyin": "bēi",
+      "part_of_speech": "m",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "水": [
+    {
+      "definition": "water",
+      "pinyin": "shuǐ",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "高小音": [
+    {
+      "definition": "(a personal name)",
+      "pinyin": "Gāo Xiǎoyīn",
+      "part_of_speech": "pn",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 501
+    }
+  ],
+  "玩(儿)": [
+    {
+      "definition": "to have fun, to play",
+      "pinyin": "wán(r)",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 502
+    }
+  ],
+  "了": [
+    {
+      "definition": "(a dynamic particle) [See Grammar 5.]",
+      "pinyin": "le",
+      "part_of_speech": "p",
+      "example": {
+        "cn": "今天妈妈喝了三杯水。",
+        "py": "Jīntiān Māma hē le sān bēi shuǐ.",
+        "en": "Mom drank three glasses of water today."
+      },
+      "lesson_id": 502
+    }
+  ],
+  "图书馆": [
+    {
+      "definition": "library",
+      "pinyin": "túshūguǎn",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 502
+    }
+  ],
+  "一起": [
+    {
+      "definition": "together",
+      "pinyin": "yīqǐ",
+      "part_of_speech": "adv",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 502
+    }
+  ],
+  "聊天(儿)": [
+    {
+      "definition": "to chat",
+      "pinyin": "liáo tiān(r)",
+      "part_of_speech": "vo",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 502
+    }
+  ],
+  "聊": [
+    {
+      "definition": "to chat",
+      "pinyin": "liáo",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 502
+    }
+  ],
+  "才": [
+    {
+      "definition": "not until, only then [See Grammar 6.]",
+      "pinyin": "cái",
+      "part_of_speech": "adv",
+      "example": {
+        "cn": "我请他六点吃晚饭,他六点半才来。",
+        "py": "Wǒ qǐng tā liù diǎn chī wǎnfàn, tā liù diǎn bàn cái lái.",
+        "en": "I invited him out to dinner at six o'clock. He didn't arrive until six-thirty."
+      },
+      "lesson_id": 502
+    }
+  ],
+  "回家": [
+    {
+      "definition": "to go home",
+      "pinyin": "huí jiā",
+      "part_of_speech": "vo",
+      "example": {
+        "cn": "小高常常晚上十二点才回家。",
+        "py": "Xiǎo Gāo chángcháng wǎnshang shí'èr diǎn cái huí jiā.",
+        "en": "Little Gao often doesn't come home until midnight."
+      },
+      "lesson_id": 502
+    }
+  ],
+  "回": [
+    {
+      "definition": "to return",
+      "pinyin": "huí",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "小高常常晚上十二点才回家。",
+        "py": "Xiǎo Gāo chángcháng wǎnshang shí'èr diǎn cái huí jiā.",
+        "en": "Little Gao often doesn't come home until midnight."
+      },
+      "lesson_id": 502
+    }
+  ],
+  "打电话": [
+    {
+      "definition": "to make a phone call",
+      "pinyin": "dǎ diànhuà",
+      "part_of_speech": "vo",
+      "example": {
+        "cn": "我昨天很忙，没给妈妈打电话。",
+        "py": "Wǒ zuótiān hěn máng, méi gěi māma dǎ diànhuà.",
+        "en": "I was very busy yesterday. I didn't call my mother."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "电话": [
+    {
+      "definition": "telephone",
+      "pinyin": "diànhuà",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "他给我打了一个电话。",
+        "py": "Tā gěi wǒ dǎ le yí ge diànhuà.",
+        "en": "He gave me a call."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "喂": [
+    {
+      "definition": "(on the phone) Hello!, Hey!",
+      "pinyin": "wéi/wèi",
+      "part_of_speech": "interj",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "就": [
+    {
+      "definition": "precisely, exactly",
+      "pinyin": "jiù",
+      "part_of_speech": "adv",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "您": [
+    {
+      "definition": "you (honorific for 你)",
+      "pinyin": "nín",
+      "part_of_speech": "pr",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "哪": [
+    {
+      "definition": "which",
+      "pinyin": "nă/něi",
+      "part_of_speech": "qpr",
+      "example": {
+        "cn": "我们在哪儿见面?",
+        "py": "Wǒmen zài nǎr jiànmiàn?",
+        "en": "Where will we meet?"
+      },
+      "lesson_id": 601
+    }
+  ],
+  "位": [
+    {
+      "definition": "(polite measure word for people)",
+      "pinyin": "wèi",
+      "part_of_speech": "m",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "下午": [
+    {
+      "definition": "afternoon",
+      "pinyin": "xiàwǔ",
+      "part_of_speech": "t",
+      "example": {
+        "cn": "明天下午三点我要给二年级考试。",
+        "py": "Míngtiān xiàwǔ sān diǎn wǒ yào gěi èr niánjí kǎo shì.",
+        "en": "I'm going to give the second-year class a test at 3:00 p.m. tomorrow."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "时间": [
+    {
+      "definition": "time",
+      "pinyin": "shíjiān",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "问题": [
+    {
+      "definition": "question, problem",
+      "pinyin": "wèntí",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "我问她一个问题",
+        "py": "Wǒ wèn tā yí ge wèntí",
+        "en": "I ask her a question"
+      },
+      "lesson_id": 601
+    }
+  ],
+  "开会": [
+    {
+      "definition": "to have a meeting",
+      "pinyin": "kāi huì",
+      "part_of_speech": "vo",
+      "example": {
+        "cn": "明天我不去小白家玩儿,我要开会。",
+        "py": "Míngtiān wǒ bú qù Xiǎo Bái jiā wánr, wǒ yào kāi huì.",
+        "en": "I'm not going to visit Little Bai tomorrow. I am going to a meeting."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "开": [
+    {
+      "definition": "to open, to hold (a meeting, party, etc.)",
+      "pinyin": "kāi",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "明天我不去小白家玩儿,我要开会。",
+        "py": "Míngtiān wǒ bú qù Xiǎo Bái jiā wánr, wǒ yào kāi huì.",
+        "en": "I'm not going to visit Little Bai tomorrow. I am going to a meeting."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "会": [
+    {
+      "definition": "meeting",
+      "pinyin": "huì",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "明天我不去小白家玩儿, 我要开会。",
+        "py": "Míngtiān wǒ bú qù Xiǎo Bái jiā wánr, wǒ yào kāi huì.",
+        "en": "I'm not going to visit Little Bai tomorrow. I am going to a meeting."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "上午": [
+    {
+      "definition": "morning",
+      "pinyin": "shàngwǔ",
+      "part_of_speech": "t",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "节": [
+    {
+      "definition": "(measure word for class periods)",
+      "pinyin": "jié",
+      "part_of_speech": "m",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "课": [
+    {
+      "definition": "class, course, lesson",
+      "pinyin": "kè",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "年级": [
+    {
+      "definition": "grade in school",
+      "pinyin": "niánjí",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "明天下午三点我要给二年级考试。",
+        "py": "Míngtiān xiàwǔ sān diǎn wǒ yào gěi èr niánjí kǎo shì.",
+        "en": "I'm going to give the second-year class a test at 3:00 p.m. tomorrow."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "考试": [
+    {
+      "definition": "to give or take a test; test",
+      "pinyin": "kǎo shì",
+      "part_of_speech": "vo/n",
+      "example": {
+        "cn": "明天下午三点我要给二年级考试。",
+        "py": "Míngtiān xiàwù sān diǎn wǒ yào gěi èr niánjí kǎo shì.",
+        "en": "I'm going to give the second-year class a test at 3:00 p.m. tomorrow."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "考": [
+    {
+      "definition": "to give or take a test",
+      "pinyin": "kǎo",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "试": [
+    {
+      "definition": "test; to try, to experiment",
+      "pinyin": "shì",
+      "part_of_speech": "n/v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "以后": [
+    {
+      "definition": "after, from now on, later on",
+      "pinyin": "yǐhòu",
+      "part_of_speech": "t",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "空(儿)": [
+    {
+      "definition": "free time",
+      "pinyin": "kòng(r)",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "要是": [
+    {
+      "definition": "if",
+      "pinyin": "yàoshi",
+      "part_of_speech": "conj",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "方便": [
+    {
+      "definition": "convenient",
+      "pinyin": "fāngbiàn",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "到": [
+    {
+      "definition": "to go to, to arrive",
+      "pinyin": "dào",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "办公室": [
+    {
+      "definition": "office",
+      "pinyin": "bàngōngshì",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "行": [
+    {
+      "definition": "all right, OK",
+      "pinyin": "xíng",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "你有你姐姐的照片吗?给我看一下,行吗?",
+        "py": "Nǐ yǒu nǐ jiějie de zhàopiàn ma? Gěi wǒ kàn yí xià, xíng ma?",
+        "en": "Do you have a picture of your older sister? Can I have a look?"
+      },
+      "lesson_id": 601
+    }
+  ],
+  "等": [
+    {
+      "definition": "to wait, to wait for",
+      "pinyin": "děng",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "别": [
+    {
+      "definition": "don't [See Grammar 3.]",
+      "pinyin": "bié",
+      "part_of_speech": "adv",
+      "example": {
+        "cn": "别客气。",
+        "py": "Bié kèqi.",
+        "en": "You're welcome."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "客气": [
+    {
+      "definition": "polite",
+      "pinyin": "kèqi",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "别客气。",
+        "py": "Bié kèqi.",
+        "en": "You're welcome."
+      },
+      "lesson_id": 601
+    }
+  ],
+  "常老师": [
+    {
+      "definition": "Teacher Chang",
+      "pinyin": "Cháng lǎoshī",
+      "part_of_speech": "pn",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 601
+    }
+  ],
+  "下个": [
+    {
+      "definition": "next",
+      "pinyin": "xià ge",
+      "part_of_speech": "",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "下": [
+    {
+      "definition": "below, next",
+      "pinyin": "xià",
+      "part_of_speech": "",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "中文": [
+    {
+      "definition": "Chinese language",
+      "pinyin": "Zhōngwén",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "我学中文, 你呢?",
+        "py": "Wǒ xué Zhōngwén, nǐ ne?",
+        "en": "I study Chinese. How about you?"
+      },
+      "lesson_id": 602
+    }
+  ],
+  "文": [
+    {
+      "definition": "language, script, written language",
+      "pinyin": "wén",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "帮": [
+    {
+      "definition": "to help",
+      "pinyin": "bāng",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "准备": [
+    {
+      "definition": "to prepare",
+      "pinyin": "zhǔnbèi",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+        "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "练习": [
+    {
+      "definition": "to practice",
+      "pinyin": "liànxí",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+        "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "说": [
+    {
+      "definition": "to say, to speak",
+      "pinyin": "shuō",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "你帮我准备一下, 跟我练习说中文, 好吗?",
+        "py": "nǐ bāng wǒ zhǔnbèi yí xià, gēn wǒ liànxí shuō Zhōngwén, hǎo ma?",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "啊": [
+    {
+      "definition": "(a sentence-final particle of exclamation, interrogation, etc.)",
+      "pinyin": "a",
+      "part_of_speech": "p",
+      "example": {
+        "cn": "好啊, 但是你得请我喝咖啡。",
+        "py": "Hǎo a, dànshì nǐ děi qǐng wǒ hē kāfēi.",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "但是": [
+    {
+      "definition": "but",
+      "pinyin": "dànshì",
+      "part_of_speech": "conj",
+      "example": {
+        "cn": "好啊, 但是你得请我喝咖啡。",
+        "py": "Hǎo a, dànshì nǐ děi qǐng wǒ hē kāfēi.",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "得": [
+    {
+      "definition": "must, to have to",
+      "pinyin": "děi",
+      "part_of_speech": "av",
+      "example": {
+        "cn": "我现在得去开会, 没空儿跟你聊天儿。",
+        "py": "Wǒ xiànzài děi qù kāi huì, méi kòngr gēn nǐ liáo tiānr.",
+        "en": "I have to go to a meeting right now, and don't have time to chat with you."
+      },
+      "lesson_id": 602
+    },
+    {
+      "definition": "(a structural particle) [See Grammar 1.]",
+      "pinyin": "de",
+      "part_of_speech": "p",
+      "example": {
+        "cn": "他写字写得很好。",
+        "py": "Tā xiě zì xiě de hěn hǎo.",
+        "en": "He writes characters very well."
+      },
+      "lesson_id": 701
+    }
+  ],
+  "跟": [
+    {
+      "definition": "with",
+      "pinyin": "gēn",
+      "part_of_speech": "prep",
+      "example": {
+        "cn": "我现在得去开会, 没空儿跟你聊天儿。",
+        "py": "Wǒ xiànzài děi qù kāi huì, méi kòngr gēn nǐ liáo tiānr.",
+        "en": "I have to go to a meeting right now, and don't have time to chat with you."
+      },
+      "lesson_id": 602
+    }
+  ],
+  "见面": [
+    {
+      "definition": "to meet up, to meet with",
+      "pinyin": "jiàn miàn",
+      "part_of_speech": "vo",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "面": [
+    {
+      "definition": "face",
+      "pinyin": "miàn",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 602
+    }
+  ],
+  "回来": [
+    {
+      "definition": "to come back",
+      "pinyin": "huí lai",
+      "part_of_speech": "vc",
+      "example": {
+        "cn": "你什么时候回来?",
+        "py": "Nǐ shénme shíhou huí lai?",
+        "en": "When are you coming back?"
+      },
+      "lesson_id": 602
+    }
+  ],
+  "说话": [
+    {
+      "definition": "to talk",
+      "pinyin": "shuō huà",
+      "part_of_speech": "vo",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "话": [
+    {
+      "definition": "word, speech",
+      "pinyin": "huà",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "上个": [
+    {
+      "definition": "previous, last",
+      "pinyin": "shàng ge",
+      "part_of_speech": "",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "复习": [
+    {
+      "definition": "to review",
+      "pinyin": "fùxí",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "写": [
+    {
+      "definition": "to write",
+      "pinyin": "xiě",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "他写字写得很好。",
+        "py": "Tā xiě zì xiě de hěn hǎo.",
+        "en": "He writes characters very well."
+      },
+      "lesson_id": 701
+    }
+  ],
+  "字": [
+    {
+      "definition": "character",
+      "pinyin": "zì",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "他写字写得很好。",
+        "py": "Tā xiě zì xiě de hěn hǎo.",
+        "en": "He writes characters very well."
+      },
+      "lesson_id": 701
+    }
+  ],
+  "慢": [
+    {
+      "definition": "slow",
+      "pinyin": "màn",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "枝": [
+    {
+      "definition": "(measure word for long, thin, inflexible objects such as pens, pencils, etc.)",
+      "pinyin": "zhī",
+      "part_of_speech": "m",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "笔": [
+    {
+      "definition": "pen",
+      "pinyin": "bǐ",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "张": [
+    {
+      "definition": "(measure word for flat objects such as paper, pictures, etc.)",
+      "pinyin": "zhāng",
+      "part_of_speech": "m",
+      "example": {
+        "cn": "八点上课, 小张八点半才来。",
+        "py": "Bā diǎn shàng kè, Xiǎo Zhāng bā diǎn bàn cái lái.",
+        "en": "Class starts at 8:00, but Little Zhang didn't come until 8:30."
+      },
+      "lesson_id": 701
+    }
+  ],
+  "纸": [
+    {
+      "definition": "paper",
+      "pinyin": "zhǐ",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "教": [
+    {
+      "definition": "to teach",
+      "pinyin": "jiāo",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "小李, 你写字写得真好! 你可以教我吗?",
+        "py": "Xiǎo Lǐ, nǐ xiě zì xiě de zhēn hǎo! Nǐ kěyǐ jiāo wǒ ma?",
+        "en": "Little Li, you write characters really well! Could you teach me?"
+      },
+      "lesson_id": 701
+    }
+  ],
+  "怎么": [
+    {
+      "definition": "how, how come",
+      "pinyin": "zěnme",
+      "part_of_speech": "qpr",
+      "example": {
+        "cn": "他写字写得怎么样?",
+        "py": "Tā xiě zì xiě de zěnmeyàng?",
+        "en": "How well does he write characters?"
+      },
+      "lesson_id": 701
+    }
+  ],
+  "懂": [
+    {
+      "definition": "to understand",
+      "pinyin": "dǒng",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "真": [
+    {
+      "definition": "really [See Grammar 2.]",
+      "pinyin": "zhēn",
+      "part_of_speech": "adv",
+      "example": {
+        "cn": "小李, 你写字写得真好! 你可以教我吗?",
+        "py": "Xiǎo Lǐ, nǐ xiě zì xiě de zhēn hǎo! Nǐ kěyǐ jiāo wǒ ma?",
+        "en": "Little Li, you write characters really well! Could you teach me?"
+      },
+      "lesson_id": 701
+    }
+  ],
+  "哪里": [
+    {
+      "definition": "where",
+      "pinyin": "nǎli",
+      "part_of_speech": "pr",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "预习": [
+    {
+      "definition": "to preview",
+      "pinyin": "yùxí",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "学": [
+    {
+      "definition": "to study, to learn",
+      "pinyin": "xué",
+      "part_of_speech": "v",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "第": [
+    {
+      "definition": "(prefix for ordinal numbers) [See Grammar 5.]",
+      "pinyin": "dì",
+      "part_of_speech": "prefix",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "语法": [
+    {
+      "definition": "grammar",
+      "pinyin": "yǔfǎ",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "老师教我们生词和语法。",
+        "py": "Lǎoshī jiāo wǒmen shēngcí hé yǔfǎ.",
+        "en": "The teacher teaches us vocabulary and grammar."
+      },
+      "lesson_id": 701
+    }
+  ],
+  "容易": [
+    {
+      "definition": "easy",
+      "pinyin": "róngyì",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "",
+        "py": "",
+        "en": ""
+      },
+      "lesson_id": 701
+    }
+  ],
+  "生词": [
+    {
+      "definition": "new words, vocabulary",
+      "pinyin": "shēngcí",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "我觉得这一课生词有(一)点儿多。",
+        "py": "Wǒ juéde zhè yí kè shēngcí yǒu(yì)diǎnr duō.",
+        "en": "I think there are a few too many new words in this lesson."
+      },
+      "lesson_id": 701
+    }
+  ],
+  "汉字": [
+    {
+      "definition": "Chinese characters",
+      "pinyin": "Hànzì",
+      "part_of_speech": "n",
+      "example": {
+        "cn": "你教我汉字,可以吗?",
+        "py": "Nǐ jiāo wǒ Hànzì, kěyǐ ma?",
+        "en": "Will you teach me Chinese characters, please?"
+      },
+      "lesson_id": 701
+    }
+  ],
+  "难": [
+    {
+      "definition": "difficult",
+      "pinyin": "nán",
+      "part_of_speech": "adj",
+      "example": {
+        "cn": "我觉得中文有(一)点儿难。",
+        "py": "Wǒ juéde Zhōngwén yǒu(yì)diǎnr nán.",
+        "en": "I think Chinese is a little hard."
+      },
+      "lesson_id": 701
     }
   ]
 }

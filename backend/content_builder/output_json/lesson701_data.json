@@ -1,0 +1,2251 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 701,
+    "title": "学中文"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "王朋",
+            "english": "Li You, how did you do on last week's exam?",
+            "words": [
+              {
+                "cn": "李友",
+                "py": "Lǐ Yǒu",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "上",
+                "py": "shàng",
+                "highlight": false
+              },
+              {
+                "cn": "个",
+                "py": "ge",
+                "highlight": false
+              },
+              {
+                "cn": "星期",
+                "py": "xīngqī",
+                "highlight": false
+              },
+              {
+                "cn": "考试",
+                "py": "kǎoshì",
+                "highlight": true
+              },
+              {
+                "cn": "考",
+                "py": "kǎo",
+                "highlight": true
+              },
+              {
+                "cn": "得",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "怎么样",
+                "py": "zěnmeyàng",
+                "highlight": false
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "Because you helped me review, I did pretty well.",
+            "words": [
+              {
+                "cn": "因为",
+                "py": "yīnwèi",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "帮",
+                "py": "bāng",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "复习",
+                "py": "fùxí",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "所以",
+                "py": "suǒyǐ",
+                "highlight": false
+              },
+              {
+                "cn": "考",
+                "py": "kǎo",
+                "highlight": true
+              },
+              {
+                "cn": "得",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "不错",
+                "py": "búcuò",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "But I write Chinese characters too slowly!",
+            "words": [
+              {
+                "cn": "但是",
+                "py": "dànshì",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "写",
+                "py": "xiě",
+                "highlight": true
+              },
+              {
+                "cn": "中国",
+                "py": "Zhōngguó",
+                "highlight": false
+              },
+              {
+                "cn": "字",
+                "py": "zì",
+                "highlight": true
+              },
+              {
+                "cn": "写",
+                "py": "xiě",
+                "highlight": true
+              },
+              {
+                "cn": "得",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "太",
+                "py": "tài",
+                "highlight": false
+              },
+              {
+                "cn": "慢",
+                "py": "màn",
+                "highlight": true
+              },
+              {
+                "cn": "了",
+                "py": "le",
+                "highlight": false
+              },
+              {
+                "cn": "！",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Really? From now on I'll practice writing characters with you, how about that?",
+            "words": [
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": false
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": false
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "以后",
+                "py": "yǐhòu",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "跟",
+                "py": "gēn",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "一起",
+                "py": "yìqǐ",
+                "highlight": false
+              },
+              {
+                "cn": "练习",
+                "py": "liànxí",
+                "highlight": true
+              },
+              {
+                "cn": "写字",
+                "py": "xiězì",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "好不好",
+                "py": "hǎo bu hǎo",
+                "highlight": false
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "That's great! Let's write right now, how about it?",
+            "words": [
+              {
+                "cn": "那",
+                "py": "nà",
+                "highlight": false
+              },
+              {
+                "cn": "太",
+                "py": "tài",
+                "highlight": false
+              },
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": "了",
+                "py": "le",
+                "highlight": false
+              },
+              {
+                "cn": "！",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我们",
+                "py": "wǒmen",
+                "highlight": false
+              },
+              {
+                "cn": "现在",
+                "py": "xiànzài",
+                "highlight": false
+              },
+              {
+                "cn": "就",
+                "py": "jiù",
+                "highlight": true
+              },
+              {
+                "cn": "写",
+                "py": "xiě",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "怎么样",
+                "py": "zěnmeyàng",
+                "highlight": false
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "OK, give me a pen and a piece of paper. What character should we write?",
+            "words": [
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "给",
+                "py": "gěi",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "一",
+                "py": "yì",
+                "highlight": false
+              },
+              {
+                "cn": "枝",
+                "py": "zhī",
+                "highlight": true
+              },
+              {
+                "cn": "笔",
+                "py": "bǐ",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "一",
+                "py": "yì",
+                "highlight": false
+              },
+              {
+                "cn": "张",
+                "py": "zhāng",
+                "highlight": true
+              },
+              {
+                "cn": "纸",
+                "py": "zhǐ",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "写",
+                "py": "xiě",
+                "highlight": true
+              },
+              {
+                "cn": "什么",
+                "py": "shénme",
+                "highlight": false
+              },
+              {
+                "cn": "字",
+                "py": "zì",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "You teach me how to write the character \"dǒng\".",
+            "words": [
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "教",
+                "py": "jiāo",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "怎么",
+                "py": "zěnme",
+                "highlight": true
+              },
+              {
+                "cn": "写",
+                "py": "xiě",
+                "highlight": true
+              },
+              {
+                "cn": "“",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "懂",
+                "py": "dǒng",
+                "highlight": true
+              },
+              {
+                "cn": "”",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "字",
+                "py": "zì",
+                "highlight": true
+              },
+              {
+                "cn": "吧",
+                "py": "ba",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Alright.",
+            "words": [
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": "吧",
+                "py": "ba",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "You write characters really well, and so fast.",
+            "words": [
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "写",
+                "py": "xiě",
+                "highlight": true
+              },
+              {
+                "cn": "字",
+                "py": "zì",
+                "highlight": true
+              },
+              {
+                "cn": "写",
+                "py": "xiě",
+                "highlight": true
+              },
+              {
+                "cn": "得",
+                "py": "de",
+                "highlight": true
+              },
+              {
+                "cn": "真",
+                "py": "zhēn",
+                "highlight": true
+              },
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "真",
+                "py": "zhēn",
+                "highlight": true
+              },
+              {
+                "cn": "快",
+                "py": "kuài",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "Not at all, not at all. Do you have Chinese class tomorrow? I'll help you preview.",
+            "words": [
+              {
+                "cn": "哪里",
+                "py": "nǎli",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "哪里",
+                "py": "nǎli",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "明天",
+                "py": "míngtiān",
+                "highlight": false
+              },
+              {
+                "cn": "有",
+                "py": "yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "中文",
+                "py": "Zhōngwén",
+                "highlight": false
+              },
+              {
+                "cn": "课",
+                "py": "kè",
+                "highlight": false
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": false
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "帮",
+                "py": "bāng",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "预习",
+                "py": "yùxí",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "english": "Tomorrow we'll study Lesson 7. The grammar for Lesson 7 is very easy, I understand it all, but there are too many new words, and the Chinese characters are a bit difficult too.",
+            "words": [
+              {
+                "cn": "明天",
+                "py": "míngtiān",
+                "highlight": true
+              },
+              {
+                "cn": "我们",
+                "py": "wǒmen",
+                "highlight": false
+              },
+              {
+                "cn": "学",
+                "py": "xué",
+                "highlight": true
+              },
+              {
+                "cn": "第七",
+                "py": "dì qī",
+                "highlight": true
+              },
+              {
+                "cn": "课",
+                "py": "kè",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "第七",
+                "py": "dì qī",
+                "highlight": true
+              },
+              {
+                "cn": "课",
+                "py": "kè",
+                "highlight": true
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "语法",
+                "py": "yǔfǎ",
+                "highlight": true
+              },
+              {
+                "cn": "很",
+                "py": "hěn",
+                "highlight": false
+              },
+              {
+                "cn": "容易",
+                "py": "róngyì",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "都",
+                "py": "dōu",
+                "highlight": false
+              },
+              {
+                "cn": "懂",
+                "py": "dǒng",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "可是",
+                "py": "kěshì",
+                "highlight": true
+              },
+              {
+                "cn": "生词",
+                "py": "shēngcí",
+                "highlight": true
+              },
+              {
+                "cn": "太",
+                "py": "tài",
+                "highlight": false
+              },
+              {
+                "cn": "多",
+                "py": "duō",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "汉字",
+                "py": "hànzì",
+                "highlight": true
+              },
+              {
+                "cn": "也",
+                "py": "yě",
+                "highlight": false
+              },
+              {
+                "cn": "有",
+                "py": "yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "一点儿",
+                "py": "yìdiǎnr",
+                "highlight": true
+              },
+              {
+                "cn": "难",
+                "py": "nán",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "english": "No problem, I'll help you.",
+            "words": [
+              {
+                "cn": "没问题",
+                "py": "méi wèntí",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "帮",
+                "py": "bāng",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "说话",
+        "pinyin": "shuō huà",
+        "part_of_speech": "vo",
+        "definition": "to talk",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "话",
+        "pinyin": "huà",
+        "part_of_speech": "n",
+        "definition": "word, speech",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "上个",
+        "pinyin": "shàng ge",
+        "part_of_speech": "",
+        "definition": "previous, last",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "得",
+        "pinyin": "de",
+        "part_of_speech": "p",
+        "definition": "(a structural particle) [See Grammar 1.]",
+        "example_sentence": {
+          "cn": "他写字写得很好。",
+          "py": "Tā xiě zì xiě de hěn hǎo.",
+          "en": "He writes characters very well."
+        }
+      },
+      {
+        "word": "复习",
+        "pinyin": "fùxí",
+        "part_of_speech": "v",
+        "definition": "to review",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "写",
+        "pinyin": "xiě",
+        "part_of_speech": "v",
+        "definition": "to write",
+        "example_sentence": {
+          "cn": "他写字写得很好。",
+          "py": "Tā xiě zì xiě de hěn hǎo.",
+          "en": "He writes characters very well."
+        }
+      },
+      {
+        "word": "字",
+        "pinyin": "zì",
+        "part_of_speech": "n",
+        "definition": "character",
+        "example_sentence": {
+          "cn": "他写字写得很好。",
+          "py": "Tā xiě zì xiě de hěn hǎo.",
+          "en": "He writes characters very well."
+        }
+      },
+      {
+        "word": "慢",
+        "pinyin": "màn",
+        "part_of_speech": "adj",
+        "definition": "slow",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "枝",
+        "pinyin": "zhī",
+        "part_of_speech": "m",
+        "definition": "(measure word for long, thin, inflexible objects such as pens, pencils, etc.)",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "笔",
+        "pinyin": "bǐ",
+        "part_of_speech": "n",
+        "definition": "pen",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "张",
+        "pinyin": "zhāng",
+        "part_of_speech": "m",
+        "definition": "(measure word for flat objects such as paper, pictures, etc.)",
+        "example_sentence": {
+          "cn": "八点上课, 小张八点半才来。",
+          "py": "Bā diǎn shàng kè, Xiǎo Zhāng bā diǎn bàn cái lái.",
+          "en": "Class starts at 8:00, but Little Zhang didn't come until 8:30."
+        }
+      },
+      {
+        "word": "纸",
+        "pinyin": "zhǐ",
+        "part_of_speech": "n",
+        "definition": "paper",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "教",
+        "pinyin": "jiāo",
+        "part_of_speech": "v",
+        "definition": "to teach",
+        "example_sentence": {
+          "cn": "小李, 你写字写得真好! 你可以教我吗?",
+          "py": "Xiǎo Lǐ, nǐ xiě zì xiě de zhēn hǎo! Nǐ kěyǐ jiāo wǒ ma?",
+          "en": "Little Li, you write characters really well! Could you teach me?"
+        }
+      },
+      {
+        "word": "怎么",
+        "pinyin": "zěnme",
+        "part_of_speech": "qpr",
+        "definition": "how, how come",
+        "example_sentence": {
+          "cn": "他写字写得怎么样?",
+          "py": "Tā xiě zì xiě de zěnmeyàng?",
+          "en": "How well does he write characters?"
+        }
+      },
+      {
+        "word": "懂",
+        "pinyin": "dǒng",
+        "part_of_speech": "v",
+        "definition": "to understand",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "真",
+        "pinyin": "zhēn",
+        "part_of_speech": "adv",
+        "definition": "really [See Grammar 2.]",
+        "example_sentence": {
+          "cn": "小李, 你写字写得真好! 你可以教我吗?",
+          "py": "Xiǎo Lǐ, nǐ xiě zì xiě de zhēn hǎo! Nǐ kěyǐ jiāo wǒ ma?",
+          "en": "Little Li, you write characters really well! Could you teach me?"
+        }
+      },
+      {
+        "word": "哪里",
+        "pinyin": "nǎli",
+        "part_of_speech": "pr",
+        "definition": "where",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "预习",
+        "pinyin": "yùxí",
+        "part_of_speech": "v",
+        "definition": "to preview",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "学",
+        "pinyin": "xué",
+        "part_of_speech": "v",
+        "definition": "to study, to learn",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "第",
+        "pinyin": "dì",
+        "part_of_speech": "prefix",
+        "definition": "(prefix for ordinal numbers) [See Grammar 5.]",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "语法",
+        "pinyin": "yǔfǎ",
+        "part_of_speech": "n",
+        "definition": "grammar",
+        "example_sentence": {
+          "cn": "老师教我们生词和语法。",
+          "py": "Lǎoshī jiāo wǒmen shēngcí hé yǔfǎ.",
+          "en": "The teacher teaches us vocabulary and grammar."
+        }
+      },
+      {
+        "word": "容易",
+        "pinyin": "róngyì",
+        "part_of_speech": "adj",
+        "definition": "easy",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      },
+      {
+        "word": "生词",
+        "pinyin": "shēngcí",
+        "part_of_speech": "n",
+        "definition": "new words, vocabulary",
+        "example_sentence": {
+          "cn": "我觉得这一课生词有(一)点儿多。",
+          "py": "Wǒ juéde zhè yí kè shēngcí yǒu(yì)diǎnr duō.",
+          "en": "I think there are a few too many new words in this lesson."
+        }
+      },
+      {
+        "word": "多",
+        "pinyin": "duō",
+        "part_of_speech": "adj",
+        "definition": "many, much",
+        "example_sentence": {
+          "cn": "你和我两个人吃饭,五个菜太多了。",
+          "py": "Nǐ hé wǒ liǎng ge rén chī fàn, wǔ ge cài tài duō le.",
+          "en": "It's just the two of us eating. Five dishes are too many."
+        },
+        "historical_usages": [
+          {
+            "definition": "how many/much, to what extent",
+            "pinyin": "duō",
+            "part_of_speech": "adv",
+            "example": {
+              "cn": "你今年多大?",
+              "py": "Nǐ jīnnián duō dà?",
+              "en": "Say this to find out someone's age."
+            },
+            "lesson_id": 301
+          }
+        ]
+      },
+      {
+        "word": "汉字",
+        "pinyin": "Hànzì",
+        "part_of_speech": "n",
+        "definition": "Chinese characters",
+        "example_sentence": {
+          "cn": "你教我汉字,可以吗?",
+          "py": "Nǐ jiāo wǒ Hànzì, kěyǐ ma?",
+          "en": "Will you teach me Chinese characters, please?"
+        }
+      },
+      {
+        "word": "难",
+        "pinyin": "nán",
+        "part_of_speech": "adj",
+        "definition": "difficult",
+        "example_sentence": {
+          "cn": "我觉得中文有(一)点儿难。",
+          "py": "Wǒ juéde Zhōngwén yǒu(yì)diǎnr nán.",
+          "en": "I think Chinese is a little hard."
+        }
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 701,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "说话",
+      "original_pinyin": "shuō huà",
+      "standard_answers": [
+        "to talk"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "话",
+      "original_pinyin": "huà",
+      "standard_answers": [
+        "word, speech"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "上个",
+      "original_pinyin": "shàng ge",
+      "standard_answers": [
+        "previous, last"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "得",
+      "original_pinyin": "de",
+      "standard_answers": [
+        "(a structural particle)"
+      ],
+      "context_examples": [
+        {
+          "cn": "他写字写得很好。",
+          "py": "Tā xiě zì xiě de hěn hǎo.",
+          "en": "He writes characters very well."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "复习",
+      "original_pinyin": "fùxí",
+      "standard_answers": [
+        "to review"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "写",
+      "original_pinyin": "xiě",
+      "standard_answers": [
+        "to write"
+      ],
+      "context_examples": [
+        {
+          "cn": "他写字写得很好。",
+          "py": "Tā xiě zì xiě de hěn hǎo.",
+          "en": "He writes characters very well."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "字",
+      "original_pinyin": "zì",
+      "standard_answers": [
+        "character"
+      ],
+      "context_examples": [
+        {
+          "cn": "他写字写得很好。",
+          "py": "Tā xiě zì xiě de hěn hǎo.",
+          "en": "He writes characters very well."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "慢",
+      "original_pinyin": "màn",
+      "standard_answers": [
+        "slow"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "枝",
+      "original_pinyin": "zhī",
+      "standard_answers": [
+        "(measure word for long, thin, inflexible objects such as pens, pencils, etc.)"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "笔",
+      "original_pinyin": "bǐ",
+      "standard_answers": [
+        "pen"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "张",
+      "original_pinyin": "zhāng",
+      "standard_answers": [
+        "(measure word for flat objects such as paper, pictures, etc.)"
+      ],
+      "context_examples": [
+        {
+          "cn": "八点上课, 小张八点半才来。",
+          "py": "Bā diǎn shàng kè, Xiǎo Zhāng bā diǎn bàn cái lái.",
+          "en": "Class starts at 8:00, but Little Zhang didn't come until 8:30."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "纸",
+      "original_pinyin": "zhǐ",
+      "standard_answers": [
+        "paper"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "教",
+      "original_pinyin": "jiāo",
+      "standard_answers": [
+        "to teach"
+      ],
+      "context_examples": [
+        {
+          "cn": "小李, 你写字写得真好! 你可以教我吗?",
+          "py": "Xiǎo Lǐ, nǐ xiě zì xiě de zhēn hǎo! Nǐ kěyǐ jiāo wǒ ma?",
+          "en": "Little Li, you write characters really well! Could you teach me?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "怎么",
+      "original_pinyin": "zěnme",
+      "standard_answers": [
+        "how, how come"
+      ],
+      "context_examples": [
+        {
+          "cn": "他写字写得怎么样?",
+          "py": "Tā xiě zì xiě de zěnmeyàng?",
+          "en": "How well does he write characters?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "懂",
+      "original_pinyin": "dǒng",
+      "standard_answers": [
+        "to understand"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "真",
+      "original_pinyin": "zhēn",
+      "standard_answers": [
+        "really [See Grammar 2.]"
+      ],
+      "context_examples": [
+        {
+          "cn": "小李, 你写字写得真好! 你可以教我吗?",
+          "py": "Xiǎo Lǐ, nǐ xiě zì xiě de zhēn hǎo! Nǐ kěyǐ jiāo wǒ ma?",
+          "en": "Little Li, you write characters really well! Could you teach me?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "哪里",
+      "original_pinyin": "nǎli",
+      "standard_answers": [
+        "where"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "预习",
+      "original_pinyin": "yùxí",
+      "standard_answers": [
+        "to preview"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "学",
+      "original_pinyin": "xué",
+      "standard_answers": [
+        "to study, to learn"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "第",
+      "original_pinyin": "dì",
+      "standard_answers": [
+        "(prefix for ordinal numbers) [See Grammar 5.]"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "语法",
+      "original_pinyin": "yǔfǎ",
+      "standard_answers": [
+        "grammar"
+      ],
+      "context_examples": [
+        {
+          "cn": "老师教我们生词和语法。",
+          "py": "Lǎoshī jiāo wǒmen shēngcí hé yǔfǎ.",
+          "en": "The teacher teaches us vocabulary and grammar."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "容易",
+      "original_pinyin": "róngyì",
+      "standard_answers": [
+        "easy"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "生词",
+      "original_pinyin": "shēngcí",
+      "standard_answers": [
+        "new words",
+        "vocabulary"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得这一课生词有(一)点儿多。",
+          "py": "Wǒ juéde zhè yí kè shēngcí yǒu(yì)diǎnr duō.",
+          "en": "I think there are a few too many new words in this lesson."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "多",
+      "original_pinyin": "duō",
+      "standard_answers": [
+        "many",
+        "much"
+      ],
+      "context_examples": [
+        {
+          "cn": "你和我两个人吃饭,五个菜太多了。",
+          "py": "Nǐ hé wǒ liǎng ge rén chī fàn, wǔ ge cài tài duō le.",
+          "en": "It's just the two of us eating. Five dishes are too many."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "汉字",
+      "original_pinyin": "Hànzì",
+      "standard_answers": [
+        "Chinese characters"
+      ],
+      "context_examples": [
+        {
+          "cn": "你教我汉字,可以吗?",
+          "py": "Nǐ jiāo wǒ Hànzì, kěyǐ ma?",
+          "en": "Will you teach me Chinese characters, please?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "难",
+      "original_pinyin": "nán",
+      "standard_answers": [
+        "difficult"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得中文有(一)点儿难。",
+          "py": "Wǒ juéde Zhōngwén yǒu(yì)diǎnr nán.",
+          "en": "I think Chinese is a little hard."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "李友,你上个星期考试考得怎么样？",
+      "original_pinyin": "Lǐ Yǒu nǐ shàng ge xīngqī kǎoshì kǎo de zěnmeyàng",
+      "standard_answers": [
+        "Li You, how did you do on last week's exam?"
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "因为你帮我复习,所以考得不错。",
+      "original_pinyin": "yīnwèi nǐ bāng wǒ fùxí suǒyǐ kǎo de búcuò",
+      "standard_answers": [
+        "Because you helped me review, I did pretty well."
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "但是我写中国字写得太慢了！",
+      "original_pinyin": "dànshì wǒ xiě Zhōngguó zì xiě de tài màn le",
+      "standard_answers": [
+        "But I write Chinese characters too slowly!"
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "CN_TO_EN",
+      "original_text": "第七课的语法很容易,我都懂,可是生词太多,汉字也有一点儿难。",
+      "original_pinyin": "dì qī kè de yǔfǎ hěn róngyì wǒ dōu dǒng kěshì shēngcí tài duō hànzì yě yǒu yìdiǎnr nán",
+      "standard_answers": [
+        "The grammar for Lesson 7 is very easy, I understand it all, but there are too many new words, and the Chinese characters are a bit difficult too."
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to talk",
+      "original_pinyin": null,
+      "standard_answers": [
+        "说话"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "word, speech",
+      "original_pinyin": null,
+      "standard_answers": [
+        "话"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "previous, last",
+      "original_pinyin": null,
+      "standard_answers": [
+        "上个"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "De (a structural particle)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "得"
+      ],
+      "context_examples": [
+        {
+          "cn": "他写字写得很好。",
+          "py": "Tā xiě zì xiě de hěn hǎo.",
+          "en": "He writes characters very well."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to review",
+      "original_pinyin": null,
+      "standard_answers": [
+        "复习"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to write",
+      "original_pinyin": null,
+      "standard_answers": [
+        "写"
+      ],
+      "context_examples": [
+        {
+          "cn": "他写字写得很好。",
+          "py": "Tā xiě zì xiě de hěn hǎo.",
+          "en": "He writes characters very well."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "character",
+      "original_pinyin": null,
+      "standard_answers": [
+        "字"
+      ],
+      "context_examples": [
+        {
+          "cn": "他写字写得很好。",
+          "py": "Tā xiě zì xiě de hěn hǎo.",
+          "en": "He writes characters very well."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "slow",
+      "original_pinyin": null,
+      "standard_answers": [
+        "慢"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Zhī (measure word for long, thin, inflexible objects such as pens, pencils, etc.)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "枝"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "pen",
+      "original_pinyin": null,
+      "standard_answers": [
+        "笔"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Zhāng (measure word for flat objects such as paper, pictures, etc.)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "张"
+      ],
+      "context_examples": [
+        {
+          "cn": "八点上课, 小张八点半才来。",
+          "py": "Bā diǎn shàng kè, Xiǎo Zhāng bā diǎn bàn cái lái.",
+          "en": "Class starts at 8:00, but Little Zhang didn't come until 8:30."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "paper",
+      "original_pinyin": null,
+      "standard_answers": [
+        "纸"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 43,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to teach",
+      "original_pinyin": null,
+      "standard_answers": [
+        "教"
+      ],
+      "context_examples": [
+        {
+          "cn": "小李, 你写字写得真好! 你可以教我吗?",
+          "py": "Xiǎo Lǐ, nǐ xiě zì xiě de zhēn hǎo! Nǐ kěyǐ jiāo wǒ ma?",
+          "en": "Little Li, you write characters really well! Could you teach me?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 44,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "how, how come",
+      "original_pinyin": null,
+      "standard_answers": [
+        "怎么"
+      ],
+      "context_examples": [
+        {
+          "cn": "他写字写得怎么样?",
+          "py": "Tā xiě zì xiě de zěnmeyàng?",
+          "en": "How well does he write characters?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 45,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to understand",
+      "original_pinyin": null,
+      "standard_answers": [
+        "懂"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 46,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "really [See Grammar 2.]",
+      "original_pinyin": null,
+      "standard_answers": [
+        "真"
+      ],
+      "context_examples": [
+        {
+          "cn": "小李, 你写字写得真好! 你可以教我吗?",
+          "py": "Xiǎo Lǐ, nǐ xiě zì xiě de zhēn hǎo! Nǐ kěyǐ jiāo wǒ ma?",
+          "en": "Little Li, you write characters really well! Could you teach me?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 47,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "where",
+      "original_pinyin": null,
+      "standard_answers": [
+        "哪里"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 48,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to preview",
+      "original_pinyin": null,
+      "standard_answers": [
+        "预习"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 49,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "to study, to learn",
+      "original_pinyin": null,
+      "standard_answers": [
+        "学"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 50,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Dì (prefix for ordinal numbers) [See Grammar 5.]",
+      "original_pinyin": null,
+      "standard_answers": [
+        "第"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 51,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "grammar",
+      "original_pinyin": null,
+      "standard_answers": [
+        "语法"
+      ],
+      "context_examples": [
+        {
+          "cn": "老师教我们生词和语法。",
+          "py": "Lǎoshī jiāo wǒmen shēngcí hé yǔfǎ.",
+          "en": "The teacher teaches us vocabulary and grammar."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 52,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "easy",
+      "original_pinyin": null,
+      "standard_answers": [
+        "容易"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "en": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 53,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "new words, vocabulary",
+      "original_pinyin": null,
+      "standard_answers": [
+        "生词"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得这一课生词有(一)点儿多。",
+          "py": "Wǒ juéde zhè yí kè shēngcí yǒu(yì)diǎnr duō.",
+          "en": "I think there are a few too many new words in this lesson."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 54,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "many, much",
+      "original_pinyin": null,
+      "standard_answers": [
+        "多"
+      ],
+      "context_examples": [
+        {
+          "cn": "你和我两个人吃饭,五个菜太多了。",
+          "py": "Nǐ hé wǒ liǎng ge rén chī fàn, wǔ ge cài tài duō le.",
+          "en": "It's just the two of us eating. Five dishes are too many."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 55,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Chinese characters",
+      "original_pinyin": null,
+      "standard_answers": [
+        "汉字"
+      ],
+      "context_examples": [
+        {
+          "cn": "你教我汉字,可以吗?",
+          "py": "Nǐ jiāo wǒ Hànzì, kěyǐ ma?",
+          "en": "Will you teach me Chinese characters, please?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 56,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "difficult",
+      "original_pinyin": null,
+      "standard_answers": [
+        "难"
+      ],
+      "context_examples": [
+        {
+          "cn": "我觉得中文有(一)点儿难。",
+          "py": "Wǒ juéde Zhōngwén yǒu(yì)diǎnr nán.",
+          "en": "I think Chinese is a little hard."
+        }
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 57,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "Really? From now on I'll practice writing characters with you, how about that?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "是吗？以后我跟你一起练习写字,好不好？"
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 58,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "That's great! Let's write right now, how about it?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "那太好了！我们现在就写,怎么样？"
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 59,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "You write characters really well, and so fast.",
+      "original_pinyin": null,
+      "standard_answers": [
+        "你写字写得真好,真快。"
+      ]
+    },
+    {
+      "lesson_id": 701,
+      "question_id": 60,
+      "course_id": 1,
+      "question_type": "EN_TO_CN",
+      "original_text": "No problem, I'll help you.",
+      "original_pinyin": null,
+      "standard_answers": [
+        "没问题,我帮你。"
+      ]
+    }
+  ],
+  "video_global_config": {
+    "visual_style": "A vibrant and warm 3D Pixar animation style, featuring expressive characters, soft lighting, and a clean, modern university library setting. The color palette is bright and inviting.",
+    "character_definitions": [
+      {
+        "name": "王朋",
+        "appearance_description_en": "A friendly and confident young Chinese man in his early 20s, with short, neat black hair, warm brown eyes, and a gentle smile. He wears a casual blue hoodie and jeans. 3D Pixar style."
+      },
+      {
+        "name": "李友",
+        "appearance_description_en": "A studious and expressive young woman in her early 20s, possibly of non-Chinese descent, with long brown hair tied in a ponytail, curious green eyes, and glasses. She wears a cozy yellow sweater and a skirt. 3D Pixar style."
+      }
+    ]
+  },
+  "video_scenes": [
+    {
+      "scene_id": 1,
+      "scene_description_cn": "王朋和李友在明亮的大学图书馆里交谈。王朋友好地询问考试情况，李友的表情先是高兴，然后转为一丝忧虑。",
+      "video_api_prompt_en": "3D Pixar style. A young Chinese man (Wang Peng) and a young woman with glasses (Li You) are talking at a table in a bright, modern university library. Sunlight streams through a large window. Wang Peng asks a question with a friendly expression. Li You smiles, pleased, but then her expression shifts to slight concern. Medium shot, eye-level, soft focus background with bookshelves.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "王朋",
+        "content": "李友, 你上个星期考试考得怎么样？",
+        "pinyin": "Lǐ Yǒu, nǐ shàng ge xīngqī kǎoshì kǎo de zěnmeyàng?"
+      },
+      "screen_overlay": {
+        "main_text": "考试 (kǎoshì) 考 (kǎo) 得 (de) 怎么样？",
+        "sub_text": "How did you do on the exam?"
+      }
+    },
+    {
+      "scene_id": 2,
+      "scene_description_cn": "李友一边回答，一边用手在空中比划写字的动作，但动作夸张地缓慢，脸上露出苦恼的表情。",
+      "video_api_prompt_en": "3D Pixar style. Close-up on Li You's face, her expression is frustrated. She gestures as if writing in the air with her finger, but her movement is exaggeratedly slow and labored. The background is a soft-focus library. The lighting highlights her troubled expression. A stylized slow-motion effect emphasizes her point.",
+      "camera_movement": "Zoom in",
+      "voice_over": {
+        "role": "李友",
+        "content": "但是我写中国字写得太慢了！",
+        "pinyin": "dànshì wǒ xiě Zhōngguó zì xiě de tài màn le!"
+      },
+      "screen_overlay": {
+        "main_text": "写 (xiě) 字 (zì) 写 (xiě) 得 (de) 太 (tài) 慢 (màn) 了",
+        "sub_text": "I write Chinese characters too slowly!"
+      }
+    },
+    {
+      "scene_id": 3,
+      "scene_description_cn": "王朋充满鼓励地提议一起练习。李友立刻兴奋起来，迅速从包里拿出一支笔和一张纸，期待地看着王朋。",
+      "video_api_prompt_en": "3D Pixar style. Medium shot. Wang Peng offers to help with an encouraging smile. Li You's face lights up with excitement. She enthusiastically pulls a pen and a sheet of paper from her backpack and places them on the table. The action is quick and hopeful. The camera pans slightly to follow the action.",
+      "camera_movement": "Pan",
+      "voice_over": {
+        "role": "王朋",
+        "content": "是吗？以后我跟你一起练习写字, 好不好？",
+        "pinyin": "shì ma? yǐhòu wǒ gēn nǐ yìqǐ liànxí xiězì, hǎo bu hǎo?"
+      },
+      "screen_overlay": {
+        "main_text": "练习 (liànxí) 写字 (xiězì)",
+        "sub_text": "Practice writing characters"
+      }
+    },
+    {
+      "scene_id": 4,
+      "scene_description_cn": "特写镜头，王朋的手握着笔，在纸上流畅地写出“懂”字。李友在旁边专注地看着，脸上露出钦佩的表情。",
+      "video_api_prompt_en": "3D Pixar style. Extreme close-up shot of Wang Peng's hand holding a black ink pen. He gracefully writes the Chinese character '懂' (dǒng) on clean white paper. The camera follows the tip of the pen, showing the stroke order clearly. In the shallow-focus background, Li You's face is visible, watching with intense focus and admiration. Warm, focused lighting on the paper.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "李友",
+        "content": "你写字写得真好, 真快。",
+        "pinyin": "nǐ xiě zì xiě de zhēn hǎo, zhēn kuài."
+      },
+      "screen_overlay": {
+        "main_text": "写 (xiě) 得 (de) 真 (zhēn) 好 (hǎo), 真 (zhēn) 快 (kuài)",
+        "sub_text": "You write so well, and so fast."
+      }
+    },
+    {
+      "scene_id": 5,
+      "scene_description_cn": "李友提到下一课的生词和汉字很难。画面中浮现出许多复杂的汉字环绕着她。王朋自信地拍拍胸脯，表示愿意帮忙。",
+      "video_api_prompt_en": "3D Pixar style. Li You looks at a textbook with a worried expression. Stylized, semi-transparent Chinese characters for '生词' and '汉字' float around her head, looking complex and intimidating. The shot then cuts to Wang Peng, who smiles confidently and pats his chest reassuringly. The atmosphere shifts from worried to supportive.",
+      "camera_movement": "Static",
+      "voice_over": {
+        "role": "李友",
+        "content": "可是生词太多, 汉字也有一点儿难。",
+        "pinyin": "kěshì shēngcí tài duō, hànzì yě yǒu yìdiǎnr nán."
+      },
+      "screen_overlay": {
+        "main_text": "生词 (shēngcí) / 汉字 (hànzì) / 难 (nán)",
+        "sub_text": "new words / Chinese characters / difficult"
+      }
+    }
+  ]
+}

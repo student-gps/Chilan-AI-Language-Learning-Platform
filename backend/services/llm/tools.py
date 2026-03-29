@@ -1,6 +1,7 @@
 import time
 import os
 from typing import List
+import google.generativeai as google_genai
 from .base_engine import LLMEngine
 from .prompts import EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH
 
@@ -10,15 +11,7 @@ class LanguageTools:
         self.embed_provider = os.getenv("EMBED_ACTIVE_PROVIDER", "doubao").lower()
         self.gemini_model_id = os.getenv("EMBED_GEMINI_MODEL_ID", "gemini-embedding-001")
         self.doubao_model_id = os.getenv("EMBED_DOUBAO_MODEL_ID")
-        self._gemini_client = None
         self._doubao_client = None
-
-    def _get_gemini_client(self):
-        if self._gemini_client is None:
-            from google import genai
-            api_key = os.getenv("EMBED_GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
-            self._gemini_client = genai.Client(api_key=api_key)
-        return self._gemini_client
 
     def _get_doubao_client(self):
         if self._doubao_client is None:
@@ -31,12 +24,13 @@ class LanguageTools:
         start = time.perf_counter()
         try:
             if self.embed_provider == "gemini":
-                client = self._get_gemini_client()
-                result = client.models.embed_content(
-                    model=self.gemini_model_id,
-                    contents=text,
+                api_key = os.getenv("EMBED_GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
+                google_genai.configure(api_key=api_key)
+                result = google_genai.embed_content(
+                    model=f"models/{self.gemini_model_id}" if not self.gemini_model_id.startswith("models/") else self.gemini_model_id,
+                    content=text,
                 )
-                embedding = result.embeddings[0].values
+                embedding = result["embedding"]
             elif self.embed_provider == "doubao":
                 client = self._get_doubao_client()
                 result = client.embeddings.create(

@@ -5,7 +5,7 @@ from llm_providers import BaseLLMProvider
 class Task1Extractor:
     def __init__(self, llm_provider: BaseLLMProvider):
         self.llm = llm_provider
-        self.pinyin_batch_size = max(1, int(os.getenv("CB_TASK1_PINYIN_BATCH_SIZE", "10")))
+        self.pinyin_batch_size = max(1, int(os.getenv("CB_TASK1_PINYIN_BATCH_SIZE", "5")))
 
     def _build_extract_prompt(self, lesson_id: int, course_id: int) -> str:
         # 🚀 第一步：文本提取 + 强力去噪
