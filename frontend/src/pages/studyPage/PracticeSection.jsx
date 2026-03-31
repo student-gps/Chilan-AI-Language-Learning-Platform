@@ -22,6 +22,42 @@ const formatPinyinDisplay = (value = '') => {
         .join(' ');
 };
 
+const isChineseChar = (char = '') => /[\u3400-\u9fff]/.test(char);
+
+const buildRubyTokens = (cn = '', py = '') => {
+    const chars = Array.from(cn || '');
+    const pinyinTokens = formatPinyinDisplay(py).split(/\s+/).filter(Boolean);
+    let pinyinIndex = 0;
+
+    return chars.map((char) => {
+        if (isChineseChar(char)) {
+            const token = pinyinTokens[pinyinIndex] || '';
+            pinyinIndex += 1;
+            return { cn: char, py: token };
+        }
+        return { cn: char, py: '' };
+    });
+};
+
+const RubySentence = ({ cn = '', py = '' }) => {
+    const rubyTokens = buildRubyTokens(cn, py);
+
+    return (
+        <div className="flex flex-wrap items-end gap-x-1 gap-y-3">
+            {rubyTokens.map((token, idx) => (
+                <ruby key={`${token.cn}-${idx}`} className="inline-flex flex-col items-center">
+                    <rt className="mb-1 text-xs font-bold text-slate-400 normal-case">
+                        {token.py}
+                    </rt>
+                    <span className="text-2xl font-black text-slate-800 leading-tight">
+                        {token.cn}
+                    </span>
+                </ruby>
+            ))}
+        </div>
+    );
+};
+
 const WordContextCard = ({ word, pinyin, metadata, knowledgeData }) => {
     const examples = metadata?.context_examples || [];
     const fallbackKnowledge = metadata?.knowledge || {};
@@ -121,9 +157,15 @@ const WordContextCard = ({ word, pinyin, metadata, knowledgeData }) => {
                 {combinedExamples.map((ex, idx) => (
                     <div key={idx} className="bg-white/80 p-5 rounded-2xl border border-white shadow-sm">
                         <div className="flex items-start justify-between gap-4">
-                            <p className="text-2xl font-black text-slate-800 leading-tight flex-1">
-                                {ex.cn}
-                            </p>
+                            <div className="flex-1">
+                                {expandedExamples[`current-${idx}`] && ex.py ? (
+                                    <RubySentence cn={ex.cn} py={ex.py} />
+                                ) : (
+                                    <p className="text-2xl font-black text-slate-800 leading-tight">
+                                        {ex.cn}
+                                    </p>
+                                )}
+                            </div>
                             <div className="flex items-center gap-2 shrink-0">
                                 <button
                                     onClick={() => playAudio(ex.cn)}
@@ -148,11 +190,6 @@ const WordContextCard = ({ word, pinyin, metadata, knowledgeData }) => {
                                     exit={{ opacity: 0, height: 0 }}
                                     className="overflow-hidden"
                                 >
-                                    {ex.py && (
-                                        <p className="mt-3 text-sm font-bold text-slate-400 tracking-wide">
-                                            {formatPinyinDisplay(ex.py)}
-                                        </p>
-                                    )}
                                     {ex.en && (
                                         <div className="mt-3 py-2 px-4 bg-blue-50/50 rounded-lg inline-block">
                                             <p className="text-base font-bold text-blue-600 italic leading-snug">
@@ -192,7 +229,13 @@ const WordContextCard = ({ word, pinyin, metadata, knowledgeData }) => {
                                 {h.example?.cn && (
                                     <div className="mt-3">
                                         <div className="flex items-start justify-between gap-4">
-                                            <p className="text-sm font-bold text-slate-700 flex-1">{h.example.cn}</p>
+                                            <div className="flex-1">
+                                                {expandedExamples[`history-${i}`] && h.example?.py ? (
+                                                    <RubySentence cn={h.example.cn} py={h.example.py} />
+                                                ) : (
+                                                    <p className="text-sm font-bold text-slate-700">{h.example.cn}</p>
+                                                )}
+                                            </div>
                                             <div className="flex items-center gap-2 shrink-0">
                                                 <button
                                                     onClick={() => playAudio(h.example.cn)}
@@ -217,11 +260,6 @@ const WordContextCard = ({ word, pinyin, metadata, knowledgeData }) => {
                                                     exit={{ opacity: 0, height: 0 }}
                                                     className="overflow-hidden mt-2 space-y-1.5"
                                                 >
-                                                    {h.example?.py && (
-                                                        <p className="text-xs font-bold text-slate-400 tracking-wide">
-                                                            {formatPinyinDisplay(h.example.py)}
-                                                        </p>
-                                                    )}
                                                     {h.example?.en && (
                                                         <p className="text-sm font-semibold italic text-blue-600">{h.example.en}</p>
                                                     )}
