@@ -477,6 +477,211 @@ test_suites = {
 
             ]
         },
+        "Q25: 我一边吃饭,一边听录音。 (L801)": {
+            "standard": "While I was eating, I listened to the sound recording.",
+            "cases": [
+                ("When I was eating, I listened to the sound recording.", 1),
+                ("I listened to the sound recording while I was eating.", 1),
+                ("While I was eating, I listened to music.", 0),
+                ("While I was eating, I watched TV.", 0)
+            ]
+        },
+        "Q26: 下午我到图书馆去上网。 (L801)": {
+            "standard": "In the afternoon, I went to the library to go online.",
+            "cases": [
+                ("I went to the library to use the internet in the afternoon.", 1),
+                ("In the afternoon, I went to the library to use the internet.", 1),
+                ("In the evening, I went to the library to use the internet.", 0),
+                ("In the afternoon, I went to the library to read books.", 0)
+            ]
+        },
+        "Q27: 我们一边吃,一边练习说中文。 (L801)": {
+            "standard": "While we were eating, we practiced speaking Chinese.",
+            "cases": [
+                ("When we were eating, we practiced speaking Chinese.", 1),
+                ("We practiced speaking Chinese while we were eating.", 1),
+                ("While we were eating, we practiced writing Chinese.", 0),
+                ("While we were eating, we practiced listening to Chinese.", 0)
+            ]
+        },
+        "Q28: 老师教我们发音、生词和语法。 (L801)": {
+            "standard": "The teacher taught us pronunciation, new words, and grammar.",
+            "cases": [
+                ("The teacher taught us pronunciation, new words, and grammar.", 1),
+                ("The teacher taught us pronunciation, new words, but not grammar.", 0),
+                ("The teacher taught us pronunciation, grammar, and new words.", 1),
+                ("The teacher taught us new words and grammar, but not pronunciation.", 0)
+            ]
+        },
+        "Q17: 这个学期我很忙,除了专业课以外,还得学中文。 (L802)": {
+            "standard": "I'm very busy this semester. Besides my major courses, I also have to study Chinese.",
+            "cases": [
+                ("I am very busy this semester. Besides my major courses, I have to learn Chinese too.", 1),
+                ("I'm very busy this semester. Besides my major courses, I also have to study math.", 0),
+                ("I'm very busy this semester. Besides my major courses, I also have to study Chinese and math.", 0)
+            ]
+        },
+        "Q18: 开始我觉得很难,后来王朋常常帮我练习中文,就觉得不难了。 (L802)": {
+            "standard": "At the beginning, I felt it was very difficult. Later, Wang Peng often helped me practice Chinese, so I don't feel it's difficult anymore.",
+            "cases": [
+                ("In the beginning, I felt it was very difficult. Wang Peng often helped me practice Chinese later, so I don't feel it's difficult anymore.", 1),
+                ("At the beginning, I felt it was very difficult. Later, Wang Peng often helped me practice Chinese, but I still feel it's difficult.", 0),
+                ("At the beginning, I felt it was very difficult. Later, Wang Peng often helped me practice Chinese, so I feel it's easy now.", 1)
+            ]
+        },
+        "Q19: 我用中文写信写得很不好,请别笑我。 (L802)": {
+            "standard": "I don't write well in Chinese, please don't laugh at me.",
+            "cases": [
+                ("I don't write well in Chinese, don't laugh at me please.", 1),
+                ("I can't write well in Chinese, please don't laugh at me.", 1),
+                ("I write well in Chinese, please don't laugh at me.", 0)
+            ]
+        },
+        "Q20: 李友下午3点去图书馆上网。 (L802)": {
+            "standard": "Li You goes to the library to use the internet at 3:00 PM.",
+            "cases": [
+                ("Li You goes to the library to use the internet at 3 p.m.", 1),
+                ("Li You goes to the library to surf the internet at 3:00 PM.", 1),
+                ("Li You goes to the library to use the internet at 4:00 PM.", 0),
+                ("Li You goes to the library to read books at 3:00 PM.", 0)
+            ]
+        },
+        "Q31: 您要买什么衣服？ (L901)": {
+            "standard": "What clothes would you like to buy?",
+            "cases": [
+                ("What clothes do you want to buy?", 1),
+                ("What clothes are you going to buy?", 1),
+                ("What clothes do you like?", 0),
+                ("What clothes do you want?", 0)
+            ]
+        },
+        "Q32: 您喜欢什么颜色的？ (L901)": {
+            "standard": "What color do you like?",
+            "cases": [
+                ("What color do you want?", 1),
+                ("What color do you prefer?", 1),
+                ("What color do you need?", 0)
+            ]
+        },
+        "Q33: 这条裤子怎么样？ (L901)": {
+            "standard": "How about this pair of pants?",
+            "cases": [
+                ("How about this pair of trousers?", 1),
+                ("How do you like this pair of pants?", 1),
+                ("How about this pair of jeans?", 0),
+                ("How about this pair of shoes?", 0)
+            ]
+        },
+        "Q34: 找您四十五块五毛一。 (L901)": {
+            "standard": "Here's your change, forty-five fifty-one.",
+            "cases": [
+                ("Here's your change, forty-five dollars and fifty-one cents.", 1),
+                ("Here's your forty-five dollars and fifty-one cents for change.", 1),
+                ("Here's your change, forty-five dollars and fifty cents.", 0),
+                ("Here's your change, forty-five dollars and fifty-two cents.", 0)
+            ]
+        },
+        "Q22: 对不起，这双鞋太小了。能不能换一双？ (L902)": {
+            "standard": "Excuse me, this pair of shoes is too small. Can I exchange them for another pair?",
+            "cases": [
+                ("Excuse me, this pair of shoes is too small for me. Could I exchange them for another pair?", 1),
+                ("Excuse me, this pair of shoes is too small. Can I exchange them?", 1),
+                ("Excuse me, this pair of shoes is too small. Can I return them?", 0),
+                ("Excuse me, this pair of shoes is too small. Can I get a refund?", 0)
+            ]
+        },
+        "Q23: 这双鞋虽然大小合适，可是颜色不好。 (L902)": {
+            "standard": "Although this pair is the right size, the color is not good.",
+            "cases": [
+                ("Though this pair is the right size, the color is not good.", 1),
+                ("This pair is the right size, but the color is not good.", 1),
+                ("Although this pair is the right size, the color is good.", 0),
+                ("This pair is the right size and the color is good.", 0)
+            ]
+        },
+        "Q24: 你们这儿可以刷卡吗？ (L902)": {
+            "standard": "Can I use a credit card here?",
+            "cases": [
+                ("May I use a credit card here?", 1),
+                ("Do you accept credit cards?", 1),
+                ("Can I pay with a credit card here?", 1),
+                ("Can I use cash here?", 0)
+            ]
+        },
+        "Q25: 你的电脑跟我的电脑一样贵。 (L902)": {
+            "standard": "Your computer is as expensive as my computer.",
+            "cases": [
+                ("Your computer is as expensive as mine.", 1),
+                ("Your computer is more expensive than my computer.", 0),
+                ("Your computer is less expensive than my computer.", 0)
+            ]
+        },
+        "Q32: 飞机票你买了吗? (L1001)": {
+            "standard": "Have you bought the plane ticket?",
+            "cases": [
+                ("Have you bought the flight ticket?", 1),
+                ("Did you buy the plane ticket?", 1),
+                ("Have you bought the train ticket?", 0)
+            ]
+        },
+        "Q33: 我想坐公共汽车或者坐地铁。 (L1001)": {
+            "standard": "I'm thinking of taking the bus or the subway.",
+            "cases": [
+                ("I'm thinking to take the bus or the subway.", 1),
+                ("I want to take the bus or the subway.", 1),
+                ("I want to take the bus and the subway.", 0),
+                ("I want to take a taxi.", 0)
+            ]
+        },
+        "Q34: 王朋常常先做功课，再看电视。 (L1001)": {
+            "standard": "Wang Peng often does his homework first, and then watches TV.",
+            "cases": [
+                ("Wang Peng often does his homework first, and watches TV then.", 1),
+                ("Wang Peng often does his homework first, and then he watches TV.", 1),
+                ("Wang Peng often do his homework first, and then he watch TV.", 0),
+                ("Wang Peng often does his homework first, and then he watchs TV.", 0)
+            ]
+        },
+        "Q35: 明天下午我们去打球还是去跳舞？ (L1001)": {
+            "standard": "Shall we go play ball or go dancing tomorrow afternoon?",
+            "cases": [
+                ("Shall we go playing ball or go dancing tomorrow afternoon?", 1),
+                ("Shall we go play ball and go dancing tomorrow morning?", 0)
+            ]
+        },
+        "Q20: 我在高速公路上开车。 (L1002)": {
+            "standard": "I drive on the highway.",
+            "cases": [
+                ("I am driving on the highway.", 1),
+                ("I drive on the way.", 0)
+            ]
+        },
+        "Q21: 王律师坐飞机去纽约。 (L1002)": {
+            "standard": "Lawyer Wang takes a plane to New York.",
+            "cases": [
+                ("Lawyer Wang takes a flight to New York.", 1),
+                ("Lawyer Wang takes a bus to New York.", 0),
+                ("Lawyer Wang takes a train to New York.", 0),
+                ("Lawyer Wang takes a plane to Los Angeles.", 0)
+            ]
+        },
+        "Q22: 白英爱的鞋很漂亮。 (L1002)": {
+            "standard": "Bai Ying'ai's shoes are very pretty.",
+            "cases": [
+                ("Bai Ying'ai's shoes are pretty.", 1),
+                ("Bai Ying'ai's shoes are very beautiful.", 1),
+                ("Bai Ying'ai's shoes are ugly.", 0)
+            ]
+        },
+        "Q23: 坐飞机去纽约。 (L1002)": {
+            "standard": "Take a plane to New York.",
+            "cases": [
+                ("Take a flight to New York.", 1),
+                ("Take a bus to New York.", 0),
+                ("Take a train to New York.", 0),
+                ("Take a plane to Los Angeles.", 0)
+            ]
+        },
     },
     
     "Chinese_Evaluation": {
@@ -928,6 +1133,202 @@ test_suites = {
                 ("你念得很好。你昨天晚上听录音吗？", 1),
                 ("你读得很好。你昨天晚上听录音了吧？", 1),
                 ("你念得不好。你昨天晚上听录音了没有？", 0)
+            ]
+        },
+        "Q53: The second class was computer class. It was very difficult. (L801)": {
+            "standard": "第二节是电脑课,很难。",
+            "cases": [
+                ("第二节是电脑课,它很难。", 1),
+                ("第二节是电脑课,很难吗？", 0),
+                ("第二节是电脑课,很简单。", 0)
+            ]
+        },
+        "Q54: When I got there, she was doing her homework. (L801)": {
+            "standard": "到那儿的时候,她正在做功课。",
+            "cases": [
+                ("我到那儿的时候,她正在做功课。", 1),
+                ("到那儿的时候,她正在做作业。", 1),
+                ("到那儿的时候,她正在看电视。", 0),
+                ("到那儿的时候,她正在听音乐。", 0)
+            ]
+        },
+        "Q55: Before I went to sleep, Gao Wenzhong gave me a call. (L801)": {
+            "standard": "睡觉以前,高文中给我打了一个电话。",
+            "cases": [
+                ("我睡觉以前,高文中给我打了一个电话。", 1),
+                ("睡觉前,高文中给我打了一个电话。", 1),
+                ("睡觉以前,高文中给我发了一个短信。", 0),
+                ("睡觉以前,高文中没有给我打电话。", 0)
+            ]
+        },
+        "Q56: At noon, I went to the cafeteria with my classmates for lunch. (L801)": {
+            "standard": "中午我和同学们一起到餐厅去吃午饭。",
+            "cases": [
+                ("我和同学们中午一起去餐厅吃午饭。", 1),
+                ("中午我和同学们一起到餐厅吃午饭。", 1),
+                ("中午我和同学们一起到餐厅去吃晚饭。", 0),
+                ("中午我和同学们一起到餐厅去吃午饭吗？", 0)
+            ]
+        },
+        "Q37: Our Chinese class is very interesting. (L802)": {
+            "standard": "我们的中文课很有意思。",
+            "cases": [
+                ("我们的中文课很有意思。", 1),
+                ("我们的中文课很有趣。", 1),
+                ("我们的中文课很无聊。", 0),
+                ("我们的中文课很有意思吗？", 0),
+                ("我的中文课很有趣。", 0),
+                ("你们的中文课很有趣。", 0)
+            ]
+        },
+        "Q38: Next Saturday, our school has a concert. I hope you can come. (L802)": {
+            "standard": "下个星期六,我们学校有一个音乐会,希望你能来。",
+            "cases": [
+                ("下个星期六,我们学校有一个音乐会,我希望你能来。", 1),
+                ("我们学校下个星期六有一个音乐会,希望你能来。", 1),
+                ("下个星期六,我们学校有一个音乐会,你能来吗？", 0)
+            ]
+        },
+        "Q39: Li You listens to the audio recording while eating breakfast. (L802)": {
+            "standard": "李友吃早饭的时候听录音。",
+            "cases": [
+                ("李友吃早饭的时候听录音。", 1),
+                ("李友吃早饭的时候听音乐。", 0),
+                ("李友吃早饭的时候看电视。", 0)
+            ]
+        },
+        "Q40: You can't chat with him in Chinese. (L802)": {
+            "standard": "你不会用中文跟他聊天。",
+            "cases": [
+                ("你不能用中文跟他聊天。", 1),
+                ("你不会用中文跟他聊天吗？", 0),
+                ("你不会用英文跟他聊天。", 0),
+                ("他不会用中文跟他聊天。", 0)
+            ]
+        },
+        "Q65: I'd like to buy a shirt. (L901)": {
+            "standard": "我想买一件衬衫。",
+            "cases": [
+                ("我想买一件衬衫。", 1),
+                ("我想买一件T恤衫。", 0),
+                ("我想买一件外套。", 0),
+                ("我买了一件衬衫。", 0),
+                ("他想买一件衬衫", 0)
+            ]
+        },
+        "Q66: Not too expensive, and not too cheap either. (L901)": {
+            "standard": "不要太贵的，也不要太便宜的。",
+            "cases": [
+                ("别太贵的，也别太便宜的。", 1),
+                ("不要太贵，也不要太便宜的。", 1),
+                ("不要太贵的，也不要太便宜。", 1),
+                ("要贵的，也要便宜的。", 0)
+            ]
+        },
+        "Q67: How much altogether? (L901)": {
+            "standard": "一共多少钱？",
+            "cases": [
+                ("总共多少钱？", 1),
+                ("一共多少钱啊？", 1),
+                ("一共多少块？", 1),
+                ("一共多少？", 0)
+            ]
+        },
+        "Q47: This pair is the same size as that one. (L902)": {
+            "standard": "这双跟那双一样大。",
+            "cases": [
+                ("这双跟那双一样尺码。", 1),
+                ("这双和那双一样大。", 1),
+                ("这双跟那双一样价格。", 0),
+                ("这双和那双一样小。", 1)
+            ]
+        },
+        "Q48: Although the things in this store are inexpensive, it doesn't accept credit cards. (L902)": {
+            "standard": "虽然这个商店的东西很便宜，可是不收信用卡。",
+            "cases": [
+                ("虽然这个商店的东西很便宜，但是它不收信用卡。", 1),
+                ("虽然这个商店的东西很便宜，可是它收信用卡。", 0),
+                ("虽然这个商店的东西很贵，可是不收信用卡。", 0)
+            ]
+        },
+        "Q49: The grammar of Lesson 9 is as difficult as the grammar of Lesson 8. (L902)": {
+            "standard": "第九课的语法跟第八课的语法一样难。",
+            "cases": [
+                ("第九课的语法跟第八课的一样难。", 1),
+                ("第九课的语法跟第八课的语法一样难吗？", 0),
+                ("第九课的语法跟第八课的语法一样简单。", 0)
+            ]
+        },
+        "Q50: Although this pair of pants is inexpensive, the length is not suitable. (L902)": {
+            "standard": "虽然这条裤子很便宜，可是长短不合适。",
+            "cases": [
+                ("虽然这条裤子便宜，但是长短不合适。", 1),
+                ("虽然这条裤子很贵，但是长短不合适。", 0),
+                ("虽然这条裤子很便宜，但是长短合适。", 0)
+            ]
+        },
+        "Q67: How are you getting to the airport? (L1001)": {
+            "standard": "你怎么去机场?",
+            "cases": [
+                ("你怎么去机场？", 1),
+                ("你怎么去飞机场？", 1),
+                ("你怎么去火车站？", 0),
+                ("你怎么去汽车站？", 0),
+                ("他怎么去机场？", 0)
+            ]
+        },
+        "Q68: Taxis are too expensive. I'll drive you there. (L1001)": {
+            "standard": "出租汽车太贵,我开车送你去吧。",
+            "cases": [
+                ("出租汽车太贵了,我开车送你去吧。", 1),
+                ("出租汽车太贵,我开车送你去吗？", 0),
+                ("出租汽车太贵,我开车送他去吧。", 0)
+            ]
+        },
+        "Q69: We'd better take a taxi instead. (L1001)": {
+            "standard": "我们还是打车去吧。",
+            "cases": [
+                ("我们最好打车去吧。", 1),
+                ("我们还是坐出租车去吧。", 1),
+                ("我们还是坐公交车去吧。", 0),
+                ("你们还是打车去吧。", 0)
+            ]
+        },
+        "Q70: You'd better major in computer science instead. (L1001)": {
+            "standard": "你还是学计算机专业吧。",
+            "cases": [
+                ("你最好学计算机专业吧。", 1),
+                ("你还是学计算机科学专业吧。", 1),
+                ("你还是学历史专业吧。", 0),
+                ("我还是学计算机专业吧。", 0)
+            ]
+        },
+        "Q43: I drive on the highway. (L1002)": {
+            "standard": "我在高速公路上开车。",
+            "cases": [
+                ("我在高速公路上开车。", 1),
+                ("我在高速公路上开车吗？", 0),
+                ("我在高速公路上开车！", 1),
+                ("我在城市里开车。", 0),
+                ("你在高速公路上开车。", 0)
+            ]
+        },
+        "Q44: Lawyer Wang takes a plane to New York. (L1002)": {
+            "standard": "王律师坐飞机去纽约。",
+            "cases": [
+                ("王律师坐飞机去纽约。", 1),
+                ("王律师坐飞机去美国。", 0),
+                ("王律师坐飞机去北京。", 0),
+                ("李律师坐飞机去纽约。", 0)
+            ]
+        },
+        "Q45: Bai Ying'ai's shoes are very pretty. (L1002)": {
+            "standard": "白英爱的鞋很漂亮。",
+            "cases": [
+                ("白英爱的鞋很漂亮。", 1),
+                ("白英爱的鞋很漂亮吗？", 0),
+                ("白英爱的脚很漂亮！", 0),
+                ("白英爱的鞋很丑。", 0)
             ]
         },
     }

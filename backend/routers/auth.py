@@ -43,6 +43,71 @@ def get_db():
     try: yield conn
     finally: conn.close()
 
+def _get_mail_provider() -> str:
+    provider = (os.getenv("MAIL_PROVIDER") or "smtp").strip().lower()
+    if provider in {"gmail", "smtp"}:
+        return "smtp"
+    if provider == "resend":
+        return "resend"
+    raise HTTPException(status_code=500, detail="Unsupported mail provider")
+
+def _send_email_via_smtp(to_email: str, subject: str, html_content: str):
+    msg = MIMEText(html_content, 'html', 'utf-8')
+    msg['Subject'] = subject
+    msg['From'] = os.getenv("MAIL_FROM")
+    msg['To'] = to_email
+
+    host = os.getenv("MAIL_SERVER")
+    port = int(os.getenv("MAIL_PORT", "587"))
+    username = os.getenv("MAIL_USERNAME")
+    password = os.getenv("MAIL_PASSWORD")
+    use_ssl = (os.getenv("MAIL_USE_SSL", "false").strip().lower() == "true")
+    use_tls = (os.getenv("MAIL_USE_TLS", "true").strip().lower() == "true")
+
+    if not host or not username or not password or not os.getenv("MAIL_FROM"):
+        raise HTTPException(status_code=500, detail="SMTP mail config missing")
+
+    try:
+        smtp_cls = smtplib.SMTP_SSL if use_ssl else smtplib.SMTP
+        with smtp_cls(host, port) as server:
+            if use_tls and not use_ssl:
+                server.starttls()
+            server.login(username, password)
+            server.send_message(msg)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Mail failed")
+
+def _send_email_via_resend(to_email: str, subject: str, html_content: str):
+    api_key = os.getenv("RESEND_API_KEY")
+    from_email = os.getenv("RESEND_FROM") or os.getenv("MAIL_FROM")
+    audience = os.getenv("RESEND_AUDIENCE")
+
+    if not api_key or not from_email:
+        raise HTTPException(status_code=500, detail="Resend mail config missing")
+
+    payload = {
+        "from": from_email,
+        "to": [to_email],
+        "subject": subject,
+        "html": html_content,
+    }
+    if audience:
+        payload["audience"] = audience
+
+    try:
+        response = httpx.post(
+            "https://api.resend.com/emails",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=20.0,
+        )
+        response.raise_for_status()
+    except Exception:
+        raise HTTPException(status_code=500, detail="Mail failed")
+
 # --- 统一的高颜值邮件模板系统 ---
 def send_auth_email(to_email: str, code: str, email_type: str = "signup", lang: str = "zh"):
     templates = {
@@ -71,12 +136,11 @@ def send_auth_email(to_email: str, code: str, email_type: str = "signup", lang: 
         </body>
     </html>
     """
-    msg = MIMEText(content, 'html', 'utf-8')
-    msg['Subject'], msg['From'], msg['To'] = t['subject'], os.getenv("MAIL_FROM"), to_email
-    try:
-        with smtplib.SMTP(os.getenv("MAIL_SERVER"), int(os.getenv("MAIL_PORT"))) as s:
-            s.starttls(); s.login(os.getenv("MAIL_USERNAME"), os.getenv("MAIL_PASSWORD")); s.send_message(msg)
-    except Exception as e: raise HTTPException(status_code=500, detail="Mail failed")
+    provider = _get_mail_provider()
+    if provider == "resend":
+        _send_email_via_resend(to_email, t['subject'], content)
+    else:
+        _send_email_via_smtp(to_email, t['subject'], content)
 
 # --- 路由接口 (已修正为 @router) ---
 @router.post("/signup")

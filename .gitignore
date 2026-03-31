@@ -12,6 +12,8 @@ dist/
 .vscode/
 
 # 巨大的教材文件（建议不要直接传 PDF 到 GitHub）
+backend/preparation_codes/test_case_embedding_cache.json
+
 textbook/*.pdf
 textbook/*.zip
 
