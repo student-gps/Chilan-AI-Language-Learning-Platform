@@ -126,6 +126,7 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
     const [isTranscribing, setIsTranscribing] = useState(false);
     const [speechTranscript, setSpeechTranscript] = useState('');
     const [speechMeta, setSpeechMeta] = useState({});
+    const [recordingSeconds, setRecordingSeconds] = useState(0);
     const [recordAttempts, setRecordAttempts] = useState(0);
     const [speechError, setSpeechError] = useState('');
 
@@ -134,6 +135,7 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
     const mediaStreamRef = useRef(null);
     const chunksRef = useRef([]);
     const stopTimerRef = useRef(null);
+    const elapsedTimerRef = useRef(null);
 
     const questionList = Array.isArray(questions) ? questions : [];
     const currentQuestion = questionList[currentIndex];
@@ -145,6 +147,7 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
     const hasConfidence = Number.isFinite(confidenceValue);
     const lowConfidence = hasConfidence && confidenceValue < speechConfig.min_asr_confidence;
     const canRecordMore = recordAttempts < speechConfig.max_attempts;
+    const speechShouldRetry = speechMode && Boolean(feedback?.shouldRetry);
 
     const clearRecordingTimer = () => {
         if (stopTimerRef.current) {
@@ -153,8 +156,16 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
         }
     };
 
+    const clearElapsedTimer = () => {
+        if (elapsedTimerRef.current) {
+            clearInterval(elapsedTimerRef.current);
+            elapsedTimerRef.current = null;
+        }
+    };
+
     const cleanupMedia = () => {
         clearRecordingTimer();
+        clearElapsedTimer();
         if (mediaStreamRef.current) {
             mediaStreamRef.current.getTracks().forEach((track) => track.stop());
             mediaStreamRef.current = null;
@@ -212,6 +223,7 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
         setIsTranscribing(false);
         setSpeechTranscript('');
         setSpeechMeta({});
+        setRecordingSeconds(0);
         setRecordAttempts(0);
         setSpeechError('');
     }, [currentQuestion?.question_id]);
@@ -302,6 +314,9 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
         setFeedback(null);
         setLastSubmittedAnswer('');
         setSpeechError('');
+        setSpeechTranscript('');
+        setSpeechMeta({});
+        setRecordingSeconds(0);
 
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -323,6 +338,7 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
             recorder.onstop = async () => {
                 setIsRecording(false);
                 clearRecordingTimer();
+                clearElapsedTimer();
 
                 if (mediaStreamRef.current) {
                     mediaStreamRef.current.getTracks().forEach((track) => track.stop());
@@ -342,6 +358,9 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
 
             recorder.start();
             setIsRecording(true);
+            elapsedTimerRef.current = setInterval(() => {
+                setRecordingSeconds((prev) => prev + 1);
+            }, 1000);
 
             stopTimerRef.current = setTimeout(() => {
                 if (recorder.state === 'recording') {
@@ -352,6 +371,7 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
         } catch (error) {
             cleanupMedia();
             setIsRecording(false);
+            setRecordingSeconds(0);
             setSpeechError(getErrorMessage(error, 'Microphone permission denied or unavailable.'));
         }
     };
@@ -506,6 +526,14 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
                             <p className={`text-2xl font-bold min-h-10 ${speechTranscript ? 'text-slate-800' : 'text-slate-400'}`}>
                                 {speechTranscript || 'No transcript yet. Click Start Recording.'}
                             </p>
+                            {isRecording && (
+                                <p className="text-xs mt-2 font-bold text-red-600">
+                                    Recording... {recordingSeconds}s / {speechConfig.max_duration_sec}s
+                                </p>
+                            )}
+                            {!isRecording && isTranscribing && (
+                                <p className="text-xs mt-2 font-bold text-blue-600">Audio captured, transcribing...</p>
+                            )}
                             <p className="text-xs text-slate-500 mt-3">
                                 Attempts: {recordAttempts} / {speechConfig.max_attempts} | Max duration: {speechConfig.max_duration_sec}s
                             </p>
@@ -552,7 +580,7 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
 
                         <button
                             onClick={handleSubmit}
-                            disabled={!activeAnswer.trim() || isEvaluating || isTranscribing || isRecording || lowConfidence}
+                            disabled={!activeAnswer.trim() || isEvaluating || isTranscribing || isRecording || lowConfidence || speechShouldRetry}
                             className="w-full py-5 bg-slate-900 text-white rounded-[1.2rem] font-black text-xl hover:bg-blue-600 disabled:bg-slate-200 transition-all flex items-center justify-center gap-3 shadow-lg"
                         >
                             {isEvaluating ? <Loader2 className="animate-spin" /> : <Send size={22} />}
@@ -575,6 +603,10 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
                                         >
                                             {feedback.message}
                                         </p>
+                                        <p className="mt-3 text-sm font-semibold text-slate-500">
+                                            Judged by: {feedback.judgedBy || 'N/A'}
+                                            {typeof feedback.vectorScore === 'number' ? ` | Vector: ${feedback.vectorScore.toFixed(3)}` : ''}
+                                        </p>
                                         {speechMode && feedback.recognizedText && (
                                             <p className="mt-4 text-base font-semibold text-slate-600">
                                                 Recognized: "{feedback.recognizedText}"
@@ -590,12 +622,12 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
                                 {feedback.level === 1 ? (
                                     <>
                                         <button
-                                            onClick={handleSubmit}
-                                            disabled={isResubmitDisabled}
+                                            onClick={speechMode ? handleStartRecording : handleSubmit}
+                                            disabled={speechMode ? (isRecording || isTranscribing || !canRecordMore) : isResubmitDisabled}
                                             className="w-full py-5 bg-slate-900 text-white rounded-[1.2rem] font-black text-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-3 shadow-lg disabled:bg-slate-200 disabled:text-slate-400"
                                         >
-                                            {isEvaluating ? <Loader2 className="animate-spin" /> : <RefreshCcw size={22} />}
-                                            {speechMode ? 'Submit Current Transcript' : 'Resubmit'}
+                                            {isEvaluating || isTranscribing ? <Loader2 className="animate-spin" /> : <RefreshCcw size={22} />}
+                                            {speechMode ? 'Record Again' : 'Resubmit'}
                                         </button>
                                         <button
                                             onClick={handleNext}
