@@ -1,13 +1,12 @@
 import os
 from datetime import datetime, timedelta
 from typing import Optional
+import bcrypt
 from jose import JWTError, jwt
-from passlib.context import CryptContext
+from passlib.hash import pbkdf2_sha256
 
-# 初始化加密上下文
-# 新密码默认使用 bcrypt_sha256，兼容旧 bcrypt 哈希。
-# 这样可以规避 bcrypt 的 72-byte 限制以及部分新环境下 passlib+bcrypt 的兼容问题。
-pwd_context = CryptContext(schemes=["bcrypt_sha256", "bcrypt"], deprecated="auto")
+# 新密码统一使用 pbkdf2_sha256，避免 Render / Python 3.14 环境下
+# passlib+bcrypt 的兼容问题。旧用户如果库里存的是 bcrypt 哈希，仍做兼容验证。
 
 SECRET_KEY = os.getenv("JWT_SECRET", "fallback_secret")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
@@ -15,11 +14,21 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 1440)
 
 def get_password_hash(password: str):
     """哈希化存储密码"""
-    return pwd_context.hash(str(password))
+    return pbkdf2_sha256.hash(str(password))
 
 def verify_password(plain_password: str, hashed_password: str):
     """校验明文密码与哈希值是否匹配"""
-    return pwd_context.verify(str(plain_password), hashed_password)
+    plain_password = str(plain_password)
+    hashed_password = str(hashed_password)
+
+    if hashed_password.startswith("$pbkdf2-sha256$"):
+        return pbkdf2_sha256.verify(plain_password, hashed_password)
+
+    if hashed_password.startswith("$2a$") or hashed_password.startswith("$2b$") or hashed_password.startswith("$2y$"):
+        # 兼容历史 bcrypt 哈希。历史上 bcrypt 实际只接受前 72 bytes。
+        return bcrypt.checkpw(plain_password.encode("utf-8")[:72], hashed_password.encode("utf-8"))
+
+    return False
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     """创建 JWT 访问令牌"""
