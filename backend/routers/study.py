@@ -52,6 +52,23 @@ class CompleteLessonRequest(BaseModel):
     course_id: int
     lesson_id: int
 
+class PracticeProgressRequest(BaseModel):
+    user_id: str
+    course_id: int
+    lesson_id: int
+    current_index: int
+
+
+def ensure_lesson_progress_columns(cur):
+    cur.execute("""
+        ALTER TABLE user_progress_of_lessons
+        ADD COLUMN IF NOT EXISTS practice_question_index INTEGER DEFAULT 0;
+    """)
+    cur.execute("""
+        ALTER TABLE user_progress_of_lessons
+        ADD COLUMN IF NOT EXISTS practice_question_updated_at TIMESTAMP;
+    """)
+
 # ==========================================
 # 接口 1: 初始化学习流
 # ==========================================
@@ -65,6 +82,8 @@ async def init_study_flow(user_id: str, course_id: int = 1):
         conn = get_connection()
         # 使用 RealDictCursor 确保查询结果直接映射为 Python 字典，方便 FastAPI 转 JSON
         cur = conn.cursor(cursor_factory=RealDictCursor)
+        ensure_lesson_progress_columns(cur)
+        conn.commit()
 
         # ---------------------------------------------------------
         # 1. 查询复习流 (Due Questions)
@@ -99,7 +118,7 @@ async def init_study_flow(user_id: str, course_id: int = 1):
         # 2. 查询用户当前课程进度
         # ---------------------------------------------------------
         cur.execute("""
-            SELECT last_completed_lesson_id, viewed_lesson_id 
+            SELECT last_completed_lesson_id, viewed_lesson_id, practice_question_index
             FROM user_progress_of_lessons 
             WHERE user_id::text = %s AND course_id = %s
         """, (user_id, course_id))
@@ -110,9 +129,11 @@ async def init_study_flow(user_id: str, course_id: int = 1):
         if progress:
             last_lesson = progress.get('last_completed_lesson_id') or 0
             viewed_lesson = progress.get('viewed_lesson_id') or 0
+            practice_question_index = progress.get('practice_question_index') or 0
         else:
             last_lesson = 0
             viewed_lesson = 0
+            practice_question_index = 0
             
         # ---------------------------------------------------------
         # 3. 寻找下一节需要学习的课程
@@ -184,7 +205,8 @@ async def init_study_flow(user_id: str, course_id: int = 1):
                     "aigc_visual_prompt": "A thematic visual for the current lesson..." 
                 },
                 "pending_items": new_questions,
-                "skip_content": skip_content  
+                "skip_content": skip_content,
+                "practice_resume_index": max(0, min(practice_question_index, max(len(new_questions) - 1, 0))),
             }
         }
 
@@ -311,6 +333,7 @@ async def mark_lesson_content_viewed(req: ContentViewedRequest):
     try:
         conn = get_connection()
         cur = conn.cursor()
+        ensure_lesson_progress_columns(cur)
         cur.execute("""
             INSERT INTO user_progress_of_lessons (user_id, course_id, viewed_lesson_id)
             VALUES (%s::uuid, %s, %s)
@@ -326,7 +349,37 @@ async def mark_lesson_content_viewed(req: ContentViewedRequest):
         if conn: conn.close()
 
 # ==========================================
-# 接口 4: TTS 接口
+# 接口 4: 同步练习进度（账号级断点续练）
+# ==========================================
+@router.post("/study/practice_progress")
+async def save_practice_progress(req: PracticeProgressRequest):
+    conn = None
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+        ensure_lesson_progress_columns(cur)
+        cur.execute("""
+            INSERT INTO user_progress_of_lessons (user_id, course_id, viewed_lesson_id, practice_question_index, practice_question_updated_at)
+            VALUES (%s::uuid, %s, %s, %s, CURRENT_TIMESTAMP)
+            ON CONFLICT (user_id, course_id)
+            DO UPDATE SET
+                viewed_lesson_id = EXCLUDED.viewed_lesson_id,
+                practice_question_index = EXCLUDED.practice_question_index,
+                practice_question_updated_at = CURRENT_TIMESTAMP;
+        """, (req.user_id, req.course_id, req.lesson_id, max(req.current_index, 0)))
+        conn.commit()
+        return {"status": "success"}
+    except Exception as e:
+        if conn:
+            conn.rollback()
+        print(f"❌ Save Practice Progress Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if conn:
+            conn.close()
+
+# ==========================================
+# 接口 5: TTS 接口
 # ==========================================
 @router.get("/study/tts")
 async def generate_tts(text: str):
@@ -338,7 +391,7 @@ async def generate_tts(text: str):
     return StreamingResponse(audio_stream(), media_type="audio/mpeg")
 
 # ==========================================
-# 接口 5: 完成课程，推进总体进度
+# 接口 6: 完成课程，推进总体进度
 # ==========================================
 @router.post("/study/complete_lesson")
 async def complete_lesson(req: CompleteLessonRequest):
@@ -346,13 +399,16 @@ async def complete_lesson(req: CompleteLessonRequest):
     try:
         conn = get_connection()
         cur = conn.cursor()
+        ensure_lesson_progress_columns(cur)
         
         cur.execute("""
             INSERT INTO user_progress_of_lessons (user_id, course_id, last_completed_lesson_id)
             VALUES (%s::uuid, %s, %s)
             ON CONFLICT (user_id, course_id)
             DO UPDATE SET 
-                last_completed_lesson_id = GREATEST(user_progress_of_lessons.last_completed_lesson_id, EXCLUDED.last_completed_lesson_id);
+                last_completed_lesson_id = GREATEST(user_progress_of_lessons.last_completed_lesson_id, EXCLUDED.last_completed_lesson_id),
+                practice_question_index = 0,
+                practice_question_updated_at = NULL;
         """, (req.user_id, req.course_id, req.lesson_id))
         
         conn.commit()

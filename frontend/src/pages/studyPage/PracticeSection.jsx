@@ -70,7 +70,7 @@ const WordContextCard = ({ word, pinyin, metadata }) => {
     );
 };
 
-export default function PracticeSection({ questions, isReview, onAllDone }) {
+export default function PracticeSection({ questions, isReview, onAllDone, userId, courseId, lessonId, initialIndex = 0 }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [userAnswer, setUserAnswer] = useState('');
     const [lastSubmittedAnswer, setLastSubmittedAnswer] = useState('');
@@ -80,6 +80,33 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
     
     const inputRef = useRef(null);
     const currentQuestion = questions[currentIndex];
+
+    useEffect(() => {
+        const safeIndex = Number.isInteger(initialIndex)
+            ? Math.max(0, Math.min(initialIndex, Math.max(questions.length - 1, 0)))
+            : 0;
+        setCurrentIndex(safeIndex);
+        setUserAnswer('');
+        setLastSubmittedAnswer('');
+        setFeedback(null);
+    }, [initialIndex, questions]);
+
+    useEffect(() => {
+        if (!questions?.length || !userId || !courseId || !lessonId || isReview) return;
+        const syncProgress = async () => {
+            try {
+                await apiClient.post(`/study/practice_progress`, {
+                    user_id: userId,
+                    course_id: Number(courseId),
+                    lesson_id: lessonId,
+                    current_index: currentIndex,
+                });
+            } catch (e) {
+                console.error("同步练习进度失败:", e);
+            }
+        };
+        syncProgress();
+    }, [currentIndex, questions, userId, courseId, lessonId, isReview]);
 
     const getFeedbackConfig = (level) => {
         if (level === 4) {
@@ -155,7 +182,7 @@ export default function PracticeSection({ questions, isReview, onAllDone }) {
         try {
             // 🚀 使用 apiClient 并简化路径
             const res = await apiClient.post(`/study/evaluate`, {
-                user_id: localStorage.getItem('chilan_user_id') || 'test-user-id',
+                user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
                 lesson_id: currentQuestion.lesson_id || 101,
                 question_id: currentQuestion.question_id,
                 question_type: currentQuestion.question_type,

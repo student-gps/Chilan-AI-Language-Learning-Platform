@@ -87,6 +87,10 @@ export default function StudyPage() {
                 <PracticeSection 
                     questions={studyData.pending_items} 
                     isReview={mode === 'review'}
+                    userId={userId}
+                    courseId={courseId}
+                    lessonId={studyData?.lesson_content?.lesson_metadata?.lesson_id}
+                    initialIndex={studyData?.practice_resume_index || 0}
                     onAllDone={handleLessonComplete}
                 />
             )}
