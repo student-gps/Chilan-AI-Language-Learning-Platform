@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { 
     Brain, Zap, BarChart3, ChevronRight, BookOpen, Coins, Users 
 } from 'lucide-react';
+import { getAuthState } from '../utils/authStorage';
 
 export default function Home() {
     const { t, i18n } = useTranslation();
@@ -13,8 +14,8 @@ export default function Home() {
 
     // 仅用于 Hero 按钮的跳转逻辑判断
     useEffect(() => {
-        const token = localStorage.getItem('chilan_token');
-        setIsLoggedIn(!!token);
+        const authState = getAuthState();
+        setIsLoggedIn(authState.isLoggedIn);
     }, [location]);
 
     const staggerContainer = {

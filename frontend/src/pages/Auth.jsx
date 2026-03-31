@@ -28,11 +28,11 @@ export default function Auth() {
     const [error, setError] = useState('');
 
     const checks = {
-        length: password.length >= 8 && password.length <= 20,
-        upper: /[A-Z]/.test(password),
-        lower: /[a-z]/.test(password),
+        length: password.length >= 8 && password.length <= 32,
+        letter: /[A-Za-z]/.test(password),
         number: /[0-9]/.test(password),
-        special: /[@$!%*?&]/.test(password),
+        special: /[^A-Za-z0-9]/.test(password),
+        noSpace: !/\s/.test(password),
         match: (mode === 'register' || step === 'reset') ? (password === confirmPassword && confirmPassword !== '') : true
     };
     const isPasswordValid = Object.values(checks).every(Boolean);
@@ -216,10 +216,10 @@ export default function Auth() {
                                             </div>
                                             <div className="p-4 bg-slate-50 rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-3 border border-slate-100">
                                                 <Requirement met={checks.length} text={t('auth_pw_req_length')} />
-                                                <Requirement met={checks.upper} text={t('auth_pw_req_upper')} />
-                                                <Requirement met={checks.lower} text={t('auth_pw_req_lower')} />
+                                                <Requirement met={checks.letter} text={t('auth_pw_req_letter')} />
                                                 <Requirement met={checks.number} text={t('auth_pw_req_number')} />
                                                 <Requirement met={checks.special} text={t('auth_pw_req_special')} />
+                                                <Requirement met={checks.noSpace} text={t('auth_pw_req_no_space')} />
                                                 <Requirement met={checks.match} text={t('auth_pw_match')} />
                                             </div>
                                         </motion.div>

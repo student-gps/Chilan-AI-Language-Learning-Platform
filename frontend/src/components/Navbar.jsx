@@ -6,6 +6,7 @@ import {
     User, Globe, ChevronDown, CheckCircle2, 
     LogOut, Settings, LayoutDashboard
 } from 'lucide-react';
+import { clearAuthStorage, getAuthState } from '../utils/authStorage';
 
 export default function Navbar() {
     const { t, i18n } = useTranslation();
@@ -25,10 +26,9 @@ export default function Navbar() {
 
     // 1. 初始化登录状态与路由监听
     useEffect(() => {
-        const token = localStorage.getItem('chilan_token');
-        const email = localStorage.getItem('chilan_user_email');
-        setIsLoggedIn(!!token);
-        setUserEmail(email || '');
+        const authState = getAuthState();
+        setIsLoggedIn(authState.isLoggedIn);
+        setUserEmail(authState.userEmail || '');
         
         // 每次跳转路由，强制关闭所有菜单
         setIsLangOpen(false);
@@ -65,9 +65,7 @@ export default function Navbar() {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('chilan_token');
-        localStorage.removeItem('chilan_user_id');
-        localStorage.removeItem('chilan_user_email');
+        clearAuthStorage();
         setIsLoggedIn(false);
         navigate('/');
     };

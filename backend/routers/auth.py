@@ -169,7 +169,8 @@ def send_auth_email(to_email: str, code: str, email_type: str = "signup", lang: 
 # --- 路由接口 (已修正为 @router) ---
 @router.post("/signup")
 async def signup(req: SignupReq, db=Depends(get_db)):
-    password_pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$"
+    # 更友好的强密码规则：8-32 位，至少一个字母、一个数字、一个特殊字符，不允许空格
+    password_pattern = r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9])(?=\S+$).{8,32}$"
     if not re.match(password_pattern, req.password): raise HTTPException(status_code=400, detail="Password too weak")
     cur = db.cursor(); code = f"{random.randint(100000, 999999)}"
     cur.execute("INSERT INTO users (username, email, password_hash, is_active) VALUES (%s, %s, %s, FALSE) ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash;", (req.email.split('@')[0], req.email, get_password_hash(req.password)))

@@ -9,9 +9,10 @@ import Learning_Overview from './pages/Learning_Overview';
 import Personal_Setting from './pages/Personal_Setting';
 import Classroom from './pages/Classroom';
 import StudyPage from './pages/studyPage/index.jsx'
+import { getValidToken } from './utils/authStorage';
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('chilan_token');
+  const token = getValidToken();
   return token ? children : <Navigate to="/auth" />;
 };
 
