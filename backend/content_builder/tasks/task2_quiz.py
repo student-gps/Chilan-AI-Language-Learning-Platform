@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import time
 from pathlib import Path
 from llm_providers import BaseLLMProvider
@@ -32,12 +33,13 @@ class Task2QuizGenerator:
         for v in new_vocab_list:
             word = v.get("word")
             definition = v.get("definition")
+            example_sentence = self._normalize_example(v.get("example_sentence"))
             
             entry = {
                 "definition": definition,
                 "pinyin": v.get("pinyin"),
                 "part_of_speech": v.get("part_of_speech"),
-                "example": v.get("example_sentence"), # 包含 cn, py, en
+                "example": example_sentence,
                 "lesson_id": lesson_id
             }
 
@@ -62,7 +64,17 @@ class Task2QuizGenerator:
             word = v.get("word")
             # 如果记忆库里有这个词的历史记录，则捞出来
             if word in self.global_vocab:
-                v["historical_usages"] = self.global_vocab[word]
+                historical_usages = self.global_vocab[word]
+                current_definition = (v.get("definition") or "").strip().lower()
+                same_definition = [
+                    usage for usage in historical_usages
+                    if (usage.get("definition") or "").strip().lower() == current_definition
+                ]
+                other_definitions = [
+                    usage for usage in historical_usages
+                    if (usage.get("definition") or "").strip().lower() != current_definition
+                ]
+                v["historical_usages"] = same_definition + other_definitions
         return current_vocab
 
     def _chunk_items(self, items: list, batch_size: int):
@@ -92,6 +104,98 @@ class Task2QuizGenerator:
             deduped.append({"cn": cn, "py": py, "en": en})
 
         return deduped
+
+    def _normalize_example(self, example: dict | None) -> dict:
+        if not isinstance(example, dict):
+            return {"cn": "", "py": "", "en": ""}
+        return {
+            "cn": (example.get("cn") or "").strip(),
+            "py": (example.get("py") or "").strip(),
+            "en": (example.get("en") or "").strip()
+        }
+
+    def _is_blank_example(self, example: dict | None) -> bool:
+        normalized = self._normalize_example(example)
+        return not normalized["cn"] and not normalized["py"] and not normalized["en"]
+
+    def _definition_keywords(self, definition: str) -> set:
+        text = (definition or "").lower()
+        raw_tokens = re.findall(r"[a-z]+", text)
+        stop_words = {
+            "a", "an", "the", "to", "of", "and", "or", "be", "is", "are", "am",
+            "one", "ones", "form", "see", "grammar", "somebody", "something",
+            "lit", "its", "it", "this", "that"
+        }
+        keywords = {token for token in raw_tokens if len(token) > 2 and token not in stop_words}
+        synonym_map = {
+            "fine": {"good", "fine", "well", "ok", "okay", "nice"},
+            "good": {"good", "fine", "well", "ok", "okay", "nice"},
+            "nice": {"good", "nice", "fine"},
+            "very": {"very", "so", "quite", "really"},
+            "busy": {"busy"},
+            "tired": {"tired"},
+            "ask": {"ask", "question"},
+            "please": {"please"},
+        }
+        expanded = set()
+        for token in keywords:
+            expanded.update(synonym_map.get(token, {token}))
+        return expanded or keywords
+
+    def _example_matches_current_sense(self, vocab_item: dict, example: dict) -> bool:
+        normalized = self._normalize_example(example)
+        english = normalized["en"].lower()
+        if not english:
+            return False
+
+        keywords = self._definition_keywords(vocab_item.get("definition") or "")
+        if not keywords:
+            return True
+
+        return any(keyword in english for keyword in keywords)
+
+    def _example_contains_word(self, vocab_item: dict, example: dict) -> bool:
+        normalized = self._normalize_example(example)
+        word = (vocab_item.get("word") or "").strip()
+        return bool(word and word in normalized["cn"])
+
+    def _pick_dialogue_fallback_example(self, vocab_item: dict, source_dialogues: list) -> dict:
+        word = (vocab_item.get("word") or "").strip()
+        if not word:
+            return {"cn": "", "py": "", "en": ""}
+
+        historical_same_definition = [
+            usage for usage in (vocab_item.get("historical_usages") or [])
+            if (usage.get("definition") or "").strip().lower() == (vocab_item.get("definition") or "").strip().lower()
+        ]
+
+        sentence_candidates = self._extract_dialogue_sentence_fallback(source_dialogues)
+        containing_word = [
+            sentence for sentence in sentence_candidates
+            if word in (sentence.get("cn") or "")
+        ]
+        if not containing_word:
+            if historical_same_definition:
+                historical_example = self._normalize_example(historical_same_definition[0].get("example"))
+                if not self._is_blank_example(historical_example):
+                    return historical_example
+            return {"cn": "", "py": "", "en": ""}
+
+        matching_sense = [
+            sentence for sentence in containing_word
+            if self._example_matches_current_sense(vocab_item, sentence)
+        ]
+        if matching_sense:
+            return self._normalize_example(matching_sense[0])
+
+        if historical_same_definition:
+            historical_example = self._normalize_example(historical_same_definition[0].get("example"))
+            if not self._is_blank_example(historical_example):
+                return historical_example
+
+        # 如果本课原文里确实出现了该词，但英文是整句自由翻译，
+        # 也优先保留这条“本课真实原句”，不要因为逐词对不上就留空。
+        return self._normalize_example(containing_word[0])
 
     def _extract_dialogue_sentence_fallback(self, source_dialogues: list) -> list:
         fallback_items = []
@@ -138,15 +242,30 @@ class Task2QuizGenerator:
         """
     
     def _build_vocab_example_prompt(self, word_list: list) -> str:
-        words_str = ", ".join([w.get("word", "") for w in word_list])
+        vocab_payload = json.dumps([
+            {
+                "word": item.get("word", ""),
+                "pinyin": item.get("pinyin", ""),
+                "part_of_speech": item.get("part_of_speech", ""),
+                "definition": item.get("definition", "")
+            }
+            for item in word_list
+        ], ensure_ascii=False)
         return f"""
-        你是一名数据提取专家。请从 PDF 中为以下单词提取原书配套的【官方例句】。
-        单词列表：{words_str}
+        你是一名数据提取专家。请从 PDF 中为以下【词义】提取原书中的真实例句。
+        词义清单：{vocab_payload}
 
         【🚨 提取准则】
-        1. 必须且仅能提取 PDF 中物理显示的原文例句。
-        2. 严禁（FATAL ERROR）根据单词自行造句，严禁从你的知识库中引用外部例句。
-        3. 必须保持中文、拼音、英文的严格对齐。
+        1. 必须且仅能提取 PDF 中物理显示的原文例句，严禁（FATAL ERROR）自行造句，严禁使用外部知识。
+        2. 你要处理的是“词义”，不是单纯的“词形”。
+           - 必须优先匹配当前条目的 definition 和 part_of_speech。
+           - 如果同一个词在本课里出现了不同意思，只能返回与当前义项一致的那一句。
+        3. 先查找词汇表/生词表里配套的官方例句；如果没有，再去本课课文原文中找包含该词的真实句子。
+           - 只要本课正文里确实出现了该词，就应优先返回这条本课原句。
+           - 即使英文是整句自由翻译、不是逐词直译，也仍然算有效原句，不能因此留空。
+        4. 必须保持中文、拼音、英文严格对齐。
+        5. 只有当词汇表和本课正文里都找不到包含该词的真实原句时，才返回空对象。
+        6. 如果同一个词在本课里有多种用法，优先返回最贴近当前 definition / part_of_speech 的那一句；如果无法完全判定，也应返回最自然、最核心的本课原句，而不是空对象。
 
         【强制输出结构】
         - 必须返回一个 JSON 数组，长度必须为 {len(word_list)}。
@@ -159,7 +278,25 @@ class Task2QuizGenerator:
           ]
         """
 
-    def _fill_vocab_examples_in_batches(self, new_vocab_base: list, file_path: str = None, file_obj=None) -> list:
+    def _attach_examples_with_fallback(self, vocab_batch: list, example_batch: list, source_dialogues: list) -> list:
+        merged = []
+
+        for idx, vocab in enumerate(vocab_batch):
+            raw_example = example_batch[idx] if idx < len(example_batch) else {}
+            normalized_example = self._normalize_example(raw_example)
+
+            if self._is_blank_example(normalized_example):
+                normalized_example = self._pick_dialogue_fallback_example(vocab, source_dialogues)
+            elif not self._example_contains_word(vocab, normalized_example):
+                normalized_example = self._pick_dialogue_fallback_example(vocab, source_dialogues)
+            elif not self._example_matches_current_sense(vocab, normalized_example):
+                normalized_example = self._pick_dialogue_fallback_example(vocab, source_dialogues)
+
+            merged.append({**vocab, "example_sentence": normalized_example})
+
+        return merged
+
+    def _fill_vocab_examples_in_batches(self, new_vocab_base: list, file_path: str = None, file_obj=None, source_dialogues: list = None) -> list:
         if not new_vocab_base:
             return []
 
@@ -170,10 +307,7 @@ class Task2QuizGenerator:
                 file_obj=file_obj
             )
             if isinstance(v_ex_res, list) and len(v_ex_res) == len(new_vocab_base):
-                return [
-                    {**vocab, "example_sentence": v_ex_res[idx]}
-                    for idx, vocab in enumerate(new_vocab_base)
-                ]
+                return self._attach_examples_with_fallback(new_vocab_base, v_ex_res, source_dialogues)
             return new_vocab_base
 
         print(f"     📦 Task 2.1b 将按批次回填官方例句 (共 {len(new_vocab_base)} 个词义, 每批 {self.example_batch_size} 个)...")
@@ -188,9 +322,7 @@ class Task2QuizGenerator:
             )
 
             if isinstance(v_ex_res, list) and len(v_ex_res) == len(batch):
-                for vocab_idx, vocab in enumerate(batch):
-                    vocab["example_sentence"] = v_ex_res[vocab_idx]
-                    merged_vocab.append(vocab)
+                merged_vocab.extend(self._attach_examples_with_fallback(batch, v_ex_res, source_dialogues))
             else:
                 merged_vocab.extend(batch)
 
@@ -218,10 +350,62 @@ class Task2QuizGenerator:
           }}
         """
     
+    def _summarize_historical_usages_for_prompt(self, vocab_item: dict) -> list:
+        grouped = {}
+        current_definition = (vocab_item.get("definition") or "").strip().lower()
+
+        for usage in (vocab_item.get("historical_usages") or []):
+            if not isinstance(usage, dict):
+                continue
+
+            definition = (usage.get("definition") or "").strip()
+            key = definition.lower()
+            if key not in grouped:
+                grouped[key] = {
+                    "definition": definition,
+                    "part_of_speech": usage.get("part_of_speech"),
+                    "pinyin": usage.get("pinyin"),
+                    "lesson_ids": [],
+                    "representative_example": {"cn": "", "py": "", "en": ""}
+                }
+
+            lesson_id = usage.get("lesson_id")
+            if lesson_id and lesson_id not in grouped[key]["lesson_ids"]:
+                grouped[key]["lesson_ids"].append(lesson_id)
+
+            normalized_example = self._normalize_example(usage.get("example"))
+            if self._is_blank_example(grouped[key]["representative_example"]) and not self._is_blank_example(normalized_example):
+                grouped[key]["representative_example"] = normalized_example
+
+        ordered_items = []
+        if current_definition and current_definition in grouped:
+            ordered_items.append(grouped.pop(current_definition))
+        ordered_items.extend(grouped.values())
+        return ordered_items
+
+    def _build_word_quiz_vocab_payload(self, vocabulary_with_history: list) -> list:
+        prompt_vocab = []
+
+        for item in vocabulary_with_history:
+            if not isinstance(item, dict):
+                continue
+
+            prompt_vocab.append({
+                "word": item.get("word"),
+                "pinyin": item.get("pinyin"),
+                "part_of_speech": item.get("part_of_speech"),
+                "definition": item.get("definition"),
+                "example_sentence": self._normalize_example(item.get("example_sentence")),
+                "historical_usages_summary": self._summarize_historical_usages_for_prompt(item)
+            })
+
+        return prompt_vocab
+
     # --- Task 2.3a: 专门生成单词题 (100% 覆盖) ---
     def _build_word_quiz_prompt(self, lesson_id: int, course_id: int, vocabulary_with_history: list) -> str:
-        vocab_str = json.dumps(vocabulary_with_history, ensure_ascii=False)
-        vocab_count = len(vocabulary_with_history)
+        prompt_vocab = self._build_word_quiz_vocab_payload(vocabulary_with_history)
+        vocab_str = json.dumps(prompt_vocab, ensure_ascii=False)
+        vocab_count = len(prompt_vocab)
         
         return f"""
         你是一名严谨的词汇练习编写专家。请为提供的【核心词汇表】生成全量翻译练习。
@@ -238,7 +422,9 @@ class Task2QuizGenerator:
         
         2. **单例句约束 (One Context Example)**：
            - 每道题目【只需且仅能】提供 1 个关联例句（context_examples 数组长度必须为 1）。
-           - 必须从素材中提供的 example_sentence 或 historical_usages 中提取。
+           - 必须从素材中提供的 example_sentence 或 historical_usages_summary 中提取。
+           - historical_usages_summary 是历史义项的压缩视图：当前义项排在前面，其他义项仅作辨义参考。
+           - 如果当前义项与其他历史义项冲突，必须优先遵循当前义项，避免把别的意思的例句错配进来。
 
         3. **禁止幻觉**：
            - 题目和例句必须 100% 来源于提供的素材，严禁引入清单外的任何主题或复杂句型。
@@ -313,7 +499,7 @@ class Task2QuizGenerator:
 
         【🚨 核心生成规则 - 必须 100% 遵守】
         1. **句子翻译 (Sentence-Level)**：
-           - 从素材中挑选最核心的句子生成 5-8 道精选翻译题。
+           - 从素材中挑选最核心的句子生成 6-8 道精选翻译题。
            - 句子不能太复杂，要精简，可以做一定的切割，但必须保持原文的核心意思和关键词。
            - 必须包含中译英 (CN_TO_EN) 和 英译中 (EN_TO_CN) 两种形式。
 
@@ -369,7 +555,8 @@ class Task2QuizGenerator:
             new_vocab = self._fill_vocab_examples_in_batches(
                 new_vocab_base,
                 file_path=file_path,
-                file_obj=file_obj
+                file_obj=file_obj,
+                source_dialogues=source_dialogues
             )
 
         time.sleep(2)

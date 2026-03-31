@@ -14,17 +14,41 @@ const fadeInUp = {
 };
 
 // 🌟 单词语境扩展卡片组件
-const WordContextCard = ({ word, pinyin, metadata }) => {
+const WordContextCard = ({ word, pinyin, metadata, knowledgeData }) => {
     const examples = metadata?.context_examples || [];
-    const history = metadata?.history || [];
+    const fallbackKnowledge = metadata?.knowledge || {};
+    const currentSense = knowledgeData?.current_sense || fallbackKnowledge;
+    const history = knowledgeData?.other_senses || fallbackKnowledge?.history || [];
+    const displayWord = knowledgeData?.word || currentSense?.word || word;
+    const displayPinyin = knowledgeData?.pinyin || currentSense?.pinyin || pinyin;
+    const displayDefinition = currentSense?.definition || '';
+    const displayPartOfSpeech = currentSense?.part_of_speech || '';
+    const primaryExample = currentSense?.example_sentence;
+    const combinedExamples = [];
 
-    if (examples.length === 0 && history.length === 0) return null;
+    if (primaryExample?.cn || primaryExample?.py || primaryExample?.en) {
+        combinedExamples.push(primaryExample);
+    }
+    examples.forEach((ex) => {
+        if (!ex) return;
+        const exists = combinedExamples.some((item) =>
+            item?.cn === ex?.cn && item?.py === ex?.py && item?.en === ex?.en
+        );
+        if (!exists) combinedExamples.push(ex);
+    });
+
+    if (
+        combinedExamples.length === 0 &&
+        history.length === 0 &&
+        !displayDefinition &&
+        !displayWord
+    ) return null;
 
     return (
         <motion.div 
             initial={{ opacity: 0, y: 10 }} 
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 mb-6 bg-slate-50/80 rounded-[2rem] border border-slate-200/50 p-7 text-left"
+            className="mt-5 bg-slate-50/80 rounded-[2rem] border border-slate-200/50 p-7 text-left"
         >
             <div className="flex items-center gap-3 mb-5">
                 <div className="p-2 bg-blue-50 rounded-xl">
@@ -34,8 +58,40 @@ const WordContextCard = ({ word, pinyin, metadata }) => {
                 <div className="h-px flex-1 bg-slate-200/60" />
             </div>
 
+            {(displayWord || displayDefinition) && (
+                <div className="mb-5 bg-white/90 p-5 rounded-[1.75rem] border border-white shadow-sm">
+                    <div className="mb-3">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-[11px] font-black uppercase tracking-[0.25em] text-blue-500">
+                            Current Sense / 当前义项
+                        </span>
+                    </div>
+                    <div className="flex flex-wrap items-start gap-4 justify-between">
+                        <div className="min-w-[180px]">
+                            <div className="flex items-end gap-3">
+                                <p className="text-5xl font-black text-slate-900 leading-none">{displayWord}</p>
+                                {displayPinyin && (
+                                    <p className="text-lg font-black text-orange-500">{displayPinyin}</p>
+                                )}
+                            </div>
+                            {displayPartOfSpeech && (
+                                <span className="inline-block mt-3 px-3 py-1 rounded-full bg-slate-100 text-xs font-black uppercase tracking-[0.2em] text-slate-500">
+                                    {displayPartOfSpeech}
+                                </span>
+                            )}
+                        </div>
+                        {displayDefinition && (
+                            <div className="flex-1 min-w-[220px]">
+                                <p className="text-lg font-black text-slate-800 leading-snug">
+                                    {displayDefinition}
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+
             <div className="space-y-4">
-                {examples.map((ex, idx) => (
+                {combinedExamples.map((ex, idx) => (
                     <div key={idx} className="bg-white/80 p-5 rounded-2xl border border-white shadow-sm">
                         <p className="text-2xl font-black text-slate-800 mb-1 leading-tight">
                             {ex.cn}
@@ -54,14 +110,40 @@ const WordContextCard = ({ word, pinyin, metadata }) => {
 
             {history.length > 0 && (
                 <div className="mt-6 pt-5 border-t border-slate-200/60">
-                    <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-3">
+                    <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
                         Other Meanings / 更多义项
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="space-y-3">
                         {history.map((h, i) => (
-                            <span key={i} className="px-3 py-1.5 bg-slate-200/50 rounded-xl text-sm font-black text-slate-600">
-                                {h.definition}
-                            </span>
+                            <div key={i} className="bg-white/80 p-4 rounded-2xl border border-white shadow-sm">
+                                <div className="flex flex-wrap items-center gap-2 mb-2">
+                                    {h.part_of_speech && (
+                                        <span className="px-2.5 py-1 rounded-full bg-slate-100 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500">
+                                            {h.part_of_speech}
+                                        </span>
+                                    )}
+                                    {h.pinyin && (
+                                        <span className="text-sm font-bold text-orange-500">{h.pinyin}</span>
+                                    )}
+                                    {typeof h.lesson_id !== 'undefined' && h.lesson_id !== null && (
+                                        <span className="text-xs font-black text-slate-400">L{h.lesson_id}</span>
+                                    )}
+                                </div>
+                                <p className="text-base font-black text-slate-800 leading-snug">{h.definition}</p>
+                                {(h.example?.cn || h.example?.en) && (
+                                    <div className="mt-3 space-y-1.5">
+                                        {h.example?.cn && (
+                                            <p className="text-sm font-bold text-slate-700">{h.example.cn}</p>
+                                        )}
+                                        {h.example?.py && (
+                                            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">{h.example.py}</p>
+                                        )}
+                                        {h.example?.en && (
+                                            <p className="text-sm font-semibold italic text-blue-600">{h.example.en}</p>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -77,6 +159,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     const [isEvaluating, setIsEvaluating] = useState(false);
     const [feedback, setFeedback] = useState(null);
     const [isFocused, setIsFocused] = useState(false);
+    const [knowledgeDetails, setKnowledgeDetails] = useState(null);
     
     const inputRef = useRef(null);
     const currentQuestion = questions[currentIndex];
@@ -89,6 +172,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         setUserAnswer('');
         setLastSubmittedAnswer('');
         setFeedback(null);
+        setKnowledgeDetails(null);
     }, [initialIndex, questions]);
 
     useEffect(() => {
@@ -155,6 +239,27 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     }, [currentIndex, feedback, isEvaluating]);
 
     useEffect(() => {
+        if (!feedback || !currentQuestion?.item_id) {
+            setKnowledgeDetails(null);
+            return;
+        }
+
+        const fetchKnowledge = async () => {
+            try {
+                const res = await apiClient.get(`/study/knowledge`, {
+                    params: { item_id: currentQuestion.item_id }
+                });
+                setKnowledgeDetails(res.data?.data || null);
+            } catch (e) {
+                console.error("加载动态知识点失败:", e);
+                setKnowledgeDetails(null);
+            }
+        };
+
+        fetchKnowledge();
+    }, [feedback, currentQuestion]);
+
+    useEffect(() => {
         const handleEnter = (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 if (feedback && feedback.level >= 2) {
@@ -205,6 +310,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
             setUserAnswer('');
             setLastSubmittedAnswer('');
             setFeedback(null);
+            setKnowledgeDetails(null);
         } else {
             onAllDone();
         }
@@ -292,12 +398,6 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                                 </div>
                             </div>
 
-                            <WordContextCard 
-                                word={currentQuestion.original_text}
-                                pinyin={currentQuestion.original_pinyin}
-                                metadata={currentQuestion.metadata}
-                            />
-
                             <div className="flex flex-col gap-3">
                                 {feedback.level === 1 ? (
                                     <>
@@ -325,6 +425,13 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                                     </button>
                                 )}
                             </div>
+
+                            <WordContextCard 
+                                word={currentQuestion.original_text}
+                                pinyin={currentQuestion.original_pinyin}
+                                metadata={currentQuestion.metadata}
+                                knowledgeData={knowledgeDetails}
+                            />
                         </motion.div>
                     )}
                 </AnimatePresence>

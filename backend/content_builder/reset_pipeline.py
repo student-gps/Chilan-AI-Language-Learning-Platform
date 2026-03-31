@@ -68,19 +68,26 @@ def reset_pipeline():
                 j_file.unlink()
             print(f"✅ 已排空文件夹: {folder.name} (删除了 {len(json_files)} 个文件)")
 
-    # --- 4. 数据库清空 (lessons & language_items) ---
+    # --- 4. 数据库清空 (课程/题目/学习进度) ---
     conn = None
     cur = None
     try:
         conn = get_connection()
         cur = conn.cursor()
         
-        print("🎯 正在清空数据库表 [lessons] 和 [language_items]...")
+        print("🎯 正在清空数据库表 [lessons]、[language_items]、[vocabulary_knowledge]、[user_progress_of_lessons] 和 [user_progress_of_language_items]...")
         # TRUNCATE 是最干净的方式，RESTART IDENTITY 会让自增 ID 回到 1
-        cur.execute("TRUNCATE TABLE language_items, lessons RESTART IDENTITY CASCADE;")
+        cur.execute(
+            "TRUNCATE TABLE user_progress_of_language_items, "
+            "user_progress_of_lessons, "
+            "vocabulary_knowledge, "
+            "language_items, "
+            "lessons "
+            "RESTART IDENTITY CASCADE;"
+        )
         
         conn.commit()
-        print("✅ 数据库表已完全清空，自增 ID 已重置。")
+        print("✅ 数据库课程表、题目表与学习进度表已完全清空，自增 ID 已重置。")
         
     except Exception as e:
         print(f"❌ 数据库清理失败: {e}")

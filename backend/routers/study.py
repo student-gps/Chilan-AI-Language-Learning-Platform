@@ -69,6 +69,21 @@ def ensure_lesson_progress_columns(cur):
         ADD COLUMN IF NOT EXISTS practice_question_updated_at TIMESTAMP;
     """)
 
+
+def ensure_vocabulary_knowledge_table(cur):
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS vocabulary_knowledge (
+            course_id INTEGER NOT NULL,
+            lesson_id INTEGER NOT NULL,
+            word TEXT NOT NULL,
+            pinyin TEXT,
+            part_of_speech TEXT,
+            definition TEXT NOT NULL,
+            example JSONB DEFAULT '{}'::jsonb,
+            PRIMARY KEY (course_id, lesson_id, word, definition)
+        );
+    """)
+
 # ==========================================
 # 接口 1: 初始化学习流
 # ==========================================
@@ -373,6 +388,103 @@ async def save_practice_progress(req: PracticeProgressRequest):
         if conn:
             conn.rollback()
         print(f"❌ Save Practice Progress Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if conn:
+            conn.close()
+
+
+@router.get("/study/knowledge")
+async def get_knowledge_details(item_id: int):
+    conn = None
+    try:
+        conn = get_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        ensure_vocabulary_knowledge_table(cur)
+        conn.commit()
+
+        cur.execute("""
+            SELECT item_id, course_id, lesson_id, question_type, original_text, standard_answers, metadata
+            FROM language_items
+            WHERE item_id = %s
+        """, (item_id,))
+        item = cur.fetchone()
+        if not item:
+            raise HTTPException(status_code=404, detail="题目不存在")
+
+        metadata = item.get("metadata") or {}
+        knowledge_meta = metadata.get("knowledge") or {}
+        question_type = item.get("question_type")
+        standard_answers = item.get("standard_answers") or []
+
+        if question_type == "CN_TO_EN":
+            word = (item.get("original_text") or "").strip()
+        else:
+            word = (standard_answers[0] if standard_answers else "").strip()
+
+        if not word:
+            return {"status": "success", "data": None}
+
+        current_definition = (knowledge_meta.get("definition") or "").strip()
+
+        cur.execute("""
+            SELECT course_id, lesson_id, word, pinyin, part_of_speech, definition, example
+            FROM vocabulary_knowledge
+            WHERE word = %s
+            ORDER BY
+                CASE WHEN lesson_id = %s THEN 0 ELSE 1 END,
+                lesson_id ASC
+        """, (word, item.get("lesson_id")))
+        rows = cur.fetchall()
+        if not rows:
+            return {"status": "success", "data": None}
+
+        current_entry = None
+        other_entries = []
+
+        for row in rows:
+            row_definition = (row.get("definition") or "").strip()
+            candidate = {
+                "word": row.get("word"),
+                "pinyin": row.get("pinyin"),
+                "part_of_speech": row.get("part_of_speech"),
+                "definition": row_definition,
+                "example_sentence": row.get("example") or {},
+                "lesson_id": row.get("lesson_id")
+            }
+
+            if current_entry is None and current_definition and row_definition.lower() == current_definition.lower():
+                current_entry = candidate
+            else:
+                other_entries.append(candidate)
+
+        if current_entry is None:
+            current_entry = {
+                "word": knowledge_meta.get("word") or word,
+                "pinyin": knowledge_meta.get("pinyin") or rows[0].get("pinyin"),
+                "part_of_speech": knowledge_meta.get("part_of_speech") or rows[0].get("part_of_speech"),
+                "definition": knowledge_meta.get("definition") or rows[0].get("definition"),
+                "example_sentence": knowledge_meta.get("example_sentence") or rows[0].get("example") or {},
+                "lesson_id": item.get("lesson_id")
+            }
+            other_entries = [
+                entry for entry in other_entries
+                if (entry.get("definition") or "").strip().lower() != (current_entry.get("definition") or "").strip().lower()
+            ]
+
+        return {
+            "status": "success",
+            "data": {
+                "word": current_entry.get("word") or word,
+                "pinyin": current_entry.get("pinyin") or knowledge_meta.get("pinyin") or "",
+                "current_sense": current_entry,
+                "other_senses": other_entries
+            }
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Knowledge Detail Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
     finally:
         if conn:

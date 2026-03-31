@@ -74,6 +74,21 @@ class EmbeddingFactory:
             return DoubaoEmbeddingProvider(api_key, model_id)
         raise ValueError(f"❌ 不支持的 Provider: {provider_type}")
 
+
+def ensure_vocabulary_knowledge_table(cur):
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS vocabulary_knowledge (
+            course_id INTEGER NOT NULL,
+            lesson_id INTEGER NOT NULL,
+            word TEXT NOT NULL,
+            pinyin TEXT,
+            part_of_speech TEXT,
+            definition TEXT NOT NULL,
+            example JSONB DEFAULT '{}'::jsonb,
+            PRIMARY KEY (course_id, lesson_id, word, definition)
+        );
+    """)
+
 # ==========================================
 # 3. 核心入库逻辑 (已适配新字段)
 # ==========================================
@@ -84,6 +99,7 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
     lesson_metadata = data.get("lesson_metadata", {})
     course_content = data.get("course_content", {})
     database_items = data.get("database_items", [])
+    vocabulary_items = course_content.get("vocabulary", []) if isinstance(course_content, dict) else []
     structured_lesson_payload = {
         "lesson_metadata": lesson_metadata,
         "course_content": course_content,
@@ -99,6 +115,15 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
     try:
         conn = get_connection()
         cur = conn.cursor()
+        ensure_vocabulary_knowledge_table(cur)
+
+        vocab_lookup = {}
+        for vocab in vocabulary_items:
+            if not isinstance(vocab, dict):
+                continue
+            word_key = (vocab.get("word") or "").strip()
+            if word_key:
+                vocab_lookup[word_key] = vocab
 
         # 1. 同步 lessons 表
         print(f"📦 同步 Lesson {lesson_id} 基础数据...")
@@ -121,10 +146,67 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
             q_id = item['question_id']
             # 🚀 提取新增字段
             q_pinyin = item.get('original_pinyin', '')
-            # 🚀 将 context_examples 封装进元数据
+            q_type = item.get('question_type')
+
+            vocab_word = ""
+            if q_type == "CN_TO_EN":
+                vocab_word = (item.get('original_text') or '').strip()
+            elif q_type == "EN_TO_CN":
+                standard_answers = item.get('standard_answers') or []
+                vocab_word = (standard_answers[0] if standard_answers else '').strip()
+
+            vocab_entry = vocab_lookup.get(vocab_word, {})
+            current_example = vocab_entry.get("example_sentence", {}) if isinstance(vocab_entry, dict) else {}
+            historical_usages = vocab_entry.get("historical_usages", []) if isinstance(vocab_entry, dict) else []
+
+            history_cards = []
+            current_definition = (vocab_entry.get("definition") or "").strip().lower() if isinstance(vocab_entry, dict) else ""
+            if isinstance(historical_usages, list):
+                for usage in historical_usages:
+                    if not isinstance(usage, dict):
+                        continue
+                    usage_definition = (usage.get("definition") or "").strip()
+                    if usage_definition.lower() == current_definition:
+                        continue
+                    history_cards.append({
+                        "definition": usage_definition,
+                        "pinyin": usage.get("pinyin"),
+                        "part_of_speech": usage.get("part_of_speech"),
+                        "example": usage.get("example", {}),
+                        "lesson_id": usage.get("lesson_id")
+                    })
+
             q_metadata = {
-                "context_examples": item.get('context_examples', [])
+                "context_examples": item.get('context_examples', []),
+                "knowledge": {
+                    "word": vocab_word or vocab_entry.get("word", ""),
+                    "pinyin": vocab_entry.get("pinyin", q_pinyin),
+                    "part_of_speech": vocab_entry.get("part_of_speech", ""),
+                    "definition": vocab_entry.get("definition", ""),
+                    "example_sentence": current_example,
+                    "history": history_cards
+                }
             }
+
+            if isinstance(vocab_entry, dict) and (vocab_entry.get("word") or "").strip():
+                cur.execute("""
+                    INSERT INTO vocabulary_knowledge
+                    (course_id, lesson_id, word, pinyin, part_of_speech, definition, example)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (course_id, lesson_id, word, definition)
+                    DO UPDATE SET
+                        pinyin = EXCLUDED.pinyin,
+                        part_of_speech = EXCLUDED.part_of_speech,
+                        example = EXCLUDED.example;
+                """, (
+                    course_id,
+                    lesson_id,
+                    (vocab_entry.get("word") or "").strip(),
+                    vocab_entry.get("pinyin"),
+                    vocab_entry.get("part_of_speech"),
+                    vocab_entry.get("definition"),
+                    Json(vocab_entry.get("example_sentence", {}))
+                ))
 
             # 生成向量 (取第一个答案作为基准)
             embedding = provider.get_embedding(item['standard_answers'][0])
