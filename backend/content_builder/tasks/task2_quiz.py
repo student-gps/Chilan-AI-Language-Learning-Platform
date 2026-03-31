@@ -12,6 +12,11 @@ class Task2QuizGenerator:
         self.global_vocab = self._load_memory()
         self.example_batch_size = max(1, int(os.getenv("CB_TASK2_EXAMPLE_BATCH_SIZE", "5")))
         self.word_quiz_batch_size = max(1, int(os.getenv("CB_TASK2_WORD_QUIZ_BATCH_SIZE", "4")))
+        self.speech_quiz_min = max(1, int(os.getenv("CB_TASK2_SPEECH_QUIZ_MIN", "3")))
+        self.speech_quiz_max = max(self.speech_quiz_min, int(os.getenv("CB_TASK2_SPEECH_QUIZ_MAX", "5")))
+        target_default = min(self.speech_quiz_max, 4)
+        self.speech_quiz_target = int(os.getenv("CB_TASK2_SPEECH_QUIZ_TARGET", str(target_default)))
+        self.speech_quiz_target = max(self.speech_quiz_min, min(self.speech_quiz_target, self.speech_quiz_max))
 
     def _load_memory(self) -> dict:
         if self.memory_file.exists():
@@ -339,6 +344,170 @@ class Task2QuizGenerator:
         }}
         """
 
+    def _get_speech_eval_config(self) -> dict:
+        return {
+            "pass_threshold": float(os.getenv("VOICE_PASS_THRESHOLD", "0.88")),
+            "review_threshold": float(os.getenv("VOICE_REVIEW_THRESHOLD", "0.78")),
+            "min_asr_confidence": float(os.getenv("VOICE_MIN_ASR_CONFIDENCE", "0.60")),
+            "max_attempts": int(os.getenv("VOICE_MAX_ATTEMPTS", "3")),
+            "max_duration_sec": int(os.getenv("VOICE_MAX_DURATION_SEC", "15")),
+        }
+
+    def _select_speech_materials(self, combined_practice: list, max_items: int) -> list:
+        selected = []
+        seen = set()
+
+        for item in combined_practice or []:
+            if not isinstance(item, dict):
+                continue
+
+            cn = (item.get("cn") or "").strip()
+            en = (item.get("en") or "").strip()
+            py = (item.get("py") or "").strip()
+            if not cn or not en:
+                continue
+
+            if len(cn) < 2 or len(en) < 3:
+                continue
+
+            key = (cn, en)
+            if key in seen:
+                continue
+
+            seen.add(key)
+            selected.append({"cn": cn, "py": py, "en": en})
+            if len(selected) >= max_items:
+                break
+
+        return selected
+
+    def _build_speech_quiz_prompt(self, lesson_id: int, course_id: int, speech_materials: list) -> str:
+        speech_source = json.dumps(speech_materials, ensure_ascii=False)
+        speech_eval_config = json.dumps(self._get_speech_eval_config(), ensure_ascii=False)
+
+        return f"""
+        你是一名中文教学题库设计专家。请根据给定课文句子素材，生成“语音作答题”。
+
+        【题型定义】
+        - 题型代码固定为: EN_TO_CN_SPEAK
+        - 出题形式: 给出英文句子(original_text)，要求学习者口语说出中文
+        - 标准答案: 中文原句(standard_answers)
+
+        【输入素材】
+        {speech_source}
+
+        【硬性规则】
+        1. 只能使用输入素材中的中英对应句，不得新增教材外内容。
+        2. 题目数量: {self.speech_quiz_min} 到 {self.speech_quiz_max} 道，优先输出 {self.speech_quiz_target} 道。
+        3. original_text 必须是英文句子；standard_answers 必须是中文句子数组。
+        4. 每道题都要带 metadata，结构如下:
+           {{
+             "answer_mode": "speech",
+             "speech_eval_config": {speech_eval_config}
+           }}
+        5. 每道题都要带 1 条 context_examples，使用同一条中英句作为上下文。
+
+        【输出格式】
+        仅输出 JSON:
+        {{
+          "database_items": [
+            {{
+              "lesson_id": {lesson_id},
+              "question_id": 0,
+              "course_id": {course_id},
+              "question_type": "EN_TO_CN_SPEAK",
+              "original_text": "English sentence",
+              "original_pinyin": "对应中文拼音",
+              "standard_answers": ["中文原句"],
+              "context_examples": [{{"cn":"中文","py":"拼音","en":"English"}}],
+              "metadata": {{
+                "answer_mode": "speech",
+                "speech_eval_config": {speech_eval_config}
+              }}
+            }}
+          ]
+        }}
+        """
+
+    def _normalize_speech_quiz_item(self, item: dict, speech_eval_config: dict) -> dict:
+        if not isinstance(item, dict):
+            return {}
+
+        original_text = (item.get("original_text") or "").strip()
+        if not original_text:
+            return {}
+
+        raw_answers = item.get("standard_answers", [])
+        if isinstance(raw_answers, str):
+            raw_answers = [raw_answers]
+        if not isinstance(raw_answers, list):
+            raw_answers = []
+
+        standard_answers = [str(ans).strip() for ans in raw_answers if str(ans).strip()]
+        if not standard_answers:
+            return {}
+
+        context_examples = item.get("context_examples", [])
+        if not isinstance(context_examples, list):
+            context_examples = []
+
+        metadata = item.get("metadata", {})
+        if not isinstance(metadata, dict):
+            metadata = {}
+        metadata["answer_mode"] = "speech"
+        metadata["speech_eval_config"] = speech_eval_config
+
+        return {
+            "lesson_id": item.get("lesson_id"),
+            "question_id": 0,
+            "course_id": item.get("course_id"),
+            "question_type": "EN_TO_CN_SPEAK",
+            "original_text": original_text,
+            "original_pinyin": (item.get("original_pinyin") or "").strip(),
+            "standard_answers": standard_answers,
+            "context_examples": context_examples[:1],
+            "metadata": metadata,
+        }
+
+    def _build_speech_fallback_items(
+        self,
+        lesson_id: int,
+        course_id: int,
+        speech_materials: list,
+        speech_eval_config: dict,
+    ) -> list:
+        fallback = []
+        target = max(self.speech_quiz_min, min(self.speech_quiz_target, self.speech_quiz_max))
+
+        for material in speech_materials:
+            if len(fallback) >= target:
+                break
+            if not isinstance(material, dict):
+                continue
+
+            cn = (material.get("cn") or "").strip()
+            en = (material.get("en") or "").strip()
+            py = (material.get("py") or "").strip()
+            if not cn or not en:
+                continue
+
+            fallback.append({
+                "lesson_id": lesson_id,
+                "question_id": 0,
+                "course_id": course_id,
+                "question_type": "EN_TO_CN_SPEAK",
+                "original_text": en,
+                "original_pinyin": py,
+                "standard_answers": [cn],
+                "context_examples": [{"cn": cn, "py": py, "en": en}],
+                "metadata": {
+                    "answer_mode": "speech",
+                    "speech_eval_config": speech_eval_config,
+                },
+            })
+
+        return fallback
+
     def run(self, lesson_id: int, course_id: int, file_path: str = None, file_obj=None, source_dialogues: list = None):
         # --- [Task 2.1a] 提取词汇基本信息 ---
         print(f"  ▶️ [Task 2.1a] 提取词汇基本信息 (骨架)...")
@@ -427,16 +596,66 @@ class Task2QuizGenerator:
         sent_q_res = self.llm.generate_structured_json(sent_q_prompt, file_path=None, file_obj=None)
         sent_items = sent_q_res.get("database_items", []) if isinstance(sent_q_res, dict) else []
 
+        # 2.3c speech quiz: English prompt + spoken Chinese answer
+        speech_items = []
+        speech_eval_config = self._get_speech_eval_config()
+        speech_materials = self._select_speech_materials(
+            combined_practice,
+            max_items=max(self.speech_quiz_max * 2, 10)
+        )
+
+        if speech_materials:
+            speech_prompt = self._build_speech_quiz_prompt(lesson_id, course_id, speech_materials)
+            speech_res = self.llm.generate_structured_json(speech_prompt, file_path=None, file_obj=None)
+            raw_speech_items = speech_res.get("database_items", []) if isinstance(speech_res, dict) else []
+
+            if isinstance(raw_speech_items, list):
+                for raw_item in raw_speech_items:
+                    normalized = self._normalize_speech_quiz_item(raw_item, speech_eval_config)
+                    if normalized:
+                        speech_items.append(normalized)
+
+            seen_en = set()
+            deduped_speech_items = []
+            for item in speech_items:
+                key = (item.get("original_text") or "").strip().lower()
+                if not key or key in seen_en:
+                    continue
+                seen_en.add(key)
+                deduped_speech_items.append(item)
+            speech_items = deduped_speech_items[:self.speech_quiz_max]
+
+            if len(speech_items) < self.speech_quiz_min:
+                existing = {(i.get("original_text") or "").strip().lower() for i in speech_items}
+                fallback_items = self._build_speech_fallback_items(
+                    lesson_id=lesson_id,
+                    course_id=course_id,
+                    speech_materials=speech_materials,
+                    speech_eval_config=speech_eval_config,
+                )
+                for fb in fallback_items:
+                    key = (fb.get("original_text") or "").strip().lower()
+                    if key and key not in existing:
+                        speech_items.append(fb)
+                        existing.add(key)
+                    if len(speech_items) >= self.speech_quiz_min:
+                        break
+
         # 🚀 【核心修改：按类型强制排序】
         # 1. 汇总所有题目
-        all_raw_items = all_word_items + sent_items
+        all_raw_items = all_word_items + sent_items + speech_items
         
         # 2. 按照题型分类到两个桶里
         cn_to_en_pool = [i for i in all_raw_items if i.get("question_type") == "CN_TO_EN"]
         en_to_cn_pool = [i for i in all_raw_items if i.get("question_type") == "EN_TO_CN"]
+        en_to_cn_speak_pool = [i for i in all_raw_items if i.get("question_type") == "EN_TO_CN_SPEAK"]
+        other_pool = [
+            i for i in all_raw_items
+            if i.get("question_type") not in {"CN_TO_EN", "EN_TO_CN", "EN_TO_CN_SPEAK"}
+        ]
         
         # 3. 按照“先中译英，后英译中”重新组合
-        sorted_items = cn_to_en_pool + en_to_cn_pool
+        sorted_items = cn_to_en_pool + en_to_cn_pool + en_to_cn_speak_pool + other_pool
 
         # 🚀 【结果清理与重排 ID】
         valid_items = []
