@@ -24,6 +24,33 @@ except ImportError:
 # ==========================================
 load_dotenv(BACKEND_DIR / ".env")
 
+
+def _normalize_standard_answers(item: dict) -> list[str]:
+    raw_answers = item.get("standard_answers", [])
+    if isinstance(raw_answers, str):
+        raw_answers = [raw_answers]
+    if not isinstance(raw_answers, list):
+        return []
+    return [str(ans).strip() for ans in raw_answers if str(ans).strip()]
+
+
+def _build_item_metadata(item: dict) -> dict:
+    item_metadata = item.get("metadata", {})
+    metadata = dict(item_metadata) if isinstance(item_metadata, dict) else {}
+
+    context_examples = item.get("context_examples", [])
+    if isinstance(context_examples, list):
+        metadata["context_examples"] = context_examples
+    else:
+        metadata.setdefault("context_examples", [])
+
+    if item.get("question_type") == "EN_TO_CN_SPEAK":
+        metadata.setdefault("answer_mode", "speech")
+    else:
+        metadata.setdefault("answer_mode", "text")
+
+    return metadata
+
 # ==========================================
 # 2. Embedding 抽象基类与具体实现
 # ==========================================
@@ -118,16 +145,30 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
         # 2. 同步 language_items 表
         print(f"🎯 正在处理 {len(database_items)} 道深度解析题目...")
         for item in database_items:
-            q_id = item['question_id']
+            q_id = item.get("question_id")
+            q_type = item.get("question_type")
+            q_text = (item.get("original_text") or "").strip()
             # 🚀 提取新增字段
-            q_pinyin = item.get('original_pinyin', '')
+            q_pinyin = item.get("original_pinyin", "")
             # 🚀 将 context_examples 封装进元数据
-            q_metadata = {
-                "context_examples": item.get('context_examples', [])
-            }
+            q_metadata = _build_item_metadata(item)
+            standard_answers = _normalize_standard_answers(item)
+
+            if q_id is None:
+                print(f"skip item without question_id: {item}")
+                continue
+            if not q_type:
+                print(f"skip item without question_type (question_id={q_id})")
+                continue
+            if not q_text:
+                print(f"skip item without original_text (question_id={q_id})")
+                continue
+            if not standard_answers:
+                print(f"skip item without standard_answers (question_id={q_id})")
+                continue
 
             # 生成向量 (取第一个答案作为基准)
-            embedding = provider.get_embedding(item['standard_answers'][0])
+            embedding = provider.get_embedding(standard_answers[0])
             embedding_str = str(embedding)
 
             cur.execute("""
@@ -141,8 +182,8 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
                     SET question_type = %s, original_text = %s, original_pinyin = %s, 
                         standard_answers = %s, primary_embedding = %s, metadata = %s
                     WHERE course_id = %s AND lesson_id = %s AND question_id = %s
-                """, (item['question_type'], item['original_text'], q_pinyin, 
-                      item['standard_answers'], embedding_str, Json(q_metadata), 
+                """, (q_type, q_text, q_pinyin, 
+                      standard_answers, embedding_str, Json(q_metadata), 
                       course_id, lesson_id, q_id))
             else:
                 cur.execute("""
@@ -150,8 +191,8 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
                     (course_id, lesson_id, question_id, question_type, original_text, 
                      original_pinyin, standard_answers, primary_embedding, metadata)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """, (course_id, lesson_id, q_id, item['question_type'], 
-                      item['original_text'], q_pinyin, item['standard_answers'], 
+                """, (course_id, lesson_id, q_id, q_type, 
+                      q_text, q_pinyin, standard_answers, 
                       embedding_str, Json(q_metadata)))
             
         conn.commit()
