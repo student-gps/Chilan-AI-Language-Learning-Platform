@@ -294,9 +294,15 @@ async def evaluate_answer(req: EvaluateRequest):
         audio_duration_ms = _to_optional_int(audio_meta.get("duration_ms")) if input_mode == "speech" else None
         vector_score = None
         
-        # 1. 统一查询：获取题目的自增主键 (item_id) 和用户进度
+        # 1. 统一查询：获取题目主键、用户进度和题目元数据（语音阈值配置）
         cur.execute("""
-            SELECT q.item_id as item_pk, p.stability, p.difficulty, p.recent_history, p.state
+            SELECT
+                q.item_id as item_pk,
+                q.metadata as item_metadata,
+                p.stability,
+                p.difficulty,
+                p.recent_history,
+                p.state
             FROM language_items q 
             LEFT JOIN user_progress_of_language_items p 
                    ON q.question_id = p.question_id AND p.user_id::text = %s 
@@ -308,12 +314,29 @@ async def evaluate_answer(req: EvaluateRequest):
             raise HTTPException(status_code=404, detail="题目不存在")
 
         item_pk = base_info['item_pk']
+        item_metadata = base_info.get('item_metadata') if isinstance(base_info.get('item_metadata'), dict) else {}
         stability = base_info['stability']
         difficulty = base_info['difficulty']
         history = base_info['recent_history']
+        speech_eval_config = evaluator_service.get_speech_eval_config(item_metadata.get("speech_eval_config"))
         
         # 定义状态：如果没有历史记录说明是新题(0)，有记录说明在复习(1)
         current_state = 0 if not history else 1
+
+        if input_mode == "speech":
+            retry_res = evaluator_service.check_speech_readiness(
+                asr_text=effective_answer,
+                asr_confidence=asr_confidence,
+                speech_eval_config=speech_eval_config,
+            )
+            if retry_res:
+                response_payload = {
+                    **retry_res,
+                    "inputMode": input_mode,
+                    "recognizedText": asr_text_for_log,
+                    "vectorScore": None,
+                }
+                return {"status": "success", "data": response_payload}
 
         # 🛡️ Tier 1: 极速正则匹配
         t1_start = time.perf_counter()
@@ -339,7 +362,8 @@ async def evaluate_answer(req: EvaluateRequest):
             
             res = await evaluator_service.process_judge(
                 q_type=req.question_type, user_ans=effective_answer, origin=req.original_text,
-                std_answers=normalized_answers, vector_score=sim_score, pm=pm
+                std_answers=normalized_answers, vector_score=sim_score, pm=pm,
+                input_mode=input_mode, asr_confidence=asr_confidence, speech_eval_config=speech_eval_config
             )
 
         # 🧠 FSRS 状态更新
