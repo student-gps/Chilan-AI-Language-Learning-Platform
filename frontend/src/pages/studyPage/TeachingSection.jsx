@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 // 🚀 引入统一的 API 客户端
 import apiClient from '../../api/apiClient'; 
 import { Eye, EyeOff, Volume2, ArrowRight, Languages, BookOpen, Loader2 } from 'lucide-react';
@@ -7,6 +8,11 @@ import { Eye, EyeOff, Volume2, ArrowRight, Languages, BookOpen, Loader2 } from '
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 120, damping: 20 } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.08 } }
 };
 
 const formatLessonId = (id) => {
@@ -42,6 +48,7 @@ const InlineAnnotatedText = ({ words = [], showPinyin, pinyinClassName = '', tex
 };
 
 export default function TeachingSection({ data, courseId, userId, onStartPractice }) {
+    const { t, i18n } = useTranslation();
     // 1. 状态拆分：课文专用
     const [diagPinyin, setDiagPinyin] = useState(true);
     const [diagTrans, setDiagTrans] = useState(true);
@@ -60,8 +67,8 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
     const isReadingMode = ['diary', 'article', 'passage'].includes(contentType);
     const isMixedMode = contentType === 'mixed';
     const lessonHeading = isReadingMode
-        ? (contentType === 'diary' ? '🗒️ 日记原文' : '📖 课文阅读')
-        : (isMixedMode ? '🎭 课文内容' : '💬 课文对话');
+        ? (contentType === 'diary' ? `🗒️ ${t('teaching_diary_original')}` : `📖 ${t('teaching_reading')}`)
+        : (isMixedMode ? `🎭 ${t('teaching_content')}` : `💬 ${t('teaching_dialogue')}`);
     const lineItems = dialogues?.flatMap(t => t.lines || []) || [];
 
     // 🚀 核心修改：动态获取 API 基础地址用于音频播放
@@ -82,7 +89,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                 }`}
             >
                 {pinyin ? <Eye size={14} /> : <EyeOff size={14} />}
-                {pinyin ? '拼音开' : '拼音关'}
+                {pinyin ? t('teaching_pinyin_on') : t('teaching_pinyin_off')}
             </button>
             <button 
                 onClick={() => setTrans(!trans)} 
@@ -91,7 +98,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                 }`}
             >
                 {trans ? <Languages size={14} /> : <BookOpen size={14} />}
-                {trans ? '翻译开' : '翻译关'}
+                {trans ? t('teaching_translation_on') : t('teaching_translation_off')}
             </button>
         </div>
     );
@@ -116,10 +123,18 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-6 pt-24">
+        <AnimatePresence mode="wait">
+        <motion.div
+            key={`teaching-${i18n.language}`}
+            variants={staggerContainer}
+            initial="hidden"
+            animate="show"
+            exit={{ opacity: 0, y: -10, transition: { duration: 0.18 } }}
+            className="max-w-4xl mx-auto px-6 pt-24"
+        >
             {/* 顶部页眉 */}
             <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex items-center gap-3 mb-4">
-                <span className="px-3 py-1 bg-slate-900 text-white text-[10px] font-black rounded-full uppercase tracking-widest">New Unit</span>
+                <span className="px-3 py-1 bg-slate-900 text-white text-[10px] font-black rounded-full uppercase tracking-widest">{t('teaching_new_unit')}</span>
                 <span className="text-slate-400 font-mono font-bold text-sm">LEVEL {formatLessonId(lesson_metadata.lesson_id)}</span>
             </motion.div>
             
@@ -134,7 +149,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                     <div className="w-16 h-16 bg-white/10 backdrop-blur-xl rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20 group-hover:scale-110 transition-transform">
                         <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-1"></div>
                     </div>
-                    <p className="text-white/40 text-[10px] font-black tracking-[0.4em] uppercase">Visual Context Engine</p>
+                    <p className="text-white/40 text-[10px] font-black tracking-[0.4em] uppercase">{t('teaching_video_label')}</p>
                 </div>
                 <p className="absolute bottom-6 left-10 right-10 text-white/60 text-sm italic font-light opacity-0 group-hover:opacity-100 transition-all duration-700">
                     "{aigc_visual_prompt}"
@@ -165,7 +180,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                 <div className="flex items-center justify-between gap-4">
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-[0.36em] text-stone-400">
-                                            {contentType === 'diary' ? 'Diary Entry' : 'Reading Passage'}
+                                            {contentType === 'diary' ? t('teaching_diary_original') : t('teaching_reading')}
                                         </p>
                                         <h3 className="mt-3 text-3xl md:text-4xl font-black tracking-tight text-stone-800">
                                             {lesson_metadata.title}
@@ -273,7 +288,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
             {/* 5. 生词区 */}
             <motion.section variants={fadeInUp} initial="hidden" animate="show" className="mb-20">
                 <div className="flex justify-between items-end mb-8">
-                    <h2 className="text-2xl font-black text-slate-800">🔤 本课生词</h2>
+                    <h2 className="text-2xl font-black text-slate-800">🔤 {t('teaching_vocab_title')}</h2>
                     <ControlCapsule 
                         pinyin={vocabPinyin} setPinyin={setVocabPinyin} 
                         trans={vocabTrans} setTrans={setVocabTrans} 
@@ -306,8 +321,8 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                             {/* 例句部分 */}
                             {vocab.example_sentence && (
                                 <div className="mt-8 pt-6 border-t border-slate-50 flex items-start gap-4">
-                                    <div className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center shrink-0">
-                                        <span className="text-[10px] font-black text-slate-300">EX</span>
+                                        <div className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center shrink-0">
+                                        <span className="text-[10px] font-black text-slate-300">{t('teaching_example')}</span>
                                     </div>
                                     <div className="flex-1">
                                         <p className={`text-sm text-slate-400 font-mono mb-1 transition-all duration-500 ${vocabPinyin ? 'opacity-100' : 'opacity-0'}`}>
@@ -338,12 +353,13 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                     className="px-14 py-5 bg-slate-900 text-white font-black text-lg rounded-[2rem] hover:bg-blue-600 disabled:bg-slate-400 disabled:hover:translate-y-0 transition-all shadow-xl hover:-translate-y-1 flex items-center gap-4"
                 >
                     {isSaving ? (
-                        <>正在生成测验... <Loader2 className="animate-spin" size={22} /></>
+                        <>{t('teaching_generating_quiz')} <Loader2 className="animate-spin" size={22} /></>
                     ) : (
-                        <>完成学习，进入测验 <ArrowRight size={22} /></>
+                        <>{t('teaching_start_quiz')} <ArrowRight size={22} /></>
                     )}
                 </button>
             </motion.div>
-        </div>
+        </motion.div>
+        </AnimatePresence>
     );
 }

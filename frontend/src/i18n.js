@@ -120,7 +120,23 @@ const resources = {
       "knowledge_current_sense": "当前义项",
       "knowledge_other_senses": "更多义项",
       "knowledge_show": "显示",
-      "knowledge_hide": "收起"
+      "knowledge_hide": "收起",
+      "study_error_load": "无法获取课程数据，请确认后端已同步课程内容",
+      "study_retry": "重试",
+      "teaching_new_unit": "新单元",
+      "teaching_video_label": "视觉语境引擎",
+      "teaching_diary_original": "日记原文",
+      "teaching_reading": "课文阅读",
+      "teaching_content": "课文内容",
+      "teaching_dialogue": "课文对话",
+      "teaching_pinyin_on": "拼音开",
+      "teaching_pinyin_off": "拼音关",
+      "teaching_translation_on": "翻译开",
+      "teaching_translation_off": "翻译关",
+      "teaching_vocab_title": "本课生词",
+      "teaching_example": "例句",
+      "teaching_generating_quiz": "正在生成测验...",
+      "teaching_start_quiz": "完成学习，进入测验"
     }
   },
   en: {
@@ -220,7 +236,23 @@ const resources = {
       "knowledge_current_sense": "Current Sense",
       "knowledge_other_senses": "Other Meanings",
       "knowledge_show": "Show",
-      "knowledge_hide": "Hide"
+      "knowledge_hide": "Hide",
+      "study_error_load": "Unable to load course data. Please make sure the backend has synced the lesson.",
+      "study_retry": "Retry",
+      "teaching_new_unit": "New Unit",
+      "teaching_video_label": "Visual Context Engine",
+      "teaching_diary_original": "Diary Entry",
+      "teaching_reading": "Reading Passage",
+      "teaching_content": "Lesson Content",
+      "teaching_dialogue": "Dialogue",
+      "teaching_pinyin_on": "Pinyin On",
+      "teaching_pinyin_off": "Pinyin Off",
+      "teaching_translation_on": "Translation On",
+      "teaching_translation_off": "Translation Off",
+      "teaching_vocab_title": "Vocabulary",
+      "teaching_example": "Example",
+      "teaching_generating_quiz": "Generating quiz...",
+      "teaching_start_quiz": "Finish Lesson & Start Quiz"
     }
   },
   jp: {
@@ -320,7 +352,23 @@ const resources = {
       "knowledge_current_sense": "現在の意味",
       "knowledge_other_senses": "その他の意味",
       "knowledge_show": "表示",
-      "knowledge_hide": "非表示"
+      "knowledge_hide": "非表示",
+      "study_error_load": "コースデータを取得できません。バックエンドがレッスンを同期しているか確認してください。",
+      "study_retry": "再試行",
+      "teaching_new_unit": "新しいユニット",
+      "teaching_video_label": "ビジュアルコンテキストエンジン",
+      "teaching_diary_original": "日記原文",
+      "teaching_reading": "本文閲読",
+      "teaching_content": "本文内容",
+      "teaching_dialogue": "会話本文",
+      "teaching_pinyin_on": "ピンイン表示",
+      "teaching_pinyin_off": "ピンイン非表示",
+      "teaching_translation_on": "翻訳表示",
+      "teaching_translation_off": "翻訳非表示",
+      "teaching_vocab_title": "本課の単語",
+      "teaching_example": "例文",
+      "teaching_generating_quiz": "クイズを生成中...",
+      "teaching_start_quiz": "学習完了、クイズへ"
     }
   },
   fr: {
@@ -420,7 +468,23 @@ const resources = {
       "knowledge_current_sense": "Sens actuel",
       "knowledge_other_senses": "Autres sens",
       "knowledge_show": "Afficher",
-      "knowledge_hide": "Masquer"
+      "knowledge_hide": "Masquer",
+      "study_error_load": "Impossible de charger le cours. Veuillez vérifier que le backend a bien synchronisé la leçon.",
+      "study_retry": "Réessayer",
+      "teaching_new_unit": "Nouvelle unité",
+      "teaching_video_label": "Moteur de contexte visuel",
+      "teaching_diary_original": "Texte du journal",
+      "teaching_reading": "Lecture",
+      "teaching_content": "Contenu du cours",
+      "teaching_dialogue": "Dialogue",
+      "teaching_pinyin_on": "Pinyin affiché",
+      "teaching_pinyin_off": "Pinyin masqué",
+      "teaching_translation_on": "Traduction affichée",
+      "teaching_translation_off": "Traduction masquée",
+      "teaching_vocab_title": "Vocabulaire",
+      "teaching_example": "Exemple",
+      "teaching_generating_quiz": "Génération du quiz...",
+      "teaching_start_quiz": "Terminer et commencer le quiz"
     }
   },
   de: {
@@ -520,7 +584,23 @@ const resources = {
       "knowledge_current_sense": "Aktuelle Bedeutung",
       "knowledge_other_senses": "Weitere Bedeutungen",
       "knowledge_show": "Anzeigen",
-      "knowledge_hide": "Ausblenden"
+      "knowledge_hide": "Ausblenden",
+      "study_error_load": "Kursdaten konnten nicht geladen werden. Bitte prüfe, ob das Backend die Lektion synchronisiert hat.",
+      "study_retry": "Erneut versuchen",
+      "teaching_new_unit": "Neue Einheit",
+      "teaching_video_label": "Visuelle Kontext-Engine",
+      "teaching_diary_original": "Tagebuchtext",
+      "teaching_reading": "Lesetext",
+      "teaching_content": "Lektionsinhalt",
+      "teaching_dialogue": "Dialog",
+      "teaching_pinyin_on": "Pinyin an",
+      "teaching_pinyin_off": "Pinyin aus",
+      "teaching_translation_on": "Übersetzung an",
+      "teaching_translation_off": "Übersetzung aus",
+      "teaching_vocab_title": "Vokabeln",
+      "teaching_example": "Beispiel",
+      "teaching_generating_quiz": "Quiz wird erstellt...",
+      "teaching_start_quiz": "Lektion beenden & Quiz starten"
     }
   }
 };

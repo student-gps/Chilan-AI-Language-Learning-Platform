@@ -14,6 +14,11 @@ const fadeInUp = {
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 20 } }
 };
 
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.08 } }
+};
+
 // 🌟 单词语境扩展卡片组件
 const formatPinyinDisplay = (value = '') => {
     return value
@@ -280,7 +285,7 @@ const WordContextCard = ({ word, pinyin, metadata, knowledgeData }) => {
 };
 
 export default function PracticeSection({ questions, isReview, onAllDone, userId, courseId, lessonId, initialIndex = 0 }) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [userAnswer, setUserAnswer] = useState('');
     const [lastSubmittedAnswer, setLastSubmittedAnswer] = useState('');
@@ -472,7 +477,15 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     const config = feedback ? getFeedbackConfig(feedback.level) : null;
 
     return (
-        <div className="max-w-4xl mx-auto px-6 pt-20 pb-0">
+        <AnimatePresence mode="wait">
+        <motion.div
+            key={`practice-${i18n.language}`}
+            variants={staggerContainer}
+            initial="hidden"
+            animate="show"
+            exit={{ opacity: 0, y: -10, transition: { duration: 0.18 } }}
+            className="max-w-4xl mx-auto px-6 pt-20 pb-0"
+        >
             
             <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex items-center justify-center gap-5 mb-8">
                 <div className="flex items-center gap-3">
@@ -586,6 +599,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                     )}
                 </AnimatePresence>
             </motion.div>
-        </div>
+        </motion.div>
+        </AnimatePresence>
     );
 }
