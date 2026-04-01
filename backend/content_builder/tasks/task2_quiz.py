@@ -517,6 +517,44 @@ class Task2QuizGenerator:
 
         return fallback
 
+    def _build_speech_fallback_from_sentence_items(
+        self,
+        lesson_id: int,
+        course_id: int,
+        sent_items: list,
+        speech_eval_config: dict,
+    ) -> list:
+        materials = []
+        for item in sent_items or []:
+            if not isinstance(item, dict):
+                continue
+            if (item.get("question_type") or "").strip() != "EN_TO_CN":
+                continue
+
+            en = (item.get("original_text") or "").strip()
+            py = (item.get("original_pinyin") or "").strip()
+            raw_answers = item.get("standard_answers", [])
+            if isinstance(raw_answers, str):
+                raw_answers = [raw_answers]
+            if not isinstance(raw_answers, list):
+                raw_answers = []
+            answers = [str(ans).strip() for ans in raw_answers if str(ans).strip()]
+            if not en or not answers:
+                continue
+
+            materials.append({
+                "cn": answers[0],
+                "py": py,
+                "en": en,
+            })
+
+        return self._build_speech_fallback_items(
+            lesson_id=lesson_id,
+            course_id=course_id,
+            speech_materials=materials,
+            speech_eval_config=speech_eval_config,
+        )
+
     def run(self, lesson_id: int, course_id: int, file_path: str = None, file_obj=None, source_dialogues: list = None):
         # --- [Task 2.1a] 提取词汇基本信息 ---
         print(f"  ▶️ [Task 2.1a] 提取词汇基本信息 (骨架)...")
@@ -649,6 +687,25 @@ class Task2QuizGenerator:
                         existing.add(key)
                     if len(speech_items) >= self.speech_quiz_min:
                         break
+
+        # 强制兜底：如果语音题仍不足，直接从已有 EN_TO_CN 句子题构造语音题
+        if len(speech_items) < self.speech_quiz_min:
+            existing = {(i.get("original_text") or "").strip().lower() for i in speech_items}
+            sentence_fallback = self._build_speech_fallback_from_sentence_items(
+                lesson_id=lesson_id,
+                course_id=course_id,
+                sent_items=sent_items,
+                speech_eval_config=speech_eval_config,
+            )
+            for fb in sentence_fallback:
+                key = (fb.get("original_text") or "").strip().lower()
+                if key and key not in existing:
+                    speech_items.append(fb)
+                    existing.add(key)
+                if len(speech_items) >= self.speech_quiz_min:
+                    break
+
+        print(f"     📊 语音题生成: {len(speech_items)} 条")
 
         # 🚀 【核心修改：按类型强制排序】
         # 1. 汇总所有题目

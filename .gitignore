@@ -18,3 +18,8 @@ textbook/*.zip
 
 # 数据库连接文件
 database/__pycache__/
+
+# Content builder generated artifacts
+backend/content_builder/synced_json/*.json
+backend/content_builder/archive_pdfs/*.pdf
+backend/content_builder/raw_materials/

@@ -36,6 +36,22 @@ class StudyEvaluator:
     def _clamp(value: float, min_value: float, max_value: float) -> float:
         return max(min_value, min(max_value, value))
 
+    @staticmethod
+    def _to_bool(value: Any, default: bool = True) -> bool:
+        if value is None:
+            return default
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, (int, float)):
+            return bool(value)
+        if isinstance(value, str):
+            v = value.strip().lower()
+            if v in {"1", "true", "yes", "y", "on"}:
+                return True
+            if v in {"0", "false", "no", "n", "off"}:
+                return False
+        return default
+
     def check_exact(self, user_ans: str, standards: List[str]) -> bool:
         cleaned_user = self._clean(user_ans)
         return any(cleaned_user == self._clean(s) for s in standards)
@@ -74,7 +90,7 @@ class StudyEvaluator:
             pass
 
         if "allow_paraphrase" in raw_config:
-            cfg["allow_paraphrase"] = bool(raw_config.get("allow_paraphrase"))
+            cfg["allow_paraphrase"] = self._to_bool(raw_config.get("allow_paraphrase"), default=True)
 
         return cfg
 
@@ -186,7 +202,8 @@ class StudyEvaluator:
                     "judgedBy": "Vector Engine",
                 }
 
-            if vector_score < cfg["review_threshold"]:
+            # Strict mode: when paraphrase is disabled, low similarity can fail directly.
+            if (not cfg.get("allow_paraphrase", True)) and vector_score < cfg["review_threshold"]:
                 pm.record("Tier 3 (Skipped)", 0.0)
                 pm.report(vector_score=vector_score)
                 return {
@@ -196,6 +213,7 @@ class StudyEvaluator:
                     "judgedBy": "Vector Engine",
                 }
 
+            # Default behavior: any non-pass speech answer goes to LLM semantic review.
             raw_res = await self.tools.judge_with_ai(q_type, origin, user_ans, std_answers, pm=pm)
             final_res = self._normalize_ai_result(raw_res)
             pm.report(vector_score=vector_score)

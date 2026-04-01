@@ -353,18 +353,35 @@ async def evaluate_answer(req: EvaluateRequest):
             pm.report(vector_score=vector_score)
         else:
             # 🚄 Tier 2 & 3: 向量 + LLM
-            user_vec = await llm_tools.get_embedding(effective_answer, pm=pm)
-            
-            cur.execute("SELECT 1 - (primary_embedding <=> %s::vector) AS sim_score FROM language_items WHERE item_id = %s", (user_vec, item_pk))
-            sim_row = cur.fetchone()
-            sim_score = sim_row['sim_score'] if sim_row else 0.0
-            vector_score = sim_score
-            
-            res = await evaluator_service.process_judge(
-                q_type=req.question_type, user_ans=effective_answer, origin=req.original_text,
-                std_answers=normalized_answers, vector_score=sim_score, pm=pm,
-                input_mode=input_mode, asr_confidence=asr_confidence, speech_eval_config=speech_eval_config
-            )
+            try:
+                user_vec = await llm_tools.get_embedding(effective_answer, pm=pm)
+
+                cur.execute(
+                    "SELECT 1 - (primary_embedding <=> %s::vector) AS sim_score FROM language_items WHERE item_id = %s",
+                    (user_vec, item_pk)
+                )
+                sim_row = cur.fetchone()
+                sim_score = sim_row['sim_score'] if sim_row else 0.0
+                vector_score = sim_score
+
+                res = await evaluator_service.process_judge(
+                    q_type=req.question_type, user_ans=effective_answer, origin=req.original_text,
+                    std_answers=normalized_answers, vector_score=sim_score, pm=pm,
+                    input_mode=input_mode, asr_confidence=asr_confidence, speech_eval_config=speech_eval_config
+                )
+            except Exception as judge_error:
+                print(f"⚠️ Evaluate degraded: {judge_error}")
+                response_payload = {
+                    "level": 1,
+                    "isCorrect": False,
+                    "message": "Evaluation service is temporarily unavailable. Please retry in a moment.",
+                    "judgedBy": "Service Degraded",
+                    "shouldRetry": True,
+                    "inputMode": input_mode,
+                    "recognizedText": asr_text_for_log if input_mode == "speech" else None,
+                    "vectorScore": None,
+                }
+                return {"status": "success", "data": response_payload}
 
         # 🧠 FSRS 状态更新
         new_s, new_d, next_r = scheduler.calc_next_review(stability or 0.5, difficulty or 5.0, res["level"])
@@ -421,7 +438,7 @@ async def evaluate_answer(req: EvaluateRequest):
     except Exception as e:
         if conn: conn.rollback()
         print(f"❌ Evaluate Error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Evaluation failed. Please retry later.")
     finally:
         if conn: conn.close()
 
