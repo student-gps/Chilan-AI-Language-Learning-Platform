@@ -46,6 +46,10 @@ class ChangePasswordReq(BaseModel):
     current_password: str
     new_password: str
 
+class DeleteAccountReq(BaseModel):
+    confirm_text: str
+    current_password: str | None = None
+
 def get_db():
     conn = get_connection()
     try: yield conn
@@ -209,6 +213,33 @@ async def change_password(user_id: str, req: ChangePasswordReq, db=Depends(get_d
         "UPDATE users SET password_hash = %s WHERE user_id::text = %s",
         (get_password_hash(req.new_password), user_id)
     )
+    db.commit()
+    return {"status": "success"}
+
+@router.delete("/account/{user_id}")
+async def delete_account(user_id: str, req: DeleteAccountReq, db=Depends(get_db)):
+    if (req.confirm_text or "").strip().upper() != "DELETE":
+        raise HTTPException(status_code=400, detail="Please type DELETE to confirm")
+
+    cur = db.cursor()
+    cur.execute(
+        "SELECT email, password_hash FROM users WHERE user_id::text = %s",
+        (user_id,)
+    )
+    user = cur.fetchone()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    email, password_hash = user
+    provider = resolve_login_provider(password_hash)
+    if provider == "password":
+        if not req.current_password:
+            raise HTTPException(status_code=400, detail="Current password is required")
+        if not verify_password(req.current_password, password_hash):
+            raise HTTPException(status_code=400, detail="Current password is incorrect")
+
+    cur.execute("DELETE FROM verification_codes WHERE email = %s", (email,))
+    cur.execute("DELETE FROM users WHERE user_id::text = %s", (user_id,))
     db.commit()
     return {"status": "success"}
 
