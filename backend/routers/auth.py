@@ -1,8 +1,9 @@
 import os, re, random, httpx, jwt, smtplib, traceback
 from email.mime.text import MIMEText
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel, EmailStr
 from jwt import PyJWKClient
+from psycopg2.extras import RealDictCursor
 from database.connection import get_connection
 from database.utils import get_password_hash, verify_password, create_access_token
 
@@ -38,10 +39,149 @@ class AppleAuthReq(BaseModel):
     firstName: str = None
     lastName: str = None
 
+class UpdateProfileReq(BaseModel):
+    username: str
+
+class ChangePasswordReq(BaseModel):
+    current_password: str
+    new_password: str
+
 def get_db():
     conn = get_connection()
     try: yield conn
     finally: conn.close()
+
+def resolve_login_provider(password_hash: str) -> str:
+    if password_hash == "GOOGLE_USER":
+        return "google"
+    if password_hash == "APPLE_USER":
+        return "apple"
+    return "password"
+
+def extract_client_ip(request: Request) -> str:
+    forwarded_for = request.headers.get("x-forwarded-for")
+    if forwarded_for:
+        return forwarded_for.split(",")[0].strip()
+    if request.client and request.client.host:
+        return request.client.host
+    return ""
+
+def build_device_info(user_agent: str) -> str:
+    ua = (user_agent or "").lower()
+    if not ua:
+        return "Unknown device"
+    if "iphone" in ua:
+        return "iPhone"
+    if "ipad" in ua:
+        return "iPad"
+    if "android" in ua:
+        return "Android device"
+    if "windows" in ua:
+        return "Windows device"
+    if "mac os x" in ua or "macintosh" in ua:
+        return "Mac device"
+    if "linux" in ua:
+        return "Linux device"
+    return "Browser device"
+
+def record_login_event(db, user_id: str, provider: str, request: Request):
+    cur = db.cursor()
+    user_agent = request.headers.get("user-agent", "")
+    cur.execute(
+        """
+        INSERT INTO login_logs (user_id, login_provider, ip_address, user_agent, device_info, status)
+        VALUES (%s::uuid, %s, %s, %s, %s, 'success')
+        """,
+        (user_id, provider, extract_client_ip(request), user_agent, build_device_info(user_agent))
+    )
+
+@router.get("/login-history/{user_id}")
+async def get_login_history(user_id: str, db=Depends(get_db)):
+    cur = db.cursor(cursor_factory=RealDictCursor)
+    cur.execute(
+        """
+        SELECT log_id, login_provider, login_time, ip_address, user_agent, device_info, status
+        FROM login_logs
+        WHERE user_id::text = %s
+        ORDER BY login_time DESC
+        LIMIT 10
+        """,
+        (user_id,)
+    )
+    return {"logs": cur.fetchall()}
+
+@router.get("/profile/{user_id}")
+async def get_profile(user_id: str, db=Depends(get_db)):
+    cur = db.cursor()
+    cur.execute(
+        "SELECT user_id, username, email, password_hash FROM users WHERE user_id::text = %s",
+        (user_id,)
+    )
+    user = cur.fetchone()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {
+        "user_id": str(user[0]),
+        "username": user[1] or "",
+        "email": user[2],
+        "login_provider": resolve_login_provider(user[3]),
+    }
+
+@router.put("/profile/{user_id}")
+async def update_profile(user_id: str, req: UpdateProfileReq, db=Depends(get_db)):
+    username = (req.username or "").strip()
+    if len(username) < 2 or len(username) > 24:
+        raise HTTPException(status_code=400, detail="Username must be 2-24 characters")
+    if not re.fullmatch(r"[A-Za-z0-9_\-.\u4e00-\u9fff ]+", username):
+        raise HTTPException(status_code=400, detail="Username contains unsupported characters")
+
+    cur = db.cursor()
+    cur.execute(
+        "SELECT user_id FROM users WHERE lower(username) = lower(%s) AND user_id::text <> %s",
+        (username, user_id)
+    )
+    if cur.fetchone():
+        raise HTTPException(status_code=400, detail="Username already taken")
+
+    cur.execute(
+        "UPDATE users SET username = %s WHERE user_id::text = %s RETURNING user_id, username, email",
+        (username, user_id)
+    )
+    user = cur.fetchone()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.commit()
+    return {
+        "user_id": str(user[0]),
+        "username": user[1] or "",
+        "email": user[2],
+    }
+
+@router.put("/change-password/{user_id}")
+async def change_password(user_id: str, req: ChangePasswordReq, db=Depends(get_db)):
+    password_pattern = r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9])(?=\S+$).{8,32}$"
+    if not re.match(password_pattern, req.new_password):
+        raise HTTPException(status_code=400, detail="Password too weak")
+
+    cur = db.cursor()
+    cur.execute(
+        "SELECT password_hash FROM users WHERE user_id::text = %s",
+        (user_id,)
+    )
+    user = cur.fetchone()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    if not verify_password(req.current_password, user[0]):
+        raise HTTPException(status_code=400, detail="Current password is incorrect")
+    if req.current_password == req.new_password:
+        raise HTTPException(status_code=400, detail="New password must be different")
+
+    cur.execute(
+        "UPDATE users SET password_hash = %s WHERE user_id::text = %s",
+        (get_password_hash(req.new_password), user_id)
+    )
+    db.commit()
+    return {"status": "success"}
 
 def _get_mail_provider() -> str:
     provider = (os.getenv("MAIL_PROVIDER") or "smtp").strip().lower()
@@ -188,12 +328,22 @@ async def verify(req: VerifyReq, db=Depends(get_db)):
     return {"status": "success"}
 
 @router.post("/login")
-async def login(req: LoginReq, db=Depends(get_db)):
-    cur = db.cursor(); cur.execute("SELECT user_id, password_hash, is_active FROM users WHERE email = %s", (req.email,))
+async def login(req: LoginReq, request: Request, db=Depends(get_db)):
+    cur = db.cursor(); cur.execute("SELECT user_id, username, email, password_hash, is_active FROM users WHERE email = %s", (req.email,))
     user = cur.fetchone()
-    if not user or not verify_password(req.password, user[1]): raise HTTPException(status_code=400, detail="Invalid credentials")
-    if not user[2]: raise HTTPException(status_code=403, detail="Not activated")
-    return {"status": "success", "access_token": create_access_token({"sub": str(user[0])}), "user_id": str(user[0])}
+    if not user or not verify_password(req.password, user[3]): raise HTTPException(status_code=400, detail="Invalid credentials")
+    if not user[4]: raise HTTPException(status_code=403, detail="Not activated")
+    provider = resolve_login_provider(user[3])
+    record_login_event(db, str(user[0]), provider, request)
+    db.commit()
+    return {
+        "status": "success",
+        "access_token": create_access_token({"sub": str(user[0])}),
+        "user_id": str(user[0]),
+        "username": user[1] or "",
+        "email": user[2],
+        "login_provider": provider,
+    }
 
 @router.post("/forgot-password")
 async def forgot_password(req: ForgotReq, db=Depends(get_db)):
@@ -212,7 +362,7 @@ async def reset_password(req: ResetReq, db=Depends(get_db)):
     cur.execute("DELETE FROM verification_codes WHERE email = %s", (req.email,)); db.commit(); return {"status": "success"}
 
 @router.post("/google")
-async def google_auth(req: GoogleAuthReq, db=Depends(get_db)):
+async def google_auth(req: GoogleAuthReq, request: Request, db=Depends(get_db)):
     async with httpx.AsyncClient() as client:
         resp = await client.get("https://www.googleapis.com/oauth2/v3/userinfo", headers={"Authorization": f"Bearer {req.access_token}"})
         if resp.status_code != 200: raise HTTPException(status_code=400, detail="Google token invalid")
@@ -222,11 +372,23 @@ async def google_auth(req: GoogleAuthReq, db=Depends(get_db)):
     if not user:
         cur.execute("INSERT INTO users (username, email, password_hash, is_active) VALUES (%s, %s, 'GOOGLE_USER', TRUE) RETURNING user_id", (data.get('name', data['email']), data['email']))
         user_id = str(cur.fetchone()[0]); db.commit()
-    else: user_id = str(user[0])
-    return {"status": "success", "access_token": create_access_token({"sub": user_id}), "user_id": user_id}
+        username = data.get('name', data['email'])
+    else:
+        user_id = str(user[0])
+        username = data.get('name', data['email'])
+    record_login_event(db, user_id, "google", request)
+    db.commit()
+    return {
+        "status": "success",
+        "access_token": create_access_token({"sub": user_id}),
+        "user_id": user_id,
+        "username": username or "",
+        "email": data['email'],
+        "login_provider": "google",
+    }
 
 @router.post("/apple")
-async def apple_auth(req: AppleAuthReq, db=Depends(get_db)):
+async def apple_auth(req: AppleAuthReq, request: Request, db=Depends(get_db)):
     jwks_client = PyJWKClient("https://appleid.apple.com/auth/keys")
     try:
         idinfo = jwt.decode(req.token, jwks_client.get_signing_key_from_jwt(req.token).key, algorithms=["RS256"], audience=os.getenv("APPLE_CLIENT_ID"), issuer="https://appleid.apple.com")
@@ -234,8 +396,20 @@ async def apple_auth(req: AppleAuthReq, db=Depends(get_db)):
         cur = db.cursor(); cur.execute("SELECT user_id FROM users WHERE email = %s", (email,))
         user = cur.fetchone()
         if not user:
-            cur.execute("INSERT INTO users (username, email, password_hash, is_active) VALUES (%s, %s, 'APPLE_USER', TRUE) RETURNING user_id", (f"{req.firstName or ''} {req.lastName or ''}".strip() or email.split('@')[0], email))
+            username = f"{req.firstName or ''} {req.lastName or ''}".strip() or email.split('@')[0]
+            cur.execute("INSERT INTO users (username, email, password_hash, is_active) VALUES (%s, %s, 'APPLE_USER', TRUE) RETURNING user_id", (username, email))
             user_id = str(cur.fetchone()[0]); db.commit()
-        else: user_id = str(user[0])
-        return {"status": "success", "access_token": create_access_token({"sub": user_id}), "user_id": user_id}
+        else:
+            user_id = str(user[0])
+            username = f"{req.firstName or ''} {req.lastName or ''}".strip() or email.split('@')[0]
+        record_login_event(db, user_id, "apple", request)
+        db.commit()
+        return {
+            "status": "success",
+            "access_token": create_access_token({"sub": user_id}),
+            "user_id": user_id,
+            "username": username or "",
+            "email": email,
+            "login_provider": "apple",
+        }
     except Exception as e: raise HTTPException(status_code=400, detail=str(e))

@@ -377,41 +377,16 @@ export default function Classroom() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {myCourses.map((course) => {
-                                const visual = getCourseVisual(course);
                                 return (
-                                <motion.div 
+                                <CourseCard
                                     key={course.id}
+                                    course={course}
                                     variants={fadeInUp}
-                                    whileHover={{ y: -8, scale: 1.01 }}
+                                    titleAction={t('classroom_start')}
+                                    progressValue={course.mastered}
                                     onClick={() => navigate(`/study/${course.id}`)}
-                                    className={`relative h-64 rounded-[2.5rem] p-8 text-slate-900 shadow-2xl cursor-pointer overflow-hidden group border border-white/70 bg-gradient-to-br from-white via-white to-slate-50/95 ${visual.shadowClass}`}
-                                >
-                                    <div
-                                        className="absolute inset-0 opacity-[0.06]"
-                                        style={{ backgroundImage: `url("${SUBTLE_PATTERN}")`, backgroundSize: '60px 60px' }}
-                                    />
-                                    <div className={`absolute inset-0 opacity-[0.10] bg-gradient-to-br ${visual.gradientClass}`} />
-                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.55),transparent_38%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.42),transparent_34%)]" />
-                                    <div className="relative h-full flex flex-col justify-between z-10">
-                                        <div>
-                                            <h3 className="text-3xl font-black mb-1 tracking-tight">{course.name}</h3>
-                                            <div className="mt-5">
-                                                <LanguagePill course={course} />
-                                            </div>
-                                            <div className="flex items-center gap-3 mt-6">
-                                                <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                                                    <div className={`h-full w-1/6 rounded-full bg-gradient-to-r ${visual.gradientClass}`}></div>
-                                                </div>
-                                                <p className="text-xs font-bold text-slate-500">{t('classroom_mastered')}: {course.mastered}</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-sm font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
-                                                {t('classroom_start')} <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform"/>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </motion.div>
+                                    isInteractive
+                                />
                                 );
                             })}
                         </div>
@@ -445,46 +420,33 @@ export default function Classroom() {
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {filteredCourses.map((course) => {
-                                    const visual = getCourseVisual(course);
                                     const isEnrolled = enrolledCourseIds.has(course.id);
                                     return (
-                                        <motion.div
+                                        <CourseCard
                                             key={course.id}
+                                            course={course}
                                             variants={fadeInUp}
-                                            className={`relative h-64 rounded-[2.5rem] p-8 text-slate-900 shadow-2xl overflow-hidden border border-white/70 bg-gradient-to-br from-white via-white to-slate-50/95 ${visual.shadowClass}`}
-                                        >
-                                            <div
-                                                className="absolute inset-0 opacity-[0.05]"
-                                                style={{ backgroundImage: `url("${SUBTLE_PATTERN}")`, backgroundSize: '60px 60px' }}
-                                            />
-                                            <div className={`absolute inset-0 opacity-[0.10] bg-gradient-to-br ${visual.gradientClass}`} />
-                                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.55),transparent_38%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.42),transparent_34%)]" />
-                                            <div className="relative h-full flex flex-col justify-between z-10">
-                                                <div>
-                                                    <h3 className="text-3xl font-black mb-1 tracking-tight">{course.name}</h3>
-                                                    <div className="mt-5">
-                                                        <LanguagePill course={course} />
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center justify-between">
-                                                    <span className="text-sm font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
-                                                        {isEnrolled ? t('classroom_in_learning') : t('classroom_join_course')}
-                                                        <ChevronRight size={16} />
-                                                    </span>
-                                                    <button
-                                                        onClick={() => !isEnrolled && handleEnroll(course.id)}
-                                                        disabled={isEnrolled}
-                                                        className={`shrink-0 px-5 py-2.5 rounded-2xl text-sm font-black transition-all ${
-                                                            isEnrolled
-                                                                ? 'bg-emerald-50 text-emerald-600 cursor-default'
-                                                                : 'bg-slate-900 text-white hover:bg-blue-600 active:scale-95'
-                                                        }`}
-                                                    >
-                                                        {isEnrolled ? t('classroom_added') : t('btn_add')}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </motion.div>
+                                            titleAction={isEnrolled ? t('classroom_in_learning') : t('classroom_join_course')}
+                                            progressValue={null}
+                                            actionButton={
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        if (!isEnrolled) handleEnroll(course.id);
+                                                    }}
+                                                    disabled={isEnrolled}
+                                                    className={`shrink-0 px-5 py-2.5 rounded-2xl text-sm font-black transition-all ${
+                                                        isEnrolled
+                                                            ? 'bg-emerald-50 text-emerald-600 cursor-default'
+                                                            : 'bg-slate-900 text-white hover:bg-blue-600 active:scale-95'
+                                                    }`}
+                                                >
+                                                    {isEnrolled ? t('classroom_added') : t('btn_add')}
+                                                </button>
+                                            }
+                                            onClick={isEnrolled ? () => navigate(`/study/${course.id}`) : undefined}
+                                            isInteractive={isEnrolled}
+                                        />
                                     );
                                 })}
                             </div>
@@ -499,6 +461,60 @@ export default function Classroom() {
                 </motion.div>
             </AnimatePresence>
         </div>
+    );
+}
+
+function CourseCard({
+    course,
+    variants,
+    titleAction,
+    progressValue,
+    actionButton = null,
+    onClick,
+    isInteractive = false,
+}) {
+    const { t } = useTranslation();
+    const visual = getCourseVisual(course);
+
+    return (
+        <motion.div
+            variants={variants}
+            whileHover={{ y: -8, scale: 1.01 }}
+            onClick={onClick}
+            className={`relative h-64 rounded-[2.5rem] p-8 text-slate-900 shadow-2xl overflow-hidden border border-white/70 bg-gradient-to-br from-white via-white to-slate-50/95 ${visual.shadowClass} ${
+                isInteractive ? 'cursor-pointer group' : ''
+            }`}
+        >
+            <div
+                className="absolute inset-0 opacity-[0.06]"
+                style={{ backgroundImage: `url("${SUBTLE_PATTERN}")`, backgroundSize: '60px 60px' }}
+            />
+            <div className={`absolute inset-0 opacity-[0.10] bg-gradient-to-br ${visual.gradientClass}`} />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.55),transparent_38%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.42),transparent_34%)]" />
+            <div className="relative h-full flex flex-col justify-between z-10">
+                <div>
+                    <h3 className="text-3xl font-black mb-1 tracking-tight">{course.name}</h3>
+                    <div className="mt-5">
+                        <LanguagePill course={course} />
+                    </div>
+                    {progressValue !== null && (
+                        <div className="flex items-center gap-3 mt-6">
+                            <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                                <div className={`h-full w-1/6 rounded-full bg-gradient-to-r ${visual.gradientClass}`}></div>
+                            </div>
+                            <p className="text-xs font-bold text-slate-500">{t('classroom_mastered')}: {progressValue}</p>
+                        </div>
+                    )}
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                    <span className="text-sm font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
+                        {titleAction}
+                        <ChevronRight size={16} className={isInteractive ? 'group-hover:translate-x-1 transition-transform' : ''} />
+                    </span>
+                    {actionButton}
+                </div>
+            </div>
+        </motion.div>
     );
 }
 

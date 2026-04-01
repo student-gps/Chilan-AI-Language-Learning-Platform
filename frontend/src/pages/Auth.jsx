@@ -74,6 +74,7 @@ export default function Auth() {
                 const res = await apiClient.post(`${AUTH_PATH}/login`, { email, password });
                 localStorage.setItem('chilan_token', res.data.access_token);
                 localStorage.setItem('chilan_user_id', res.data.user_id);
+                localStorage.setItem('chilan_user_email', res.data.email || email);
                 setStep('success');
                 setTimeout(() => navigate('/'), 2000); 
             }
@@ -109,6 +110,7 @@ export default function Auth() {
                 });
                 localStorage.setItem('chilan_token', res.data.access_token);
                 localStorage.setItem('chilan_user_id', res.data.user_id);
+                localStorage.setItem('chilan_user_email', res.data.email || '');
                 setStep('success');
                 setTimeout(() => navigate('/'), 2000);
             } catch (err) { 
