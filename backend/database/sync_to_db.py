@@ -188,6 +188,10 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
                 }
             }
 
+            item_metadata = item.get("metadata", {})
+            if isinstance(item_metadata, dict):
+                q_metadata.update(item_metadata)
+
             if isinstance(vocab_entry, dict) and (vocab_entry.get("word") or "").strip():
                 cur.execute("""
                     INSERT INTO vocabulary_knowledge

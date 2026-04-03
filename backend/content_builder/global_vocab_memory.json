@@ -83,9 +83,9 @@
       "pinyin": "Wǒ",
       "part_of_speech": "Pronoun",
       "example": {
-        "cn": "我叫王朋。",
-        "py": "Wǒ jiào Wáng Péng.",
-        "en": "My name is Wang Peng."
+        "cn": "我姓李。",
+        "py": "Wǒ xìng Lǐ.",
+        "en": "My family name is Li."
       },
       "lesson_id": 101
     }
@@ -109,9 +109,9 @@
       "pinyin": "Xiǎojiě",
       "part_of_speech": "Noun",
       "example": {
-        "cn": "李小姐, 你叫什么名字?",
-        "py": "Lǐ xiǎojiě, nǐ jiào shénme míngzi?",
-        "en": "Miss Li, what is your name?"
+        "cn": "我姓王。李小姐，你叫什么名字？",
+        "py": "wǒ xìng wáng lǐ xiǎojiě nǐ jiào shénme míngzi",
+        "en": "My surname is Wang. Miss Li, what is your name?"
       },
       "lesson_id": 101
     }
@@ -200,7 +200,7 @@
       "pinyin": "Wáng Péng",
       "part_of_speech": "Proper Noun",
       "example": {
-        "cn": "我叫王朋, 你呢?",
+        "cn": "我叫王朋,你呢?",
         "py": "Wǒ jiào Wáng Péng, nǐ ne?",
         "en": "My name is Wang Peng. How about you?"
       },
@@ -218,149 +218,6 @@
         "en": "My family name is Wang."
       },
       "lesson_id": 101
-    }
-  ],
-  "是": [
-    {
-      "definition": "to be",
-      "pinyin": "shì",
-      "part_of_speech": "Verb",
-      "example": {
-        "cn": "李友是学生。",
-        "py": "Lǐ Yōu shì xuésheng.",
-        "en": "Li You is a student."
-      },
-      "lesson_id": 102
-    }
-  ],
-  "老师": [
-    {
-      "definition": "teacher",
-      "pinyin": "lǎoshī",
-      "part_of_speech": "Noun",
-      "example": {
-        "cn": "我是老师。",
-        "py": "Wǒ shì lǎoshī.",
-        "en": "I am a teacher."
-      },
-      "lesson_id": 102
-    }
-  ],
-  "吗": [
-    {
-      "definition": "(question particle)",
-      "pinyin": "ma",
-      "part_of_speech": "Question Particle",
-      "example": {
-        "cn": "王先生,你是老师吗？",
-        "py": "wáng xiānsheng nǐ shì lǎoshī ma",
-        "en": "Mr. Wang, are you a teacher?"
-      },
-      "lesson_id": 102
-    }
-  ],
-  "不": [
-    {
-      "definition": "not, no",
-      "pinyin": "bù",
-      "part_of_speech": "Adverb",
-      "example": {
-        "cn": "我不是老师。",
-        "py": "Wǒ bú shì lǎoshī.",
-        "en": "I am not a teacher."
-      },
-      "lesson_id": 102
-    }
-  ],
-  "学生": [
-    {
-      "definition": "student",
-      "pinyin": "xuésheng",
-      "part_of_speech": "Noun",
-      "example": {
-        "cn": "李友是学生。",
-        "py": "Lǐ Yōu shì xuésheng.",
-        "en": "Li You is a student."
-      },
-      "lesson_id": 102
-    }
-  ],
-  "也": [
-    {
-      "definition": "too, also",
-      "pinyin": "yě",
-      "part_of_speech": "Adverb",
-      "example": {
-        "cn": "我也是学生。",
-        "py": "Wǒ yě shì xuésheng.",
-        "en": "I'm a student, too."
-      },
-      "lesson_id": 102
-    }
-  ],
-  "人": [
-    {
-      "definition": "people, person",
-      "pinyin": "rén",
-      "part_of_speech": "Noun",
-      "example": {
-        "cn": "我也是学生。你是中国人吗？",
-        "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
-        "en": "I'm a student, too. Are you Chinese?"
-      },
-      "lesson_id": 102
-    }
-  ],
-  "中国": [
-    {
-      "definition": "China",
-      "pinyin": "Zhōngguó",
-      "part_of_speech": "Proper Noun",
-      "example": {
-        "cn": "我也是学生。你是中国人吗？",
-        "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
-        "en": "I'm a student, too. Are you Chinese?"
-      },
-      "lesson_id": 102
-    }
-  ],
-  "北京": [
-    {
-      "definition": "Beijing",
-      "pinyin": "Běijīng",
-      "part_of_speech": "Proper Noun",
-      "example": {
-        "cn": "我不是北京人。",
-        "py": "Wǒ bú shì Běijīng rén.",
-        "en": "I am not from Beijing."
-      },
-      "lesson_id": 102
-    }
-  ],
-  "美国": [
-    {
-      "definition": "America",
-      "pinyin": "Měiguó",
-      "part_of_speech": "Proper Noun",
-      "example": {
-        "cn": "你是美国人吗?",
-        "py": "Nǐ shì Měiguó rén ma?",
-        "en": "Are you American?"
-      },
-      "lesson_id": 102
-    }
-  ],
-  "纽约": [
-    {
-      "definition": "New York",
-      "pinyin": "Niǔyuē",
-      "part_of_speech": "Proper Noun",
-      "example": {
-        "cn": "是，我是纽约人。",
-        "py": "shì wǒ shì niǔ yuē rén",
-        "en": "Yes, I'm from New York."
-      },
-      "lesson_id": 102
     }
   ]
 }

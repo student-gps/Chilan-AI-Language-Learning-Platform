@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-// 🚀 引入统一的 API 客户端
-import apiClient from '../../api/apiClient'; 
-import { 
-    Loader2, Send, CheckCircle2, XCircle, 
-    Sparkles, RefreshCcw, ArrowRight, AlertCircle,
-    BookOpen, Volume2, Eye, EyeOff
-} from 'lucide-react';
+import { Loader2, Send, Sparkles } from 'lucide-react';
+import apiClient, { evaluateStudyAnswer, transcribeSpeech } from '../../api/apiClient';
+import AIThinkingIndicator from './components/AIThinkingIndicator';
+import PracticeAnswerPanel from './components/PracticeAnswerPanel';
+import PracticeFeedbackPanel from './components/PracticeFeedbackPanel';
+import PracticePromptCard from './components/PracticePromptCard';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 20 } }
+    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, damping: 20 } }
 };
 
 const staggerContainer = {
@@ -19,269 +18,58 @@ const staggerContainer = {
     show: { opacity: 1, transition: { staggerChildren: 0.08 } }
 };
 
-// 🌟 单词语境扩展卡片组件
-const formatPinyinDisplay = (value = '') => {
-    return value
-        .split(/\s+/)
-        .filter(Boolean)
-        .map((token) => token.toLowerCase())
-        .join(' ');
+const DEFAULT_SPEECH_CONFIG = {
+    pass_threshold: 0.88,
+    review_threshold: 0.78,
+    min_asr_confidence: 0.6,
+    max_attempts: 3,
+    max_duration_sec: 15,
+    allow_paraphrase: true
 };
 
-const isChineseChar = (char = '') => /[\u3400-\u9fff]/.test(char);
+const RECORDER_MIME_TYPES = [
+    'audio/webm;codecs=opus',
+    'audio/webm',
+    'audio/mp4'
+];
 
-const buildRubyTokens = (cn = '', py = '') => {
-    const chars = Array.from(cn || '');
-    const pinyinTokens = formatPinyinDisplay(py).split(/\s+/).filter(Boolean);
-    let pinyinIndex = 0;
+const FRONTEND_NOISE_TRANSCRIPT_PATTERNS = [
+    /amara\.org/i,
+    /^字幕\s*(?:by|由)\s*.+$/i,
+    /^字幕(?:由)?.*(?:提供|制作).*$/i,
+    /^subtitles?\s*by\s*.+$/i,
+    /^caption(?:s)?\s*by\s*.+$/i
+];
 
-    return chars.map((char) => {
-        if (isChineseChar(char)) {
-            const token = pinyinTokens[pinyinIndex] || '';
-            pinyinIndex += 1;
-            return { cn: char, py: token };
-        }
-        return { cn: char, py: '' };
-    });
-};
+const isSpeechQuestion = (question) =>
+    question?.question_type === 'EN_TO_CN_SPEAK' || question?.metadata?.answer_mode === 'speech';
 
-const RubySentence = ({ cn = '', py = '' }) => {
-    const rubyTokens = buildRubyTokens(cn, py);
+const normalizeSpeechConfig = (question) => {
+    const raw = question?.metadata?.speech_eval_config || {};
+    const maxAttempts = Number(raw.max_attempts);
+    const maxDurationSec = Number(raw.max_duration_sec);
+    const minConfidence = Number(raw.min_asr_confidence);
 
-    return (
-        <div className="flex flex-wrap items-end gap-x-1 gap-y-3">
-            {rubyTokens.map((token, idx) => (
-                <ruby key={`${token.cn}-${idx}`} className="inline-flex flex-col items-center">
-                    <rt className="mb-1 text-xs font-bold text-slate-400 normal-case">
-                        {token.py}
-                    </rt>
-                    <span className="text-2xl font-black text-slate-800 leading-tight">
-                        {token.cn}
-                    </span>
-                </ruby>
-            ))}
-        </div>
-    );
-};
-
-const WordContextCard = ({ word, pinyin, metadata, knowledgeData }) => {
-    const { t } = useTranslation();
-    const examples = metadata?.context_examples || [];
-    const fallbackKnowledge = metadata?.knowledge || {};
-    const currentSense = knowledgeData?.current_sense || fallbackKnowledge;
-    const history = knowledgeData?.other_senses || fallbackKnowledge?.history || [];
-    const displayWord = knowledgeData?.word || currentSense?.word || word;
-    const displayPinyin = knowledgeData?.pinyin || currentSense?.pinyin || pinyin;
-    const displayDefinition = currentSense?.definition || '';
-    const displayPartOfSpeech = currentSense?.part_of_speech || '';
-    const primaryExample = currentSense?.example_sentence;
-    const combinedExamples = [];
-    const [expandedExamples, setExpandedExamples] = useState({});
-
-    if (primaryExample?.cn || primaryExample?.py || primaryExample?.en) {
-        combinedExamples.push(primaryExample);
-    }
-    examples.forEach((ex) => {
-        if (!ex) return;
-        const exists = combinedExamples.some((item) =>
-            item?.cn === ex?.cn && item?.py === ex?.py && item?.en === ex?.en
-        );
-        if (!exists) combinedExamples.push(ex);
-    });
-
-    if (
-        combinedExamples.length === 0 &&
-        history.length === 0 &&
-        !displayDefinition &&
-        !displayWord
-    ) return null;
-
-    const playAudio = (text) => {
-        if (!text) return;
-        const API_BASE = import.meta.env.VITE_API_BASE_URL;
-        new Audio(`${API_BASE}/study/tts?text=${encodeURIComponent(text)}`).play();
+    return {
+        ...DEFAULT_SPEECH_CONFIG,
+        ...raw,
+        max_attempts: Number.isFinite(maxAttempts) && maxAttempts > 0 ? Math.floor(maxAttempts) : DEFAULT_SPEECH_CONFIG.max_attempts,
+        max_duration_sec:
+            Number.isFinite(maxDurationSec) && maxDurationSec > 0 ? Math.floor(maxDurationSec) : DEFAULT_SPEECH_CONFIG.max_duration_sec,
+        min_asr_confidence:
+            Number.isFinite(minConfidence) && minConfidence >= 0 ? minConfidence : DEFAULT_SPEECH_CONFIG.min_asr_confidence
     };
+};
 
-    const toggleExample = (key) => {
-        setExpandedExamples((prev) => ({ ...prev, [key]: !prev[key] }));
-    };
+const sanitizeFrontendTranscript = (value = '') => {
+    const transcript = String(value).trim();
+    if (!transcript) return '';
+    return FRONTEND_NOISE_TRANSCRIPT_PATTERNS.some((pattern) => pattern.test(transcript)) ? '' : transcript;
+};
 
-    return (
-        <motion.div 
-            initial={{ opacity: 0, y: 10 }} 
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-5 bg-slate-50/80 rounded-[2rem] border border-slate-200/50 p-7 text-left"
-        >
-            <div className="flex items-center gap-3 mb-5">
-                <div className="p-2 bg-blue-50 rounded-xl">
-                    <BookOpen className="text-blue-500" size={20} />
-                </div>
-                <h4 className="text-xl font-black text-slate-800 tracking-tight">{t('knowledge_title')}</h4>
-                <div className="h-px flex-1 bg-slate-200/60" />
-            </div>
-
-            {(displayWord || displayDefinition) && (
-                <div className="mb-5 bg-white/90 p-5 rounded-[1.75rem] border border-white shadow-sm">
-                    <div className="mb-3">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-[11px] font-black uppercase tracking-[0.25em] text-blue-500">
-                            {t('knowledge_current_sense')}
-                        </span>
-                    </div>
-                    <div className="flex flex-wrap items-start gap-4 justify-between">
-                        <div className="min-w-[180px]">
-                            <div className="flex items-start gap-4">
-                                <p className="text-5xl font-black text-slate-900 leading-none">{displayWord}</p>
-                                <button
-                                    onClick={() => playAudio(displayWord)}
-                                    className="mt-1 p-2.5 bg-slate-50 text-slate-400 hover:bg-blue-600 hover:text-white rounded-2xl transition-all shadow-sm"
-                                >
-                                    <Volume2 size={18} />
-                                </button>
-                                <div className="pt-2">
-                                    {displayPinyin && (
-                                        <p className="text-lg font-black text-orange-500">{formatPinyinDisplay(displayPinyin)}</p>
-                                    )}
-                                    {displayPartOfSpeech && (
-                                        <span className="inline-block mt-3 px-3 py-1 rounded-full bg-slate-100 text-xs font-black uppercase tracking-[0.2em] text-slate-500">
-                                            {displayPartOfSpeech}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                        {displayDefinition && (
-                            <div className="flex-1 min-w-[220px]">
-                                <p className="text-lg font-black text-slate-800 leading-snug">
-                                    {displayDefinition}
-                                </p>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
-
-            <div className="space-y-4">
-                {combinedExamples.map((ex, idx) => (
-                    <div key={idx} className="bg-white/80 p-5 rounded-2xl border border-white shadow-sm">
-                        <div className="flex items-start justify-between gap-4">
-                            <div className="flex-1">
-                                {expandedExamples[`current-${idx}`] && ex.py ? (
-                                    <RubySentence cn={ex.cn} py={ex.py} />
-                                ) : (
-                                    <p className="text-2xl font-black text-slate-800 leading-tight">
-                                        {ex.cn}
-                                    </p>
-                                )}
-                            </div>
-                            <div className="flex items-center gap-2 shrink-0">
-                                <button
-                                    onClick={() => playAudio(ex.cn)}
-                                    className="p-2 text-slate-300 hover:text-blue-600 transition-colors"
-                                >
-                                    <Volume2 size={18} />
-                                </button>
-                                <button
-                                    onClick={() => toggleExample(`current-${idx}`)}
-                                    className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors text-xs font-black uppercase tracking-[0.18em]"
-                                >
-                                    {expandedExamples[`current-${idx}`] ? <EyeOff size={14} /> : <Eye size={14} />}
-                                    {expandedExamples[`current-${idx}`] ? t('knowledge_hide') : t('knowledge_show')}
-                                </button>
-                            </div>
-                        </div>
-                        <AnimatePresence initial={false}>
-                            {expandedExamples[`current-${idx}`] && (
-                                <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    className="overflow-hidden"
-                                >
-                                    {ex.en && (
-                                        <div className="mt-3 py-2 px-4 bg-blue-50/50 rounded-lg inline-block">
-                                            <p className="text-base font-bold text-blue-600 italic leading-snug">
-                                                {ex.en}
-                                            </p>
-                                        </div>
-                                    )}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                ))}
-            </div>
-
-            {history.length > 0 && (
-                <div className="mt-6 pt-5 border-t border-slate-200/60">
-                    <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
-                        {t('knowledge_other_senses')}
-                    </p>
-                    <div className="space-y-3">
-                        {history.map((h, i) => (
-                            <div key={i} className="bg-white/80 p-4 rounded-2xl border border-white shadow-sm">
-                                <div className="flex flex-wrap items-center gap-2 mb-2">
-                                    {h.part_of_speech && (
-                                        <span className="px-2.5 py-1 rounded-full bg-slate-100 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500">
-                                            {h.part_of_speech}
-                                        </span>
-                                    )}
-                                    {h.pinyin && (
-                                        <span className="text-sm font-bold text-orange-500">{h.pinyin}</span>
-                                    )}
-                                    {typeof h.lesson_id !== 'undefined' && h.lesson_id !== null && (
-                                        <span className="text-xs font-black text-slate-400">L{h.lesson_id}</span>
-                                    )}
-                                </div>
-                                <p className="text-base font-black text-slate-800 leading-snug">{h.definition}</p>
-                                {h.example?.cn && (
-                                    <div className="mt-3">
-                                        <div className="flex items-start justify-between gap-4">
-                                            <div className="flex-1">
-                                                {expandedExamples[`history-${i}`] && h.example?.py ? (
-                                                    <RubySentence cn={h.example.cn} py={h.example.py} />
-                                                ) : (
-                                                    <p className="text-sm font-bold text-slate-700">{h.example.cn}</p>
-                                                )}
-                                            </div>
-                                            <div className="flex items-center gap-2 shrink-0">
-                                                <button
-                                                    onClick={() => playAudio(h.example.cn)}
-                                                    className="p-1.5 text-slate-300 hover:text-blue-600 transition-colors"
-                                                >
-                                                    <Volume2 size={16} />
-                                                </button>
-                                                <button
-                                                    onClick={() => toggleExample(`history-${i}`)}
-                                                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors text-[10px] font-black uppercase tracking-[0.16em]"
-                                                >
-                                                    {expandedExamples[`history-${i}`] ? <EyeOff size={12} /> : <Eye size={12} />}
-                                                    {expandedExamples[`history-${i}`] ? t('knowledge_hide') : t('knowledge_show')}
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <AnimatePresence initial={false}>
-                                            {expandedExamples[`history-${i}`] && (
-                                                <motion.div
-                                                    initial={{ opacity: 0, height: 0 }}
-                                                    animate={{ opacity: 1, height: 'auto' }}
-                                                    exit={{ opacity: 0, height: 0 }}
-                                                    className="overflow-hidden mt-2 space-y-1.5"
-                                                >
-                                                    {h.example?.en && (
-                                                        <p className="text-sm font-semibold italic text-blue-600">{h.example.en}</p>
-                                                    )}
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </motion.div>
-    );
+const getErrorMessage = (error, fallback) => {
+    const message = error?.response?.data?.detail || error?.message;
+    return message || fallback;
 };
 
 export default function PracticeSection({ questions, isReview, onAllDone, userId, courseId, lessonId, initialIndex = 0 }) {
@@ -293,10 +81,81 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     const [feedback, setFeedback] = useState(null);
     const [isFocused, setIsFocused] = useState(false);
     const [knowledgeDetails, setKnowledgeDetails] = useState(null);
-    
+    const [isRecording, setIsRecording] = useState(false);
+    const [isTranscribing, setIsTranscribing] = useState(false);
+    const [speechTranscript, setSpeechTranscript] = useState('');
+    const [speechMeta, setSpeechMeta] = useState({});
+    const [recordingSeconds, setRecordingSeconds] = useState(0);
+    const [recordAttempts, setRecordAttempts] = useState(0);
+    const [speechError, setSpeechError] = useState('');
+    const [typedFeedbackMessage, setTypedFeedbackMessage] = useState('');
+    const [liveWaveform, setLiveWaveform] = useState(() => Array.from({ length: 18 }, () => 0));
+
     const inputRef = useRef(null);
+    const speechActionsRef = useRef(null);
+    const speechPrimaryButtonRef = useRef(null);
     const lastAutoPlayedKeyRef = useRef('');
+    const recorderRef = useRef(null);
+    const mediaStreamRef = useRef(null);
+    const chunksRef = useRef([]);
+    const stopTimerRef = useRef(null);
+    const elapsedTimerRef = useRef(null);
+    const audioContextRef = useRef(null);
+    const analyserRef = useRef(null);
+    const analyserDataRef = useRef(null);
+    const waveformFrameRef = useRef(null);
+
     const currentQuestion = questions[currentIndex];
+    const speechMode = isSpeechQuestion(currentQuestion);
+    const speechConfig = useMemo(() => normalizeSpeechConfig(currentQuestion), [currentQuestion]);
+    const activeAnswer = speechMode ? speechTranscript : userAnswer;
+    const lowConfidence = Number.isFinite(Number(speechMeta?.confidence)) && Number(speechMeta?.confidence) < speechConfig.min_asr_confidence;
+    const speechShouldRetry = speechMode && Boolean(feedback?.shouldRetry);
+    const isResubmitDisabled = isEvaluating || isTranscribing || isRecording || !activeAnswer.trim() || (feedback && feedback.level === 1 && activeAnswer === lastSubmittedAnswer);
+    const hasSpeechTranscript = speechMode && Boolean(speechTranscript.trim());
+    const isPerfectFeedback = feedback?.level === 4;
+    const isTypingFeedback = Boolean(feedback && !isPerfectFeedback && typedFeedbackMessage.length < (feedback.message || '').length);
+    const primaryButtonClass = 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100';
+    const secondaryButtonClass = 'bg-slate-900 text-white hover:bg-slate-800 shadow-slate-200';
+    const textPromptLabel = currentQuestion?.question_type === 'CN_TO_EN'
+        ? t('practice_prompt_cn_to_en')
+        : t('practice_prompt_en_to_cn');
+    const speechPreviewText = speechTranscript
+        || (isRecording
+            ? '正在聆听，请开始说话。'
+            : isTranscribing
+                ? '录音已结束，正在生成识别结果。'
+                : '还没有识别结果，点击下方按钮开始录音。');
+    const speechInlineHint = isTranscribing
+        ? { tone: 'bg-sky-50 text-sky-700 border-sky-100', text: '已经收到录音，正在转换成文字。', emphasis: 'info' }
+        : speechError
+            ? {
+                tone: lowConfidence ? 'bg-amber-50 text-amber-700 border-amber-100' : 'bg-rose-50 text-rose-700 border-rose-100',
+                text: speechError,
+                emphasis: lowConfidence ? 'warning' : 'error'
+            }
+            : null;
+
+    const getFeedbackConfig = (level) => {
+        if (level === 4) {
+            return {
+                inputTone: 'border-green-500 bg-green-50/60 shadow-md shadow-green-100/80',
+                panelTone: 'border-green-300/80 bg-[linear-gradient(135deg,rgba(240,253,244,0.98),rgba(220,252,231,0.92))]'
+            };
+        }
+        if (level === 2 || level === 3) {
+            return {
+                inputTone: 'border-amber-400 bg-amber-50/70 shadow-md shadow-amber-100/80',
+                panelTone: 'border-amber-300/80 bg-[linear-gradient(135deg,rgba(255,251,235,0.98),rgba(254,243,199,0.92))]'
+            };
+        }
+        return {
+            inputTone: 'border-red-400 bg-red-50/70 shadow-md shadow-red-100/80',
+            panelTone: 'border-red-300/80 bg-[linear-gradient(135deg,rgba(254,242,242,0.98),rgba(254,226,226,0.92))]'
+        };
+    };
+
+    const config = feedback ? getFeedbackConfig(feedback.level) : null;
 
     const playAudio = (text) => {
         if (!text) return;
@@ -304,75 +163,91 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         new Audio(`${API_BASE}/study/tts?text=${encodeURIComponent(text)}`).play();
     };
 
-    useEffect(() => {
-        const safeIndex = Number.isInteger(initialIndex)
-            ? Math.max(0, Math.min(initialIndex, Math.max(questions.length - 1, 0)))
-            : 0;
-        setCurrentIndex(safeIndex);
-        setUserAnswer('');
-        setLastSubmittedAnswer('');
-        setFeedback(null);
-        setKnowledgeDetails(null);
-    }, [initialIndex, questions]);
-
-    useEffect(() => {
-        if (!currentQuestion) return;
-        if (currentQuestion.question_type !== 'CN_TO_EN') return;
-
-        const questionKey = `${currentQuestion.item_id || currentQuestion.question_id || currentIndex}:${currentQuestion.original_text || ''}`;
-        if (lastAutoPlayedKeyRef.current === questionKey) return;
-
-        lastAutoPlayedKeyRef.current = questionKey;
-        const timer = setTimeout(() => {
-            playAudio(currentQuestion.original_text);
-        }, 250);
-
-        return () => clearTimeout(timer);
-    }, [currentQuestion, currentIndex]);
-
-    useEffect(() => {
-        if (!questions?.length || !userId || !courseId || !lessonId || isReview) return;
-        const syncProgress = async () => {
-            try {
-                await apiClient.post(`/study/practice_progress`, {
-                    user_id: userId,
-                    course_id: Number(courseId),
-                    lesson_id: lessonId,
-                    current_index: currentIndex,
-                });
-            } catch (e) {
-                console.error("同步练习进度失败:", e);
-            }
-        };
-        syncProgress();
-    }, [currentIndex, questions, userId, courseId, lessonId, isReview]);
-
-    const getFeedbackConfig = (level) => {
-        if (level === 4) {
-            return {
-                card: 'bg-green-50/50 border-green-100',
-                titleColor: 'text-green-800',
-                msgColor: 'text-green-700/90',
-                icon: <CheckCircle2 className="text-green-500 shrink-0" size={32} />,
-                title: t('practice_feedback_excellent')
-            };
+    const clearRecordingTimer = () => {
+        if (stopTimerRef.current) {
+            clearTimeout(stopTimerRef.current);
+            stopTimerRef.current = null;
         }
-        if (level === 2 || level === 3) {
-            return {
-                card: 'bg-amber-50/50 border-amber-100',
-                titleColor: 'text-amber-800',
-                msgColor: 'text-amber-700',
-                icon: <AlertCircle className="text-amber-500 shrink-0" size={32} />,
-                title: t('practice_feedback_good')
-            };
+    };
+
+    const clearElapsedTimer = () => {
+        if (elapsedTimerRef.current) {
+            clearInterval(elapsedTimerRef.current);
+            elapsedTimerRef.current = null;
         }
-        return {
-            card: 'bg-red-50/50 border-red-100',
-            titleColor: 'text-red-800',
-            msgColor: 'text-red-700',
-            icon: <XCircle className="text-red-500 shrink-0" size={32} />,
-            title: t('practice_feedback_retry')
+    };
+
+    const cleanupMedia = () => {
+        clearRecordingTimer();
+        clearElapsedTimer();
+        if (waveformFrameRef.current) {
+            cancelAnimationFrame(waveformFrameRef.current);
+            waveformFrameRef.current = null;
+        }
+        if (audioContextRef.current) {
+            audioContextRef.current.close().catch(() => {});
+            audioContextRef.current = null;
+        }
+        analyserRef.current = null;
+        analyserDataRef.current = null;
+        if (mediaStreamRef.current) {
+            mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+            mediaStreamRef.current = null;
+        }
+        recorderRef.current = null;
+        chunksRef.current = [];
+        setLiveWaveform(Array.from({ length: 18 }, () => 0));
+    };
+
+    const startLiveWaveform = (stream) => {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+
+        const audioContext = new AudioContextClass();
+        const analyser = audioContext.createAnalyser();
+        const source = audioContext.createMediaStreamSource(stream);
+        analyser.fftSize = 256;
+        analyser.smoothingTimeConstant = 0.82;
+        source.connect(analyser);
+
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        audioContextRef.current = audioContext;
+        analyserRef.current = analyser;
+        analyserDataRef.current = dataArray;
+
+        const renderWaveform = () => {
+            if (!analyserRef.current || !analyserDataRef.current) return;
+
+            analyserRef.current.getByteTimeDomainData(analyserDataRef.current);
+            const sourceData = analyserDataRef.current;
+            const barCount = 18;
+            const halfCount = Math.ceil(barCount / 2);
+            const chunkSize = Math.max(1, Math.floor(sourceData.length / halfCount));
+            const halfBars = Array.from({ length: halfCount }, (_, idx) => {
+                const start = idx * chunkSize;
+                const end = Math.min(start + chunkSize, sourceData.length);
+                let sumSquares = 0;
+                for (let i = start; i < end; i += 1) {
+                    const normalized = (sourceData[i] - 128) / 128;
+                    sumSquares += normalized * normalized;
+                }
+                const rms = end > start ? Math.sqrt(sumSquares / (end - start)) : 0;
+                const boosted = Math.min(1, Math.pow(rms * 8.5, 0.68));
+                return boosted > 0.02 ? boosted : 0;
+            });
+
+            const mirroredBars = Array.from({ length: barCount }, (_, idx) => {
+                const mirrorIndex = idx < halfCount ? idx : barCount - idx - 1;
+                const base = halfBars[Math.min(mirrorIndex, halfBars.length - 1)] || 0;
+                const edgeBoost = 1 - Math.abs((idx - (barCount - 1) / 2) / ((barCount - 1) / 2));
+                return Math.min(1, base * (0.82 + edgeBoost * 0.32));
+            });
+
+            setLiveWaveform(mirroredBars);
+            waveformFrameRef.current = requestAnimationFrame(renderWaveform);
         };
+
+        waveformFrameRef.current = requestAnimationFrame(renderWaveform);
     };
 
     const focusAndMoveCursorToEnd = () => {
@@ -383,7 +258,243 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         }
     };
 
+    const handleTranscription = async (audioBlob, mimeType) => {
+        setIsTranscribing(true);
+        setSpeechError('');
+
+        try {
+            const result = await transcribeSpeech({
+                audioBlob,
+                filename: mimeType?.includes('mp4') ? 'speech.mp4' : 'speech.webm',
+                language: 'zh'
+            });
+
+            const transcript = sanitizeFrontendTranscript(result?.transcript || '');
+            setSpeechTranscript(transcript);
+            setUserAnswer(transcript);
+            setSpeechMeta(result || {});
+            setRecordAttempts((prev) => prev + 1);
+
+            if (!transcript) {
+                setSpeechError('未检测到有效语音输入，请重新录音。');
+                return;
+            }
+
+            const conf = Number(result?.confidence);
+            if (Number.isFinite(conf) && conf < speechConfig.min_asr_confidence) {
+                setSpeechError(`语音识别置信度较低（${conf.toFixed(2)}），建议重新录音。`);
+            }
+        } catch (error) {
+            const detail = getErrorMessage(error, '语音转写失败，请重试。');
+            if (String(detail || '').toLowerCase().includes('asr transcript is empty')) {
+                setSpeechTranscript('');
+                setUserAnswer('');
+                setSpeechError('未检测到有效语音输入，请重新录音。');
+            } else {
+                setSpeechError(detail);
+            }
+        } finally {
+            setIsTranscribing(false);
+        }
+    };
+
+    const handleStartRecording = async () => {
+        if (!speechMode || isRecording || isTranscribing) return;
+        if (!navigator.mediaDevices?.getUserMedia || typeof window.MediaRecorder === 'undefined') {
+            setSpeechError('当前浏览器不支持录音，请更换现代浏览器后再试。');
+            return;
+        }
+
+        setFeedback(null);
+        setLastSubmittedAnswer('');
+        setSpeechError('');
+        setSpeechTranscript('');
+        setSpeechMeta({});
+        setRecordingSeconds(0);
+        setLiveWaveform(Array.from({ length: 18 }, () => 0));
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaStreamRef.current = stream;
+            chunksRef.current = [];
+            startLiveWaveform(stream);
+
+            const isTypeSupported =
+                typeof window.MediaRecorder.isTypeSupported === 'function'
+                    ? window.MediaRecorder.isTypeSupported.bind(window.MediaRecorder)
+                    : () => false;
+            const mimeType = RECORDER_MIME_TYPES.find((type) => isTypeSupported(type));
+            const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+            recorderRef.current = recorder;
+
+            recorder.ondataavailable = (event) => {
+                if (event.data?.size > 0) chunksRef.current.push(event.data);
+            };
+
+            recorder.onstop = async () => {
+                setIsRecording(false);
+                clearRecordingTimer();
+                clearElapsedTimer();
+
+                if (mediaStreamRef.current) {
+                    mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+                    mediaStreamRef.current = null;
+                }
+
+                if (!chunksRef.current.length) {
+                    setSpeechError('没有录到有效音频，请重新录音。');
+                    return;
+                }
+
+                const blobType = recorder.mimeType || mimeType || 'audio/webm';
+                const audioBlob = new Blob(chunksRef.current, { type: blobType });
+                chunksRef.current = [];
+                await handleTranscription(audioBlob, blobType);
+            };
+
+            recorder.start();
+            setIsRecording(true);
+            elapsedTimerRef.current = setInterval(() => {
+                setRecordingSeconds((prev) => prev + 1);
+            }, 1000);
+
+            stopTimerRef.current = setTimeout(() => {
+                if (recorder.state === 'recording') {
+                    setSpeechError('已达到最长录音时长，系统已自动停止并开始转写。');
+                    recorder.stop();
+                }
+            }, speechConfig.max_duration_sec * 1000);
+        } catch (error) {
+            cleanupMedia();
+            setIsRecording(false);
+            setRecordingSeconds(0);
+            setSpeechError(getErrorMessage(error, '麦克风权限不可用，或当前设备无法录音。'));
+        }
+    };
+
+    const handleStopRecording = () => {
+        if (!recorderRef.current || recorderRef.current.state !== 'recording') return;
+        recorderRef.current.stop();
+    };
+
+    const handleSubmit = async () => {
+        if (isEvaluating) return;
+        if (speechMode) {
+            if (isRecording || isTranscribing) return;
+            if (!activeAnswer.trim()) return;
+            if (lowConfidence) {
+                setSpeechError('语音识别结果不够稳定，请重新录音后再提交。');
+                return;
+            }
+        } else if (!userAnswer.trim()) {
+            return;
+        }
+
+        setIsEvaluating(true);
+        try {
+            const res = await evaluateStudyAnswer({
+                user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
+                lesson_id: currentQuestion.lesson_id || 101,
+                question_id: currentQuestion.question_id,
+                question_type: currentQuestion.question_type,
+                original_text: currentQuestion.original_text,
+                standard_answers: Array.isArray(currentQuestion.standard_answers) ? currentQuestion.standard_answers : [currentQuestion.standard_answers],
+                user_answer: activeAnswer,
+                input_mode: speechMode ? 'speech' : 'text',
+                asr_text: speechMode ? speechTranscript : '',
+                audio_meta: speechMode
+                    ? {
+                        duration_ms: speechMeta?.duration_ms ?? null,
+                        confidence: speechMeta?.confidence ?? null,
+                        provider: speechMeta?.provider ?? null,
+                        model: speechMeta?.model ?? null
+                    }
+                    : {}
+            });
+            setFeedback(res.data.data);
+            setLastSubmittedAnswer(activeAnswer);
+        } catch (e) {
+            setFeedback({ level: 1, isCorrect: false, message: getErrorMessage(e, t('practice_eval_failed')) });
+        } finally {
+            setIsEvaluating(false);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentIndex < questions.length - 1) {
+            setCurrentIndex((prev) => prev + 1);
+            setUserAnswer('');
+            setLastSubmittedAnswer('');
+            setFeedback(null);
+            setKnowledgeDetails(null);
+            setSpeechTranscript('');
+            setSpeechMeta({});
+            setRecordingSeconds(0);
+            setRecordAttempts(0);
+            setSpeechError('');
+            setTypedFeedbackMessage('');
+            cleanupMedia();
+        } else {
+            onAllDone();
+        }
+    };
+
+    useEffect(() => () => cleanupMedia(), []);
+
     useEffect(() => {
+        const safeIndex = Number.isInteger(initialIndex)
+            ? Math.max(0, Math.min(initialIndex, Math.max(questions.length - 1, 0)))
+            : 0;
+        setCurrentIndex(safeIndex);
+        setUserAnswer('');
+        setLastSubmittedAnswer('');
+        setFeedback(null);
+        setKnowledgeDetails(null);
+        setIsRecording(false);
+        setIsTranscribing(false);
+        setSpeechTranscript('');
+        setSpeechMeta({});
+        setRecordingSeconds(0);
+        setRecordAttempts(0);
+        setSpeechError('');
+        setTypedFeedbackMessage('');
+        setLiveWaveform(Array.from({ length: 18 }, () => 0));
+        cleanupMedia();
+    }, [initialIndex, questions]);
+
+    useEffect(() => {
+        if (!currentQuestion || speechMode || currentQuestion.question_type !== 'CN_TO_EN') return;
+
+        const questionKey = `${currentQuestion.item_id || currentQuestion.question_id || currentIndex}:${currentQuestion.original_text || ''}`;
+        if (lastAutoPlayedKeyRef.current === questionKey) return;
+
+        lastAutoPlayedKeyRef.current = questionKey;
+        const timer = setTimeout(() => {
+            playAudio(currentQuestion.original_text);
+        }, 250);
+
+        return () => clearTimeout(timer);
+    }, [currentQuestion, currentIndex, speechMode]);
+
+    useEffect(() => {
+        if (!questions?.length || !userId || !courseId || !lessonId || isReview) return;
+        const syncProgress = async () => {
+            try {
+                await apiClient.post('/study/practice_progress', {
+                    user_id: userId,
+                    course_id: Number(courseId),
+                    lesson_id: lessonId,
+                    current_index: currentIndex,
+                });
+            } catch (e) {
+                console.error('同步练习进度失败:', e);
+            }
+        };
+        syncProgress();
+    }, [currentIndex, questions, userId, courseId, lessonId, isReview]);
+
+    useEffect(() => {
+        if (speechMode) return;
         if (!feedback && !isEvaluating && inputRef.current) {
             const timer = setTimeout(() => { focusAndMoveCursorToEnd(); }, 100);
             return () => clearTimeout(timer);
@@ -391,7 +502,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         if (feedback && feedback.level === 1 && !isEvaluating) {
             focusAndMoveCursorToEnd();
         }
-    }, [currentIndex, feedback, isEvaluating]);
+    }, [currentIndex, feedback, isEvaluating, speechMode]);
 
     useEffect(() => {
         if (!feedback || !currentQuestion?.item_id) {
@@ -401,12 +512,12 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
 
         const fetchKnowledge = async () => {
             try {
-                const res = await apiClient.get(`/study/knowledge`, {
+                const res = await apiClient.get('/study/knowledge', {
                     params: { item_id: currentQuestion.item_id }
                 });
                 setKnowledgeDetails(res.data?.data || null);
             } catch (e) {
-                console.error("加载动态知识点失败:", e);
+                console.error('加载动态知识点失败:', e);
                 setKnowledgeDetails(null);
             }
         };
@@ -415,191 +526,235 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     }, [feedback, currentQuestion]);
 
     useEffect(() => {
+        const fullMessage = feedback?.message || '';
+        if (!fullMessage || feedback?.level === 4) {
+            setTypedFeedbackMessage('');
+            return;
+        }
+
+        setTypedFeedbackMessage('');
+        let index = 0;
+        const timer = setInterval(() => {
+            index += 1;
+            setTypedFeedbackMessage(fullMessage.slice(0, index));
+            if (index >= fullMessage.length) {
+                clearInterval(timer);
+            }
+        }, 18);
+
+        return () => clearInterval(timer);
+    }, [feedback]);
+
+    useEffect(() => {
+        if (speechMode) return;
+
         const handleEnter = (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                if (feedback && feedback.level >= 2) {
+            if (e.key !== 'Enter' || e.shiftKey) return;
+
+            if (feedback && feedback.level >= 2) {
+                e.preventDefault();
+                handleNext();
+                return;
+            }
+
+            if (document.activeElement === inputRef.current) {
+                e.preventDefault();
+                if (feedback && feedback.level === 1) {
+                    if (userAnswer.trim() !== lastSubmittedAnswer) handleSubmit();
+                } else if (userAnswer.trim() && !isEvaluating) {
+                    handleSubmit();
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleEnter);
+        return () => window.removeEventListener('keydown', handleEnter);
+    }, [userAnswer, feedback, isEvaluating, lastSubmittedAnswer, speechMode]);
+
+    useEffect(() => {
+        if (!speechMode) return;
+        const timer = setTimeout(() => {
+            speechPrimaryButtonRef.current?.focus();
+        }, 80);
+        return () => clearTimeout(timer);
+    }, [speechMode, currentIndex, feedback, isRecording, isTranscribing, speechTranscript, isEvaluating]);
+
+    useEffect(() => {
+        if (!speechMode) return;
+        const hasTranscript = Boolean((speechTranscript || '').trim());
+
+        const handleSpeechKeys = (e) => {
+            if (e.key === 'Tab') {
+                const root = speechActionsRef.current;
+                if (!root) return;
+
+                const focusable = Array.from(root.querySelectorAll('button:not([disabled])'));
+                if (!focusable.length) return;
+
+                e.preventDefault();
+                const currentIdx = focusable.indexOf(document.activeElement);
+                const direction = e.shiftKey ? -1 : 1;
+                const nextIdx = currentIdx === -1
+                    ? 0
+                    : (currentIdx + direction + focusable.length) % focusable.length;
+                focusable[nextIdx]?.focus();
+                return;
+            }
+
+            if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const activeEl = document.activeElement;
+                const root = speechActionsRef.current;
+                if (activeEl && root?.contains(activeEl) && activeEl.tagName === 'BUTTON') return;
+
+                if (feedback) {
                     e.preventDefault();
-                    handleNext();
+                    if (feedback.level === 1) {
+                        handleStartRecording();
+                    } else {
+                        handleNext();
+                    }
                     return;
                 }
-                if (document.activeElement === inputRef.current) {
+
+                if (isRecording) {
                     e.preventDefault();
-                    if (feedback && feedback.level === 1) {
-                        if (userAnswer.trim() !== lastSubmittedAnswer) handleSubmit();
-                    } else if (userAnswer.trim() && !isEvaluating) {
+                    handleStopRecording();
+                    return;
+                }
+
+                if (!isTranscribing) {
+                    e.preventDefault();
+                    if (hasTranscript && !lowConfidence && !speechShouldRetry) {
                         handleSubmit();
+                    } else {
+                        handleStartRecording();
                     }
                 }
             }
         };
-        window.addEventListener('keydown', handleEnter);
-        return () => window.removeEventListener('keydown', handleEnter);
-    }, [userAnswer, feedback, isEvaluating, lastSubmittedAnswer]);
 
-    const handleSubmit = async () => {
-        if (isEvaluating) return;
-        setIsEvaluating(true);
-        try {
-            // 🚀 使用 apiClient 并简化路径
-            const res = await apiClient.post(`/study/evaluate`, {
-                user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
-                lesson_id: currentQuestion.lesson_id || 101,
-                question_id: currentQuestion.question_id,
-                question_type: currentQuestion.question_type,
-                original_text: currentQuestion.original_text,
-                standard_answers: Array.isArray(currentQuestion.standard_answers) ? currentQuestion.standard_answers : [currentQuestion.standard_answers],
-                user_answer: userAnswer
-            });
-            setFeedback(res.data.data);
-            setLastSubmittedAnswer(userAnswer);
-        } catch (e) {
-            setFeedback({ level: 1, isCorrect: false, message: t('practice_eval_failed') });
-        } finally {
-            setIsEvaluating(false);
-        }
-    };
-
-    const handleNext = () => {
-        if (currentIndex < questions.length - 1) {
-            setCurrentIndex(prev => prev + 1);
-            setUserAnswer('');
-            setLastSubmittedAnswer('');
-            setFeedback(null);
-            setKnowledgeDetails(null);
-        } else {
-            onAllDone();
-        }
-    };
+        window.addEventListener('keydown', handleSpeechKeys);
+        return () => window.removeEventListener('keydown', handleSpeechKeys);
+    }, [speechMode, feedback, isRecording, isTranscribing, speechTranscript, lowConfidence, speechShouldRetry]);
 
     if (!currentQuestion) return null;
 
-    const isResubmitDisabled = isEvaluating || !userAnswer.trim() || (feedback && feedback.level === 1 && userAnswer === lastSubmittedAnswer);
-    const config = feedback ? getFeedbackConfig(feedback.level) : null;
+    const speechPrimaryLabel = isRecording ? '结束录音' : hasSpeechTranscript ? '重新录音' : '开始录音';
+    const speechPrimaryTone = isRecording || !hasSpeechTranscript || lowConfidence || speechShouldRetry
+        ? primaryButtonClass
+        : secondaryButtonClass;
 
     return (
         <AnimatePresence mode="wait">
-        <motion.div
-            key={`practice-${i18n.language}`}
-            variants={staggerContainer}
-            initial="hidden"
-            animate="show"
-            exit={{ opacity: 0, y: -10, transition: { duration: 0.18 } }}
-            className="max-w-4xl mx-auto px-6 pt-20 pb-0"
-        >
-            
-            <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex items-center justify-center gap-5 mb-8">
-                <div className="flex items-center gap-3">
-                    <Sparkles className="text-blue-500" size={28} />
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight">
-                        {isReview ? t('practice_title_review') : t('practice_title_lesson')}
-                    </h1>
-                </div>
-                <div className="px-5 py-1.5 bg-slate-200/50 rounded-full text-xl font-black text-slate-500 tracking-tighter">
-                    {currentIndex + 1} / {questions.length}
-                </div>
-            </motion.div>
+            <motion.div
+                key={`practice-${i18n.language}`}
+                variants={staggerContainer}
+                initial="hidden"
+                animate="show"
+                exit={{ opacity: 0, y: -10, transition: { duration: 0.18 } }}
+                className="max-w-4xl mx-auto px-6 pt-20 pb-0"
+            >
+                <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex items-center justify-center gap-5 mb-8">
+                    <div className="flex items-center gap-3">
+                        <Sparkles className="text-blue-500" size={28} />
+                        <h1 className="text-5xl font-black text-slate-900 tracking-tight">
+                            {isReview ? t('practice_title_review') : t('practice_title_lesson')}
+                        </h1>
+                    </div>
+                    <div className="px-5 py-1.5 bg-slate-200/50 rounded-full text-xl font-black text-slate-500 tracking-tighter">
+                        {currentIndex + 1} / {questions.length}
+                    </div>
+                </motion.div>
 
-            <motion.div variants={fadeInUp} initial="hidden" animate="show" className="text-center mb-8">
-                <span className="text-xl font-bold text-blue-500 uppercase tracking-[0.3em] block mb-1">
-                    {currentQuestion.question_type === 'CN_TO_EN' ? t('practice_prompt_cn_to_en') : t('practice_prompt_en_to_cn')}
-                </span>
-                <p className="text-4xl md:text-5xl font-black text-slate-900 leading-tight px-4">
-                    “{currentQuestion.original_text}”
-                </p>
-            </motion.div>
+                <PracticePromptCard
+                    fadeInUp={fadeInUp}
+                    speechMode={speechMode}
+                    promptLabel={textPromptLabel}
+                    originalText={currentQuestion.original_text}
+                />
 
-            <motion.div variants={fadeInUp} initial="hidden" animate="show" className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100">
-                
-                <div className={`
-                    w-full h-20 px-8 flex items-center justify-center transition-all duration-300
-                    bg-slate-50 border-2 rounded-[2rem]
-                    ${isFocused ? 'border-blue-500 bg-white shadow-md' : 'border-slate-100'}
-                    ${(feedback && feedback.level >= 2) ? 'opacity-60' : 'opacity-100'}
-                    mb-6
-                `}>
-                    <textarea 
-                        ref={inputRef}
+                <motion.div variants={fadeInUp} initial="hidden" animate="show" className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100">
+                    <PracticeAnswerPanel
+                        speechMode={speechMode}
                         value={userAnswer}
+                        inputRef={inputRef}
                         onChange={(e) => setUserAnswer(e.target.value)}
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setIsFocused(false)}
-                        placeholder={isFocused ? "" : t('practice_input_placeholder')}
+                        placeholder={isFocused ? '' : t('practice_input_placeholder')}
                         disabled={isEvaluating || (feedback && feedback.level >= 2)}
-                        className="w-full h-auto max-h-full bg-transparent text-center focus:outline-none resize-none leading-relaxed text-slate-800 placeholder:text-slate-400 text-3xl font-bold"
-                        rows={1}
+                        isFocused={isFocused}
+                        statusTone={feedback ? config.inputTone : null}
+                        isRecording={isRecording}
+                        isTranscribing={isTranscribing}
+                        recordAttempts={recordAttempts}
+                        maxDurationSec={speechConfig.max_duration_sec}
+                        recordingSeconds={recordingSeconds}
+                        liveWaveform={liveWaveform}
+                        speechPreviewText={speechPreviewText}
+                        speechInlineHint={speechInlineHint}
+                        onPrimaryAction={isRecording ? handleStopRecording : handleStartRecording}
+                        primaryLabel={speechPrimaryLabel}
+                        primaryDisabled={isTranscribing}
+                        showSubmit={hasSpeechTranscript && !isRecording && !isTranscribing}
+                        onSubmit={handleSubmit}
+                        submitDisabled={!activeAnswer.trim() || isEvaluating || lowConfidence || speechShouldRetry}
+                        isEvaluating={isEvaluating}
+                        primaryButtonRef={speechMode ? speechPrimaryButtonRef : undefined}
+                        primaryButtonClass={speechPrimaryTone}
+                        secondaryButtonClass={primaryButtonClass}
                     />
-                </div>
 
-                <AnimatePresence mode="wait">
-                    {!feedback ? (
-                        <motion.button 
-                            key="submit-btn"
-                            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={handleSubmit}
-                            disabled={!userAnswer.trim() || isEvaluating}
-                            className="w-full py-5 bg-slate-900 text-white rounded-[1.2rem] font-black text-xl hover:bg-blue-600 disabled:bg-slate-200 transition-all flex items-center justify-center gap-3 shadow-lg"
-                        >
-                            {isEvaluating ? <Loader2 className="animate-spin" /> : <Send size={22} />}
-                            {isEvaluating ? t('practice_evaluating') : t('practice_submit')}
-                        </motion.button>
-                    ) : (
-                        <motion.div key="feedback-area" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-                            
-                            <div className={`p-6 rounded-[2rem] border-2 transition-colors duration-500 ${config.card}`}>
-                                <div className="flex gap-4">
-                                    {config.icon}
-                                    <div className="flex-1">
-                                        <h4 className={`text-xl font-black mb-1 ${config.titleColor}`}>
-                                            {config.title}
-                                        </h4>
-                                        <p style={{ fontFamily: '"Times New Roman", Times, serif' }}
-                                           className={`mt-3 text-xl md:text-2xl font-bold whitespace-pre-line leading-snug ${config.msgColor}`}>
-                                            {feedback.message}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col gap-3">
-                                {feedback.level === 1 ? (
-                                    <>
-                                        <button 
-                                            onClick={handleSubmit} 
-                                            disabled={isResubmitDisabled}
-                                            className="w-full py-5 bg-slate-900 text-white rounded-[1.2rem] font-black text-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-3 shadow-lg disabled:bg-slate-200 disabled:text-slate-400"
-                                        >
-                                            {isEvaluating ? <Loader2 className="animate-spin" /> : <RefreshCcw size={22} />}
-                                            {t('practice_retry')}
-                                            <span className="ml-2 font-normal text-xs uppercase tracking-widest opacity-60">Enter</span>
-                                        </button>
-                                        <button onClick={handleNext} className="w-full py-5 bg-blue-600 text-white rounded-[1.2rem] font-black text-xl hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-lg">
-                                            {t('practice_skip')}
-                                            <ArrowRight size={22} />
-                                        </button>
-                                    </>
-                                ) : (
-                                    <button 
-                                        onClick={handleNext} 
-                                        className="w-full py-5 bg-blue-600 text-white rounded-[1.2rem] font-black text-xl hover:bg-blue-700 transition-all flex items-center justify-center shadow-lg shadow-blue-100"
-                                    >
-                                        {currentIndex === questions.length - 1 ? t('practice_finish') : t('practice_next')} 
-                                        <span className="ml-3 text-blue-200 font-normal text-xs uppercase tracking-widest">Enter</span>
-                                    </button>
-                                )}
-                            </div>
-
-                            <WordContextCard 
-                                word={currentQuestion.original_text}
-                                pinyin={currentQuestion.original_pinyin}
-                                metadata={currentQuestion.metadata}
-                                knowledgeData={knowledgeDetails}
+                    <AnimatePresence mode="wait">
+                        {!feedback && !isEvaluating ? (
+                            !speechMode && (
+                                <motion.button
+                                    key="text-submit"
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={handleSubmit}
+                                    disabled={!userAnswer.trim() || isEvaluating}
+                                    className={`w-full py-5 rounded-[1.2rem] font-black text-xl disabled:bg-slate-200 transition-all flex items-center justify-center gap-3 shadow-lg ${primaryButtonClass}`}
+                                >
+                                    {isEvaluating ? <Loader2 className="animate-spin" /> : <Send size={22} />}
+                                    {isEvaluating ? t('practice_evaluating') : t('practice_submit')}
+                                </motion.button>
+                            )
+                        ) : feedback ? (
+                            <PracticeFeedbackPanel
+                                feedback={feedback}
+                                isPerfectFeedback={isPerfectFeedback}
+                                isTypingFeedback={isTypingFeedback}
+                                typedFeedbackMessage={typedFeedbackMessage}
+                                speechMode={speechMode}
+                                onRetry={speechMode ? handleStartRecording : handleSubmit}
+                                onSkip={handleNext}
+                                onNext={handleNext}
+                                retryDisabled={speechMode ? (isRecording || isTranscribing) : isResubmitDisabled}
+                                currentIndex={currentIndex}
+                                totalQuestions={questions.length}
+                                isBusy={isEvaluating || isTranscribing}
+                                primaryButtonRef={speechMode ? speechPrimaryButtonRef : undefined}
+                                actionsRef={speechMode ? speechActionsRef : undefined}
+                                primaryButtonClass={primaryButtonClass}
+                                secondaryButtonClass={secondaryButtonClass}
+                                currentQuestion={currentQuestion}
+                                knowledgeDetails={knowledgeDetails}
                             />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        ) : (
+                            <motion.div
+                                key="thinking-area"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -3, scale: 0.985, filter: 'blur(2px)' }}
+                                transition={{ duration: 0.28, ease: 'easeOut' }}
+                                className="space-y-5"
+                            >
+                                <AIThinkingIndicator label="AI 导师正在分析你的回答..." />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
             </motion.div>
-        </motion.div>
         </AnimatePresence>
     );
 }
