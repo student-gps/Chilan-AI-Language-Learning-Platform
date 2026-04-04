@@ -19,10 +19,25 @@ export default function SpeechAnswerPanel({
     onSubmit,
     submitDisabled,
     isEvaluating,
+    actionsRef,
     primaryButtonRef,
+    submitButtonRef,
     primaryButtonClass,
     secondaryButtonClass,
 }) {
+    const defaultAction = !isRecording && !isTranscribing && showSubmit && !submitDisabled ? 'submit' : 'primary';
+    const [activeAction, setActiveAction] = React.useState(defaultAction);
+
+    React.useEffect(() => {
+        setActiveAction(defaultAction);
+    }, [defaultAction, isRecording, isTranscribing, showSubmit, submitDisabled, primaryLabel]);
+
+    const resolveButtonClass = (actionKey) =>
+        activeAction === actionKey ? primaryButtonClass : secondaryButtonClass;
+
+    const enterHintClass = (actionKey) =>
+        activeAction === actionKey ? 'text-blue-200' : 'text-slate-400';
+
     return (
         <div className={`mb-6 rounded-[2.25rem] border p-5 md:p-6 shadow-inner shadow-white/70 ${statusTone || 'border-slate-200/70 bg-[linear-gradient(135deg,rgba(248,250,252,0.98),rgba(239,246,255,0.9))]'}`}>
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -116,26 +131,35 @@ export default function SpeechAnswerPanel({
                 )}
             </div>
 
-            <div className="mt-4 space-y-3">
+            <div ref={actionsRef} className="mt-4 space-y-3">
                 <button
                     ref={primaryButtonRef}
                     onClick={onPrimaryAction}
+                    onFocus={() => setActiveAction('primary')}
                     disabled={primaryDisabled}
-                    className={`w-full py-5 rounded-[1.3rem] font-black text-xl transition-all flex items-center justify-center gap-3 shadow-lg ${primaryButtonClass} disabled:bg-slate-300`}
+                    className={`w-full py-5 rounded-[1.3rem] font-black text-xl transition-all flex items-center justify-center gap-3 shadow-lg disabled:bg-slate-300 disabled:text-slate-400 ${resolveButtonClass('primary')}`}
                 >
                     {isRecording ? <Square size={20} /> : <Mic size={20} />}
                     {primaryLabel}
+                    <span className={`ml-2 font-normal text-xs uppercase tracking-widest opacity-70 ${enterHintClass('primary')}`}>
+                        Enter
+                    </span>
                 </button>
 
                 {showSubmit && (
                     <motion.button
+                        ref={submitButtonRef}
                         whileTap={{ scale: 0.98 }}
                         onClick={onSubmit}
+                        onFocus={() => setActiveAction('submit')}
                         disabled={submitDisabled}
-                        className={`w-full py-5 rounded-[1.35rem] font-black text-xl disabled:bg-slate-200 transition-all flex items-center justify-center gap-3 shadow-lg ${secondaryButtonClass}`}
+                        className={`w-full py-5 rounded-[1.35rem] font-black text-xl disabled:bg-slate-200 disabled:text-slate-400 transition-all flex items-center justify-center gap-3 shadow-lg ${resolveButtonClass('submit')}`}
                     >
                         {isEvaluating ? <Loader2 className="animate-spin" /> : <Send size={22} />}
                         {isEvaluating ? '正在判题...' : '提交本次回答'}
+                        <span className={`ml-2 font-normal text-xs uppercase tracking-widest opacity-70 ${enterHintClass('submit')}`}>
+                            Enter
+                        </span>
                     </motion.button>
                 )}
             </div>

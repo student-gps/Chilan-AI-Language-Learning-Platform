@@ -6,6 +6,9 @@ from json_repair import repair_json  # 必须安装: pip install json-repair
 
 class BaseLLMProvider(ABC):
     """定义所有模型必须实现的标准接口"""
+
+    def __init__(self):
+        self._usage_log = []
     
     @abstractmethod
     def generate_structured_json(self, prompt: str, file_path: str = None, file_obj=None) -> dict:
@@ -15,6 +18,33 @@ class BaseLLMProvider(ABC):
     def upload_pdf(self, file_path: str):
         """预上传 PDF 文件的标准接口（主要为 Gemini 设计）"""
         return None
+
+    def reset_usage_log(self):
+        self._usage_log = []
+
+    def get_usage_summary(self) -> dict:
+        input_tokens = sum(int(item.get("input_tokens", 0) or 0) for item in self._usage_log)
+        output_tokens = sum(int(item.get("output_tokens", 0) or 0) for item in self._usage_log)
+        total_tokens = sum(int(item.get("total_tokens", 0) or 0) for item in self._usage_log)
+        estimated_cost = sum(float(item.get("estimated_cost_usd", 0.0) or 0.0) for item in self._usage_log)
+        return {
+            "calls": len(self._usage_log),
+            "input_tokens": input_tokens,
+            "output_tokens": output_tokens,
+            "total_tokens": total_tokens,
+            "estimated_cost_usd": round(estimated_cost, 6),
+            "provider": type(self).__name__,
+            "items": list(self._usage_log),
+        }
+
+    def _record_usage(self, input_tokens=0, output_tokens=0, total_tokens=0, estimated_cost_usd=0.0, meta: dict = None):
+        self._usage_log.append({
+            "input_tokens": int(input_tokens or 0),
+            "output_tokens": int(output_tokens or 0),
+            "total_tokens": int(total_tokens or 0),
+            "estimated_cost_usd": float(estimated_cost_usd or 0.0),
+            "meta": meta or {},
+        })
 
     def _safe_parse_json(self, raw_text: str) -> dict:
         """通用的 JSON 提取与自动修复逻辑"""
@@ -43,9 +73,46 @@ class BaseLLMProvider(ABC):
 
 class GeminiProvider(BaseLLMProvider):
     def __init__(self, api_key: str, model_id: str):
+        super().__init__()
         from google import genai
         self.client = genai.Client(api_key=api_key)
         self.model_id = model_id
+
+    @staticmethod
+    def _pricing_table() -> dict:
+        # Paid tier standard pricing, per 1M tokens in USD.
+        # Source: Google AI for Developers Gemini Developer API pricing
+        # https://ai.google.dev/gemini-api/docs/pricing
+        return {
+            "gemini-2.0-flash": {"input_per_m": 0.10, "output_per_m": 0.40},
+            "gemini-2.0-flash-lite": {"input_per_m": 0.075, "output_per_m": 0.30},
+            "gemini-2.5-flash": {"input_per_m": 0.30, "output_per_m": 2.50},
+            "gemini-2.5-flash-lite": {"input_per_m": 0.10, "output_per_m": 0.40},
+            "gemini-2.5-pro": {"input_per_m": 1.25, "output_per_m": 10.00},
+            "gemini-3-flash-preview": {"input_per_m": 0.50, "output_per_m": 3.00},
+            "gemini-3.1-flash-lite-preview": {"input_per_m": 0.25, "output_per_m": 1.50},
+            "gemini-3.1-pro-preview": {"input_per_m": 2.00, "output_per_m": 12.00},
+        }
+
+    def _estimate_cost_usd(self, prompt_tokens: int, completion_tokens: int) -> tuple[float, dict]:
+        table = self._pricing_table()
+        pricing = table.get(self.model_id)
+        if not pricing:
+            return 0.0, {
+                "pricing_source": "unmapped_model",
+                "pricing_mode": "unknown",
+            }
+
+        estimated_cost = (
+            (prompt_tokens / 1_000_000) * pricing["input_per_m"] +
+            (completion_tokens / 1_000_000) * pricing["output_per_m"]
+        )
+        return estimated_cost, {
+            "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+            "pricing_mode": "paid_tier_standard",
+            "input_price_per_m_tokens_usd": pricing["input_per_m"],
+            "output_price_per_m_tokens_usd": pricing["output_per_m"],
+        }
 
     def upload_pdf(self, file_path: str):
         """Gemini 专属：上传文件并等待处理完成"""
@@ -104,11 +171,31 @@ class GeminiProvider(BaseLLMProvider):
             candidate = response.candidates[0] if response.candidates else None
             finish_reason = getattr(candidate, 'finish_reason', 'UNKNOWN')
             raise Exception(f"❌ Gemini 返回空。原因: {finish_reason}")
+
+        usage = getattr(response, "usage_metadata", None)
+        prompt_tokens = getattr(usage, "prompt_token_count", 0) if usage else 0
+        completion_tokens = getattr(usage, "candidates_token_count", 0) if usage else 0
+        total_tokens = getattr(usage, "total_token_count", 0) if usage else (prompt_tokens + completion_tokens)
+        candidate = response.candidates[0] if getattr(response, "candidates", None) else None
+        finish_reason = getattr(candidate, "finish_reason", "UNKNOWN")
+        estimated_cost_usd, pricing_meta = self._estimate_cost_usd(prompt_tokens, completion_tokens)
+        self._record_usage(
+            input_tokens=prompt_tokens,
+            output_tokens=completion_tokens,
+            total_tokens=total_tokens,
+            estimated_cost_usd=estimated_cost_usd,
+            meta={
+                "model": self.model_id,
+                "finish_reason": str(finish_reason),
+                **pricing_meta,
+            }
+        )
             
         return self._safe_parse_json(response.text)
 
 class ClaudeProvider(BaseLLMProvider):
     def __init__(self, api_key: str, model_id: str):
+        super().__init__()
         from anthropic import Anthropic
         self.client = Anthropic(api_key=api_key)
         self.model_id = model_id
@@ -139,10 +226,21 @@ class ClaudeProvider(BaseLLMProvider):
             temperature=0.0,
             messages=[{"role": "user", "content": content_array}]
         )
+        usage = getattr(response, "usage", None)
+        input_tokens = getattr(usage, "input_tokens", 0) if usage else 0
+        output_tokens = getattr(usage, "output_tokens", 0) if usage else 0
+        self._record_usage(
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            total_tokens=input_tokens + output_tokens,
+            estimated_cost_usd=0.0,
+            meta={"model": self.model_id}
+        )
         return self._safe_parse_json(response.content[0].text)
 
 class DoubaoProvider(BaseLLMProvider):
     def __init__(self, api_key: str, endpoint_id: str):
+        super().__init__()
         from volcenginesdkarkruntime import Ark
         self.client = Ark(api_key=api_key)
         self.endpoint_id = endpoint_id
@@ -173,6 +271,17 @@ class DoubaoProvider(BaseLLMProvider):
             messages=[{"role": "user", "content": content_list}],
             temperature=0.0,
             max_tokens=8192  
+        )
+        usage = getattr(response, "usage", None)
+        prompt_tokens = getattr(usage, "prompt_tokens", 0) if usage else 0
+        completion_tokens = getattr(usage, "completion_tokens", 0) if usage else 0
+        total_tokens = getattr(usage, "total_tokens", 0) if usage else (prompt_tokens + completion_tokens)
+        self._record_usage(
+            input_tokens=prompt_tokens,
+            output_tokens=completion_tokens,
+            total_tokens=total_tokens,
+            estimated_cost_usd=0.0,
+            meta={"model": self.endpoint_id}
         )
         return self._safe_parse_json(response.choices[0].message.content)
 

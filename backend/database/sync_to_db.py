@@ -99,10 +99,19 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
     lesson_metadata = data.get("lesson_metadata", {})
     course_content = data.get("course_content", {})
     database_items = data.get("database_items", [])
+    video_plan = data.get("video_plan", {}) if isinstance(data.get("video_plan"), dict) else {}
+    lesson_audio_assets = data.get("lesson_audio_assets", {}) if isinstance(data.get("lesson_audio_assets"), dict) else {}
     vocabulary_items = course_content.get("vocabulary", []) if isinstance(course_content, dict) else []
     structured_lesson_payload = {
         "lesson_metadata": lesson_metadata,
         "course_content": course_content,
+        "video_plan": video_plan,
+        "teaching_video": (
+            video_plan.get("dramatization", {})
+            if isinstance(video_plan.get("dramatization"), dict)
+            else {"global_config": {}, "scenes": []}
+        ),
+        "lesson_audio_assets": lesson_audio_assets,
     }
 
     course_id = lesson_metadata.get("course_id")
@@ -264,7 +273,7 @@ if __name__ == "__main__":
     synced_dir = content_builder_dir / "synced_json"
     synced_dir.mkdir(exist_ok=True)
     
-    json_files = list(output_dir.glob("*.json"))
+    json_files = list(output_dir.glob("*_data.json"))
     if not json_files:
         print("📭 没有待处理的 JSON 文件。")
     else:

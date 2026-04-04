@@ -94,6 +94,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     const inputRef = useRef(null);
     const speechActionsRef = useRef(null);
     const speechPrimaryButtonRef = useRef(null);
+    const speechSubmitButtonRef = useRef(null);
     const lastAutoPlayedKeyRef = useRef('');
     const recorderRef = useRef(null);
     const mediaStreamRef = useRef(null);
@@ -574,10 +575,15 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     useEffect(() => {
         if (!speechMode) return;
         const timer = setTimeout(() => {
-            speechPrimaryButtonRef.current?.focus();
+            const shouldFocusSubmit = !feedback && !isRecording && !isTranscribing && hasSpeechTranscript && !lowConfidence && !speechShouldRetry;
+            if (shouldFocusSubmit) {
+                speechSubmitButtonRef.current?.focus();
+            } else {
+                speechPrimaryButtonRef.current?.focus();
+            }
         }, 80);
         return () => clearTimeout(timer);
-    }, [speechMode, currentIndex, feedback, isRecording, isTranscribing, speechTranscript, isEvaluating]);
+    }, [speechMode, currentIndex, feedback, isRecording, isTranscribing, hasSpeechTranscript, isEvaluating, lowConfidence, speechShouldRetry]);
 
     useEffect(() => {
         if (!speechMode) return;
@@ -701,8 +707,10 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                         submitDisabled={!activeAnswer.trim() || isEvaluating || lowConfidence || speechShouldRetry}
                         isEvaluating={isEvaluating}
                         primaryButtonRef={speechMode ? speechPrimaryButtonRef : undefined}
+                        submitButtonRef={speechMode ? speechSubmitButtonRef : undefined}
+                        actionsRef={speechMode ? speechActionsRef : undefined}
                         primaryButtonClass={speechPrimaryTone}
-                        secondaryButtonClass={primaryButtonClass}
+                        secondaryButtonClass={secondaryButtonClass}
                     />
 
                     <AnimatePresence mode="wait">

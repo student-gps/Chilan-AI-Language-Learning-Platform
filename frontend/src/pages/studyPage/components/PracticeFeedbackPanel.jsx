@@ -32,6 +32,9 @@ export default function PracticeFeedbackPanel({
     const resolveButtonClass = (actionKey) =>
         activeAction === actionKey ? primaryButtonClass : secondaryButtonClass;
 
+    const enterHintClass = (actionKey) =>
+        activeAction === actionKey ? 'text-blue-200' : 'text-slate-400';
+
     return (
         <motion.div ref={actionsRef} key="feedback-area" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
             {!isPerfectFeedback && (
@@ -93,7 +96,7 @@ export default function PracticeFeedbackPanel({
                         >
                             {isBusy ? <Loader2 className="animate-spin" /> : <RefreshCcw size={22} />}
                             {speechMode ? '重新录音' : '重新作答'}
-                            <span className="ml-2 font-normal text-xs uppercase tracking-widest opacity-60">Enter</span>
+                            <span className={`ml-2 font-normal text-xs uppercase tracking-widest opacity-70 ${enterHintClass('retry')}`}>Enter</span>
                         </button>
                         <button
                             onClick={onSkip}
@@ -112,7 +115,7 @@ export default function PracticeFeedbackPanel({
                         className={`w-full py-5 rounded-[1.2rem] font-black text-xl transition-all flex items-center justify-center shadow-lg ${resolveButtonClass('next')}`}
                     >
                         {currentIndex === totalQuestions - 1 ? '完成本轮练习' : '下一题'}
-                        <span className="ml-3 text-blue-200 font-normal text-xs uppercase tracking-widest">Enter</span>
+                        <span className={`ml-3 font-normal text-xs uppercase tracking-widest opacity-70 ${enterHintClass('next')}`}>Enter</span>
                     </button>
                 )}
             </div>

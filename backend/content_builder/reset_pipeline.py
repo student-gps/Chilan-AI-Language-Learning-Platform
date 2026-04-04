@@ -33,6 +33,7 @@ RAW_MATERIALS_DIR = CURRENT_DIR / "raw_materials"
 ARCHIVE_PDFS_DIR = CURRENT_DIR / "archive_pdfs"
 SYNCED_JSON_DIR = CURRENT_DIR / "synced_json"
 OUTPUT_JSON_DIR = CURRENT_DIR / "output_json"
+OUTPUT_AUDIO_DIR = CURRENT_DIR / "output_audio"
 VOCAB_MEMORY_FILE = CURRENT_DIR / "global_vocab_memory.json"
 
 def reset_pipeline():
@@ -68,7 +69,23 @@ def reset_pipeline():
                 j_file.unlink()
             print(f"✅ 已排空文件夹: {folder.name} (删除了 {len(json_files)} 个文件)")
 
-    # --- 4. 数据库清空 (课程/题目/学习进度) ---
+    # --- 4. 清理所有课文音频产物 ---
+    if OUTPUT_AUDIO_DIR.exists():
+        lesson_dirs = [p for p in OUTPUT_AUDIO_DIR.iterdir() if p.is_dir()]
+        loose_files = [p for p in OUTPUT_AUDIO_DIR.iterdir() if p.is_file()]
+
+        for lesson_dir in lesson_dirs:
+            shutil.rmtree(lesson_dir, ignore_errors=True)
+        for audio_file in loose_files:
+            audio_file.unlink(missing_ok=True)
+
+        print(
+            f"✅ 已清理音频产物目录: {OUTPUT_AUDIO_DIR.name} "
+            f"(删除了 {len(lesson_dirs)} 个子目录, {len(loose_files)} 个散落文件)"
+        )
+    OUTPUT_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+
+    # --- 5. 数据库清空 (课程/题目/学习进度) ---
     conn = None
     cur = None
     try:
@@ -100,7 +117,7 @@ def reset_pipeline():
     print("✨ [重置完成] 系统已恢复初始状态。")
 
 if __name__ == "__main__":
-    confirm = input("⚠️  注意：此操作将物理删除所有生成的 JSON 和数据库记录！确定继续？(y/n): ")
+    confirm = input("⚠️  注意：此操作将物理删除所有生成的 JSON、音频文件和数据库记录！确定继续？(y/n): ")
     if confirm.lower() == 'y':
         reset_pipeline()
     else:

@@ -64,6 +64,65 @@ class PracticeProgressRequest(BaseModel):
     current_index: int
 
 
+def _normalize_teaching_video(payload: Any) -> Dict[str, Any]:
+    if not isinstance(payload, dict):
+        return {"global_config": {}, "scenes": []}
+
+    global_config = payload.get("global_config")
+    scenes = payload.get("scenes")
+
+    if not isinstance(global_config, dict):
+        global_config = {}
+    if not isinstance(scenes, list):
+        scenes = []
+
+    return {
+        "global_config": global_config,
+        "scenes": [scene for scene in scenes if isinstance(scene, dict)]
+    }
+
+
+def _normalize_lesson_audio_assets(payload: Any) -> Dict[str, Any]:
+    if not isinstance(payload, dict):
+        return {
+            "provider": "",
+            "mode": "sentence_audio",
+            "default_voice_type": None,
+            "role_voice_map": {},
+            "codec": "mp3",
+            "sample_rate": 16000,
+            "include_speakers": False,
+            "full_audio": {
+                "status": "missing",
+                "audio_url": "",
+                "local_audio_file": "",
+                "codec": "mp3",
+            },
+            "items": []
+        }
+
+    items = payload.get("items", [])
+    if not isinstance(items, list):
+        items = []
+
+    return {
+        "provider": payload.get("provider", ""),
+        "mode": payload.get("mode", "sentence_audio"),
+        "default_voice_type": payload.get("default_voice_type"),
+        "role_voice_map": payload.get("role_voice_map", {}) if isinstance(payload.get("role_voice_map"), dict) else {},
+        "codec": payload.get("codec", "mp3"),
+        "sample_rate": payload.get("sample_rate", 16000),
+        "include_speakers": bool(payload.get("include_speakers", False)),
+        "full_audio": payload.get("full_audio", {}) if isinstance(payload.get("full_audio"), dict) else {
+            "status": "missing",
+            "audio_url": "",
+            "local_audio_file": "",
+            "codec": payload.get("codec", "mp3"),
+        },
+        "items": [item for item in items if isinstance(item, dict)]
+    }
+
+
 def _to_optional_float(value: Any) -> Optional[float]:
     try:
         if value is None or value == "":
@@ -196,10 +255,31 @@ async def init_study_flow(user_id: str, course_id: int = 1):
         if isinstance(stored_lesson_payload, dict) and "course_content" in stored_lesson_payload:
             lesson_metadata = stored_lesson_payload.get("lesson_metadata", {}) or {}
             course_content = stored_lesson_payload.get("course_content", {}) or {}
+            teaching_video = _normalize_teaching_video(
+                stored_lesson_payload.get("teaching_video")
+                or (
+                    stored_lesson_payload.get("video_plan", {}).get("dramatization", {})
+                    if isinstance(stored_lesson_payload.get("video_plan"), dict)
+                    else {}
+                )
+            )
+            lesson_audio_assets = _normalize_lesson_audio_assets(
+                stored_lesson_payload.get("lesson_audio_assets")
+            )
         else:
             # 兼容旧数据：旧版本 lessons.structured_content 里只存了 course_content
             lesson_metadata = {}
             course_content = stored_lesson_payload if isinstance(stored_lesson_payload, dict) else {}
+            teaching_video = {
+                "global_config": stored_lesson_payload.get("video_global_config", {}) if isinstance(stored_lesson_payload, dict) else {},
+                "scenes": stored_lesson_payload.get("video_scenes", []) if isinstance(stored_lesson_payload, dict) else [],
+            }
+            lesson_audio_assets = _normalize_lesson_audio_assets(
+                stored_lesson_payload.get("lesson_audio_assets") if isinstance(stored_lesson_payload, dict) else {}
+            )
+
+        teaching_video = _normalize_teaching_video(teaching_video)
+        lesson_audio_assets = _normalize_lesson_audio_assets(lesson_audio_assets)
 
         lesson_metadata = {
             "course_id": course_id,
@@ -240,6 +320,8 @@ async def init_study_flow(user_id: str, course_id: int = 1):
                 "lesson_content": {
                     "lesson_metadata": lesson_metadata,
                     "course_content": course_content,
+                    "teaching_video": teaching_video,
+                    "lesson_audio_assets": lesson_audio_assets,
                     "aigc_visual_prompt": "A thematic visual for the current lesson..." 
                 },
                 "pending_items": new_questions,
