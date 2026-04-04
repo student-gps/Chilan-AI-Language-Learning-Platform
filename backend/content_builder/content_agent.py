@@ -135,9 +135,11 @@ class ContentCreatorAgent:
                     "codec": "mp3",
                     "sample_rate": 16000,
                     "include_speakers": False,
+                    "storage_backend": "local",
                     "full_audio": {
                         "status": "missing",
                         "audio_url": "",
+                        "object_key": "",
                         "local_audio_file": "",
                         "codec": "mp3",
                     },

@@ -2,6 +2,7 @@ import os
 import sys
 import shutil
 import json
+import argparse
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -18,6 +19,7 @@ sys.path.append(str(BACKEND_DIR))
 
 try:
     from database.connection import get_connection
+    from services.storage.tencent_cos_storage import TencentCOSStorage
 except ImportError:
     print("❌ 导入失败: 无法找到 database.connection。请确保文件夹结构正确。")
     sys.exit(1)
@@ -36,9 +38,87 @@ OUTPUT_JSON_DIR = CURRENT_DIR / "output_json"
 OUTPUT_AUDIO_DIR = CURRENT_DIR / "output_audio"
 VOCAB_MEMORY_FILE = CURRENT_DIR / "global_vocab_memory.json"
 
-def reset_pipeline():
+def _extract_object_keys(payload):
+    keys = set()
+
+    def walk(value):
+        if isinstance(value, dict):
+            object_key = value.get("object_key")
+            if isinstance(object_key, str) and object_key.strip():
+                keys.add(object_key.strip())
+            for nested in value.values():
+                walk(nested)
+        elif isinstance(value, list):
+            for item in value:
+                walk(item)
+
+    walk(payload)
+    return keys
+
+
+def _collect_local_cos_object_keys():
+    keys = set()
+    for folder in [OUTPUT_JSON_DIR, SYNCED_JSON_DIR]:
+        if not folder.exists():
+            continue
+        for json_file in folder.glob("*_data.json"):
+            try:
+                payload = json.loads(json_file.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            keys.update(_extract_object_keys(payload))
+    return keys
+
+
+def _collect_db_cos_object_keys(cur):
+    keys = set()
+    try:
+        cur.execute("SELECT structured_content FROM lessons")
+        rows = cur.fetchall()
+    except Exception:
+        return keys
+
+    for row in rows:
+        payload = None
+        if isinstance(row, dict):
+            payload = row.get("structured_content")
+        elif isinstance(row, (list, tuple)) and row:
+            payload = row[0]
+        if isinstance(payload, dict):
+            keys.update(_extract_object_keys(payload))
+    return keys
+
+
+def _purge_cos_objects(object_keys):
+    if not object_keys:
+        print("ℹ️ 未检测到需要删除的 COS 媒体对象。")
+        return
+
+    storage = TencentCOSStorage.from_env(optional=True)
+    if not storage:
+        print("⚠️ 未配置 TENCENT_COS_* 环境变量，跳过 COS 清理。")
+        return
+
+    deleted = 0
+    failed = 0
+    print(f"☁️ 正在清理 COS 媒体对象，共 {len(object_keys)} 个...")
+    for object_key in sorted(object_keys):
+        try:
+            storage.delete_object(object_key)
+            deleted += 1
+        except Exception as e:
+            failed += 1
+            print(f"⚠️ COS 删除失败: {object_key} | {e}")
+
+    print(f"✅ COS 清理完成：成功 {deleted} 个，失败 {failed} 个。")
+
+
+def reset_pipeline(with_cos: bool = False):
     print(f"🧹 [全系统重置] 正在清理测试数据...")
+    print(f"☁️ 云端媒体清理: {'开启 (--with-cos)' if with_cos else '关闭 (默认仅清本地与数据库)'}")
     print("---------------------------------------------")
+
+    local_cos_object_keys = _collect_local_cos_object_keys() if with_cos else set()
 
     # --- 1. 删除本地词汇记忆库 ---
     if VOCAB_MEMORY_FILE.exists():
@@ -88,10 +168,14 @@ def reset_pipeline():
     # --- 5. 数据库清空 (课程/题目/学习进度) ---
     conn = None
     cur = None
+    db_cos_object_keys = set()
     try:
         conn = get_connection()
         cur = conn.cursor()
-        
+
+        if with_cos:
+            db_cos_object_keys = _collect_db_cos_object_keys(cur)
+
         print("🎯 正在清空数据库表 [lessons]、[language_items]、[vocabulary_knowledge]、[user_progress_of_lessons] 和 [user_progress_of_language_items]...")
         # TRUNCATE 是最干净的方式，RESTART IDENTITY 会让自增 ID 回到 1
         cur.execute(
@@ -113,12 +197,27 @@ def reset_pipeline():
         if cur: cur.close()
         if conn: conn.close()
 
+    if with_cos:
+        _purge_cos_objects(local_cos_object_keys.union(db_cos_object_keys))
+
     print("---------------------------------------------")
     print("✨ [重置完成] 系统已恢复初始状态。")
 
 if __name__ == "__main__":
-    confirm = input("⚠️  注意：此操作将物理删除所有生成的 JSON、音频文件和数据库记录！确定继续？(y/n): ")
+    parser = argparse.ArgumentParser(description="Reset content builder outputs and lesson database records.")
+    parser.add_argument(
+        "--with-cos",
+        action="store_true",
+        help="额外清理腾讯云 COS 上已上传的媒体对象。",
+    )
+    args = parser.parse_args()
+
+    target_scope = "JSON、音频文件、数据库记录"
+    if args.with_cos:
+        target_scope += "以及 COS 云端媒体对象"
+
+    confirm = input(f"⚠️  注意：此操作将物理删除所有生成的 {target_scope}！确定继续？(y/n): ")
     if confirm.lower() == 'y':
-        reset_pipeline()
+        reset_pipeline(with_cos=args.with_cos)
     else:
         print("🚪 已取消操作。")

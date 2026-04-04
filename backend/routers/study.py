@@ -22,6 +22,7 @@ from services.llm.tools import LanguageTools
 from services.speech import ASRService
 from services.study.scheduler import FSRSScheduler
 from services.study.evaluator_service import StudyEvaluator
+from services.storage.tencent_cos_storage import TencentCOSStorage
 
 router = APIRouter(tags=["Study Flow"])
 
@@ -32,6 +33,7 @@ llm_tools = LanguageTools(engine=engine)
 scheduler = FSRSScheduler()
 evaluator_service = StudyEvaluator(tools=llm_tools)
 asr_service = ASRService()
+cos_media_storage = TencentCOSStorage.from_env(optional=True)
 
 # --- 📦 数据模型 ---
 class EvaluateRequest(BaseModel):
@@ -92,9 +94,11 @@ def _normalize_lesson_audio_assets(payload: Any) -> Dict[str, Any]:
             "codec": "mp3",
             "sample_rate": 16000,
             "include_speakers": False,
+            "storage_backend": "local",
             "full_audio": {
                 "status": "missing",
                 "audio_url": "",
+                "object_key": "",
                 "local_audio_file": "",
                 "codec": "mp3",
             },
@@ -113,14 +117,42 @@ def _normalize_lesson_audio_assets(payload: Any) -> Dict[str, Any]:
         "codec": payload.get("codec", "mp3"),
         "sample_rate": payload.get("sample_rate", 16000),
         "include_speakers": bool(payload.get("include_speakers", False)),
+        "storage_backend": payload.get("storage_backend", "local"),
         "full_audio": payload.get("full_audio", {}) if isinstance(payload.get("full_audio"), dict) else {
             "status": "missing",
             "audio_url": "",
+            "object_key": "",
             "local_audio_file": "",
             "codec": payload.get("codec", "mp3"),
         },
         "items": [item for item in items if isinstance(item, dict)]
     }
+
+
+def _hydrate_lesson_audio_urls(payload: Dict[str, Any]) -> Dict[str, Any]:
+    assets = _normalize_lesson_audio_assets(payload)
+    if not cos_media_storage:
+        return assets
+
+    full_audio = assets.get("full_audio", {})
+    if isinstance(full_audio, dict):
+        object_key = (full_audio.get("object_key") or "").strip()
+        if object_key:
+            try:
+                full_audio["audio_url"] = cos_media_storage.resolve_url(object_key)
+            except Exception as e:
+                print(f"⚠️ COS full audio 签名 URL 生成失败: {e}")
+
+    for item in assets.get("items", []):
+        object_key = (item.get("object_key") or "").strip()
+        if not object_key:
+            continue
+        try:
+            item["audio_url"] = cos_media_storage.resolve_url(object_key)
+        except Exception as e:
+            print(f"⚠️ COS sentence audio 签名 URL 生成失败: line_ref={item.get('line_ref')} | {e}")
+
+    return assets
 
 
 def _to_optional_float(value: Any) -> Optional[float]:
@@ -263,7 +295,7 @@ async def init_study_flow(user_id: str, course_id: int = 1):
                     else {}
                 )
             )
-            lesson_audio_assets = _normalize_lesson_audio_assets(
+            lesson_audio_assets = _hydrate_lesson_audio_urls(
                 stored_lesson_payload.get("lesson_audio_assets")
             )
         else:
@@ -274,12 +306,12 @@ async def init_study_flow(user_id: str, course_id: int = 1):
                 "global_config": stored_lesson_payload.get("video_global_config", {}) if isinstance(stored_lesson_payload, dict) else {},
                 "scenes": stored_lesson_payload.get("video_scenes", []) if isinstance(stored_lesson_payload, dict) else [],
             }
-            lesson_audio_assets = _normalize_lesson_audio_assets(
+            lesson_audio_assets = _hydrate_lesson_audio_urls(
                 stored_lesson_payload.get("lesson_audio_assets") if isinstance(stored_lesson_payload, dict) else {}
             )
 
         teaching_video = _normalize_teaching_video(teaching_video)
-        lesson_audio_assets = _normalize_lesson_audio_assets(lesson_audio_assets)
+        lesson_audio_assets = _hydrate_lesson_audio_urls(lesson_audio_assets)
 
         lesson_metadata = {
             "course_id": course_id,
