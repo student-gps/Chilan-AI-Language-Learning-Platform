@@ -10,6 +10,9 @@ import {
     EyeOff,
     Languages,
     Loader2,
+    Pause,
+    Play,
+    VolumeX,
     Volume2
 } from 'lucide-react';
 
@@ -78,6 +81,8 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
     const [lessonAudioDuration, setLessonAudioDuration] = useState(0);
     const [lessonAudioCurrentTime, setLessonAudioCurrentTime] = useState(0);
     const [isLessonAudioPlaying, setIsLessonAudioPlaying] = useState(false);
+    const [lessonAudioVolume, setLessonAudioVolume] = useState(1);
+    const [lessonAudioRate, setLessonAudioRate] = useState(1);
 
     const audioRef = useRef(null);
     const lessonAudioRef = useRef(null);
@@ -128,6 +133,18 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
             lessonAudioRef.current = null;
         }
     }, [lessonFullAudioUrl]);
+
+    useEffect(() => {
+        if (lessonAudioRef.current) {
+            lessonAudioRef.current.volume = lessonAudioVolume;
+        }
+    }, [lessonAudioVolume]);
+
+    useEffect(() => {
+        if (lessonAudioRef.current) {
+            lessonAudioRef.current.playbackRate = lessonAudioRate;
+        }
+    }, [lessonAudioRate]);
 
     if (!data) return null;
 
@@ -232,6 +249,8 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
 
         if (!lessonAudioRef.current) {
             const audio = new Audio(lessonFullAudioUrl);
+            audio.volume = lessonAudioVolume;
+            audio.playbackRate = lessonAudioRate;
             lessonAudioRef.current = audio;
 
             audio.onloadedmetadata = () => {
@@ -286,6 +305,16 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
         if (lessonAudioRef.current) {
             lessonAudioRef.current.currentTime = nextTime;
         }
+    };
+
+    const handleLessonAudioVolumeChange = (event) => {
+        const nextVolume = Number(event.target.value || 0);
+        setLessonAudioVolume(nextVolume);
+    };
+
+    const handleLessonAudioRateChange = (event) => {
+        const nextRate = Number(event.target.value || 1);
+        setLessonAudioRate(nextRate);
     };
 
     const handleStartPracticeClick = async () => {
@@ -399,45 +428,82 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                 {lessonFullAudioUrl && (
                     <motion.section variants={fadeInUp} initial="hidden" animate="show" className="mb-10">
                         <div className="rounded-[2.5rem] border border-slate-200 bg-white px-6 py-6 shadow-sm">
-                            <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-                                <div>
-                                    <p className="text-[10px] font-black uppercase tracking-[0.28em] text-slate-400">
-                                        full lesson audio
-                                    </p>
-                                    <h2 className="mt-2 text-2xl font-black text-slate-900">
-                                        本课完整对话音频
-                                    </h2>
-                                    <p className="mt-2 text-sm text-slate-500">
-                                        可以先整体听一遍课文，再逐句点听细看。
-                                    </p>
-                                </div>
+                            <p className="text-[10px] font-black uppercase tracking-[0.28em] text-slate-400">
+                                full lesson audio
+                            </p>
+                            <h2 className="mt-2 text-2xl font-black text-slate-900">
+                                本课完整对话音频
+                            </h2>
+                            <p className="mt-2 text-sm text-slate-500">
+                                可以先整体听一遍课文，再逐句点听细看。
+                            </p>
 
-                                <button
-                                    onClick={handleLessonAudioToggle}
-                                    className={`rounded-[1.5rem] px-6 py-3 text-sm font-black transition-all ${
-                                        isLessonAudioPlaying
-                                            ? 'bg-blue-600 text-white shadow-lg'
-                                            : 'bg-slate-900 text-white hover:bg-blue-600'
-                                    }`}
-                                >
-                                    {isLessonAudioPlaying ? '暂停播放' : '播放整课音频'}
-                                </button>
+                            <div className="mt-5 rounded-full bg-slate-100/90 px-4 py-3">
+                                <div className="flex flex-wrap items-center gap-4 md:flex-nowrap">
+                                    <button
+                                        onClick={handleLessonAudioToggle}
+                                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-slate-900 shadow-sm transition-all hover:bg-slate-50"
+                                        aria-label={isLessonAudioPlaying ? '暂停播放整课音频' : '播放整课音频'}
+                                    >
+                                        {isLessonAudioPlaying ? <Pause size={22} /> : <Play size={22} className="ml-0.5" />}
+                                    </button>
+
+                                    <div className="min-w-[96px] shrink-0 text-lg font-bold tabular-nums text-slate-800">
+                                        {formatAudioTime(lessonAudioCurrentTime)} / {formatAudioTime(lessonAudioDuration)}
+                                    </div>
+
+                                    <input
+                                        type="range"
+                                        min={0}
+                                        max={lessonAudioDuration || 0}
+                                        step={0.1}
+                                        value={Math.min(lessonAudioCurrentTime, lessonAudioDuration || 0)}
+                                        onChange={handleLessonAudioSeek}
+                                        className="h-2 min-w-[140px] flex-1 cursor-pointer appearance-none rounded-full bg-slate-300 accent-slate-900"
+                                    />
+
+                                    <div className="group relative flex shrink-0 items-center">
+                                        <button
+                                            type="button"
+                                            className="flex h-11 w-11 items-center justify-center rounded-full text-slate-800 transition-colors hover:bg-white"
+                                            aria-label="调节音量"
+                                        >
+                                            {lessonAudioVolume <= 0.01 ? <VolumeX size={22} /> : <Volume2 size={22} />}
+                                        </button>
+
+                                        <div className="pointer-events-none absolute right-0 top-full z-20 mt-2 w-40 rounded-2xl border border-slate-200 bg-white px-4 py-3 opacity-0 shadow-xl transition-all group-hover:pointer-events-auto group-hover:opacity-100">
+                                            <input
+                                                type="range"
+                                                min={0}
+                                                max={1}
+                                                step={0.01}
+                                                value={lessonAudioVolume}
+                                                onChange={handleLessonAudioVolumeChange}
+                                                className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-slate-900"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="shrink-0">
+                                        <select
+                                            value={lessonAudioRate}
+                                            onChange={handleLessonAudioRateChange}
+                                            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 outline-none transition-colors hover:border-slate-300"
+                                            aria-label="设置播放倍速"
+                                        >
+                                            {[0.5, 0.75, 1, 1.25, 1.5, 1.75, 2].map((rate) => (
+                                                <option key={rate} value={rate}>
+                                                    {rate}x
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div className="mt-5">
-                                <input
-                                    type="range"
-                                    min={0}
-                                    max={lessonAudioDuration || 0}
-                                    step={0.1}
-                                    value={Math.min(lessonAudioCurrentTime, lessonAudioDuration || 0)}
-                                    onChange={handleLessonAudioSeek}
-                                    className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-100 accent-blue-600"
-                                />
-                                <div className="mt-2 flex items-center justify-between text-sm font-medium text-slate-500">
-                                    <span>{formatAudioTime(lessonAudioCurrentTime)}</span>
-                                    <span>{formatAudioTime(lessonAudioDuration)}</span>
-                                </div>
+                            <div className="mt-3 flex items-center justify-between px-1 text-xs font-medium text-slate-400">
+                                <span>悬停音量图标调节音量</span>
+                                <span>支持 0.5x - 2x 倍速</span>
                             </div>
                         </div>
                     </motion.section>
