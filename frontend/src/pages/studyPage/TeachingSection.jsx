@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import apiClient from '../../api/apiClient';
+import { claimGlobalAudio, releaseGlobalAudio, stopGlobalAudio } from '../../utils/audioPlayback';
 import {
     ArrowRight,
     BookOpen,
@@ -114,6 +115,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                 lessonAudioRef.current.pause();
                 lessonAudioRef.current = null;
             }
+            stopGlobalAudio();
         };
     }, []);
 
@@ -139,6 +141,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
+            releaseGlobalAudio(audioRef.current);
             audioRef.current = null;
         }
         setPlayingKey(null);
@@ -148,6 +151,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
         if (lessonAudioRef.current) {
             lessonAudioRef.current.pause();
             lessonAudioRef.current.currentTime = 0;
+            releaseGlobalAudio(lessonAudioRef.current);
         }
         setIsLessonAudioPlaying(false);
         setLessonAudioCurrentTime(0);
@@ -165,13 +169,22 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
         stopLessonAudio();
 
         const audio = new Audio(url);
+        claimGlobalAudio(audio);
         audioRef.current = audio;
         setPlayingKey(key);
 
+        audio.onpause = () => {
+            if (audioRef.current === audio) {
+                audioRef.current = null;
+            }
+            releaseGlobalAudio(audio);
+            setPlayingKey(null);
+        };
         audio.onended = () => {
             if (audioRef.current === audio) {
                 audioRef.current = null;
             }
+            releaseGlobalAudio(audio);
             setPlayingKey(null);
         };
 
@@ -179,6 +192,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
             if (audioRef.current === audio) {
                 audioRef.current = null;
             }
+            releaseGlobalAudio(audio);
             setPlayingKey(null);
         };
 
@@ -189,6 +203,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
             if (audioRef.current === audio) {
                 audioRef.current = null;
             }
+            releaseGlobalAudio(audio);
             setPlayingKey(null);
         }
     };
@@ -225,15 +240,21 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
             audio.ontimeupdate = () => {
                 setLessonAudioCurrentTime(audio.currentTime || 0);
             };
+            audio.onpause = () => {
+                setIsLessonAudioPlaying(false);
+                releaseGlobalAudio(audio);
+            };
             audio.onended = () => {
                 setIsLessonAudioPlaying(false);
                 setLessonAudioCurrentTime(0);
+                releaseGlobalAudio(audio);
                 if (lessonAudioRef.current) {
                     lessonAudioRef.current.currentTime = 0;
                 }
             };
             audio.onerror = () => {
                 setIsLessonAudioPlaying(false);
+                releaseGlobalAudio(audio);
             };
         }
 
@@ -247,6 +268,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
         }
 
         stopCurrentAudio();
+        claimGlobalAudio(audio, { resetPrevious: true });
 
         try {
             await audio.play();
@@ -254,6 +276,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
         } catch (error) {
             console.error('播放整课音频失败:', error);
             setIsLessonAudioPlaying(false);
+            releaseGlobalAudio(audio);
         }
     };
 

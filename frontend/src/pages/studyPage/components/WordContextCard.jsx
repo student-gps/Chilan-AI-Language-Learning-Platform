@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { BookOpen, Eye, EyeOff, Volume2 } from 'lucide-react';
+import { claimGlobalAudio, releaseGlobalAudio } from '../../../utils/audioPlayback';
 
 const formatPinyinDisplay = (value = '') => {
     return value
@@ -81,8 +82,13 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
 
     const playAudio = (text) => {
         if (!text) return;
-const API_BASE = import.meta.env.VITE_APP_API_BASE_URL;
-        new Audio(`${API_BASE}/study/tts?text=${encodeURIComponent(text)}`).play();
+        const API_BASE = import.meta.env.VITE_APP_API_BASE_URL;
+        const audio = new Audio(`${API_BASE}/study/tts?text=${encodeURIComponent(text)}`);
+        claimGlobalAudio(audio);
+        audio.onpause = () => releaseGlobalAudio(audio);
+        audio.onended = () => releaseGlobalAudio(audio);
+        audio.onerror = () => releaseGlobalAudio(audio);
+        audio.play().catch(() => releaseGlobalAudio(audio));
     };
 
     const toggleExample = (key) => {

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Loader2, Send, Sparkles } from 'lucide-react';
 import apiClient, { evaluateStudyAnswer, transcribeSpeech } from '../../api/apiClient';
+import { claimGlobalAudio, releaseGlobalAudio } from '../../utils/audioPlayback';
 import AIThinkingIndicator from './components/AIThinkingIndicator';
 import PracticeAnswerPanel from './components/PracticeAnswerPanel';
 import PracticeFeedbackPanel from './components/PracticeFeedbackPanel';
@@ -160,8 +161,13 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
 
     const playAudio = (text) => {
         if (!text) return;
-const API_BASE = import.meta.env.VITE_APP_API_BASE_URL;
-        new Audio(`${API_BASE}/study/tts?text=${encodeURIComponent(text)}`).play();
+        const API_BASE = import.meta.env.VITE_APP_API_BASE_URL;
+        const audio = new Audio(`${API_BASE}/study/tts?text=${encodeURIComponent(text)}`);
+        claimGlobalAudio(audio);
+        audio.onpause = () => releaseGlobalAudio(audio);
+        audio.onended = () => releaseGlobalAudio(audio);
+        audio.onerror = () => releaseGlobalAudio(audio);
+        audio.play().catch(() => releaseGlobalAudio(audio));
     };
 
     const clearRecordingTimer = () => {
