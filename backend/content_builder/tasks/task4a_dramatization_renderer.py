@@ -3,6 +3,14 @@ import time
 from typing import Any
 
 import requests
+import sys
+from pathlib import Path
+
+BACKEND_DIR = Path(__file__).resolve().parents[2]
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.append(str(BACKEND_DIR))
+
+from config.env import get_env
 
 
 class Task4ADramatizationRenderer:
@@ -18,7 +26,7 @@ class Task4ADramatizationRenderer:
         poll_interval_seconds: int = 3,
         request_timeout_seconds: int = 60,
     ):
-        self.api_key = (api_key or os.getenv("LUMA_API_KEY") or os.getenv("LUMAAI_API_KEY") or "").strip()
+        self.api_key = (api_key or get_env("MEDIA_LUMA_API_KEY", "LUMA_API_KEY", "LUMAAI_API_KEY", default="")).strip()
         self.model = model
         self.resolution = resolution
         self.duration = duration

@@ -23,11 +23,12 @@ from services.speech import ASRService
 from services.study.scheduler import FSRSScheduler
 from services.study.evaluator_service import StudyEvaluator
 from services.storage.tencent_cos_storage import TencentCOSStorage
+from config.env import get_env
 
 router = APIRouter(tags=["Study Flow"])
 
 # --- ⚙️ 初始化全局单例 ---
-API_KEY = os.getenv("GEMINI_API_KEY")
+API_KEY = get_env("LLM_GEMINI_API_KEY", "GEMINI_API_KEY")
 engine = LLMEngine(api_key=API_KEY)
 llm_tools = LanguageTools(engine=engine)
 scheduler = FSRSScheduler()
@@ -95,6 +96,7 @@ def _normalize_lesson_audio_assets(payload: Any) -> Dict[str, Any]:
             "sample_rate": 16000,
             "include_speakers": False,
             "storage_backend": "local",
+            "sentence_gap_ms": 300,
             "full_audio": {
                 "status": "missing",
                 "audio_url": "",
@@ -118,6 +120,7 @@ def _normalize_lesson_audio_assets(payload: Any) -> Dict[str, Any]:
         "sample_rate": payload.get("sample_rate", 16000),
         "include_speakers": bool(payload.get("include_speakers", False)),
         "storage_backend": payload.get("storage_backend", "local"),
+        "sentence_gap_ms": payload.get("sentence_gap_ms", 300),
         "full_audio": payload.get("full_audio", {}) if isinstance(payload.get("full_audio"), dict) else {
             "status": "missing",
             "audio_url": "",

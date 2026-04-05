@@ -80,7 +80,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
 
     const audioRef = useRef(null);
     const lessonAudioRef = useRef(null);
-    const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+    const API_BASE = import.meta.env.VITE_APP_API_BASE_URL || import.meta.env.VITE_API_BASE_URL || '';
     const lesson_metadata = data?.lesson_metadata || {};
     const course_content = data?.course_content || {};
     const aigc_visual_prompt = data?.aigc_visual_prompt || '';
@@ -257,6 +257,14 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
         }
     };
 
+    const handleLessonAudioSeek = (event) => {
+        const nextTime = Number(event.target.value || 0);
+        setLessonAudioCurrentTime(nextTime);
+        if (lessonAudioRef.current) {
+            lessonAudioRef.current.currentTime = nextTime;
+        }
+    };
+
     const handleStartPracticeClick = async () => {
         if (isSaving) return;
         setIsSaving(true);
@@ -394,16 +402,15 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                             </div>
 
                             <div className="mt-5">
-                                <div className="h-2 overflow-hidden rounded-full bg-slate-100">
-                                    <div
-                                        className="h-full rounded-full bg-blue-500 transition-all"
-                                        style={{
-                                            width: `${lessonAudioDuration > 0
-                                                ? Math.min((lessonAudioCurrentTime / lessonAudioDuration) * 100, 100)
-                                                : 0}%`
-                                        }}
-                                    />
-                                </div>
+                                <input
+                                    type="range"
+                                    min={0}
+                                    max={lessonAudioDuration || 0}
+                                    step={0.1}
+                                    value={Math.min(lessonAudioCurrentTime, lessonAudioDuration || 0)}
+                                    onChange={handleLessonAudioSeek}
+                                    className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-100 accent-blue-600"
+                                />
                                 <div className="mt-2 flex items-center justify-between text-sm font-medium text-slate-500">
                                     <span>{formatAudioTime(lessonAudioCurrentTime)}</span>
                                     <span>{formatAudioTime(lessonAudioDuration)}</span>

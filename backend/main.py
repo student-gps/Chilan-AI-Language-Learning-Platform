@@ -9,11 +9,12 @@ from typing import List
 # 🌟 1. 挂载路由（所有的 /study/... 和 /auth/... 逻辑都已移入这两个文件）
 from routers import auth, study
 from database.connection import get_connection
+from config.env import get_env
 
 app = FastAPI(title="Chilan LRS - Core Service")
 
 # 1. 从环境变量读取线上地址
-cors_origins_str = os.getenv("CORS_ORIGINS", "")
+cors_origins_str = get_env("APP_CORS_ORIGINS", "WEB_CORS_ORIGINS", "CORS_ORIGINS", default="")
 # 2. 将字符串转为列表，并去掉多余空格
 origins = [o.strip() for o in cors_origins_str.split(",") if o.strip()]
 

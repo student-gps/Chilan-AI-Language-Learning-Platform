@@ -1,13 +1,24 @@
 import json
 import os
 from llm_providers import BaseLLMProvider
+import sys
+from pathlib import Path
+
+BACKEND_DIR = Path(__file__).resolve().parents[2]
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.append(str(BACKEND_DIR))
+
+from config.env import get_env_int
 
 class Task1Extractor:
     def __init__(self, llm_provider: BaseLLMProvider):
         self.llm = llm_provider
-        self.pinyin_batch_size = max(1, int(os.getenv("CB_TASK1_PINYIN_BATCH_SIZE", "3")))
-        self.pinyin_batch_char_limit = max(200, int(os.getenv("CB_TASK1_PINYIN_BATCH_CHAR_LIMIT", "600")))
-        self.translation_repair_batch_size = max(1, int(os.getenv("CB_TASK1_TRANSLATION_REPAIR_BATCH_SIZE", "6")))
+        self.pinyin_batch_size = max(1, get_env_int("CONTENT_TASK1_PINYIN_BATCH_SIZE", "CB_TASK1_PINYIN_BATCH_SIZE", default=3))
+        self.pinyin_batch_char_limit = max(200, get_env_int("CONTENT_TASK1_PINYIN_BATCH_CHAR_LIMIT", "CB_TASK1_PINYIN_BATCH_CHAR_LIMIT", default=600))
+        self.translation_repair_batch_size = max(
+            1,
+            get_env_int("CONTENT_TASK1_TRANSLATION_REPAIR_BATCH_SIZE", "CB_TASK1_TRANSLATION_REPAIR_BATCH_SIZE", default=6)
+        )
 
     def _build_extract_prompt(self, lesson_id: int, course_id: int) -> str:
         # 🚀 第一步：文本提取 + 强力去噪

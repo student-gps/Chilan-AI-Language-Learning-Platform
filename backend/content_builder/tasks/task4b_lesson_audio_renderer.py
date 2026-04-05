@@ -17,6 +17,7 @@ BACKEND_DIR = Path(__file__).resolve().parents[2]
 if str(BACKEND_DIR) not in sys.path:
     sys.path.append(str(BACKEND_DIR))
 
+from config.env import get_env, get_env_int
 from services.storage.tencent_cos_storage import TencentCOSStorage
 
 
@@ -51,12 +52,13 @@ class Task4BLessonAudioRenderer:
         model_type: int = 1,
         primary_language: int = 1,
         project_id: int = 0,
+        sentence_gap_ms: int = 300,
         poll_interval_seconds: int = 3,
         request_timeout_seconds: int = 60,
     ):
-        self.secret_id = (secret_id or os.getenv("TENCENT_SECRET_ID") or "").strip()
-        self.secret_key = (secret_key or os.getenv("TENCENT_SECRET_KEY") or "").strip()
-        self.voice_type = voice_type or int(os.getenv("TENCENT_TTS_VOICE_TYPE", "301001"))
+        self.secret_id = (secret_id or get_env("TTS_TENCENT_SECRET_ID", "TENCENT_SECRET_ID", default="") or "").strip()
+        self.secret_key = (secret_key or get_env("TTS_TENCENT_SECRET_KEY", "TENCENT_SECRET_KEY", default="") or "").strip()
+        self.voice_type = voice_type or get_env_int("TTS_TENCENT_DEFAULT_VOICE_TYPE", "TENCENT_TTS_VOICE_TYPE", default=301001)
         self.role_voice_map = self._load_role_voice_map()
         self.codec = codec
         self.sample_rate = sample_rate
@@ -65,16 +67,17 @@ class Task4BLessonAudioRenderer:
         self.model_type = model_type
         self.primary_language = primary_language
         self.project_id = project_id
+        self.sentence_gap_ms = get_env_int("TTS_TENCENT_SENTENCE_GAP_MS", "TENCENT_TTS_SENTENCE_GAP_MS", default=sentence_gap_ms)
         self.poll_interval_seconds = poll_interval_seconds
         self.request_timeout_seconds = request_timeout_seconds
         self.cos_storage = TencentCOSStorage.from_env(optional=True)
 
     def _require_credentials(self):
         if not self.secret_id or not self.secret_key:
-            raise ValueError("TENCENT_SECRET_ID / TENCENT_SECRET_KEY 未配置，无法调用腾讯云 TTS。")
+            raise ValueError("TTS_TENCENT_SECRET_ID / TTS_TENCENT_SECRET_KEY 未配置，无法调用腾讯云 TTS。")
 
     def _load_role_voice_map(self) -> dict[str, int]:
-        env_mapping = (os.getenv("TENCENT_TTS_ROLE_VOICE_MAP_JSON") or "").strip()
+        env_mapping = (get_env("TTS_TENCENT_ROLE_VOICE_MAP_JSON", "TENCENT_TTS_ROLE_VOICE_MAP_JSON", default="") or "").strip()
         role_map = dict(self.DEFAULT_ROLE_VOICE_MAP)
         if not env_mapping:
             return role_map
@@ -282,13 +285,43 @@ class Task4BLessonAudioRenderer:
             return None
 
         concat_manifest = output_path.with_suffix(".concat.txt")
+        silence_file = output_path.with_suffix(".gap.mp3")
+
         lines = []
-        for file in audio_files:
-            normalized_path = file.resolve().as_posix().replace("'", "'\\''")
-            lines.append(f"file '{normalized_path}'")
-        concat_manifest.write_text("\n".join(lines), encoding="utf-8")
 
         try:
+            if self.sentence_gap_ms > 0 and len(audio_files) > 1:
+                silence_duration_seconds = max(self.sentence_gap_ms, 0) / 1000
+                subprocess.run(
+                    [
+                        "ffmpeg",
+                        "-y",
+                        "-f",
+                        "lavfi",
+                        "-i",
+                        f"anullsrc=r={self.sample_rate}:cl=mono",
+                        "-t",
+                        f"{silence_duration_seconds:.3f}",
+                        "-q:a",
+                        "9",
+                        "-acodec",
+                        "libmp3lame",
+                        str(silence_file),
+                    ],
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+
+            for index, file in enumerate(audio_files):
+                normalized_path = file.resolve().as_posix().replace("'", "'\\''")
+                lines.append(f"file '{normalized_path}'")
+                if silence_file.exists() and index < len(audio_files) - 1:
+                    silence_path = silence_file.resolve().as_posix().replace("'", "'\\''")
+                    lines.append(f"file '{silence_path}'")
+
+            concat_manifest.write_text("\n".join(lines), encoding="utf-8")
+
             subprocess.run(
                 [
                     "ffmpeg",
@@ -311,6 +344,8 @@ class Task4BLessonAudioRenderer:
         finally:
             if concat_manifest.exists():
                 concat_manifest.unlink()
+            if silence_file.exists():
+                silence_file.unlink()
 
     def submit_full_dialogue_audio(self, lesson_data: dict, include_speakers: bool = False) -> dict[str, Any]:
         plan = self.build_audio_plan(lesson_data, include_speakers=include_speakers)
@@ -423,6 +458,7 @@ class Task4BLessonAudioRenderer:
                 "voice_type": voice_type,
                 "codec": self.codec,
                 "sample_rate": self.sample_rate,
+                "sentence_gap_ms": self.sentence_gap_ms,
                 "status": "ready",
                 "session_id": response.get("SessionId", ""),
                 "request_id": response.get("RequestId", ""),
@@ -476,6 +512,7 @@ class Task4BLessonAudioRenderer:
                 "sample_rate": self.sample_rate,
                 "include_speakers": include_speakers,
                 "storage_backend": storage_backend,
+                "sentence_gap_ms": self.sentence_gap_ms,
                 "full_audio": full_audio_payload,
                 "items": rendered_items,
             }

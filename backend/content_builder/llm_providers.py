@@ -3,6 +3,14 @@ import json
 import time
 from abc import ABC, abstractmethod
 from json_repair import repair_json  # 必须安装: pip install json-repair
+import sys
+from pathlib import Path
+
+BACKEND_DIR = Path(__file__).resolve().parents[1]
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.append(str(BACKEND_DIR))
+
+from config.env import get_env
 
 class BaseLLMProvider(ABC):
     """定义所有模型必须实现的标准接口"""
@@ -289,23 +297,23 @@ class LLMFactory:
     """根据配置文件分发具体的模型 Provider"""
     @staticmethod
     def create_provider() -> BaseLLMProvider:
-        provider_type = os.getenv("CB_ACTIVE_LLM", "gemini").lower()
+        provider_type = get_env("LLM_CONTENT_PROVIDER", "CB_ACTIVE_LLM", default="gemini").lower()
         
         if provider_type == "gemini":
-            api_key = os.getenv("CB_GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
-            model_id = os.getenv("CB_GEMINI_MODEL_ID", "gemini-2.0-flash")
+            api_key = get_env("LLM_CONTENT_GEMINI_API_KEY", "CB_GEMINI_API_KEY", "LLM_GEMINI_API_KEY", "GEMINI_API_KEY")
+            model_id = get_env("LLM_CONTENT_GEMINI_MODEL_ID", "CB_GEMINI_MODEL_ID", default="gemini-2.0-flash")
             if not api_key: raise ValueError("❌ 未找到 Gemini API Key")
             return GeminiProvider(api_key, model_id)
             
         elif provider_type == "claude":
-            api_key = os.getenv("CB_CLAUDE_API_KEY")
-            model_id = os.getenv("CB_CLAUDE_MODEL_ID", "claude-3-5-sonnet-latest")
+            api_key = get_env("LLM_CONTENT_CLAUDE_API_KEY", "CB_CLAUDE_API_KEY")
+            model_id = get_env("LLM_CONTENT_CLAUDE_MODEL_ID", "CB_CLAUDE_MODEL_ID", default="claude-3-5-sonnet-latest")
             if not api_key: raise ValueError("❌ 未找到 Claude API Key")
             return ClaudeProvider(api_key, model_id)
             
         elif provider_type == "doubao":
-            api_key = os.getenv("CB_DOUBAO_API_KEY")
-            endpoint_id = os.getenv("CB_DOUBAO_ENDPOINT_ID")
+            api_key = get_env("LLM_CONTENT_DOUBAO_API_KEY", "CB_DOUBAO_API_KEY")
+            endpoint_id = get_env("LLM_CONTENT_DOUBAO_ENDPOINT_ID", "CB_DOUBAO_ENDPOINT_ID")
             if not api_key or not endpoint_id: raise ValueError("❌ 未找到 Doubao 配置")
             return DoubaoProvider(api_key, endpoint_id)
             

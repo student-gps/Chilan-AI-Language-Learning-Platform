@@ -4,19 +4,20 @@ from typing import List
 import google.generativeai as google_genai
 from .base_engine import LLMEngine
 from .prompts import EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH
+from config.env import get_env, get_env_int
 
 class LanguageTools:
     def __init__(self, engine: LLMEngine):
         self.engine = engine
-        self.embed_provider = os.getenv("EMBED_ACTIVE_PROVIDER", "doubao").lower()
-        self.gemini_model_id = os.getenv("EMBED_GEMINI_MODEL_ID", "gemini-embedding-001")
-        self.doubao_model_id = os.getenv("EMBED_DOUBAO_MODEL_ID")
+        self.embed_provider = get_env("LLM_EMBED_PROVIDER", "EMBED_ACTIVE_PROVIDER", default="doubao").lower()
+        self.gemini_model_id = get_env("LLM_EMBED_GEMINI_MODEL_ID", "EMBED_GEMINI_MODEL_ID", default="gemini-embedding-001")
+        self.doubao_model_id = get_env("LLM_EMBED_DOUBAO_MODEL_ID", "EMBED_DOUBAO_MODEL_ID")
         self._doubao_client = None
 
     def _get_doubao_client(self):
         if self._doubao_client is None:
             from volcenginesdkarkruntime import Ark
-            api_key = os.getenv("EMBED_DOUBAO_API_KEY")
+            api_key = get_env("LLM_EMBED_DOUBAO_API_KEY", "EMBED_DOUBAO_API_KEY")
             self._doubao_client = Ark(api_key=api_key)
         return self._doubao_client
 
@@ -24,7 +25,7 @@ class LanguageTools:
         start = time.perf_counter()
         try:
             if self.embed_provider == "gemini":
-                api_key = os.getenv("EMBED_GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
+                api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY", "GEMINI_API_KEY")
                 google_genai.configure(api_key=api_key)
                 result = google_genai.embed_content(
                     model=f"models/{self.gemini_model_id}" if not self.gemini_model_id.startswith("models/") else self.gemini_model_id,

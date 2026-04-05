@@ -4,13 +4,19 @@ from typing import Optional
 import bcrypt
 from jose import JWTError, jwt
 from passlib.hash import pbkdf2_sha256
+from config.env import get_env, get_env_int
 
 # 新密码统一使用 pbkdf2_sha256，避免 Render / Python 3.14 环境下
 # passlib+bcrypt 的兼容问题。旧用户如果库里存的是 bcrypt 哈希，仍做兼容验证。
 
-SECRET_KEY = os.getenv("JWT_SECRET", "fallback_secret")
-ALGORITHM = os.getenv("ALGORITHM", "HS256")
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 1440))
+SECRET_KEY = get_env("SECURITY_JWT_SECRET", "AUTH_JWT_SECRET", "JWT_SECRET", default="fallback_secret")
+ALGORITHM = get_env("SECURITY_JWT_ALGORITHM", "AUTH_JWT_ALGORITHM", "ALGORITHM", default="HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = get_env_int(
+    "SECURITY_ACCESS_TOKEN_EXPIRE_MINUTES",
+    "AUTH_ACCESS_TOKEN_EXPIRE_MINUTES",
+    "ACCESS_TOKEN_EXPIRE_MINUTES",
+    default=1440,
+)
 
 def get_password_hash(password: str):
     """哈希化存储密码"""

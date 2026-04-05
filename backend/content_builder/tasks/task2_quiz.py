@@ -4,6 +4,13 @@ import re
 import time
 from pathlib import Path
 from llm_providers import BaseLLMProvider
+import sys
+
+BACKEND_DIR = Path(__file__).resolve().parents[2]
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.append(str(BACKEND_DIR))
+
+from config.env import get_env, get_env_bool, get_env_float, get_env_int
 
 class Task2QuizGenerator:
     def __init__(self, llm_provider: BaseLLMProvider, memory_dir: Path):
@@ -11,21 +18,14 @@ class Task2QuizGenerator:
         self.memory_file = memory_dir / "global_vocab_memory.json"
         # 🚀 这里的 global_vocab 现在的结构是字典: { "单词": [ {词义1...}, {词义2...} ] }
         self.global_vocab = self._load_memory()
-        self.example_batch_size = max(1, int(os.getenv("CB_TASK2_EXAMPLE_BATCH_SIZE", "3")))
-        self.word_quiz_batch_size = max(1, int(os.getenv("CB_TASK2_WORD_QUIZ_BATCH_SIZE", "4")))
-        self.speech_quiz_min = max(1, int(os.getenv("CB_TASK2_SPEECH_QUIZ_MIN", "3")))
-        self.speech_quiz_max = max(self.speech_quiz_min, int(os.getenv("CB_TASK2_SPEECH_QUIZ_MAX", "5")))
+        self.example_batch_size = max(1, get_env_int("CONTENT_TASK2_EXAMPLE_BATCH_SIZE", "CB_TASK2_EXAMPLE_BATCH_SIZE", default=3))
+        self.word_quiz_batch_size = max(1, get_env_int("CONTENT_TASK2_WORD_QUIZ_BATCH_SIZE", "CB_TASK2_WORD_QUIZ_BATCH_SIZE", default=4))
+        self.speech_quiz_min = max(1, get_env_int("PRACTICE_SPEECH_QUIZ_MIN", "CB_TASK2_SPEECH_QUIZ_MIN", default=3))
+        self.speech_quiz_max = max(self.speech_quiz_min, get_env_int("PRACTICE_SPEECH_QUIZ_MAX", "CB_TASK2_SPEECH_QUIZ_MAX", default=5))
         target_default = min(self.speech_quiz_max, 4)
-        self.speech_quiz_target = int(os.getenv("CB_TASK2_SPEECH_QUIZ_TARGET", str(target_default)))
+        self.speech_quiz_target = get_env_int("PRACTICE_SPEECH_QUIZ_TARGET", "CB_TASK2_SPEECH_QUIZ_TARGET", default=target_default)
         self.speech_quiz_target = max(self.speech_quiz_min, min(self.speech_quiz_target, self.speech_quiz_max))
-        self.speech_allow_paraphrase = self._env_bool("VOICE_ALLOW_PARAPHRASE", True)
-
-    @staticmethod
-    def _env_bool(name: str, default: bool) -> bool:
-        raw = os.getenv(name)
-        if raw is None:
-            return default
-        return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
+        self.speech_allow_paraphrase = get_env_bool("PRACTICE_VOICE_ALLOW_PARAPHRASE", "VOICE_ALLOW_PARAPHRASE", default=True)
 
     def _load_memory(self) -> dict:
         if self.memory_file.exists():
@@ -542,11 +542,11 @@ class Task2QuizGenerator:
 
     def _get_speech_eval_config(self) -> dict:
         return {
-            "pass_threshold": float(os.getenv("VOICE_PASS_THRESHOLD", "0.88")),
-            "review_threshold": float(os.getenv("VOICE_REVIEW_THRESHOLD", "0.78")),
-            "min_asr_confidence": float(os.getenv("VOICE_MIN_ASR_CONFIDENCE", "0.60")),
-            "max_attempts": int(os.getenv("VOICE_MAX_ATTEMPTS", "3")),
-            "max_duration_sec": int(os.getenv("VOICE_MAX_DURATION_SEC", "15")),
+            "pass_threshold": get_env_float("PRACTICE_VOICE_PASS_THRESHOLD", "VOICE_PASS_THRESHOLD", default=0.88),
+            "review_threshold": get_env_float("PRACTICE_VOICE_REVIEW_THRESHOLD", "VOICE_REVIEW_THRESHOLD", default=0.78),
+            "min_asr_confidence": get_env_float("PRACTICE_VOICE_MIN_ASR_CONFIDENCE", "VOICE_MIN_ASR_CONFIDENCE", default=0.60),
+            "max_attempts": get_env_int("PRACTICE_VOICE_MAX_ATTEMPTS", "VOICE_MAX_ATTEMPTS", default=3),
+            "max_duration_sec": get_env_int("PRACTICE_VOICE_MAX_DURATION_SEC", "VOICE_MAX_DURATION_SEC", default=15),
             "allow_paraphrase": self.speech_allow_paraphrase,
         }
 

@@ -2,6 +2,7 @@ import mimetypes
 import os
 from pathlib import Path
 from urllib.parse import quote
+from config.env import get_env, get_env_bool, get_env_int
 
 try:
     from qcloud_cos import CosConfig, CosS3Client
@@ -34,10 +35,10 @@ class TencentCOSStorage:
 
     @classmethod
     def from_env(cls, optional: bool = False):
-        secret_id = os.getenv("TENCENT_COS_SECRET_ID", "").strip()
-        secret_key = os.getenv("TENCENT_COS_SECRET_KEY", "").strip()
-        region = os.getenv("TENCENT_COS_REGION", "").strip()
-        bucket = os.getenv("TENCENT_COS_BUCKET", "").strip()
+        secret_id = get_env("STORAGE_COS_SECRET_ID", "TENCENT_COS_SECRET_ID", default="")
+        secret_key = get_env("STORAGE_COS_SECRET_KEY", "TENCENT_COS_SECRET_KEY", default="")
+        region = get_env("STORAGE_COS_REGION", "TENCENT_COS_REGION", default="")
+        bucket = get_env("STORAGE_COS_BUCKET", "TENCENT_COS_BUCKET", default="")
 
         if not all([secret_id, secret_key, region, bucket]):
             if optional:
@@ -49,9 +50,13 @@ class TencentCOSStorage:
             secret_key=secret_key,
             region=region,
             bucket=bucket,
-            public_base_url=os.getenv("TENCENT_COS_PUBLIC_BASE_URL", ""),
-            use_signed_url=(os.getenv("TENCENT_COS_USE_SIGNED_URL", "true").strip().lower() != "false"),
-            signed_url_expires_seconds=int(os.getenv("TENCENT_COS_SIGNED_URL_EXPIRES_SECONDS", "3600")),
+            public_base_url=get_env("STORAGE_COS_PUBLIC_BASE_URL", "TENCENT_COS_PUBLIC_BASE_URL", default=""),
+            use_signed_url=get_env_bool("STORAGE_COS_USE_SIGNED_URL", "TENCENT_COS_USE_SIGNED_URL", default=True),
+            signed_url_expires_seconds=get_env_int(
+                "STORAGE_COS_SIGNED_URL_EXPIRES_SECONDS",
+                "TENCENT_COS_SIGNED_URL_EXPIRES_SECONDS",
+                default=3600,
+            ),
         )
 
     def _require_sdk(self):

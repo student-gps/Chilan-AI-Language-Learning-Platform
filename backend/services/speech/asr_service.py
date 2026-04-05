@@ -4,6 +4,7 @@ import os
 import re
 import wave
 from typing import Any, Dict, Optional
+from config.env import get_env, get_env_int
 
 
 class ASRService:
@@ -21,9 +22,9 @@ class ASRService:
     )
 
     def __init__(self):
-        self.provider = os.getenv("ASR_ACTIVE_PROVIDER", "openai").lower()
-        self.max_audio_bytes = int(os.getenv("ASR_MAX_AUDIO_BYTES", str(10 * 1024 * 1024)))
-        self.openai_model = os.getenv("ASR_OPENAI_MODEL", "whisper-1")
+        self.provider = get_env("ASR_PROVIDER", "ASR_ACTIVE_PROVIDER", default="openai").lower()
+        self.max_audio_bytes = get_env_int("ASR_MAX_AUDIO_BYTES", default=10 * 1024 * 1024)
+        self.openai_model = get_env("ASR_OPENAI_MODEL", default="whisper-1")
 
     @staticmethod
     def _to_optional_float(value: Any) -> Optional[float]:
@@ -122,7 +123,7 @@ class ASRService:
         language: Optional[str],
         prompt: Optional[str],
     ) -> Dict[str, Any]:
-        api_key = os.getenv("ASR_OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+        api_key = get_env("ASR_OPENAI_API_KEY", "LLM_OPENAI_API_KEY", "OPENAI_API_KEY")
         if not api_key:
             raise RuntimeError("OpenAI ASR key is missing. Set ASR_OPENAI_API_KEY or OPENAI_API_KEY.")
 

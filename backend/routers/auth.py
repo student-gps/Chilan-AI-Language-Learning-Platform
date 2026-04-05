@@ -6,6 +6,7 @@ from jwt import PyJWKClient
 from psycopg2.extras import RealDictCursor
 from database.connection import get_connection
 from database.utils import get_password_hash, verify_password, create_access_token
+from config.env import get_env, get_env_bool, get_env_int
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
@@ -244,7 +245,7 @@ async def delete_account(user_id: str, req: DeleteAccountReq, db=Depends(get_db)
     return {"status": "success"}
 
 def _get_mail_provider() -> str:
-    provider = (os.getenv("MAIL_PROVIDER") or "smtp").strip().lower()
+    provider = (get_env("MAIL_PROVIDER", default="smtp") or "smtp").strip().lower()
     if provider in {"gmail", "smtp"}:
         return "smtp"
     if provider == "resend":
@@ -254,21 +255,22 @@ def _get_mail_provider() -> str:
 def _send_email_via_smtp(to_email: str, subject: str, html_content: str):
     msg = MIMEText(html_content, 'html', 'utf-8')
     msg['Subject'] = subject
-    msg['From'] = os.getenv("MAIL_FROM")
+    msg['From'] = get_env("MAIL_FROM", "MAIL_SMTP_FROM", default="")
     msg['To'] = to_email
 
-    host = os.getenv("MAIL_SERVER")
-    port = int(os.getenv("MAIL_PORT", "587"))
-    username = os.getenv("MAIL_USERNAME")
-    password = os.getenv("MAIL_PASSWORD")
-    use_ssl = (os.getenv("MAIL_USE_SSL", "false").strip().lower() == "true")
-    use_tls = (os.getenv("MAIL_USE_TLS", "true").strip().lower() == "true")
+    host = get_env("MAIL_SMTP_SERVER", "MAIL_SERVER")
+    port = get_env_int("MAIL_SMTP_PORT", "MAIL_PORT", default=587)
+    username = get_env("MAIL_SMTP_USERNAME", "MAIL_USERNAME")
+    password = get_env("MAIL_SMTP_PASSWORD", "MAIL_PASSWORD")
+    mail_from = get_env("MAIL_FROM", "MAIL_SMTP_FROM")
+    use_ssl = get_env_bool("MAIL_SMTP_USE_SSL", "MAIL_USE_SSL", default=False)
+    use_tls = get_env_bool("MAIL_SMTP_USE_TLS", "MAIL_USE_TLS", default=True)
 
-    if not host or not username or not password or not os.getenv("MAIL_FROM"):
+    if not host or not username or not password or not mail_from:
         raise HTTPException(status_code=500, detail="SMTP mail config missing")
 
     try:
-        print(f"📨 [SMTP] Sending auth email to={to_email} host={host} port={port} from={os.getenv('MAIL_FROM')}")
+        print(f"📨 [SMTP] Sending auth email to={to_email} host={host} port={port} from={mail_from}")
         smtp_cls = smtplib.SMTP_SSL if use_ssl else smtplib.SMTP
         with smtp_cls(host, port) as server:
             if use_tls and not use_ssl:
@@ -282,9 +284,9 @@ def _send_email_via_smtp(to_email: str, subject: str, html_content: str):
         raise HTTPException(status_code=500, detail=f"Mail failed (SMTP): {type(e).__name__}")
 
 def _send_email_via_resend(to_email: str, subject: str, html_content: str):
-    api_key = os.getenv("RESEND_API_KEY")
-    from_email = os.getenv("RESEND_FROM") or os.getenv("MAIL_FROM")
-    audience = os.getenv("RESEND_AUDIENCE")
+    api_key = get_env("MAIL_RESEND_API_KEY", "RESEND_API_KEY")
+    from_email = get_env("MAIL_RESEND_FROM", "RESEND_FROM", "MAIL_FROM", "MAIL_SMTP_FROM")
+    audience = get_env("MAIL_RESEND_AUDIENCE", "RESEND_AUDIENCE")
 
     if not api_key or not from_email:
         raise HTTPException(status_code=500, detail="Resend mail config missing")
@@ -451,7 +453,13 @@ async def google_auth(req: GoogleAuthReq, request: Request, db=Depends(get_db)):
 async def apple_auth(req: AppleAuthReq, request: Request, db=Depends(get_db)):
     jwks_client = PyJWKClient("https://appleid.apple.com/auth/keys")
     try:
-        idinfo = jwt.decode(req.token, jwks_client.get_signing_key_from_jwt(req.token).key, algorithms=["RS256"], audience=os.getenv("APPLE_CLIENT_ID"), issuer="https://appleid.apple.com")
+        idinfo = jwt.decode(
+            req.token,
+            jwks_client.get_signing_key_from_jwt(req.token).key,
+            algorithms=["RS256"],
+            audience=get_env("AUTH_APPLE_CLIENT_ID", "APPLE_CLIENT_ID"),
+            issuer="https://appleid.apple.com"
+        )
         email = idinfo.get('email') or f"{idinfo['sub']}@apple.chilan"
         cur = db.cursor(); cur.execute("SELECT user_id FROM users WHERE email = %s", (email,))
         user = cur.fetchone()

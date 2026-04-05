@@ -136,6 +136,7 @@ class ContentCreatorAgent:
                     "sample_rate": 16000,
                     "include_speakers": False,
                     "storage_backend": "local",
+                    "sentence_gap_ms": getattr(self.task4b, "sentence_gap_ms", 300),
                     "full_audio": {
                         "status": "missing",
                         "audio_url": "",

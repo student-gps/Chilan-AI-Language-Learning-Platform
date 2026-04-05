@@ -7,6 +7,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from abc import ABC, abstractmethod
 import sys
+from config.env import get_env
 
 # 将父目录加入路径以确保能找到 connection
 CURRENT_DIR = Path(__file__).resolve().parent
@@ -63,14 +64,14 @@ class DoubaoEmbeddingProvider(BaseEmbeddingProvider):
 class EmbeddingFactory:
     @staticmethod
     def create_provider() -> BaseEmbeddingProvider:
-        provider_type = os.getenv("EMBED_ACTIVE_PROVIDER", "doubao").lower()
+        provider_type = get_env("LLM_EMBED_PROVIDER", "EMBED_ACTIVE_PROVIDER", default="doubao").lower()
         if provider_type == "gemini":
-            api_key = os.getenv("EMBED_GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
-            model_id = os.getenv("EMBED_GEMINI_MODEL_ID", "gemini-embedding-001")
+            api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY", "GEMINI_API_KEY")
+            model_id = get_env("LLM_EMBED_GEMINI_MODEL_ID", "EMBED_GEMINI_MODEL_ID", default="gemini-embedding-001")
             return GeminiEmbeddingProvider(api_key, model_id)
         elif provider_type == "doubao":
-            api_key = os.getenv("EMBED_DOUBAO_API_KEY")
-            model_id = os.getenv("EMBED_DOUBAO_MODEL_ID")
+            api_key = get_env("LLM_EMBED_DOUBAO_API_KEY", "EMBED_DOUBAO_API_KEY")
+            model_id = get_env("LLM_EMBED_DOUBAO_MODEL_ID", "EMBED_DOUBAO_MODEL_ID")
             return DoubaoEmbeddingProvider(api_key, model_id)
         raise ValueError(f"❌ 不支持的 Provider: {provider_type}")
 
