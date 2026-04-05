@@ -26,6 +26,10 @@ class Task2QuizGenerator:
         self.speech_quiz_target = get_env_int("PRACTICE_SPEECH_QUIZ_TARGET", default=target_default)
         self.speech_quiz_target = max(self.speech_quiz_min, min(self.speech_quiz_target, self.speech_quiz_max))
         self.speech_allow_paraphrase = get_env_bool("PRACTICE_VOICE_ALLOW_PARAPHRASE", default=True)
+        self.non_quiz_function_words = {
+            "呢", "吗", "吧", "啊", "呀", "啦", "了", "的", "地", "得", "着", "过",
+            "嘛", "罢了", "而已", "哇", "哎", "喂"
+        }
 
     def _load_memory(self) -> dict:
         if self.memory_file.exists():
@@ -126,6 +130,84 @@ class Task2QuizGenerator:
             "py": (example.get("py") or "").strip(),
             "en": (example.get("en") or "").strip()
         }
+
+    def _clean_definition_text(self, definition: str) -> str:
+        text = (definition or "").strip()
+        if not text:
+            return ""
+
+        patterns = [
+            r"\[\s*see\s+grammar[^\]]*\]",
+            r"\(\s*see\s+grammar[^)]*\)",
+            r"\[\s*see\s+lesson[^\]]*\]",
+            r"\(\s*see\s+lesson[^)]*\)",
+            r"[,;]?\s*see\s+grammar\s+\d+\.?\s*$",
+            r"[,;]?\s*see\s+lesson\s+\d+\.?\s*$",
+        ]
+        for pattern in patterns:
+            text = re.sub(pattern, "", text, flags=re.IGNORECASE)
+
+        text = re.sub(r"\s{2,}", " ", text)
+        text = re.sub(r"\s*([,;:])\s*", r"\1 ", text)
+        text = re.sub(r"(;\s*){2,}", "; ", text)
+        return text.strip(" ,;:-")
+
+    def _sanitize_vocab_item(self, vocab_item: dict) -> dict:
+        if not isinstance(vocab_item, dict):
+            return vocab_item
+
+        sanitized = dict(vocab_item)
+        sanitized["definition"] = self._clean_definition_text(vocab_item.get("definition") or "")
+        sanitized["word"] = (vocab_item.get("word") or "").strip()
+        sanitized["pinyin"] = (vocab_item.get("pinyin") or "").strip()
+        sanitized["part_of_speech"] = (vocab_item.get("part_of_speech") or "").strip()
+        return sanitized
+
+    def _sanitize_vocabulary(self, vocabulary: list) -> list:
+        sanitized_items = []
+        for item in vocabulary or []:
+            if not isinstance(item, dict):
+                continue
+            sanitized_items.append(self._sanitize_vocab_item(item))
+        return sanitized_items
+
+    def _is_standalone_quizable_vocab(self, vocab_item: dict) -> bool:
+        if not isinstance(vocab_item, dict):
+            return False
+
+        word = (vocab_item.get("word") or "").strip()
+        part_of_speech = (vocab_item.get("part_of_speech") or "").strip().lower()
+        definition = self._clean_definition_text(vocab_item.get("definition") or "").lower()
+
+        if not word or not definition:
+            return False
+        if word in self.non_quiz_function_words:
+            return False
+
+        function_word_markers = (
+            "particle", "modal particle", "sentence-final particle", "structural particle",
+            "aspect particle", "auxiliary particle", "grammatical marker", "suffix", "prefix"
+        )
+        if any(marker in part_of_speech for marker in function_word_markers):
+            return False
+
+        if re.fullmatch(r"(used|marker|particle|question|indicates?|shows?).*", definition):
+            return False
+
+        opaque_grammar_glosses = (
+            "used at the end of a sentence",
+            "used in a question",
+            "used after a pause",
+            "sentence-final",
+            "question particle",
+            "modal particle",
+            "structural particle",
+            "aspect marker",
+        )
+        if any(marker in definition for marker in opaque_grammar_glosses):
+            return False
+
+        return True
 
     def _is_blank_example(self, example: dict | None) -> bool:
         normalized = self._normalize_example(example)
@@ -247,8 +329,9 @@ class Task2QuizGenerator:
         1. 仅定位 PDF 中的“生词表/Vocabulary”板块。
         2. 仅提取字段：单词(word)、拼音(pinyin)、词性(part_of_speech)、英文定义(definition)。
         3. 单词请提取全部，拼音格式为标准汉语拼音(即辅音大写、元音小写、并直接在元音上标注声调)，词性请使用英文全称(Noun, Adjective, Verb, etc.)，定义提取对应的英文。
-        3. 如果当前 PDF 页面没有任何生词表，请直接返回 {"vocabulary": []}。
-        4. 严禁自行添加任何 PDF 中不存在的单词（哪怕你觉得这一课应该学这些词）。
+        4. 如果定义里带有教材导航提示（例如 "See Grammar 1."、"[See Grammar 1.]"、"(See Lesson 2.)"），请不要把这些导航提示并入 definition，只保留真正的词义英文释义。
+        5. 如果当前 PDF 页面没有任何生词表，请直接返回 {"vocabulary": []}。
+        6. 严禁自行添加任何 PDF 中不存在的单词（哪怕你觉得这一课应该学这些词）。
         
         【输出格式】
         只输出合法的 JSON，不包含任何 Markdown 标记。
@@ -403,6 +486,8 @@ class Task2QuizGenerator:
         for item in vocabulary_with_history:
             if not isinstance(item, dict):
                 continue
+            if not self._is_standalone_quizable_vocab(item):
+                continue
 
             prompt_vocab.append({
                 "word": item.get("word"),
@@ -433,6 +518,7 @@ class Task2QuizGenerator:
              * 一道中译英 (CN_TO_EN)
              * 一道英译中 (EN_TO_CN)
            - 意味着如果你收到了 {vocab_count} 个词，你【必须】产出 {vocab_count * 2} 道词汇题。
+           - 这里的词汇表已经排除了不能单独翻译的语法功能词；你只需为当前输入中的可独立翻译词汇出题。
         
         2. **单例句约束 (One Context Example)**：
            - 每道题目【只需且仅能】提供 1 个关联例句（context_examples 数组长度必须为 1）。
@@ -443,7 +529,11 @@ class Task2QuizGenerator:
         3. **禁止幻觉**：
            - 题目和例句必须 100% 来源于提供的素材，严禁引入清单外的任何主题或复杂句型。
 
-        4. **专名题面可答性**：
+        4. **禁止把功能词当作普通词义题来考**：
+           - 不要把语气词、结构助词、语法标记词当作普通“中译英/英译中”单词题来出。
+           - 例如像 “呢、吗、吧、的、地、得、了” 这类词不适合作为独立翻译题。
+
+        5. **专名题面可答性**：
            - 如果词条是人名、姓氏或其他专有名词，题目的 original_text 不能只写抽象释义（例如 "(a personal name)"）。
            - 对于 EN_TO_CN 题目，必须把具体词面一并写出，使用户知道要翻译的是哪一个名字或姓氏。
            - 示例：
@@ -500,6 +590,23 @@ class Task2QuizGenerator:
                 item["original_text"] = f"{answer_display} {original_text}".strip()
 
         return item
+
+    def _filter_word_quiz_items(self, items: list, vocab_lookup: dict) -> list:
+        filtered_items = []
+        for item in items or []:
+            if not isinstance(item, dict):
+                continue
+
+            standard_answers = item.get("standard_answers") or []
+            answer_word = standard_answers[0] if standard_answers else ""
+            vocab_item = vocab_lookup.get(answer_word)
+
+            if vocab_item and not self._is_standalone_quizable_vocab(vocab_item):
+                continue
+
+            filtered_items.append(item)
+
+        return filtered_items
 
     # --- Task 2.3b: 专门生成句子题 (精选生成) ---
     def _build_sentence_quiz_prompt(self, lesson_id: int, course_id: int, combined_practice: list) -> str:
@@ -710,6 +817,7 @@ class Task2QuizGenerator:
         print(f"  ▶️ [Task 2.1a] 提取词汇基本信息 (骨架)...")
         v_base_res = self.llm.generate_structured_json(self._build_vocab_base_prompt(), file_path=file_path, file_obj=file_obj)
         raw_vocab = v_base_res.get("vocabulary", []) if isinstance(v_base_res, dict) else []
+        raw_vocab = self._sanitize_vocabulary(raw_vocab)
         
         new_vocab_base = []
         if isinstance(raw_vocab, list):
@@ -738,6 +846,7 @@ class Task2QuizGenerator:
                 file_obj=file_obj,
                 source_dialogues=source_dialogues
             )
+            new_vocab = self._sanitize_vocabulary(new_vocab)
 
         time.sleep(2)
 
@@ -767,11 +876,15 @@ class Task2QuizGenerator:
             for v in vocab_with_history
             if isinstance(v, dict) and (v.get("word") or "").strip()
         }
+        quizable_vocab = [v for v in vocab_with_history if self._is_standalone_quizable_vocab(v)]
         
-        if vocab_with_history:
-            print(f"  ▶️ [Task 2.3a] 开始微批处理单词题 (共 {len(vocab_with_history)} 个词)...")
-            for i in range(0, len(vocab_with_history), batch_size):
-                batch = vocab_with_history[i : i + batch_size]
+        if quizable_vocab:
+            skipped_vocab = len(vocab_with_history) - len(quizable_vocab)
+            print(f"  ▶️ [Task 2.3a] 开始微批处理单词题 (共 {len(quizable_vocab)} 个适合出题的词)...")
+            if skipped_vocab > 0:
+                print(f"     ⏭️ 已跳过 {skipped_vocab} 个不适合独立词义题的功能词/语法词。")
+            for i in range(0, len(quizable_vocab), batch_size):
+                batch = quizable_vocab[i : i + batch_size]
                 current_batch_num = (i // batch_size) + 1
                 print(f"     📦 正在生成第 {current_batch_num} 组单词题目...")
                 
@@ -780,6 +893,7 @@ class Task2QuizGenerator:
                 
                 if word_q_res and isinstance(word_q_res, dict):
                     batch_items = word_q_res.get("database_items", [])
+                    batch_items = self._filter_word_quiz_items(batch_items, vocab_lookup)
                     batch_items = [
                         self._normalize_word_quiz_item(batch_item, vocab_lookup)
                         for batch_item in batch_items

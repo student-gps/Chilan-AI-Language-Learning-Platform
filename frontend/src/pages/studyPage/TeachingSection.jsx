@@ -70,6 +70,8 @@ const buildLessonAudioUrl = (lessonAudioAssets, apiBase) => {
     return `${apiBase}${relativeUrl}`;
 };
 
+const LESSON_AUDIO_RATES = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3];
+
 export default function TeachingSection({ data, courseId, userId, onStartPractice }) {
     const { t, i18n } = useTranslation();
     const [diagPinyin, setDiagPinyin] = useState(true);
@@ -83,9 +85,14 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
     const [isLessonAudioPlaying, setIsLessonAudioPlaying] = useState(false);
     const [lessonAudioVolume, setLessonAudioVolume] = useState(1);
     const [lessonAudioRate, setLessonAudioRate] = useState(1);
+    const [showLessonVolumeControl, setShowLessonVolumeControl] = useState(false);
+    const [showFloatingLessonAudio, setShowFloatingLessonAudio] = useState(false);
+    const [isFloatingLessonAudioOpen, setIsFloatingLessonAudioOpen] = useState(true);
 
     const audioRef = useRef(null);
     const lessonAudioRef = useRef(null);
+    const lessonVolumeControlRef = useRef(null);
+    const lessonAudioSectionRef = useRef(null);
     const API_BASE = import.meta.env.VITE_APP_API_BASE_URL || '';
     const lesson_metadata = data?.lesson_metadata || {};
     const course_content = data?.course_content || {};
@@ -110,6 +117,18 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
         return map;
     }, [lesson_audio_assets]);
 
+    const activeLessonLineRef = useMemo(() => {
+        if (!isLessonAudioPlaying) return null;
+        const currentTime = Number(lessonAudioCurrentTime || 0);
+        const matchedItem = (lesson_audio_assets?.items || []).find((item) => {
+            const lineRef = normalizeLineRef(item?.line_ref);
+            const start = Number(item?.start_time_seconds);
+            const end = Number(item?.end_time_seconds);
+            return lineRef && Number.isFinite(start) && Number.isFinite(end) && currentTime >= start && currentTime < end;
+        });
+        return normalizeLineRef(matchedItem?.line_ref);
+    }, [isLessonAudioPlaying, lessonAudioCurrentTime, lesson_audio_assets]);
+
     useEffect(() => {
         return () => {
             if (audioRef.current) {
@@ -125,9 +144,27 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
     }, []);
 
     useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (!lessonVolumeControlRef.current?.contains(event.target)) {
+                setShowLessonVolumeControl(false);
+            }
+        };
+
+        if (showLessonVolumeControl) {
+            document.addEventListener('mousedown', handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [showLessonVolumeControl]);
+
+    useEffect(() => {
         setLessonAudioCurrentTime(0);
         setLessonAudioDuration(0);
         setIsLessonAudioPlaying(false);
+        setShowFloatingLessonAudio(false);
+        setIsFloatingLessonAudioOpen(true);
         if (lessonAudioRef.current) {
             lessonAudioRef.current.pause();
             lessonAudioRef.current = null;
@@ -145,6 +182,34 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
             lessonAudioRef.current.playbackRate = lessonAudioRate;
         }
     }, [lessonAudioRate]);
+
+    useEffect(() => {
+        if (!lessonFullAudioUrl) {
+            setShowFloatingLessonAudio(false);
+            return;
+        }
+
+        const updateFloatingPlayerVisibility = () => {
+            const section = lessonAudioSectionRef.current;
+            if (!section) {
+                setShowFloatingLessonAudio(false);
+                return;
+            }
+
+            const rect = section.getBoundingClientRect();
+            const shouldFloat = rect.bottom < 96;
+            setShowFloatingLessonAudio(shouldFloat);
+        };
+
+        updateFloatingPlayerVisibility();
+        window.addEventListener('scroll', updateFloatingPlayerVisibility, { passive: true });
+        window.addEventListener('resize', updateFloatingPlayerVisibility);
+
+        return () => {
+            window.removeEventListener('scroll', updateFloatingPlayerVisibility);
+            window.removeEventListener('resize', updateFloatingPlayerVisibility);
+        };
+    }, [lessonFullAudioUrl]);
 
     if (!data) return null;
 
@@ -251,6 +316,9 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
             const audio = new Audio(lessonFullAudioUrl);
             audio.volume = lessonAudioVolume;
             audio.playbackRate = lessonAudioRate;
+            if ('preservesPitch' in audio) audio.preservesPitch = true;
+            if ('mozPreservesPitch' in audio) audio.mozPreservesPitch = true;
+            if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
             lessonAudioRef.current = audio;
 
             audio.onloadedmetadata = () => {
@@ -390,7 +458,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                 initial="hidden"
                 animate="show"
                 exit={{ opacity: 0, y: -10, transition: { duration: 0.18 } }}
-                className="mx-auto max-w-4xl px-6 pt-24"
+            className="mx-auto max-w-5xl px-5 pt-24 md:px-6"
             >
                 <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-4 flex items-center gap-3">
                     <span className="rounded-full bg-slate-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white">
@@ -426,17 +494,11 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                 </motion.div>
 
                 {lessonFullAudioUrl && (
-                    <motion.section variants={fadeInUp} initial="hidden" animate="show" className="mb-10">
+                    <motion.section ref={lessonAudioSectionRef} variants={fadeInUp} initial="hidden" animate="show" className="mb-10">
                         <div className="rounded-[2.5rem] border border-slate-200 bg-white px-6 py-6 shadow-sm">
-                            <p className="text-[10px] font-black uppercase tracking-[0.28em] text-slate-400">
-                                full lesson audio
-                            </p>
-                            <h2 className="mt-2 text-2xl font-black text-slate-900">
+                            <h2 className="text-2xl font-black text-slate-900">
                                 本课完整对话音频
                             </h2>
-                            <p className="mt-2 text-sm text-slate-500">
-                                可以先整体听一遍课文，再逐句点听细看。
-                            </p>
 
                             <div className="mt-5 rounded-full bg-slate-100/90 px-4 py-3">
                                 <div className="flex flex-wrap items-center gap-4 md:flex-nowrap">
@@ -462,16 +524,23 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                         className="h-2 min-w-[140px] flex-1 cursor-pointer appearance-none rounded-full bg-slate-300 accent-slate-900"
                                     />
 
-                                    <div className="group relative flex shrink-0 items-center">
+                                    <div ref={lessonVolumeControlRef} className="relative flex shrink-0 items-center">
                                         <button
                                             type="button"
+                                            onClick={() => setShowLessonVolumeControl((prev) => !prev)}
                                             className="flex h-11 w-11 items-center justify-center rounded-full text-slate-800 transition-colors hover:bg-white"
                                             aria-label="调节音量"
                                         >
                                             {lessonAudioVolume <= 0.01 ? <VolumeX size={22} /> : <Volume2 size={22} />}
                                         </button>
 
-                                        <div className="pointer-events-none absolute right-0 top-full z-20 mt-2 w-40 rounded-2xl border border-slate-200 bg-white px-4 py-3 opacity-0 shadow-xl transition-all group-hover:pointer-events-auto group-hover:opacity-100">
+                                        <div
+                                            className={`absolute bottom-[calc(100%+0.75rem)] left-1/2 z-20 flex -translate-x-1/2 items-center justify-center rounded-[1.5rem] border border-slate-200 bg-white px-3 py-4 shadow-xl transition-all ${
+                                                showLessonVolumeControl
+                                                    ? 'pointer-events-auto opacity-100'
+                                                    : 'pointer-events-none opacity-0'
+                                            }`}
+                                        >
                                             <input
                                                 type="range"
                                                 min={0}
@@ -479,7 +548,8 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                                 step={0.01}
                                                 value={lessonAudioVolume}
                                                 onChange={handleLessonAudioVolumeChange}
-                                                className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-slate-900"
+                                                className="h-28 w-2 cursor-pointer appearance-none rounded-full bg-slate-200 accent-slate-900 [writing-mode:bt-lr]"
+                                                style={{ writingMode: 'vertical-lr', direction: 'rtl' }}
                                             />
                                         </div>
                                     </div>
@@ -491,7 +561,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                             className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 outline-none transition-colors hover:border-slate-300"
                                             aria-label="设置播放倍速"
                                         >
-                                            {[0.5, 0.75, 1, 1.25, 1.5, 1.75, 2].map((rate) => (
+                                            {LESSON_AUDIO_RATES.map((rate) => (
                                                 <option key={rate} value={rate}>
                                                     {rate}x
                                                 </option>
@@ -501,12 +571,76 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                 </div>
                             </div>
 
-                            <div className="mt-3 flex items-center justify-between px-1 text-xs font-medium text-slate-400">
-                                <span>悬停音量图标调节音量</span>
-                                <span>支持 0.5x - 2x 倍速</span>
-                            </div>
                         </div>
                     </motion.section>
+                )}
+
+                {lessonFullAudioUrl && showFloatingLessonAudio && (
+                    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+                        <AnimatePresence>
+                            {isFloatingLessonAudioOpen && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: 10, scale: 0.96 }}
+                                    className="w-[min(340px,calc(100vw-2rem))] rounded-[1.75rem] border border-slate-200 bg-white/95 p-4 shadow-2xl backdrop-blur"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <button
+                                            onClick={handleLessonAudioToggle}
+                                            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white shadow-sm transition-colors hover:bg-blue-600"
+                                            aria-label={isLessonAudioPlaying ? '暂停播放整课音频' : '播放整课音频'}
+                                        >
+                                            {isLessonAudioPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
+                                        </button>
+
+                                        <div className="min-w-0 flex-1">
+                                            <div className="flex items-center justify-between gap-3">
+                                                <p className="truncate text-sm font-black tracking-[0.16em] text-slate-700">
+                                                    课文音频
+                                                </p>
+                                                <select
+                                                    value={lessonAudioRate}
+                                                    onChange={handleLessonAudioRateChange}
+                                                    className="shrink-0 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-bold text-slate-600 outline-none transition-colors hover:border-slate-300"
+                                                    aria-label="设置悬浮课文音频倍速"
+                                                >
+                                                    {LESSON_AUDIO_RATES.map((rate) => (
+                                                        <option key={rate} value={rate}>
+                                                            {rate}x
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
+                                            <input
+                                                type="range"
+                                                min={0}
+                                                max={lessonAudioDuration || 0}
+                                                step={0.1}
+                                                value={Math.min(lessonAudioCurrentTime, lessonAudioDuration || 0)}
+                                                onChange={handleLessonAudioSeek}
+                                                className="mt-2 h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-slate-900"
+                                            />
+
+                                            <div className="mt-2 flex items-center justify-between text-xs font-semibold text-slate-500">
+                                                <span>{formatAudioTime(lessonAudioCurrentTime)} / {formatAudioTime(lessonAudioDuration)}</span>
+                                                <span>倍速 {lessonAudioRate}x</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        <button
+                            onClick={() => setIsFloatingLessonAudioOpen((prev) => !prev)}
+                            className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-900 text-white shadow-2xl transition-all hover:-translate-y-0.5 hover:bg-blue-600"
+                            aria-label={isFloatingLessonAudioOpen ? '收起悬浮课文音频条' : '展开悬浮课文音频条'}
+                        >
+                            <Volume2 size={22} />
+                        </button>
+                    </div>
                 )}
 
                 <motion.section variants={fadeInUp} initial="hidden" animate="show" className="mb-24">
@@ -590,52 +724,71 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                 </div>
                             </div>
                         ) : (
-                            <div className="space-y-10">
+                            <div className="space-y-7">
                                 {lineItems.map((line, idx) => {
                                     const isLeft = idx % 2 === 0;
                                     const lineRef = idx + 1;
                                     const cnText = (line.words || []).map((w) => w.cn).join('');
                                     const isActive = playingKey === `line-${lineRef}`;
+                                    const isLessonActive = activeLessonLineRef === lineRef;
 
                                     return (
-                                        <div key={idx} className={`flex flex-col ${isLeft ? 'items-start' : 'items-end'}`}>
-                                            <span className="mb-2 px-4 text-2xl font-black uppercase tracking-widest text-slate-300">
-                                                {line.role}
-                                            </span>
+                                        <div key={idx} className={`flex ${isLeft ? 'justify-start' : 'justify-end'}`}>
+                                            <div className={`flex max-w-full items-start gap-3 ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}>
+                                                <span className={`pt-4 text-xl font-black uppercase tracking-[0.22em] transition-colors md:text-2xl ${
+                                                    isLessonActive ? (isLeft ? 'text-slate-500' : 'text-blue-500') : 'text-slate-300'
+                                                }`}>
+                                                    {line.role}
+                                                </span>
 
-                                            <div className={`group relative max-w-[85%] rounded-[2.2rem] px-7 py-5 transition-all hover:shadow-lg ${
-                                                isLeft
-                                                    ? 'rounded-tl-none border border-slate-100 bg-slate-50 text-slate-800'
-                                                    : 'rounded-tr-none border border-blue-100 bg-blue-50 text-slate-800'
-                                            }`}>
-                                                <div className="flex items-end gap-3">
-                                                    <div className="min-w-0 flex-1">
-                                                        <InlineAnnotatedText
-                                                            words={line.words || []}
-                                                            showPinyin={diagPinyin}
-                                                            pinyinClassName={`mb-1 text-xl font-mono ${
-                                                                isLeft ? 'text-slate-400' : 'text-blue-400'
-                                                            }`}
-                                                            textClassName="text-3xl font-medium"
-                                                        />
+                                                <div className={`group relative max-w-[88%] rounded-[2.2rem] px-6 py-4 transition-all hover:shadow-lg ${
+                                                    isLessonActive
+                                                        ? isLeft
+                                                            ? 'rounded-tl-none border border-slate-300 bg-slate-100 text-slate-900 shadow-lg shadow-slate-200/60'
+                                                            : 'rounded-tr-none border border-blue-300 bg-blue-100 text-slate-900 shadow-lg shadow-blue-200/60'
+                                                        : isLeft
+                                                            ? 'rounded-tl-none border border-slate-100 bg-slate-50 text-slate-800'
+                                                            : 'rounded-tr-none border border-blue-100 bg-blue-50 text-slate-800'
+                                                }`}>
+                                                    <div className="flex items-end gap-3">
+                                                        <div className="min-w-0 flex-1">
+                                                            <InlineAnnotatedText
+                                                                words={line.words || []}
+                                                                showPinyin={diagPinyin}
+                                                                pinyinClassName={`mb-1 text-xl font-mono ${
+                                                                    isLessonActive
+                                                                        ? isLeft
+                                                                            ? 'text-slate-500'
+                                                                            : 'text-blue-500'
+                                                                        : isLeft
+                                                                            ? 'text-slate-400'
+                                                                            : 'text-blue-400'
+                                                                }`}
+                                                                textClassName="text-3xl font-medium"
+                                                            />
+                                                        </div>
+
+                                                        {renderAudioButton({
+                                                            onClick: () => playDialogueAudio({ lineRef, text: cnText }),
+                                                            active: isActive,
+                                                            accent: isLeft ? 'slate' : 'blue'
+                                                        })}
                                                     </div>
 
-                                                    {renderAudioButton({
-                                                        onClick: () => playDialogueAudio({ lineRef, text: cnText }),
-                                                        active: isActive,
-                                                        accent: isLeft ? 'slate' : 'blue'
-                                                    })}
+                                                    {diagTrans && line.english && (
+                                                        <p className={`mt-4 border-t pt-3 text-xl ${
+                                                            isLessonActive
+                                                                ? isLeft
+                                                                    ? 'border-slate-300/70 text-slate-600'
+                                                                    : 'border-blue-300/70 text-blue-800/80'
+                                                                : isLeft
+                                                                    ? 'border-slate-200/60 text-slate-500'
+                                                                    : 'border-blue-200/60 text-blue-700/70'
+                                                        }`}>
+                                                            {line.english}
+                                                        </p>
+                                                    )}
                                                 </div>
-
-                                                {diagTrans && line.english && (
-                                                    <p className={`mt-5 border-t pt-4 text-xl ${
-                                                        isLeft
-                                                            ? 'border-slate-200/60 text-slate-500'
-                                                            : 'border-blue-200/60 text-blue-700/70'
-                                                    }`}>
-                                                        {line.english}
-                                                    </p>
-                                                )}
                                             </div>
                                         </div>
                                     );

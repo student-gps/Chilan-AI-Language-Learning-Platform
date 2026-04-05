@@ -347,6 +347,27 @@ class Task4BLessonAudioRenderer:
             if silence_file.exists():
                 silence_file.unlink()
 
+    def _probe_audio_duration_seconds(self, audio_file: Path) -> float:
+        try:
+            result = subprocess.run(
+                [
+                    "ffprobe",
+                    "-v",
+                    "error",
+                    "-show_entries",
+                    "format=duration",
+                    "-of",
+                    "default=noprint_wrappers=1:nokey=1",
+                    str(audio_file),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            return max(0.0, float((result.stdout or "").strip() or 0.0))
+        except Exception:
+            return 0.0
+
     def submit_full_dialogue_audio(self, lesson_data: dict, include_speakers: bool = False) -> dict[str, Any]:
         plan = self.build_audio_plan(lesson_data, include_speakers=include_speakers)
         audio_plan = plan["audio_plan"]
@@ -408,6 +429,7 @@ class Task4BLessonAudioRenderer:
         rendered_items = []
         sentence_audio_files: list[Path] = []
         storage_backend = "cos" if self.cos_storage else "local"
+        timeline_cursor_seconds = 0.0
 
         for item in items:
             line_ref = item["line_ref"]
@@ -431,6 +453,9 @@ class Task4BLessonAudioRenderer:
             audio_file = output_dir / filename
             audio_file.write_bytes(audio_bytes)
             sentence_audio_files.append(audio_file)
+            sentence_duration_seconds = self._probe_audio_duration_seconds(audio_file)
+            start_time_seconds = round(timeline_cursor_seconds, 3)
+            end_time_seconds = round(start_time_seconds + sentence_duration_seconds, 3)
             lesson_folder = output_dir.name
             audio_url = f"{public_base_url.rstrip('/')}/{lesson_folder}/{filename}"
             object_key = ""
@@ -459,6 +484,9 @@ class Task4BLessonAudioRenderer:
                 "codec": self.codec,
                 "sample_rate": self.sample_rate,
                 "sentence_gap_ms": self.sentence_gap_ms,
+                "duration_seconds": round(sentence_duration_seconds, 3),
+                "start_time_seconds": start_time_seconds,
+                "end_time_seconds": end_time_seconds,
                 "status": "ready",
                 "session_id": response.get("SessionId", ""),
                 "request_id": response.get("RequestId", ""),
@@ -467,24 +495,30 @@ class Task4BLessonAudioRenderer:
                 "local_audio_file": str(audio_file),
                 "subtitles": response.get("Subtitles", []) if isinstance(response.get("Subtitles"), list) else [],
             })
+            timeline_cursor_seconds = end_time_seconds
+            if self.sentence_gap_ms > 0 and item != items[-1]:
+                timeline_cursor_seconds = round(timeline_cursor_seconds + (self.sentence_gap_ms / 1000), 3)
 
         full_audio_filename = f"lesson{lesson_metadata.get('lesson_id')}_full_dialogue.{self.codec}"
         full_audio_path = output_dir / full_audio_filename
         full_audio_file = self._compose_full_lesson_audio(sentence_audio_files, full_audio_path)
         full_audio_payload = {
             "status": "missing",
-            "audio_url": "",
-            "local_audio_file": "",
-            "codec": self.codec,
-        }
+                "audio_url": "",
+                "local_audio_file": "",
+                "codec": self.codec,
+                "duration_seconds": round(timeline_cursor_seconds, 3),
+            }
         if full_audio_file:
             lesson_folder = output_dir.name
+            full_audio_duration_seconds = self._probe_audio_duration_seconds(full_audio_file) or timeline_cursor_seconds
             full_audio_payload = {
                 "status": "ready",
                 "audio_url": f"{public_base_url.rstrip('/')}/{lesson_folder}/{full_audio_filename}",
                 "object_key": "",
                 "local_audio_file": str(full_audio_file),
                 "codec": self.codec,
+                "duration_seconds": round(full_audio_duration_seconds, 3),
             }
             if self.cos_storage:
                 try:

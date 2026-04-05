@@ -3,6 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Loader2, RefreshCcw, Sparkles } from 'lucide-react';
 import WordContextCard from './WordContextCard';
 
+const splitFeedbackParagraphs = (message = '') =>
+    String(message)
+        .split(/\r?\n+/)
+        .map((part) => part.trim())
+        .filter(Boolean);
+
 export default function PracticeFeedbackPanel({
     feedback,
     isPerfectFeedback,
@@ -35,6 +41,9 @@ export default function PracticeFeedbackPanel({
     const enterHintClass = (actionKey) =>
         activeAction === actionKey ? 'text-blue-200' : 'text-slate-400';
 
+    const feedbackParagraphs = splitFeedbackParagraphs(typedFeedbackMessage);
+    const hasTypingCursor = typedFeedbackMessage.length < (feedback.message || '').length;
+
     return (
         <motion.div ref={actionsRef} key="feedback-area" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
             {!isPerfectFeedback && (
@@ -63,15 +72,22 @@ export default function PracticeFeedbackPanel({
                                 </motion.div>
                             )}
                         </AnimatePresence>
-                        <p
-                            style={{ fontFamily: '"Times New Roman", Times, serif' }}
-                            className="min-h-16 whitespace-pre-line text-xl md:text-2xl font-bold leading-snug text-slate-700"
+                        <div
+                            style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' }}
+                            className="min-h-16 space-y-4 text-[1.16rem] font-semibold leading-[1.88] tracking-[0.01em] text-slate-700 md:space-y-5 md:text-[1.32rem]"
                         >
-                            {typedFeedbackMessage}
-                            {typedFeedbackMessage.length < (feedback.message || '').length && (
-                                <span className="ml-1 inline-block h-6 w-[2px] translate-y-1 animate-pulse bg-slate-400" />
-                            )}
-                        </p>
+                            {(feedbackParagraphs.length > 0 ? feedbackParagraphs : ['']).map((paragraph, idx) => {
+                                const isLastParagraph = idx === (feedbackParagraphs.length > 0 ? feedbackParagraphs.length - 1 : 0);
+                                return (
+                                    <p key={`${idx}-${paragraph.slice(0, 24)}`} className="m-0">
+                                        {paragraph}
+                                        {hasTypingCursor && isLastParagraph && (
+                                            <span className="ml-1 inline-block h-6 w-[2px] translate-y-1 animate-pulse bg-slate-400" />
+                                        )}
+                                    </p>
+                                );
+                            })}
+                        </div>
                         {speechMode && feedback.recognizedText && (
                             <div className="rounded-2xl bg-white/90 px-4 py-3">
                                 <p className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-400">本次识别文本</p>

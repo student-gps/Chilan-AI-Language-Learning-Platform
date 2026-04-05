@@ -7,12 +7,13 @@ from pathlib import Path
 from dotenv import load_dotenv
 from abc import ABC, abstractmethod
 import sys
-from config.env import get_env
 
 # 将父目录加入路径以确保能找到 connection
 CURRENT_DIR = Path(__file__).resolve().parent
 BACKEND_DIR = CURRENT_DIR.parent
 sys.path.append(str(BACKEND_DIR))
+
+from config.env import get_env
 
 # 🌟 引入数据库连接池
 try:

@@ -664,7 +664,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                 initial="hidden"
                 animate="show"
                 exit={{ opacity: 0, y: -10, transition: { duration: 0.18 } }}
-                className="max-w-4xl mx-auto px-6 pt-20 pb-0"
+                className="max-w-5xl mx-auto px-6 pt-20 pb-0"
             >
                 <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex items-center justify-center gap-5 mb-8">
                     <div className="flex items-center gap-3">
