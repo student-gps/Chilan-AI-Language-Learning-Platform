@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import apiClient from '../../api/apiClient';
+import apiClient from '../../../api/apiClient';
 import {
     ArrowRight,
     Loader2,
@@ -10,9 +10,9 @@ import {
     VolumeX,
     Volume2
 } from 'lucide-react';
-import DialogueSection from './teaching/components/DialogueSection';
-import useTeachingAudio, { buildLessonAudioUrl } from './teaching/hooks/useTeachingAudio';
-import VocabularySection from './teaching/components/VocabularySection';
+import DialogueSection from './components/DialogueSection';
+import useTeachingAudio, { buildLessonAudioUrl } from './hooks/useTeachingAudio';
+import VocabularySection from './components/VocabularySection';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },

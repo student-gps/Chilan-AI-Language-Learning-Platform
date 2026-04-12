@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
 // 🚀 确保路径指向你存放 apiClient 的地方
 import apiClient from '../../api/apiClient'; 
-import TeachingSection from './TeachingSection';
+import TeachingSection from './teaching';
 import PracticeSection from './practice/PracticeSection';
 import FinishCard from './FinishCard';
 import { Loader2 } from 'lucide-react';
