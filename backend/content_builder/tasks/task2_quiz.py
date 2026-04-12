@@ -606,7 +606,7 @@ class Task2QuizGenerator:
                 or "personal name" in original_text.lower()
                 or "family name" in original_text.lower()
             ):
-                item["original_text"] = f"{answer_display} {original_text}".strip()
+                item["original_text"] = f"{answer_display}, {original_text}".strip()
 
         return item
 
