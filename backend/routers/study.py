@@ -85,6 +85,43 @@ def _normalize_teaching_video(payload: Any) -> Dict[str, Any]:
     }
 
 
+def _normalize_video_render_plan(payload: Any) -> Dict[str, Any]:
+    if not isinstance(payload, dict):
+        return {"explanation": {}}
+
+    explanation = payload.get("explanation")
+    if not isinstance(explanation, dict):
+        explanation = {}
+
+    return {"explanation": explanation}
+
+
+def _normalize_explanation_video_urls(payload: Any) -> Dict[str, Any]:
+    empty = {"cos_url": "", "cos_object_key": "", "local_path": "", "youtube_url": "", "bilibili_url": ""}
+    if not isinstance(payload, dict):
+        return empty
+    return {
+        "cos_url":        (payload.get("cos_url") or "").strip(),
+        "cos_object_key": (payload.get("cos_object_key") or "").strip(),
+        "local_path":     (payload.get("local_path") or "").strip(),
+        "youtube_url":    (payload.get("youtube_url") or "").strip(),
+        "bilibili_url":   (payload.get("bilibili_url") or "").strip(),
+    }
+
+
+def _hydrate_explanation_video_urls(payload: Any) -> Dict[str, Any]:
+    urls = _normalize_explanation_video_urls(payload)
+    if not cos_media_storage:
+        return urls
+    object_key = urls.get("cos_object_key", "").strip()
+    if object_key:
+        try:
+            urls["cos_url"] = cos_media_storage.resolve_url(object_key)
+        except Exception as e:
+            print(f"⚠️ COS video 签名 URL 生成失败: {e}")
+    return urls
+
+
 def _normalize_lesson_audio_assets(payload: Any) -> Dict[str, Any]:
     if not isinstance(payload, dict):
         return {
@@ -272,10 +309,13 @@ async def init_study_flow(user_id: str, course_id: int = 1):
         # 🌟 自动跳跃：支持 102 直接跳到 201 等非连续 ID
         # ---------------------------------------------------------
         cur.execute("""
-            SELECT lesson_id, title, structured_content 
-            FROM lessons 
-            WHERE course_id = %s AND lesson_id > %s 
-            ORDER BY lesson_id ASC 
+            SELECT lesson_id, title,
+                   lesson_metadata, course_content, teaching_materials,
+                   video_plan, video_render_plan, lesson_audio_assets,
+                   explanation_video_urls, llm_usage
+            FROM lessons
+            WHERE course_id = %s AND lesson_id > %s
+            ORDER BY lesson_id ASC
             LIMIT 1
         """, (course_id, last_lesson))
         
@@ -286,35 +326,15 @@ async def init_study_flow(user_id: str, course_id: int = 1):
             return {"mode": "completed", "message": "恭喜！你已完成本课程的所有内容。"}
 
         next_lesson_id = lesson_row['lesson_id']
-        stored_lesson_payload = lesson_row.get('structured_content') or {}
-        if isinstance(stored_lesson_payload, dict) and "course_content" in stored_lesson_payload:
-            lesson_metadata = stored_lesson_payload.get("lesson_metadata", {}) or {}
-            course_content = stored_lesson_payload.get("course_content", {}) or {}
-            teaching_video = _normalize_teaching_video(
-                stored_lesson_payload.get("teaching_video")
-                or (
-                    stored_lesson_payload.get("video_plan", {}).get("dramatization", {})
-                    if isinstance(stored_lesson_payload.get("video_plan"), dict)
-                    else {}
-                )
-            )
-            lesson_audio_assets = _hydrate_lesson_audio_urls(
-                stored_lesson_payload.get("lesson_audio_assets")
-            )
-        else:
-            # 兼容旧数据：旧版本 lessons.structured_content 里只存了 course_content
-            lesson_metadata = {}
-            course_content = stored_lesson_payload if isinstance(stored_lesson_payload, dict) else {}
-            teaching_video = {
-                "global_config": stored_lesson_payload.get("video_global_config", {}) if isinstance(stored_lesson_payload, dict) else {},
-                "scenes": stored_lesson_payload.get("video_scenes", []) if isinstance(stored_lesson_payload, dict) else [],
-            }
-            lesson_audio_assets = _hydrate_lesson_audio_urls(
-                stored_lesson_payload.get("lesson_audio_assets") if isinstance(stored_lesson_payload, dict) else {}
-            )
-
-        teaching_video = _normalize_teaching_video(teaching_video)
-        lesson_audio_assets = _hydrate_lesson_audio_urls(lesson_audio_assets)
+        lesson_metadata     = lesson_row.get('lesson_metadata')     or {}
+        course_content      = lesson_row.get('course_content')      or {}
+        video_plan          = lesson_row.get('video_plan')          or {}
+        video_render_plan   = _normalize_video_render_plan(lesson_row.get('video_render_plan'))
+        lesson_audio_assets = _hydrate_lesson_audio_urls(lesson_row.get('lesson_audio_assets'))
+        explanation_video_urls = _hydrate_explanation_video_urls(lesson_row.get('explanation_video_urls'))
+        teaching_video = _normalize_teaching_video(
+            video_plan.get("dramatization") if isinstance(video_plan.get("dramatization"), dict) else {}
+        )
 
         lesson_metadata = {
             "course_id": course_id,
@@ -356,8 +376,10 @@ async def init_study_flow(user_id: str, course_id: int = 1):
                     "lesson_metadata": lesson_metadata,
                     "course_content": course_content,
                     "teaching_video": teaching_video,
+                    "video_render_plan": video_render_plan,
                     "lesson_audio_assets": lesson_audio_assets,
-                    "aigc_visual_prompt": "A thematic visual for the current lesson..." 
+                    "explanation_video_urls": explanation_video_urls,
+                    "aigc_visual_prompt": "A thematic visual for the current lesson..."
                 },
                 "pending_items": new_questions,
                 "skip_content": skip_content,
@@ -762,6 +784,36 @@ async def generate_tts(text: str):
 # ==========================================
 # 接口 6: 完成课程，推进总体进度
 # ==========================================
+@router.get("/study/lesson_preview")
+async def lesson_preview(course_id: int, lesson_id: int):
+    """Dev-only: fetch a specific lesson's render plan by lesson_id."""
+    conn = None
+    try:
+        conn = get_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        cur.execute(
+            "SELECT title, video_render_plan FROM lessons WHERE course_id = %s AND lesson_id = %s",
+            (course_id, lesson_id),
+        )
+        row = cur.fetchone()
+        if not row:
+            raise HTTPException(status_code=404, detail=f"Lesson {lesson_id} not found.")
+        title = row["title"]
+        video_render_plan = _normalize_video_render_plan(row.get("video_render_plan"))
+        return {
+            "lesson_id": lesson_id,
+            "course_id": course_id,
+            "title": title,
+            "video_render_plan": video_render_plan,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if conn: conn.close()
+
+
 @router.post("/study/complete_lesson")
 async def complete_lesson(req: CompleteLessonRequest):
     conn = None

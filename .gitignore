@@ -33,4 +33,9 @@ backend/content_builder/raw_materials/
 backend/content_builder/output_json/
 backend/content_builder/synced_json/
 backend/content_builder/output_audio/
+backend/content_builder/output_video/
+backend/content_builder/test_tts_output/
 backend/content_builder/global_vocab_memory.json
+
+# Remotion 自动生成文件
+frontend/remotion/generated/

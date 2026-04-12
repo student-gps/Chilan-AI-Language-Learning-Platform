@@ -289,18 +289,28 @@ class Task2QuizGenerator:
                 return historical_example
 
         # 如果本课原文里确实出现了该词，但英文是整句自由翻译，
-        # 也优先保留这条“本课真实原句”，不要因为逐词对不上就留空。
+        # 也优先保留这条"本课真实原句"，不要因为逐词对不上就留空。
         return self._normalize_example(containing_word[0])
 
     def _extract_dialogue_sentence_fallback(self, source_dialogues: list) -> list:
         fallback_items = []
 
         for dialogue_block in source_dialogues or []:
-            lines = dialogue_block.get("lines", []) if isinstance(dialogue_block, dict) else []
-            for line in lines:
+            if not isinstance(dialogue_block, dict):
+                continue
+
+            # Flat format: {"role": ..., "chinese": ..., "english": ...}
+            if "chinese" in dialogue_block:
+                cn = (dialogue_block.get("chinese") or "").strip()
+                en = (dialogue_block.get("english") or "").strip()
+                if cn and en:
+                    fallback_items.append({"cn": cn, "py": "", "en": en})
+                continue
+
+            # Legacy format: {"lines": [{"words": [...], "english": ...}]}
+            for line in dialogue_block.get("lines", []):
                 if not isinstance(line, dict):
                     continue
-
                 words = line.get("words", [])
                 cn = "".join(
                     token.get("cn", "")
@@ -313,7 +323,6 @@ class Task2QuizGenerator:
                     for token in words
                     if isinstance(token, dict) and token.get("py")
                 ).strip()
-
                 if cn and en:
                     fallback_items.append({"cn": cn, "py": py, "en": en})
 
@@ -326,7 +335,7 @@ class Task2QuizGenerator:
         🚨 【核心禁令】：严禁使用你自身的知识储备！你必须【且仅能】提取 PDF 页面中物理显示的文字。
         
         【提取要求】
-        1. 仅定位 PDF 中的“生词表/Vocabulary”板块。
+        1. 仅定位 PDF 中的"生词表/Vocabulary"板块。
         2. 仅提取字段：单词(word)、拼音(pinyin)、词性(part_of_speech)、英文定义(definition)。
         3. 单词请提取全部，拼音格式为标准汉语拼音(即辅音大写、元音小写、并直接在元音上标注声调)，词性请使用英文全称(Noun, Adjective, Verb, etc.)，定义提取对应的英文。
         4. 如果定义里带有教材导航提示（例如 "See Grammar 1."、"[See Grammar 1.]"、"(See Lesson 2.)"），请不要把这些导航提示并入 definition，只保留真正的词义英文释义。
@@ -338,7 +347,7 @@ class Task2QuizGenerator:
         { "vocabulary": [ { "word": "...", "pinyin": "...", "part_of_speech": "...", "definition": "..." } ] }
         """
     
-    def _build_vocab_example_prompt(self, word_list: list) -> str:
+    def _build_vocab_example_prompt(self, word_list: list, source_dialogues: list = None) -> str:
         vocab_payload = json.dumps([
             {
                 "word": item.get("word", ""),
@@ -348,30 +357,43 @@ class Task2QuizGenerator:
             }
             for item in word_list
         ], ensure_ascii=False)
+
+        # 把对话原文直接嵌入 prompt，不依赖传入 PDF 文件
+        dialogue_text = ""
+        if source_dialogues:
+            lines = []
+            for d in source_dialogues:
+                cn = d.get("chinese") or d.get("cn", "")
+                en = d.get("english") or d.get("en", "")
+                if cn:
+                    lines.append(f"{cn}  {en}".strip())
+            if lines:
+                dialogue_text = "\n课文原文（请优先从此处找例句）：\n" + "\n".join(lines)
+
         return f"""
-        你是一名数据提取专家。请从 PDF 中为以下【词义】提取原书中的真实例句。
+        你是一名数据提取专家。请为以下【词义】在课文原文中找到真实例句。{dialogue_text}
+
         词义清单：{vocab_payload}
 
         【🚨 提取准则】
-        1. 必须且仅能提取 PDF 中物理显示的原文例句，严禁（FATAL ERROR）自行造句，严禁使用外部知识。
-        2. 你要处理的是“词义”，不是单纯的“词形”。
+        1. 必须且仅能使用上方"课文原文"中出现的真实句子，严禁（FATAL ERROR）自行造句。
+        2. 你要处理的是"词义"，不是单纯的"词形"。
            - 必须优先匹配当前条目的 definition 和 part_of_speech。
            - 如果同一个词在本课里出现了不同意思，只能返回与当前义项一致的那一句。
         3. 先查找词汇表/生词表里配套的官方例句；如果没有，再去本课课文原文中找包含该词的真实句子。
            - 只要本课正文里确实出现了该词，就应优先返回这条本课原句。
-           - 即使英文是整句自由翻译、不是逐词直译，也仍然算有效原句，不能因此留空。
-        4. 必须保持中文、拼音、英文严格对齐。
-        5. 只有当词汇表和本课正文里都找不到包含该词的真实原句时，才返回空对象。
-        6. 如果同一个词在本课里有多种用法，优先返回最贴近当前 definition / part_of_speech 的那一句；如果无法完全判定，也应返回最自然、最核心的本课原句，而不是空对象。
+        4. py 字段必须填写完整拼音（含声调），与 cn 字段逐字对应，绝对不可以留空字符串。即使课文原文没有提供拼音，你也必须根据汉字自行补全正确拼音。
+        5. 只有当课文原文里都找不到包含该词的真实原句时，才返回空对象（三个字段全为空字符串）。
+        6. 如果同一个词在本课里有多种用法，优先返回最贴近当前 definition / part_of_speech 的那一句。
 
         【强制输出结构】
         - 必须返回一个 JSON 数组，长度必须为 {len(word_list)}。
-        - 如果某个单词在 PDF 中没有找到配套例句，该项必须返回以下空对象：
+        - 如果某个单词在课文原文中没有找到配套例句，该项必须返回以下空对象：
           {{ "cn": "", "py": "", "en": "" }}
         - 示例结构：
           [
             {{ "cn": "我是学生。", "py": "Wǒ shì xuésheng.", "en": "I am a student." }},
-            {{ "cn": "", "py": "", "en": "" }} 
+            {{ "cn": "", "py": "", "en": "" }}
           ]
         """
 
@@ -397,11 +419,10 @@ class Task2QuizGenerator:
         if not new_vocab_base:
             return []
 
+        # 例句回填不需要传 PDF，把对话原文直接嵌入 prompt，大幅减少 token 消耗
         if len(new_vocab_base) <= self.example_batch_size:
             v_ex_res = self.llm.generate_structured_json(
-                self._build_vocab_example_prompt(new_vocab_base),
-                file_path=file_path,
-                file_obj=file_obj
+                self._build_vocab_example_prompt(new_vocab_base, source_dialogues),
             )
             if isinstance(v_ex_res, list) and len(v_ex_res) == len(new_vocab_base):
                 return self._attach_examples_with_fallback(new_vocab_base, v_ex_res, source_dialogues)
@@ -413,9 +434,7 @@ class Task2QuizGenerator:
         for index, batch in enumerate(self._chunk_items(new_vocab_base, self.example_batch_size), start=1):
             print(f"     📦 正在回填第 {index} 组官方例句...")
             v_ex_res = self.llm.generate_structured_json(
-                self._build_vocab_example_prompt(batch),
-                file_path=file_path,
-                file_obj=file_obj
+                self._build_vocab_example_prompt(batch, source_dialogues),
             )
 
             if isinstance(v_ex_res, list) and len(v_ex_res) == len(batch):
@@ -429,11 +448,11 @@ class Task2QuizGenerator:
 
     def _build_grammar_extract_prompt(self) -> str:
         return """
-        你是一名数据提取专家。请解析 PDF，提取书中的“语法/练习(Grammar/Exercises)”部分。
+        你是一名数据提取专家。请解析 PDF，提取书中的"语法/练习(Grammar/Exercises)"部分。
         只输出合法的 JSON 格式。
 
         【🚨 提取准则】
-        1. 仅限提取课后习题中用于“翻译练习”或“完成句子”的原文。
+        1. 仅限提取课后习题中用于"翻译练习"或"完成句子"的原文。
         2. 严禁（STOP）引入任何与本教材内容、本课主题无关的句子。
         3. 严禁为了凑数而自行生成练习题。
 
@@ -530,8 +549,8 @@ class Task2QuizGenerator:
            - 题目和例句必须 100% 来源于提供的素材，严禁引入清单外的任何主题或复杂句型。
 
         4. **禁止把功能词当作普通词义题来考**：
-           - 不要把语气词、结构助词、语法标记词当作普通“中译英/英译中”单词题来出。
-           - 例如像 “呢、吗、吧、的、地、得、了” 这类词不适合作为独立翻译题。
+           - 不要把语气词、结构助词、语法标记词当作普通"中译英/英译中"单词题来出。
+           - 例如像 "呢、吗、吧、的、地、得、了" 这类词不适合作为独立翻译题。
 
         5. **专名题面可答性**：
            - 如果词条是人名、姓氏或其他专有名词，题目的 original_text 不能只写抽象释义（例如 "(a personal name)"）。
@@ -689,7 +708,7 @@ class Task2QuizGenerator:
         speech_eval_config = json.dumps(self._get_speech_eval_config(), ensure_ascii=False)
 
         return f"""
-        你是一名中文教学题库设计专家。请根据给定课文句子素材，生成“语音作答题”。
+        你是一名中文教学题库设计专家。请根据给定课文句子素材，生成"语音作答题"。
 
         【题型定义】
         - 题型代码固定为: EN_TO_CN_SPEAK
@@ -965,7 +984,7 @@ class Task2QuizGenerator:
         en_to_cn_pool = [i for i in all_raw_items if i.get("question_type") == "EN_TO_CN"]
         en_to_cn_speak_pool = [i for i in all_raw_items if i.get("question_type") == "EN_TO_CN_SPEAK"]
         
-        # 3. 按照“先中译英，后英译中”重新组合
+        # 3. 按照"先中译英，后英译中"重新组合
         sorted_items = cn_to_en_pool + en_to_cn_pool + en_to_cn_speak_pool
 
         # 🚀 【结果清理与重排 ID】

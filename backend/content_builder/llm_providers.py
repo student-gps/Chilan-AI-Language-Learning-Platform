@@ -160,20 +160,33 @@ class GeminiProvider(BaseLLMProvider):
             types.SafetySetting(category="HARM_CATEGORY_CIVIC_INTEGRITY", threshold="BLOCK_NONE"),
         ]
 
-        try:
-            response = self.client.models.generate_content(
-                model=self.model_id,
-                contents=contents,
-                config={
-                    'response_mime_type': 'application/json',
-                    'temperature': 0.0,
-                    'max_output_tokens': 8192,
-                    'safety_settings': safety_settings
-                }
-            )
-        except Exception as e:
-            # 如果还是报错，尝试把 CIVIC_INTEGRITY 这一行删掉（部分模型版本不支持此分类）
-            raise Exception(f"❌ Gemini API 调用失败: {e}")
+        max_retries = 5
+        base_wait = 15  # 秒
+        response = None
+        for attempt in range(max_retries):
+            try:
+                response = self.client.models.generate_content(
+                    model=self.model_id,
+                    contents=contents,
+                    config={
+                        'response_mime_type': 'application/json',
+                        'temperature': 0.0,
+                        'max_output_tokens': 32768,
+                        'safety_settings': safety_settings
+                    }
+                )
+                break  # 成功则退出重试循环
+            except Exception as e:
+                err_str = str(e)
+                is_retryable = any(code in err_str for code in ("503", "429", "UNAVAILABLE", "RESOURCE_EXHAUSTED"))
+                if is_retryable and attempt < max_retries - 1:
+                    wait = base_wait * (2 ** attempt)
+                    print(f"  ⏳ Gemini 暂时不可用，{wait}s 后重试 (第 {attempt+1}/{max_retries} 次)...")
+                    time.sleep(wait)
+                else:
+                    raise Exception(f"❌ Gemini API 调用失败: {e}")
+        if response is None:
+            raise Exception("❌ Gemini API 多次重试后仍未返回结果")
         
         if not response.text:
             candidate = response.candidates[0] if response.candidates else None

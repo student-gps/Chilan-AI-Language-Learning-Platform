@@ -36,6 +36,7 @@ ARCHIVE_PDFS_DIR = CURRENT_DIR / "archive_pdfs"
 SYNCED_JSON_DIR = CURRENT_DIR / "synced_json"
 OUTPUT_JSON_DIR = CURRENT_DIR / "output_json"
 OUTPUT_AUDIO_DIR = CURRENT_DIR / "output_audio"
+OUTPUT_VIDEO_DIR = CURRENT_DIR / "output_video"
 VOCAB_MEMORY_FILE = CURRENT_DIR / "global_vocab_memory.json"
 
 def _extract_object_keys(payload):
@@ -73,19 +74,26 @@ def _collect_local_cos_object_keys():
 def _collect_db_cos_object_keys(cur):
     keys = set()
     try:
-        cur.execute("SELECT structured_content FROM lessons")
+        cur.execute("""
+            SELECT lesson_audio_assets, explanation_video_urls,
+                   video_render_plan, video_plan
+            FROM lessons
+        """)
         rows = cur.fetchall()
     except Exception:
         return keys
 
     for row in rows:
-        payload = None
         if isinstance(row, dict):
-            payload = row.get("structured_content")
-        elif isinstance(row, (list, tuple)) and row:
-            payload = row[0]
-        if isinstance(payload, dict):
-            keys.update(_extract_object_keys(payload))
+            for col in ("lesson_audio_assets", "explanation_video_urls",
+                        "video_render_plan", "video_plan"):
+                payload = row.get(col)
+                if isinstance(payload, dict):
+                    keys.update(_extract_object_keys(payload))
+        elif isinstance(row, (list, tuple)):
+            for payload in row:
+                if isinstance(payload, dict):
+                    keys.update(_extract_object_keys(payload))
     return keys
 
 
@@ -113,9 +121,9 @@ def _purge_cos_objects(object_keys):
     print(f"✅ COS 清理完成：成功 {deleted} 个，失败 {failed} 个。")
 
 
-def reset_pipeline(with_cos: bool = False):
+def reset_pipeline(with_cos: bool = True):
     print(f"🧹 [全系统重置] 正在清理测试数据...")
-    print(f"☁️ 云端媒体清理: {'开启 (--with-cos)' if with_cos else '关闭 (默认仅清本地与数据库)'}")
+    print(f"☁️ 云端媒体清理: {'开启' if with_cos else '关闭 (--skip-cos)'}")
     print("---------------------------------------------")
 
     local_cos_object_keys = _collect_local_cos_object_keys() if with_cos else set()
@@ -165,7 +173,23 @@ def reset_pipeline(with_cos: bool = False):
         )
     OUTPUT_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
-    # --- 5. 数据库清空 (课程/题目/学习进度) ---
+    # --- 5. 清理所有讲解视频产物 ---
+    if OUTPUT_VIDEO_DIR.exists():
+        video_files = [p for p in OUTPUT_VIDEO_DIR.iterdir() if p.is_file()]
+        video_dirs = [p for p in OUTPUT_VIDEO_DIR.iterdir() if p.is_dir()]
+
+        for video_file in video_files:
+            video_file.unlink(missing_ok=True)
+        for video_dir in video_dirs:
+            shutil.rmtree(video_dir, ignore_errors=True)
+
+        print(
+            f"✅ 已清理视频产物目录: {OUTPUT_VIDEO_DIR.name} "
+            f"(删除了 {len(video_files)} 个文件, {len(video_dirs)} 个子目录)"
+        )
+    OUTPUT_VIDEO_DIR.mkdir(parents=True, exist_ok=True)
+
+    # --- 6. 数据库清空 (课程/题目/学习进度) ---
     conn = None
     cur = None
     db_cos_object_keys = set()
@@ -206,18 +230,17 @@ def reset_pipeline(with_cos: bool = False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Reset content builder outputs and lesson database records.")
     parser.add_argument(
-        "--with-cos",
+        "--skip-cos",
         action="store_true",
-        help="额外清理腾讯云 COS 上已上传的媒体对象。",
+        help="跳过腾讯云 COS 媒体对象的清理（默认会一并清理）。",
     )
     args = parser.parse_args()
 
-    target_scope = "JSON、音频文件、数据库记录"
-    if args.with_cos:
-        target_scope += "以及 COS 云端媒体对象"
+    with_cos = not args.skip_cos
+    target_scope = "JSON、音频文件、数据库记录" + ("、COS 云端媒体对象" if with_cos else "")
 
     confirm = input(f"⚠️  注意：此操作将物理删除所有生成的 {target_scope}！确定继续？(y/n): ")
     if confirm.lower() == 'y':
-        reset_pipeline(with_cos=args.with_cos)
+        reset_pipeline(with_cos=with_cos)
     else:
         print("🚪 已取消操作。")

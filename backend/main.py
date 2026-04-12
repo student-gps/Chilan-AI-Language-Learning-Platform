@@ -47,6 +47,10 @@ audio_static_dir = Path(__file__).resolve().parent / "content_builder" / "output
 audio_static_dir.mkdir(parents=True, exist_ok=True)
 app.mount("/media/audio", StaticFiles(directory=str(audio_static_dir)), name="media-audio")
 
+video_static_dir = Path(__file__).resolve().parent / "content_builder" / "output_video"
+video_static_dir.mkdir(parents=True, exist_ok=True)
+app.mount("/media/video", StaticFiles(directory=str(video_static_dir)), name="media-video")
+
 # --- 🚀 挂载路由模块 ---
 app.include_router(auth.router)
 app.include_router(study.router)

@@ -67,6 +67,8 @@ class TencentCOSStorage:
     def _get_client(self):
         self._require_sdk()
         if self._client is None:
+            import socket
+            socket.setdefaulttimeout(120)  # fallback timeout for COS SDK (connect+read)
             config = CosConfig(
                 Region=self.region,
                 SecretId=self.secret_id,

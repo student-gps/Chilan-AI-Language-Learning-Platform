@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { BookOpen, Eye, EyeOff, Volume2 } from 'lucide-react';
+import { BookOpen, Volume2 } from 'lucide-react';
 import { claimGlobalAudio, releaseGlobalAudio } from '../../../utils/audioPlayback';
 
 const formatPinyinDisplay = (value = '') => {
@@ -60,7 +60,8 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
     const displayPartOfSpeech = currentSense?.part_of_speech || '';
     const primaryExample = currentSense?.example_sentence;
     const combinedExamples = [];
-    const [expandedExamples, setExpandedExamples] = useState({});
+    const [showPinyin, setShowPinyin] = useState({});
+    const [showTranslation, setShowTranslation] = useState({});
 
     if (primaryExample?.cn || primaryExample?.py || primaryExample?.en) {
         combinedExamples.push(primaryExample);
@@ -91,9 +92,8 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
         audio.play().catch(() => releaseGlobalAudio(audio));
     };
 
-    const toggleExample = (key) => {
-        setExpandedExamples((prev) => ({ ...prev, [key]: !prev[key] }));
-    };
+    const togglePinyin = (key) => setShowPinyin((prev) => ({ ...prev, [key]: !prev[key] }));
+    const toggleTranslation = (key) => setShowTranslation((prev) => ({ ...prev, [key]: !prev[key] }));
 
     return (
         <motion.div
@@ -150,54 +150,62 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
             )}
 
             <div className="space-y-4">
-                {combinedExamples.map((ex, idx) => (
-                    <div key={idx} className="bg-white/80 p-5 rounded-2xl border border-white shadow-sm">
-                        <div className="flex items-start justify-between gap-4">
-                            <div className="flex-1">
-                                {expandedExamples[`current-${idx}`] && ex.py ? (
-                                    <RubySentence cn={ex.cn} py={ex.py} />
-                                ) : (
-                                    <p className="text-2xl font-black text-slate-800 leading-tight">
-                                        {ex.cn}
-                                    </p>
-                                )}
+                {combinedExamples.map((ex, idx) => {
+                    const key = `current-${idx}`;
+                    const pinyinOn = showPinyin[key];
+                    const translationOn = showTranslation[key];
+                    return (
+                        <div key={idx} className="bg-white/80 p-5 rounded-2xl border border-white shadow-sm">
+                            <div className="flex items-start justify-between gap-4">
+                                <div className="flex-1">
+                                    {pinyinOn && ex.py ? (
+                                        <RubySentence cn={ex.cn} py={ex.py} />
+                                    ) : (
+                                        <p className="text-2xl font-black text-slate-800 leading-tight">
+                                            {ex.cn}
+                                        </p>
+                                    )}
+                                </div>
+                                <div className="flex items-center gap-2 shrink-0">
+                                    <button
+                                        onClick={() => playAudio(ex.cn)}
+                                        className="p-2 text-slate-300 hover:text-blue-600 transition-colors"
+                                    >
+                                        <Volume2 size={18} />
+                                    </button>
+                                    <button
+                                        onClick={() => togglePinyin(key)}
+                                        className={`px-3 py-2 rounded-xl text-xs font-black uppercase tracking-[0.18em] transition-colors ${pinyinOn ? 'bg-orange-100 text-orange-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+                                    >
+                                        拼音
+                                    </button>
+                                    <button
+                                        onClick={() => toggleTranslation(key)}
+                                        className={`px-3 py-2 rounded-xl text-xs font-black uppercase tracking-[0.18em] transition-colors ${translationOn ? 'bg-blue-100 text-blue-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+                                    >
+                                        译
+                                    </button>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-2 shrink-0">
-                                <button
-                                    onClick={() => playAudio(ex.cn)}
-                                    className="p-2 text-slate-300 hover:text-blue-600 transition-colors"
-                                >
-                                    <Volume2 size={18} />
-                                </button>
-                                <button
-                                    onClick={() => toggleExample(`current-${idx}`)}
-                                    className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors text-xs font-black uppercase tracking-[0.18em]"
-                                >
-                                    {expandedExamples[`current-${idx}`] ? <EyeOff size={14} /> : <Eye size={14} />}
-                                    {expandedExamples[`current-${idx}`] ? t('knowledge_hide') : t('knowledge_show')}
-                                </button>
-                            </div>
-                        </div>
-                        <AnimatePresence initial={false}>
-                            {expandedExamples[`current-${idx}`] && (
-                                <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    className="overflow-hidden"
-                                >
-                                    {ex.en && (
+                            <AnimatePresence initial={false}>
+                                {translationOn && ex.en && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="overflow-hidden"
+                                    >
                                         <div className="mt-3 py-2 px-4 bg-blue-50/50 rounded-lg inline-block">
                                             <p className="text-base font-bold text-blue-600 italic leading-snug">
                                                 {ex.en}
                                             </p>
                                         </div>
-                                    )}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                    );
+                })}
             </div>
 
             {history.length > 0 && (
@@ -226,7 +234,7 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                     <div className="mt-3">
                                         <div className="flex items-start justify-between gap-4">
                                             <div className="flex-1">
-                                                {expandedExamples[`history-${i}`] && h.example?.py ? (
+                                                {showPinyin[`history-${i}`] && h.example?.py ? (
                                                     <RubySentence cn={h.example.cn} py={h.example.py} />
                                                 ) : (
                                                     <p className="text-sm font-bold text-slate-700">{h.example.cn}</p>
@@ -240,25 +248,28 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                                     <Volume2 size={16} />
                                                 </button>
                                                 <button
-                                                    onClick={() => toggleExample(`history-${i}`)}
-                                                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors text-[10px] font-black uppercase tracking-[0.16em]"
+                                                    onClick={() => togglePinyin(`history-${i}`)}
+                                                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${showPinyin[`history-${i}`] ? 'bg-orange-100 text-orange-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
                                                 >
-                                                    {expandedExamples[`history-${i}`] ? <EyeOff size={12} /> : <Eye size={12} />}
-                                                    {expandedExamples[`history-${i}`] ? t('knowledge_hide') : t('knowledge_show')}
+                                                    拼音
+                                                </button>
+                                                <button
+                                                    onClick={() => toggleTranslation(`history-${i}`)}
+                                                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${showTranslation[`history-${i}`] ? 'bg-blue-100 text-blue-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+                                                >
+                                                    译
                                                 </button>
                                             </div>
                                         </div>
                                         <AnimatePresence initial={false}>
-                                            {expandedExamples[`history-${i}`] && (
+                                            {showTranslation[`history-${i}`] && h.example?.en && (
                                                 <motion.div
                                                     initial={{ opacity: 0, height: 0 }}
                                                     animate={{ opacity: 1, height: 'auto' }}
                                                     exit={{ opacity: 0, height: 0 }}
-                                                    className="overflow-hidden mt-2 space-y-1.5"
+                                                    className="overflow-hidden mt-2"
                                                 >
-                                                    {h.example?.en && (
-                                                        <p className="text-sm font-semibold italic text-blue-600">{h.example.en}</p>
-                                                    )}
+                                                    <p className="text-sm font-semibold italic text-blue-600">{h.example.en}</p>
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>

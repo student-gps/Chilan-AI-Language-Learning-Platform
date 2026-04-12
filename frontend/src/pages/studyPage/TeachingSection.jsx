@@ -72,6 +72,100 @@ const buildLessonAudioUrl = (lessonAudioAssets, apiBase) => {
 
 const LESSON_AUDIO_RATES = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3];
 
+const extractYouTubeId = (url) => {
+    if (!url) return null;
+    const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([\w-]{11})/);
+    return m ? m[1] : null;
+};
+
+function ExplanationVideoPlayer({ videoUrls, title, apiBase, t }) {
+    const youtubeId = extractYouTubeId(videoUrls?.youtube_url);
+    const bilibiliUrl = (videoUrls?.bilibili_url || '').trim();
+    const youtubeUrl  = (videoUrls?.youtube_url  || '').trim();
+
+    const cosRaw = (videoUrls?.cos_url || '').trim();
+    const cosUrl = cosRaw
+        ? (cosRaw.startsWith('http') ? cosRaw : `${apiBase}/media/video/${cosRaw}`)
+        : '';
+
+    const localPath = (videoUrls?.local_path || '').trim();
+    // Derive a relative /media/video URL from the local absolute path as fallback
+    const localFilename = localPath ? localPath.replace(/\\/g, '/').split('/').pop() : '';
+    const localUrl = (!cosUrl && localFilename) ? `${apiBase}/media/video/${localFilename}` : '';
+
+    const videoSrc = cosUrl || localUrl;
+    const hasVideo = !!(youtubeId || videoSrc);
+
+    return (
+        <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-16">
+            <div className="w-full overflow-hidden rounded-[2.5rem] bg-slate-900 shadow-2xl" style={{ aspectRatio: '16/9' }}>
+                {youtubeId ? (
+                    <iframe
+                        src={`https://www.youtube.com/embed/${youtubeId}`}
+                        className="h-full w-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        title={title}
+                        style={{ border: 'none' }}
+                    />
+                ) : videoSrc ? (
+                    <video
+                        src={videoSrc}
+                        controls
+                        preload="metadata"
+                        className="h-full w-full"
+                        style={{ background: '#0f172a' }}
+                    />
+                ) : (
+                    // Placeholder — video not yet available
+                    <div className="group relative flex h-full w-full flex-col items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                        <div className="z-10 text-center">
+                            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-xl transition-transform group-hover:scale-110">
+                                <div className="ml-1 h-0 w-0 border-b-[10px] border-l-[18px] border-t-[10px] border-b-transparent border-l-white border-t-transparent" />
+                            </div>
+                            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40">
+                                {t('teaching_video_label')}
+                            </p>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {(youtubeUrl || bilibiliUrl) && (
+                <div className="mt-3 flex justify-end gap-3">
+                    {youtubeUrl && (
+                        <a
+                            href={youtubeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 rounded-full bg-red-600 px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-red-700"
+                        >
+                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6a3 3 0 0 0-2.1 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
+                            </svg>
+                            YouTube
+                        </a>
+                    )}
+                    {bilibiliUrl && (
+                        <a
+                            href={bilibiliUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 rounded-full bg-[#00a1d6] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#0090c0]"
+                        >
+                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.374.56.374.933v2.667c0 .373-.125.684-.374.933-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.374-.56-.374-.933v-2.667c0-.373.125-.684.374-.933.249-.249.56-.373.933-.373zm8 0c.373 0 .684.124.933.373.25.249.374.56.374.933v2.667c0 .373-.125.684-.374.933-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.374-.56-.374-.933v-2.667c0-.373.125-.684.374-.933.249-.249.56-.373.933-.373z"/>
+                            </svg>
+                            Bilibili
+                        </a>
+                    )}
+                </div>
+            )}
+        </motion.div>
+    );
+}
+
 export default function TeachingSection({ data, courseId, userId, onStartPractice }) {
     const { t, i18n } = useTranslation();
     const [diagPinyin, setDiagPinyin] = useState(true);
@@ -98,6 +192,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
     const course_content = data?.course_content || {};
     const aigc_visual_prompt = data?.aigc_visual_prompt || '';
     const lesson_audio_assets = data?.lesson_audio_assets || null;
+    const explanation_video_urls = data?.explanation_video_urls || {};
     const { dialogues, vocabulary } = course_content || {};
     const contentType = lesson_metadata?.content_type || 'dialogue';
     const isReadingMode = ['diary', 'article', 'passage'].includes(contentType);
@@ -473,25 +568,12 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                     {lesson_metadata.title}
                 </h1>
 
-                <motion.div
-                    variants={fadeInUp}
-                    initial="hidden"
-                    animate="show"
-                    className="group relative mb-16 flex aspect-video w-full flex-col items-center justify-center overflow-hidden rounded-[2.5rem] bg-slate-900 shadow-2xl"
-                >
-                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/40 to-transparent" />
-                    <div className="z-20 text-center">
-                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-xl transition-transform group-hover:scale-110">
-                            <div className="ml-1 h-0 w-0 border-b-[10px] border-l-[18px] border-t-[10px] border-b-transparent border-l-white border-t-transparent" />
-                        </div>
-                        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40">
-                            {t('teaching_video_label')}
-                        </p>
-                    </div>
-                    <p className="absolute bottom-6 left-10 right-10 text-sm font-light italic text-white/60 opacity-0 transition-all duration-700 group-hover:opacity-100">
-                        "{aigc_visual_prompt}"
-                    </p>
-                </motion.div>
+                <ExplanationVideoPlayer
+                    videoUrls={explanation_video_urls}
+                    title={lesson_metadata.title}
+                    apiBase={API_BASE}
+                    t={t}
+                />
 
                 {lessonFullAudioUrl && (
                     <motion.section ref={lessonAudioSectionRef} variants={fadeInUp} initial="hidden" animate="show" className="mb-10">

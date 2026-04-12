@@ -100,21 +100,14 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
     
     lesson_metadata = data.get("lesson_metadata", {})
     course_content = data.get("course_content", {})
+    teaching_materials = data.get("teaching_materials", {}) if isinstance(data.get("teaching_materials"), dict) else {}
     database_items = data.get("database_items", [])
-    video_plan = data.get("video_plan", {}) if isinstance(data.get("video_plan"), dict) else {}
-    lesson_audio_assets = data.get("lesson_audio_assets", {}) if isinstance(data.get("lesson_audio_assets"), dict) else {}
+    video_plan             = data.get("video_plan", {})             if isinstance(data.get("video_plan"), dict)             else {}
+    video_render_plan      = data.get("video_render_plan", {})      if isinstance(data.get("video_render_plan"), dict)      else {}
+    lesson_audio_assets    = data.get("lesson_audio_assets", {})    if isinstance(data.get("lesson_audio_assets"), dict)    else {}
+    llm_usage              = data.get("llm_usage", {})              if isinstance(data.get("llm_usage"), dict)              else {}
+    explanation_video_urls = data.get("explanation_video_urls", {}) if isinstance(data.get("explanation_video_urls"), dict) else {}
     vocabulary_items = course_content.get("vocabulary", []) if isinstance(course_content, dict) else []
-    structured_lesson_payload = {
-        "lesson_metadata": lesson_metadata,
-        "course_content": course_content,
-        "video_plan": video_plan,
-        "teaching_video": (
-            video_plan.get("dramatization", {})
-            if isinstance(video_plan.get("dramatization"), dict)
-            else {"global_config": {}, "scenes": []}
-        ),
-        "lesson_audio_assets": lesson_audio_assets,
-    }
 
     course_id = lesson_metadata.get("course_id")
     lesson_id = lesson_metadata.get("lesson_id")
@@ -139,17 +132,42 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
         # 1. 同步 lessons 表
         print(f"📦 同步 Lesson {lesson_id} 基础数据...")
         cur.execute("SELECT 1 FROM lessons WHERE course_id = %s AND lesson_id = %s", (course_id, lesson_id))
-        
+
+        col_values = (
+            title,
+            Json(lesson_metadata),
+            Json(course_content),
+            Json(teaching_materials),
+            Json(video_plan),
+            Json(video_render_plan),
+            Json(lesson_audio_assets),
+            Json(explanation_video_urls),
+            Json(llm_usage),
+        )
+
         if cur.fetchone():
             cur.execute("""
-                UPDATE lessons SET title = %s, structured_content = %s
+                UPDATE lessons SET
+                  title                  = %s,
+                  lesson_metadata        = %s,
+                  course_content         = %s,
+                  teaching_materials     = %s,
+                  video_plan             = %s,
+                  video_render_plan      = %s,
+                  lesson_audio_assets    = %s,
+                  explanation_video_urls = %s,
+                  llm_usage              = %s
                 WHERE course_id = %s AND lesson_id = %s
-            """, (title, Json(structured_lesson_payload), course_id, lesson_id))
+            """, col_values + (course_id, lesson_id))
         else:
             cur.execute("""
-                INSERT INTO lessons (course_id, lesson_id, title, structured_content)
-                VALUES (%s, %s, %s, %s)
-            """, (course_id, lesson_id, title, Json(structured_lesson_payload)))
+                INSERT INTO lessons (
+                  course_id, lesson_id, title,
+                  lesson_metadata, course_content, teaching_materials,
+                  video_plan, video_render_plan, lesson_audio_assets,
+                  explanation_video_urls, llm_usage
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (course_id, lesson_id) + col_values)
 
         # 2. 同步 language_items 表
         print(f"🎯 正在处理 {len(database_items)} 道深度解析题目...")

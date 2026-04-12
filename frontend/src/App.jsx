@@ -9,6 +9,7 @@ import Learning_Overview from './pages/Learning_Overview';
 import Personal_Setting from './pages/Personal_Setting';
 import Classroom from './pages/Classroom';
 import StudyPage from './pages/studyPage/index.jsx'
+import ExplanationTemplatePreview from './pages/ExplanationTemplatePreview';
 import { getValidToken } from './utils/authStorage';
 
 const ProtectedRoute = ({ children }) => {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/overview" element={<ProtectedRoute><Learning_Overview /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Personal_Setting /></ProtectedRoute>} />
         <Route path="/study/:courseId" element={<ProtectedRoute><StudyPage /></ProtectedRoute>} />
+        <Route path="/video-template-preview/:courseId" element={<ExplanationTemplatePreview />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

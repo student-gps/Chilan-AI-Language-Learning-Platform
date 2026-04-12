@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ':*)",
+      "Bash(python3 -c ':*)",
+      "Bash(python3 -c \" import json data = json.load\\(open\\('c:/Users/gaope/Desktop/Chilan/backend/content_builder/synced_json/lesson201_data.json'\\)\\) segs = data['video_render_plan']['explanation'].get\\('segments', []\\) for s in segs: if s.get\\('segment_type'\\) == 'usage_focus': import pprint pprint.pprint\\(s\\) print\\(\\) \")",
+      "Read(//c/Users/gaope/Desktop/**)",
+      "Bash(python3 -c \"import sys; sys.path.insert\\(0, 'c:/Users/gaope/Desktop/Chilan/backend/content_builder'\\); from tasks.task2_quiz import Task2QuizGenerator; print\\('OK'\\)\")",
+      "Bash(grep -n \"BlackboardShell subtitleText\" c:/Users/gaope/Desktop/Chilan/frontend/src/videoTemplates/explanation/*.jsx)",
+      "Bash(grep -n \"durationInSeconds\" c:/Users/gaope/Desktop/Chilan/frontend/src/videoTemplates/explanation/*.jsx)",
+      "Bash(xargs grep:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\gaope\\Desktop"
+    ]
+  }
+}

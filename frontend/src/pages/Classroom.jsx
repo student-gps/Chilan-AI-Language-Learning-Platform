@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
     Layers, ChevronRight,
-    CheckCircle2, Zap, Loader2, GraduationCap 
+    CheckCircle2, Zap, Loader2, GraduationCap, ChevronDown, Check
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 // 🚀 引入统一的 API 客户端，不再直接使用原始 axios
@@ -532,22 +532,90 @@ function StatItem({ icon, label, value, color }) {
 
 function FilterSelect({ label, value, options, onChange }) {
     const { t, i18n } = useTranslation();
+    const [isOpen, setIsOpen] = useState(false);
+    const selectedLabel = value === 'all' ? t('classroom_filter_all') : formatLanguageLabel(value, i18n.language);
+
+    useEffect(() => {
+        const handlePointerDown = () => {
+            setIsOpen(false);
+        };
+
+        if (isOpen) {
+            window.addEventListener('pointerdown', handlePointerDown);
+        }
+
+        return () => {
+            window.removeEventListener('pointerdown', handlePointerDown);
+        };
+    }, [isOpen]);
+
     return (
-        <div className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/90 px-2 py-2 shadow-sm">
-            <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-black tracking-[0.18em] text-slate-500 whitespace-nowrap">
-                {label}
-            </span>
-            <select
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                className="min-w-[112px] appearance-none rounded-full bg-slate-50 px-4 py-2 text-sm font-black text-slate-700 outline-none ring-1 ring-slate-200 transition focus:ring-blue-300"
-            >
-                {options.map((option) => (
-                    <option key={option} value={option}>
-                        {option === 'all' ? t('classroom_filter_all') : formatLanguageLabel(option, i18n.language)}
-                    </option>
-                ))}
-            </select>
+        <div className="relative min-w-[220px] rounded-[1.5rem] border border-slate-200/80 bg-white/90 p-2 shadow-md shadow-slate-200/50">
+            <div className="mb-2 px-2">
+                <span className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-400 whitespace-nowrap">
+                    {label}
+                </span>
+            </div>
+            <div className="relative" onPointerDown={(e) => e.stopPropagation()}>
+                <button
+                    type="button"
+                    onClick={() => setIsOpen((open) => !open)}
+                    className={`w-full rounded-[1.15rem] border px-4 py-3.5 text-left text-sm font-black text-slate-700 outline-none shadow-inner shadow-white/60 transition ${
+                        isOpen
+                            ? 'border-blue-300 bg-gradient-to-br from-white via-white to-blue-50 ring-4 ring-blue-100'
+                            : 'border-slate-200/80 bg-gradient-to-br from-slate-50 via-white to-slate-100 hover:border-slate-300'
+                    }`}
+                >
+                    <span className="block pr-12 text-base">{selectedLabel}</span>
+                    <div className="pointer-events-none absolute inset-y-0 right-3 top-0 flex items-center">
+                        <div className={`flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm ring-1 transition-all ${
+                            isOpen ? 'text-blue-500 ring-blue-200' : 'text-slate-400 ring-slate-200/80'
+                        }`}>
+                            <ChevronDown size={16} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                        </div>
+                    </div>
+                </button>
+
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                            transition={{ duration: 0.16 }}
+                            className="absolute left-0 right-0 top-[calc(100%+0.65rem)] z-30 overflow-hidden rounded-[1.35rem] border border-slate-200/80 bg-white/95 p-2 shadow-2xl shadow-slate-300/40 backdrop-blur"
+                        >
+                            <div className="space-y-1">
+                                {options.map((option) => {
+                                    const optionLabel = option === 'all'
+                                        ? t('classroom_filter_all')
+                                        : formatLanguageLabel(option, i18n.language);
+                                    const isSelected = option === value;
+
+                                    return (
+                                        <button
+                                            key={option}
+                                            type="button"
+                                            onClick={() => {
+                                                onChange(option);
+                                                setIsOpen(false);
+                                            }}
+                                            className={`flex w-full items-center justify-between rounded-[1rem] px-4 py-3 text-left text-sm font-black transition-all ${
+                                                isSelected
+                                                    ? 'bg-gradient-to-r from-blue-600 to-indigo-500 text-white shadow-lg shadow-blue-200/70'
+                                                    : 'text-slate-600 hover:bg-slate-50'
+                                            }`}
+                                        >
+                                            <span>{optionLabel}</span>
+                                            {isSelected && <Check size={16} />}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </div>
     );
 }
