@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import Learning_Overview from './pages/Learning_Overview';
-import Personal_Setting from './pages/Personal_Setting';
+import Personal_Setting from './pages/personalSetting';
 import Classroom from './pages/Classroom';
 import StudyPage from './pages/studyPage/index.jsx'
 import ExplanationTemplatePreview from './pages/ExplanationTemplatePreview';
