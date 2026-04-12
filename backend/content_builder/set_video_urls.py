@@ -1,11 +1,11 @@
 """
-set_video_urls.py — Update YouTube / Bilibili URLs for a lesson's explanation video.
+set_video_urls.py — Update video URLs for a lesson's explanation video.
 
 Usage:
+    python set_video_urls.py 101 --show
+    python set_video_urls.py 101 --cos-key "videos/lesson101_explanation_final.mp4"
     python set_video_urls.py 101 --youtube "https://youtu.be/xxxxx"
     python set_video_urls.py 101 --bilibili "https://b23.tv/xxxxx"
-    python set_video_urls.py 101 --youtube "https://youtu.be/xxx" --bilibili "https://b23.tv/xxx"
-    python set_video_urls.py 101 --show
 """
 
 import argparse
@@ -30,7 +30,8 @@ def _get_lesson_json_path(lesson_id: int) -> Path:
 
 def show_current(lesson_id: int):
     conn = get_connection()
-    cur = conn.cursor()
+    from psycopg2.extras import RealDictCursor
+    cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute(
         "SELECT explanation_video_urls FROM lessons WHERE lesson_id = %s LIMIT 1",
         (lesson_id,),
@@ -49,9 +50,10 @@ def show_current(lesson_id: int):
     print(f"  local_path:     {urls.get('local_path', '(empty)')}\n")
 
 
-def update_urls(lesson_id: int, youtube_url: str | None, bilibili_url: str | None):
+def update_urls(lesson_id: int, youtube_url: str | None, bilibili_url: str | None, cos_key: str | None):
     conn = get_connection()
-    cur = conn.cursor()
+    from psycopg2.extras import RealDictCursor
+    cur = conn.cursor(cursor_factory=RealDictCursor)
 
     cur.execute(
         "SELECT explanation_video_urls FROM lessons WHERE lesson_id = %s LIMIT 1",
@@ -65,6 +67,12 @@ def update_urls(lesson_id: int, youtube_url: str | None, bilibili_url: str | Non
         return
 
     video_urls: dict = dict(row["explanation_video_urls"] or {})
+
+    if cos_key is not None:
+        # Store only the object key; the study router generates signed URLs on every request
+        video_urls["cos_object_key"] = cos_key.strip()
+        video_urls["cos_url"] = ""   # cleared — backend hydrates this dynamically
+        print(f"  ✅ cos_object_key → {cos_key.strip()}")
 
     if youtube_url is not None:
         video_urls["youtube_url"] = youtube_url.strip()
@@ -88,10 +96,7 @@ def update_urls(lesson_id: int, youtube_url: str | None, bilibili_url: str | Non
         with open(json_path, "r", encoding="utf-8") as f:
             data = json.load(f)
         existing = data.get("explanation_video_urls") or {}
-        if youtube_url is not None:
-            existing["youtube_url"] = youtube_url.strip()
-        if bilibili_url is not None:
-            existing["bilibili_url"] = bilibili_url.strip()
+        existing.update({k: v for k, v in video_urls.items() if k in ("cos_url", "cos_object_key", "youtube_url", "bilibili_url")})
         data["explanation_video_urls"] = existing
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
@@ -103,6 +108,7 @@ def main():
         description="Update YouTube / Bilibili URLs for a lesson's explanation video."
     )
     parser.add_argument("lesson_id", type=int, help="Lesson ID (e.g. 101)")
+    parser.add_argument("--cos-key",  type=str, default=None, help="COS object key (e.g. videos/lesson101_explanation_final.mp4)")
     parser.add_argument("--youtube",  type=str, default=None, help="YouTube video URL")
     parser.add_argument("--bilibili", type=str, default=None, help="Bilibili video URL")
     parser.add_argument("--show",     action="store_true", help="Show current URLs and exit")
@@ -112,12 +118,12 @@ def main():
         show_current(args.lesson_id)
         return
 
-    if args.youtube is None and args.bilibili is None:
-        print("Nothing to update. Use --youtube and/or --bilibili, or --show to inspect.")
+    if args.cos_key is None and args.youtube is None and args.bilibili is None:
+        print("Nothing to update. Use --cos-key / --youtube / --bilibili, or --show to inspect.")
         parser.print_help()
         return
 
-    update_urls(args.lesson_id, args.youtube, args.bilibili)
+    update_urls(args.lesson_id, args.youtube, args.bilibili, args.cos_key)
 
 
 if __name__ == "__main__":

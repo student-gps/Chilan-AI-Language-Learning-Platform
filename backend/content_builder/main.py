@@ -107,9 +107,9 @@ def render_explanation_video(base_dir: Path, lesson_id: int, lesson_data: dict |
                 upload_result = cos.upload_file(
                     str(local_path), object_key, content_type="video/mp4"
                 )
-                result["cos_url"] = upload_result.get("public_url", "")
-                result["cos_object_key"] = upload_result.get("object_key", "")
-                print(f"☁️ 讲解视频已上传 COS: {result['cos_url']}")
+                result["cos_url"] = ""   # cleared — study router generates signed URL on request
+                result["cos_object_key"] = upload_result.get("object_key", object_key)
+                print(f"☁️ 讲解视频已上传 COS: {result['cos_object_key']}")
             else:
                 print("ℹ️ COS 未配置，视频仅本地可用。")
         except Exception as e:
