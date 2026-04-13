@@ -22,6 +22,12 @@ from services.llm.tools import LanguageTools
 from services.speech import ASRService
 from services.study.scheduler import FSRSScheduler
 from services.study.evaluator_service import StudyEvaluator
+from services.study.lesson_progress_service import (
+    complete_lesson as complete_lesson_service,
+    mark_lesson_content_viewed as mark_lesson_content_viewed_service,
+    save_practice_progress as save_practice_progress_service,
+)
+from services.study.init_flow_service import init_study_flow as init_study_flow_service
 from services.storage.tencent_cos_storage import TencentCOSStorage
 from config.env import get_env
 
@@ -246,156 +252,17 @@ def ensure_vocabulary_knowledge_table(cur):
 # ==========================================
 @router.get("/study/init")
 async def init_study_flow(user_id: str, course_id: int = 1):
-    conn = None
     try:
-        conn = get_connection()
-        # 使用 RealDictCursor 确保查询结果直接映射为 Python 字典，方便 FastAPI 转 JSON
-        cur = conn.cursor(cursor_factory=RealDictCursor)
-        ensure_lesson_progress_columns(cur)
-        conn.commit()
-
-        # ---------------------------------------------------------
-        # 1. 查询复习流 (Due Questions)
-        # 💡 这里加入了 original_pinyin 和 metadata，供复习时的单词卡片使用
-        # ---------------------------------------------------------
-        cur.execute("""
-            SELECT 
-                q.item_id, 
-                q.question_id, 
-                q.question_type, 
-                q.original_text, 
-                q.original_pinyin, 
-                q.standard_answers, 
-                q.metadata
-            FROM language_items q
-            JOIN user_progress_of_language_items p ON q.item_id = p.item_id
-            WHERE p.user_id::text = %s AND p.next_review <= CURRENT_TIMESTAMP
-            ORDER BY p.next_review ASC 
-            LIMIT 20;
-        """, (user_id,))
-        
-        due_questions = cur.fetchall()
-
-        # 如果有到期的复习题，优先进入复习模式
-        if due_questions:
-            return {
-                "mode": "review", 
-                "data": {"pending_items": due_questions}
-            }
-
-        # ---------------------------------------------------------
-        # 2. 查询用户当前课程进度
-        # ---------------------------------------------------------
-        cur.execute("""
-            SELECT last_completed_lesson_id, viewed_lesson_id, practice_question_index
-            FROM user_progress_of_lessons 
-            WHERE user_id::text = %s AND course_id = %s
-        """, (user_id, course_id))
-        
-        progress = cur.fetchone()
-        
-        # 处理新用户逻辑
-        if progress:
-            last_lesson = progress.get('last_completed_lesson_id') or 0
-            viewed_lesson = progress.get('viewed_lesson_id') or 0
-            practice_question_index = progress.get('practice_question_index') or 0
-        else:
-            last_lesson = 0
-            viewed_lesson = 0
-            practice_question_index = 0
-            
-        # ---------------------------------------------------------
-        # 3. 寻找下一节需要学习的课程
-        # 🌟 自动跳跃：支持 102 直接跳到 201 等非连续 ID
-        # ---------------------------------------------------------
-        cur.execute("""
-            SELECT lesson_id, title,
-                   lesson_metadata, course_content, teaching_materials,
-                   video_plan, video_render_plan, lesson_audio_assets,
-                   explanation_video_urls, llm_usage
-            FROM lessons
-            WHERE course_id = %s AND lesson_id > %s
-            ORDER BY lesson_id ASC
-            LIMIT 1
-        """, (course_id, last_lesson))
-        
-        lesson_row = cur.fetchone()
-
-        # 如果没有下一课了，说明通关了
-        if not lesson_row:
-            return {"mode": "completed", "message": "恭喜！你已完成本课程的所有内容。"}
-
-        next_lesson_id = lesson_row['lesson_id']
-        lesson_metadata     = lesson_row.get('lesson_metadata')     or {}
-        course_content      = lesson_row.get('course_content')      or {}
-        video_plan          = lesson_row.get('video_plan')          or {}
-        video_render_plan   = _normalize_video_render_plan(lesson_row.get('video_render_plan'))
-        lesson_audio_assets = _hydrate_lesson_audio_urls(lesson_row.get('lesson_audio_assets'))
-        explanation_video_urls = _hydrate_explanation_video_urls(lesson_row.get('explanation_video_urls'))
-        teaching_video = _normalize_teaching_video(
-            video_plan.get("dramatization") if isinstance(video_plan.get("dramatization"), dict) else {}
+        return init_study_flow_service(
+            user_id=user_id,
+            course_id=course_id,
+            cos_media_storage=cos_media_storage,
         )
-
-        lesson_metadata = {
-            "course_id": course_id,
-            "lesson_id": next_lesson_id,
-            "title": lesson_metadata.get("title") or lesson_row['title'],
-            "content_type": lesson_metadata.get("content_type", "dialogue"),
-            **{k: v for k, v in lesson_metadata.items() if k not in {"course_id", "lesson_id", "title", "content_type"}},
-        }
-
-        # ---------------------------------------------------------
-        # 4. 查询该新课的全部题目
-        # 💡 这里加入了 original_pinyin 和 metadata
-        # 💡 使用 ORDER BY question_id ASC 保证“中译英在前，英译中在后”
-        # ---------------------------------------------------------
-        cur.execute("""
-            SELECT 
-                item_id, 
-                question_id, 
-                question_type, 
-                original_text, 
-                original_pinyin, 
-                standard_answers, 
-                metadata,
-                %s as lesson_id
-            FROM language_items 
-            WHERE course_id = %s AND lesson_id = %s
-            ORDER BY question_id ASC
-        """, (next_lesson_id, course_id, next_lesson_id))
-        
-        new_questions = cur.fetchall()
-
-        # 判断用户是否已经看过该课的讲义（用于前端决定是先看视频还是直接练习）
-        skip_content = (viewed_lesson == next_lesson_id)
-
-        return {
-            "mode": "teaching",
-            "data": {
-                "lesson_content": {
-                    "lesson_metadata": lesson_metadata,
-                    "course_content": course_content,
-                    "teaching_video": teaching_video,
-                    "video_render_plan": video_render_plan,
-                    "lesson_audio_assets": lesson_audio_assets,
-                    "explanation_video_urls": explanation_video_urls,
-                    "aigc_visual_prompt": "A thematic visual for the current lesson..."
-                },
-                "pending_items": new_questions,
-                "skip_content": skip_content,
-                "practice_resume_index": max(0, min(practice_question_index, max(len(new_questions) - 1, 0))),
-            }
-        }
-
     except Exception as e:
         print(f"❌ Init Flow Error: {e}")
-        # 记录详细错误日志
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="加载学习流失败，请检查后端日志")
-    finally:
-        if conn: 
-            conn.close()
         
 # ==========================================
 # 接口 2: 智能判卷与记忆更新
@@ -622,54 +489,30 @@ async def evaluate_answer(req: EvaluateRequest):
 # ==========================================
 @router.post("/study/content_viewed")
 async def mark_lesson_content_viewed(req: ContentViewedRequest):
-    conn = None
     try:
-        conn = get_connection()
-        cur = conn.cursor()
-        ensure_lesson_progress_columns(cur)
-        cur.execute("""
-            INSERT INTO user_progress_of_lessons (user_id, course_id, viewed_lesson_id)
-            VALUES (%s::uuid, %s, %s)
-            ON CONFLICT (user_id, course_id)
-            DO UPDATE SET viewed_lesson_id = EXCLUDED.viewed_lesson_id;
-        """, (req.user_id, req.course_id, req.lesson_id))
-        conn.commit()
-        return {"status": "success"}
+        return mark_lesson_content_viewed_service(
+            user_id=req.user_id,
+            course_id=req.course_id,
+            lesson_id=req.lesson_id,
+        )
     except Exception as e:
-        if conn: conn.rollback()
         raise HTTPException(status_code=500, detail=str(e))
-    finally:
-        if conn: conn.close()
 
 # ==========================================
 # 接口 4: 同步练习进度（账号级断点续练）
 # ==========================================
 @router.post("/study/practice_progress")
 async def save_practice_progress(req: PracticeProgressRequest):
-    conn = None
     try:
-        conn = get_connection()
-        cur = conn.cursor()
-        ensure_lesson_progress_columns(cur)
-        cur.execute("""
-            INSERT INTO user_progress_of_lessons (user_id, course_id, viewed_lesson_id, practice_question_index, practice_question_updated_at)
-            VALUES (%s::uuid, %s, %s, %s, CURRENT_TIMESTAMP)
-            ON CONFLICT (user_id, course_id)
-            DO UPDATE SET
-                viewed_lesson_id = EXCLUDED.viewed_lesson_id,
-                practice_question_index = EXCLUDED.practice_question_index,
-                practice_question_updated_at = CURRENT_TIMESTAMP;
-        """, (req.user_id, req.course_id, req.lesson_id, max(req.current_index, 0)))
-        conn.commit()
-        return {"status": "success"}
+        return save_practice_progress_service(
+            user_id=req.user_id,
+            course_id=req.course_id,
+            lesson_id=req.lesson_id,
+            current_index=req.current_index,
+        )
     except Exception as e:
-        if conn:
-            conn.rollback()
         print(f"❌ Save Practice Progress Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-    finally:
-        if conn:
-            conn.close()
 
 
 @router.get("/study/knowledge")
@@ -816,28 +659,12 @@ async def lesson_preview(course_id: int, lesson_id: int):
 
 @router.post("/study/complete_lesson")
 async def complete_lesson(req: CompleteLessonRequest):
-    conn = None
     try:
-        conn = get_connection()
-        cur = conn.cursor()
-        ensure_lesson_progress_columns(cur)
-        
-        cur.execute("""
-            INSERT INTO user_progress_of_lessons (user_id, course_id, last_completed_lesson_id)
-            VALUES (%s::uuid, %s, %s)
-            ON CONFLICT (user_id, course_id)
-            DO UPDATE SET 
-                last_completed_lesson_id = GREATEST(user_progress_of_lessons.last_completed_lesson_id, EXCLUDED.last_completed_lesson_id),
-                practice_question_index = 0,
-                practice_question_updated_at = NULL;
-        """, (req.user_id, req.course_id, req.lesson_id))
-        
-        conn.commit()
-        return {"status": "success", "message": f"Lesson {req.lesson_id} marked as completed."}
-        
+        return complete_lesson_service(
+            user_id=req.user_id,
+            course_id=req.course_id,
+            lesson_id=req.lesson_id,
+        )
     except Exception as e:
-        if conn: conn.rollback()
         print(f"❌ Complete Lesson Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-    finally:
-        if conn: conn.close()
