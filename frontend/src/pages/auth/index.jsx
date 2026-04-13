@@ -1,142 +1,46 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-// 🚀 引入我们统一的 API 客户端
-import apiClient from '../api/apiClient'; 
 import { 
-    Mail, Lock, ArrowLeft, Loader2, CheckCircle2, 
-    ShieldCheck, AlertCircle, Eye, EyeOff, Hash, Check
+    Mail, Lock, ArrowLeft, Loader2,
+    ShieldCheck, AlertCircle, Eye, EyeOff, Hash
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGoogleLogin } from '@react-oauth/google';
+import AuthRequirement from './components/AuthRequirement';
+import AuthSocialSection from './components/AuthSocialSection';
+import AuthSuccessState from './components/AuthSuccessState';
+import useAuthFlow from './hooks/useAuthFlow';
 
 export default function Auth() {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    
-    const [step, setStep] = useState('form'); // form, verify, forgot, reset, success
-    const [mode, setMode] = useState('login'); 
-    
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [code, setCode] = useState('');
-    
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
-
-    const checks = {
-        length: password.length >= 8 && password.length <= 32,
-        letter: /[A-Za-z]/.test(password),
-        number: /[0-9]/.test(password),
-        special: /[^A-Za-z0-9]/.test(password),
-        noSpace: !/\s/.test(password),
-        match: (mode === 'register' || step === 'reset') ? (password === confirmPassword && confirmPassword !== '') : true
-    };
-    const isPasswordValid = Object.values(checks).every(Boolean);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsLoading(true);
-        setError('');
-
-        try {
-            // 🚀 定义统一的路径前缀
-            const AUTH_PATH = "/auth";
-
-            if (step === 'forgot') {
-                await apiClient.post(`${AUTH_PATH}/forgot-password`, { email });
-                setStep('reset');
-                setPassword('');
-                setConfirmPassword('');
-            } else if (step === 'reset') {
-                // ✅ 已修复：使用 apiClient 和 AUTH_PATH
-                await apiClient.post(`${AUTH_PATH}/reset-password`, { 
-                    email, 
-                    code, 
-                    new_password: password 
-                });
-                setStep('success');
-                setTimeout(() => { setStep('form'); setMode('login'); }, 2000);
-            } else if (mode === 'register') {
-                if (step === 'form') {
-                    await apiClient.post(`${AUTH_PATH}/signup`, { email, password, lang: i18n.language });
-                    setStep('verify');
-                } else {
-                    await apiClient.post(`${AUTH_PATH}/verify`, { email, code });
-                    setStep('success');
-                    setTimeout(() => { setMode('login'); setStep('form'); }, 2000);
-                }
-            } else {
-                // 登录逻辑
-                const res = await apiClient.post(`${AUTH_PATH}/login`, { email, password });
-                localStorage.setItem('chilan_token', res.data.access_token);
-                localStorage.setItem('chilan_user_id', res.data.user_id);
-                localStorage.setItem('chilan_user_email', res.data.email || email);
-                setStep('success');
-                setTimeout(() => navigate('/'), 2000); 
-            }
-        } catch (err) {
-            const status = err.response?.status;
-            const detail = err.response?.data?.detail;
-            const message = err.message;
-            console.error("Auth request failed:", {
-                step,
-                mode,
-                status,
-                detail,
-                message,
-                response: err.response?.data,
-            });
-            setError(
-                detail
-                    ? `${detail}${status ? ` (HTTP ${status})` : ''}`
-                    : `Operation failed${status ? ` (HTTP ${status})` : ''}`
-            );
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const googleLogin = useGoogleLogin({
-        onSuccess: async (tokenResponse) => {
-            setIsLoading(true);
-            try {
-                // ✅ 使用 apiClient 处理 Google 登录
-                const res = await apiClient.post('/auth/google', { 
-                    access_token: tokenResponse.access_token 
-                });
-                localStorage.setItem('chilan_token', res.data.access_token);
-                localStorage.setItem('chilan_user_id', res.data.user_id);
-                localStorage.setItem('chilan_user_email', res.data.email || '');
-                setStep('success');
-                setTimeout(() => navigate('/'), 2000);
-            } catch (err) { 
-                console.error("Google auth failed:", {
-                    status: err.response?.status,
-                    detail: err.response?.data?.detail,
-                    message: err.message,
-                    response: err.response?.data,
-                });
-                setError(
-                    err.response?.data?.detail
-                        ? `${err.response.data.detail}${err.response?.status ? ` (HTTP ${err.response.status})` : ''}`
-                        : "Google Auth Failed"
-                ); 
-            } finally { 
-                setIsLoading(false); 
-            }
-        }
+    const {
+        checks,
+        code,
+        confirmPassword,
+        email,
+        error,
+        googleLogin,
+        handleSubmit,
+        isLoading,
+        isPasswordValid,
+        mode,
+        password,
+        setCode,
+        setConfirmPassword,
+        setEmail,
+        setMode,
+        setPassword,
+        setShowConfirmPassword,
+        setShowPassword,
+        setStep,
+        showConfirmPassword,
+        showPassword,
+        step,
+    } = useAuthFlow({
+        navigate,
+        language: i18n.language,
     });
-
-    const Requirement = ({ met, text }) => (
-        <div className={`flex items-center gap-2 text-xs font-bold transition-colors ${met ? 'text-green-500' : 'text-slate-300'}`}>
-            {met ? <Check size={12} strokeWidth={3} /> : <div className="w-3 h-3 border-2 border-slate-200 rounded-full" />}
-            {text}
-        </div>
-    );
 
     return (
         <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
@@ -154,14 +58,11 @@ export default function Auth() {
                 <motion.div layout className="w-full max-w-md bg-white rounded-[2.5rem] shadow-2xl p-10 border border-slate-100 min-h-[550px] flex flex-col justify-center overflow-hidden">
                     <AnimatePresence mode="wait">
                         {step === 'success' ? (
-                            <motion.div key="success" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center">
-                                <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <CheckCircle2 size={40}/>
-                                </div>
-                                <h2 className="text-2xl font-black mb-2 text-slate-900">{mode === 'login' ? t('auth_login_success_title') : t('auth_success_title')}</h2>
-                                <p className="text-slate-500 font-medium mb-8 whitespace-pre-line">{mode === 'login' ? t('auth_login_success_subtitle') : t('auth_success_subtitle')}</p>
-                                <Loader2 className="animate-spin mx-auto text-blue-500" />
-                            </motion.div>
+                            <AuthSuccessState
+                                isLogin={mode === 'login'}
+                                title={mode === 'login' ? t('auth_login_success_title') : t('auth_success_title')}
+                                subtitle={mode === 'login' ? t('auth_login_success_subtitle') : t('auth_success_subtitle')}
+                            />
                         ) : (
                             <motion.div key={step} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                                 {step === 'form' && (
@@ -217,12 +118,12 @@ export default function Auth() {
                                                 </button>
                                             </div>
                                             <div className="p-4 bg-slate-50 rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-3 border border-slate-100">
-                                                <Requirement met={checks.length} text={t('auth_pw_req_length')} />
-                                                <Requirement met={checks.letter} text={t('auth_pw_req_letter')} />
-                                                <Requirement met={checks.number} text={t('auth_pw_req_number')} />
-                                                <Requirement met={checks.special} text={t('auth_pw_req_special')} />
-                                                <Requirement met={checks.noSpace} text={t('auth_pw_req_no_space')} />
-                                                <Requirement met={checks.match} text={t('auth_pw_match')} />
+                                                <AuthRequirement met={checks.length} text={t('auth_pw_req_length')} />
+                                                <AuthRequirement met={checks.letter} text={t('auth_pw_req_letter')} />
+                                                <AuthRequirement met={checks.number} text={t('auth_pw_req_number')} />
+                                                <AuthRequirement met={checks.special} text={t('auth_pw_req_special')} />
+                                                <AuthRequirement met={checks.noSpace} text={t('auth_pw_req_no_space')} />
+                                                <AuthRequirement met={checks.match} text={t('auth_pw_match')} />
                                             </div>
                                         </motion.div>
                                     )}
@@ -258,19 +159,7 @@ export default function Auth() {
                                 </form>
 
                                 {step === 'form' && (
-                                    <>
-                                        <div className="relative my-10 flex items-center justify-center">
-                                            <div className="flex-1 border-t border-slate-100"></div>
-                                            <span className="mx-6 text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">{t('auth_or_use')}</span>
-                                            <div className="flex-1 border-t border-slate-100"></div>
-                                        </div>
-                                        <div className="flex flex-col gap-3">
-                                            <button onClick={() => googleLogin()} className="w-full h-11 flex items-center justify-center gap-3 bg-white border border-[#dadce0] rounded-full hover:bg-slate-50 transition-all active:scale-[0.98] shadow-sm">
-                                                <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-                                                <span className="text-sm font-bold text-slate-700">Google</span>
-                                            </button>
-                                        </div>
-                                    </>
+                                    <AuthSocialSection dividerLabel={t('auth_or_use')} onGoogleLogin={() => googleLogin()} />
                                 )}
                             </motion.div>
                         )}

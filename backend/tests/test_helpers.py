@@ -28,6 +28,8 @@ from fastapi.testclient import TestClient  # noqa: E402
 import main  # noqa: E402
 from database.utils import get_password_hash  # noqa: E402
 from routers import auth, study  # noqa: E402
+from services.study import init_flow_service  # noqa: E402
+from services.study import lesson_progress_service  # noqa: E402
 
 
 class FakeCursor:

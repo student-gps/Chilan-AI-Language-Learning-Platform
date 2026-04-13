@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from .test_helpers import FakeConnection, SmokeTestCaseMixin, study
+from .test_helpers import FakeConnection, SmokeTestCaseMixin, init_flow_service
 
 
 class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
@@ -66,7 +66,7 @@ class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
 
         fake_db = FakeConnection(handler)
 
-        with patch.object(study, "get_connection", return_value=fake_db):
+        with patch.object(init_flow_service, "get_connection", return_value=fake_db):
             response = self.client.get("/study/init", params={"user_id": "u-1", "course_id": 1})
 
         self.assertEqual(response.status_code, 200)

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 // 导入组件
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Auth from './pages/Auth';
+import Auth from './pages/auth';
 import Learning_Overview from './pages/Learning_Overview';
 import Personal_Setting from './pages/personalSetting';
 import Classroom from './pages/Classroom';
