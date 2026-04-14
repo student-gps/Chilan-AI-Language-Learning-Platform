@@ -236,41 +236,35 @@ export default function Classroom() {
     const userId = localStorage.getItem('chilan_user_id');
 
     useEffect(() => {
-        if (userId) fetchData();
-    }, [userId]);
-
-    const fetchData = async () => {
-        setIsLoading(true);
-        try {
-            // 🚀 使用 apiClient 并移除硬编码域名
-            const [statRes, myCourseRes] = await Promise.all([
+        if (!userId) return;
+        const fetchData = async () => {
+            setIsLoading(true);
+            setIsCoursesLoading(true);
+            const [statRes, myCourseRes, coursesRes] = await Promise.allSettled([
                 apiClient.get(`/classroom/stats/${userId}`),
-                apiClient.get(`/my-courses/${userId}`)
+                apiClient.get(`/my-courses/${userId}`),
+                apiClient.get('/courses'),
             ]);
-            setStats(statRes.data);
-            setMyCourses(myCourseRes.data);
-        } catch (err) {
-            console.error("加载数据失败", err);
-        } finally {
+            if (statRes.status === 'fulfilled') {
+                setStats(statRes.value.data);
+            } else {
+                console.error("加载统计数据失败", statRes.reason);
+            }
+            if (myCourseRes.status === 'fulfilled') {
+                setMyCourses(myCourseRes.value.data);
+            } else {
+                console.error("加载我的课程失败", myCourseRes.reason);
+            }
+            if (coursesRes.status === 'fulfilled') {
+                setAllCourses(coursesRes.value.data);
+            } else {
+                console.error("加载课程库失败", coursesRes.reason);
+            }
             setIsLoading(false);
-        }
-    };
-
-    const fetchAllCourses = async () => {
-        setIsCoursesLoading(true);
-        try {
-            const res = await apiClient.get('/courses');
-            setAllCourses(res.data);
-        } catch (err) {
-            console.error("加载课程库失败", err);
-        } finally {
             setIsCoursesLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchAllCourses();
-    }, []);
+        };
+        fetchData();
+    }, [userId]);
 
     const languageOptions = React.useMemo(() => {
         const learning = new Set();
@@ -302,12 +296,13 @@ export default function Classroom() {
 
     const handleEnroll = async (courseId) => {
         try {
-            // 🚀 使用 apiClient
-            await apiClient.post(`/courses/enroll`, { 
-                user_id: userId, 
-                course_id: courseId 
+            await apiClient.post(`/courses/enroll`, {
+                user_id: userId,
+                course_id: courseId
             });
-            fetchData();
+            // 只刷新"我的课程"，不需要重新拉全部课程
+            const res = await apiClient.get(`/my-courses/${userId}`);
+            setMyCourses(res.data);
         } catch (err) {
             alert("订阅失败");
         }
