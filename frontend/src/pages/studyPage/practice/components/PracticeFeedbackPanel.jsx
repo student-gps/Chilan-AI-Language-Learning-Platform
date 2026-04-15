@@ -46,7 +46,18 @@ export default function PracticeFeedbackPanel({
 
     return (
         <motion.div ref={actionsRef} key="feedback-area" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-            {!isPerfectFeedback && (
+            {feedback.forfeited && (
+                <div className="rounded-[2rem] border border-amber-200 bg-amber-50/80 px-6 py-5">
+                    <p className="text-xs font-black uppercase tracking-widest text-amber-500 mb-3">标准答案</p>
+                    <div className="space-y-1.5">
+                        {(currentQuestion.standard_answers || []).map((ans, i) => (
+                            <p key={i} className="text-2xl font-black text-slate-800">{ans}</p>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {!isPerfectFeedback && !feedback.forfeited && (
                 <div className="rounded-[2rem] border border-slate-200 bg-slate-50/70 px-6 py-5">
                     <div className="space-y-4">
                         <AnimatePresence initial={false}>
@@ -96,6 +107,17 @@ export default function PracticeFeedbackPanel({
                                 </p>
                             </div>
                         )}
+                    </div>
+                </div>
+            )}
+
+            {!feedback.forfeited && (
+                <div className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-4">
+                    <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2">标准答案</p>
+                    <div className="space-y-1">
+                        {(currentQuestion.standard_answers || []).map((ans, i) => (
+                            <p key={i} className="text-xl font-black text-slate-800">{ans}</p>
+                        ))}
                     </div>
                 </div>
             )}

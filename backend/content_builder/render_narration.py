@@ -152,7 +152,12 @@ def process_file(
     else:
         agent.render_narration(lesson_data, lesson_id)
 
-    # Stage 2b: 视频渲染（可选）
+    # 写回 JSON（含实际 TTS 时长），视频渲染前必须落盘，Remotion 会从文件读取
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(lesson_data, f, ensure_ascii=False, indent=2)
+    print(f"📄 已更新: {json_path.name}")
+
+    # Stage 2b: 视频渲染（可选，读取上方已更新的 JSON）
     if should_render_video:
         print(f"🎬 渲染讲解视频 [lang={lang}]...")
         video_info = render_explanation_video(lesson_id, lesson_data, lang)
@@ -165,10 +170,10 @@ def process_file(
                 "youtube_url": "",
                 "bilibili_url": "",
             }
-
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(lesson_data, f, ensure_ascii=False, indent=2)
-    print(f"📄 已更新: {json_path.name}")
+            # 将视频路径写回 JSON
+            with open(json_path, "w", encoding="utf-8") as f:
+                json.dump(lesson_data, f, ensure_ascii=False, indent=2)
+            print(f"📄 已更新 (含视频路径): {json_path.name}")
     return True
 
 

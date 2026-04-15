@@ -51,10 +51,11 @@ class EvaluateRequest(BaseModel):
     original_text: str
     original_pinyin: str = ""
     standard_answers: List[str]
-    user_answer: str
+    user_answer: str = ""
     input_mode: str = "text"
     asr_text: str = ""
     audio_meta: Dict[str, Any] = Field(default_factory=dict)
+    forfeit: bool = False
 
 class ContentViewedRequest(BaseModel):
     user_id: str
@@ -322,7 +323,9 @@ async def evaluate_answer(req: EvaluateRequest):
         if not normalized_answers:
             raise HTTPException(status_code=400, detail="standard_answers is empty.")
 
-        if input_mode == "speech":
+        if req.forfeit:
+            effective_answer = ""
+        elif input_mode == "speech":
             effective_answer = (req.asr_text or "").strip()
             if not effective_answer:
                 raise HTTPException(status_code=400, detail="asr_text is required when input_mode is 'speech'.")
@@ -358,6 +361,33 @@ async def evaluate_answer(req: EvaluateRequest):
         
         # 定义状态：如果没有历史记录说明是新题(0)，有记录说明在复习(1)
         current_state = 0 if not history else 1
+
+        # ⚡ Forfeit: 用户选择不会，跳过评判直接记 level=1
+        if req.forfeit:
+            res = {"level": 1, "isCorrect": False, "message": "", "judgedBy": "Forfeit", "forfeited": True}
+            new_s, new_d, next_r = scheduler.calc_next_review(stability or 0.5, difficulty or 5.0, 1)
+            new_hist = ((history or []) + [1])[-5:]
+            cur.execute("""
+                INSERT INTO user_progress_of_language_items
+                    (user_id, question_id, item_id, stability, difficulty, state, recent_history, is_mastered, last_review, next_review)
+                VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s)
+                ON CONFLICT (user_id, question_id)
+                DO UPDATE SET
+                    item_id = EXCLUDED.item_id, stability = EXCLUDED.stability,
+                    difficulty = EXCLUDED.difficulty, state = EXCLUDED.state,
+                    recent_history = EXCLUDED.recent_history, is_mastered = EXCLUDED.is_mastered,
+                    last_review = CURRENT_TIMESTAMP, next_review = EXCLUDED.next_review;
+            """, (req.user_id, req.question_id, item_pk, new_s, new_d, current_state, new_hist,
+                  scheduler.check_mastery(new_hist), next_r))
+            cur.execute("""
+                INSERT INTO review_logs
+                    (user_id, question_id, item_id, rating, state, review_time, stability, difficulty,
+                     input_mode, asr_text, asr_confidence, vector_score, audio_duration_ms)
+                VALUES (%s::uuid, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
+            """, (req.user_id, req.question_id, item_pk, 1, current_state, new_s, new_d,
+                  "forfeit", None, None, None, None))
+            conn.commit()
+            return {"status": "success", "data": {**res, "inputMode": "forfeit", "recognizedText": None, "vectorScore": None}}
 
         if input_mode == "speech":
             retry_res = evaluator_service.check_speech_readiness(

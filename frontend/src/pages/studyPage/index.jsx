@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
-// 🚀 确保路径指向你存放 apiClient 的地方
-import apiClient from '../../api/apiClient'; 
+import apiClient from '../../api/apiClient';
 import TeachingSection from './teaching';
 import PracticeSection from './practice/PracticeSection';
 import FinishCard from './FinishCard';
 import { Loader2 } from 'lucide-react';
+import PinyinPopover from './PinyinPopover';
+
+const isChinese = (lang = '') => {
+    const l = String(lang).toLowerCase();
+    return l.includes('chinese') || l.includes('中文') || l === 'zh' || l.startsWith('zh-');
+};
 
 const pageTransition = {
     hidden: { opacity: 0, y: 12 },
@@ -18,32 +23,39 @@ const pageTransition = {
 export default function StudyPage() {
     const { t, i18n } = useTranslation();
     const { courseId = 1 } = useParams();
+    const navigate = useNavigate();
     const userId = localStorage.getItem('chilan_user_id') || 'test-user-id';
-    
+
     const [mode, setMode] = useState('loading'); // loading, teaching, practice, review, completed, lesson_finished
     const [studyData, setStudyData] = useState(null);
+    const [showPinyinBtn, setShowPinyinBtn] = useState(false);
+    const [pinyinPopoverOpen, setPinyinPopoverOpen] = useState(false);
 
     // 🌟 核心逻辑：初始化学习流
     const initFlow = async () => {
         setMode('loading');
         try {
-            // 请求后端的 /study/init 接口
-            const res = await apiClient.get(`/study/init`, {
-                params: { course_id: courseId, user_id: userId }
-            });
-            
-            const { mode: responseMode, data } = res.data;
+            const [studyRes, coursesRes] = await Promise.all([
+                apiClient.get(`/study/init`, { params: { course_id: courseId, user_id: userId } }),
+                apiClient.get(`/courses`),
+            ]);
+
+            const { mode: responseMode, data } = studyRes.data;
             setStudyData(data);
-            
+
+            // 判断目标语言是否为中文，决定是否显示拼音入口
+            const course = (coursesRes.data || []).find(c => String(c.id) === String(courseId));
+            setShowPinyinBtn(isChinese(course?.target_language));
+
             // 如果后端说这节课已经看过了，直接跳到练习
             if (responseMode === 'teaching' && data.skip_content) {
                 setMode('practice');
             } else {
                 setMode(responseMode);
             }
-        } catch (e) { 
+        } catch (e) {
             console.error("加载学习流失败:", e);
-            setMode('error'); 
+            setMode('error');
         }
     };
 
@@ -74,13 +86,30 @@ export default function StudyPage() {
             <Loader2 className="animate-spin text-blue-500" size={32} />
         </div>
     );
-    
-    if (mode === 'completed') return <FinishCard isAllCompleted={true} />;
-    
-    if (mode === 'lesson_finished') return <FinishCard isAllCompleted={false} onContinue={initFlow} />;
 
     return (
         <div className="min-h-screen bg-slate-50 py-8">
+            {/* 拼音入口悬浮按钮 — 仅中文课程可见，所有模式下保持悬浮 */}
+            {showPinyinBtn && (
+                <>
+                    {pinyinPopoverOpen && (
+                        <PinyinPopover onClose={() => setPinyinPopoverOpen(false)} />
+                    )}
+                    <button
+                        onClick={() => setPinyinPopoverOpen(o => !o)}
+                        title="Pinyin Guide"
+                        className={`fixed bottom-6 left-6 z-50 flex items-center gap-2.5 rounded-full bg-white px-5 py-3 text-base font-semibold shadow-lg ring-1 transition active:scale-95 ${
+                            pinyinPopoverOpen
+                                ? 'ring-blue-400 text-blue-600 bg-blue-50 shadow-xl'
+                                : 'ring-slate-200 text-slate-700 hover:bg-slate-50 hover:shadow-xl hover:ring-blue-300'
+                        }`}
+                    >
+                        <span className="text-lg leading-none">拼</span>
+                        <span className="tracking-wide">Pinyin</span>
+                    </button>
+                </>
+            )}
+
             <AnimatePresence mode="wait">
                 <motion.div
                     key={`${mode}-${i18n.language}`}
@@ -89,24 +118,29 @@ export default function StudyPage() {
                     animate="show"
                     exit="exit"
                 >
+                    {/* 完成状态 */}
+                    {mode === 'completed' && <FinishCard isAllCompleted={true} />}
+                    {mode === 'lesson_finished' && <FinishCard isAllCompleted={false} onContinue={initFlow} />}
+
                     {/* 模式 1：教学讲解模式 */}
                     {mode === 'teaching' && (
-                        <TeachingSection 
-                            data={studyData.lesson_content} 
-                            courseId={courseId} 
-                            userId={userId}     
-                            onStartPractice={() => setMode('practice')} 
+                        <TeachingSection
+                            data={studyData.lesson_content}
+                            courseId={courseId}
+                            userId={userId}
+                            onStartPractice={() => setMode('practice')}
                         />
                     )}
-                    
+
                     {/* 模式 2：练习或复习模式 */}
                     {(mode === 'practice' || mode === 'review') && (
-                        <PracticeSection 
-                            questions={studyData.pending_items} 
+                        <PracticeSection
+                            questions={studyData.pending_items}
                             isReview={mode === 'review'}
                             userId={userId}
                             courseId={courseId}
                             lessonId={studyData?.lesson_content?.lesson_metadata?.lesson_id}
+                            lessonAudioAssets={studyData?.lesson_content?.lesson_audio_assets}
                             initialIndex={studyData?.practice_resume_index || 0}
                             onAllDone={handleLessonComplete}
                         />

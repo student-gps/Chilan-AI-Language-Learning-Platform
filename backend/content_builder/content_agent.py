@@ -129,6 +129,7 @@ class ContentCreatorAgent:
                 file_path=None,
                 file_obj=shared_file,
                 source_dialogues=dialogues_flat,
+                raw_dialogues=raw_dialogues,
             )
 
             vocab_data = []

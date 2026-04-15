@@ -7,6 +7,8 @@ import UsageFocusTemplate from './UsageFocusTemplate';
 import { blackboard, chalk } from './templateUtils';
 import ChalkTexture from './ChalkTexture';
 import VocabSpotlightTemplate from './VocabSpotlightTemplate';
+import PinyinTonesTemplate from './PinyinTonesTemplate';
+import PinyinGridTemplate from './PinyinGridTemplate';
 
 const FallbackTemplate = ({ segment }) => (
     <div style={{ ...blackboard.shell, justifyContent: 'center', padding: 48 }}>
@@ -42,6 +44,10 @@ export default function ExplanationSegmentTemplate({ segment }) {
             return <LessonRecapTemplate segment={segment} />;
         case 'usage_note':
             return <UsageFocusTemplate segment={segment} />;
+        case 'pinyin_tones':
+            return <PinyinTonesTemplate segment={segment} />;
+        case 'pinyin_grid':
+            return <PinyinGridTemplate segment={segment} />;
         default:
             return <FallbackTemplate segment={segment} />;
     }

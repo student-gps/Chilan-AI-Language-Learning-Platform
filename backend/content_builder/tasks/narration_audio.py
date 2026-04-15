@@ -47,9 +47,12 @@ def _process_zh_markers(text: str) -> str:
 
 def _strip_pinyin_parens(text: str) -> str:
     """
-    Remove parenthetical pinyin from TTS input to avoid double-reading.
-    Strips both （全角）and (half-width) brackets whose content contains
-    pinyin tone marks, e.g. '你好 (Nǐ hǎo)' → '你好'.
+    Remove pinyin from TTS input to avoid garbled reading of tone-marked syllables.
+    Handles:
+      - （全角括号）containing pinyin → removed
+      - (half-width brackets) containing pinyin → removed
+      - 'single-quoted' text containing pinyin → removed (LLM sometimes writes incorrect
+        forms as pinyin in quotes, e.g. "not 'wǒ guì xìng Wáng'")
     """
     def _is_pinyin(s: str) -> bool:
         return any(c in _PINYIN_TONE_CHARS for c in s)
@@ -58,7 +61,11 @@ def _strip_pinyin_parens(text: str) -> str:
     text = re.sub(r'（([^）]*)）', lambda m: '' if _is_pinyin(m.group(1)) else m.group(0), text)
     # Half-width brackets (…)
     text = re.sub(r'\(([^)]*)\)', lambda m: '' if _is_pinyin(m.group(1)) else m.group(0), text)
-    # Clean up any double spaces left behind
+    # Single-quoted text 'like this' that contains tone marks
+    text = re.sub(r"'([^']*)'", lambda m: '' if _is_pinyin(m.group(1)) else m.group(0), text)
+    # Clean up orphaned "not" / "instead of" etc. before removed pinyin, and double spaces
+    text = re.sub(r',?\s*(not|instead of|rather than)\s*[,.]?\s*([,.])', r'\2', text, flags=re.IGNORECASE)
+    text = re.sub(r'\s+(not|instead of|rather than)\s*$', '', text, flags=re.IGNORECASE)
     text = re.sub(r'  +', ' ', text).strip()
     return text
 
