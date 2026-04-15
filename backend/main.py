@@ -3,6 +3,7 @@ from pathlib import Path
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from typing import List
 
@@ -54,6 +55,27 @@ app.mount("/media/video", StaticFiles(directory=str(video_static_dir)), name="me
 # --- 🚀 挂载路由模块 ---
 app.include_router(auth.router)
 app.include_router(study.router)
+
+# --- 🔊 拼音音频代理（本地文件优先，R2 presigned URL 兜底）---
+from fastapi.responses import FileResponse
+from services.storage.media_storage import get_media_storage as _get_media_storage
+_pinyin_storage = _get_media_storage(optional=True)
+_PINYIN_LOCAL_DIR = Path(__file__).resolve().parent / "pinyin_audio"
+
+@app.get("/media/pinyin/{filename}")
+async def get_pinyin_audio(filename: str):
+    """Serve pinyin audio: local file first (dev), then R2 presigned URL (prod)."""
+    local_file = _PINYIN_LOCAL_DIR / filename
+    if local_file.exists():
+        return FileResponse(str(local_file), media_type="audio/wav")
+    if not _pinyin_storage:
+        raise HTTPException(status_code=404, detail=f"{filename} not found locally and storage not configured")
+    object_key = f"zh/audio/pinyin/{filename}"
+    try:
+        url = _pinyin_storage.resolve_url(object_key)
+        return RedirectResponse(url=url, status_code=302)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # --- 🧪 数据库依赖 ---
 def get_db():

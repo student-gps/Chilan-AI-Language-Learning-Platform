@@ -63,11 +63,19 @@ class Task3ExplanationGenerator:
         12. 中文内容只保留在重点词、重点句和屏幕展示字段里。
         18. 【旁白语言规则 — TTS 友好】narration.subtitle_en 以英文为主，适合 TTS 朗读：
             - 严禁在旁白中直接嵌入裸汉字（不加标记），TTS 无法正确处理语言切换。
-            - 严禁在旁白中出现带声调拼音（如 nǐ hǎo），TTS 会将其读成英文乱音。
+            - 【最高优先级】严禁在旁白中出现任何带声调拼音（如 nǐ hǎo、wǒ guì xìng Wáng），
+              无论是括号包裹、引号包裹、还是直接嵌入，TTS 都会将其读成英文乱音。
             - 如需在旁白中让学生听到某个中文词的发音，使用 [zh:汉字] 标记语法（标记内填汉字，不要填拼音），例如：
               * "The greeting [zh:你好] is the most common way to say hello."
               * "This line opens with [zh:请问], a polite way to ask for information."
               * "The key verb here is [zh:是], meaning 'to be'."
+            - 【正误对比规则】讲解正确与错误用法时，正确形式和错误形式都必须用 [zh:汉字] 标记，
+              绝对不能用拼音代替错误形式。正确示例：
+              * "Simply say [zh:我姓王], not [zh:我贵姓王]."
+              * "Use [zh:请问] to be polite; avoid saying just [zh:问]."
+              错误示例（禁止这样写）：
+              * "Simply say 我姓王, not 'wǒ guì xìng Wáng'."  ← 禁止，pinyin 会被 TTS 乱读
+              * "Say [zh:你好] instead of 'nǐ hǎo'."          ← 禁止，引号内的拼音同样会被乱读
             - [zh:...] 标记内的汉字会被 TTS 正确识别并朗读，读完后自动停顿。
             - 每句话最多嵌入 1-2 个 [zh:...] 标记；不要连续堆叠多个标记，每段关键词出现一次即可。
             - 标记只用于需要学生听到发音的核心词或短句（通常是 focus_text 中的关键词），不要对每个汉字都加标记。

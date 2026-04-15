@@ -362,6 +362,24 @@ export default function Classroom() {
                         </motion.div>
                     </header>
 
+                    {/* 入门基础模块 */}
+                    <motion.section variants={fadeInUp} className="mb-12">
+                        <h2 className="text-xl font-black text-slate-700 mb-4 px-1">入门基础</h2>
+                        <div className="flex gap-4 flex-wrap">
+                            <button
+                                onClick={() => navigate('/learn/pinyin')}
+                                className="flex items-center gap-4 px-6 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
+                            >
+                                <span className="text-3xl">🔤</span>
+                                <div className="text-left">
+                                    <div className="font-black text-slate-800 group-hover:text-blue-600 transition-colors">拼音入门</div>
+                                    <div className="text-xs text-slate-400 mt-0.5">声母 · 韵母 · 声调</div>
+                                </div>
+                                <ChevronRight size={16} className="text-slate-300 group-hover:text-blue-400 ml-2" />
+                            </button>
+                        </div>
+                    </motion.section>
+
                     {/* 2. 课程列表 */}
                     <section>
                         <motion.div variants={fadeInUp} className="flex items-center justify-between mb-8 px-2">

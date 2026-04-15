@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "video:render": "node scripts/render-explanation-video.mjs 101"
+    "video:render": "node scripts/render-explanation-video.mjs 101",
+    "video:render-pinyin": "node scripts/render-pinyin-video.mjs"
   },
   "dependencies": {
     "@react-oauth/google": "^0.13.4",

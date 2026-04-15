@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Loader2, Send, Sparkles } from 'lucide-react';
@@ -23,7 +23,7 @@ const staggerContainer = {
     show: { opacity: 1, transition: { staggerChildren: 0.08 } }
 };
 
-export default function PracticeSection({ questions, isReview, onAllDone, userId, courseId, lessonId, initialIndex = 0 }) {
+export default function PracticeSection({ questions, isReview, onAllDone, userId, courseId, lessonId, lessonAudioAssets, initialIndex = 0 }) {
     const { t, i18n } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFocused, setIsFocused] = useState(false);
@@ -42,6 +42,38 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     }, [initialIndex, questions]);
 
     const currentQuestion = questions[currentIndex];
+    const isListenWrite = currentQuestion?.question_type === 'CN_LISTEN_WRITE';
+    const qType = currentQuestion?.question_type;
+
+    const Q_THEME = {
+        CN_TO_EN:       { sparkle: 'text-blue-500',    card: 'bg-blue-50/40 border-blue-100 shadow-blue-100/30',      btn: 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100' },
+        EN_TO_CN:       { sparkle: 'text-emerald-500', card: 'bg-emerald-50/40 border-emerald-100 shadow-emerald-100/30', btn: 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-100' },
+        EN_TO_CN_SPEAK: { sparkle: 'text-rose-500',    card: 'bg-rose-50/40 border-rose-100 shadow-rose-100/30',      btn: 'bg-rose-600 text-white hover:bg-rose-700 shadow-rose-100' },
+        CN_LISTEN_WRITE:{ sparkle: 'text-indigo-500',  card: 'bg-indigo-50/60 border-indigo-100 shadow-indigo-100/40', btn: 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-100' },
+    };
+    const qTheme = Q_THEME[qType] ?? Q_THEME.CN_TO_EN;
+
+    // Build line_ref → audio_url lookup from lesson_audio_assets
+    const lineRefAudioMap = useMemo(() => {
+        const items = lessonAudioAssets?.items;
+        if (!Array.isArray(items)) return {};
+        return Object.fromEntries(
+            items
+                .filter(item => item.line_ref != null && item.audio_url)
+                .map(item => [item.line_ref, item.audio_url])
+        );
+    }, [lessonAudioAssets]);
+
+    const playLineAudio = (lineRef) => {
+        const url = lineRefAudioMap[lineRef];
+        if (!url) return;
+        const audio = new Audio(url);
+        claimGlobalAudio(audio);
+        audio.onpause = () => releaseGlobalAudio(audio);
+        audio.onended = () => releaseGlobalAudio(audio);
+        audio.onerror = () => releaseGlobalAudio(audio);
+        audio.play().catch(() => releaseGlobalAudio(audio));
+    };
 
     const {
         speechMode,
@@ -84,6 +116,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         isResubmitDisabled,
         feedbackTone,
         handleSubmit,
+        handleForfeit,
     } = usePracticeFlow({
         currentQuestion,
         userId,
@@ -103,11 +136,13 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         setUserAnswer(speechMode ? speechTranscript : '');
     }, [speechMode, speechTranscript, setUserAnswer]);
 
-    const primaryButtonClass = 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100';
+    const primaryButtonClass = qTheme.btn;
     const secondaryButtonClass = 'bg-slate-900 text-white hover:bg-slate-800 shadow-slate-200';
     const textPromptLabel = currentQuestion?.question_type === 'CN_TO_EN'
         ? t('practice_prompt_cn_to_en')
-        : t('practice_prompt_en_to_cn');
+        : currentQuestion?.question_type === 'CN_LISTEN_WRITE'
+            ? t('practice_prompt_cn_listen_write')
+            : t('practice_prompt_en_to_cn');
     const speechPreviewText = speechTranscript
         || (isRecording
             ? '正在聆听，请开始说话。'
@@ -165,6 +200,20 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
 
         return () => clearTimeout(timer);
     }, [currentQuestion, currentIndex, speechMode]);
+
+    // Auto-play dialogue audio when arriving at a CN_LISTEN_WRITE question
+    useEffect(() => {
+        if (!currentQuestion || currentQuestion.question_type !== 'CN_LISTEN_WRITE') return;
+        const lineRef = currentQuestion.metadata?.line_ref;
+        if (!lineRef) return;
+
+        const questionKey = `lw-${currentQuestion.item_id || currentQuestion.question_id || currentIndex}`;
+        if (lastAutoPlayedKeyRef.current === questionKey) return;
+        lastAutoPlayedKeyRef.current = questionKey;
+
+        const timer = setTimeout(() => playLineAudio(lineRef), 350);
+        return () => clearTimeout(timer);
+    }, [currentQuestion, currentIndex, lineRefAudioMap]);
 
     useEffect(() => {
         if (!questions?.length || !userId || !courseId || !lessonId || isReview) return;
@@ -231,6 +280,12 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         speechShouldRetry,
         handleStartRecording,
         handleStopRecording,
+        isListenWrite,
+        onPlayAudio: qType === 'CN_LISTEN_WRITE'
+            ? () => playLineAudio(currentQuestion.metadata?.line_ref)
+            : qType === 'CN_TO_EN'
+                ? () => playAudio(currentQuestion.original_text)
+                : null,
     });
 
     if (!currentQuestion) return null;
@@ -252,7 +307,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
             >
                 <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex items-center justify-center gap-5 mb-8">
                     <div className="flex items-center gap-3">
-                        <Sparkles className="text-blue-500" size={28} />
+                        <Sparkles className={qTheme.sparkle} size={28} />
                         <h1 className="text-5xl font-black text-slate-900 tracking-tight">
                             {isReview ? t('practice_title_review') : t('practice_title_lesson')}
                         </h1>
@@ -264,12 +319,17 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
 
                 <PracticePromptCard
                     fadeInUp={fadeInUp}
-                    speechMode={speechMode}
                     promptLabel={textPromptLabel}
-                    originalText={currentQuestion.original_text}
+                    originalText={isListenWrite ? null : currentQuestion.original_text}
+                    questionType={qType}
+                    onPlayAudio={
+                        qType === 'CN_LISTEN_WRITE' ? () => playLineAudio(currentQuestion.metadata?.line_ref)
+                        : qType === 'CN_TO_EN'      ? () => playAudio(currentQuestion.original_text)
+                        : null
+                    }
                 />
 
-                <motion.div variants={fadeInUp} initial="hidden" animate="show" className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100">
+                <motion.div variants={fadeInUp} initial="hidden" animate="show" className={`p-8 md:p-10 rounded-[2.5rem] shadow-xl border transition-colors ${qTheme.card}`}>
                     <PracticeAnswerPanel
                         speechMode={speechMode}
                         value={userAnswer}
@@ -306,16 +366,25 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                     <AnimatePresence mode="wait">
                         {!feedback && !isEvaluating ? (
                             !speechMode && (
-                                <motion.button
-                                    key="text-submit"
-                                    whileTap={{ scale: 0.98 }}
-                                    onClick={handleSubmit}
-                                    disabled={!userAnswer.trim() || isEvaluating}
-                                    className={`w-full py-5 rounded-[1.2rem] font-black text-xl disabled:bg-slate-200 transition-all flex items-center justify-center gap-3 shadow-lg ${primaryButtonClass}`}
-                                >
-                                    {isEvaluating ? <Loader2 className="animate-spin" /> : <Send size={22} />}
-                                    {isEvaluating ? t('practice_evaluating') : t('practice_submit')}
-                                </motion.button>
+                                <motion.div key="text-actions" className="flex flex-col gap-3">
+                                    <motion.button
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={handleSubmit}
+                                        disabled={!userAnswer.trim() || isEvaluating}
+                                        className={`w-full py-5 rounded-[1.2rem] font-black text-xl disabled:bg-slate-200 transition-all flex items-center justify-center gap-3 shadow-lg ${primaryButtonClass}`}
+                                    >
+                                        {isEvaluating ? <Loader2 className="animate-spin" /> : <Send size={22} />}
+                                        {isEvaluating ? t('practice_evaluating') : t('practice_submit')}
+                                    </motion.button>
+                                    <button
+                                        onClick={handleForfeit}
+                                        disabled={isEvaluating}
+                                        className={`w-full py-5 rounded-[1.2rem] font-black text-xl transition-all flex items-center justify-center gap-3 shadow-lg ${secondaryButtonClass}`}
+                                    >
+                                        不会，查看答案
+                                        <span className="text-xs font-normal opacity-50 tracking-widest uppercase">Tab+Enter</span>
+                                    </button>
+                                </motion.div>
                             )
                         ) : feedback ? (
                             <PracticeFeedbackPanel

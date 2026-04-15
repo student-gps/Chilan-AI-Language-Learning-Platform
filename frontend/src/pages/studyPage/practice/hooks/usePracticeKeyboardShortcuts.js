@@ -16,7 +16,24 @@ export default function usePracticeKeyboardShortcuts({
     speechShouldRetry,
     handleStartRecording,
     handleStopRecording,
+    isListenWrite,
+    onPlayAudio,
 }) {
+    // ↑ to replay audio for question types that have audio (CN_LISTEN_WRITE, CN_TO_EN)
+    // Safe in a single-line input (cursor can't move up), and e.isComposing guards against IME candidate navigation
+    useEffect(() => {
+        if (!onPlayAudio) return;
+
+        const handleReplay = (e) => {
+            if (e.key !== 'ArrowUp' || e.isComposing) return;
+            e.preventDefault();
+            onPlayAudio();
+        };
+
+        window.addEventListener('keydown', handleReplay);
+        return () => window.removeEventListener('keydown', handleReplay);
+    }, [onPlayAudio]);
+
     useEffect(() => {
         if (speechMode) return;
 

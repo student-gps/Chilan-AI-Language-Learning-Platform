@@ -34,3 +34,9 @@ backend/content_builder/artifacts/
 
 # Remotion 自动生成文件
 frontend/remotion/generated/
+
+# 拼音音频文件（本地生成，不入库）
+backend/pinyin_audio/
+
+# 拼音工具脚本目录（本地工具，不入库）
+pinyin_adjustment/

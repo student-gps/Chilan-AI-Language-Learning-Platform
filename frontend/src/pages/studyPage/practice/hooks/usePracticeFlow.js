@@ -49,6 +49,30 @@ export default function usePracticeFlow({
         cleanupMedia();
     }, [cleanupMedia, resetSpeechState]);
 
+    const handleForfeit = useCallback(async () => {
+        if (!currentQuestion || isEvaluating) return;
+        setIsEvaluating(true);
+        try {
+            const res = await evaluateStudyAnswer({
+                user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
+                lesson_id: currentQuestion.lesson_id || 101,
+                question_id: currentQuestion.question_id,
+                question_type: currentQuestion.question_type,
+                original_text: currentQuestion.original_text,
+                standard_answers: Array.isArray(currentQuestion.standard_answers)
+                    ? currentQuestion.standard_answers
+                    : [currentQuestion.standard_answers],
+                user_answer: '',
+                forfeit: true,
+            });
+            setFeedback(res.data.data);
+        } catch (e) {
+            setFeedback({ level: 1, isCorrect: false, message: '', forfeited: true });
+        } finally {
+            setIsEvaluating(false);
+        }
+    }, [currentQuestion, isEvaluating, userId]);
+
     const handleSubmit = useCallback(async () => {
         if (!currentQuestion || isEvaluating) return;
         if (speechMode) {
@@ -171,5 +195,6 @@ export default function usePracticeFlow({
         feedbackTone,
         resetQuestionUiState,
         handleSubmit,
+        handleForfeit,
     };
 }
