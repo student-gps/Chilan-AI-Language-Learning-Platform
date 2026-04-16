@@ -26,8 +26,9 @@ Thumbs.db
 
 # 巨大的教材文件（建议不要直接传 PDF 到 GitHub）
 backend/preparation_codes/test_case_embedding_cache.json
-textbook/*.pdf
-textbook/*.zip
+textbook/
+documents/
+project report/
 
 # content_builder 运行产物（统一在 artifacts/ 下）
 backend/content_builder/artifacts/
@@ -37,6 +38,9 @@ frontend/remotion/generated/
 
 # 拼音音频文件（本地生成，不入库）
 backend/pinyin_audio/
+
+# 课程介绍旁白音频（本地生成后上传 R2，不入库）
+frontend/public/audio/intro/
 
 # 拼音工具脚本目录（本地工具，不入库）
 pinyin_adjustment/

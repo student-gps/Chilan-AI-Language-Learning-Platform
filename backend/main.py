@@ -61,6 +61,7 @@ from fastapi.responses import FileResponse
 from services.storage.media_storage import get_media_storage as _get_media_storage
 _pinyin_storage = _get_media_storage(optional=True)
 _PINYIN_LOCAL_DIR = Path(__file__).resolve().parent / "pinyin_audio"
+_INTRO_LOCAL_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "audio" / "intro"
 
 @app.get("/media/pinyin/{filename}")
 async def get_pinyin_audio(filename: str):
@@ -71,6 +72,21 @@ async def get_pinyin_audio(filename: str):
     if not _pinyin_storage:
         raise HTTPException(status_code=404, detail=f"{filename} not found locally and storage not configured")
     object_key = f"zh/audio/pinyin/{filename}"
+    try:
+        url = _pinyin_storage.resolve_url(object_key)
+        return RedirectResponse(url=url, status_code=302)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/media/intro/{filename}")
+async def get_intro_audio(filename: str):
+    """Serve course-intro narration audio: local file first (dev), then R2 (prod)."""
+    local_file = _INTRO_LOCAL_DIR / filename
+    if local_file.exists():
+        return FileResponse(str(local_file), media_type="audio/mpeg")
+    if not _pinyin_storage:
+        raise HTTPException(status_code=404, detail=f"{filename} not found locally and storage not configured")
+    object_key = f"zh/audio/intro/{filename}"
     try:
         url = _pinyin_storage.resolve_url(object_key)
         return RedirectResponse(url=url, status_code=302)

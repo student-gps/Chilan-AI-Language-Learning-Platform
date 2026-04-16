@@ -367,6 +367,28 @@ export default function Classroom() {
                         <h2 className="text-xl font-black text-slate-700 mb-4 px-1">入门基础</h2>
                         <div className="flex gap-4 flex-wrap">
                             <button
+                                onClick={() => navigate('/learn/intro')}
+                                className="flex items-center gap-4 px-6 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
+                            >
+                                <span className="text-3xl">✨</span>
+                                <div className="text-left">
+                                    <div className="font-black text-slate-800 group-hover:text-blue-600 transition-colors">课程介绍</div>
+                                    <div className="text-xs text-slate-400 mt-0.5">理念 · 学习方式 · 路径</div>
+                                </div>
+                                <ChevronRight size={16} className="text-slate-300 group-hover:text-blue-400 ml-2" />
+                            </button>
+                            <button
+                                onClick={() => navigate('/learn/hanzi')}
+                                className="flex items-center gap-4 px-6 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all group"
+                            >
+                                <span className="text-3xl">字</span>
+                                <div className="text-left">
+                                    <div className="font-black text-slate-800 group-hover:text-indigo-600 transition-colors">汉字入门</div>
+                                    <div className="text-xs text-slate-400 mt-0.5">笔画 · 部首 · 结构</div>
+                                </div>
+                                <ChevronRight size={16} className="text-slate-300 group-hover:text-indigo-400 ml-2" />
+                            </button>
+                            <button
                                 onClick={() => navigate('/learn/pinyin')}
                                 className="flex items-center gap-4 px-6 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
                             >

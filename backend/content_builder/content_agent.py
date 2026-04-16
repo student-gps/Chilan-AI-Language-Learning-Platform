@@ -123,6 +123,7 @@ class ContentCreatorAgent:
             dialogues_flat = _normalize_dialogues(raw_dialogues)
 
             # [Task 2] 提取词汇（含历史记录）+ 提取语法 + 生成题库
+            lp_sections = teaching_materials.get("language_practice_sections", []) if isinstance(teaching_materials, dict) else []
             task2_result = self.task2.run(
                 lesson_id=lesson_id,
                 course_id=course_id,
@@ -130,6 +131,7 @@ class ContentCreatorAgent:
                 file_obj=shared_file,
                 source_dialogues=dialogues_flat,
                 raw_dialogues=raw_dialogues,
+                language_practice_sections=lp_sections,
             )
 
             vocab_data = []

@@ -11,17 +11,20 @@ class Task1BTextbookNotesExtractor:
         你是一名教材结构分析专家。请解析提供的教材 PDF，只提取教材中的结构标题列表，不要提取任何内容正文。
         只输出合法 JSON，不要包含 Markdown。
 
-        【任务】提取两类标题：
+        【任务】提取三类标题：
         1. language_note_titles：教材中 Language Notes 板块的每条注释标题（如 "你好"、"请问"、"你 vs 您"）
         2. grammar_section_titles：教材中 Grammar 板块每个语法点的标题（如 "The verb 姓 (xìng)"、"Numbers up to 100"）
+        3. language_practice_titles：教材中明确标题为"Language Practice"（或完全等同的板块名）下的每个练习项目标题或编号（如 "F. Let the weekend begin!"、"I. Substitution Drills"、"II. Pattern Practice"）。
+           ⚠️ 重要：只提取 Language Practice 板块下的内容，绝对不要提取 Lesson Warm Up、Culture Notes、Reading、Listening 或其他板块下的项目。如果不确定某个项目属于哪个板块，宁可不提取。
 
-        【不要提取】课文对话正文、生词表、练习题。
+        【不要提取】课文对话正文、生词表、Lesson Warm Up 下的内容、Culture Notes 下的内容。
 
         【输出结构】
         {{
           "lesson_id": {lesson_id},
           "language_note_titles": ["标题1", "标题2"],
-          "grammar_section_titles": ["Numbers up to 100", "Dates", "Time"]
+          "grammar_section_titles": ["Numbers up to 100", "Dates", "Time"],
+          "language_practice_titles": ["F. Let the weekend begin!", "G. How interesting"]
         }}
         """
 
@@ -52,6 +55,46 @@ class Task1BTextbookNotesExtractor:
               "source_section": "Language Notes"
             }}
           ]
+        }}
+        """
+
+    # ── Language Practice: 逐条提取每个练习板块 ─────────────────────────────
+    def _build_language_practice_prompt(self, title: str, lp_id: str) -> str:
+        return f"""
+        你是一名教材练习内容提取专家。请从教材 PDF 中提取位于"Language Practice"板块下、标题为【{title}】的练习项目的完整内容。
+        只输出合法 JSON，不要包含 Markdown。
+
+        【提取要求】
+        - 只提取 Language Practice 板块下的这一个练习项目，不要混入 Lesson Warm Up、Culture Notes 或其他板块的内容。
+        - 完整提取：练习类型、核心句型/结构（如有）、所有练习句（每句含中英文和拼音）。
+        - 对于替换练习（Substitution Drills），提取基础句型和替换槽位内容。
+        - 对于翻译练习（Translation），提取每道翻译题的英文原文和对应中文。
+        - 对于会话练习（Conversation Practice），提取练习情境说明和示范对话。
+        - 如果某字段无法可靠提取，返回空字符串或空数组，不要编造。
+
+        【输出结构】
+        {{
+          "language_practice_section": {{
+            "lp_id": "{lp_id}",
+            "title": "{title}",
+            "practice_type": "substitution | pattern_drill | translation | conversation | other",
+            "focus_pattern": "核心句型或练习结构（如有），例如：'Subject + 姓 + Surname'",
+            "drill_sentences": [
+              {{
+                "cn": "练习句汉字",
+                "py": "拼音（含声调）",
+                "en": "英文"
+              }}
+            ],
+            "substitution_sets": [
+              {{
+                "slot_label": "替换槽位名称，如 'Subject' 或 'Verb'",
+                "items": [
+                  {{"cn": "汉字", "py": "拼音", "en": "英文"}}
+                ]
+              }}
+            ]
+          }}
         }}
         """
 
@@ -111,7 +154,8 @@ class Task1BTextbookNotesExtractor:
         )
         ln_titles = discovery.get("language_note_titles", []) if isinstance(discovery, dict) else []
         gs_titles = discovery.get("grammar_section_titles", []) if isinstance(discovery, dict) else []
-        print(f"     🔍 发现 language notes {len(ln_titles)} 条，grammar sections {len(gs_titles)} 条")
+        lp_titles = discovery.get("language_practice_titles", []) if isinstance(discovery, dict) else []
+        print(f"     🔍 发现 language notes {len(ln_titles)} 条，grammar sections {len(gs_titles)} 条，language practice {len(lp_titles)} 条")
 
         # 第二轮：一次提取所有 language notes（内容通常不长）
         language_notes = []
@@ -148,7 +192,30 @@ class Task1BTextbookNotesExtractor:
                     "common_errors": [],
                 })
 
-        print(f"  ✨ Task 1B 提取完成，language notes {len(language_notes)} 条，grammar sections {len(grammar_sections)} 条。")
+        # Language Practice 轮：逐条提取每个练习板块
+        language_practice_sections = []
+        for idx, title in enumerate(lp_titles, start=1):
+            lp_id = f"LP-{idx}"
+            print(f"     📝 正在提取 Language Practice {idx}/{len(lp_titles)}: {title}")
+            lp_result = self.llm.generate_structured_json(
+                self._build_language_practice_prompt(title, lp_id),
+                file_path=file_path,
+                file_obj=file_obj,
+            )
+            section = lp_result.get("language_practice_section") if isinstance(lp_result, dict) else None
+            if section:
+                language_practice_sections.append(section)
+            else:
+                language_practice_sections.append({
+                    "lp_id": lp_id,
+                    "title": title,
+                    "practice_type": "other",
+                    "focus_pattern": "",
+                    "drill_sentences": [],
+                    "substitution_sets": [],
+                })
+
+        print(f"  ✨ Task 1B 提取完成，language notes {len(language_notes)} 条，grammar sections {len(grammar_sections)} 条，language practice {len(language_practice_sections)} 条。")
 
         return {
             "teaching_materials": {
@@ -157,5 +224,6 @@ class Task1BTextbookNotesExtractor:
                 "lesson_title": discovery.get("lesson_title", "") if isinstance(discovery, dict) else "",
                 "language_notes": language_notes,
                 "grammar_sections": grammar_sections,
+                "language_practice_sections": language_practice_sections,
             }
         }

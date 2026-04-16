@@ -7,12 +7,14 @@ class Task3ExplanationGenerator:
         self.llm = llm_provider
 
     def _build_prompt(self, metadata: dict, dialogues: list, teaching_materials: dict, vocabulary: list, grammar: list, batch_mode: str) -> str:
+        lp_sections = (teaching_materials or {}).get("language_practice_sections", [])
         context = {
             "metadata": metadata,
             "dialogues": dialogues,
             "teaching_materials": teaching_materials,
             "key_vocabulary": vocabulary[:12],
             "grammar_points": grammar[:8],
+            "language_practice_sections": lp_sections,
             "batch_mode": batch_mode,
         }
         content_str = json.dumps(context, ensure_ascii=False)
@@ -29,14 +31,15 @@ class Task3ExplanationGenerator:
             """
         else:
             batch_guidance = """
-        【本轮生成目标：语法讲解阶段】
-        - 本轮只讲语法点，不重复逐句讲解对话。
+        【本轮生成目标：语法与语言练习讲解阶段】
+        - 本轮只讲语法点和语言练习要点，不重复逐句讲解对话。
         - 必须覆盖 teaching_materials.grammar_sections 中的每一个语法点，按教材顺序逐一展开。
         - 每个 grammar_section 对应一个或多个 grammar_focus segment，不得遗漏。
+        - 如果 language_practice_sections 中有重要的替换练习或句型操练，在语法段结束后用 usage_focus segment 演示 1-2 个核心练习句型（不超过 2 个 LP segment，避免过长）。
         - 讲解语法点时，优先引用前一轮已讲过的对话句子作为例子（通过 source_line_refs 标注），帮助学生建立联系。
         - 数字、日期、时间等系统性语法点必须完整展开，不能简略带过。
         - 最后必须包含 1 个 recap segment。
-        - 建议生成 3-6 个 segments（grammar_focus 数量 = grammar_sections 数量），加 1 个 recap。
+        - 建议生成 3-8 个 segments（grammar_focus 数量 ≥ grammar_sections 数量，可加 LP usage_focus），加 1 个 recap。
             """
 
         return f"""
@@ -56,6 +59,7 @@ class Task3ExplanationGenerator:
         5. 每一句课文都必须有至少一个 segment_type 为 “line_walkthrough” 的片段来明确讲解它，仅在 grammar_focus 或其他类型中引用 source_line_refs 不算覆盖。
         6. 对非常短的重复句（例如重复的”你好”）可以用简短的 line_walkthrough（estimated_duration_seconds 设为 6-8）快速说明其回应功能，不必展开成冗长解释。
         7. teaching_materials 中的 language_notes 和 grammar_sections 是本次讲解的重要依据，必须优先参考，不要只依赖对话正文自行推断。
+        7b. language_practice_sections 中的替换练习和句型操练是教材补充训练内容，在 advanced 轮中酌情纳入 usage_focus 段落加以演示。
         8. grammar_points 可作为补充素材，但教材原有的 grammar_sections 优先级更高。
         9. vocabulary 用于识别和组织高亮新词。
         10. 每个片段都要适合后续做成教学卡片视频，而不是影视剧情。

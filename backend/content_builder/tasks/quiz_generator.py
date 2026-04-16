@@ -647,6 +647,26 @@ class Task2QuizGenerator:
             ]
           }}
         """
+
+    def _collect_language_practice_sentences(self, language_practice_sections: list) -> list:
+        """
+        从 Task1B 已提取的 language_practice_sections 中收集所有可用作练习题的句子。
+        优先使用翻译练习和例句；替换练习的 drill_sentences 也纳入。
+        """
+        collected = []
+        for section in (language_practice_sections or []):
+            if not isinstance(section, dict):
+                continue
+            for sent in (section.get("drill_sentences") or []):
+                if not isinstance(sent, dict):
+                    continue
+                cn = (sent.get("cn") or "").strip()
+                en = (sent.get("en") or "").strip()
+                py = (sent.get("py") or "").strip()
+                if cn and en:
+                    collected.append({"cn": cn, "py": py, "en": en})
+            # 替换练习的 substitution_sets 中的 items 只是词组，不适合做完整句子题，跳过
+        return collected
     
     def _summarize_historical_usages_for_prompt(self, vocab_item: dict) -> list:
         grouped = {}
@@ -1190,7 +1210,7 @@ class Task2QuizGenerator:
 
         return fallback
 
-    def run(self, lesson_id: int, course_id: int, file_path: str = None, file_obj=None, source_dialogues: list = None, raw_dialogues: list = None):
+    def run(self, lesson_id: int, course_id: int, file_path: str = None, file_obj=None, source_dialogues: list = None, raw_dialogues: list = None, language_practice_sections: list = None):
         # --- [Task 2.1a] 提取词汇基本信息 ---
         print(f"  ▶️ [Task 2.1a] 提取词汇基本信息 (骨架)...")
         v_base_res = self.llm.generate_structured_json(self._build_vocab_base_prompt(), file_path=file_path, file_obj=file_obj)
@@ -1228,21 +1248,26 @@ class Task2QuizGenerator:
 
         time.sleep(2)
 
-        # --- [Task 2.2a/b] 提取素材 ---
-        print(f"  ▶️ [Task 2.2a/b] 提取课文原文句与语法练习...")
+        # --- [Task 2.2a/b/c] 提取素材 ---
+        print(f"  ▶️ [Task 2.2a/b/c] 提取课文原文句、语法练习与 Language Practice...")
         dialogue_sentences = self._extract_dialogue_sentence_fallback(source_dialogues)
         g_result = self.llm.generate_structured_json(self._build_grammar_extract_prompt(), file_path=file_path, file_obj=file_obj)
         grammar_exercises = g_result.get("grammar_practice", []) if isinstance(g_result, dict) and isinstance(g_result.get("grammar_practice"), list) else []
 
-        # EN_TO_CN sentence questions use grammar exercises only (dialogue lines go to
-        # CN_LISTEN_WRITE and EN_TO_CN_SPEAK) to avoid question-content overlap.
-        grammar_practice_deduped = self._dedupe_sentence_materials(grammar_exercises)
+        # Language Practice sentences from Task1B (already extracted — no extra LLM call needed)
+        lp_sentences = self._collect_language_practice_sentences(language_practice_sections)
+
+        # EN_TO_CN sentence questions: grammar exercises + language practice sentences combined
+        # (dialogue lines go to CN_LISTEN_WRITE and EN_TO_CN_SPEAK to avoid overlap)
+        combined_written_pool = self._dedupe_sentence_materials(grammar_exercises + lp_sentences)
+        grammar_practice_deduped = combined_written_pool
         # Speech materials come from dialogue lines only
         dialogue_sentences_deduped = self._dedupe_sentence_materials(dialogue_sentences)
 
         print(f"     📊 课文原文句提取: {len(dialogue_sentences)} 条")
         print(f"     📊 语法练习提取: {len(grammar_exercises)} 条")
-        print(f"     📊 EN_TO_CN 句子素材池 (语法): {len(grammar_practice_deduped)} 条")
+        print(f"     📊 Language Practice 句子提取: {len(lp_sentences)} 条")
+        print(f"     📊 EN_TO_CN 句子素材池 (语法+LP): {len(grammar_practice_deduped)} 条")
         print(f"     📊 CN_LISTEN_WRITE / 语音素材池 (课文): {len(dialogue_sentences_deduped)} 条")
 
         # Build line_ref mapping for CN_LISTEN_WRITE audio lookup
