@@ -160,8 +160,9 @@ class GeminiProvider(BaseLLMProvider):
             types.SafetySetting(category="HARM_CATEGORY_CIVIC_INTEGRITY", threshold="BLOCK_NONE"),
         ]
 
-        max_retries = 5
-        base_wait = 15  # 秒
+        max_retries = 8
+        # 固定等待序列（秒）：短间隔多试几次，避免单次等太久
+        retry_waits = [5, 10, 20, 30, 45, 60, 90]
         response = None
         for attempt in range(max_retries):
             try:
@@ -180,7 +181,7 @@ class GeminiProvider(BaseLLMProvider):
                 err_str = str(e)
                 is_retryable = any(code in err_str for code in ("503", "429", "UNAVAILABLE", "RESOURCE_EXHAUSTED"))
                 if is_retryable and attempt < max_retries - 1:
-                    wait = base_wait * (2 ** attempt)
+                    wait = retry_waits[min(attempt, len(retry_waits) - 1)]
                     print(f"  ⏳ Gemini 暂时不可用，{wait}s 后重试 (第 {attempt+1}/{max_retries} 次)...")
                     time.sleep(wait)
                 else:
