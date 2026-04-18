@@ -179,7 +179,17 @@ class GeminiProvider(BaseLLMProvider):
                 break  # 成功则退出重试循环
             except Exception as e:
                 err_str = str(e)
-                is_retryable = any(code in err_str for code in ("503", "429", "UNAVAILABLE", "RESOURCE_EXHAUSTED"))
+                err_type = type(e).__name__
+                cause = getattr(e, "__cause__", None)
+                cause_str = str(cause) if cause else ""
+                cause_type = type(cause).__name__ if cause else ""
+                is_retryable = (
+                    any(code in err_str for code in ("503", "429", "UNAVAILABLE", "RESOURCE_EXHAUSTED"))
+                    or err_type in ("RemoteProtocolError", "ReadTimeout", "ConnectTimeout", "ConnectError")
+                    or cause_type in ("RemoteProtocolError", "ReadTimeout", "ConnectTimeout", "ConnectError")
+                    or "Server disconnected without sending a response" in err_str
+                    or "Server disconnected without sending a response" in cause_str
+                )
                 if is_retryable and attempt < max_retries - 1:
                     wait = retry_waits[min(attempt, len(retry_waits) - 1)]
                     print(f"  ⏳ Gemini 暂时不可用，{wait}s 后重试 (第 {attempt+1}/{max_retries} 次)...")

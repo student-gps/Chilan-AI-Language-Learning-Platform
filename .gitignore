@@ -32,6 +32,7 @@ project report/
 
 # content_builder 运行产物（统一在 artifacts/ 下）
 backend/content_builder/artifacts/
+backend/content_builder/raw_materials/
 
 # Remotion 自动生成文件
 frontend/remotion/generated/
