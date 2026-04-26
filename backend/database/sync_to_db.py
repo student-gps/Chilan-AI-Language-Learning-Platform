@@ -116,10 +116,28 @@ def upload_assets_to_r2(data: dict) -> dict:
     uploaded = 0
     failed = 0
 
+    _artifacts_dir = BACKEND_DIR / "content_builder" / "artifacts"
+
+    def _resolve_path(local_path: str) -> Path:
+        """Try absolute path first; fall back to resolving relative to current artifacts dir."""
+        p = Path(local_path)
+        if p.exists():
+            return p
+        # Path was generated on a different machine — find 'artifacts' segment and re-root
+        parts = p.parts
+        try:
+            idx = next(i for i, part in enumerate(parts) if part.lower() == "artifacts")
+            candidate = _artifacts_dir / Path(*parts[idx + 1:])
+            if candidate.exists():
+                return candidate
+        except StopIteration:
+            pass
+        return p  # return original (non-existent) path so caller can report it
+
     def _upload(local_path: str, object_key: str, content_type: str, label: str) -> str:
         """上传单个文件，返回上传成功后的 object_key（失败返回原 object_key）。"""
         nonlocal uploaded, failed
-        p = Path(local_path)
+        p = _resolve_path(local_path)
         if not p.exists():
             print(f"  ⚠️ 文件不存在，跳过: {p.name}")
             return object_key
