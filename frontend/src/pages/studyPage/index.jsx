@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
 import apiClient from '../../api/apiClient';
@@ -24,6 +24,8 @@ export default function StudyPage() {
     const { t, i18n } = useTranslation();
     const { courseId = 1 } = useParams();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const lessonId = searchParams.get('lesson_id');
     const userId = localStorage.getItem('chilan_user_id') || 'test-user-id';
 
     const [mode, setMode] = useState('loading'); // loading, teaching, practice, review, completed, lesson_finished
@@ -35,8 +37,10 @@ export default function StudyPage() {
     const initFlow = async () => {
         setMode('loading');
         try {
+            const initParams = { course_id: courseId, user_id: userId };
+            if (lessonId) initParams.lesson_id = lessonId;
             const [studyRes, coursesRes] = await Promise.all([
-                apiClient.get(`/study/init`, { params: { course_id: courseId, user_id: userId } }),
+                apiClient.get(`/study/init`, { params: initParams }),
                 apiClient.get(`/courses`),
             ]);
 

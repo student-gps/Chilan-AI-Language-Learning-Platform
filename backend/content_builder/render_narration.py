@@ -69,30 +69,41 @@ def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str) -> di
     output_dir.mkdir(parents=True, exist_ok=True)
     silent_video = output_dir / f"lesson{lesson_id}_explanation.mp4"
 
-    print(f"  🎞️ Remotion 渲染 lesson{lesson_id} 讲解视频（无声）...")
-    try:
-        subprocess.run(
-            ["node", str(render_script), str(lesson_id)],
-            cwd=str(frontend_dir),
-            check=True,
-        )
-        # Remotion 默认输出到 artifacts/output_video/，移动到 lang 子目录
-        default_out = ARTIFACTS_DIR / "output_video" / f"lesson{lesson_id}_explanation.mp4"
-        if default_out.exists() and default_out != silent_video:
-            default_out.rename(silent_video)
-        print(f"  ✅ 无声视频渲染完成: {silent_video.name}")
-    except FileNotFoundError:
-        print("  ⚠️ 当前环境缺少 node 命令，跳过讲解视频渲染。")
-        return result
-    except subprocess.CalledProcessError as e:
-        print(f"  ⚠️ Remotion 渲染失败（退出码 {e.returncode}），已跳过。")
-        return result
+    if silent_video.exists():
+        print(f"  ⏭️ 无声视频已存在，跳过渲染: {silent_video.name}")
+    else:
+        print(f"  🎞️ Remotion 渲染 lesson{lesson_id} 讲解视频（无声）...")
+        try:
+            subprocess.run(
+                ["node", str(render_script), str(lesson_id), lang],
+                cwd=str(frontend_dir),
+                check=True,
+            )
+            # Remotion 默认输出到 artifacts/output_video/，移动到 lang 子目录
+            default_out = ARTIFACTS_DIR / "output_video" / f"lesson{lesson_id}_explanation.mp4"
+            if default_out.exists() and default_out != silent_video:
+                if silent_video.exists():
+                    silent_video.unlink()
+                default_out.rename(silent_video)
+            print(f"  ✅ 无声视频渲染完成: {silent_video.name}")
+        except FileNotFoundError:
+            print("  ⚠️ 当前环境缺少 node 命令，跳过讲解视频渲染。")
+            return result
+        except subprocess.CalledProcessError as e:
+            print(f"  ⚠️ Remotion 渲染失败（退出码 {e.returncode}），已跳过。")
+            return result
 
     # Merge narration audio
     narration_info = lesson_data.get("explanation_narration_audio", {})
     narration_file = narration_info.get("audio_file", "") if narration_info.get("status") == "ok" else ""
 
     final_video = output_dir / f"lesson{lesson_id}_explanation_final.mp4"
+
+    if final_video.exists():
+        print(f"  ⏭️ 最终视频已存在，跳过合并: {final_video.name}")
+        result["local_path"] = str(final_video)
+        result["object_key"] = f"zh/video/{lang}/lesson{lesson_id}_explanation_final.mp4"
+        return result
 
     if narration_file and Path(narration_file).exists() and silent_video.exists():
         print(f"  🎙️ ffmpeg 合并旁白音轨 → {final_video.name}...")
@@ -145,12 +156,21 @@ def process_file(
         lesson_data = json.load(f)
 
     # Stage 2a: 旁白 TTS（已存在则跳过）
-    narration_info = lesson_data.get("explanation_narration_audio", {})
-    narration_file = narration_info.get("audio_file", "") if narration_info.get("status") == "ok" else ""
-    if narration_file and Path(narration_file).exists():
-        print(f"  ⏭️ 旁白音轨已存在，跳过 TTS: {Path(narration_file).name}")
+    # 根据 lang 计算预期的输出文件路径，避免误用其他语言的旧路径
+    lang_suffix = f"_{lang}" if lang != "en" else ""
+    expected_narration = (
+        ARTIFACTS_DIR / "output_audio"
+        / f"lesson{lesson_id}_narration{lang_suffix}"
+        / f"lesson{lesson_id}_narration{lang_suffix}.mp3"
+    )
+    if expected_narration.exists():
+        print(f"  ⏭️ 旁白音轨已存在，跳过 TTS: {expected_narration.name}")
+        if lesson_data.get("explanation_narration_audio", {}).get("status") != "ok":
+            lesson_data["explanation_narration_audio"] = {
+                "status": "ok", "audio_file": str(expected_narration)
+            }
     else:
-        agent.render_narration(lesson_data, lesson_id)
+        agent.render_narration(lesson_data, lesson_id, lang=lang)
 
     # 写回 JSON（含实际 TTS 时长），视频渲染前必须落盘，Remotion 会从文件读取
     with open(json_path, "w", encoding="utf-8") as f:
@@ -211,8 +231,8 @@ def main():
     if args.json_files:
         targets = [Path(p) for p in args.json_files]
     else:
-        output_json_dir = ARTIFACTS_DIR / "output_json"
-        targets = sorted(output_json_dir.glob("*_data.json"), key=lambda p: _extract_lesson_id(p) or 0)
+        output_json_dir = ARTIFACTS_DIR / "output_json" / args.lang
+        targets = sorted(output_json_dir.glob("*_data*.json"), key=lambda p: _extract_lesson_id(p) or 0)
         if not targets:
             print(f"📭 {output_json_dir} 下没有找到 JSON 文件。")
             return

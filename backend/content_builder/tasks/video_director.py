@@ -64,7 +64,7 @@ class Task3LessonVideoPlanner:
                 "subtitle_options": {
                     "hanzi": True,
                     "pinyin": True,
-                    "english": True
+                    "translation": True
                 }
             },
             "dramatization": dramatization if isinstance(dramatization, dict) else {

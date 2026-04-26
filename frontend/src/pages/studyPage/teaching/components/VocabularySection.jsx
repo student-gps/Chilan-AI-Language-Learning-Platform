@@ -105,7 +105,7 @@ export default function VocabularySection({
                                         </button>
                                     </div>
                                     <p className={`text-sm font-medium italic text-slate-400 transition-all duration-500 ${vocabTrans ? 'opacity-100' : 'opacity-0'}`}>
-                                        {vocab.example_sentence.en}
+                                        {vocab.example_sentence.translation}
                                     </p>
                                 </div>
                             </div>

@@ -19,20 +19,25 @@ class Task4CExplanationComposer:
 
         composed_segments = []
         cursor_seconds = 0.0
+        order = 0
 
-        for index, segment in enumerate(segments, start=1):
+        for segment in segments:
             if not isinstance(segment, dict):
                 continue
 
-            composed_segment = self._compose_segment(
-                segment=segment,
-                lesson_title=lesson_title,
-                order=index,
-                start_time_seconds=cursor_seconds,
-            )
-            duration_seconds = composed_segment.get("duration_seconds", 0.0)
-            cursor_seconds += duration_seconds
-            composed_segments.append(composed_segment)
+            # Auto-split line_walkthrough segments whose focus_text exceeds 40 Chinese chars
+            sub_segments = self._maybe_split_segment(segment, lesson_title)
+            for sub in sub_segments:
+                order += 1
+                composed_segment = self._compose_segment(
+                    segment=sub,
+                    lesson_title=lesson_title,
+                    order=order,
+                    start_time_seconds=cursor_seconds,
+                )
+                duration_seconds = composed_segment.get("duration_seconds", 0.0)
+                cursor_seconds += duration_seconds
+                composed_segments.append(composed_segment)
 
         return {
             "lesson_id": lesson_id,
@@ -236,6 +241,67 @@ class Task4CExplanationComposer:
                 }
             ],
         )
+
+    _CN_RE = __import__('re').compile(r'[一-鿿]')
+    _MAX_CN_CHARS = 40
+
+    def _maybe_split_segment(self, segment: dict, lesson_title: str) -> list:
+        """
+        If a line_walkthrough segment's focus_text exceeds _MAX_CN_CHARS Chinese characters,
+        split it at natural punctuation boundaries into two segments.
+        Returns a list of one or two segment dicts.
+        """
+        seg_type = (segment.get("segment_type") or "").strip()
+        if seg_type not in ("line_walkthrough", "usage_focus"):
+            return [segment]
+
+        on_screen = segment.get("on_screen_text") if isinstance(segment.get("on_screen_text"), dict) else {}
+        focus_text = (on_screen.get("focus_text") or "").strip()
+        cn_count = len(self._CN_RE.findall(focus_text))
+
+        if cn_count <= self._MAX_CN_CHARS:
+            return [segment]
+
+        # Find best split point: prefer 。；！？，near the middle
+        import re
+        mid = len(focus_text) // 2
+        best_idx = None
+        for radius in range(0, mid):
+            for offset in (mid - radius, mid + radius):
+                if 0 < offset < len(focus_text) and focus_text[offset] in '。；！？，':
+                    best_idx = offset + 1  # include the punctuation in the first half
+                    break
+            if best_idx is not None:
+                break
+        if best_idx is None:
+            best_idx = mid  # fallback: split at character midpoint
+
+        part_a = focus_text[:best_idx].strip()
+        part_b = focus_text[best_idx:].strip()
+
+        # Split pinyin proportionally by character count
+        focus_pinyin = (on_screen.get("focus_pinyin") or "").strip()
+        pinyin_tokens = focus_pinyin.split()
+        cn_a = len(self._CN_RE.findall(part_a))
+        py_a = " ".join(pinyin_tokens[:cn_a])
+        py_b = " ".join(pinyin_tokens[cn_a:])
+
+        duration = segment.get("estimated_duration_seconds", 12)
+        half_dur = round(duration / 2, 1)
+
+        def _clone(text, pinyin, dur):
+            import copy
+            cloned = copy.deepcopy(segment)
+            cloned_ost = cloned.get("on_screen_text") if isinstance(cloned.get("on_screen_text"), dict) else {}
+            cloned_ost["focus_text"] = text
+            cloned_ost["focus_pinyin"] = pinyin
+            cloned_ost["focus_gloss_en"] = ""
+            cloned["on_screen_text"] = cloned_ost
+            cloned["estimated_duration_seconds"] = dur
+            return cloned
+
+        print(f"  ✂️ focus_text 超过 {self._MAX_CN_CHARS} 字（{cn_count} 字），自动拆分为 2 个 segment。")
+        return [_clone(part_a, py_a, half_dur), _clone(part_b, py_b, half_dur)]
 
     def _timeline_blocks(self, duration_seconds: float, blocks: list) -> list:
         normalized_blocks = []

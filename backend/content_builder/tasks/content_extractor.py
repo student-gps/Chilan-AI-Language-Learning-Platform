@@ -25,6 +25,7 @@ class Task1Extractor:
         return f"""
         你是一名数据提取专家。请解析提供的教材 PDF，提取核心课文内容。
         只需输出 JSON。不要做拼音拆解。
+        【重要】所有汉字内容必须统一输出简体中文，如遇繁体字请主动转换为简体，不要原样照搬繁体。
 
         【解析要求】
         1. lesson_metadata: course_id({course_id}), lesson_id({lesson_id}), title(根据内容生成中文标题), content_type(课文主要形式)。
@@ -39,6 +40,14 @@ class Task1Extractor:
            - 如果教材页面上没有英文翻译，必须根据中文原句自动生成自然、简洁、适合教学展示的英文翻译，english 不要留空。
         4. 如果是对话类课文，按说话轮次提取，role 使用教材中的角色名。
         5. 如果是日记/文章/段落类课文，按自然句顺序切分提取；role 不要编造人物名，可统一填写为 "日记"、"课文" 或 "旁白" 中最合适的一项，并在整课内保持一致。
+
+        【简繁去重规则 — 极其重要】本教材同时提供简体和繁体两个版本，不同册次呈现方式不同：
+        - 格式A（旧册）：同一句话在同一页内连续两行，第一行简体、第二行繁体。
+        - 格式B（新册）：整篇课文先完整出现简体版，紧接着下一页完整出现繁体版。
+        无论哪种格式，规则统一：只提取简体中文，完全忽略繁体中文，不要把同一内容提取两次。
+        识别简繁的方法：简体字笔画更少（如"学"vs"學"，"爱"vs"愛"，"长"vs"長"）。
+        若发现某一页的内容与已提取内容完全对应、仅繁简写法不同，则该页为繁体页，整页跳过。
+        如遇词汇表同时提供"Simplified"和"Traditional"两列，只取 Simplified 列。
 
         【🚨 视觉去噪指令 - 极其重要】
         - 必须剔除教材中的所有注脚符号、字母标记和参考数字。
@@ -56,7 +65,7 @@ class Task1Extractor:
             }},
             "course_content": {{
                 "dialogues": [
-                    {{ "role": "姓名", "chinese": "纯净对话内容", "english": "translation" }}
+                    {{ "role": "姓名", "chinese": "纯净对话内容", "translation": "translation" }}
                 ]
             }}
         }}
@@ -67,13 +76,13 @@ class Task1Extractor:
             {
                 "role": item.get("role", ""),
                 "chinese": item.get("chinese", ""),
-                "english": item.get("english", "")
+                "translation": item.get("translation", "")
             }
             for item in dialogue_batch
         ], ensure_ascii=False)
 
         return f"""
-        你是一名教材内容修复专家。下面这些课文句子在第一次提取后 english 为空或疑似漏提。
+        你是一名教材内容修复专家。下面这些课文句子在第一次提取后 translation 为空或疑似漏提。
         请你重新检查这些句子的英文翻译，并按原顺序返回结果。
         素材：{payload}
 
@@ -81,14 +90,14 @@ class Task1Extractor:
         1. 如果 PDF 页面中有现成英文翻译，优先提取原文英文。
         2. 如果 PDF 页面中没有英文翻译，则必须根据中文原句自动补写自然、简洁、适合教学展示的英文翻译。
         3. 不要改动 role 和 chinese。
-        4. english 应尽量补全，不要留空。
+        4. translation 应尽量补全，不要留空。
 
         【输出结构】
         [
           {{
             "role": "角色",
             "chinese": "中文原句",
-            "english": "补全后的英文翻译"
+            "translation": "补全后的英文翻译"
           }}
         ]
         """
@@ -101,7 +110,7 @@ class Task1Extractor:
         素材：{text_content}
 
         【输出要求】
-        1. 保持 role 和 english 不变。
+        1. 保持 role 和 translation 不变。
         2. words 数组：每个对象包含 cn (中文)、py (拼音) 和 highlight (布尔值)。
         
         【🚨 高亮与标点规则】
@@ -112,10 +121,10 @@ class Task1Extractor:
 
         【输出结构】
         [
-            {{ 
-              "role": "姓名", 
-              "english": "...", 
-              "words": [ {{ "cn": "词", "py": "pinyin", "highlight": true/false }} ] 
+            {{
+              "role": "姓名",
+              "translation": "...",
+              "words": [ {{ "cn": "词", "py": "pinyin", "highlight": true/false }} ]
             }}
         ]
         """
@@ -125,8 +134,8 @@ class Task1Extractor:
             return 0
         role = dialogue.get("role", "") or ""
         chinese = dialogue.get("chinese", "") or ""
-        english = dialogue.get("english", "") or ""
-        return len(role) + len(chinese) + len(english)
+        translation = dialogue.get("translation", "") or ""
+        return len(role) + len(chinese) + len(translation)
 
     def _chunk_dialogues(self, dialogues: list):
         current_batch = []
@@ -162,7 +171,7 @@ class Task1Extractor:
 
         missing_indices = [
             idx for idx, item in enumerate(raw_dialogues)
-            if isinstance(item, dict) and not (item.get("english") or "").strip()
+            if isinstance(item, dict) and not (item.get("translation") or "").strip()
         ]
         if not missing_indices:
             return raw_dialogues
@@ -182,9 +191,9 @@ class Task1Extractor:
                 for local_idx, repaired_item in enumerate(repair_result):
                     repaired_english = ""
                     if isinstance(repaired_item, dict):
-                        repaired_english = (repaired_item.get("english") or "").strip()
+                        repaired_english = (repaired_item.get("translation") or "").strip()
                     if repaired_english:
-                        raw_dialogues[index_batch[local_idx]]["english"] = repaired_english
+                        raw_dialogues[index_batch[local_idx]]["translation"] = repaired_english
 
         return raw_dialogues
 
@@ -241,6 +250,17 @@ class Task1Extractor:
         raw_result = self.llm.generate_structured_json(extract_prompt, file_path=file_path, file_obj=file_obj)
         
         if not raw_result: return None
+
+        # 防御：新模型可能直接返回 dialogues 数组而非外层 dict
+        if isinstance(raw_result, list):
+            print(f"  ⚠️ Task 1.1 返回了裸数组，自动补全外层结构...")
+            raw_result = {
+                "lesson_metadata": {"course_id": course_id, "lesson_id": lesson_id, "title": "", "content_type": "dialogue"},
+                "course_content": {"dialogues": raw_result},
+            }
+        elif not isinstance(raw_result, dict):
+            print(f"  ❌ Task 1.1 返回了未知类型 {type(raw_result)}，终止。")
+            return None
 
         raw_dialogues = raw_result.get("course_content", {}).get("dialogues", [])
         raw_dialogues = self._repair_missing_english(raw_dialogues, file_path=file_path, file_obj=file_obj)

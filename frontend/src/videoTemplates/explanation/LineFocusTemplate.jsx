@@ -73,6 +73,19 @@ export default function LineFocusTemplate({ segment }) {
     // Subtitle: use full narration text, split into sentences for future animation
     const narrationText = segment?.narration_track?.subtitle_en || '';
 
+    // Adaptive font size based on Chinese character count
+    const cnCount = [...(focusText || '')].filter(c => /[一-鿿]/.test(c)).length;
+    const hasBottom = highlightWords.length > 0 || !!quickTake;
+    let charSize, pinyinSize;
+    if (cnCount <= 12)       { charSize = 116; pinyinSize = 28; }
+    else if (cnCount <= 25)  { charSize = 88;  pinyinSize = 22; }
+    else if (cnCount <= 50)  { charSize = 64;  pinyinSize = 18; }
+    else                     { charSize = 46;  pinyinSize = 14; }
+    if (hasBottom && cnCount > 20) {
+        charSize   = Math.max(40, Math.round(charSize   * 0.85));
+        pinyinSize = Math.max(12, Math.round(pinyinSize * 0.85));
+    }
+
     return (
         <BlackboardShell subtitleText={narrationText}>
             <ChalkTexture opacity={0.09} zIndex={0} />
@@ -109,7 +122,7 @@ export default function LineFocusTemplate({ segment }) {
             }}>
                 {/* Top: Ruby line + gloss */}
                 <div>
-                    <RubyLine text={focusText} pinyin={pinyin} charSize={116} pinyinSize={28} />
+                    <RubyLine text={focusText} pinyin={pinyin} charSize={charSize} pinyinSize={pinyinSize} />
                     {gloss && (
                         <div style={{
                             marginTop: 22, marginLeft: 4,
@@ -144,9 +157,9 @@ export default function LineFocusTemplate({ segment }) {
                                             pinyinSize={21}
                                             color={color}
                                         />
-                                        {item?.english && (
+                                        {item?.translation && (
                                             <span style={{ marginTop: 7, fontSize: 24, fontWeight: 700, color: chalk.dim }}>
-                                                {item.english}
+                                                {item.translation}
                                             </span>
                                         )}
                                     </div>

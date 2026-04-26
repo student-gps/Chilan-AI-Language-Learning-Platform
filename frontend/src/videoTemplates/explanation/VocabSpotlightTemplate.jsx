@@ -63,7 +63,7 @@ export default function VocabSpotlightTemplate({ segment }) {
                                     fontSize: 18, fontStyle: 'italic', fontWeight: 500,
                                     color: chalk.white, opacity: 0.7, letterSpacing: '0.01em',
                                 }}>
-                                    {item?.english}
+                                    {item?.translation}
                                 </div>
                                 {item?.character_insight_en && (
                                     <p style={{

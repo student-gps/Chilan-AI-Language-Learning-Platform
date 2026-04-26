@@ -153,9 +153,9 @@ export default function DialogueSection({
                                             })}
                                         </div>
 
-                                        {diagTrans && line.english && (
+                                        {diagTrans && line.translation && (
                                             <p className={`mt-3 text-lg leading-relaxed text-stone-500 md:text-xl ${isShortMetaLine ? 'text-center' : ''}`}>
-                                                {line.english}
+                                                {line.translation}
                                             </p>
                                         )}
                                     </article>
@@ -215,7 +215,7 @@ export default function DialogueSection({
                                                 })}
                                             </div>
 
-                                            {diagTrans && line.english && (
+                                            {diagTrans && line.translation && (
                                                 <p className={`mt-4 border-t pt-3 text-xl ${
                                                     isLessonActive
                                                         ? isLeft
@@ -225,7 +225,7 @@ export default function DialogueSection({
                                                             ? 'border-slate-200/60 text-slate-500'
                                                             : 'border-blue-200/60 text-blue-700/70'
                                                 }`}>
-                                                    {line.english}
+                                                    {line.translation}
                                                 </p>
                                             )}
                                         </div>

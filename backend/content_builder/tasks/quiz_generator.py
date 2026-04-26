@@ -15,7 +15,7 @@ from config.env import get_env, get_env_bool, get_env_float, get_env_int
 class Task2QuizGenerator:
     def __init__(self, llm_provider: BaseLLMProvider, memory_dir: Path):
         self.llm = llm_provider
-        self.memory_file = memory_dir / "global_vocab_memory.json"
+        self.memory_file = memory_dir / "vocab_memory" / "global_vocab_memory.json"
         # 🚀 这里的 global_vocab 现在的结构是字典: { "单词": [ {词义1...}, {词义2...} ] }
         self.global_vocab = self._load_memory()
         self.example_batch_size = max(1, get_env_int("CONTENT_TASK2_EXAMPLE_BATCH_SIZE", default=3))
@@ -107,7 +107,7 @@ class Task2QuizGenerator:
                 continue
 
             cn = (item.get("cn") or "").strip()
-            en = (item.get("en") or "").strip()
+            en = (item.get("translation") or item.get("en") or "").strip()
             py = (item.get("py") or "").strip()
             tokens = self._normalize_example(item).get("tokens", [])
 
@@ -119,13 +119,13 @@ class Task2QuizGenerator:
                 continue
 
             seen.add(dedupe_key)
-            deduped.append({"cn": cn, "py": py, "en": en, "tokens": tokens})
+            deduped.append({"cn": cn, "py": py, "translation": en, "tokens": tokens})
 
         return deduped
 
     def _normalize_example(self, example: dict | None) -> dict:
         if not isinstance(example, dict):
-            return {"cn": "", "py": "", "en": "", "tokens": []}
+            return {"cn": "", "py": "", "translation": "", "tokens": []}
         normalized_tokens = []
         for token in example.get("tokens", []) or []:
             if not isinstance(token, dict):
@@ -137,7 +137,7 @@ class Task2QuizGenerator:
         return {
             "cn": (example.get("cn") or "").strip(),
             "py": (example.get("py") or "").strip(),
-            "en": (example.get("en") or "").strip(),
+            "translation": (example.get("translation") or example.get("en") or "").strip(),
             "tokens": normalized_tokens,
         }
 
@@ -456,7 +456,7 @@ class Task2QuizGenerator:
             if "chinese" in dialogue_block:
                 cn = (dialogue_block.get("chinese") or "").strip()
                 py = (dialogue_block.get("pinyin") or "").strip()
-                en = (dialogue_block.get("english") or "").strip()
+                en = (dialogue_block.get("translation") or "").strip()
                 words = dialogue_block.get("words", []) or dialogue_block.get("tokens", [])
                 if cn and en:
                     fallback_items.append({
@@ -484,7 +484,7 @@ class Task2QuizGenerator:
                     for token in words
                     if isinstance(token, dict)
                 ).strip()
-                en = (line.get("english") or "").strip()
+                en = (line.get("translation") or "").strip()
                 py = " ".join(
                     token.get("py", "").strip()
                     for token in words
@@ -520,6 +520,7 @@ class Task2QuizGenerator:
         4. 如果定义里带有教材导航提示（例如 "See Grammar 1."、"[See Grammar 1.]"、"(See Lesson 2.)"），请不要把这些导航提示并入 definition，只保留真正的词义英文释义。
         5. 如果当前 PDF 页面没有任何生词表，请直接返回 {"vocabulary": []}。
         6. 严禁自行添加任何 PDF 中不存在的单词（哪怕你觉得这一课应该学这些词）。
+        7. 【简繁处理】如果词汇表同时提供了"Simplified"和"Traditional"两列，word 字段只取 Simplified（简体）列的内容，完全忽略 Traditional 列。如果只有一列，统一转换为简体后输出。
         
         【输出格式】
         只输出合法的 JSON，不包含任何 Markdown 标记。
@@ -543,7 +544,7 @@ class Task2QuizGenerator:
             lines = []
             for d in source_dialogues:
                 cn = d.get("chinese") or d.get("cn", "")
-                en = d.get("english") or d.get("en", "")
+                en = d.get("translation", "")
                 if cn:
                     lines.append(f"{cn}  {en}".strip())
             if lines:
@@ -637,6 +638,7 @@ class Task2QuizGenerator:
         1. 仅限提取课后习题中用于"翻译练习"或"完成句子"的原文。
         2. 严禁（STOP）引入任何与本教材内容、本课主题无关的句子。
         3. 严禁为了凑数而自行生成练习题。
+        4. 【简繁去重】本教材同时提供简体和繁体，旧册每例句连续两行（简体在前），新册整段简体后接整段繁体（可能在下一页）。无论哪种格式，只提取简体，忽略繁体，不重复提取。判断方法：简体字笔画更少（如"学"vs"學"）。
 
         【强制输出结构】
         - 如果在 PDF 中未发现适合的练习句，请务必返回：{{ "grammar_practice": [] }}
@@ -648,25 +650,6 @@ class Task2QuizGenerator:
           }}
         """
 
-    def _collect_language_practice_sentences(self, language_practice_sections: list) -> list:
-        """
-        从 Task1B 已提取的 language_practice_sections 中收集所有可用作练习题的句子。
-        优先使用翻译练习和例句；替换练习的 drill_sentences 也纳入。
-        """
-        collected = []
-        for section in (language_practice_sections or []):
-            if not isinstance(section, dict):
-                continue
-            for sent in (section.get("drill_sentences") or []):
-                if not isinstance(sent, dict):
-                    continue
-                cn = (sent.get("cn") or "").strip()
-                en = (sent.get("en") or "").strip()
-                py = (sent.get("py") or "").strip()
-                if cn and en:
-                    collected.append({"cn": cn, "py": py, "en": en})
-            # 替换练习的 substitution_sets 中的 items 只是词组，不适合做完整句子题，跳过
-        return collected
     
     def _summarize_historical_usages_for_prompt(self, vocab_item: dict) -> list:
         grouped = {}
@@ -887,7 +870,7 @@ class Task2QuizGenerator:
                 continue
 
             cn = (item.get("cn") or "").strip()
-            en = (item.get("en") or "").strip()
+            en = (item.get("translation") or item.get("en") or "").strip()
             py = (item.get("py") or "").strip()
             if not cn or not en:
                 continue
@@ -944,7 +927,7 @@ class Task2QuizGenerator:
               "original_text": "English sentence",
               "original_pinyin": "对应中文拼音",
               "standard_answers": ["中文原句"],
-              "context_examples": [{{"cn":"中文","py":"拼音","en":"English"}}],
+              "context_examples": [{{"cn":"中文","py":"拼音","translation":"English"}}],
               "metadata": {{
                 "answer_mode": "speech",
                 "speech_eval_config": {speech_eval_config}
@@ -1035,7 +1018,7 @@ class Task2QuizGenerator:
             if not isinstance(item, dict):
                 continue
             cn = (item.get("chinese") or item.get("cn") or "").strip()
-            en = (item.get("english") or item.get("en") or "").strip()
+            en = (item.get("translation") or item.get("en") or "").strip()
             py = (item.get("pinyin") or item.get("py") or "").strip()
             if not cn or not en or len(cn) < 3:
                 continue
@@ -1086,7 +1069,7 @@ class Task2QuizGenerator:
               "original_text": "English translation (meaning hint)",
               "original_pinyin": "对应中文拼音",
               "standard_answers": ["中文原句"],
-              "context_examples": [{{"cn":"中文","py":"拼音","en":"English"}}],
+              "context_examples": [{{"cn":"中文","py":"拼音","translation":"English"}}],
               "metadata": {{
                 "answer_mode": "text",
                 "line_ref": <integer from source>
@@ -1153,7 +1136,7 @@ class Task2QuizGenerator:
             if len(fallback) >= 4:
                 break
             cn = (mat.get("cn") or "").strip()
-            en = (mat.get("en") or "").strip()
+            en = (mat.get("translation") or mat.get("en") or "").strip()
             py = (mat.get("py") or "").strip()
             line_ref = mat.get("line_ref")
             if not cn or not en or line_ref is None:
@@ -1166,7 +1149,7 @@ class Task2QuizGenerator:
                 "original_text": en,
                 "original_pinyin": py,
                 "standard_answers": [cn],
-                "context_examples": [{"cn": cn, "py": py, "en": en}],
+                "context_examples": [{"cn": cn, "py": py, "translation": en}],
                 "metadata": {"answer_mode": "text", "line_ref": line_ref},
             })
         return fallback
@@ -1188,7 +1171,7 @@ class Task2QuizGenerator:
                 continue
 
             cn = (material.get("cn") or "").strip()
-            en = (material.get("en") or "").strip()
+            en = (material.get("translation") or material.get("en") or "").strip()
             py = (material.get("py") or "").strip()
             if not cn or not en:
                 continue
@@ -1201,7 +1184,7 @@ class Task2QuizGenerator:
                 "original_text": en,
                 "original_pinyin": py,
                 "standard_answers": [cn],
-                "context_examples": [{"cn": cn, "py": py, "en": en}],
+                "context_examples": [{"cn": cn, "py": py, "translation": en}],
                 "metadata": {
                     "answer_mode": "speech",
                     "speech_eval_config": speech_eval_config,
@@ -1210,7 +1193,7 @@ class Task2QuizGenerator:
 
         return fallback
 
-    def run(self, lesson_id: int, course_id: int, file_path: str = None, file_obj=None, source_dialogues: list = None, raw_dialogues: list = None, language_practice_sections: list = None):
+    def run(self, lesson_id: int, course_id: int, file_path: str = None, file_obj=None, source_dialogues: list = None, raw_dialogues: list = None):
         # --- [Task 2.1a] 提取词汇基本信息 ---
         print(f"  ▶️ [Task 2.1a] 提取词汇基本信息 (骨架)...")
         v_base_res = self.llm.generate_structured_json(self._build_vocab_base_prompt(), file_path=file_path, file_obj=file_obj)
@@ -1224,10 +1207,13 @@ class Task2QuizGenerator:
                     word = v.get("word")
                     definition = v.get("definition")
                     # 校验一词多义
-                    if word not in self.global_vocab or definition not in [e["definition"] for e in self.global_vocab[word]]:
-                        new_vocab_base.append(v)
-                    else:
+                    matching = [e for e in self.global_vocab.get(word, []) if e["definition"] == definition]
+                    from_current = any(e.get("lesson_id") == lesson_id for e in matching)
+                    from_earlier_only = matching and not from_current
+                    if from_earlier_only:
                         print(f"  ⏭️ 跳过已掌握的词义: {word} ({definition})")
+                    else:
+                        new_vocab_base.append(v)
         
         if not new_vocab_base:
             print("  ⚠️ 本课无新生词义。")
@@ -1248,26 +1234,21 @@ class Task2QuizGenerator:
 
         time.sleep(2)
 
-        # --- [Task 2.2a/b/c] 提取素材 ---
-        print(f"  ▶️ [Task 2.2a/b/c] 提取课文原文句、语法练习与 Language Practice...")
+        # --- [Task 2.2a/b] 提取素材 ---
+        print(f"  ▶️ [Task 2.2a/b] 提取课文原文句与语法练习...")
         dialogue_sentences = self._extract_dialogue_sentence_fallback(source_dialogues)
         g_result = self.llm.generate_structured_json(self._build_grammar_extract_prompt(), file_path=file_path, file_obj=file_obj)
         grammar_exercises = g_result.get("grammar_practice", []) if isinstance(g_result, dict) and isinstance(g_result.get("grammar_practice"), list) else []
 
-        # Language Practice sentences from Task1B (already extracted — no extra LLM call needed)
-        lp_sentences = self._collect_language_practice_sentences(language_practice_sections)
-
-        # EN_TO_CN sentence questions: grammar exercises + language practice sentences combined
-        # (dialogue lines go to CN_LISTEN_WRITE and EN_TO_CN_SPEAK to avoid overlap)
-        combined_written_pool = self._dedupe_sentence_materials(grammar_exercises + lp_sentences)
-        grammar_practice_deduped = combined_written_pool
+        # EN_TO_CN sentence questions use grammar exercises only (dialogue lines go to
+        # CN_LISTEN_WRITE and EN_TO_CN_SPEAK) to avoid question-content overlap.
+        grammar_practice_deduped = self._dedupe_sentence_materials(grammar_exercises)
         # Speech materials come from dialogue lines only
         dialogue_sentences_deduped = self._dedupe_sentence_materials(dialogue_sentences)
 
         print(f"     📊 课文原文句提取: {len(dialogue_sentences)} 条")
         print(f"     📊 语法练习提取: {len(grammar_exercises)} 条")
-        print(f"     📊 Language Practice 句子提取: {len(lp_sentences)} 条")
-        print(f"     📊 EN_TO_CN 句子素材池 (语法+LP): {len(grammar_practice_deduped)} 条")
+        print(f"     📊 EN_TO_CN 句子素材池 (语法): {len(grammar_practice_deduped)} 条")
         print(f"     📊 CN_LISTEN_WRITE / 语音素材池 (课文): {len(dialogue_sentences_deduped)} 条")
 
         # Build line_ref mapping for CN_LISTEN_WRITE audio lookup

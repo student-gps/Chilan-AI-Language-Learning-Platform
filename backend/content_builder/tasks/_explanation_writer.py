@@ -7,39 +7,40 @@ class Task3ExplanationGenerator:
         self.llm = llm_provider
 
     def _build_prompt(self, metadata: dict, dialogues: list, teaching_materials: dict, vocabulary: list, grammar: list, batch_mode: str) -> str:
-        lp_sections = (teaching_materials or {}).get("language_practice_sections", [])
         context = {
             "metadata": metadata,
             "dialogues": dialogues,
             "teaching_materials": teaching_materials,
             "key_vocabulary": vocabulary[:12],
             "grammar_points": grammar[:8],
-            "language_practice_sections": lp_sections,
             "batch_mode": batch_mode,
         }
         content_str = json.dumps(context, ensure_ascii=False)
 
         if batch_mode == "foundation":
-            batch_guidance = """
-        【本轮生成目标：逐句讲解阶段】
+            line_refs = [d["line_ref"] for d in dialogues if isinstance(d, dict) and "line_ref" in d]
+            n_lines = len(line_refs)
+            ref_str = str(line_refs) if line_refs else "（见 dialogues 数据）"
+            batch_guidance = f"""
+        【本轮生成目标：逐句讲解阶段（共 {n_lines} 行）】
+        - 【强制覆盖】本批次必须覆盖的课文行编号为：{ref_str}。你必须为其中每一个 line_ref 都生成至少 1 个 line_walkthrough segment，一行都不能少。
         - 严格按课文对话顺序，一句一句讲解所有对话行，不得跳过任何一句。
         - 允许的 segment_type：line_walkthrough、vocabulary_focus、usage_focus。
         - 严禁生成 grammar_focus 和 recap，语法点留给 advanced 轮。
         - 遇到句子中的新词可以穿插 vocabulary_focus，但不要展开系统语法讲解。
         - 每一句课文必须有自己的 line_walkthrough，极短重复句可以简短带过（6-8秒）。
-        - 建议生成 4-8 个 segments；覆盖全部对话行优先，数量不是硬性限制。
+        - 必须生成至少 {n_lines} 个 line_walkthrough segments（每行对应一个），数量不是上限，可以根据需要穿插 vocabulary_focus。
             """
         else:
             batch_guidance = """
-        【本轮生成目标：语法与语言练习讲解阶段】
-        - 本轮只讲语法点和语言练习要点，不重复逐句讲解对话。
+        【本轮生成目标：语法讲解阶段】
+        - 本轮只讲语法点，不重复逐句讲解对话。
         - 必须覆盖 teaching_materials.grammar_sections 中的每一个语法点，按教材顺序逐一展开。
         - 每个 grammar_section 对应一个或多个 grammar_focus segment，不得遗漏。
-        - 如果 language_practice_sections 中有重要的替换练习或句型操练，在语法段结束后用 usage_focus segment 演示 1-2 个核心练习句型（不超过 2 个 LP segment，避免过长）。
         - 讲解语法点时，优先引用前一轮已讲过的对话句子作为例子（通过 source_line_refs 标注），帮助学生建立联系。
         - 数字、日期、时间等系统性语法点必须完整展开，不能简略带过。
         - 最后必须包含 1 个 recap segment。
-        - 建议生成 3-8 个 segments（grammar_focus 数量 ≥ grammar_sections 数量，可加 LP usage_focus），加 1 个 recap。
+        - 建议生成 3-6 个 segments（grammar_focus 数量 = grammar_sections 数量），加 1 个 recap。
             """
 
         return f"""
@@ -59,7 +60,6 @@ class Task3ExplanationGenerator:
         5. 每一句课文都必须有至少一个 segment_type 为 “line_walkthrough” 的片段来明确讲解它，仅在 grammar_focus 或其他类型中引用 source_line_refs 不算覆盖。
         6. 对非常短的重复句（例如重复的”你好”）可以用简短的 line_walkthrough（estimated_duration_seconds 设为 6-8）快速说明其回应功能，不必展开成冗长解释。
         7. teaching_materials 中的 language_notes 和 grammar_sections 是本次讲解的重要依据，必须优先参考，不要只依赖对话正文自行推断。
-        7b. language_practice_sections 中的替换练习和句型操练是教材补充训练内容，在 advanced 轮中酌情纳入 usage_focus 段落加以演示。
         8. grammar_points 可作为补充素材，但教材原有的 grammar_sections 优先级更高。
         9. vocabulary 用于识别和组织高亮新词。
         10. 每个片段都要适合后续做成教学卡片视频，而不是影视剧情。
@@ -124,6 +124,7 @@ class Task3ExplanationGenerator:
         【字段格式约束】
         - on_screen_text.focus_text 格式规则：
           * 只写汉字和标点，绝对不要把拼音内嵌进文本，禁止 "不(bù)+是(shì)→不是(búshì)" 这类写法；拼音统一放 focus_pinyin 字段。
+          * 【文本长度限制 — 必须遵守】line_walkthrough / usage_focus 的 focus_text 最多 40 个汉字。如果课文原句超过 40 个汉字，必须按自然语言停顿（逗号、句号处）拆成多个独立的 line_walkthrough segment，每个 segment 只放原句的一个子片段（如前半句、后半句），不得把整句塞进一个 segment。每个子片段都需要对应独立的旁白解释。
           * line_walkthrough / usage_focus：直接写课文句子，例如 "你好！" 或 "请问，你贵姓？"
           * vocabulary_focus：多个词用" / "分隔，例如 "请 / 问 / 贵 / 姓"
           * grammar_focus：如果展示问答句型，必须用 "Q: 问句 A: 答句" 格式，例如 "Q: 你贵姓？ A: 我姓王。"；如果正反两种回答都需要展示，A 部分用 " / " 分隔，例如 "Q: 你是老师吗？ A: 我是老师。/ 我不是老师。"；如果只展示单句句型，直接写句子。【严禁使用 "A: 句 / B: 句" 这类字母标签格式，只允许 Q:/A: 格式或纯句子。】Q: 部分后面必须有对应的 A: 部分，不得只写 Q: 而省略 A: 部分。
@@ -204,7 +205,7 @@ class Task3ExplanationGenerator:
                 {{
                   "word": "新词",
                   "pinyin": "pinyin",
-                  "english": "English meaning",
+                  "translation": "English meaning",
                   "explanation_en": "English explanation",
                   "character_insight_en": "Optional short note explaining the word's character makeup or how the characters combine in meaning"
                 }}
@@ -235,8 +236,8 @@ class Task3ExplanationGenerator:
                   "content": {{
                     "title": "Numbers 0–10",
                     "items": [
-                      {{"char": "○", "pinyin": "líng", "english": "zero"}},
-                      {{"char": "一", "pinyin": "yī", "english": "one"}}
+                      {{"char": "○", "pinyin": "líng", "translation": "zero"}},
+                      {{"char": "一", "pinyin": "yī", "translation": "one"}}
                     ],
                     "note": "Optional supplementary note"
                   }}
@@ -261,13 +262,13 @@ class Task3ExplanationGenerator:
             # Flat format: {"role": ..., "chinese": ..., "english": ...}
             if "chinese" in section:
                 hanzi = (section.get("chinese") or "").strip()
-                english = (section.get("english") or "").strip()
+                english = (section.get("translation") or "").strip()
                 if hanzi:
                     flattened.append({
                         "line_ref": running_ref,
                         "hanzi": hanzi,
                         "pinyin": "",
-                        "english": english,
+                        "translation": english,
                     })
                     running_ref += 1
 
@@ -287,12 +288,12 @@ class Task3ExplanationGenerator:
                         for token in words
                         if isinstance(token, dict) and token.get("py")
                     ).strip()
-                    english = (line.get("english") or "").strip()
+                    english = (line.get("translation") or "").strip()
                     flattened.append({
                         "line_ref": running_ref,
                         "hanzi": hanzi,
                         "pinyin": pinyin,
-                        "english": english,
+                        "translation": english,
                     })
                     running_ref += 1
 
@@ -300,7 +301,7 @@ class Task3ExplanationGenerator:
 
     def _build_missing_line_segment(self, line_item: dict, segment_id: int, lesson_title: str) -> dict:
         hanzi = (line_item.get("hanzi") or "").strip()
-        english = (line_item.get("english") or "").strip()
+        english = (line_item.get("translation") or "").strip()
         pinyin = (line_item.get("pinyin") or "").strip()
         line_ref = line_item.get("line_ref")
 
@@ -357,7 +358,7 @@ class Task3ExplanationGenerator:
             normalized_highlights.append({
                 "word": (item.get("word") or "").strip(),
                 "pinyin": (item.get("pinyin") or "").strip(),
-                "english": (item.get("english") or "").strip(),
+                "translation": (item.get("translation") or "").strip(),
                 "explanation_en": (item.get("explanation_en") or "").strip(),
                 "character_insight_en": (item.get("character_insight_en") or "").strip(),
             })
@@ -391,6 +392,8 @@ class Task3ExplanationGenerator:
                 result["visual_blocks"] = raw_vb
         return result
 
+    FOUNDATION_BATCH_SIZE = 10  # dialogue lines per foundation batch for long lessons
+
     def run(self, metadata: dict, dialogues: list, teaching_materials: dict = None, vocabulary: list = None, grammar: list = None):
         print("  ▶️ [Task 3B] 正在生成课文教学讲解脚本...")
 
@@ -398,14 +401,45 @@ class Task3ExplanationGenerator:
         vocabulary = vocabulary if vocabulary else []
         grammar = grammar if grammar else []
 
-        foundation_result = self._request_batch(
-            metadata=metadata,
-            dialogues=dialogues or [],
-            teaching_materials=teaching_materials,
-            vocabulary=vocabulary,
-            grammar=grammar,
-            batch_mode="foundation",
-        )
+        # Flatten dialogue lines first (needed for batching and coverage check)
+        flattened_lines = self._flatten_dialogue_lines(dialogues or [])
+        lesson_title = metadata.get("title", "") if isinstance(metadata, dict) else ""
+
+        # Foundation pass: batch by FOUNDATION_BATCH_SIZE if lesson is long
+        foundation_segments = []
+        foundation_global = {}
+        n_lines = len(flattened_lines)
+
+        if n_lines > self.FOUNDATION_BATCH_SIZE:
+            n_batches = (n_lines + self.FOUNDATION_BATCH_SIZE - 1) // self.FOUNDATION_BATCH_SIZE
+            print(f"  ▶️ 检测到 {n_lines} 行对话，分 {n_batches} 批进行 foundation 讲解生成...")
+            for i in range(n_batches):
+                batch = flattened_lines[i * self.FOUNDATION_BATCH_SIZE:(i + 1) * self.FOUNDATION_BATCH_SIZE]
+                print(f"  ▶️ Foundation 批次 {i + 1}/{n_batches}（行 {batch[0]['line_ref']}–{batch[-1]['line_ref']}）...")
+                result = self._request_batch(
+                    metadata=metadata,
+                    dialogues=batch,
+                    teaching_materials=teaching_materials,
+                    vocabulary=vocabulary,
+                    grammar=grammar,
+                    batch_mode="foundation",
+                )
+                foundation_segments.extend(result.get("segments", []) if isinstance(result.get("segments"), list) else [])
+                if not foundation_global:
+                    foundation_global = result.get("global_config", {}) or {}
+        else:
+            result = self._request_batch(
+                metadata=metadata,
+                dialogues=dialogues or [],
+                teaching_materials=teaching_materials,
+                vocabulary=vocabulary,
+                grammar=grammar,
+                batch_mode="foundation",
+            )
+            foundation_segments = result.get("segments", []) if isinstance(result.get("segments"), list) else []
+            foundation_global = result.get("global_config", {}) or {}
+
+        # Advanced pass: always uses full dialogues for grammar cross-reference
         advanced_result = self._request_batch(
             metadata=metadata,
             dialogues=dialogues or [],
@@ -414,14 +448,11 @@ class Task3ExplanationGenerator:
             grammar=grammar,
             batch_mode="advanced",
         )
+        advanced_global = advanced_result.get("global_config", {}) if isinstance(advanced_result.get("global_config"), dict) else {}
 
-        lesson_title = metadata.get("title", "") if isinstance(metadata, dict) else ""
-        foundation_global = foundation_result.get("global_config") if isinstance(foundation_result.get("global_config"), dict) else {}
-        advanced_global = advanced_result.get("global_config") if isinstance(advanced_result.get("global_config"), dict) else {}
         merged_segments = []
-        merged_segments.extend(foundation_result.get("segments", []) if isinstance(foundation_result.get("segments"), list) else [])
+        merged_segments.extend(foundation_segments)
         merged_segments.extend(advanced_result.get("segments", []) if isinstance(advanced_result.get("segments"), list) else [])
-        flattened_lines = self._flatten_dialogue_lines(dialogues or [])
         all_line_refs = [item["line_ref"] for item in flattened_lines if item.get("line_ref")]
         # Only line_walkthrough / usage_focus counts as true coverage.
         # grammar_focus / vocabulary_focus referencing a line is NOT sufficient.

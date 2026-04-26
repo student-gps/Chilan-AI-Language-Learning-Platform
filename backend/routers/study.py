@@ -252,12 +252,13 @@ def ensure_vocabulary_knowledge_table(cur):
 # 接口 1: 初始化学习流 (完整版)
 # ==========================================
 @router.get("/study/init")
-async def init_study_flow(user_id: str, course_id: int = 1):
+async def init_study_flow(user_id: str, course_id: int = 1, lesson_id: int = None):
     try:
         return init_study_flow_service(
             user_id=user_id,
             course_id=course_id,
             cos_media_storage=cos_media_storage,
+            lesson_id=lesson_id,
         )
     except Exception as e:
         print(f"❌ Init Flow Error: {e}")

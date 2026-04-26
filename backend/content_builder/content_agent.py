@@ -46,7 +46,7 @@ def _normalize_dialogues(dialogues: list) -> list:
                     "role": line.get("role", ""),
                     "chinese": chinese,
                     "pinyin": pinyin,
-                    "english": line.get("english", ""),
+                    "translation": line.get("translation", ""),
                     "words": line.get("words", []),
                 })
         elif "chinese" in item:
@@ -55,7 +55,7 @@ def _normalize_dialogues(dialogues: list) -> list:
                 "role": item.get("role", ""),
                 "chinese": item.get("chinese", ""),
                 "pinyin": item.get("pinyin", ""),
-                "english": item.get("english", ""),
+                "translation": item.get("translation", ""),
                 "words": item.get("words", []) or item.get("tokens", []),
             })
     return result
@@ -123,7 +123,6 @@ class ContentCreatorAgent:
             dialogues_flat = _normalize_dialogues(raw_dialogues)
 
             # [Task 2] 提取词汇（含历史记录）+ 提取语法 + 生成题库
-            lp_sections = teaching_materials.get("language_practice_sections", []) if isinstance(teaching_materials, dict) else []
             task2_result = self.task2.run(
                 lesson_id=lesson_id,
                 course_id=course_id,
@@ -131,7 +130,6 @@ class ContentCreatorAgent:
                 file_obj=shared_file,
                 source_dialogues=dialogues_flat,
                 raw_dialogues=raw_dialogues,
-                language_practice_sections=lp_sections,
             )
 
             vocab_data = []
@@ -267,7 +265,7 @@ class ContentCreatorAgent:
             traceback.print_exc()
             return None
 
-    def render_narration(self, lesson_data: dict, lesson_id: int) -> dict:
+    def render_narration(self, lesson_data: dict, lesson_id: int, lang: str = "en") -> dict:
         """
         Stage 2 — 母语旁白音轨渲染（每种学习者母语各跑一次）
 
@@ -280,11 +278,13 @@ class ContentCreatorAgent:
         print(f"\n🎙️ [Stage 2] 开始旁白渲染 (Lesson ID: {lesson_id})")
 
         try:
-            narration_audio_dir = self.memory_dir / "output_audio" / f"lesson{lesson_id}_narration"
+            lang_suffix = f"_{lang}" if lang != "en" else ""
+            narration_audio_dir = self.memory_dir / "output_audio" / f"lesson{lesson_id}_narration{lang_suffix}"
             explanation_render_plan = lesson_data.get("video_render_plan", {}).get("explanation", {})
             narration_result = self.task4d.run(
                 render_plan=explanation_render_plan,
                 output_dir=narration_audio_dir,
+                lang=lang,
             )
             lesson_data["explanation_narration_audio"] = narration_result
 

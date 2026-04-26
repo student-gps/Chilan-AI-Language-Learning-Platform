@@ -29,7 +29,7 @@ class ContentBuilderVocabularyExampleTests(unittest.TestCase):
                 "lines": [
                     {
                         "role": "A",
-                        "english": "Hello!",
+                        "translation": "Hello!",
                         "words": [
                             {"cn": "你", "py": "nǐ"},
                             {"cn": "好", "py": "hǎo"},
@@ -49,7 +49,7 @@ class ContentBuilderVocabularyExampleTests(unittest.TestCase):
                     "role": "A",
                     "chinese": "你好！",
                     "pinyin": "nǐ hǎo",
-                    "english": "Hello!",
+                    "translation": "Hello!",
                     "words": [
                         {"cn": "你", "py": "nǐ"},
                         {"cn": "好", "py": "hǎo"},
@@ -80,7 +80,7 @@ class ContentBuilderVocabularyExampleTests(unittest.TestCase):
                 "role": "A",
                 "chinese": "你好！",
                 "pinyin": "nǐ hǎo",
-                "english": "Hello!",
+                "translation": "Hello!",
                 "words": [
                     {"cn": "你", "py": "nǐ"},
                     {"cn": "好", "py": "hǎo"},
@@ -128,7 +128,7 @@ class ContentBuilderVocabularyExampleTests(unittest.TestCase):
                 "role": "B",
                 "chinese": "我姓李。你呢？",
                 "pinyin": "wǒ xìng lǐ. nǐ ne?",
-                "english": "My surname is Li. And you?",
+                "translation": "My surname is Li. And you?",
                 "words": [
                     {"cn": "我", "py": "wǒ"},
                     {"cn": "姓", "py": "xìng"},
