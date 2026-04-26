@@ -123,6 +123,11 @@ export default function CoursePage() {
                                     <div className="font-black text-slate-800 truncate group-hover:text-blue-700 transition-colors">
                                         {lesson.title || `第 ${idx + 1} 课`}
                                     </div>
+                                    {lesson.title_localized && (
+                                        <div className="text-xs font-medium text-slate-400 truncate mt-0.5">
+                                            {lesson.title_localized}
+                                        </div>
+                                    )}
                                 </div>
                                 <ChevronRight size={18} className="text-slate-300 group-hover:text-blue-400 group-hover:translate-x-1 transition-all shrink-0" />
                             </motion.button>

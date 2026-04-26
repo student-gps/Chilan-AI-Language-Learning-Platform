@@ -28,7 +28,7 @@ class Task1Extractor:
         【重要】所有汉字内容必须统一输出简体中文，如遇繁体字请主动转换为简体，不要原样照搬繁体。
 
         【解析要求】
-        1. lesson_metadata: course_id({course_id}), lesson_id({lesson_id}), title(根据内容生成中文标题), content_type(课文主要形式)。
+        1. lesson_metadata: course_id({course_id}), lesson_id({lesson_id}), title(根据内容生成中文标题), title_localized(将中文标题翻译为英文，简短自然，3-6个单词，适合教学标题，例如 "Exchanging Greetings"), content_type(课文主要形式)。
         2. content_type 仅能从以下枚举中选择一个：
            - "dialogue": 以人物对话为主
            - "diary": 日记体
@@ -61,6 +61,7 @@ class Task1Extractor:
                 "course_id": {course_id},
                 "lesson_id": {lesson_id},
                 "title": "...",
+                "title_localized": "...",
                 "content_type": "dialogue"
             }},
             "course_content": {{
