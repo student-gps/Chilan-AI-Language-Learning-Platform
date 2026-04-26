@@ -78,14 +78,14 @@ export default function UsageFocusTemplate({ segment }) {
                                             pinyinSize={compact ? 17 : 23}
                                             color={color}
                                         />
-                                        {item.english && (
+                                        {item.translation && (
                                             <span style={{
                                                 fontSize: compact ? 20 : 24,
                                                 fontWeight: 700,
                                                 color: chalk.dim,
                                                 paddingBottom: 4,
                                             }}>
-                                                {item.english}
+                                                {item.translation}
                                             </span>
                                         )}
                                     </div>

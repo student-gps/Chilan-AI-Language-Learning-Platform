@@ -364,9 +364,9 @@ if __name__ == "__main__":
     # 路径绑定
     content_builder_dir = CURRENT_DIR.parent / "content_builder"
     artifacts_dir = content_builder_dir / "artifacts"
-    output_dir = artifacts_dir / "output_json"
-    synced_dir = artifacts_dir / "synced_json"
-    synced_dir.mkdir(exist_ok=True)
+    output_dir = artifacts_dir / "output_json" / "en"
+    synced_dir = artifacts_dir / "synced_json" / "en"
+    synced_dir.mkdir(parents=True, exist_ok=True)
 
     json_files = list(output_dir.glob("*_data.json"))
     if not json_files:

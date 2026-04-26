@@ -59,7 +59,7 @@ function CharGrid({ content }) {
                                 color: chalk.dim, marginTop: 5,
                                 letterSpacing: '0.01em',
                             }}>
-                                {item.english}
+                                {item.translation}
                             </span>
                         </div>
                     );

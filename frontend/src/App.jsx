@@ -13,6 +13,7 @@ import ExplanationTemplatePreview from './pages/ExplanationTemplatePreview';
 import PinyinPage from './pages/PinyinPage';
 import CourseIntroPage from './pages/CourseIntroPage';
 import HanziIntroPage from './pages/HanziIntroPage';
+import CoursePage from './pages/CoursePage';
 import { getValidToken } from './utils/authStorage';
 
 const ProtectedRoute = ({ children }) => {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/classroom" element={<ProtectedRoute><Classroom /></ProtectedRoute>} />
         <Route path="/overview" element={<ProtectedRoute><Learning_Overview /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Personal_Setting /></ProtectedRoute>} />
+        <Route path="/course/:courseId" element={<ProtectedRoute><CoursePage /></ProtectedRoute>} />
         <Route path="/study/:courseId" element={<ProtectedRoute><StudyPage /></ProtectedRoute>} />
         <Route path="/video-template-preview/:courseId" element={<ExplanationTemplatePreview />} />
         <Route path="/learn/pinyin" element={<ProtectedRoute><PinyinPage /></ProtectedRoute>} />

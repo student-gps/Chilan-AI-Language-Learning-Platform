@@ -8,8 +8,10 @@ const currentFilePath = fileURLToPath(import.meta.url);
 const frontendDir = path.resolve(path.dirname(currentFilePath), '..');
 const projectRoot = path.resolve(frontendDir, '..');
 const lessonId = process.argv[2] || '101';
-const outputJsonPath = path.join(projectRoot, 'backend', 'content_builder', 'artifacts', 'output_json', `lesson${lessonId}_data.json`);
-const syncedJsonPath = path.join(projectRoot, 'backend', 'content_builder', 'artifacts', 'synced_json', `lesson${lessonId}_data.json`);
+const lang = process.argv[3] || 'en';
+const langSuffix = lang !== 'en' ? `_${lang}` : '';
+const outputJsonPath = path.join(projectRoot, 'backend', 'content_builder', 'artifacts', 'output_json', lang, `lesson${lessonId}_data${langSuffix}.json`);
+const syncedJsonPath = path.join(projectRoot, 'backend', 'content_builder', 'artifacts', 'synced_json', lang, `lesson${lessonId}_data${langSuffix}.json`);
 const sourceJsonPath = fs.existsSync(outputJsonPath) ? outputJsonPath : syncedJsonPath;
 
 if (!fs.existsSync(sourceJsonPath)) {

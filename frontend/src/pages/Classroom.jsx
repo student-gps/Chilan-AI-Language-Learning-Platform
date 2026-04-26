@@ -419,7 +419,7 @@ export default function Classroom() {
                                     variants={fadeInUp}
                                     titleAction={t('classroom_start')}
                                     progressValue={course.mastered}
-                                    onClick={() => navigate(`/study/${course.id}`)}
+                                    onClick={() => navigate(`/course/${course.id}`)}
                                     isInteractive
                                 />
                                 );
@@ -479,7 +479,7 @@ export default function Classroom() {
                                                     {isEnrolled ? t('classroom_added') : t('btn_add')}
                                                 </button>
                                             }
-                                            onClick={isEnrolled ? () => navigate(`/study/${course.id}`) : undefined}
+                                            onClick={isEnrolled ? () => navigate(`/course/${course.id}`) : undefined}
                                             isInteractive={isEnrolled}
                                         />
                                     );

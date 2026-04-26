@@ -15,7 +15,7 @@ class BackfillVocabularyExamplePinyinTests(unittest.TestCase):
                         "lines": [
                             {
                                 "role": "A",
-                                "english": "Hello!",
+                                "translation": "Hello!",
                                 "words": [
                                     {"cn": "你", "py": "nǐ"},
                                     {"cn": "好", "py": "hǎo"},

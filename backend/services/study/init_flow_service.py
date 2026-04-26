@@ -135,7 +135,7 @@ def _hydrate_lesson_audio_urls(payload: Any, cos_media_storage=None) -> Dict[str
     return assets
 
 
-def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None):
+def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None, lesson_id: int = None):
     conn = None
     try:
         conn = get_connection()
@@ -143,27 +143,29 @@ def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None):
         ensure_lesson_progress_columns(cur)
         conn.commit()
 
-        cur.execute(
-            """
-            SELECT
-                q.item_id,
-                q.question_id,
-                q.question_type,
-                q.original_text,
-                q.original_pinyin,
-                q.standard_answers,
-                q.metadata
-            FROM language_items q
-            JOIN user_progress_of_language_items p ON q.item_id = p.item_id
-            WHERE p.user_id::text = %s AND p.next_review <= CURRENT_TIMESTAMP
-            ORDER BY p.next_review ASC
-            LIMIT 20;
-            """,
-            (user_id,),
-        )
-        due_questions = cur.fetchall()
-        if due_questions:
-            return {"mode": "review", "data": {"pending_items": due_questions}}
+        # 指定 lesson_id 时跳过 FSRS 复习队列，直接加载该课
+        if lesson_id is None:
+            cur.execute(
+                """
+                SELECT
+                    q.item_id,
+                    q.question_id,
+                    q.question_type,
+                    q.original_text,
+                    q.original_pinyin,
+                    q.standard_answers,
+                    q.metadata
+                FROM language_items q
+                JOIN user_progress_of_language_items p ON q.item_id = p.item_id
+                WHERE p.user_id::text = %s AND p.next_review <= CURRENT_TIMESTAMP
+                ORDER BY p.next_review ASC
+                LIMIT 20;
+                """,
+                (user_id,),
+            )
+            due_questions = cur.fetchall()
+            if due_questions:
+                return {"mode": "review", "data": {"pending_items": due_questions}}
 
         cur.execute(
             """
@@ -184,19 +186,32 @@ def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None):
             viewed_lesson = 0
             practice_question_index = 0
 
-        cur.execute(
-            """
-            SELECT lesson_id, title,
-                   lesson_metadata, course_content, teaching_materials,
-                   video_plan, video_render_plan, lesson_audio_assets,
-                   explanation_video_urls, llm_usage
-            FROM lessons
-            WHERE course_id = %s AND lesson_id > %s
-            ORDER BY lesson_id ASC
-            LIMIT 1
-            """,
-            (course_id, last_lesson),
-        )
+        if lesson_id is not None:
+            cur.execute(
+                """
+                SELECT lesson_id, title,
+                       lesson_metadata, course_content, teaching_materials,
+                       video_plan, video_render_plan, lesson_audio_assets,
+                       explanation_video_urls, llm_usage
+                FROM lessons
+                WHERE course_id = %s AND lesson_id = %s
+                """,
+                (course_id, lesson_id),
+            )
+        else:
+            cur.execute(
+                """
+                SELECT lesson_id, title,
+                       lesson_metadata, course_content, teaching_materials,
+                       video_plan, video_render_plan, lesson_audio_assets,
+                       explanation_video_urls, llm_usage
+                FROM lessons
+                WHERE course_id = %s AND lesson_id > %s
+                ORDER BY lesson_id ASC
+                LIMIT 1
+                """,
+                (course_id, last_lesson),
+            )
         lesson_row = cur.fetchone()
         if not lesson_row:
             return {"mode": "completed", "message": "恭喜！你已完成本课程的所有内容。"}

@@ -23,4 +23,5 @@ PyMuPDF
 seaborn
 scikit-learn
 json-repair
+zhconv
 boto3

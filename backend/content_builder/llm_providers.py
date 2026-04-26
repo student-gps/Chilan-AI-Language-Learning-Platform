@@ -54,11 +54,31 @@ class BaseLLMProvider(ABC):
             "meta": meta or {},
         })
 
+    @staticmethod
+    def _to_simplified(obj):
+        """递归将 JSON 对象中所有字符串的繁体汉字转换为简体。
+        只处理字符串值，不触碰键名、数字、布尔值等。"""
+        try:
+            import zhconv
+        except ImportError:
+            return obj  # 未安装时静默跳过，不中断流程
+
+        def _walk(node):
+            if isinstance(node, str):
+                return zhconv.convert(node, "zh-hans")
+            if isinstance(node, dict):
+                return {k: _walk(v) for k, v in node.items()}
+            if isinstance(node, list):
+                return [_walk(item) for item in node]
+            return node
+
+        return _walk(obj)
+
     def _safe_parse_json(self, raw_text: str) -> dict:
         """通用的 JSON 提取与自动修复逻辑"""
         if not raw_text:
             raise ValueError("❌ 收到空的原始文本，无法进行 JSON 解析。")
-            
+
         # 1. 清理 Markdown 标记
         clean_text = raw_text.strip()
         if "```json" in clean_text:
@@ -68,23 +88,67 @@ class BaseLLMProvider(ABC):
 
         # 2. 尝试标准解析
         try:
-            return json.loads(clean_text)
+            return self._to_simplified(json.loads(clean_text))
         except json.JSONDecodeError:
             # 3. 如果标准解析失败，启动 json-repair 自动缝补
             try:
                 print("⚠️ 检测到 JSON 语法错误，正在启动自动缝补...")
                 repaired_json_str = repair_json(clean_text)
-                return json.loads(repaired_json_str)
+                return self._to_simplified(json.loads(repaired_json_str))
             except Exception as e:
                 # 4. 如果缝补也失败，抛出详细错误
                 raise Exception(f"❌ JSON 深度修复失败: {e}\n原始片段: {raw_text[-150:]}")
 
 class GeminiProvider(BaseLLMProvider):
-    def __init__(self, api_key: str, model_id: str):
+    def __init__(self, api_key: str, model_id: str, use_vertex: bool = False,
+                 vertex_project: str = None, vertex_location: str = "us-central1",
+                 vertex_fallback_locations: list = None):
         super().__init__()
         from google import genai
-        self.client = genai.Client(api_key=api_key)
         self.model_id = model_id
+        self.use_vertex = use_vertex
+        self._vertex_project = vertex_project
+        if use_vertex:
+            all_locs = [vertex_location]
+            for loc in (vertex_fallback_locations or []):
+                if loc not in all_locs:
+                    all_locs.append(loc)
+            self._vertex_locations = all_locs
+            self._location_idx = 0
+            self.client = self._make_vertex_client(vertex_location)
+        else:
+            self._vertex_locations = []
+            self._location_idx = 0
+            self.client = genai.Client(api_key=api_key)
+
+    def _make_vertex_client(self, location: str):
+        from google import genai
+        return genai.Client(vertexai=True, project=self._vertex_project, location=location)
+
+    def _rotate_region(self) -> bool:
+        """Switch to the next region (wraps around). Returns False only when no fallbacks configured."""
+        if len(self._vertex_locations) <= 1:
+            return False
+        self._location_idx = (self._location_idx + 1) % len(self._vertex_locations)
+        new_location = self._vertex_locations[self._location_idx]
+        print(f"  🔄 区域配额耗尽，自动切换 → {new_location}")
+        self.client = self._make_vertex_client(new_location)
+        return True
+
+    def _drop_current_region(self) -> bool:
+        """Permanently remove the current region (model not available there). Returns False if none left."""
+        if not self._vertex_locations:
+            return False
+        bad = self._vertex_locations[self._location_idx]
+        self._vertex_locations.pop(self._location_idx)
+        if not self._vertex_locations:
+            print(f"  ❌ 区域 {bad} 不支持当前模型，且已无可用备用区域。")
+            return False
+        self._location_idx = self._location_idx % len(self._vertex_locations)
+        new_location = self._vertex_locations[self._location_idx]
+        print(f"  ⚠️ 区域 {bad} 不支持当前模型，已永久移除，切换 → {new_location}")
+        self.client = self._make_vertex_client(new_location)
+        return True
 
     @staticmethod
     def _pricing_table() -> dict:
@@ -123,21 +187,24 @@ class GeminiProvider(BaseLLMProvider):
         }
 
     def upload_pdf(self, file_path: str):
-        """Gemini 专属：上传文件并等待处理完成"""
-        print(f"📤 正在上传教材到 Gemini 云端: {os.path.basename(file_path)}")
+        """上传/读取 PDF。Vertex AI 模式下直接 inline bytes，否则走 Gemini Files API。"""
+        from google.genai import types
+        print(f"📤 正在加载教材: {os.path.basename(file_path)}")
+        if self.use_vertex:
+            pdf_bytes = Path(file_path).read_bytes()
+            print("✅ 文件处理就绪（Vertex AI inline 模式）。")
+            return types.Part.from_bytes(data=pdf_bytes, mime_type="application/pdf")
+
         with open(file_path, "rb") as f:
             sample_file = self.client.files.upload(
                 file=f,
                 config={'mime_type': 'application/pdf'}
             )
-        
         while sample_file.state == "PROCESSING":
             time.sleep(2)
             sample_file = self.client.files.get(name=sample_file.name)
-
         if sample_file.state == "FAILED":
             raise Exception(f"❌ Gemini 处理文件失败: {file_path}")
-        
         print("✅ 文件处理就绪。")
         return sample_file
 
@@ -160,10 +227,12 @@ class GeminiProvider(BaseLLMProvider):
             types.SafetySetting(category="HARM_CATEGORY_CIVIC_INTEGRITY", threshold="BLOCK_NONE"),
         ]
 
-        max_retries = 8
-        # 固定等待序列（秒）：短间隔多试几次，避免单次等太久
+        max_retries = 24  # 足够覆盖多区域轮转 + 等待重试
         retry_waits = [5, 10, 20, 30, 45, 60, 90]
         response = None
+        wait_attempt = 0        # 等待重试计数（切区域不消耗此计数）
+        region_cycle_count = 0  # 连续切区域次数，满一轮就强制等待
+        num_regions = max(1, len(self._vertex_locations))
         for attempt in range(max_retries):
             try:
                 response = self.client.models.generate_content(
@@ -179,13 +248,31 @@ class GeminiProvider(BaseLLMProvider):
                 break  # 成功则退出重试循环
             except Exception as e:
                 err_str = str(e)
-                is_retryable = any(code in err_str for code in ("503", "429", "UNAVAILABLE", "RESOURCE_EXHAUSTED"))
-                if is_retryable and attempt < max_retries - 1:
-                    wait = retry_waits[min(attempt, len(retry_waits) - 1)]
-                    print(f"  ⏳ Gemini 暂时不可用，{wait}s 后重试 (第 {attempt+1}/{max_retries} 次)...")
-                    time.sleep(wait)
-                else:
+                is_quota = "RESOURCE_EXHAUSTED" in err_str or "429" in err_str
+                is_model_missing = "NOT_FOUND" in err_str and self.use_vertex
+                is_region_unavail = is_quota  # quota = transient, rotate and count
+                is_retryable = is_quota or is_model_missing or any(code in err_str for code in ("503", "UNAVAILABLE"))
+                if not is_retryable or attempt >= max_retries - 1:
                     raise Exception(f"❌ Gemini API 调用失败: {e}")
+                # 404 NOT_FOUND：该区域永久不支持模型，直接移除，不计入轮转计数
+                if is_model_missing and self.use_vertex:
+                    if not self._drop_current_region():
+                        raise Exception(f"❌ Gemini API 调用失败: {e}")
+                    num_regions = max(1, len(self._vertex_locations))
+                    continue
+                # 配额耗尽：轮转区域，但跑完一整圈后强制等待一轮再继续
+                if is_region_unavail and self.use_vertex:
+                    if region_cycle_count < num_regions:
+                        self._rotate_region()
+                        region_cycle_count += 1
+                        continue  # 立即用新区域重试，不等待
+                    else:
+                        # 跑完一整圈仍失败，等待后重置计数再轮
+                        region_cycle_count = 0
+                wait = retry_waits[min(wait_attempt, len(retry_waits) - 1)]
+                print(f"  ⏳ Gemini 暂时不可用，{wait}s 后重试 (第 {wait_attempt+1} 次)...")
+                time.sleep(wait)
+                wait_attempt += 1
         if response is None:
             raise Exception("❌ Gemini API 多次重试后仍未返回结果")
         
@@ -314,8 +401,24 @@ class LLMFactory:
         provider_type = get_env("LLM_CONTENT_PROVIDER", default="gemini").lower()
         
         if provider_type == "gemini":
-            api_key = get_env("LLM_CONTENT_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
             model_id = get_env("LLM_CONTENT_GEMINI_MODEL_ID", default="gemini-2.0-flash")
+            use_vertex = get_env("LLM_GEMINI_USE_VERTEX", default="false").lower() == "true"
+            if use_vertex:
+                project = get_env("VERTEX_AI_PROJECT_ID")
+                location = get_env("VERTEX_AI_LOCATION", default="us-central1")
+                fallback_raw = get_env("VERTEX_AI_FALLBACK_LOCATIONS", default="")
+                fallback_locations = [l.strip() for l in fallback_raw.split(",") if l.strip()]
+                sa_key = get_env("GOOGLE_APPLICATION_CREDENTIALS")
+                if sa_key:
+                    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sa_key
+                if not project: raise ValueError("❌ Vertex AI 需要配置 VERTEX_AI_PROJECT_ID")
+                if fallback_locations:
+                    print(f"  ℹ️  Vertex AI 区域轮转已启用: {location} → {' → '.join(fallback_locations)}")
+                return GeminiProvider(api_key=None, model_id=model_id,
+                                      use_vertex=True, vertex_project=project,
+                                      vertex_location=location,
+                                      vertex_fallback_locations=fallback_locations)
+            api_key = get_env("LLM_CONTENT_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
             if not api_key: raise ValueError("❌ 未找到 Gemini API Key")
             return GeminiProvider(api_key, model_id)
             

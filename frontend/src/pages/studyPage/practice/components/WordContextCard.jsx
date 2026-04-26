@@ -27,13 +27,13 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
     const [showPinyin, setShowPinyin] = useState({});
     const [showTranslation, setShowTranslation] = useState({});
 
-    if (primaryExample?.cn || primaryExample?.py || primaryExample?.en) {
+    if (primaryExample?.cn || primaryExample?.py || primaryExample?.translation) {
         combinedExamples.push(primaryExample);
     }
     examples.forEach((ex) => {
         if (!ex) return;
         const exists = combinedExamples.some((item) =>
-            item?.cn === ex?.cn && item?.py === ex?.py && item?.en === ex?.en
+            item?.cn === ex?.cn && item?.py === ex?.py && item?.translation === ex?.translation
         );
         if (!exists) combinedExamples.push(ex);
     });
@@ -161,7 +161,7 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                 </div>
                             </div>
                             <AnimatePresence initial={false}>
-                                {translationOn && ex.en && (
+                                {translationOn && ex.translation && (
                                     <motion.div
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: 'auto' }}
@@ -170,7 +170,7 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                     >
                                         <div className="mt-3 py-2 px-4 bg-blue-50/50 rounded-lg inline-block">
                                             <p className="text-base font-bold text-blue-600 italic leading-snug">
-                                                {ex.en}
+                                                {ex.translation}
                                             </p>
                                         </div>
                                     </motion.div>
@@ -244,14 +244,14 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                             </div>
                                         </div>
                                         <AnimatePresence initial={false}>
-                                            {showTranslation[`history-${i}`] && h.example?.en && (
+                                            {showTranslation[`history-${i}`] && h.example?.translation && (
                                                 <motion.div
                                                     initial={{ opacity: 0, height: 0 }}
                                                     animate={{ opacity: 1, height: 'auto' }}
                                                     exit={{ opacity: 0, height: 0 }}
                                                     className="overflow-hidden mt-2"
                                                 >
-                                                    <p className="text-sm font-semibold italic text-blue-600">{h.example.en}</p>
+                                                    <p className="text-sm font-semibold italic text-blue-600">{h.example.translation}</p>
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>

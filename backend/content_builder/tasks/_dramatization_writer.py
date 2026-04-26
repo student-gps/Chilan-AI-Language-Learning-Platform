@@ -78,7 +78,7 @@ class Task3DramatizationGenerator:
               "source_text": {{
                 "hanzi": ["原课文句子1", "原课文句子2"],
                 "pinyin": ["拼音1", "拼音2"],
-                "english": ["English 1", "English 2"]
+                "translation": ["English 1", "English 2"]
               }},
               "scene_goal": "这一幕的剧情目标",
               "scene_description_cn": "中文分镜描述",
@@ -91,11 +91,11 @@ class Task3DramatizationGenerator:
                 "speaker": "说话人",
                 "hanzi": "课文原句",
                 "pinyin": "拼音",
-                "english": "English subtitle"
+                "translation": "English subtitle"
               }},
               "subtitle_tracks": {{
                 "default": "hanzi",
-                "optional": ["pinyin", "english"]
+                "optional": ["pinyin", "translation"]
               }},
               "estimated_duration_seconds": 8
             }}
@@ -152,7 +152,7 @@ class Task3DramatizationGenerator:
             "source_text": {{
               "hanzi": ["原句"],
               "pinyin": ["原拼音"],
-              "english": ["原英文"]
+              "translation": ["原英文"]
             }},
             "scene_goal": "这一幕的剧情目标",
             "scene_description_cn": "中文分镜描述",
@@ -165,11 +165,11 @@ class Task3DramatizationGenerator:
               "speaker": "说话人",
               "hanzi": "原句",
               "pinyin": "原拼音",
-              "english": "原英文"
+              "translation": "原英文"
             }},
             "subtitle_tracks": {{
               "default": "hanzi",
-              "optional": ["pinyin", "english"]
+              "optional": ["pinyin", "translation"]
             }},
             "estimated_duration_seconds": 6
           }}
@@ -205,13 +205,13 @@ class Task3DramatizationGenerator:
                 "speaker": (voice_over.get("speaker") or "").strip(),
                 "hanzi": (voice_over.get("hanzi") or "").strip(),
                 "pinyin": (voice_over.get("pinyin") or "").strip(),
-                "english": (voice_over.get("english") or "").strip(),
+                "translation": (voice_over.get("translation") or "").strip(),
             }
         return {
             "speaker": "",
             "hanzi": "",
             "pinyin": "",
-            "english": "",
+            "translation": "",
         }
 
     def _normalize_scene(self, scene: dict, fallback_id: int, line_ref_offset: int = 0) -> dict:
@@ -234,7 +234,7 @@ class Task3DramatizationGenerator:
             "source_text": {
                 "hanzi": source_text.get("hanzi", []) if isinstance(source_text.get("hanzi"), list) else [],
                 "pinyin": source_text.get("pinyin", []) if isinstance(source_text.get("pinyin"), list) else [],
-                "english": source_text.get("english", []) if isinstance(source_text.get("english"), list) else [],
+                "translation": source_text.get("translation", []) if isinstance(source_text.get("translation"), list) else [],
             },
             "scene_goal": (scene.get("scene_goal") or "").strip(),
             "scene_description_cn": (scene.get("scene_description_cn") or "").strip(),
@@ -246,7 +246,7 @@ class Task3DramatizationGenerator:
             "voice_over": self._normalize_voice_over(scene.get("voice_over")),
             "subtitle_tracks": {
                 "default": (subtitle_tracks.get("default") or "hanzi").strip() or "hanzi",
-                "optional": subtitle_tracks.get("optional", ["pinyin", "english"]) if isinstance(subtitle_tracks.get("optional"), list) else ["pinyin", "english"],
+                "optional": subtitle_tracks.get("optional", ["pinyin", "translation"]) if isinstance(subtitle_tracks.get("optional"), list) else ["pinyin", "translation"],
             },
             "estimated_duration_seconds": scene.get("estimated_duration_seconds", 8),
         }
@@ -288,13 +288,13 @@ class Task3DramatizationGenerator:
                     for token in words
                     if isinstance(token, dict) and token.get("py")
                 ).strip()
-                english = (line.get("english") or "").strip()
+                english = (line.get("translation") or "").strip()
                 extracted.append({
                     "ref": line_ref_offset + local_index,
                     "role": (line.get("role") or "").strip(),
                     "hanzi": hanzi,
                     "pinyin": pinyin,
-                    "english": english,
+                    "translation": english,
                 })
         return extracted
 
@@ -302,7 +302,7 @@ class Task3DramatizationGenerator:
         role = (line_item.get("role") or "角色").strip() or "角色"
         hanzi = (line_item.get("hanzi") or "").strip()
         pinyin = (line_item.get("pinyin") or "").strip()
-        english = (line_item.get("english") or "").strip()
+        english = (line_item.get("translation") or "").strip()
 
         inherited_setting = ""
         inherited_characters = [role]
@@ -359,7 +359,7 @@ class Task3DramatizationGenerator:
             "source_text": {
                 "hanzi": [hanzi] if hanzi else [],
                 "pinyin": [pinyin] if pinyin else [],
-                "english": [english] if english else [],
+                "translation": [english] if english else [],
             },
             "scene_goal": scene_goal,
             "scene_description_cn": scene_description_cn,
@@ -372,11 +372,11 @@ class Task3DramatizationGenerator:
                 "speaker": role,
                 "hanzi": hanzi,
                 "pinyin": pinyin,
-                "english": english,
+                "translation": english,
             },
             "subtitle_tracks": {
                 "default": "hanzi",
-                "optional": ["pinyin", "english"]
+                "optional": ["pinyin", "translation"]
             },
             "estimated_duration_seconds": 6,
         }

@@ -27,16 +27,38 @@ class Task4BLessonAudioRenderer:
     VERSION = "2019-08-23"
     ALGORITHM = "TC3-HMAC-SHA256"
     DEFAULT_ROLE_VOICE_MAP = {
-        "王朋": 601011,
-        "李友": 601009,
-        "高文中": 601008,
-        "高小音": 601013,
-        "白英爱": 601010,
-        "常老师": 601013,
-        "王红": 601010,
-        "海伦": 501004,
-        "费先生": 501005,
-        "王朋的父母": 501005,
+        # ── 第一册主要角色 ───────────────────────────────────────────────────
+        "王朋":     601011,   # 男，大学生
+        "李友":     601009,   # 女，大学生
+        "高文中":   601008,   # 男，中年
+        "高小音":   601013,   # 女
+        "白英爱":   601010,   # 女，大学生
+        "常老师":   601013,   # 女，老师
+        "王红":     601010,   # 女
+        "海伦":     501004,   # 女，外籍
+        "费先生":   501005,   # 男，外籍
+        "王朋的父母": 501005, # 男声代表父母
+
+        # ── 第二册主要角色 ───────────────────────────────────────────────────
+        "张天明":   601011,   # 男，大学生（复用王朋音色）
+        "丽莎":     501004,   # 女，美国留学生（复用海伦音色，外籍感）
+        "柯林":     601008,   # 男，研究生（复用高文中音色）
+        "林雪梅":   601010,   # 女，研究生（复用白英爱音色）
+        "李哲":     601011,   # 男，大四（复用王朋音色）
+        "李文":     601013,   # 女，二十多岁（复用高小音音色）
+        "马克":     501005,   # 男，德国留学生（复用费先生音色，外籍感）
+        "张天明的老表": 601008, # 男，年长表哥（复用高文中音色）
+        "林雪梅的父母": 501005, # 父母（复用王朋的父母音色）
+
+        # ── 第二册后期 / 别名 ──────────────────────────────────────────────
+        "天明":         601011,  # 张天明简称，男大学生
+        "雪梅":         601010,  # 林雪梅简称，女研究生
+        "舅舅":         601008,  # 男，中年长辈（复用高文中音色）
+        "舅妈":         601013,  # 女，中年长辈（复用常老师音色）
+        "朋友":         601011,  # 泛指朋友，默认男声
+        "林雪梅和朋友": 601010,  # 群体，以林雪梅音色代表
+        "大家":         601013,  # 群体/旁白式表达，用女声
+        "旁白":         601008,  # 叙事旁白，用中性男声
     }
 
     def __init__(
@@ -192,6 +214,17 @@ class Task4BLessonAudioRenderer:
 
     def _resolve_voice_type(self, role: str) -> int:
         role = (role or "").strip()
+        if not role:
+            return self.voice_type
+        if role not in self.role_voice_map:
+            if not hasattr(self, "_unknown_roles"):
+                self._unknown_roles = set()
+            if role not in self._unknown_roles:
+                self._unknown_roles.add(role)
+                print(
+                    f"  ⚠️  [TTS] 未知角色 '{role}'，使用默认音色 {self.voice_type}。"
+                    f" 请将其添加到 DEFAULT_ROLE_VOICE_MAP 或 TTS_TENCENT_ROLE_VOICE_MAP_JSON。"
+                )
         return self.role_voice_map.get(role, self.voice_type)
 
     def _extract_sentence_items(self, lesson_data: dict, include_speakers: bool = False) -> list[dict[str, Any]]:
@@ -505,6 +538,13 @@ class Task4BLessonAudioRenderer:
                 "codec": self.codec,
                 "duration_seconds": round(full_audio_duration_seconds, 3),
             }
+
+        unknown = getattr(self, "_unknown_roles", set())
+        if unknown:
+            print(f"\n  📋 [TTS] 本课未登记角色汇总（共 {len(unknown)} 个，均使用了默认音色 {self.voice_type}）：")
+            for r in sorted(unknown):
+                print(f"       - \"{r}\": <voice_id>  ← 请补充到 DEFAULT_ROLE_VOICE_MAP")
+            print(f"       也可在 .env 中设置：TTS_TENCENT_ROLE_VOICE_MAP_JSON={{\"角色名\": voice_id, ...}}\n")
 
         return {
             "lesson_audio_assets": {

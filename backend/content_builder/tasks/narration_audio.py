@@ -118,7 +118,7 @@ class Task4DExplanationNarrator:
 
     # ── Public entry point ────────────────────────────────────────────────────
 
-    def run(self, render_plan: dict, output_dir: Path) -> dict:
+    def run(self, render_plan: dict, output_dir: Path, lang: str = "en") -> dict:
         """
         Generate a single narration audio file from the explanation render plan.
 
@@ -131,6 +131,8 @@ class Task4DExplanationNarrator:
                 "reason": "..."   # only when status != "ok"
             }
         """
+        self._lang = lang  # used by _synthesize_ali for language_hints and voice selection
+
         output_dir = Path(output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -139,7 +141,8 @@ class Task4DExplanationNarrator:
             return {"status": "skipped", "reason": "no segments in render plan"}
 
         lesson_id = render_plan.get("lesson_id", "unknown")
-        output_file = output_dir / f"lesson{lesson_id}_narration.mp3"
+        lang_suffix = f"_{lang}" if lang != "en" else ""
+        output_file = output_dir / f"lesson{lesson_id}_narration{lang_suffix}.mp3"
 
         tmp_dir = output_dir / "_tmp_narration"
         tmp_dir.mkdir(exist_ok=True)
@@ -156,6 +159,8 @@ class Task4DExplanationNarrator:
                 padded_file = tmp_dir / f"padded_{seg_id:03d}.mp3"
 
                 if text:
+                    if padded_files:  # not the first segment — add gap between API calls
+                        time.sleep(1.5)
                     print(f"  🔊 [TTS] segment {seg_id}: {text[:60]}{'...' if len(text) > 60 else ''}")
                     sentences = _split_sentences(text)
                     if not sentences:
@@ -170,9 +175,12 @@ class Task4DExplanationNarrator:
                         if si > 0:
                             time.sleep(0.5)  # brief pause between calls to avoid rate limiting
                         sent_file = tmp_dir / f"raw_{seg_id:03d}_{si:02d}.mp3"
-                        tts_text = _strip_pinyin_parens(_process_zh_markers(sentence)).strip()
-                        if not tts_text:
-                            continue  # skip sentences that become empty after processing
+                        tts_text = _process_zh_markers(sentence)
+                        if lang == "en":
+                            tts_text = _strip_pinyin_parens(tts_text)
+                        tts_text = tts_text.strip()
+                        if not tts_text or not any(c.isalpha() or c.isdigit() for c in tts_text):
+                            continue  # skip empty or punctuation-only fragments
                         self._synthesize(tts_text, sent_file)
                         sent_dur = self._get_audio_duration(sent_file)
                         if sent_dur <= 0:
@@ -228,8 +236,10 @@ class Task4DExplanationNarrator:
 
     # ── TTS ──────────────────────────────────────────────────────────────────
 
-    def _synthesize(self, text: str, output_path: Path, max_retries: int = 3):
+    def _synthesize(self, text: str, output_path: Path, max_retries: int = 5):
         """Call TTS with retry logic. Raises on final failure."""
+        # connection-reset errors need longer cool-down; other errors use shorter waits
+        _waits = [5, 10, 20, 40]
         last_err = None
         for attempt in range(1, max_retries + 1):
             try:
@@ -250,7 +260,8 @@ class Task4DExplanationNarrator:
             except Exception as e:
                 last_err = e
                 if attempt < max_retries:
-                    wait = attempt * 2  # 2s, 4s
+                    is_conn_err = "ConnectionReset" in type(e).__name__ or "10054" in str(e)
+                    wait = _waits[min(attempt - 1, len(_waits) - 1)] if is_conn_err else attempt * 2
                     print(f"  ⚠️ TTS attempt {attempt} failed ({e}), retrying in {wait}s...")
                     time.sleep(wait)
 
@@ -261,6 +272,9 @@ class Task4DExplanationNarrator:
         api_key = get_env("LLM_ALI_API_KEY")
         if not api_key:
             raise ValueError("LLM_ALI_API_KEY 未配置，无法使用 CosyVoice TTS。")
+        lang = getattr(self, "_lang", "en")
+        lang_voice_key = f"TTS_EXPLANATION_VOICE_{lang.upper()}"
+        voice = get_env(lang_voice_key, default=None) or self.voice
         resp = _requests.post(
             self._ALI_ENDPOINT,
             headers={
@@ -271,14 +285,16 @@ class Task4DExplanationNarrator:
                 "model": self.model,
                 "input": {
                     "text": text,
-                    "voice": self.voice,
+                    "voice": voice,
                     "format": "mp3",
                     "sample_rate": 24000,
-                    "language_hints": ["en"],
+                    "language_hints": [lang],
                 },
             },
             timeout=60,
         )
+        if not resp.ok:
+            print(f"  ❌ CosyVoice API error {resp.status_code}: {resp.text[:500]}")
         resp.raise_for_status()
         data = resp.json()
         audio_url = (data.get("output") or {}).get("audio", {}).get("url", "")

@@ -166,6 +166,15 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/courses/{course_id}/lessons")
+async def get_course_lessons(course_id: int, db=Depends(get_db)):
+    cur = db.cursor()
+    cur.execute(
+        "SELECT lesson_id, title FROM lessons WHERE course_id = %s ORDER BY lesson_id ASC",
+        (course_id,)
+    )
+    return [{"lesson_id": r[0], "title": r[1]} for r in cur.fetchall()]
+
 # ==========================================
 # 3. 教室仪表盘与统计 (数据中心：保留)
 # ==========================================

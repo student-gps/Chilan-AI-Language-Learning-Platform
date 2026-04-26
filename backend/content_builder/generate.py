@@ -72,7 +72,7 @@ def main():
 
     # 3. 文件夹管理
     raw_dir = ARTIFACTS_DIR / "raw_materials"
-    output_dir = ARTIFACTS_DIR / "output_json"
+    output_dir = ARTIFACTS_DIR / "output_json" / "en"
     archive_dir = ARTIFACTS_DIR / "archive_pdfs"
     
     for d in [raw_dir, output_dir, archive_dir]:

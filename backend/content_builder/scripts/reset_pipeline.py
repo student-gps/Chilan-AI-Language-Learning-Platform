@@ -34,11 +34,11 @@ load_dotenv(BACKEND_DIR / ".env")
 # 文件夹定义
 RAW_MATERIALS_DIR = ARTIFACTS_DIR / "raw_materials"
 ARCHIVE_PDFS_DIR = ARTIFACTS_DIR / "archive_pdfs"
-SYNCED_JSON_DIR = ARTIFACTS_DIR / "synced_json"
-OUTPUT_JSON_DIR = ARTIFACTS_DIR / "output_json"
+SYNCED_JSON_DIR = ARTIFACTS_DIR / "synced_json" / "en"
+OUTPUT_JSON_DIR = ARTIFACTS_DIR / "output_json" / "en"
 OUTPUT_AUDIO_DIR = ARTIFACTS_DIR / "output_audio"
 OUTPUT_VIDEO_DIR = ARTIFACTS_DIR / "output_video"
-VOCAB_MEMORY_FILE = ARTIFACTS_DIR / "global_vocab_memory.json"
+VOCAB_MEMORY_FILE = ARTIFACTS_DIR / "vocab_memory" / "global_vocab_memory.json"
 
 def _extract_object_keys(payload):
     keys = set()

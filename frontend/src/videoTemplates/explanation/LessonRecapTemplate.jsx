@@ -72,13 +72,13 @@ export default function LessonRecapTemplate({ segment }) {
                                         pinyinSize={17}
                                         color={color}
                                     />
-                                    {item?.english && (
+                                    {item?.translation && (
                                         <span style={{
                                             fontSize: 24, fontStyle: 'italic',
                                             color: chalk.white, opacity: 0.45,
                                             flexShrink: 0,
                                         }}>
-                                            {item.english}
+                                            {item.translation}
                                         </span>
                                     )}
                                 </div>
