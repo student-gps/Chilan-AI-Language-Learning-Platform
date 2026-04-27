@@ -503,13 +503,13 @@ function CourseCard({
             className={`rounded-3xl overflow-hidden shadow-lg ${visual.shadowClass} border border-white/60 ${isInteractive ? 'cursor-pointer group' : ''}`}
         >
             {/* Colored top section */}
-            <div className={`relative ${visual.headerBg} px-6 pt-6 pb-8 flex flex-col items-center text-center`}>
+            <div className={`relative ${visual.headerBg} px-6 py-6 h-44 flex flex-col items-center justify-center text-center`}>
                 <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-8 rounded-lg overflow-hidden shadow-md ring-2 ring-black/10">
+                    <div className="w-14 h-10 rounded-lg overflow-hidden shadow-md ring-2 ring-black/10">
                         <NativeFlag className="w-full h-full" />
                     </div>
                     <span className={`${visual.arrowColor} font-black text-base`}>→</span>
-                    <div className="w-11 h-8 rounded-lg overflow-hidden shadow-md ring-2 ring-black/10">
+                    <div className="w-14 h-10 rounded-lg overflow-hidden shadow-md ring-2 ring-black/10">
                         <LearningFlag className="w-full h-full" />
                     </div>
                 </div>
