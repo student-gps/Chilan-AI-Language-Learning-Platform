@@ -128,6 +128,17 @@ export function RubyWord({ text, pinyin, charSize = 44, pinyinSize = 15, color =
     if (!text) return null;
     const syllables = extractPinyinSyllables(pinyin);
     const chars = [...text];
+    const cnCount = (() => {
+        let si = 0;
+        return chars.filter((c, i) => {
+            if (!/[\u4e00-\u9fff]/.test(c)) return false;
+            const erhua = c === '\u513f' && i > 0 && /[\u4e00-\u9fff]/.test(chars[i - 1])
+                && !/^[e\u0113\u00e9\u011b\u00e8\u00ea]/i.test(syllables[si] || '');
+            if (!erhua) si++;
+            return !erhua;
+        }).length;
+    })();
+    const showPinyin = syllables.length === cnCount;
     let pi = 0;
     const cellHeight = charSize + pinyinSize + 4;
 
@@ -135,7 +146,9 @@ export function RubyWord({ text, pinyin, charSize = 44, pinyinSize = 15, color =
         <div style={{ display: 'inline-flex', alignItems: 'flex-end', lineHeight: 1 }}>
             {chars.map((char, i) => {
                 const isChinese = /[\u4e00-\u9fff]/.test(char);
-                const py = isChinese ? (syllables[pi++] || '') : null;
+                const isErhua = char === '\u513f' && i > 0 && /[\u4e00-\u9fff]/.test(chars[i - 1])
+                    && !/^[e\u0113\u00e9\u011b\u00e8\u00ea]/i.test(syllables[pi] || '');
+                const py = isChinese ? (isErhua ? null : (showPinyin ? (syllables[pi++] || '') : '')) : null;
                 return (
                     <span key={i} style={{
                         display: 'inline-flex',

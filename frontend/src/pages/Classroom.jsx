@@ -100,22 +100,38 @@ const FLAG_COMPONENT_MAP = {
 
 const LANGUAGE_STYLE_MAP = {
     chinese: {
-        bg: 'from-red-500 via-red-600 to-yellow-500',
-        shadow: 'shadow-red-200/60',
-        ring: 'ring-red-200/60',
+        headerBg: 'bg-blue-50',
+        textColor: 'text-slate-800',
+        subtitleColor: 'text-slate-400',
+        arrowColor: 'text-slate-300',
+        barBg: 'bg-slate-300',
+        shadow: 'shadow-slate-200/60',
+        ring: 'ring-slate-200/60',
     },
     english: {
-        bg: 'from-blue-700 via-blue-800 to-red-500',
-        shadow: 'shadow-blue-200/60',
-        ring: 'ring-blue-200/60',
+        headerBg: 'bg-blue-50',
+        textColor: 'text-slate-800',
+        subtitleColor: 'text-slate-400',
+        arrowColor: 'text-slate-300',
+        barBg: 'bg-slate-300',
+        shadow: 'shadow-slate-200/60',
+        ring: 'ring-slate-200/60',
     },
     japanese: {
-        bg: 'from-white via-rose-50 to-red-300',
-        shadow: 'shadow-rose-200/60',
-        ring: 'ring-rose-200/60',
+        headerBg: 'bg-blue-50',
+        textColor: 'text-slate-800',
+        subtitleColor: 'text-slate-400',
+        arrowColor: 'text-slate-300',
+        barBg: 'bg-slate-300',
+        shadow: 'shadow-slate-200/60',
+        ring: 'ring-slate-200/60',
     },
     french: {
-        bg: 'from-blue-700 via-white to-red-500',
+        headerBg: 'bg-blue-50',
+        textColor: 'text-slate-800',
+        subtitleColor: 'text-slate-400',
+        arrowColor: 'text-slate-300',
+        barBg: 'bg-slate-300',
         shadow: 'shadow-slate-200/60',
         ring: 'ring-slate-200/60',
     },
@@ -147,13 +163,13 @@ const parseCourseLanguagePair = (courseName = '') => {
 
 const normalizeLanguage = (value = '') => {
     const lower = String(value).trim().toLowerCase();
-    if (lower.includes('chinese') || lower.includes('中文')) return 'chinese';
-    if (lower.includes('english') || lower.includes('英语')) return 'english';
-    if (lower.includes('japanese') || lower.includes('日语')) return 'japanese';
-    if (lower.includes('french') || lower.includes('法语')) return 'french';
+    if (lower.includes('chinese') || lower.includes('中文') || lower.includes('chinois') || lower.includes('chinesisch')) return 'chinese';
+    if (lower.includes('english') || lower.includes('英语') || lower.includes('anglais') || lower.includes('englisch')) return 'english';
+    if (lower.includes('japanese') || lower.includes('日语') || lower.includes('japonais') || lower.includes('japanisch')) return 'japanese';
+    if (lower.includes('french') || lower.includes('fran') || lower.includes('法语') || lower.includes('französisch')) return 'french';
     if (lower.includes('korean') || lower.includes('韩语')) return 'korean';
-    if (lower.includes('spanish') || lower.includes('西班牙语')) return 'spanish';
-    if (lower.includes('german') || lower.includes('德语')) return 'german';
+    if (lower.includes('spanish') || lower.includes('español') || lower.includes('espagnol') || lower.includes('西班牙语')) return 'spanish';
+    if (lower.includes('german') || lower.includes('deutsch') || lower.includes('allemand') || lower.includes('德语')) return 'german';
     return lower;
 };
 
@@ -168,13 +184,17 @@ const getCourseLanguagePair = (course = {}) => {
 
 const getCourseVisual = (course = {}) => {
     const { learning, native } = getCourseLanguagePair(course);
-    const style = LANGUAGE_STYLE_MAP[learning] || LANGUAGE_STYLE_MAP.chinese;
+    const style = LANGUAGE_STYLE_MAP[native] || LANGUAGE_STYLE_MAP[learning] || LANGUAGE_STYLE_MAP.english;
     return {
         learning,
         native,
         LearningFlag: FLAG_COMPONENT_MAP[learning] || FlagChina,
         NativeFlag: FLAG_COMPONENT_MAP[native] || FlagUK,
-        gradientClass: style.bg,
+        headerBg: style.headerBg,
+        textColor: style.textColor,
+        subtitleColor: style.subtitleColor,
+        arrowColor: style.arrowColor,
+        barBg: style.barBg,
         shadowClass: style.shadow,
         ringClass: style.ring,
     };
@@ -362,46 +382,6 @@ export default function Classroom() {
                         </motion.div>
                     </header>
 
-                    {/* 入门基础模块 */}
-                    <motion.section variants={fadeInUp} className="mb-12">
-                        <h2 className="text-xl font-black text-slate-700 mb-4 px-1">入门基础</h2>
-                        <div className="flex gap-4 flex-wrap">
-                            <button
-                                onClick={() => navigate('/learn/intro')}
-                                className="flex items-center gap-4 px-6 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
-                            >
-                                <span className="text-3xl">✨</span>
-                                <div className="text-left">
-                                    <div className="font-black text-slate-800 group-hover:text-blue-600 transition-colors">课程介绍</div>
-                                    <div className="text-xs text-slate-400 mt-0.5">理念 · 学习方式 · 路径</div>
-                                </div>
-                                <ChevronRight size={16} className="text-slate-300 group-hover:text-blue-400 ml-2" />
-                            </button>
-                            <button
-                                onClick={() => navigate('/learn/hanzi')}
-                                className="flex items-center gap-4 px-6 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all group"
-                            >
-                                <span className="text-3xl">字</span>
-                                <div className="text-left">
-                                    <div className="font-black text-slate-800 group-hover:text-indigo-600 transition-colors">汉字入门</div>
-                                    <div className="text-xs text-slate-400 mt-0.5">笔画 · 部首 · 结构</div>
-                                </div>
-                                <ChevronRight size={16} className="text-slate-300 group-hover:text-indigo-400 ml-2" />
-                            </button>
-                            <button
-                                onClick={() => navigate('/learn/pinyin')}
-                                className="flex items-center gap-4 px-6 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
-                            >
-                                <span className="text-3xl">🔤</span>
-                                <div className="text-left">
-                                    <div className="font-black text-slate-800 group-hover:text-blue-600 transition-colors">拼音入门</div>
-                                    <div className="text-xs text-slate-400 mt-0.5">声母 · 韵母 · 声调</div>
-                                </div>
-                                <ChevronRight size={16} className="text-slate-300 group-hover:text-blue-400 ml-2" />
-                            </button>
-                        </div>
-                    </motion.section>
-
                     {/* 2. 课程列表 */}
                     <section>
                         <motion.div variants={fadeInUp} className="flex items-center justify-between mb-8 px-2">
@@ -508,43 +488,49 @@ function CourseCard({
     onClick,
     isInteractive = false,
 }) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const visual = getCourseVisual(course);
+    const LearningFlag = visual.LearningFlag;
+    const NativeFlag = visual.NativeFlag;
+    const learningLabel = formatLanguageLabel(visual.learning, i18n.language);
+    const nativeLabel = formatLanguageLabel(visual.native, i18n.language);
 
     return (
         <motion.div
             variants={variants}
-            whileHover={{ y: -8, scale: 1.01 }}
+            whileHover={{ y: -6, scale: 1.01 }}
             onClick={onClick}
-            className={`relative h-64 rounded-[2.5rem] p-8 text-slate-900 shadow-2xl overflow-hidden border border-white/70 bg-gradient-to-br from-white via-white to-slate-50/95 ${visual.shadowClass} ${
-                isInteractive ? 'cursor-pointer group' : ''
-            }`}
+            className={`rounded-3xl overflow-hidden shadow-lg ${visual.shadowClass} border border-white/60 ${isInteractive ? 'cursor-pointer group' : ''}`}
         >
-            <div
-                className="absolute inset-0 opacity-[0.06]"
-                style={{ backgroundImage: `url("${SUBTLE_PATTERN}")`, backgroundSize: '60px 60px' }}
-            />
-            <div className={`absolute inset-0 opacity-[0.10] bg-gradient-to-br ${visual.gradientClass}`} />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.55),transparent_38%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.42),transparent_34%)]" />
-            <div className="relative h-full flex flex-col justify-between z-10">
-                <div>
-                    <h3 className="text-3xl font-black mb-1 tracking-tight">{course.name}</h3>
-                    <div className="mt-5">
-                        <LanguagePill course={course} />
+            {/* Colored top section */}
+            <div className={`relative ${visual.headerBg} px-6 pt-6 pb-8 flex flex-col items-center text-center`}>
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="w-11 h-8 rounded-lg overflow-hidden shadow-md ring-2 ring-black/10">
+                        <NativeFlag className="w-full h-full" />
                     </div>
-                    {progressValue !== null && (
-                        <div className="flex items-center gap-3 mt-6">
-                            <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                                <div className={`h-full w-1/6 rounded-full bg-gradient-to-r ${visual.gradientClass}`}></div>
-                            </div>
-                            <p className="text-xs font-bold text-slate-500">{t('classroom_mastered')}: {progressValue}</p>
-                        </div>
-                    )}
+                    <span className={`${visual.arrowColor} font-black text-base`}>→</span>
+                    <div className="w-11 h-8 rounded-lg overflow-hidden shadow-md ring-2 ring-black/10">
+                        <LearningFlag className="w-full h-full" />
+                    </div>
                 </div>
+                <h3 className={`text-xl font-black ${visual.textColor} leading-snug`}>{course.name}</h3>
+                <p className={`mt-1 ${visual.subtitleColor} text-sm font-semibold`}>{nativeLabel} → {learningLabel}</p>
+            </div>
+
+            {/* White bottom section */}
+            <div className="bg-white px-6 py-4">
+                {progressValue !== null && (
+                    <div className="flex items-center gap-3 mb-3">
+                        <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div className={`h-full rounded-full ${visual.barBg}`} style={{ width: `${Math.min((progressValue / 50) * 100, 100)}%` }} />
+                        </div>
+                        <p className="text-xs font-bold text-slate-400 shrink-0">{t('classroom_mastered')}: {progressValue}</p>
+                    </div>
+                )}
                 <div className="flex items-center justify-between gap-3">
-                    <span className="text-sm font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
+                    <span className="text-sm font-bold text-slate-600 flex items-center gap-1.5">
                         {titleAction}
-                        <ChevronRight size={16} className={isInteractive ? 'group-hover:translate-x-1 transition-transform' : ''} />
+                        <ChevronRight size={14} className={isInteractive ? 'group-hover:translate-x-1 transition-transform' : ''} />
                     </span>
                     {actionButton}
                 </div>

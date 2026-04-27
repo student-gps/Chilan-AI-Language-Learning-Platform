@@ -133,6 +133,7 @@ export default function StudyPage() {
                             courseId={courseId}
                             userId={userId}
                             onStartPractice={() => setMode('practice')}
+                            isDirectLesson={!!lessonId}
                         />
                     )}
 

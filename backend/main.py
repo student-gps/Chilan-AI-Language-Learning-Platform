@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from typing import List
@@ -57,13 +56,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-audio_static_dir = Path(__file__).resolve().parent / "content_builder" / "output_audio"
-audio_static_dir.mkdir(parents=True, exist_ok=True)
-app.mount("/media/audio", StaticFiles(directory=str(audio_static_dir)), name="media-audio")
-
-video_static_dir = Path(__file__).resolve().parent / "content_builder" / "output_video"
-video_static_dir.mkdir(parents=True, exist_ok=True)
-app.mount("/media/video", StaticFiles(directory=str(video_static_dir)), name="media-video")
 
 # --- 🚀 挂载路由模块 ---
 app.include_router(auth.router)

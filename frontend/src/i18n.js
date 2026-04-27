@@ -159,7 +159,15 @@ const resources = {
       "teaching_vocab_title": "本课生词",
       "teaching_example": "例句",
       "teaching_generating_quiz": "正在生成测验...",
-      "teaching_start_quiz": "完成学习，进入测验"
+      "teaching_start_quiz": "完成学习，进入测验",
+
+      // 课程页
+      "course_back": "返回课程选择",
+      "course_foundations": "入门基础",
+      "course_all_lessons": "全部课时",
+      "course_no_lessons": "暂无课时数据",
+      "course_start_learning": "开始学习",
+      "teaching_back_to_course": "返回教室"
     }
   },
   en: {
@@ -298,7 +306,25 @@ const resources = {
       "teaching_vocab_title": "Vocabulary",
       "teaching_example": "Example",
       "teaching_generating_quiz": "Generating quiz...",
-      "teaching_start_quiz": "Finish Lesson & Start Quiz"
+      "teaching_start_quiz": "Finish Lesson & Start Quiz",
+
+      // Auth - password reset (missing keys)
+      "auth_forgot_password": "Forgot Password?",
+      "auth_forgot_title": "Reset Password",
+      "auth_forgot_subtitle": "Enter your email to receive a verification code",
+      "auth_reset_title": "Set New Password",
+      "auth_reset_subtitle": "Enter the code and set your new password",
+      "auth_submit_send_code": "Send Code",
+      "auth_submit_reset": "Reset Password",
+      "auth_back_to_login": "Back to Login",
+
+      // Course page
+      "course_back": "Back to Course Selection",
+      "course_foundations": "Foundations",
+      "course_all_lessons": "All Lessons",
+      "course_no_lessons": "No lessons available",
+      "course_start_learning": "Start Learning",
+      "teaching_back_to_course": "Back to Course"
     }
   },
   jp: {
@@ -437,7 +463,25 @@ const resources = {
       "teaching_vocab_title": "本課の単語",
       "teaching_example": "例文",
       "teaching_generating_quiz": "クイズを生成中...",
-      "teaching_start_quiz": "学習完了、クイズへ"
+      "teaching_start_quiz": "学習完了、クイズへ",
+
+      // Auth - password reset
+      "auth_forgot_password": "パスワードをお忘れですか？",
+      "auth_forgot_title": "パスワードをリセット",
+      "auth_forgot_subtitle": "メールアドレスを入力して確認コードを受け取ってください",
+      "auth_reset_title": "新しいパスワードを設定",
+      "auth_reset_subtitle": "確認コードを入力し、新しいパスワードを設定してください",
+      "auth_submit_send_code": "コードを送信",
+      "auth_submit_reset": "パスワードをリセット",
+      "auth_back_to_login": "ログインに戻る",
+
+      // Course page
+      "course_back": "コース選択に戻る",
+      "course_foundations": "入門基礎",
+      "course_all_lessons": "全レッスン",
+      "course_no_lessons": "レッスンがありません",
+      "course_start_learning": "学習開始",
+      "teaching_back_to_course": "コースに戻る"
     }
   },
   fr: {
@@ -576,7 +620,25 @@ const resources = {
       "teaching_vocab_title": "Vocabulaire",
       "teaching_example": "Exemple",
       "teaching_generating_quiz": "Génération du quiz...",
-      "teaching_start_quiz": "Terminer et commencer le quiz"
+      "teaching_start_quiz": "Terminer et commencer le quiz",
+
+      // Auth - password reset
+      "auth_forgot_password": "Mot de passe oublié ?",
+      "auth_forgot_title": "Réinitialiser le mot de passe",
+      "auth_forgot_subtitle": "Entrez votre e-mail pour recevoir un code de vérification",
+      "auth_reset_title": "Définir un nouveau mot de passe",
+      "auth_reset_subtitle": "Entrez le code et définissez votre nouveau mot de passe",
+      "auth_submit_send_code": "Envoyer le code",
+      "auth_submit_reset": "Réinitialiser",
+      "auth_back_to_login": "Retour à la connexion",
+
+      // Course page
+      "course_back": "Retour au choix des cours",
+      "course_foundations": "Bases",
+      "course_all_lessons": "Tous les cours",
+      "course_no_lessons": "Aucun cours disponible",
+      "course_start_learning": "Commencer",
+      "teaching_back_to_course": "Retour au cours"
     }
   },
   de: {
@@ -715,7 +777,25 @@ const resources = {
       "teaching_vocab_title": "Vokabeln",
       "teaching_example": "Beispiel",
       "teaching_generating_quiz": "Quiz wird erstellt...",
-      "teaching_start_quiz": "Lektion beenden & Quiz starten"
+      "teaching_start_quiz": "Lektion beenden & Quiz starten",
+
+      // Auth - password reset
+      "auth_forgot_password": "Passwort vergessen?",
+      "auth_forgot_title": "Passwort zurücksetzen",
+      "auth_forgot_subtitle": "Gib deine E-Mail ein, um einen Verifizierungscode zu erhalten",
+      "auth_reset_title": "Neues Passwort setzen",
+      "auth_reset_subtitle": "Gib den Code ein und setze dein neues Passwort",
+      "auth_submit_send_code": "Code senden",
+      "auth_submit_reset": "Passwort zurücksetzen",
+      "auth_back_to_login": "Zurück zur Anmeldung",
+
+      // Course page
+      "course_back": "Zurück zur Kursauswahl",
+      "course_foundations": "Grundlagen",
+      "course_all_lessons": "Alle Lektionen",
+      "course_no_lessons": "Keine Lektionen verfügbar",
+      "course_start_learning": "Starten",
+      "teaching_back_to_course": "Zurück zum Kurs"
     }
   }
 };

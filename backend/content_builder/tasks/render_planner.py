@@ -39,6 +39,8 @@ class Task4CExplanationComposer:
                 cursor_seconds += duration_seconds
                 composed_segments.append(composed_segment)
 
+        self._warn_long_segments(composed_segments, lesson_id)
+
         return {
             "lesson_id": lesson_id,
             "course_id": course_id,
@@ -244,6 +246,21 @@ class Task4CExplanationComposer:
 
     _CN_RE = __import__('re').compile(r'[一-鿿]')
     _MAX_CN_CHARS = 40
+
+    def _warn_long_segments(self, composed_segments: list, lesson_id) -> None:
+        """Print a warning for any hero_line segment whose focus_text exceeds _MAX_CN_CHARS."""
+        for seg in composed_segments:
+            for block in (seg.get("visual_blocks") or []):
+                if block.get("block_type") == "hero_line":
+                    ft = (block.get("content") or {}).get("focus_text", "")
+                    cn = len(self._CN_RE.findall(ft))
+                    if cn > self._MAX_CN_CHARS:
+                        title = seg.get("segment_title", "")
+                        print(
+                            f"  ⚠️  [lesson{lesson_id}] segment '{title}' "
+                            f"hero_line 仍有 {cn} 字（>{self._MAX_CN_CHARS}），"
+                            f"建议手动拆分或调整 LLM 输出。"
+                        )
 
     def _maybe_split_segment(self, segment: dict, lesson_title: str) -> list:
         """

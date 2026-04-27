@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import apiClient from '../../../api/apiClient';
 import {
+    ArrowLeft,
     ArrowRight,
     Loader2,
     Pause,
@@ -130,8 +132,9 @@ function ExplanationVideoPlayer({ videoUrls, title, apiBase, t }) {
     );
 }
 
-export default function TeachingSection({ data, courseId, userId, onStartPractice }) {
+export default function TeachingSection({ data, courseId, userId, onStartPractice, isDirectLesson }) {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
     const [diagPinyin, setDiagPinyin] = useState(true);
     const [diagTrans, setDiagTrans] = useState(true);
     const [vocabPinyin, setVocabPinyin] = useState(true);
@@ -418,25 +421,36 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                     t={t}
                 />
 
-                <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex justify-center pb-24 pt-8">
+                {!isDirectLesson && (
+                    <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex justify-center pb-24 pt-8">
+                        <button
+                            onClick={handleStartPracticeClick}
+                            disabled={isSaving}
+                            className="flex items-center gap-4 rounded-[2rem] bg-slate-900 px-14 py-5 text-lg font-black text-white shadow-xl transition-all hover:-translate-y-1 hover:bg-blue-600 disabled:bg-slate-400 disabled:hover:translate-y-0"
+                        >
+                            {isSaving ? (
+                                <>
+                                    {t('teaching_generating_quiz')}
+                                    <Loader2 className="animate-spin" size={22} />
+                                </>
+                            ) : (
+                                <>
+                                    {t('teaching_start_quiz')}
+                                    <ArrowRight size={22} />
+                                </>
+                            )}
+                        </button>
+                    </motion.div>
+                )}
+
+                {isDirectLesson && (
                     <button
-                        onClick={handleStartPracticeClick}
-                        disabled={isSaving}
-                        className="flex items-center gap-4 rounded-[2rem] bg-slate-900 px-14 py-5 text-lg font-black text-white shadow-xl transition-all hover:-translate-y-1 hover:bg-blue-600 disabled:bg-slate-400 disabled:hover:translate-y-0"
+                        onClick={() => navigate(`/course/${courseId}`)}
+                        className="fixed top-24 left-6 z-50 flex items-center gap-2 px-4 py-2.5 bg-white text-slate-600 font-semibold rounded-2xl shadow-md border border-slate-100 hover:bg-slate-50 hover:text-slate-900 transition-all"
                     >
-                        {isSaving ? (
-                            <>
-                                {t('teaching_generating_quiz')}
-                                <Loader2 className="animate-spin" size={22} />
-                            </>
-                        ) : (
-                            <>
-                                {t('teaching_start_quiz')}
-                                <ArrowRight size={22} />
-                            </>
-                        )}
+                        <ArrowLeft size={16} /> {t('teaching_back_to_course')}
                     </button>
-                </motion.div>
+                )}
             </motion.div>
         </AnimatePresence>
     );

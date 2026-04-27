@@ -35,11 +35,11 @@ function CharGrid({ content }) {
                             border: `1px solid ${color}30`,
                             borderTop: `2px solid ${color}55`,
                             borderRadius: 8,
-                            padding: '10px 14px',
-                            minWidth: 68,
+                            padding: '14px 18px',
+                            minWidth: 90,
                         }}>
                             <span style={{
-                                fontSize: 12, lineHeight: 1,
+                                fontSize: 16, lineHeight: 1,
                                 color: 'rgba(244,240,230,0.50)',
                                 marginBottom: 4,
                                 letterSpacing: '0.01em',
@@ -48,15 +48,15 @@ function CharGrid({ content }) {
                             </span>
                             <span style={{
                                 fontFamily: fontStack,
-                                fontSize: 38, fontWeight: 900,
+                                fontSize: 52, fontWeight: 900,
                                 color, lineHeight: 1,
                                 textShadow: '0 0 2px rgba(255,255,255,0.12)',
                             }}>
                                 {item.char}
                             </span>
                             <span style={{
-                                fontSize: 13, fontWeight: 700,
-                                color: chalk.dim, marginTop: 5,
+                                fontSize: 16, fontWeight: 700,
+                                color: chalk.dim, marginTop: 6,
                                 letterSpacing: '0.01em',
                             }}>
                                 {item.translation}
@@ -102,7 +102,7 @@ function PatternTable({ content }) {
             }}>
                 {['Pattern', 'Range', 'Example'].map((h) => (
                     <span key={h} style={{
-                        fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
+                        fontSize: 14, fontWeight: 900, letterSpacing: '0.18em',
                         color: 'rgba(244,240,230,0.30)', textTransform: 'uppercase',
                     }}>
                         {h}
@@ -121,18 +121,18 @@ function PatternTable({ content }) {
                         border: '1px solid rgba(244,240,230,0.08)',
                         borderLeftWidth: 3, borderLeftColor: accent,
                         borderRadius: 8,
-                        padding: '10px 16px',
+                        padding: '14px 20px',
                     }}>
                         {/* Pattern column */}
                         <PatternFormula
                             text={row.pattern}
                             pinyin={row.pattern_pinyin || undefined}
                             color={accent}
-                            size={22}
+                            size={28}
                         />
                         {/* Range column */}
                         <span style={{
-                            fontSize: 15, color: chalk.dim,
+                            fontSize: 20, color: chalk.dim,
                             fontStyle: 'italic', lineHeight: 1.4,
                         }}>
                             {row.range}
@@ -140,7 +140,7 @@ function PatternTable({ content }) {
                         {/* Example column */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                             <span style={{
-                                fontFamily: fontStack, fontSize: 26,
+                                fontFamily: fontStack, fontSize: 34,
                                 fontWeight: 900, color: accent, lineHeight: 1,
                                 textShadow: '0 0 2px rgba(255,255,255,0.12)',
                             }}>
@@ -148,7 +148,7 @@ function PatternTable({ content }) {
                             </span>
                             {row.example_pinyin && (
                                 <span style={{
-                                    fontSize: 13, color: 'rgba(244,240,230,0.45)',
+                                    fontSize: 17, color: 'rgba(244,240,230,0.45)',
                                     fontStyle: 'italic', lineHeight: 1,
                                 }}>
                                     {row.example_pinyin}
@@ -156,7 +156,7 @@ function PatternTable({ content }) {
                             )}
                             {row.example_english && (
                                 <span style={{
-                                    fontSize: 13, fontWeight: 700,
+                                    fontSize: 17, fontWeight: 700,
                                     color: chalk.dim, marginTop: 1,
                                 }}>
                                     {row.example_english}
