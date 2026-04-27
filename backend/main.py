@@ -17,7 +17,15 @@ app = FastAPI(title="Chilan LRS - Core Service")
 
 @app.get("/health")
 async def health_check():
-    return {"status": "ok"}
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT 1")
+        cur.close()
+        conn.close()
+        return {"status": "ok", "db": "ok"}
+    except Exception:
+        return {"status": "ok", "db": "unavailable"}
 
 # 1. 从环境变量读取线上地址
 cors_origins_str = get_env("APP_CORS_ORIGINS", default="")

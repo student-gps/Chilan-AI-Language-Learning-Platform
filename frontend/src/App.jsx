@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // 导入组件
@@ -22,6 +22,11 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
+  useEffect(() => {
+    const API_BASE = import.meta.env.VITE_APP_API_BASE_URL || '';
+    fetch(`${API_BASE}/health`).catch(() => {});
+  }, []);
+
   return (
     <Router>
       {/* 核心改动：Navbar 放在这里，它将出现在每一个页面顶部 */}

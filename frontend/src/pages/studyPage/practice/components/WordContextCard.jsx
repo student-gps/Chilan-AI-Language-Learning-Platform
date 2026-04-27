@@ -32,10 +32,12 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
     }
     examples.forEach((ex) => {
         if (!ex) return;
+        // normalise: some older lessons store the translation as "en" instead of "translation"
+        const normalized = ex.translation ? ex : { ...ex, translation: ex.en || '' };
         const exists = combinedExamples.some((item) =>
-            item?.cn === ex?.cn && item?.py === ex?.py && item?.translation === ex?.translation
+            item?.cn === normalized?.cn && item?.translation === normalized?.translation
         );
-        if (!exists) combinedExamples.push(ex);
+        if (!exists) combinedExamples.push(normalized);
     });
 
     if (
@@ -244,14 +246,14 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                             </div>
                                         </div>
                                         <AnimatePresence initial={false}>
-                                            {showTranslation[`history-${i}`] && h.example?.translation && (
+                                            {showTranslation[`history-${i}`] && (h.example?.translation || h.example?.en) && (
                                                 <motion.div
                                                     initial={{ opacity: 0, height: 0 }}
                                                     animate={{ opacity: 1, height: 'auto' }}
                                                     exit={{ opacity: 0, height: 0 }}
                                                     className="overflow-hidden mt-2"
                                                 >
-                                                    <p className="text-sm font-semibold italic text-blue-600">{h.example.translation}</p>
+                                                    <p className="text-sm font-semibold italic text-blue-600">{h.example.translation || h.example.en}</p>
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>
