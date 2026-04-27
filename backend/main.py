@@ -14,6 +14,11 @@ from config.env import get_env
 
 app = FastAPI(title="Chilan LRS - Core Service")
 
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
 # 1. 从环境变量读取线上地址
 cors_origins_str = get_env("APP_CORS_ORIGINS", default="")
 # 2. 将字符串转为列表，并去掉多余空格
