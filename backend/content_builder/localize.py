@@ -87,8 +87,25 @@ def _collect_translatable(data: dict) -> list:
             items.append((f"{base}.definition", vocab["definition"]))
         if vocab.get("part_of_speech"):
             items.append((f"{base}.part_of_speech", vocab["part_of_speech"]))
-        if vocab.get("example_sentence", {}).get("translation"):
-            items.append((f"{base}.example_sentence.translation", vocab["example_sentence"]["translation"]))
+        # example_sentence: some lessons use "translation", older ones use "en"
+        es = vocab.get("example_sentence", {})
+        if isinstance(es, dict):
+            es_text = es.get("translation") or es.get("en", "")
+            if es_text:
+                es_field = "translation" if "translation" in es else "en"
+                items.append((f"{base}.example_sentence.{es_field}", es_text))
+        # historical_usages examples (representative_example or example field)
+        for hu_idx, hu in enumerate(vocab.get("historical_usages", [])):
+            if not isinstance(hu, dict):
+                continue
+            for ex_key in ("representative_example", "example"):
+                ex = hu.get(ex_key)
+                if not isinstance(ex, dict):
+                    continue
+                ex_text = ex.get("translation") or ex.get("en", "")
+                if ex_text:
+                    ex_field = "translation" if "translation" in ex else "en"
+                    items.append((f"{base}.historical_usages.{hu_idx}.{ex_key}.{ex_field}", ex_text))
 
     # 2. Language notes
     for n_idx, note in enumerate(data.get("teaching_materials", {}).get("language_notes", [])):
@@ -120,9 +137,11 @@ def _collect_translatable(data: dict) -> list:
         qtype = item.get("question_type", "")
         base = f"database_items.{i_idx}"
         # Context example English captions — always translate
+        # Newer lessons use "translation", older ones use "en"
         for cx_idx, cx in enumerate(item.get("context_examples", [])):
-            if cx.get("en"):
-                items.append((f"{base}.context_examples.{cx_idx}.translation", cx["en"]))
+            cx_text = cx.get("translation") or cx.get("en", "")
+            if cx_text:
+                items.append((f"{base}.context_examples.{cx_idx}.translation", cx_text))
         # CN_TO_EN: standard_answers are English words/phrases → translate to target lang
         if qtype == "CN_TO_EN":
             for a_idx, ans in enumerate(item.get("standard_answers", [])):

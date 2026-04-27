@@ -364,7 +364,7 @@ class Task2QuizGenerator:
 
     def _is_blank_example(self, example: dict | None) -> bool:
         normalized = self._normalize_example(example)
-        return not normalized["cn"] and not normalized["py"] and not normalized["en"]
+        return not normalized["cn"] and not normalized["py"] and not normalized["translation"]
 
     def _definition_keywords(self, definition: str) -> set:
         text = (definition or "").lower()
@@ -392,7 +392,7 @@ class Task2QuizGenerator:
 
     def _example_matches_current_sense(self, vocab_item: dict, example: dict) -> bool:
         normalized = self._normalize_example(example)
-        english = normalized["en"].lower()
+        english = normalized["translation"].lower()
         if not english:
             return False
 
@@ -410,7 +410,7 @@ class Task2QuizGenerator:
     def _pick_dialogue_fallback_example(self, vocab_item: dict, source_dialogues: list) -> dict:
         word = (vocab_item.get("word") or "").strip()
         if not word:
-            return {"cn": "", "py": "", "en": ""}
+            return {"cn": "", "py": "", "translation": ""}
 
         historical_same_definition = [
             usage for usage in (vocab_item.get("historical_usages") or [])
@@ -427,7 +427,7 @@ class Task2QuizGenerator:
                 historical_example = self._normalize_example(historical_same_definition[0].get("example"))
                 if not self._is_blank_example(historical_example):
                     return historical_example
-            return {"cn": "", "py": "", "en": ""}
+            return {"cn": "", "py": "", "translation": ""}
 
         matching_sense = [
             sentence for sentence in containing_word
@@ -667,7 +667,7 @@ class Task2QuizGenerator:
                     "part_of_speech": usage.get("part_of_speech"),
                     "pinyin": usage.get("pinyin"),
                     "lesson_ids": [],
-                    "representative_example": {"cn": "", "py": "", "en": ""}
+                    "representative_example": {"cn": "", "py": "", "translation": ""}
                 }
 
             lesson_id = usage.get("lesson_id")
@@ -756,7 +756,7 @@ class Task2QuizGenerator:
                     "original_pinyin": "拼音(中文题目必填)",
                     "standard_answers": ["标准答案"],
                     "context_examples": [
-                        {{ "cn": "唯一例句", "py": "pinyin", "en": "translation" }}
+                        {{ "cn": "唯一例句", "py": "pinyin", "translation": "English translation" }}
                     ]
                 }}
             ]
