@@ -4,7 +4,7 @@ from typing import List
 from google import genai
 
 from .base_engine import LLMEngine
-from .prompts import EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH
+from .prompts import get_eval_prompt
 from config.env import get_env
 
 
@@ -26,8 +26,18 @@ class LanguageTools:
 
     def _get_gemini_client(self):
         if self._gemini_client is None:
-            api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
-            self._gemini_client = genai.Client(api_key=api_key)
+            use_vertex = get_env("LLM_GEMINI_USE_VERTEX", default="false").lower() == "true"
+            if use_vertex:
+                import os
+                project = get_env("VERTEX_AI_PROJECT_ID")
+                location = get_env("VERTEX_AI_LOCATION", default="us-central1")
+                sa_key = get_env("GOOGLE_APPLICATION_CREDENTIALS")
+                if sa_key:
+                    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sa_key
+                self._gemini_client = genai.Client(vertexai=True, project=project, location=location)
+            else:
+                api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
+                self._gemini_client = genai.Client(api_key=api_key)
         return self._gemini_client
 
     def _get_doubao_client(self):
@@ -68,9 +78,6 @@ class LanguageTools:
             raise
 
     async def judge_with_ai(self, q_type: str, question: str, user_ans: str, standards: list, pm=None):
-        template = EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH.get(
-            q_type,
-            EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH["EN_TO_CN"],
-        )
+        template = get_eval_prompt(q_type)
         prompt = template.format(question=question, user_answer=user_ans, standards=standards)
         return await self.engine.generate_json(prompt, pm=pm)

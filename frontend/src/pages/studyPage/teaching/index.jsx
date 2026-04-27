@@ -224,9 +224,14 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                     </span>
                 </motion.div>
 
-                <h1 className="mb-12 text-5xl font-black tracking-tight text-slate-900">
+                <h1 className="mb-2 text-5xl font-black tracking-tight text-slate-900">
                     {lesson_metadata.title}
                 </h1>
+                {lesson_metadata.title_localized && (
+                    <p className="mb-10 text-xl font-medium text-slate-400">
+                        {lesson_metadata.title_localized}
+                    </p>
+                )}
 
                 <ExplanationVideoPlayer
                     videoUrls={explanation_video_urls}

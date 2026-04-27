@@ -14,6 +14,11 @@ from config.env import get_env
 
 app = FastAPI(title="Chilan LRS - Core Service")
 
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
 # 1. 从环境变量读取线上地址
 cors_origins_str = get_env("APP_CORS_ORIGINS", default="")
 # 2. 将字符串转为列表，并去掉多余空格
@@ -170,10 +175,10 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
 async def get_course_lessons(course_id: int, db=Depends(get_db)):
     cur = db.cursor()
     cur.execute(
-        "SELECT lesson_id, title FROM lessons WHERE course_id = %s ORDER BY lesson_id ASC",
+        "SELECT lesson_id, title, lesson_metadata->>'title_localized' AS title_localized FROM lessons WHERE course_id = %s ORDER BY lesson_id ASC",
         (course_id,)
     )
-    return [{"lesson_id": r[0], "title": r[1]} for r in cur.fetchall()]
+    return [{"lesson_id": r[0], "title": r[1], "title_localized": r[2]} for r in cur.fetchall()]
 
 # ==========================================
 # 3. 教室仪表盘与统计 (数据中心：保留)

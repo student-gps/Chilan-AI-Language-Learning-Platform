@@ -40,9 +40,21 @@ class BaseEmbeddingProvider(ABC):
         pass
 
 class GeminiEmbeddingProvider(BaseEmbeddingProvider):
-    def __init__(self, api_key: str, model_id: str):
+    def __init__(self, model_id: str):
+        import os
         from google import genai
-        self.client = genai.Client(api_key=api_key)
+        use_vertex = get_env("LLM_GEMINI_USE_VERTEX", default="false").lower() == "true"
+        if use_vertex:
+            project = get_env("VERTEX_AI_PROJECT_ID")
+            location = get_env("VERTEX_AI_LOCATION", default="us-central1")
+            sa_key = get_env("GOOGLE_APPLICATION_CREDENTIALS")
+            if sa_key:
+                os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sa_key
+            self.client = genai.Client(vertexai=True, project=project, location=location)
+            print(f"  ℹ️  Gemini embedding 使用 Vertex AI ({location})")
+        else:
+            api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
+            self.client = genai.Client(api_key=api_key)
         self.model_id = model_id
 
     def get_embedding(self, text: str) -> list[float]:
@@ -72,9 +84,8 @@ class EmbeddingFactory:
     def create_provider() -> BaseEmbeddingProvider:
         provider_type = get_env("LLM_EMBED_PROVIDER", default="doubao").lower()
         if provider_type == "gemini":
-            api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
             model_id = get_env("LLM_EMBED_GEMINI_MODEL_ID", default="gemini-embedding-001")
-            return GeminiEmbeddingProvider(api_key, model_id)
+            return GeminiEmbeddingProvider(model_id)
         elif provider_type == "doubao":
             api_key = get_env("LLM_EMBED_DOUBAO_API_KEY")
             model_id = get_env("LLM_EMBED_DOUBAO_MODEL_ID")

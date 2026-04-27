@@ -35,6 +35,15 @@ LANG_META = {
 SHORT_BATCH_SIZE = 30   # strings per call for short fields
 NARRATION_BATCH_SIZE = 3  # subtitle_en segments per call (longer text)
 
+# question_type remap per target language (EN-based types → language-specific types)
+_TYPE_REMAP: dict[str, dict[str, str]] = {
+    "fr": {"CN_TO_EN": "CN_TO_FR", "EN_TO_CN": "FR_TO_CN", "EN_TO_CN_SPEAK": "FR_TO_CN_SPEAK"},
+    "de": {"CN_TO_EN": "CN_TO_DE", "EN_TO_CN": "DE_TO_CN", "EN_TO_CN_SPEAK": "DE_TO_CN_SPEAK"},
+    "es": {"CN_TO_EN": "CN_TO_ES", "EN_TO_CN": "ES_TO_CN", "EN_TO_CN_SPEAK": "ES_TO_CN_SPEAK"},
+    "ja": {"CN_TO_EN": "CN_TO_JA", "EN_TO_CN": "JA_TO_CN", "EN_TO_CN_SPEAK": "JA_TO_CN_SPEAK"},
+    "ko": {"CN_TO_EN": "CN_TO_KO", "EN_TO_CN": "KO_TO_CN", "EN_TO_CN_SPEAK": "KO_TO_CN_SPEAK"},
+}
+
 
 # ── Prompt ───────────────────────────────────────────────────────────────────
 
@@ -60,6 +69,10 @@ Output (JSON only):"""
 def _collect_translatable(data: dict) -> list:
     """Return list of (dotted_path, english_text) for all translatable fields."""
     items = []
+
+    # 0. Lesson title
+    if data.get("lesson_metadata", {}).get("title_localized"):
+        items.append(("lesson_metadata.title_localized", data["lesson_metadata"]["title_localized"]))
 
     # 1. Dialogue line translations
     for d_idx, dialogue in enumerate(data.get("course_content", {}).get("dialogues", [])):
@@ -252,6 +265,16 @@ def translate_lesson(source_path: Path, lang: str, llm) -> dict:
 
     for path, value in translated_map.items():
         _set_by_path(translated, path, value)
+
+    # Remap question_type for each database_item
+    type_remap = _TYPE_REMAP.get(lang, {})
+    if type_remap:
+        for item in translated.get("database_items", []):
+            if isinstance(item, dict) and item.get("question_type") in type_remap:
+                item["question_type"] = type_remap[item["question_type"]]
+        remapped = sum(1 for item in translated.get("database_items", [])
+                       if isinstance(item, dict) and item.get("question_type", "").startswith(lang.upper()))
+        print(f"  🔁 question_type 已重命名（{remapped} 项 → {lang.upper()}_* 格式）")
 
     translated["localization"] = {
         "source_lang": "en",
