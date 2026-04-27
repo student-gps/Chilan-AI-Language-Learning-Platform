@@ -13,6 +13,7 @@ import ExplanationTemplatePreview from './pages/ExplanationTemplatePreview';
 import PinyinPage from './pages/PinyinPage';
 import CourseIntroPage from './pages/CourseIntroPage';
 import HanziIntroPage from './pages/HanziIntroPage';
+import TypingIntroPage from './pages/TypingIntroPage';
 import CoursePage from './pages/CoursePage';
 import { getValidToken } from './utils/authStorage';
 
@@ -48,6 +49,7 @@ function App() {
         <Route path="/learn/pinyin" element={<ProtectedRoute><PinyinPage /></ProtectedRoute>} />
         <Route path="/learn/intro" element={<ProtectedRoute><CourseIntroPage /></ProtectedRoute>} />
         <Route path="/learn/hanzi" element={<ProtectedRoute><HanziIntroPage /></ProtectedRoute>} />
+        <Route path="/learn/typing" element={<ProtectedRoute><TypingIntroPage /></ProtectedRoute>} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

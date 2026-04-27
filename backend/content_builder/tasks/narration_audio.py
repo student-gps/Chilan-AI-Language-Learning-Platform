@@ -275,6 +275,9 @@ class Task4DExplanationNarrator:
         lang = getattr(self, "_lang", "en")
         lang_voice_key = f"TTS_EXPLANATION_VOICE_{lang.upper()}"
         voice = get_env(lang_voice_key, default=None) or self.voice
+        # CosyVoice clips the last word when the sentence lacks a terminal punctuation mark.
+        if text and text[-1] not in '.!?,。！？，':
+            text = text + '.'
         resp = _requests.post(
             self._ALI_ENDPOINT,
             headers={
