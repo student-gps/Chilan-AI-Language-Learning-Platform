@@ -27,14 +27,15 @@ from pathlib import Path
 sys.stdout.reconfigure(line_buffering=True)
 from dotenv import load_dotenv
 
-CURRENT_DIR = Path(__file__).resolve().parent   # backend/content_builder/
-BASE_DIR = CURRENT_DIR.parent                   # backend/
-ARTIFACTS_DIR = CURRENT_DIR / "artifacts"
+from core.paths import default_paths
+from core.pipeline import get_pipeline
+
+PATHS = default_paths()
+CURRENT_DIR = PATHS.content_builder_dir         # backend/content_builder/
+BASE_DIR = PATHS.backend_dir                    # backend/
+ARTIFACTS_DIR = PATHS.artifacts_dir
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
-
-from llm_providers import LLMFactory
-from content_agent import ContentCreatorAgent
 
 
 def _extract_lesson_id(json_path: Path) -> int | None:
@@ -139,7 +140,7 @@ def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str) -> di
 
 
 def process_file(
-    agent: ContentCreatorAgent,
+    agent,
     json_path: Path,
     should_render_video: bool = False,
     lang: str = "en",
@@ -207,6 +208,11 @@ def main():
         help="要处理的 JSON 文件路径。不指定则扫描 artifacts/output_json/ 下所有文件。",
     )
     parser.add_argument(
+        "--pipeline",
+        default="integrated_chinese",
+        help="教材流水线 ID（默认: integrated_chinese）。",
+    )
+    parser.add_argument(
         "--render-video",
         action="store_true",
         help="旁白渲染后立即渲染讲解视频（Remotion + ffmpeg 合并旁白音轨）。需要 Node.js。",
@@ -219,9 +225,13 @@ def main():
     args = parser.parse_args()
 
     try:
-        provider = LLMFactory.create_provider()
-        agent = ContentCreatorAgent(provider=provider, memory_dir=ARTIFACTS_DIR)
+        pipeline = get_pipeline(args.pipeline)
+        global ARTIFACTS_DIR
+        ARTIFACTS_DIR = pipeline.artifact_root(PATHS)
+        provider = pipeline.create_provider()
+        agent = pipeline.create_agent(provider=provider, memory_dir=ARTIFACTS_DIR)
         print(f"🔧 当前激活模型引擎: {type(provider).__name__}")
+        print(f"🧭 当前内容流水线: {pipeline.display_name} ({pipeline.pipeline_id})")
         if args.render_video:
             print(f"🎬 视频渲染: 开启 [lang={args.lang}]")
     except Exception as e:
@@ -231,7 +241,7 @@ def main():
     if args.json_files:
         targets = [Path(p) for p in args.json_files]
     else:
-        output_json_dir = ARTIFACTS_DIR / "output_json" / args.lang
+        output_json_dir = pipeline.output_json_dir(PATHS, args.lang)
         targets = sorted(output_json_dir.glob("*_data*.json"), key=lambda p: _extract_lesson_id(p) or 0)
         if not targets:
             print(f"📭 {output_json_dir} 下没有找到 JSON 文件。")

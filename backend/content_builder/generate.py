@@ -12,9 +12,8 @@ from pathlib import Path
 sys.stdout.reconfigure(line_buffering=True)
 from dotenv import load_dotenv
 
-# 引入我们刚才拆分好的工厂和总代理
-from llm_providers import LLMFactory
-from content_agent import ContentCreatorAgent
+from core.paths import default_paths
+from core.pipeline import get_pipeline
 
 def _env_flag(name: str, default: bool = False) -> bool:
     value = os.getenv(name)
@@ -46,6 +45,11 @@ def sync_to_db(base_dir: Path, lesson_id: int) -> bool:
 def main():
     parser = argparse.ArgumentParser(description="Run the content builder pipeline for raw lesson PDFs.")
     parser.add_argument(
+        "--pipeline",
+        default="integrated_chinese",
+        help="教材流水线 ID（默认: integrated_chinese）。",
+    )
+    parser.add_argument(
         "--sync",
         action="store_true",
         help="生成内容后自动同步到数据库（默认只生成 JSON，不入库）。",
@@ -53,27 +57,28 @@ def main():
     args = parser.parse_args()
 
     # 1. 绝对路径配置
-    CURRENT_DIR = Path(__file__).resolve().parent          # backend/content_builder/
-    BASE_DIR = CURRENT_DIR.parent                          # backend/
-    ARTIFACTS_DIR = CURRENT_DIR / "artifacts"
-    
+    paths = default_paths()
+    BASE_DIR = paths.backend_dir
+
     # 向上寻找 backend/.env 文件
     load_dotenv(dotenv_path=BASE_DIR / ".env")
     should_sync = args.sync
+    pipeline = get_pipeline(args.pipeline)
 
     # 2. 引擎初始化
     try:
-        provider = LLMFactory.create_provider()
-        agent = ContentCreatorAgent(provider=provider, memory_dir=ARTIFACTS_DIR)
+        provider = pipeline.create_provider()
+        agent = pipeline.create_agent(provider=provider, memory_dir=pipeline.artifact_root(paths))
         print(f"🔧 当前激活模型引擎: {type(provider).__name__}")
+        print(f"🧭 当前内容流水线: {pipeline.display_name} ({pipeline.pipeline_id})")
     except Exception as e:
         print(f"❌ 系统初始化失败: {e}")
         return
 
     # 3. 文件夹管理
-    raw_dir = ARTIFACTS_DIR / "raw_materials"
-    output_dir = ARTIFACTS_DIR / "output_json" / "en"
-    archive_dir = ARTIFACTS_DIR / "archive_pdfs"
+    raw_dir = pipeline.raw_materials_dir(paths)
+    output_dir = pipeline.output_json_dir(paths, pipeline.default_output_lang)
+    archive_dir = pipeline.archive_pdfs_dir(paths)
     
     for d in [raw_dir, output_dir, archive_dir]:
         d.mkdir(parents=True, exist_ok=True)

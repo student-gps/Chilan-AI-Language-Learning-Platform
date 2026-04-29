@@ -22,7 +22,8 @@ sys.path.insert(0, str(BACKEND_DIR))
 from dotenv import load_dotenv
 load_dotenv(dotenv_path=BACKEND_DIR / ".env")
 
-from llm_providers import LLMFactory
+from core.paths import default_paths
+from core.pipeline import get_pipeline
 
 LANG_META = {
     "fr": {"name": "French", "native": "Français"},
@@ -54,9 +55,11 @@ def _build_translate_prompt(lang_name: str, strings_dict: dict) -> str:
 Rules:
 1. Output ONLY valid JSON with the exact same keys. No markdown, no extra text.
 2. Preserve [zh:...] markers exactly as-is — they contain Chinese pronunciation cues and must not be translated or modified.
-3. Use clear, natural {lang_name} appropriate for adult language learners.
-4. Translate meaning naturally — do not translate word-by-word.
-5. For single-word vocabulary answers, give the most natural single-word (or short phrase) {lang_name} equivalent.
+3. Write as a native {lang_name} speaker would naturally say it — prioritise idiomatic fluency over literal accuracy. Adapt sentence structure, phrasing, and examples to feel at home in {lang_name}.
+4. NEVER keep English words or phrases in the output. When the source cites an English expression as an example (e.g. 'like "and you?" in English'), replace it with the natural {lang_name} equivalent and drop any reference to English.
+5. Avoid parentheses ( ), brackets [ ], and dashes used only for clarification — they interrupt TTS rhythm. Fold the clarifying content into the sentence naturally instead (e.g. "X, qui signifie Y," rather than "X (Y)").
+6. For single-word vocabulary answers, give the most natural single-word (or short phrase) {lang_name} equivalent.
+7. Keep narration text conversational and spoken-friendly — it will be read aloud by a TTS voice.
 
 Input:
 {payload}
@@ -311,6 +314,11 @@ def main():
     parser = argparse.ArgumentParser(description="Translate lesson JSON to a target language")
     parser.add_argument("--lang", required=True, help="Target language code: fr, de, es, ja, ko")
     parser.add_argument("--lesson", help="Lesson ID (e.g. 101 → lesson101_data.json)")
+    parser.add_argument(
+        "--pipeline",
+        default="integrated_chinese",
+        help="教材流水线 ID（默认: integrated_chinese）。",
+    )
     parser.add_argument("files", nargs="*", help="JSON file name(s) in output_json/ (default: all)")
     args = parser.parse_args()
 
@@ -319,8 +327,10 @@ def main():
         print(f"❌ Unknown language '{lang}'. Supported: {', '.join(LANG_META.keys())}")
         sys.exit(1)
 
-    json_dir = CONTENT_BUILDER_DIR / "artifacts" / "output_json" / "en"
-    out_dir = CONTENT_BUILDER_DIR / "artifacts" / "output_json" / lang
+    paths = default_paths()
+    pipeline = get_pipeline(args.pipeline)
+    json_dir = pipeline.output_json_dir(paths, "en")
+    out_dir = pipeline.output_json_dir(paths, lang)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # Resolve input files
@@ -335,8 +345,9 @@ def main():
         print("❌ No input files found.")
         sys.exit(1)
 
-    llm = LLMFactory.create_provider()
+    llm = pipeline.create_provider()
     lang_display = f"{LANG_META[lang]['name']} ({LANG_META[lang]['native']})"
+    print(f"🧭 Pipeline: {pipeline.display_name} ({pipeline.pipeline_id})")
     print(f"\n🌐 Localizing {len(files)} file(s) → {lang_display}\n")
 
     for source_path in files:

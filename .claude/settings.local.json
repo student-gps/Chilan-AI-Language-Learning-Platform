@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -c ':*)"
+      "Bash(python -c ':*)",
+      "Bash(python test_voices.py)",
+      "Bash(python test_zh_voices.py)",
+      "Bash(python gen_voice_matrix.py)",
+      "Bash(python3 -c ' *)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\gaope\\Desktop\\Chilan\\backend"
     ]
   }
 }

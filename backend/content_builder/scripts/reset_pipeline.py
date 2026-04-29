@@ -122,6 +122,50 @@ def _purge_media_objects(object_keys):
     print(f"✅ R2 清理完成：成功 {deleted} 个，失败 {failed} 个。")
 
 
+def _purge_entire_r2_bucket():
+    """列举 R2 桶内全部对象并批量删除（不依赖本地 JSON）。"""
+    storage = get_media_storage(optional=True)
+    if not storage:
+        print("⚠️ 未配置 STORAGE_R2_* 环境变量，跳过 R2 清理。")
+        return
+
+    client = storage._get_client()
+    bucket = storage.bucket
+
+    # 分页列举所有对象
+    all_keys = []
+    paginator = client.get_paginator("list_objects_v2")
+    print(f"☁️ 正在列举 R2 桶 [{bucket}] 中的所有对象...")
+    for page in paginator.paginate(Bucket=bucket):
+        for obj in page.get("Contents", []):
+            all_keys.append(obj["Key"])
+
+    if not all_keys:
+        print("ℹ️ R2 桶为空，无需删除。")
+        return
+
+    print(f"☁️ 共发现 {len(all_keys)} 个对象，开始批量删除...")
+    deleted = 0
+    failed = 0
+    # S3 delete_objects 每次最多 1000 个
+    for i in range(0, len(all_keys), 1000):
+        batch = all_keys[i:i + 1000]
+        try:
+            resp = client.delete_objects(
+                Bucket=bucket,
+                Delete={"Objects": [{"Key": k} for k in batch], "Quiet": False},
+            )
+            deleted += len(batch) - len(resp.get("Errors", []))
+            for err in resp.get("Errors", []):
+                failed += 1
+                print(f"⚠️ R2 删除失败: {err['Key']} | {err['Message']}")
+        except Exception as e:
+            failed += len(batch)
+            print(f"⚠️ R2 批量删除异常: {e}")
+
+    print(f"✅ R2 清理完成：成功 {deleted} 个，失败 {failed} 个。")
+
+
 def reset_pipeline(with_cos: bool = True):
     print(f"🧹 [全系统重置] 正在清理测试数据...")
     print(f"☁️ 云端媒体清理: {'开启' if with_cos else '关闭'}")
@@ -251,6 +295,49 @@ def reset_narration():
     print("✨ [旁白重置完成] Stage 1 内容保持不变，可重新运行 render_narration.py。")
 
 
+def reset_db_and_r2():
+    """
+    仅清空数据库（lessons / language_items / vocabulary_knowledge /
+    user_progress 系列表）+ 清空 R2 桶内所有对象。
+    本地 JSON / 音频 / 视频文件保持不动，可直接重跑 sync_to_db.py 重新上传。
+    """
+    print("🗑️  [DB + R2 重置] 不改动本地文件，仅清空数据库和 R2 桶...")
+    print("---------------------------------------------")
+
+    # --- 1. 清空数据库 ---
+    conn = None
+    cur = None
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+        print("🎯 正在清空数据库表...")
+        cur.execute(
+            "TRUNCATE TABLE user_progress_of_language_items, "
+            "user_progress_of_lessons, "
+            "vocabulary_knowledge, "
+            "language_items, "
+            "lessons "
+            "RESTART IDENTITY CASCADE;"
+        )
+        conn.commit()
+        print("✅ 数据库已清空，自增 ID 已重置。")
+    except Exception as e:
+        print(f"❌ 数据库清理失败: {e}")
+        if conn:
+            conn.rollback()
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+
+    # --- 2. 清空 R2 桶 ---
+    _purge_entire_r2_bucket()
+
+    print("---------------------------------------------")
+    print("✨ [DB + R2 重置完成] 本地文件完好，可直接运行 sync_to_db.py 重新上传。")
+
+
 if __name__ == "__main__":
     print("=" * 48)
     print("  🧹 Content Builder 重置工具")
@@ -264,6 +351,10 @@ if __name__ == "__main__":
     print()
     print("  [3] 仅重置旁白（Stage 2）")
     print("      清除: output_audio/*_narration/ 目录")
+    print()
+    print("  [4] 仅清空数据库 + R2（保留本地文件）")
+    print("      清除: 数据库所有课程/题目/进度表 + R2 桶全部对象")
+    print("      保留: 本地 JSON / 音频 / 视频（可直接重跑 sync_to_db.py）")
     print()
     print("  [0] 取消")
     print()
@@ -288,6 +379,12 @@ if __name__ == "__main__":
         confirm = input("⚠️  将删除所有旁白音轨目录（*_narration/），Stage 1 内容保持不变。确定继续？(y/n): ")
         if confirm.lower() == "y":
             reset_narration()
+        else:
+            print("🚪 已取消操作。")
+    elif choice == "4":
+        confirm = input("⚠️  将清空数据库所有课程/题目/进度表，并删除 R2 桶内全部对象！本地文件不受影响。确定继续？(y/n): ")
+        if confirm.lower() == "y":
+            reset_db_and_r2()
         else:
             print("🚪 已取消操作。")
     else:
