@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { transcribeSpeech } from '../../../../api/apiClient';
+import { getQuestionTypeConfig, isSpeechQuestion } from '../questionTypeConfig';
 
 const DEFAULT_SPEECH_CONFIG = {
     pass_threshold: 0.88,
@@ -23,9 +24,6 @@ const FRONTEND_NOISE_TRANSCRIPT_PATTERNS = [
     /^subtitles?\s*by\s*.+$/i,
     /^caption(?:s)?\s*by\s*.+$/i
 ];
-
-export const isSpeechQuestion = (question) =>
-    question?.question_type === 'EN_TO_CN_SPEAK' || question?.metadata?.answer_mode === 'speech';
 
 const normalizeSpeechConfig = (question) => {
     const raw = question?.metadata?.speech_eval_config || {};
@@ -78,6 +76,7 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
     const waveformFrameRef = useRef(null);
 
     const speechMode = isSpeechQuestion(currentQuestion);
+    const questionConfig = useMemo(() => getQuestionTypeConfig(currentQuestion), [currentQuestion]);
     const speechConfig = useMemo(() => normalizeSpeechConfig(currentQuestion), [currentQuestion]);
     const lowConfidence =
         Number.isFinite(Number(speechMeta?.confidence)) &&
@@ -189,7 +188,7 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
             const result = await transcribeSpeech({
                 audioBlob,
                 filename: mimeType?.includes('mp4') ? 'speech.mp4' : 'speech.webm',
-                language: 'zh'
+                language: questionConfig.speechLanguage || 'zh'
             });
 
             const transcript = sanitizeFrontendTranscript(result?.transcript || '');
@@ -219,7 +218,7 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
         } finally {
             setIsTranscribing(false);
         }
-    }, [onTranscriptReady, speechConfig.min_asr_confidence]);
+    }, [onTranscriptReady, questionConfig.speechLanguage, speechConfig.min_asr_confidence]);
 
     const handleStartRecording = useCallback(async () => {
         if (!speechMode || isRecording || isTranscribing) return;

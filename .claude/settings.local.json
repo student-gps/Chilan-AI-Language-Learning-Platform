@@ -5,7 +5,8 @@
       "Bash(python test_voices.py)",
       "Bash(python test_zh_voices.py)",
       "Bash(python gen_voice_matrix.py)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(git -C c:/Users/gaope/Desktop/Chilan status --short)"
     ],
     "additionalDirectories": [
       "C:\\Users\\gaope\\Desktop\\Chilan\\backend"

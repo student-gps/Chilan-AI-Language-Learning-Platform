@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
 import apiClient from '../../api/apiClient';
 import TeachingSection from './teaching';
+import NewConceptTeachingSection from './english/NewConceptTeachingSection';
 import PracticeSection from './practice/PracticeSection';
 import FinishCard from './FinishCard';
 import { Loader2 } from 'lucide-react';
@@ -12,6 +13,23 @@ import PinyinPopover from './PinyinPopover';
 const isChinese = (lang = '') => {
     const l = String(lang).toLowerCase();
     return l.includes('chinese') || l.includes('中文') || l === 'zh' || l.startsWith('zh-');
+};
+
+const isNewConceptContent = (lessonContent, course) => {
+    const pipelineId = String(lessonContent?.pipeline_id || course?.pipeline_id || '').toLowerCase();
+    const courseId = String(lessonContent?.lesson_metadata?.course_id || course?.course_id || course?.id || '').toLowerCase();
+    return (
+        pipelineId === 'new_concept_english' ||
+        pipelineId === 'new-concept-english' ||
+        courseId === '101' ||
+        courseId.includes('new_concept_english')
+    );
+};
+
+const toApiLessonId = (value) => {
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+    const digits = String(value || '').match(/\d+/)?.[0];
+    return digits ? Number(digits) : value;
 };
 
 const pageTransition = {
@@ -30,6 +48,7 @@ export default function StudyPage() {
 
     const [mode, setMode] = useState('loading'); // loading, teaching, practice, review, completed, lesson_finished
     const [studyData, setStudyData] = useState(null);
+    const [courseInfo, setCourseInfo] = useState(null);
     const [showPinyinBtn, setShowPinyinBtn] = useState(false);
     const [pinyinPopoverOpen, setPinyinPopoverOpen] = useState(false);
 
@@ -49,7 +68,8 @@ export default function StudyPage() {
 
             // 判断目标语言是否为中文，决定是否显示拼音入口
             const course = (coursesRes.data || []).find(c => String(c.id) === String(courseId));
-            setShowPinyinBtn(isChinese(course?.target_language));
+            setCourseInfo(course || null);
+            setShowPinyinBtn(isChinese(course?.target_language) && !isNewConceptContent(data?.lesson_content, course));
 
             // 如果后端说这节课已经看过了，直接跳到练习
             if (responseMode === 'teaching' && data.skip_content) {
@@ -74,7 +94,7 @@ export default function StudyPage() {
                 await apiClient.post(`/study/complete_lesson`, {
                     user_id: userId,
                     course_id: courseId,
-                    lesson_id: lessonId 
+                    lesson_id: toApiLessonId(lessonId)
                 });
             } catch (e) {
                 console.error("更新进度失败:", e);
@@ -84,6 +104,9 @@ export default function StudyPage() {
     };
 
     // --- 渲染逻辑 ---
+    const lessonContent = studyData?.lesson_content;
+    const useNewConceptTeaching = isNewConceptContent(lessonContent, courseInfo);
+    const TeachingComponent = useNewConceptTeaching ? NewConceptTeachingSection : TeachingSection;
 
     if (mode === 'loading') return (
         <div className="flex h-screen items-center justify-center">
@@ -128,8 +151,8 @@ export default function StudyPage() {
 
                     {/* 模式 1：教学讲解模式 */}
                     {mode === 'teaching' && (
-                        <TeachingSection
-                            data={studyData.lesson_content}
+                        <TeachingComponent
+                            data={lessonContent}
                             courseId={courseId}
                             userId={userId}
                             onStartPractice={() => setMode('practice')}

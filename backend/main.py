@@ -1,4 +1,6 @@
 import os
+import json
+import tempfile
 from pathlib import Path
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,6 +12,21 @@ from typing import List
 from routers import auth, study
 from database.connection import get_connection
 from config.env import get_env
+
+# ── Vertex AI Service Account：支持部署环境通过 JSON 内容写临时文件 ──────────
+_sa_json = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON", "").strip()
+if _sa_json and not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+    try:
+        _tmp = tempfile.NamedTemporaryFile(
+            mode="w", suffix=".json", delete=False, encoding="utf-8"
+        )
+        _tmp.write(_sa_json)
+        _tmp.flush()
+        _tmp.close()
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = _tmp.name
+        print(f"✅ Vertex SA key written to {_tmp.name}")
+    except Exception as _e:
+        print(f"⚠️  Failed to write Vertex SA key: {_e}")
 
 app = FastAPI(title="Chilan LRS - Core Service")
 

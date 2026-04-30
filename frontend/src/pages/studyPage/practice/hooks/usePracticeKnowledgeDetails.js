@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import apiClient from '../../../../api/apiClient';
 
-export default function usePracticeKnowledgeDetails({ feedback, currentQuestion, setKnowledgeDetails }) {
+export default function usePracticeKnowledgeDetails({ feedback, currentQuestion, setKnowledgeDetails, enabled = true }) {
     useEffect(() => {
-        if (!feedback || !currentQuestion?.item_id) {
+        if (!enabled || !feedback || !currentQuestion?.item_id) {
             setKnowledgeDetails(null);
             return;
         }
@@ -21,5 +21,5 @@ export default function usePracticeKnowledgeDetails({ feedback, currentQuestion,
         };
 
         fetchKnowledge();
-    }, [feedback, currentQuestion, setKnowledgeDetails]);
+    }, [enabled, feedback, currentQuestion, setKnowledgeDetails]);
 }

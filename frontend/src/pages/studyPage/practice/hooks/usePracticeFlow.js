@@ -6,6 +6,12 @@ const getErrorMessage = (error, fallback) => {
     return message || fallback;
 };
 
+const toApiLessonId = (value) => {
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+    const digits = String(value || '').match(/\d+/)?.[0];
+    return digits ? Number(digits) : 101;
+};
+
 export default function usePracticeFlow({
     currentQuestion,
     userId,
@@ -55,7 +61,7 @@ export default function usePracticeFlow({
         try {
             const res = await evaluateStudyAnswer({
                 user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
-                lesson_id: currentQuestion.lesson_id || 101,
+                lesson_id: toApiLessonId(currentQuestion.lesson_id),
                 question_id: currentQuestion.question_id,
                 question_type: currentQuestion.question_type,
                 original_text: currentQuestion.original_text,
@@ -90,7 +96,7 @@ export default function usePracticeFlow({
         try {
             const res = await evaluateStudyAnswer({
                 user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
-                lesson_id: currentQuestion.lesson_id || 101,
+                lesson_id: toApiLessonId(currentQuestion.lesson_id),
                 question_id: currentQuestion.question_id,
                 question_type: currentQuestion.question_type,
                 original_text: currentQuestion.original_text,

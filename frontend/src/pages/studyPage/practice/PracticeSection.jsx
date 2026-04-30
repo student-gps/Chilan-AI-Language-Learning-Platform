@@ -12,6 +12,7 @@ import usePracticeKeyboardShortcuts from './hooks/usePracticeKeyboardShortcuts';
 import usePracticeKnowledgeDetails from './hooks/usePracticeKnowledgeDetails';
 import usePracticeFlow from './hooks/usePracticeFlow';
 import useSpeechPractice from './hooks/useSpeechPractice';
+import { getQuestionTypeConfig, isListenWriteQuestion } from './questionTypeConfig';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 15 },
@@ -21,6 +22,12 @@ const fadeInUp = {
 const staggerContainer = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: 0.08 } }
+};
+
+const toApiLessonId = (value) => {
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+    const digits = String(value || '').match(/\d+/)?.[0];
+    return digits ? Number(digits) : value;
 };
 
 export default function PracticeSection({ questions, isReview, onAllDone, userId, courseId, lessonId, lessonAudioAssets, initialIndex = 0 }) {
@@ -42,16 +49,10 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     }, [initialIndex, questions]);
 
     const currentQuestion = questions[currentIndex];
-    const isListenWrite = currentQuestion?.question_type === 'CN_LISTEN_WRITE';
+    const questionConfig = useMemo(() => getQuestionTypeConfig(currentQuestion), [currentQuestion]);
+    const isListenWrite = isListenWriteQuestion(currentQuestion);
     const qType = currentQuestion?.question_type;
-
-    const Q_THEME = {
-        CN_TO_EN:       { sparkle: 'text-blue-500',    card: 'bg-blue-50/40 border-blue-100 shadow-blue-100/30',      btn: 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100' },
-        EN_TO_CN:       { sparkle: 'text-emerald-500', card: 'bg-emerald-50/40 border-emerald-100 shadow-emerald-100/30', btn: 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-100' },
-        EN_TO_CN_SPEAK: { sparkle: 'text-rose-500',    card: 'bg-rose-50/40 border-rose-100 shadow-rose-100/30',      btn: 'bg-rose-600 text-white hover:bg-rose-700 shadow-rose-100' },
-        CN_LISTEN_WRITE:{ sparkle: 'text-indigo-500',  card: 'bg-indigo-50/60 border-indigo-100 shadow-indigo-100/40', btn: 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-100' },
-    };
-    const qTheme = Q_THEME[qType] ?? Q_THEME.CN_TO_EN;
+    const qTheme = questionConfig.theme;
 
     // Build line_ref → audio_url lookup from lesson_audio_assets
     const lineRefAudioMap = useMemo(() => {
@@ -138,11 +139,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
 
     const primaryButtonClass = qTheme.btn;
     const secondaryButtonClass = 'bg-slate-900 text-white hover:bg-slate-800 shadow-slate-200';
-    const textPromptLabel = currentQuestion?.question_type === 'CN_TO_EN'
-        ? t('practice_prompt_cn_to_en')
-        : currentQuestion?.question_type === 'CN_LISTEN_WRITE'
-            ? t('practice_prompt_cn_listen_write')
-            : t('practice_prompt_en_to_cn');
+    const textPromptLabel = questionConfig.promptLabel || t(questionConfig.promptLabelKey);
     const speechPreviewText = speechTranscript
         || (isRecording
             ? '正在聆听，请开始说话。'
@@ -160,15 +157,29 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
             : null;
     const config = feedbackTone;
 
-    const playAudio = (text) => {
+    const playAudio = (text, language = 'zh') => {
         if (!text) return;
         const API_BASE = import.meta.env.VITE_APP_API_BASE_URL;
-        const audio = new Audio(`${API_BASE}/study/tts?text=${encodeURIComponent(text)}`);
+        const params = new URLSearchParams({ text, language });
+        const audio = new Audio(`${API_BASE}/study/tts?${params.toString()}`);
         claimGlobalAudio(audio);
         audio.onpause = () => releaseGlobalAudio(audio);
         audio.onended = () => releaseGlobalAudio(audio);
         audio.onerror = () => releaseGlobalAudio(audio);
         audio.play().catch(() => releaseGlobalAudio(audio));
+    };
+
+    const playQuestionAudio = () => {
+        if (!currentQuestion) return;
+        const lineRef = currentQuestion.metadata?.line_ref || currentQuestion.metadata?.context?.line_ref;
+        if (lineRef && lineRefAudioMap[lineRef]) {
+            playLineAudio(lineRef);
+            return;
+        }
+        const fallbackText = isListenWrite
+            ? (currentQuestion.standard_answers || [])[0]
+            : currentQuestion.original_text;
+        playAudio(fallbackText, questionConfig.audioLanguage || questionConfig.ttsLanguage || 'zh');
     };
 
     const focusAndMoveCursorToEnd = () => {
@@ -188,32 +199,30 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     };
 
     useEffect(() => {
-        if (!currentQuestion || speechMode || currentQuestion.question_type !== 'CN_TO_EN') return;
+        if (!currentQuestion || speechMode || !questionConfig.autoPlayPrompt) return;
 
         const questionKey = `${currentQuestion.item_id || currentQuestion.question_id || currentIndex}:${currentQuestion.original_text || ''}`;
         if (lastAutoPlayedKeyRef.current === questionKey) return;
 
         lastAutoPlayedKeyRef.current = questionKey;
         const timer = setTimeout(() => {
-            playAudio(currentQuestion.original_text);
+            playAudio(currentQuestion.original_text, questionConfig.ttsLanguage || 'zh');
         }, 250);
 
         return () => clearTimeout(timer);
-    }, [currentQuestion, currentIndex, speechMode]);
+    }, [currentQuestion, currentIndex, speechMode, questionConfig.autoPlayPrompt, questionConfig.ttsLanguage]);
 
-    // Auto-play dialogue audio when arriving at a CN_LISTEN_WRITE question
+    // Auto-play dialogue/audio prompt when arriving at a listen-write question.
     useEffect(() => {
-        if (!currentQuestion || currentQuestion.question_type !== 'CN_LISTEN_WRITE') return;
-        const lineRef = currentQuestion.metadata?.line_ref;
-        if (!lineRef) return;
+        if (!currentQuestion || !isListenWrite) return;
 
         const questionKey = `lw-${currentQuestion.item_id || currentQuestion.question_id || currentIndex}`;
         if (lastAutoPlayedKeyRef.current === questionKey) return;
         lastAutoPlayedKeyRef.current = questionKey;
 
-        const timer = setTimeout(() => playLineAudio(lineRef), 350);
+        const timer = setTimeout(() => playQuestionAudio(), 350);
         return () => clearTimeout(timer);
-    }, [currentQuestion, currentIndex, lineRefAudioMap]);
+    }, [currentQuestion, currentIndex, isListenWrite, lineRefAudioMap, questionConfig.audioLanguage]);
 
     useEffect(() => {
         if (!questions?.length || !userId || !courseId || !lessonId || isReview) return;
@@ -222,7 +231,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                 await apiClient.post('/study/practice_progress', {
                     user_id: userId,
                     course_id: Number(courseId),
-                    lesson_id: lessonId,
+                    lesson_id: toApiLessonId(lessonId),
                     current_index: currentIndex,
                 });
             } catch (e) {
@@ -249,6 +258,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         feedback,
         currentQuestion,
         setKnowledgeDetails,
+        enabled: questionConfig.showKnowledgeCard,
     });
 
     useEffect(() => {
@@ -281,10 +291,10 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         handleStartRecording,
         handleStopRecording,
         isListenWrite,
-        onPlayAudio: qType === 'CN_LISTEN_WRITE'
-            ? () => playLineAudio(currentQuestion.metadata?.line_ref)
-            : qType === 'CN_TO_EN'
-                ? () => playAudio(currentQuestion.original_text)
+        onPlayAudio: isListenWrite
+            ? playQuestionAudio
+            : questionConfig.replayPrompt
+                ? () => playAudio(currentQuestion.original_text, questionConfig.ttsLanguage || 'zh')
                 : null,
     });
 
@@ -322,10 +332,13 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                     promptLabel={textPromptLabel}
                     originalText={isListenWrite ? null : currentQuestion.original_text}
                     questionType={qType}
+                    currentQuestion={currentQuestion}
                     onPlayAudio={
-                        qType === 'CN_LISTEN_WRITE' ? () => playLineAudio(currentQuestion.metadata?.line_ref)
-                        : qType === 'CN_TO_EN'      ? () => playAudio(currentQuestion.original_text)
-                        : null
+                        isListenWrite
+                            ? playQuestionAudio
+                            : questionConfig.replayPrompt
+                                ? () => playAudio(currentQuestion.original_text, questionConfig.ttsLanguage || 'zh')
+                                : null
                     }
                 />
 
@@ -406,6 +419,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                                 secondaryButtonClass={secondaryButtonClass}
                                 currentQuestion={currentQuestion}
                                 knowledgeDetails={knowledgeDetails}
+                                showKnowledgeCard={questionConfig.showKnowledgeCard}
                             />
                         ) : (
                             <motion.div

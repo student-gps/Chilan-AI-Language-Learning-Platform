@@ -2,6 +2,8 @@ import os
 import json
 import psycopg2
 import shutil
+import argparse
+import re
 from psycopg2.extras import Json
 from pathlib import Path
 from dotenv import load_dotenv
@@ -25,6 +27,8 @@ try:
     from services.storage.media_storage import get_media_storage
 except ImportError:
     get_media_storage = None
+
+NEW_CONCEPT_ENGLISH_BOOK1_COURSE_ID = 101
 
 # ==========================================
 # 1. 环境与配置初始化
@@ -58,7 +62,23 @@ class GeminiEmbeddingProvider(BaseEmbeddingProvider):
         self.model_id = model_id
 
     def get_embedding(self, text: str) -> list[float]:
+        import time
         print(f"🧠 [Gemini] 正在生成向量: '{text[:15]}...'")
+        waits = [15, 30, 60, 120, 180, 300]
+        for attempt, wait in enumerate(waits, 1):
+            try:
+                response = self.client.models.embed_content(
+                    model=self.model_id,
+                    contents=text,
+                )
+                return response.embeddings[0].values
+            except Exception as e:
+                if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                    print(f"  ⏳ 429 配额限制，{wait}s 后重试 (第{attempt}次)...")
+                    time.sleep(wait)
+                else:
+                    raise
+        # 最后一次尝试，不捕获
         response = self.client.models.embed_content(
             model=self.model_id,
             contents=text,
@@ -194,6 +214,48 @@ def upload_assets_to_r2(data: dict) -> dict:
     return data
 
 
+def _int_from_digits(value) -> int | None:
+    if isinstance(value, int):
+        return value
+    text = str(value or "").strip()
+    if not text:
+        return None
+    if text.isdigit():
+        return int(text)
+    match = re.search(r"\d+", text)
+    return int(match.group(0)) if match else None
+
+
+def _normalize_db_ids(data: dict, lesson_metadata: dict) -> tuple[int, int, dict]:
+    metadata = dict(lesson_metadata or {})
+    pipeline_id = str(data.get("pipeline_id") or "").strip().lower()
+    course_slug = str(metadata.get("course_slug") or metadata.get("course_id") or "").strip()
+
+    if (
+        pipeline_id == "new_concept_english"
+        or course_slug in {"new_concept_english_1", "new-concept-english-1"}
+    ):
+        course_id = NEW_CONCEPT_ENGLISH_BOOK1_COURSE_ID
+        metadata.setdefault("course_slug", "new_concept_english_1")
+    else:
+        course_id = _int_from_digits(metadata.get("course_id"))
+    if course_id is None:
+        raise ValueError(f"course_id must be numeric or a known course slug; got {metadata.get('course_id')!r}")
+
+    raw_lesson_id = metadata.get("lesson_id")
+    lesson_id = _int_from_digits(raw_lesson_id)
+    if lesson_id is None:
+        lesson_id = _int_from_digits(metadata.get("lesson_slug"))
+    if lesson_id is None:
+        raise ValueError(f"lesson_id must be numeric or lessonXXX; got {raw_lesson_id!r}")
+
+    if isinstance(raw_lesson_id, str) and raw_lesson_id.startswith("lesson"):
+        metadata.setdefault("lesson_slug", raw_lesson_id)
+    metadata["course_id"] = course_id
+    metadata["lesson_id"] = lesson_id
+    return course_id, lesson_id, metadata
+
+
 # ==========================================
 # 4. 核心入库逻辑
 # ==========================================
@@ -212,8 +274,7 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
     explanation_video_urls = data.get("explanation_video_urls", {}) if isinstance(data.get("explanation_video_urls"), dict) else {}
     vocabulary_items = course_content.get("vocabulary", []) if isinstance(course_content, dict) else []
 
-    course_id = lesson_metadata.get("course_id")
-    lesson_id = lesson_metadata.get("lesson_id")
+    course_id, lesson_id, lesson_metadata = _normalize_db_ids(data, lesson_metadata)
     title = lesson_metadata.get("title")
 
     conn = None
@@ -388,16 +449,29 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
 # 5. 执行入口
 # ==========================================
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Sync generated lesson JSON files to the database.")
+    parser.add_argument("files", nargs="*", help="Specific lesson JSON file(s) to sync.")
+    parser.add_argument("--pipeline", default="integrated_chinese", help="Pipeline artifact namespace.")
+    parser.add_argument("--lang", default=None, help="Output language folder to scan.")
+    args = parser.parse_args()
+
     embed_provider = EmbeddingFactory.create_provider()
 
     # 路径绑定
     content_builder_dir = CURRENT_DIR.parent / "content_builder"
     artifacts_dir = content_builder_dir / "artifacts"
-    output_dir = artifacts_dir / "output_json" / "en"
-    synced_dir = artifacts_dir / "synced_json" / "en"
+    if args.pipeline in {"integrated_chinese", "integrated-chinese", "zh"}:
+        artifact_root = artifacts_dir
+        default_lang = "en"
+    else:
+        artifact_root = artifacts_dir / args.pipeline
+        default_lang = "zh" if args.pipeline == "new_concept_english" else "en"
+    lang = args.lang or default_lang
+    output_dir = artifact_root / "output_json" / lang
+    synced_dir = artifact_root / "synced_json" / lang
     synced_dir.mkdir(parents=True, exist_ok=True)
 
-    json_files = list(output_dir.glob("*_data.json"))
+    json_files = [Path(item) for item in args.files] if args.files else list(output_dir.glob("*_data.json"))
     if not json_files:
         print("📭 没有待处理的 JSON 文件。")
     else:

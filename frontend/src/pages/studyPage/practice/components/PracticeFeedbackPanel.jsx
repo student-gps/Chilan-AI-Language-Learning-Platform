@@ -29,6 +29,7 @@ export default function PracticeFeedbackPanel({
     secondaryButtonClass,
     currentQuestion,
     knowledgeDetails,
+    showKnowledgeCard = true,
 }) {
     const { t } = useTranslation();
     const [activeAction, setActiveAction] = React.useState(feedback.level === 1 ? 'retry' : 'next');
@@ -145,12 +146,14 @@ export default function PracticeFeedbackPanel({
                 )}
             </div>
 
-            <WordContextCard
-                word={currentQuestion.original_text}
-                pinyin={currentQuestion.original_pinyin}
-                metadata={currentQuestion.metadata}
-                knowledgeData={knowledgeDetails}
-            />
+            {showKnowledgeCard && (
+                <WordContextCard
+                    word={currentQuestion.original_text}
+                    pinyin={currentQuestion.original_pinyin}
+                    metadata={currentQuestion.metadata}
+                    knowledgeData={knowledgeDetails}
+                />
+            )}
         </motion.div>
     );
 }

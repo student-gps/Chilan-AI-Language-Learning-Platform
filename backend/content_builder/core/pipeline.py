@@ -66,14 +66,20 @@ class ContentPipeline:
 def available_pipelines() -> dict[str, ContentPipeline]:
     try:
         from ..pipelines.integrated_chinese.pipeline import PIPELINE as integrated_chinese
+        from ..pipelines.new_concept_english.pipeline import PIPELINE as new_concept_english
     except ImportError:
         from pipelines.integrated_chinese.pipeline import PIPELINE as integrated_chinese
+        from pipelines.new_concept_english.pipeline import PIPELINE as new_concept_english
 
     return {
         integrated_chinese.pipeline_id: integrated_chinese,
+        new_concept_english.pipeline_id: new_concept_english,
         "default": integrated_chinese,
         "zh_from_en": integrated_chinese,
         "integrated-chinese": integrated_chinese,
+        "new-concept-english": new_concept_english,
+        "nce": new_concept_english,
+        "en_from_zh": new_concept_english,
     }
 
 
