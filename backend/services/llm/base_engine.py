@@ -1,3 +1,4 @@
+import os
 import time
 import json
 from typing import Dict, Any
@@ -8,7 +9,17 @@ from google.genai import types
 
 class LLMEngine:
     def __init__(self, api_key: str, model_name: str = 'gemini-2.0-flash'):
-        self.client = genai.Client(api_key=api_key)
+        from config.env import get_env
+        use_vertex = get_env("LLM_GEMINI_USE_VERTEX", default="false").lower() == "true"
+        if use_vertex:
+            project  = get_env("VERTEX_AI_PROJECT_ID")
+            location = get_env("VERTEX_AI_LOCATION", default="us-central1")
+            sa_key   = get_env("GOOGLE_APPLICATION_CREDENTIALS")
+            if sa_key:
+                os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sa_key
+            self.client = genai.Client(vertexai=True, project=project, location=location)
+        else:
+            self.client = genai.Client(api_key=api_key)
         self.model_name = model_name
 
     async def generate_json(self, prompt: str, pm=None) -> Dict[str, Any]:
