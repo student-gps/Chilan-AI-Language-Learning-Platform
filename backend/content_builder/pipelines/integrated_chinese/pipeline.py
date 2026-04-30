@@ -27,6 +27,6 @@ PIPELINE = ContentPipeline(
     ),
     agent_factory=ContentCreatorAgent,
     provider_factory=LLMFactory.create_provider,
-    artifact_namespace=None,
+    artifact_namespace="integrated_chinese",
     default_output_lang="en",
 )

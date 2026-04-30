@@ -28,7 +28,7 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Print diff without writing")
     args = parser.parse_args()
 
-    target = Path(__file__).resolve().parent.parent / "artifacts" / "vocab_memory" / "global_vocab_memory.json"
+    target = Path(__file__).resolve().parent.parent / "artifacts" / "integrated_chinese" / "vocab_memory" / "global_vocab_memory.json"
     if not target.exists():
         print(f"❌ 文件不存在: {target}")
         return

@@ -11,7 +11,7 @@ import json
 import sys
 from pathlib import Path
 
-MAIN_FILE = Path(__file__).parent.parent / "artifacts" / "vocab_memory" / "global_vocab_memory.json"
+MAIN_FILE = Path(__file__).parent.parent / "artifacts" / "integrated_chinese" / "vocab_memory" / "global_vocab_memory.json"
 
 def load(path):
     with open(path, encoding="utf-8") as f:

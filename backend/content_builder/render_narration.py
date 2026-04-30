@@ -8,11 +8,11 @@ render_narration.py — Stage 2：母语旁白音轨渲染 + 可选讲解视频�
 
 用法：
     # 指定单个或多个 JSON 文件
-    python render_narration.py artifacts/output_json/lesson101_data.json
-    python render_narration.py artifacts/output_json/lesson101_data.json --render-video
-    python render_narration.py artifacts/output_json/lesson101_data.json --render-video --lang fr
+    python render_narration.py artifacts/integrated_chinese/output_json/en/lesson101_data.json
+    python render_narration.py artifacts/integrated_chinese/output_json/en/lesson101_data.json --render-video
+    python render_narration.py artifacts/integrated_chinese/output_json/en/lesson101_data.json --render-video --lang fr
 
-    # 不指定文件：扫描 artifacts/output_json/ 下所有 JSON 并处理
+    # 不指定文件：扫描当前 pipeline 的 output_json/ 下所有 JSON 并处理
     python render_narration.py
     python render_narration.py --render-video --lang en
 """
@@ -43,7 +43,34 @@ def _extract_lesson_id(json_path: Path) -> int | None:
     return int(numbers[0]) if numbers else None
 
 
-def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str) -> dict:
+def _resolve_artifact_path(local_path: str, artifact_root: Path) -> Path:
+    """Resolve stale artifact paths after a pipeline artifact-root migration."""
+    p = Path(local_path)
+    if p.exists():
+        return p
+
+    parts = p.parts
+    try:
+        idx = next(i for i, part in enumerate(parts) if part.lower() == "artifacts")
+    except StopIteration:
+        return p
+
+    tail = Path(*parts[idx + 1:])
+    artifact_root = Path(artifact_root)
+
+    candidates = [artifact_root / tail]
+    if tail.parts and tail.parts[0] in {"output_audio", "output_video", "output_json", "synced_json", "raw_materials", "archive_pdfs", "vocab_memory"}:
+        candidates.append(artifact_root / Path(*tail.parts))
+    if len(tail.parts) > 1 and tail.parts[0] in {"integrated_chinese", "new_concept_english"}:
+        candidates.append(artifact_root / Path(*tail.parts[1:]))
+
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return p
+
+
+def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str, pipeline_id: str = "integrated_chinese") -> dict:
     """
     Render explanation video locally (no R2 upload).
     1. Remotion renders silent video from JSON
@@ -76,7 +103,7 @@ def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str) -> di
         print(f"  🎞️ Remotion 渲染 lesson{lesson_id} 讲解视频（无声）...")
         try:
             subprocess.run(
-                ["node", str(render_script), str(lesson_id), lang],
+                ["node", str(render_script), str(lesson_id), lang, pipeline_id],
                 cwd=str(frontend_dir),
                 check=True,
             )
@@ -97,6 +124,7 @@ def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str) -> di
     # Merge narration audio
     narration_info = lesson_data.get("explanation_narration_audio", {})
     narration_file = narration_info.get("audio_file", "") if narration_info.get("status") == "ok" else ""
+    narration_path = _resolve_artifact_path(narration_file, ARTIFACTS_DIR) if narration_file else Path("")
 
     final_video = output_dir / f"lesson{lesson_id}_explanation_final.mp4"
 
@@ -106,14 +134,14 @@ def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str) -> di
         result["object_key"] = f"zh/video/{lang}/lesson{lesson_id}_explanation_final.mp4"
         return result
 
-    if narration_file and Path(narration_file).exists() and silent_video.exists():
+    if narration_file and narration_path.exists() and silent_video.exists():
         print(f"  🎙️ ffmpeg 合并旁白音轨 → {final_video.name}...")
         try:
             subprocess.run(
                 [
                     "ffmpeg", "-y",
                     "-i", str(silent_video),
-                    "-i", narration_file,
+                    "-i", str(narration_path),
                     "-map", "0:v", "-map", "1:a",
                     "-c:v", "copy", "-c:a", "aac",
                     "-shortest",
@@ -144,6 +172,7 @@ def process_file(
     json_path: Path,
     should_render_video: bool = False,
     lang: str = "en",
+    pipeline_id: str = "integrated_chinese",
 ) -> bool:
     lesson_id = _extract_lesson_id(json_path)
     if lesson_id is None:
@@ -166,9 +195,14 @@ def process_file(
     )
     if expected_narration.exists():
         print(f"  ⏭️ 旁白音轨已存在，跳过 TTS: {expected_narration.name}")
-        if lesson_data.get("explanation_narration_audio", {}).get("status") != "ok":
+        narration_info = lesson_data.get("explanation_narration_audio", {})
+        recorded_audio = narration_info.get("audio_file", "") if isinstance(narration_info, dict) else ""
+        recorded_path = _resolve_artifact_path(recorded_audio, ARTIFACTS_DIR) if recorded_audio else Path("")
+        if narration_info.get("status") != "ok" or recorded_path != expected_narration:
             lesson_data["explanation_narration_audio"] = {
-                "status": "ok", "audio_file": str(expected_narration)
+                **(narration_info if isinstance(narration_info, dict) else {}),
+                "status": "ok",
+                "audio_file": str(expected_narration),
             }
     else:
         agent.render_narration(lesson_data, lesson_id, lang=lang)
@@ -181,7 +215,7 @@ def process_file(
     # Stage 2b: 视频渲染（可选，读取上方已更新的 JSON）
     if should_render_video:
         print(f"🎬 渲染讲解视频 [lang={lang}]...")
-        video_info = render_explanation_video(lesson_id, lesson_data, lang)
+        video_info = render_explanation_video(lesson_id, lesson_data, lang, pipeline_id=pipeline_id)
         if video_info["local_path"]:
             lesson_data["explanation_video_urls"] = {
                 "media_url":   "",
@@ -205,7 +239,7 @@ def main():
     parser.add_argument(
         "json_files",
         nargs="*",
-        help="要处理的 JSON 文件路径。不指定则扫描 artifacts/output_json/ 下所有文件。",
+        help="要处理的 JSON 文件路径。不指定则扫描当前 pipeline 的 output_json/ 下所有文件。",
     )
     parser.add_argument(
         "--pipeline",
@@ -254,7 +288,7 @@ def main():
             print(f"⚠️ 文件不存在，跳过: {json_path}")
             failed += 1
             continue
-        if process_file(agent, json_path, should_render_video=args.render_video, lang=args.lang):
+        if process_file(agent, json_path, should_render_video=args.render_video, lang=args.lang, pipeline_id=pipeline.pipeline_id):
             success += 1
         else:
             failed += 1

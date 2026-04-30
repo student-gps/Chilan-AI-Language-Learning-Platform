@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 # 获取当前脚本所在目录 (content_builder/scripts)
 CURRENT_DIR = Path(__file__).resolve().parent
 CONTENT_BUILDER_DIR = CURRENT_DIR.parent
-ARTIFACTS_DIR = CONTENT_BUILDER_DIR / "artifacts"
+ARTIFACTS_DIR = CONTENT_BUILDER_DIR / "artifacts" / "integrated_chinese"
 # 获取父目录 (backend)
 BACKEND_DIR = CONTENT_BUILDER_DIR.parent
 

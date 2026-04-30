@@ -10,11 +10,11 @@ def parse_args():
 
 
 def main():
-    current_dir = Path(__file__).resolve().parent.parent / "artifacts"
+    current_dir = Path(__file__).resolve().parent.parent / "artifacts" / "integrated_chinese"
     args = parse_args()
     lesson_id = args.lesson_id
 
-    render_file = current_dir / "output_json" / f"lesson{lesson_id}_tencent_tts.json"
+    render_file = current_dir / "output_json" / "en" / f"lesson{lesson_id}_tencent_tts.json"
     if not render_file.exists():
         raise FileNotFoundError(f"未找到腾讯云 TTS 结果文件: {render_file}")
 

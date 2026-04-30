@@ -8,7 +8,7 @@ import sys
 
 CURRENT_DIR = Path(__file__).resolve().parent
 CONTENT_BUILDER_DIR = CURRENT_DIR.parent
-ARTIFACTS_DIR = CONTENT_BUILDER_DIR / "artifacts"
+ARTIFACTS_DIR = CONTENT_BUILDER_DIR / "artifacts" / "integrated_chinese"
 if str(CONTENT_BUILDER_DIR) not in sys.path:
     sys.path.insert(0, str(CONTENT_BUILDER_DIR))
 
@@ -33,7 +33,7 @@ def main():
     args = parse_args()
     lesson_id = args.lesson_id
 
-    source_file = ARTIFACTS_DIR / "output_json" / f"lesson{lesson_id}_data.json"
+    source_file = ARTIFACTS_DIR / "output_json" / "en" / f"lesson{lesson_id}_data.json"
     if not source_file.exists():
         raise FileNotFoundError(f"未找到 lesson 数据文件: {source_file}")
 
@@ -50,7 +50,7 @@ def main():
         enable_subtitle=args.enable_subtitle,
     )
 
-    output_file = ARTIFACTS_DIR / "output_json" / f"lesson{lesson_id}_tencent_tts.json"
+    output_file = ARTIFACTS_DIR / "output_json" / "en" / f"lesson{lesson_id}_tencent_tts.json"
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
 

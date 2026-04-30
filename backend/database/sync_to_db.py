@@ -29,6 +29,7 @@ except ImportError:
     get_media_storage = None
 
 NEW_CONCEPT_ENGLISH_BOOK1_COURSE_ID = 101
+INTEGRATED_CHINESE_ARTIFACT_NAMESPACE = "integrated_chinese"
 
 # ==========================================
 # 1. 环境与配置初始化
@@ -461,7 +462,7 @@ if __name__ == "__main__":
     content_builder_dir = CURRENT_DIR.parent / "content_builder"
     artifacts_dir = content_builder_dir / "artifacts"
     if args.pipeline in {"integrated_chinese", "integrated-chinese", "zh"}:
-        artifact_root = artifacts_dir
+        artifact_root = artifacts_dir / INTEGRATED_CHINESE_ARTIFACT_NAMESPACE
         default_lang = "en"
     else:
         artifact_root = artifacts_dir / args.pipeline
@@ -472,6 +473,11 @@ if __name__ == "__main__":
     synced_dir.mkdir(parents=True, exist_ok=True)
 
     json_files = [Path(item) for item in args.files] if args.files else list(output_dir.glob("*_data.json"))
+    if not json_files and args.pipeline in {"integrated_chinese", "integrated-chinese", "zh"}:
+        legacy_output_dir = artifacts_dir / "output_json" / lang
+        json_files = list(legacy_output_dir.glob("*_data.json"))
+        if json_files:
+            print(f"ℹ️ 未在 {output_dir} 找到 JSON，改用旧中文目录: {legacy_output_dir}")
     if not json_files:
         print("📭 没有待处理的 JSON 文件。")
     else:

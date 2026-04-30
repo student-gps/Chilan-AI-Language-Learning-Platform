@@ -39,9 +39,10 @@ def migrate(obj):
 def main():
     script_dir = Path(__file__).resolve().parent
     content_builder_dir = script_dir.parent
+    integrated_chinese_dir = content_builder_dir / "artifacts" / "integrated_chinese"
     json_dirs = [
-        content_builder_dir / "artifacts" / "output_json",
-        content_builder_dir / "artifacts" / "synced_json",
+        integrated_chinese_dir / "output_json",
+        integrated_chinese_dir / "synced_json",
     ]
     # Also migrate fr/ subfolder if present
     for base in list(json_dirs):

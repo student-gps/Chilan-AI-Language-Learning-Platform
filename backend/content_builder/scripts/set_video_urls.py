@@ -15,7 +15,7 @@ from pathlib import Path
 
 CURRENT_DIR = Path(__file__).resolve().parent   # backend/content_builder/scripts/
 CONTENT_BUILDER_DIR = CURRENT_DIR.parent        # backend/content_builder/
-ARTIFACTS_DIR = CONTENT_BUILDER_DIR / "artifacts"
+ARTIFACTS_DIR = CONTENT_BUILDER_DIR / "artifacts" / "integrated_chinese"
 BACKEND_DIR = CONTENT_BUILDER_DIR.parent        # backend/
 sys.path.insert(0, str(BACKEND_DIR))
 
@@ -27,7 +27,7 @@ from psycopg2.extras import Json
 
 
 def _get_lesson_json_path(lesson_id: int) -> Path:
-    return ARTIFACTS_DIR / "output_json" / f"lesson{lesson_id}_data.json"
+    return ARTIFACTS_DIR / "output_json" / "en" / f"lesson{lesson_id}_data.json"
 
 
 def show_current(lesson_id: int):

@@ -33,7 +33,7 @@ pipelines/cambridge_english/
 - `core/llm_providers.py`
   共享 LLM provider、PDF 上传、JSON repair 与 usage/cost 统计。根目录 `llm_providers.py` 仅保留旧导入兼容。
 - `pipelines/integrated_chinese/`
-  当前中文学习教材流水线定义、agent 和 task 实现，默认复用 legacy artifacts 路径，保证旧命令继续可用。
+  当前中文学习教材流水线定义、agent 和 task 实现；中文听说读写产物归档在 `artifacts/integrated_chinese/`。
 - `tasks/`
   旧 `tasks.*` 导入路径兼容层；新教材不要在这里新增实现，应放在自己的 `pipelines/<pipeline_id>/tasks/`。
 - `llm_providers.py`
@@ -47,26 +47,26 @@ pipelines/cambridge_english/
 
 ## artifacts
 
-- `artifacts/raw_materials/`
+- `artifacts/integrated_chinese/raw_materials/`
   待处理 PDF。
-- `artifacts/output_json/`
+- `artifacts/integrated_chinese/output_json/`
   新生成、尚未归档的 lesson JSON。
-- `artifacts/synced_json/`
+- `artifacts/integrated_chinese/synced_json/`
   已确认保留的 lesson JSON 数据。
-- `artifacts/output_audio/`
+- `artifacts/integrated_chinese/output_audio/`
   课文音频、旁白音频等音频产物。
-- `artifacts/output_video/`
+- `artifacts/integrated_chinese/output_video/`
   渲染得到的视频产物。
-- `artifacts/archive_pdfs/`
+- `artifacts/integrated_chinese/archive_pdfs/`
   已处理完成的 PDF 归档。
-- `artifacts/global_vocab_memory.json`
+- `artifacts/integrated_chinese/vocab_memory/global_vocab_memory.json`
   全局词汇记忆库。
 - `artifacts/test_tts_output/`
   TTS 试验脚本输出目录。
 
 ## 常用工作流
 
-1. 把教材 PDF 放入 `artifacts/raw_materials/`
+1. 把教材 PDF 放入 `artifacts/integrated_chinese/raw_materials/`
 2. `python content_builder/generate.py`（Stage 1：生成 lesson JSON + 对话音频，仅本地）
    - 可显式指定：`python content_builder/generate.py --pipeline integrated_chinese`
 3. `python content_builder/render_narration.py`（Stage 2：渲染旁白音轨，仅本地）
