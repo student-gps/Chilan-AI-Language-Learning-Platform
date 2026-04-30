@@ -3,7 +3,7 @@ patch_long_segments.py — 对已生成的 lesson JSON 重新运行 Task4CExplan
 修复 hero_line focus_text 超过 40 汉字未被自动拆分的 segment。
 
 用法：
-    python backend/content_builder/scripts/patch_long_segments.py           # 扫描 synced_json/en
+    python backend/content_builder/scripts/patch_long_segments.py           # 扫描 integrated_chinese/synced_json/en
     python backend/content_builder/scripts/patch_long_segments.py --dry-run # 只报告，不写文件
     python backend/content_builder/scripts/patch_long_segments.py 1601 1701 # 指定 lesson id
 """
@@ -14,6 +14,7 @@ import argparse
 from pathlib import Path
 
 CONTENT_BUILDER = Path(__file__).resolve().parent.parent   # backend/content_builder/
+ARTIFACTS_DIR = CONTENT_BUILDER / "artifacts" / "integrated_chinese"
 sys.path.insert(0, str(CONTENT_BUILDER))
 
 from tasks.render_planner import Task4CExplanationComposer
@@ -86,8 +87,8 @@ def main():
     parser.add_argument("--lang", default="en", help="JSON 所在语言子目录（默认 en）")
     args = parser.parse_args()
 
-    synced = CONTENT_BUILDER / "artifacts" / "synced_json" / args.lang
-    output = CONTENT_BUILDER / "artifacts" / "output_json" / args.lang
+    synced = ARTIFACTS_DIR / "synced_json" / args.lang
+    output = ARTIFACTS_DIR / "output_json" / args.lang
     json_dir = synced if synced.exists() and any(synced.glob("*_data*.json")) else output
 
     if args.lesson_ids:

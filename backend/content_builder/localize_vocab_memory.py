@@ -149,7 +149,7 @@ def _apply_translations(en_data: dict, fr_data: dict, translated_map: dict) -> d
 
 def translate_vocab_memory(lang: str, llm, dry_run: bool = False) -> None:
     lang_name = LANG_META[lang]["name"]
-    vocab_dir = CONTENT_BUILDER_DIR / "artifacts" / "vocab_memory"
+    vocab_dir = CONTENT_BUILDER_DIR / "artifacts" / "integrated_chinese" / "vocab_memory"
     src_path = vocab_dir / "global_vocab_memory.json"
     dst_path = vocab_dir / f"global_vocab_memory_{lang}.json"
 

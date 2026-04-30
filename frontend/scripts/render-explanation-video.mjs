@@ -9,15 +9,39 @@ const frontendDir = path.resolve(path.dirname(currentFilePath), '..');
 const projectRoot = path.resolve(frontendDir, '..');
 const lessonId = process.argv[2] || '101';
 const lang = process.argv[3] || 'en';
+const pipeline = (process.argv[4] || 'integrated_chinese').trim();
 const langSuffix = lang !== 'en' ? `_${lang}` : '';
-const outputJsonPath = path.join(projectRoot, 'backend', 'content_builder', 'artifacts', 'output_json', lang, `lesson${lessonId}_data${langSuffix}.json`);
-const syncedJsonPath = path.join(projectRoot, 'backend', 'content_builder', 'artifacts', 'synced_json', lang, `lesson${lessonId}_data${langSuffix}.json`);
-const sourceJsonPath = fs.existsSync(outputJsonPath) ? outputJsonPath : syncedJsonPath;
 
-if (!fs.existsSync(sourceJsonPath)) {
-    console.error(`未找到 lesson${lessonId} 的数据文件: ${sourceJsonPath}`);
+const artifactsDir = path.join(projectRoot, 'backend', 'content_builder', 'artifacts');
+const artifactRootByPipeline = {
+    integrated_chinese: path.join(artifactsDir, 'integrated_chinese'),
+    'integrated-chinese': path.join(artifactsDir, 'integrated_chinese'),
+    zh: path.join(artifactsDir, 'integrated_chinese'),
+    new_concept_english: path.join(artifactsDir, 'new_concept_english'),
+    'new-concept-english': path.join(artifactsDir, 'new_concept_english'),
+    nce: path.join(artifactsDir, 'new_concept_english'),
+};
+const preferredArtifactRoot = artifactRootByPipeline[pipeline] || path.join(artifactsDir, pipeline);
+
+const candidateArtifactRoots = [
+    preferredArtifactRoot,
+    path.join(artifactsDir, 'integrated_chinese'),
+    path.join(artifactsDir, 'new_concept_english'),
+    artifactsDir,
+].filter((item, index, arr) => arr.indexOf(item) === index);
+
+const candidateJsonPaths = candidateArtifactRoots.flatMap((artifactRoot) => [
+    path.join(artifactRoot, 'output_json', lang, `lesson${lessonId}_data${langSuffix}.json`),
+    path.join(artifactRoot, 'synced_json', lang, `lesson${lessonId}_data${langSuffix}.json`),
+]);
+const sourceJsonPath = candidateJsonPaths.find((candidate) => fs.existsSync(candidate));
+
+if (!sourceJsonPath) {
+    console.error(`未找到 lesson${lessonId} 的数据文件，已尝试:\n${candidateJsonPaths.join('\n')}`);
     process.exit(1);
 }
+
+const artifactRoot = candidateArtifactRoots.find((root) => sourceJsonPath.startsWith(root)) || preferredArtifactRoot;
 
 const raw = JSON.parse(fs.readFileSync(sourceJsonPath, 'utf-8'));
 const renderPlan = raw?.video_render_plan?.explanation;
@@ -31,11 +55,12 @@ const generatedModulePath = path.join(frontendDir, 'remotion', 'generated', 'exp
 const moduleSource = `const explanationRenderPlan = ${JSON.stringify(renderPlan, null, 2)};\n\nexport default explanationRenderPlan;\n`;
 fs.writeFileSync(generatedModulePath, moduleSource, 'utf-8');
 
-const outputDir = path.join(projectRoot, 'backend', 'content_builder', 'artifacts', 'output_video');
+const outputDir = path.join(artifactRoot, 'output_video');
 fs.mkdirSync(outputDir, { recursive: true });
 const outputFile = path.join(outputDir, `lesson${lessonId}_explanation.mp4`);
 
 console.log(`🎬 已生成 Remotion 输入数据: ${generatedModulePath}`);
+console.log(`🎬 使用内容产物目录: ${artifactRoot}`);
 console.log(`🎬 开始渲染 lesson${lessonId} 教学讲解视频 -> ${outputFile}`);
 
 const remotionExecutable = process.platform === 'win32'

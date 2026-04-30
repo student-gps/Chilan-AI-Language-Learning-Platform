@@ -314,8 +314,8 @@ def main():
     parser.add_argument(
         "target",
         nargs="?",
-        default=str(Path(__file__).resolve().parent.parent / "artifacts" / "synced_json"),
-        help="JSON file or directory to process. Defaults to backend/content_builder/artifacts/synced_json.",
+        default=str(Path(__file__).resolve().parent.parent / "artifacts" / "integrated_chinese" / "synced_json"),
+        help="JSON file or directory to process. Defaults to backend/content_builder/artifacts/integrated_chinese/synced_json.",
     )
     parser.add_argument(
         "--apply",
@@ -325,7 +325,7 @@ def main():
     parser.add_argument(
         "--global-memory",
         action="store_true",
-        help="Backfill backend/content_builder/artifacts/global_vocab_memory.json using synced_json lessons.",
+        help="Backfill integrated_chinese vocab memory using synced_json lessons.",
     )
     args = parser.parse_args()
 
@@ -333,7 +333,7 @@ def main():
         global_path = Path(args.target).resolve()
         if global_path.is_dir():
             global_path = global_path / "global_vocab_memory.json"
-        lesson_dir = Path(__file__).resolve().parent.parent / "artifacts" / "synced_json"
+        lesson_dir = Path(__file__).resolve().parent.parent / "artifacts" / "integrated_chinese" / "synced_json"
         if not global_path.exists():
             raise SystemExit(f"Target not found: {global_path}")
         if not lesson_dir.exists():
