@@ -1,50 +1,23 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { chalk, blackboard } from '../explanation/templateUtils';
 import ChalkTexture from '../explanation/ChalkTexture';
 
-// Static narration audio — pre-generated with CosyVoice TTS.
+// Static narration audio — pre-generated with CosyVoice TTS (EN) or Azure TTS (FR/others).
 // Run:  cd backend && python generate_intro_narration.py
+//       cd backend && python generate_intro_narration.py --lang fr
 //       cd backend && python upload_intro_audio_to_r2.py
 // Dev:  served from frontend/public/audio/intro/ via backend /media/intro/
 // Prod: backend /media/intro/ redirects to R2 zh/audio/intro/
 const _API = import.meta.env.VITE_APP_API_BASE_URL || '';
-const audioUrl = (id) => `${_API}/media/intro/slide_${id}.mp3`;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// SLIDE DEFINITIONS
-// ─────────────────────────────────────────────────────────────────────────────
 
 const SLIDES = [
-    {
-        id: 'welcome',
-        duration: 14000,   // fallback if audio fails to load
-        narration: "Welcome to Chilan — an AI-powered Chinese language learning platform. This course builds real communication skills: listening, speaking, and typing. We start from first principles, beginning with the sound system.",
-    },
-    {
-        id: 'sounds',
-        duration: 14000,
-        narration: "Every Chinese syllable has a tone, and changing the tone completely changes the meaning. The four tones are high and level, rising, falling-rising, and falling. Mastering tones is the single most important foundation in Chinese.",
-    },
-    {
-        id: 'skills',
-        duration: 14000,
-        narration: "This course trains three core skills: listening, speaking, and typing with a pinyin input method. We focus on how Chinese is actually used in daily digital life — not handwriting. You'll be able to read, listen, speak, and type before long.",
-    },
-    {
-        id: 'ai',
-        duration: 16000,
-        narration: "Every answer you submit is evaluated by a three-tier system. Instant pattern matching handles obvious cases. Semantic comparison catches answers that mean the same thing in different words. And a large language model handles genuine edge cases with a detailed explanation.",
-    },
-    {
-        id: 'fsrs',
-        duration: 14000,
-        narration: "Your review schedule is powered by FSRS — the Free Spaced Repetition Scheduler. Items you know well come back less often. Tricky items reappear sooner. This ensures you spend your study time exactly where it's needed.",
-    },
-    {
-        id: 'start',
-        duration: 13000,
-        narration: "You're ready to begin. Start with the foundation modules: pinyin for the sound system, then Chinese characters for structure. Every lesson in the course builds on these foundations.",
-    },
+    { id: 'welcome', duration: 14000 },
+    { id: 'sounds',  duration: 14000 },
+    { id: 'skills',  duration: 14000 },
+    { id: 'ai',      duration: 16000 },
+    { id: 'fsrs',    duration: 14000 },
+    { id: 'start',   duration: 13000 },
 ];
 
 // ── Shared style helpers ─────────────────────────────────────────────────────
@@ -108,6 +81,7 @@ const s = {
 // ── Individual slides ────────────────────────────────────────────────────────
 
 function SlideWelcome() {
+    const { t } = useTranslation();
     return (
         <div style={{
             flex: 1,
@@ -140,11 +114,11 @@ function SlideWelcome() {
             <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 22 }}>
                 <div style={s.pill(chalk.blue)}>✦ &nbsp;CHILAN · 汉语</div>
                 <h1 style={{ ...s.h1, fontSize: 60 }}>
-                    Learn Chinese<br />
-                    <span style={s.accent(chalk.yellow)}>the way it's actually used</span>
+                    {t('civ_welcome_h1')}<br />
+                    <span style={s.accent(chalk.yellow)}>{t('civ_welcome_accent')}</span>
                 </h1>
                 <p style={{ ...s.sub, maxWidth: 520 }}>
-                    AI-powered · communication-first · built for the digital age
+                    {t('civ_welcome_sub')}
                 </p>
             </div>
         </div>
@@ -152,58 +126,62 @@ function SlideWelcome() {
 }
 
 function SlideSound() {
+    const { t } = useTranslation();
     const tones = [
-        { mark: 'ā', n: '1', tone: 'high level',    color: chalk.blue },
-        { mark: 'á', n: '2', tone: 'rising',         color: chalk.green },
-        { mark: 'ǎ', n: '3', tone: 'falling-rising', color: chalk.yellow },
-        { mark: 'à', n: '4', tone: 'falling',        color: chalk.pink },
+        { mark: 'ā', color: chalk.blue },
+        { mark: 'á', color: chalk.green },
+        { mark: 'ǎ', color: chalk.yellow },
+        { mark: 'à', color: chalk.pink },
     ];
     return (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px 52px 10px', gap: 24, justifyContent: 'center' }}>
             <div>
-                <div style={s.label}>Foundation — Step 1</div>
-                <h2 style={s.h2}>We start with <span style={s.accent(chalk.blue)}>sounds</span></h2>
+                <div style={s.label}>{t('civ_sounds_label')}</div>
+                <h2 style={s.h2}>
+                    {t('civ_sounds_h2_pre')}<span style={s.accent(chalk.blue)}>{t('civ_sounds_h2_accent')}</span>
+                </h2>
                 <p style={{ ...s.sub, marginTop: 12, fontSize: 18 }}>
-                    Before words, before grammar — master the 4 tones that change everything.
+                    {t('civ_sounds_sub')}
                 </p>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16 }}>
-                {tones.map((t) => (
-                    <div key={t.n} style={{ ...s.card, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center' }}>
-                        <span style={{ fontSize: 52, fontWeight: 900, color: t.color, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif' }}>{t.mark}</span>
+                {tones.map((tone, i) => (
+                    <div key={i} style={{ ...s.card, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center' }}>
+                        <span style={{ fontSize: 52, fontWeight: 900, color: tone.color, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif' }}>{tone.mark}</span>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                            <span style={{ fontSize: 16, fontWeight: 900, color: 'rgba(244,240,230,0.5)' }}>{t.n}{['st','nd','rd','th'][parseInt(t.n)-1]} tone</span>
-                            <span style={{ fontSize: 14, color: 'rgba(244,240,230,0.4)', fontStyle: 'italic' }}>{t.tone}</span>
+                            <span style={{ fontSize: 16, fontWeight: 900, color: 'rgba(244,240,230,0.5)' }}>{t(`civ_sounds_tone${i}_label`)}</span>
+                            <span style={{ fontSize: 14, color: 'rgba(244,240,230,0.4)', fontStyle: 'italic' }}>{t(`civ_sounds_tone${i}_name`)}</span>
                         </div>
                     </div>
                 ))}
             </div>
             <p style={{ ...s.sub, fontSize: 16, opacity: 0.5, textAlign: 'center' }}>
-                妈 (mom) · 麻 (hemp) · 马 (horse) · 骂 (scold) — same syllable, four different meanings
+                {t('civ_sounds_example')}
             </p>
         </div>
     );
 }
 
 function SlideSkills() {
+    const { t } = useTranslation();
     const skills = [
-        { icon: '👂', label: 'Listen', sub: 'Audio for every word and sentence. Dictation exercises train your ear.', color: chalk.green },
-        { icon: '🎤', label: 'Speak',  sub: 'Record your voice. AI checks your meaning, not just pronunciation.', color: chalk.blue },
-        { icon: '⌨️', label: 'Type',   sub: 'Pinyin IME — how native speakers write every day on phones and computers.', color: chalk.yellow },
+        { icon: '👂', color: chalk.green },
+        { icon: '🎤', color: chalk.blue },
+        { icon: '⌨️', color: chalk.yellow },
     ];
     return (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px 52px 10px', gap: 24, justifyContent: 'center' }}>
             <div>
-                <div style={s.label}>What you'll practise</div>
-                <h2 style={s.h2}>Three skills, <span style={s.accent(chalk.green)}>one course</span></h2>
+                <div style={s.label}>{t('civ_skills_label')}</div>
+                <h2 style={s.h2}>{t('civ_skills_h2_pre')}<span style={s.accent(chalk.green)}>{t('civ_skills_h2_accent')}</span></h2>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18 }}>
-                {skills.map((sk) => (
-                    <div key={sk.label} style={{ ...s.card, display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {skills.map((sk, i) => (
+                    <div key={i} style={{ ...s.card, display: 'flex', flexDirection: 'column', gap: 14 }}>
                         <span style={{ fontSize: 38 }}>{sk.icon}</span>
                         <div>
-                            <div style={{ fontSize: 26, fontWeight: 900, color: sk.color, marginBottom: 8 }}>{sk.label}</div>
-                            <p style={{ margin: 0, fontSize: 17, lineHeight: 1.7, color: 'rgba(244,240,230,0.55)' }}>{sk.sub}</p>
+                            <div style={{ fontSize: 26, fontWeight: 900, color: sk.color, marginBottom: 8 }}>{t(`civ_skills_sk${i}_label`)}</div>
+                            <p style={{ margin: 0, fontSize: 17, lineHeight: 1.7, color: 'rgba(244,240,230,0.55)' }}>{t(`civ_skills_sk${i}_sub`)}</p>
                         </div>
                     </div>
                 ))}
@@ -215,7 +193,7 @@ function SlideSkills() {
             }}>
                 <span style={{ fontSize: 20 }}>✏️</span>
                 <p style={{ margin: 0, fontSize: 16, color: 'rgba(244,240,230,0.42)', fontStyle: 'italic' }}>
-                    Handwriting is a separate skill — this course focuses entirely on reading, listening, speaking, and typing.
+                    {t('civ_skills_no_hw')}
                 </p>
             </div>
         </div>
@@ -223,53 +201,54 @@ function SlideSkills() {
 }
 
 function SlideAI() {
+    const { t } = useTranslation();
+    const tiers = [
+        { n: '1', color: chalk.blue },
+        { n: '2', color: chalk.green },
+        { n: '3', color: chalk.pink },
+    ];
     return (
         <div style={{ flex: 1, display: 'flex', padding: '10px 52px 10px', gap: 36, alignItems: 'center' }}>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 20 }}>
                 <div>
-                    <div style={s.label}>How answers are judged</div>
+                    <div style={s.label}>{t('civ_ai_label')}</div>
                     <h2 style={{ ...s.h2, fontSize: 34 }}>
-                        AI evaluates<br /><span style={s.accent(chalk.pink)}>every answer</span>
+                        {t('civ_ai_h2_pre')}<br /><span style={s.accent(chalk.pink)}>{t('civ_ai_h2_accent')}</span>
                     </h2>
                     <p style={{ ...s.sub, marginTop: 12, fontSize: 17 }}>
-                        A three-tier system: instant pattern match → semantic similarity → full LLM analysis.
-                        Meaning matters more than exact wording.
+                        {t('civ_ai_sub')}
                     </p>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(244,240,230,0.28)' }}>example</div>
+                    <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(244,240,230,0.28)' }}>{t('civ_ai_example_label')}</div>
                     <div style={{ ...s.card, display: 'flex', flexDirection: 'column', gap: 10 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                             <span style={{ fontSize: 18 }}>✅</span>
-                            <span style={{ fontSize: 17, color: chalk.green, fontWeight: 700 }}>"What do you usually do?"</span>
+                            <span style={{ fontSize: 17, color: chalk.green, fontWeight: 700 }}>{t('civ_ai_example_ans1')}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                             <span style={{ fontSize: 18 }}>✅</span>
-                            <span style={{ fontSize: 17, color: chalk.green, fontWeight: 700 }}>"What do you normally do?"</span>
+                            <span style={{ fontSize: 17, color: chalk.green, fontWeight: 700 }}>{t('civ_ai_example_ans2')}</span>
                         </div>
                         <div style={{ width: '100%', height: 1, background: 'rgba(244,240,230,0.08)', margin: '2px 0' }} />
                         <span style={{ fontSize: 14, color: 'rgba(244,240,230,0.38)', fontStyle: 'italic' }}>
-                            Both accepted — same meaning, different words
+                            {t('civ_ai_example_note')}
                         </span>
                     </div>
                 </div>
             </div>
             <div style={{ width: 220, display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {[
-                    { n: '1', label: 'Exact match', color: chalk.blue,  desc: 'Regex / pattern check — instant' },
-                    { n: '2', label: 'Semantic',    color: chalk.green, desc: 'Embedding similarity score' },
-                    { n: '3', label: 'AI analysis', color: chalk.pink,  desc: 'LLM judgment + explanation' },
-                ].map((t) => (
-                    <div key={t.n} style={{ ...s.card, display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+                {tiers.map((tier, i) => (
+                    <div key={tier.n} style={{ ...s.card, display: 'flex', gap: 14, alignItems: 'flex-start' }}>
                         <div style={{
                             width: 30, height: 30, borderRadius: 8,
-                            background: `${t.color}22`, border: `1px solid ${t.color}44`,
+                            background: `${tier.color}22`, border: `1px solid ${tier.color}44`,
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: 14, fontWeight: 900, color: t.color, flexShrink: 0,
-                        }}>{t.n}</div>
+                            fontSize: 14, fontWeight: 900, color: tier.color, flexShrink: 0,
+                        }}>{tier.n}</div>
                         <div>
-                            <div style={{ fontSize: 15, fontWeight: 800, color: t.color, marginBottom: 3 }}>{t.label}</div>
-                            <div style={{ fontSize: 13, color: 'rgba(244,240,230,0.42)' }}>{t.desc}</div>
+                            <div style={{ fontSize: 15, fontWeight: 800, color: tier.color, marginBottom: 3 }}>{t(`civ_ai_tier${i}_label`)}</div>
+                            <div style={{ fontSize: 13, color: 'rgba(244,240,230,0.42)' }}>{t(`civ_ai_tier${i}_desc`)}</div>
                         </div>
                     </div>
                 ))}
@@ -279,19 +258,21 @@ function SlideAI() {
 }
 
 function SlideFSRS() {
+    const { t } = useTranslation();
     const days = [1, 3, 7, 14, 30, 60, 120];
+    const legendColors = [chalk.pink, chalk.yellow, chalk.green];
     return (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px 52px 10px', gap: 24, justifyContent: 'center' }}>
             <div>
-                <div style={s.label}>Memory science</div>
-                <h2 style={s.h2}>Nothing falls through <span style={s.accent(chalk.yellow)}>the cracks</span></h2>
+                <div style={s.label}>{t('civ_fsrs_label')}</div>
+                <h2 style={s.h2}>{t('civ_fsrs_h2_pre')}<span style={s.accent(chalk.yellow)}>{t('civ_fsrs_h2_accent')}</span></h2>
                 <p style={{ ...s.sub, marginTop: 12, fontSize: 18 }}>
-                    FSRS — the Free Spaced Repetition Scheduler — calculates exactly when to review each word.
+                    {t('civ_fsrs_sub')}
                 </p>
             </div>
             <div style={{ ...s.card, display: 'flex', flexDirection: 'column', gap: 18 }}>
                 <div style={{ fontSize: 13, fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(244,240,230,0.28)' }}>
-                    example review schedule for one word
+                    {t('civ_fsrs_chart_label')}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10, height: 70 }}>
                     {days.map((d, i) => {
@@ -301,16 +282,16 @@ function SlideFSRS() {
                             <div key={d} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, flex: 1 }}>
                                 <div style={{ width: '100%', height: h, borderRadius: 6, background: `${color}44`, border: `1px solid ${color}66` }} />
                                 <span style={{ fontSize: 12, color: 'rgba(244,240,230,0.4)', fontWeight: 700 }}>
-                                    {d < 30 ? `${d}d` : `${d/30}mo`}
+                                    {d < 30 ? `${d}d` : `${d / 30}mo`}
                                 </span>
                             </div>
                         );
                     })}
                 </div>
                 <div style={{ display: 'flex', gap: 20, fontSize: 13, color: 'rgba(244,240,230,0.4)' }}>
-                    <span><span style={{ color: chalk.pink }}>■</span> frequent early reviews</span>
-                    <span><span style={{ color: chalk.yellow }}>■</span> spacing increases</span>
-                    <span><span style={{ color: chalk.green }}>■</span> long-term retention</span>
+                    {legendColors.map((color, i) => (
+                        <span key={i}><span style={{ color }}>■</span> {t(`civ_fsrs_leg${i}`)}</span>
+                    ))}
                 </div>
             </div>
         </div>
@@ -318,44 +299,40 @@ function SlideFSRS() {
 }
 
 function SlideStart() {
-    const steps = [
-        { n: '1', label: 'Pinyin',     sub: 'Sounds & tones',      color: chalk.blue },
-        { n: '2', label: 'Characters', sub: 'Structure & radicals', color: '#a78bfa' },
-        { n: '3', label: 'Vocabulary', sub: 'Words in context',     color: chalk.yellow },
-        { n: '4', label: 'Sentences',  sub: 'Grammar patterns',     color: chalk.green },
-    ];
+    const { t } = useTranslation();
+    const stepColors = [chalk.blue, '#a78bfa', chalk.yellow, chalk.green];
     return (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px 52px 10px', gap: 28, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
             <div>
-                <div style={s.label}>Your path</div>
-                <h2 style={{ ...s.h2, fontSize: 48 }}>Ready to <span style={s.accent(chalk.green)}>start?</span></h2>
+                <div style={s.label}>{t('civ_start_label')}</div>
+                <h2 style={{ ...s.h2, fontSize: 48 }}>{t('civ_start_h2_pre')}<span style={s.accent(chalk.green)}>{t('civ_start_h2_accent')}</span></h2>
                 <p style={{ ...s.sub, marginTop: 12, fontSize: 18 }}>
-                    Begin with the foundation — everything else builds on top.
+                    {t('civ_start_sub')}
                 </p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', justifyContent: 'center' }}>
-                {steps.map((step, i) => (
-                    <div key={step.n} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                {stepColors.map((color, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                         <div style={{ ...s.card, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, padding: '18px 24px', minWidth: 120 }}>
                             <div style={{
                                 width: 36, height: 36, borderRadius: '50%',
-                                background: `${step.color}22`, border: `2px solid ${step.color}55`,
+                                background: `${color}22`, border: `2px solid ${color}55`,
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                fontSize: 15, fontWeight: 900, color: step.color,
-                            }}>{step.n}</div>
+                                fontSize: 15, fontWeight: 900, color,
+                            }}>{i + 1}</div>
                             <div>
-                                <div style={{ fontSize: 17, fontWeight: 900, color: step.color }}>{step.label}</div>
-                                <div style={{ fontSize: 13, color: 'rgba(244,240,230,0.4)', marginTop: 3 }}>{step.sub}</div>
+                                <div style={{ fontSize: 17, fontWeight: 900, color }}>{t(`civ_start_step${i}_label`)}</div>
+                                <div style={{ fontSize: 13, color: 'rgba(244,240,230,0.4)', marginTop: 3 }}>{t(`civ_start_step${i}_sub`)}</div>
                             </div>
                         </div>
-                        {i < steps.length - 1 && (
+                        {i < stepColors.length - 1 && (
                             <span style={{ fontSize: 20, color: 'rgba(244,240,230,0.2)', fontWeight: 900 }}>→</span>
                         )}
                     </div>
                 ))}
             </div>
             <p style={{ fontSize: 15, color: 'rgba(244,240,230,0.35)', fontStyle: 'italic' }}>
-                Use the foundation modules in the classroom to get started.
+                {t('civ_start_note')}
             </p>
         </div>
     );
@@ -371,7 +348,7 @@ const SLIDE_COMPONENTS = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// BOTTOM CONTROL BAR  (progress + subtitle + prev/play/next — one compact band)
+// BOTTOM CONTROL BAR
 // ─────────────────────────────────────────────────────────────────────────────
 
 const NAV_BTN = {
@@ -394,7 +371,6 @@ function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, 
             background: 'linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.60) 55%, transparent 100%)',
             paddingTop: 28,
         }}>
-            {/* Progress strips */}
             <div style={{ display: 'flex', gap: 4, padding: '0 16px 8px' }}>
                 {Array.from({ length: total }).map((_, i) => {
                     const fill = i < index ? 1 : i === index ? progress : 0;
@@ -410,15 +386,9 @@ function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, 
                 })}
             </div>
 
-            {/* Single row: prev | subtitle text | play | next */}
-            <div style={{
-                display: 'flex', alignItems: 'center', gap: 10,
-                padding: '4px 16px 14px',
-            }}>
-                {/* Prev */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 16px 14px' }}>
                 <button onClick={onPrev} disabled={index === 0} style={{ ...NAV_BTN, cursor: index === 0 ? 'default' : 'pointer', opacity: index === 0 ? 0.28 : 1 }}>‹</button>
 
-                {/* Subtitle */}
                 <p style={{
                     flex: 1, margin: 0,
                     fontSize: 13, lineHeight: 1.55,
@@ -432,7 +402,6 @@ function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, 
                     {subtitle}
                 </p>
 
-                {/* Play / Pause */}
                 <button onClick={onToggle} style={{
                     ...NAV_BTN,
                     width: 36, height: 36, fontSize: 14,
@@ -443,7 +412,6 @@ function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, 
                     {playing ? '⏸' : '▶'}
                 </button>
 
-                {/* Next */}
                 <button onClick={onNext} disabled={index === total - 1} style={{ ...NAV_BTN, cursor: index === total - 1 ? 'default' : 'pointer', opacity: index === total - 1 ? 0.28 : 1 }}>›</button>
             </div>
         </div>
@@ -455,12 +423,15 @@ function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, 
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function CourseIntroVideo() {
+    const { t, i18n } = useTranslation();
     const [index, setIndex] = useState(0);
     const [playing, setPlaying] = useState(false);
-    const [progress, setProgress] = useState(0);   // 0–1, driven by audio or fallback timer
+    const [progress, setProgress] = useState(0);
     const audioRef = useRef(null);
     const timerRef = useRef(null);
     const elapsedRef = useRef(0);
+
+    const lang = (i18n.language || 'en').split('-')[0];
 
     const currentSlide = SLIDES[index];
     const SlideContent = SLIDE_COMPONENTS[currentSlide.id];
@@ -471,61 +442,71 @@ export default function CourseIntroVideo() {
             audioRef.current.pause();
             audioRef.current.onended = null;
             audioRef.current.ontimeupdate = null;
+            audioRef.current.onerror = null;
             audioRef.current = null;
         }
         clearInterval(timerRef.current);
     }, []);
 
-    // ── Start pre-generated narration audio for current slide ───────────────
+    // ── Start narration audio with lang-specific → EN → timer fallback chain ─
     const startAudio = useCallback((slide) => {
         stopAudio();
         elapsedRef.current = 0;
         setProgress(0);
 
-        const url = audioUrl(slide.id);
-        const audio = new Audio(url);
-        audioRef.current = audio;
+        const urls = lang !== 'en'
+            ? [`${_API}/media/intro/slide_${slide.id}_${lang}.mp3`, `${_API}/media/intro/slide_${slide.id}.mp3`]
+            : [`${_API}/media/intro/slide_${slide.id}.mp3`];
 
-        // Drive progress from audio currentTime
-        audio.ontimeupdate = () => {
-            if (audio.duration && audio.duration > 0) {
-                setProgress(audio.currentTime / audio.duration);
-            }
-        };
+        let urlIdx = 0;
 
-        // Auto-advance on end
-        audio.onended = () => {
-            setProgress(1);
-            setTimeout(() => {
-                setIndex((idx) => {
-                    if (idx < SLIDES.length - 1) {
-                        return idx + 1;
+        const tryNext = () => {
+            if (urlIdx >= urls.length) {
+                // All audio URLs failed — fall back to timer
+                const duration = slide.duration;
+                timerRef.current = setInterval(() => {
+                    elapsedRef.current += 200;
+                    setProgress(Math.min(elapsedRef.current / duration, 1));
+                    if (elapsedRef.current >= duration) {
+                        clearInterval(timerRef.current);
+                        setIndex((idx) => {
+                            if (idx < SLIDES.length - 1) return idx + 1;
+                            setPlaying(false);
+                            return idx;
+                        });
                     }
-                    setPlaying(false);
-                    return idx;
-                });
-            }, 600);
-        };
+                }, 200);
+                return;
+            }
 
-        // Fallback timer if audio fails to load
-        audio.onerror = () => {
-            const duration = slide.duration;
-            timerRef.current = setInterval(() => {
-                elapsedRef.current += 200;
-                setProgress(Math.min(elapsedRef.current / duration, 1));
-                if (elapsedRef.current >= duration) {
-                    clearInterval(timerRef.current);
+            const url = urls[urlIdx++];
+            const audio = new Audio(url);
+            audioRef.current = audio;
+
+            audio.ontimeupdate = () => {
+                if (audio.duration && audio.duration > 0) {
+                    setProgress(audio.currentTime / audio.duration);
+                }
+            };
+
+            audio.onended = () => {
+                setProgress(1);
+                setTimeout(() => {
                     setIndex((idx) => {
                         if (idx < SLIDES.length - 1) return idx + 1;
                         setPlaying(false);
                         return idx;
                     });
-                }
-            }, 200);
+                }, 600);
+            };
+
+            audio.onerror = () => tryNext();
+
+            audio.play().catch(() => {});
         };
 
-        audio.play().catch(() => {});
-    }, [stopAudio]);
+        tryNext();
+    }, [stopAudio, lang]);
 
     // ── Navigation ───────────────────────────────────────────────────────────
     const goTo = useCallback((i) => {
@@ -533,14 +514,12 @@ export default function CourseIntroVideo() {
         stopAudio();
         setProgress(0);
         setIndex(clamped);
-        // If currently playing, audio for new slide starts via the index effect below
     }, [stopAudio]);
 
     // ── Play / Pause toggle ──────────────────────────────────────────────────
     const toggle = useCallback(() => {
         setPlaying((prev) => {
             if (prev) {
-                // Pause
                 if (audioRef.current) audioRef.current.pause();
                 clearInterval(timerRef.current);
             }
@@ -552,13 +531,8 @@ export default function CourseIntroVideo() {
     useEffect(() => {
         if (playing) {
             startAudio(SLIDES[index]);
-        } else {
-            // Just paused — audio already paused in toggle, don't restart
         }
-        return () => {
-            // Cleanup handled by stopAudio in goTo / toggle
-        };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playing, index]);
 
     // ── Unmount cleanup ──────────────────────────────────────────────────────
@@ -575,13 +549,11 @@ export default function CourseIntroVideo() {
         }}>
             <ChalkTexture opacity={0.07} zIndex={0} />
 
-            {/* Wooden frame vignette */}
             <div style={{
                 position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0,
                 boxShadow: 'inset 0 0 0 18px #9C7040, inset 0 0 130px rgba(0,0,0,0.14)',
             }} />
 
-            {/* Slide content — paddingBottom just enough for the compact bar (~72px) */}
             <div style={{
                 position: 'absolute', inset: 0,
                 paddingTop: 18,
@@ -600,7 +572,7 @@ export default function CourseIntroVideo() {
                 onPrev={() => goTo(index - 1)}
                 onToggle={toggle}
                 onNext={() => goTo(index + 1)}
-                subtitle={playing || progress > 0 ? currentSlide.narration : ''}
+                subtitle={playing || progress > 0 ? t(`civ_narration_${currentSlide.id}`) : ''}
             />
         </div>
     );

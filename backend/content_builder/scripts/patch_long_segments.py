@@ -37,6 +37,13 @@ def patch_file(json_path: Path, dry_run: bool = False) -> bool:
     with open(json_path, encoding="utf-8") as f:
         d = json.load(f)
 
+    # Safety: never re-compose a localized JSON — it would overwrite translated narration.
+    if d.get("localization", {}).get("target_lang"):
+        target = d["localization"]["target_lang"]
+        print(f"  ⛔ 跳过：这是已翻译的 {target.upper()} 版本，重建 video_render_plan 会覆盖翻译旁白。")
+        print(f"     如需修复超长 hero_line，请先修英文源 JSON，然后重新运行 localize.py --lang {target}。")
+        return False
+
     worst = _max_hero_cn(d.get("video_render_plan") or {})
     if worst <= MAX_CN:
         print(f"  ✅ 无需修复（最长 hero_line {worst} 字）")
@@ -79,7 +86,9 @@ def main():
     parser.add_argument("--lang", default="en", help="JSON 所在语言子目录（默认 en）")
     args = parser.parse_args()
 
-    json_dir = CONTENT_BUILDER / "artifacts" / "synced_json" / args.lang
+    synced = CONTENT_BUILDER / "artifacts" / "synced_json" / args.lang
+    output = CONTENT_BUILDER / "artifacts" / "output_json" / args.lang
+    json_dir = synced if synced.exists() and any(synced.glob("*_data*.json")) else output
 
     if args.lesson_ids:
         paths = []

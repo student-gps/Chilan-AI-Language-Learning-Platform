@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from backend.content_builder.backfill_vocab_example_pinyin import backfill_file
+from backend.content_builder.scripts.backfill_vocab_example_pinyin import backfill_file
 
 
 class BackfillVocabularyExamplePinyinTests(unittest.TestCase):

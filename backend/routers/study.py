@@ -646,9 +646,14 @@ async def get_knowledge_details(item_id: int):
 # 接口 5: TTS 接口
 # ==========================================
 @router.get("/study/tts")
-async def generate_tts(text: str):
-    voice = get_env("TTS_EDGE_VOICE", default="zh-CN-XiaoxiaoNeural")
-    rate = get_env("TTS_EDGE_RATE", default="-12%")
+async def generate_tts(text: str, language: str = Query("zh")):
+    lang = (language or "zh").strip().lower()
+    if lang.startswith("en"):
+        voice = get_env("TTS_EDGE_VOICE_EN", default="en-US-AriaNeural")
+        rate = get_env("TTS_EDGE_RATE_EN", default="+0%")
+    else:
+        voice = get_env("TTS_EDGE_VOICE", default="zh-CN-XiaoxiaoNeural")
+        rate = get_env("TTS_EDGE_RATE", default="-12%")
     communicate = edge_tts.Communicate(text, voice, rate=rate) 
     async def audio_stream():
         async for chunk in communicate.stream():

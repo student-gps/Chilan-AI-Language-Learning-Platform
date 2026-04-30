@@ -97,7 +97,7 @@ class ContentBuilderVocabularyExampleTests(unittest.TestCase):
 
         self.assertEqual(merged[0]["example_sentence"]["cn"], "你好！")
         self.assertEqual(merged[0]["example_sentence"]["py"], "nǐ hǎo")
-        self.assertEqual(merged[0]["example_sentence"]["en"], "Hello!")
+        self.assertEqual(merged[0]["example_sentence"]["translation"], "Hello!")
         self.assertEqual(
             merged[0]["example_sentence"]["tokens"],
             [
@@ -147,6 +147,7 @@ class ContentBuilderVocabularyExampleTests(unittest.TestCase):
             source_dialogues,
         )
 
+        self.assertEqual(merged[0]["example_sentence"]["translation"], "My surname is Li.")
         self.assertEqual(
             merged[0]["example_sentence"]["tokens"],
             [
