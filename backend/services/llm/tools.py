@@ -26,18 +26,8 @@ class LanguageTools:
 
     def _get_gemini_client(self):
         if self._gemini_client is None:
-            use_vertex = get_env("LLM_GEMINI_USE_VERTEX", default="false").lower() == "true"
-            if use_vertex:
-                import os
-                project = get_env("VERTEX_AI_PROJECT_ID")
-                location = get_env("VERTEX_AI_LOCATION", default="us-central1")
-                sa_key = get_env("GOOGLE_APPLICATION_CREDENTIALS")
-                if sa_key:
-                    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sa_key
-                self._gemini_client = genai.Client(vertexai=True, project=project, location=location)
-            else:
-                api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
-                self._gemini_client = genai.Client(api_key=api_key)
+            api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
+            self._gemini_client = genai.Client(api_key=api_key)
         return self._gemini_client
 
     def _get_doubao_client(self):
