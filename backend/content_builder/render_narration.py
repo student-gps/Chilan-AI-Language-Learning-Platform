@@ -11,6 +11,7 @@ render_narration.py — Stage 2：母语旁白音轨渲染 + 可选讲解视频�
     python render_narration.py artifacts/integrated_chinese/output_json/en/lesson101_data.json
     python render_narration.py artifacts/integrated_chinese/output_json/en/lesson101_data.json --render-video
     python render_narration.py artifacts/integrated_chinese/output_json/en/lesson101_data.json --render-video --lang fr
+    python render_narration.py artifacts/integrated_chinese/output_json/fr/lesson1901_data_fr.json --lang fr --force-narration --render-video --force-video
 
     # 不指定文件：扫描当前 pipeline 的 output_json/ 下所有 JSON 并处理
     python render_narration.py
@@ -70,7 +71,88 @@ def _resolve_artifact_path(local_path: str, artifact_root: Path) -> Path:
     return p
 
 
-def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str, pipeline_id: str = "integrated_chinese") -> dict:
+def _merge_legacy_duplicate_segments(lesson_data: dict) -> int:
+    """Merge adjacent legacy segments that were split visually but kept identical narration."""
+    plan = (
+        lesson_data.get("video_render_plan", {})
+        .get("explanation", {})
+    )
+    segments = plan.get("segments", []) if isinstance(plan, dict) else []
+    if not isinstance(segments, list) or len(segments) < 2:
+        return 0
+
+    merged = []
+    merge_count = 0
+
+    def narration_of(seg: dict) -> str:
+        return ((seg.get("narration_track") or {}).get("subtitle_en") or "").strip()
+
+    def hero_block(seg: dict) -> dict | None:
+        for block in seg.get("visual_blocks", []) if isinstance(seg.get("visual_blocks"), list) else []:
+            if isinstance(block, dict) and block.get("block_type") == "hero_line":
+                return block
+        return None
+
+    def append_field(target: dict, source: dict, key: str) -> None:
+        left = ((target.get("content") or {}).get(key) or "").strip()
+        right = ((source.get("content") or {}).get(key) or "").strip()
+        if not right or right in left:
+            return
+        content = target.setdefault("content", {})
+        joiner = "" if key == "focus_text" else " "
+        content[key] = f"{left}{joiner}{right}".strip() if left else right
+
+    for seg in segments:
+        if not isinstance(seg, dict):
+            merged.append(seg)
+            continue
+
+        prev = merged[-1] if merged and isinstance(merged[-1], dict) else None
+        is_duplicate = (
+            prev is not None
+            and (prev.get("segment_id") or prev.get("segment_order")) == (seg.get("segment_id") or seg.get("segment_order"))
+            and narration_of(prev)
+            and narration_of(prev) == narration_of(seg)
+        )
+
+        if not is_duplicate:
+            merged.append(seg)
+            continue
+
+        prev_hero = hero_block(prev)
+        seg_hero = hero_block(seg)
+        if prev_hero and seg_hero:
+            append_field(prev_hero, seg_hero, "focus_text")
+            append_field(prev_hero, seg_hero, "focus_pinyin")
+            append_field(prev_hero, seg_hero, "focus_gloss_en")
+        prev["duration_seconds"] = max(float(prev.get("duration_seconds") or 0), float(seg.get("duration_seconds") or 0))
+        prev["end_time_seconds"] = round(float(prev.get("start_time_seconds") or 0) + float(prev.get("duration_seconds") or 0), 3)
+        merge_count += 1
+
+    if merge_count:
+        plan["segments"] = merged
+        cursor = 0.0
+        for order, seg in enumerate(merged, start=1):
+            if not isinstance(seg, dict):
+                continue
+            seg["segment_order"] = order
+            seg["start_time_seconds"] = round(cursor, 3)
+            cursor += float(seg.get("duration_seconds") or 0)
+            seg["end_time_seconds"] = round(cursor, 3)
+        timeline = plan.setdefault("timeline", {})
+        timeline["total_duration_seconds"] = round(cursor, 3)
+        timeline["segment_count"] = len(merged)
+
+    return merge_count
+
+
+def render_explanation_video(
+    lesson_id: int,
+    lesson_data: dict,
+    lang: str,
+    pipeline_id: str = "integrated_chinese",
+    force_video: bool = False,
+) -> dict:
     """
     Render explanation video locally (no R2 upload).
     1. Remotion renders silent video from JSON
@@ -96,6 +178,13 @@ def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str, pipel
     output_dir = ARTIFACTS_DIR / "output_video" / lang
     output_dir.mkdir(parents=True, exist_ok=True)
     silent_video = output_dir / f"lesson{lesson_id}_explanation.mp4"
+    final_video = output_dir / f"lesson{lesson_id}_explanation_final.mp4"
+
+    if force_video:
+        for video_file in (silent_video, final_video):
+            if video_file.exists():
+                video_file.unlink()
+                print(f"  ♻️ 已删除旧视频，准备重渲染: {video_file.name}")
 
     if silent_video.exists():
         print(f"  ⏭️ 无声视频已存在，跳过渲染: {silent_video.name}")
@@ -126,8 +215,6 @@ def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str, pipel
     narration_file = narration_info.get("audio_file", "") if narration_info.get("status") == "ok" else ""
     narration_path = _resolve_artifact_path(narration_file, ARTIFACTS_DIR) if narration_file else Path("")
 
-    final_video = output_dir / f"lesson{lesson_id}_explanation_final.mp4"
-
     if final_video.exists():
         print(f"  ⏭️ 最终视频已存在，跳过合并: {final_video.name}")
         result["local_path"] = str(final_video)
@@ -143,7 +230,10 @@ def render_explanation_video(lesson_id: int, lesson_data: dict, lang: str, pipel
                     "-i", str(silent_video),
                     "-i", str(narration_path),
                     "-map", "0:v", "-map", "1:a",
-                    "-c:v", "copy", "-c:a", "aac",
+                    "-c:v", "libx264", "-pix_fmt", "yuv420p",
+                    "-preset", "veryfast", "-crf", "20",
+                    "-c:a", "aac",
+                    "-movflags", "+faststart",
                     "-shortest",
                     str(final_video),
                 ],
@@ -173,6 +263,8 @@ def process_file(
     should_render_video: bool = False,
     lang: str = "en",
     pipeline_id: str = "integrated_chinese",
+    force_narration: bool = False,
+    force_video: bool = False,
 ) -> bool:
     lesson_id = _extract_lesson_id(json_path)
     if lesson_id is None:
@@ -185,7 +277,16 @@ def process_file(
     with open(json_path, encoding="utf-8") as f:
         lesson_data = json.load(f)
 
-    # Stage 2a: 旁白 TTS（已存在则跳过）
+    merged_legacy_segments = _merge_legacy_duplicate_segments(lesson_data)
+    if merged_legacy_segments:
+        print(f"  🧩 已合并旧版重复讲解 segment: {merged_legacy_segments} 个")
+        if not force_narration:
+            print("  ⚠️ 建议加 --force-narration 重生成旁白，否则旧音频仍可能包含重复段落。")
+
+    # Stage 2a: 旁白 TTS
+    # 默认策略：如果目标语言的整课旁白 mp3 已存在，就直接复用；
+    # 只有显式传入 --force-narration 才删除并重新生成。
+    # --force-video 只影响 Remotion/ffmpeg 视频文件，不会触发 TTS。
     # 根据 lang 计算预期的输出文件路径，避免误用其他语言的旧路径
     lang_suffix = f"_{lang}" if lang != "en" else ""
     expected_narration = (
@@ -193,8 +294,12 @@ def process_file(
         / f"lesson{lesson_id}_narration{lang_suffix}"
         / f"lesson{lesson_id}_narration{lang_suffix}.mp3"
     )
+    if force_narration and expected_narration.exists():
+        expected_narration.unlink()
+        print(f"  ♻️ 已删除旧旁白音轨，准备重生成: {expected_narration.name}")
+
     if expected_narration.exists():
-        print(f"  ⏭️ 旁白音轨已存在，跳过 TTS: {expected_narration.name}")
+        print(f"  ⏭️ 复用已有旁白音轨，跳过 TTS: {expected_narration.name}")
         narration_info = lesson_data.get("explanation_narration_audio", {})
         recorded_audio = narration_info.get("audio_file", "") if isinstance(narration_info, dict) else ""
         recorded_path = _resolve_artifact_path(recorded_audio, ARTIFACTS_DIR) if recorded_audio else Path("")
@@ -215,7 +320,13 @@ def process_file(
     # Stage 2b: 视频渲染（可选，读取上方已更新的 JSON）
     if should_render_video:
         print(f"🎬 渲染讲解视频 [lang={lang}]...")
-        video_info = render_explanation_video(lesson_id, lesson_data, lang, pipeline_id=pipeline_id)
+        video_info = render_explanation_video(
+            lesson_id,
+            lesson_data,
+            lang,
+            pipeline_id=pipeline_id,
+            force_video=force_video,
+        )
         if video_info["local_path"]:
             lesson_data["explanation_video_urls"] = {
                 "media_url":   "",
@@ -250,6 +361,16 @@ def main():
         "--render-video",
         action="store_true",
         help="旁白渲染后立即渲染讲解视频（Remotion + ffmpeg 合并旁白音轨）。需要 Node.js。",
+    )
+    parser.add_argument(
+        "--force-narration",
+        action="store_true",
+        help="即使旁白音轨已存在，也重新生成 TTS，并写回新的分句和时间轴。",
+    )
+    parser.add_argument(
+        "--force-video",
+        action="store_true",
+        help="即使讲解视频已存在，也重新渲染无声视频并重新合并旁白。",
     )
     parser.add_argument(
         "--lang",
@@ -288,7 +409,15 @@ def main():
             print(f"⚠️ 文件不存在，跳过: {json_path}")
             failed += 1
             continue
-        if process_file(agent, json_path, should_render_video=args.render_video, lang=args.lang, pipeline_id=pipeline.pipeline_id):
+        if process_file(
+            agent,
+            json_path,
+            should_render_video=args.render_video,
+            lang=args.lang,
+            pipeline_id=pipeline.pipeline_id,
+            force_narration=args.force_narration,
+            force_video=args.force_video,
+        ):
             success += 1
         else:
             failed += 1

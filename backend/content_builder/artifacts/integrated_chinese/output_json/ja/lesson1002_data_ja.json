@@ -1,0 +1,6061 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 1002,
+    "title": "乘车致谢",
+    "content_type": "passage",
+    "title_localized": "送迎のお礼"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "课文",
+            "translation": "李友が王朋にメールを書きます。",
+            "words": [
+              {
+                "cn": "李友",
+                "py": "lǐ yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "给",
+                "py": "gěi",
+                "highlight": true
+              },
+              {
+                "cn": "王朋",
+                "py": "wáng péng",
+                "highlight": false
+              },
+              {
+                "cn": "写",
+                "py": "xiě",
+                "highlight": true
+              },
+              {
+                "cn": "电子邮件",
+                "py": "diàn zǐ yóu jiàn",
+                "highlight": true
+              },
+              {
+                "cn": "：",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "日付：12月20日",
+            "words": [
+              {
+                "cn": "Date: ",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "12",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "月",
+                "py": "yuè",
+                "highlight": false
+              },
+              {
+                "cn": "20",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "日",
+                "py": "rì",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "差出人：李友",
+            "words": [
+              {
+                "cn": "From: ",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "李友",
+                "py": "lǐ yǒu",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "宛先：王朋",
+            "words": [
+              {
+                "cn": "To: ",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "王朋",
+                "py": "Wáng Péng",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "件名：ありがとうございます！",
+            "words": [
+              {
+                "cn": "Subject: ",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "谢谢",
+                "py": "xièxie",
+                "highlight": true
+              },
+              {
+                "cn": "！",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "王朋さんへ",
+            "words": [
+              {
+                "cn": "王朋",
+                "py": "Wáng Péng",
+                "highlight": false
+              },
+              {
+                "cn": "：",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "この間は空港まで送ってくれてありがとう。",
+            "words": [
+              {
+                "cn": "谢谢",
+                "py": "xiè xie",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "那天",
+                "py": "nà tiān",
+                "highlight": false
+              },
+              {
+                "cn": "开车",
+                "py": "kāi chē",
+                "highlight": true
+              },
+              {
+                "cn": "送",
+                "py": "sòng",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "到",
+                "py": "dào",
+                "highlight": false
+              },
+              {
+                "cn": "机场",
+                "py": "jī chǎng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "でも、ずいぶん時間を取らせてしまって申し訳なかったです。",
+            "words": [
+              {
+                "cn": "不过",
+                "py": "bú guò",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "让",
+                "py": "ràng",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "花",
+                "py": "huā",
+                "highlight": true
+              },
+              {
+                "cn": "那么",
+                "py": "nà me",
+                "highlight": false
+              },
+              {
+                "cn": "多",
+                "py": "duō",
+                "highlight": false
+              },
+              {
+                "cn": "时间",
+                "py": "shí jiān",
+                "highlight": false
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "真",
+                "py": "zhēn",
+                "highlight": false
+              },
+              {
+                "cn": "不好意思",
+                "py": "bù hǎo yì si",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "ここ数日、毎日車で昔の友達に会いに行っています。",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "这",
+                "py": "zhè",
+                "highlight": false
+              },
+              {
+                "cn": "几天",
+                "py": "jǐ tiān",
+                "highlight": false
+              },
+              {
+                "cn": "每天",
+                "py": "měi tiān",
+                "highlight": false
+              },
+              {
+                "cn": "都",
+                "py": "dōu",
+                "highlight": false
+              },
+              {
+                "cn": "开车",
+                "py": "kāi chē",
+                "highlight": true
+              },
+              {
+                "cn": "出去",
+                "py": "chū qù",
+                "highlight": true
+              },
+              {
+                "cn": "看",
+                "py": "kàn",
+                "highlight": false
+              },
+              {
+                "cn": "老",
+                "py": "lǎo",
+                "highlight": false
+              },
+              {
+                "cn": "朋友",
+                "py": "péng you",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "この街の人たちは特に運転が速いですね。",
+            "words": [
+              {
+                "cn": "这个",
+                "py": "zhè ge",
+                "highlight": false
+              },
+              {
+                "cn": "城市",
+                "py": "chéng shì",
+                "highlight": true
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "人",
+                "py": "rén",
+                "highlight": false
+              },
+              {
+                "cn": "开车",
+                "py": "kāi chē",
+                "highlight": true
+              },
+              {
+                "cn": "开",
+                "py": "kāi",
+                "highlight": false
+              },
+              {
+                "cn": "得",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "特别",
+                "py": "tè bié",
+                "highlight": true
+              },
+              {
+                "cn": "快",
+                "py": "kuài",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "高速道路を運転するのは少し緊張します。",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "在",
+                "py": "zài",
+                "highlight": false
+              },
+              {
+                "cn": "高速公路",
+                "py": "gāo sù gōng lù",
+                "highlight": true
+              },
+              {
+                "cn": "上",
+                "py": "shang",
+                "highlight": false
+              },
+              {
+                "cn": "开车",
+                "py": "kāi chē",
+                "highlight": false
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "真",
+                "py": "zhēn",
+                "highlight": false
+              },
+              {
+                "cn": "有点儿",
+                "py": "yǒu diǎnr",
+                "highlight": true
+              },
+              {
+                "cn": "紧张",
+                "py": "jǐn zhāng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "でも、ここにはバスも地下鉄もなくて。自分で運転するしかないので、とても不便です。",
+            "words": [
+              {
+                "cn": "可是",
+                "py": "kě shì",
+                "highlight": false
+              },
+              {
+                "cn": "这儿",
+                "py": "zhèr",
+                "highlight": false
+              },
+              {
+                "cn": "没有",
+                "py": "méi yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "公共汽车",
+                "py": "gōng gòng qì chē",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "也",
+                "py": "yě",
+                "highlight": false
+              },
+              {
+                "cn": "没有",
+                "py": "méi yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "地铁",
+                "py": "dì tiě",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "只能",
+                "py": "zhǐ néng",
+                "highlight": true
+              },
+              {
+                "cn": "自己",
+                "py": "zì jǐ",
+                "highlight": false
+              },
+              {
+                "cn": "开车",
+                "py": "kāi chē",
+                "highlight": false
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "很",
+                "py": "hěn",
+                "highlight": false
+              },
+              {
+                "cn": "不",
+                "py": "bù",
+                "highlight": false
+              },
+              {
+                "cn": "方便",
+                "py": "fāng biàn",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "もし時間があったら、私の携帯に電話するか、メッセージを送ってください。おしゃべりしたいです。",
+            "words": [
+              {
+                "cn": "有空儿",
+                "py": "yǒu kòngr",
+                "highlight": true
+              },
+              {
+                "cn": "的话",
+                "py": "de huà",
+                "highlight": true
+              },
+              {
+                "cn": "打",
+                "py": "dǎ",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "手机",
+                "py": "shǒujī",
+                "highlight": true
+              },
+              {
+                "cn": "或者",
+                "py": "huòzhě",
+                "highlight": true
+              },
+              {
+                "cn": "给",
+                "py": "gěi",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "发",
+                "py": "fā",
+                "highlight": true
+              },
+              {
+                "cn": "短信",
+                "py": "duǎnxìn",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "想",
+                "py": "xiǎng",
+                "highlight": false
+              },
+              {
+                "cn": "跟",
+                "py": "gēn",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "聊天儿",
+                "py": "liáo tiānr",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "もうすぐお正月ですね。良いお年を！",
+            "words": [
+              {
+                "cn": "新年",
+                "py": "xīnnián",
+                "highlight": true
+              },
+              {
+                "cn": "快要",
+                "py": "kuàiyào",
+                "highlight": true
+              },
+              {
+                "cn": "到",
+                "py": "dào",
+                "highlight": false
+              },
+              {
+                "cn": "了",
+                "py": "le",
+                "highlight": false
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "祝",
+                "py": "zhù",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "新年",
+                "py": "xīnnián",
+                "highlight": true
+              },
+              {
+                "cn": "快乐",
+                "py": "kuàilè",
+                "highlight": true
+              },
+              {
+                "cn": "！",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "课文",
+            "translation": "李友",
+            "words": [
+              {
+                "cn": "李友",
+                "py": "Lǐ Yǒu",
+                "highlight": true
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "电子邮件",
+        "pinyin": "diànzǐ yóujiàn",
+        "part_of_speech": "名詞",
+        "definition": "Eメール／電子メール",
+        "example_sentence": {
+          "cn": "李友给王朋写电子邮件：",
+          "py": "Lǐ Yǒu gěi Wáng Péng xiě diànzǐ yóujiàn:",
+          "tokens": [
+            {
+              "cn": "李友",
+              "py": "lǐ yǒu"
+            },
+            {
+              "cn": "给",
+              "py": "gěi"
+            },
+            {
+              "cn": "王朋",
+              "py": "wáng péng"
+            },
+            {
+              "cn": "写",
+              "py": "xiě"
+            },
+            {
+              "cn": "电子邮件",
+              "py": "diàn zǐ yóu jiàn"
+            },
+            {
+              "cn": "：",
+              "py": ""
+            }
+          ],
+          "translation": "李友が王朋にメールを書きます。"
+        }
+      },
+      {
+        "word": "电子",
+        "pinyin": "diànzǐ",
+        "part_of_speech": "名詞",
+        "definition": "電子",
+        "example_sentence": {
+          "cn": "李友给王朋写电子邮件：",
+          "py": "lǐ yǒu gěi wáng péng xiě diàn zǐ yóu jiàn",
+          "tokens": [
+            {
+              "cn": "李友",
+              "py": "lǐ yǒu"
+            },
+            {
+              "cn": "给",
+              "py": "gěi"
+            },
+            {
+              "cn": "王朋",
+              "py": "wáng péng"
+            },
+            {
+              "cn": "写",
+              "py": "xiě"
+            },
+            {
+              "cn": "电子邮件",
+              "py": "diàn zǐ yóu jiàn"
+            },
+            {
+              "cn": "：",
+              "py": ""
+            }
+          ],
+          "translation": "李友が王朋にメールを書きます。"
+        }
+      },
+      {
+        "word": "让",
+        "pinyin": "ràng",
+        "part_of_speech": "動詞",
+        "definition": "（人に何かを）させる、許す",
+        "example_sentence": {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si",
+          "tokens": [
+            {
+              "cn": "不过",
+              "py": "bú guò"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "让",
+              "py": "ràng"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "花",
+              "py": "huā"
+            },
+            {
+              "cn": "那么",
+              "py": "nà me"
+            },
+            {
+              "cn": "多",
+              "py": "duō"
+            },
+            {
+              "cn": "时间",
+              "py": "shí jiān"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "真",
+              "py": "zhēn"
+            },
+            {
+              "cn": "不好意思",
+              "py": "bù hǎo yì si"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "でも、ずいぶん時間を取らせてしまって申し訳なかったです。"
+        }
+      },
+      {
+        "word": "花",
+        "pinyin": "huā",
+        "part_of_speech": "動詞",
+        "definition": "費やす、使う",
+        "example_sentence": {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si",
+          "tokens": [
+            {
+              "cn": "不过",
+              "py": "bú guò"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "让",
+              "py": "ràng"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "花",
+              "py": "huā"
+            },
+            {
+              "cn": "那么",
+              "py": "nà me"
+            },
+            {
+              "cn": "多",
+              "py": "duō"
+            },
+            {
+              "cn": "时间",
+              "py": "shí jiān"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "真",
+              "py": "zhēn"
+            },
+            {
+              "cn": "不好意思",
+              "py": "bù hǎo yì si"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "でも、ずいぶん時間を取らせてしまって申し訳なかったです。"
+        }
+      },
+      {
+        "word": "不好意思",
+        "pinyin": "bù hǎoyìsi",
+        "part_of_speech": "",
+        "definition": "申し訳なく思う、気まずい",
+        "example_sentence": {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "Búguò, ràng nǐ huā nàme duō shíjiān, zhēn bù hǎoyìsi.",
+          "tokens": [
+            {
+              "cn": "不过",
+              "py": "bú guò"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "让",
+              "py": "ràng"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "花",
+              "py": "huā"
+            },
+            {
+              "cn": "那么",
+              "py": "nà me"
+            },
+            {
+              "cn": "多",
+              "py": "duō"
+            },
+            {
+              "cn": "时间",
+              "py": "shí jiān"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "真",
+              "py": "zhēn"
+            },
+            {
+              "cn": "不好意思",
+              "py": "bù hǎo yì si"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "でも、ずいぶん時間を取らせてしまって申し訳なかったです。"
+        }
+      },
+      {
+        "word": "出去",
+        "pinyin": "chū qu",
+        "part_of_speech": "動詞補語",
+        "definition": "出かける",
+        "example_sentence": {
+          "cn": "我这几天每天都开车出去看老朋友。",
+          "py": "Wǒ zhè jǐ tiān měitiān dōu kāichē chūqu kàn lǎo péngyou.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "几天",
+              "py": "jǐ tiān"
+            },
+            {
+              "cn": "每天",
+              "py": "měi tiān"
+            },
+            {
+              "cn": "都",
+              "py": "dōu"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "出去",
+              "py": "chū qù"
+            },
+            {
+              "cn": "看",
+              "py": "kàn"
+            },
+            {
+              "cn": "老",
+              "py": "lǎo"
+            },
+            {
+              "cn": "朋友",
+              "py": "péng you"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "ここ数日、毎日車で旧友に会いに出かけています。"
+        }
+      },
+      {
+        "word": "每",
+        "pinyin": "měi",
+        "part_of_speech": "代名詞",
+        "definition": "毎、各",
+        "example_sentence": {
+          "cn": "我这几天每天都开车出去看老朋友。",
+          "py": "Wǒ zhè jǐ tiān měi tiān dōu kāi chē chūqù kàn lǎo péngyou.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "几天",
+              "py": "jǐ tiān"
+            },
+            {
+              "cn": "每天",
+              "py": "měi tiān"
+            },
+            {
+              "cn": "都",
+              "py": "dōu"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "出去",
+              "py": "chū qù"
+            },
+            {
+              "cn": "看",
+              "py": "kàn"
+            },
+            {
+              "cn": "老",
+              "py": "lǎo"
+            },
+            {
+              "cn": "朋友",
+              "py": "péng you"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "ここ数日、毎日車で旧友に会いに出かけています。"
+        }
+      },
+      {
+        "word": "城市",
+        "pinyin": "chéngshì",
+        "part_of_speech": "名詞",
+        "definition": "都市、街",
+        "example_sentence": {
+          "cn": "这个城市的人开车开得特别快。",
+          "py": "Zhège chéngshì de rén kāi chē kāi de tèbié kuài.",
+          "tokens": [
+            {
+              "cn": "这个",
+              "py": "zhè ge"
+            },
+            {
+              "cn": "城市",
+              "py": "chéng shì"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "开",
+              "py": "kāi"
+            },
+            {
+              "cn": "得",
+              "py": "de"
+            },
+            {
+              "cn": "特别",
+              "py": "tè bié"
+            },
+            {
+              "cn": "快",
+              "py": "kuài"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "この街の人たちは特に運転が速いです。"
+        }
+      },
+      {
+        "word": "特别",
+        "pinyin": "tèbié",
+        "part_of_speech": "副詞",
+        "definition": "特に",
+        "example_sentence": {
+          "cn": "这个城市的人开车开得特别快。",
+          "py": "Zhège chéngshì de rén kāi chē kāi de tèbié kuài.",
+          "tokens": [
+            {
+              "cn": "这个",
+              "py": "zhè ge"
+            },
+            {
+              "cn": "城市",
+              "py": "chéng shì"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "开",
+              "py": "kāi"
+            },
+            {
+              "cn": "得",
+              "py": "de"
+            },
+            {
+              "cn": "特别",
+              "py": "tè bié"
+            },
+            {
+              "cn": "快",
+              "py": "kuài"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "この街の人たちは特に運転が速いです。"
+        }
+      },
+      {
+        "word": "高速公路",
+        "pinyin": "gāosù gōnglù",
+        "part_of_speech": "名詞",
+        "definition": "高速道路",
+        "example_sentence": {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒu diǎnr jǐnzhāng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "在",
+              "py": "zài"
+            },
+            {
+              "cn": "高速公路",
+              "py": "gāo sù gōng lù"
+            },
+            {
+              "cn": "上",
+              "py": "shang"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "真",
+              "py": "zhēn"
+            },
+            {
+              "cn": "有点儿",
+              "py": "yǒu diǎnr"
+            },
+            {
+              "cn": "紧张",
+              "py": "jǐn zhāng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      },
+      {
+        "word": "高速",
+        "pinyin": "gāosù",
+        "part_of_speech": "形容詞",
+        "definition": "高速",
+        "example_sentence": {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒu diǎnr jǐnzhāng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "在",
+              "py": "zài"
+            },
+            {
+              "cn": "高速公路",
+              "py": "gāo sù gōng lù"
+            },
+            {
+              "cn": "上",
+              "py": "shang"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "真",
+              "py": "zhēn"
+            },
+            {
+              "cn": "有点儿",
+              "py": "yǒu diǎnr"
+            },
+            {
+              "cn": "紧张",
+              "py": "jǐn zhāng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      },
+      {
+        "word": "公路",
+        "pinyin": "gōnglù",
+        "part_of_speech": "名詞",
+        "definition": "高速道路、公道",
+        "example_sentence": {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒu diǎnr jǐnzhāng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "在",
+              "py": "zài"
+            },
+            {
+              "cn": "高速公路",
+              "py": "gāo sù gōng lù"
+            },
+            {
+              "cn": "上",
+              "py": "shang"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "真",
+              "py": "zhēn"
+            },
+            {
+              "cn": "有点儿",
+              "py": "yǒu diǎnr"
+            },
+            {
+              "cn": "紧张",
+              "py": "jǐn zhāng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      },
+      {
+        "word": "路",
+        "pinyin": "lù",
+        "part_of_speech": "名詞",
+        "definition": "道、道路",
+        "example_sentence": {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "wǒ zài gāo sù gōng lù shang kāi chē zhēn yǒu diǎnr jǐn zhāng",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "在",
+              "py": "zài"
+            },
+            {
+              "cn": "高速公路",
+              "py": "gāo sù gōng lù"
+            },
+            {
+              "cn": "上",
+              "py": "shang"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "真",
+              "py": "zhēn"
+            },
+            {
+              "cn": "有点儿",
+              "py": "yǒu diǎnr"
+            },
+            {
+              "cn": "紧张",
+              "py": "jǐn zhāng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      },
+      {
+        "word": "紧张",
+        "pinyin": "jǐnzhāng",
+        "part_of_speech": "形容詞",
+        "definition": "緊張する、不安な",
+        "example_sentence": {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒudiǎnr jǐnzhāng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "在",
+              "py": "zài"
+            },
+            {
+              "cn": "高速公路",
+              "py": "gāo sù gōng lù"
+            },
+            {
+              "cn": "上",
+              "py": "shang"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "真",
+              "py": "zhēn"
+            },
+            {
+              "cn": "有点儿",
+              "py": "yǒu diǎnr"
+            },
+            {
+              "cn": "紧张",
+              "py": "jǐn zhāng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      },
+      {
+        "word": "自己",
+        "pinyin": "zìjǐ",
+        "part_of_speech": "代名詞",
+        "definition": "自分自身、自分で",
+        "example_sentence": {
+          "cn": "可是这儿没有公共汽车，也没有地铁，只能自己开车，很不方便。",
+          "py": "kě shì zhèr méi yǒu gōng gòng qì chē yě méi yǒu dì tiě zhǐ néng zì jǐ kāi chē hěn bù fāng biàn",
+          "tokens": [
+            {
+              "cn": "可是",
+              "py": "kě shì"
+            },
+            {
+              "cn": "这儿",
+              "py": "zhèr"
+            },
+            {
+              "cn": "没有",
+              "py": "méi yǒu"
+            },
+            {
+              "cn": "公共汽车",
+              "py": "gōng gòng qì chē"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "也",
+              "py": "yě"
+            },
+            {
+              "cn": "没有",
+              "py": "méi yǒu"
+            },
+            {
+              "cn": "地铁",
+              "py": "dì tiě"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "只能",
+              "py": "zhǐ néng"
+            },
+            {
+              "cn": "自己",
+              "py": "zì jǐ"
+            },
+            {
+              "cn": "开车",
+              "py": "kāi chē"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "很",
+              "py": "hěn"
+            },
+            {
+              "cn": "不",
+              "py": "bù"
+            },
+            {
+              "cn": "方便",
+              "py": "fāng biàn"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "でも、ここにはバスも地下鉄もありません。自分で運転するしかないので、とても不便です。"
+        }
+      },
+      {
+        "word": "手机",
+        "pinyin": "shǒujī",
+        "part_of_speech": "名詞",
+        "definition": "携帯電話",
+        "example_sentence": {
+          "cn": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+          "py": "Yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn, wǒ xiǎng gēn nǐ liáotiānr.",
+          "tokens": [
+            {
+              "cn": "有空儿",
+              "py": "yǒu kòngr"
+            },
+            {
+              "cn": "的话",
+              "py": "de huà"
+            },
+            {
+              "cn": "打",
+              "py": "dǎ"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "手机",
+              "py": "shǒujī"
+            },
+            {
+              "cn": "或者",
+              "py": "huòzhě"
+            },
+            {
+              "cn": "给",
+              "py": "gěi"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "发",
+              "py": "fā"
+            },
+            {
+              "cn": "短信",
+              "py": "duǎnxìn"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "想",
+              "py": "xiǎng"
+            },
+            {
+              "cn": "跟",
+              "py": "gēn"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "聊天儿",
+              "py": "liáo tiānr"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "暇があったら、私の携帯に電話するか、ショートメッセージを送ってください。おしゃべりしたいです。"
+        }
+      },
+      {
+        "word": "发短信",
+        "pinyin": "fā duǎnxìn",
+        "part_of_speech": "動詞-目的語",
+        "definition": "ショートメッセージを送る",
+        "example_sentence": {
+          "cn": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+          "py": "Yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn, wǒ xiǎng gēn nǐ liáotiānr.",
+          "tokens": [
+            {
+              "cn": "有空儿",
+              "py": "yǒu kòngr"
+            },
+            {
+              "cn": "的话",
+              "py": "de huà"
+            },
+            {
+              "cn": "打",
+              "py": "dǎ"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "手机",
+              "py": "shǒujī"
+            },
+            {
+              "cn": "或者",
+              "py": "huòzhě"
+            },
+            {
+              "cn": "给",
+              "py": "gěi"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "发",
+              "py": "fā"
+            },
+            {
+              "cn": "短信",
+              "py": "duǎnxìn"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "想",
+              "py": "xiǎng"
+            },
+            {
+              "cn": "跟",
+              "py": "gēn"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "聊天儿",
+              "py": "liáo tiānr"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "暇があったら、私の携帯に電話するか、ショートメッセージを送ってください。おしゃべりしたいです。"
+        }
+      },
+      {
+        "word": "新年",
+        "pinyin": "xīnnián",
+        "part_of_speech": "名詞",
+        "definition": "新年",
+        "example_sentence": {
+          "cn": "新年快要到了，祝你新年快乐！",
+          "py": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+          "tokens": [
+            {
+              "cn": "新年",
+              "py": "xīnnián"
+            },
+            {
+              "cn": "快要",
+              "py": "kuàiyào"
+            },
+            {
+              "cn": "到",
+              "py": "dào"
+            },
+            {
+              "cn": "了",
+              "py": "le"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "祝",
+              "py": "zhù"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "新年",
+              "py": "xīnnián"
+            },
+            {
+              "cn": "快乐",
+              "py": "kuàilè"
+            },
+            {
+              "cn": "！",
+              "py": ""
+            }
+          ],
+          "translation": "もうすぐ新年ですね。明けましておめでとうございます！"
+        }
+      },
+      {
+        "word": "快乐",
+        "pinyin": "kuàilè",
+        "part_of_speech": "形容詞",
+        "definition": "嬉しい",
+        "example_sentence": {
+          "cn": "新年快要到了，祝你新年快乐！",
+          "py": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+          "tokens": [
+            {
+              "cn": "新年",
+              "py": "xīnnián"
+            },
+            {
+              "cn": "快要",
+              "py": "kuàiyào"
+            },
+            {
+              "cn": "到",
+              "py": "dào"
+            },
+            {
+              "cn": "了",
+              "py": "le"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "祝",
+              "py": "zhù"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "新年",
+              "py": "xīnnián"
+            },
+            {
+              "cn": "快乐",
+              "py": "kuàilè"
+            },
+            {
+              "cn": "！",
+              "py": ""
+            }
+          ],
+          "translation": "もうすぐ新年ですね。明けましておめでとうございます！"
+        }
+      }
+    ]
+  },
+  "teaching_materials": {
+    "lesson_id": 1002,
+    "course_id": 1,
+    "lesson_title": "",
+    "language_notes": [
+      {
+        "note_id": "LN-1",
+        "label": "a",
+        "focus_text": "电子邮件",
+        "focus_pinyin": "diànzǐ yóujiàn",
+        "explanation_en": "電子メールを意味する中国語の「电子邮件 [zh:diànzǐ yóujiàn]」は、しばしば「电邮 [zh:diàn yóu]」と略されます。",
+        "source_section": "Language Note"
+      }
+    ],
+    "grammar_sections": [
+      {
+        "grammar_id": "G-5",
+        "title": "全体を示す表現: 每…都… [zh:měi . . . dōu . . .] (すべて)",
+        "explanation_en": "「毎 [zh:měi] (すべて)」を含む文では、通常、動詞の前に副詞の「都 [zh:dōu] (両方、すべて)」が置かれます。",
+        "patterns": [],
+        "examples": [
+          {
+            "hanzi": "他每天晚上都预习课文。",
+            "pinyin": "Tā měi tiān wǎnshang dōu yùxí kèwén.",
+            "translation": "彼は毎晩、予習をします。"
+          },
+          {
+            "hanzi": "我每节课都来。",
+            "pinyin": "Wǒ měi jié kè dōu lái.",
+            "translation": "私はどの授業にも出席します。"
+          },
+          {
+            "hanzi": "这儿每个人我都认识。",
+            "pinyin": "Zhèr měi gè rén wǒ dōu rènshi.",
+            "translation": "ここにいる人全員を知っています。"
+          },
+          {
+            "hanzi": "常老师的字每个都好看。",
+            "pinyin": "Cháng lǎoshī de zì měi ge dōu hǎokàn.",
+            "translation": "張先生の書く字はどれもきれいです。"
+          }
+        ],
+        "usage_notes": [],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "G-6",
+        "title": "近い将来を示す表現: 要…了 [zh:yào . . . le] (もうすぐ)",
+        "explanation_en": "「要…了 [zh:yào . . . le] (もうすぐ)」という構文は、予期される行動や状況が差し迫っていることを示します。「快要…了 [zh:kuài yào . . . le]」という形でも使われます。",
+        "patterns": [
+          {
+            "pattern": "要…了",
+            "pattern_pinyin": "yào . . . le",
+            "meaning_en": "もうすぐ"
+          },
+          {
+            "pattern": "快要…了",
+            "pattern_pinyin": "kuài yào . . . le",
+            "meaning_en": "もうすぐ"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "新年快要到了，我们给爸爸妈妈打一个电话吧。",
+            "pinyin": "Xīnnián kuài yào dào le, wǒmen gěi bàba māma dǎ yí ge diànhuà ba.",
+            "translation": "もうすぐ新年ですね。お父さんとお母さんに電話しましょう。"
+          },
+          {
+            "hanzi": "寒假要到了，你要做什么？",
+            "pinyin": "Hánjià yào dào le, nǐ yào zuò shénme?",
+            "translation": "もうすぐ冬休みですね。何をしたいですか？"
+          },
+          {
+            "hanzi": "电影快要开始了，你买票了吗？",
+            "pinyin": "Diànyǐng kuài yào kāishǐ le, nǐ mǎi piào le ma?",
+            "translation": "もうすぐ映画が始まりますよ。チケットは買いましたか？"
+          },
+          {
+            "hanzi": "快要考试了，我们大家得准备一下。",
+            "pinyin": "Kuài yào kǎo shì le, wǒmen dàjiā děi zhǔnbèi yí xià.",
+            "translation": "試験が近づいています。準備しなければなりません。"
+          }
+        ],
+        "usage_notes": [],
+        "common_errors": []
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 1002,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "电子邮件",
+      "original_pinyin": "diànzǐ yóujiàn",
+      "standard_answers": [
+        "メール",
+        "電子メール"
+      ],
+      "context_examples": [
+        {
+          "cn": "李友给王朋写电子邮件：",
+          "py": "Lǐ Yǒu gěi Wáng Péng xiě diànzǐ yóujiàn:",
+          "translation": "李友が王朋にメールを書きます。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "电子",
+      "original_pinyin": "diànzǐ",
+      "standard_answers": [
+        "電子"
+      ],
+      "context_examples": [
+        {
+          "cn": "李友给王朋写电子邮件：",
+          "py": "lǐ yǒu gěi wáng péng xiě diàn zǐ yóu jiàn",
+          "translation": "李友が王朋にメールを書いています。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "让",
+      "original_pinyin": "ràng",
+      "standard_answers": [
+        "〜させる",
+        "許す",
+        "引き起こす"
+      ],
+      "context_examples": [
+        {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si",
+          "translation": "でも、お時間をたくさん取らせてしまって恐縮です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "花",
+      "original_pinyin": "huā",
+      "standard_answers": [
+        "使う"
+      ],
+      "context_examples": [
+        {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si",
+          "translation": "でも、お時間をたくさん取らせてしまって恐縮です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "不好意思",
+      "original_pinyin": "bù hǎoyìsi",
+      "standard_answers": [
+        "恐縮する"
+      ],
+      "context_examples": [
+        {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "Búguò, ràng nǐ huā nàme duō shíjiān, zhēn bù hǎoyìsi.",
+          "translation": "でも、お時間をたくさん取らせてしまって恐縮です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "出去",
+      "original_pinyin": "chū qu",
+      "standard_answers": [
+        "出かける"
+      ],
+      "context_examples": [
+        {
+          "cn": "我这几天每天都开车出去看老朋友。",
+          "py": "Wǒ zhè jǐ tiān měitiān dōu kāichē chūqu kàn lǎo péngyou.",
+          "translation": "ここ数日、毎日昔の友達に会いに車で出かけています。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "每",
+      "original_pinyin": "měi",
+      "standard_answers": [
+        "毎、各",
+        "毎",
+        "各"
+      ],
+      "context_examples": [
+        {
+          "cn": "我这几天每天都开车出去看老朋友。",
+          "py": "Wǒ zhè jǐ tiān měi tiān dōu kāi chē chūqù kàn lǎo péngyou.",
+          "translation": "ここ数日、毎日昔の友達に会いに車で出かけています。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "城市",
+      "original_pinyin": "chéngshì",
+      "standard_answers": [
+        "街"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个城市的人开车开得特别快。",
+          "py": "Zhège chéngshì de rén kāi chē kāi de tèbié kuài.",
+          "translation": "この街の人たちは特に運転が速いです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "特别",
+      "original_pinyin": "tèbié",
+      "standard_answers": [
+        "特に"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个城市的人开车开得特别快。",
+          "py": "Zhège chéngshì de rén kāi chē kāi de tèbié kuài.",
+          "translation": "この街の人たちは特に運転が速いです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "高速公路",
+      "original_pinyin": "gāosù gōnglù",
+      "standard_answers": [
+        "高速道路"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒu diǎnr jǐnzhāng.",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "高速",
+      "original_pinyin": "gāosù",
+      "standard_answers": [
+        "高速"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒu diǎnr jǐnzhāng.",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "公路",
+      "original_pinyin": "gōnglù",
+      "standard_answers": [
+        "高速道路",
+        "公道"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒu diǎnr jǐnzhāng.",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "路",
+      "original_pinyin": "lù",
+      "standard_answers": [
+        "道",
+        "道"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "wǒ zài gāo sù gōng lù shang kāi chē zhēn yǒu diǎnr jǐn zhāng",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "紧张",
+      "original_pinyin": "jǐnzhāng",
+      "standard_answers": [
+        "緊張する",
+        "不安な"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒudiǎnr jǐnzhāng.",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "自己",
+      "original_pinyin": "zìjǐ",
+      "standard_answers": [
+        "自分自身で"
+      ],
+      "context_examples": [
+        {
+          "cn": "可是这儿没有公共汽车，也没有地铁，只能自己开车，很不方便。",
+          "py": "kě shì zhèr méi yǒu gōng gòng qì chē yě méi yǒu dì tiě zhǐ néng zì jǐ kāi chē hěn bù fāng biàn",
+          "translation": "でも、ここにはバスも地下鉄もありません。自分で運転するしかないので、とても不便です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "手机",
+      "original_pinyin": "shǒujī",
+      "standard_answers": [
+        "携帯電話"
+      ],
+      "context_examples": [
+        {
+          "cn": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+          "py": "Yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn, wǒ xiǎng gēn nǐ liáotiānr.",
+          "translation": "時間がある時に、私の携帯に電話するか、ショートメッセージを送ってください。おしゃべりしたいです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "发短信",
+      "original_pinyin": "fā duǎnxìn",
+      "standard_answers": [
+        "ショートメッセージを送る",
+        "ショートメッセージを送る"
+      ],
+      "context_examples": [
+        {
+          "cn": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+          "py": "Yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn, wǒ xiǎng gēn nǐ liáotiānr.",
+          "translation": "時間がある時に、私の携帯に電話するか、ショートメッセージを送ってください。おしゃべりしたいです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "新年",
+      "original_pinyin": "xīnnián",
+      "standard_answers": [
+        "お正月"
+      ],
+      "context_examples": [
+        {
+          "cn": "新年快要到了，祝你新年快乐！",
+          "py": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+          "translation": "もうすぐお正月ですね。良いお年を！"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "快乐",
+      "original_pinyin": "kuàilè",
+      "standard_answers": [
+        "嬉しい"
+      ],
+      "context_examples": [
+        {
+          "cn": "新年快要到了，祝你新年快乐！",
+          "py": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+          "translation": "もうすぐお正月ですね。良いお年を！"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "メール",
+      "original_pinyin": "",
+      "standard_answers": [
+        "电子邮件"
+      ],
+      "context_examples": [
+        {
+          "cn": "李友给王朋写电子邮件：",
+          "py": "Lǐ Yǒu gěi Wáng Péng xiě diànzǐ yóujiàn:",
+          "translation": "李友が王朋にメールを書きます。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "電子",
+      "original_pinyin": "",
+      "standard_answers": [
+        "电子"
+      ],
+      "context_examples": [
+        {
+          "cn": "李友给王朋写电子邮件：",
+          "py": "lǐ yǒu gěi wáng péng xiě diàn zǐ yóu jiàn",
+          "translation": "李友が王朋にメールを書きます。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "〜させる",
+      "original_pinyin": "",
+      "standard_answers": [
+        "让"
+      ],
+      "context_examples": [
+        {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si",
+          "translation": "しかし、あなたの時間をたくさん取らせてしまって心苦しいです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "使う",
+      "original_pinyin": "",
+      "standard_answers": [
+        "花"
+      ],
+      "context_examples": [
+        {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si",
+          "translation": "しかし、あなたの時間をたくさん取らせてしまって心苦しいです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "心苦しい",
+      "original_pinyin": "",
+      "standard_answers": [
+        "不好意思"
+      ],
+      "context_examples": [
+        {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "Búguò, ràng nǐ huā nàme duō shíjiān, zhēn bù hǎoyìsi.",
+          "translation": "しかし、あなたの時間をたくさん取らせてしまって心苦しいです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "出かける",
+      "original_pinyin": "",
+      "standard_answers": [
+        "出去"
+      ],
+      "context_examples": [
+        {
+          "cn": "我这几天每天都开车出去看老朋友。",
+          "py": "Wǒ zhè jǐ tiān měitiān dōu kāichē chūqu kàn lǎo péngyou.",
+          "translation": "ここ数日間、毎日車で昔の友達に会いに出かけています。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "毎〜",
+      "original_pinyin": "",
+      "standard_answers": [
+        "每"
+      ],
+      "context_examples": [
+        {
+          "cn": "我这几天每天都开车出去看老朋友。",
+          "py": "Wǒ zhè jǐ tiān měi tiān dōu kāi chē chūqù kàn lǎo péngyou.",
+          "translation": "ここ数日間、毎日車で昔の友達に会いに出かけています。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "街",
+      "original_pinyin": "",
+      "standard_answers": [
+        "城市"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个城市的人开车开得特别快。",
+          "py": "Zhège chéngshì de rén kāi chē kāi de tèbié kuài.",
+          "translation": "この街の人たちは、特に運転が速いです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "特に",
+      "original_pinyin": "",
+      "standard_answers": [
+        "特别"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个城市的人开车开得特别快。",
+          "py": "Zhège chéngshì de rén kāi chē kāi de tèbié kuài.",
+          "translation": "この街の人たちは特に運転が速いです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "高速道路",
+      "original_pinyin": "",
+      "standard_answers": [
+        "高速公路"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒu diǎnr jǐnzhāng.",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "高速",
+      "original_pinyin": "",
+      "standard_answers": [
+        "高速"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒu diǎnr jǐnzhāng.",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "高速道路、公道",
+      "original_pinyin": "",
+      "standard_answers": [
+        "公路"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒu diǎnr jǐnzhāng.",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "道、道路",
+      "original_pinyin": "",
+      "standard_answers": [
+        "路"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "wǒ zài gāo sù gōng lù shang kāi chē zhēn yǒu diǎnr jǐn zhāng",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "緊張する、不安な",
+      "original_pinyin": "",
+      "standard_answers": [
+        "紧张"
+      ],
+      "context_examples": [
+        {
+          "cn": "我在高速公路上开车，真有点儿紧张。",
+          "py": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒudiǎnr jǐnzhāng.",
+          "translation": "高速道路を運転するのは少し緊張します。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "自分自身",
+      "original_pinyin": "",
+      "standard_answers": [
+        "自己"
+      ],
+      "context_examples": [
+        {
+          "cn": "可是这儿没有公共汽车，也没有地铁，只能自己开车，很不方便。",
+          "py": "kě shì zhèr méi yǒu gōng gòng qì chē yě méi yǒu dì tiě zhǐ néng zì jǐ kāi chē hěn bù fāng biàn",
+          "translation": "でも、ここにはバスも地下鉄もありません。自分で運転しなければならないので、とても不便です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "携帯電話",
+      "original_pinyin": "",
+      "standard_answers": [
+        "手机"
+      ],
+      "context_examples": [
+        {
+          "cn": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+          "py": "Yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn, wǒ xiǎng gēn nǐ liáotiānr.",
+          "translation": "もし時間があったら、私の携帯電話に電話するか、メッセージを送ってください。おしゃべりしたいです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "メッセージを送る",
+      "original_pinyin": "",
+      "standard_answers": [
+        "发短信"
+      ],
+      "context_examples": [
+        {
+          "cn": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+          "py": "Yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn, wǒ xiǎng gēn nǐ liáotiānr.",
+          "translation": "もし時間があったら、私の携帯電話に電話するか、メッセージを送ってください。おしゃべりしたいです。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "新年、お正月",
+      "original_pinyin": "",
+      "standard_answers": [
+        "新年"
+      ],
+      "context_examples": [
+        {
+          "cn": "新年快要到了，祝你新年快乐！",
+          "py": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+          "translation": "もうすぐお正月ですね。明けましておめでとうございます！"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "嬉しい、楽しい",
+      "original_pinyin": "",
+      "standard_answers": [
+        "快乐"
+      ],
+      "context_examples": [
+        {
+          "cn": "新年快要到了，祝你新年快乐！",
+          "py": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+          "translation": "もうすぐお正月ですね。明けましておめでとうございます！"
+        }
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "私は高速道路を運転しています。",
+      "original_pinyin": "Wǒ zài gāosù gōnglù shang kāi chē.",
+      "standard_answers": [
+        "我在高速公路上开车。"
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "王弁護士は飛行機でニューヨークへ行きます。",
+      "original_pinyin": "Wáng lǜshī zuò fēijī qù Niǔyuē.",
+      "standard_answers": [
+        "王律师坐飞机去纽约。"
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "白英愛さんの靴はとてもきれいです。",
+      "original_pinyin": "Bái Yīng'ài de xié hěn piàoliang.",
+      "standard_answers": [
+        "白英爱的鞋很漂亮。"
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "新年が近づいています。",
+      "original_pinyin": "Xīnnián dào",
+      "standard_answers": [
+        "新年到"
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 43,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "私たちは中国語のテストを受けます。",
+      "original_pinyin": "Wǒmen kǎo Zhōngwén",
+      "standard_answers": [
+        "我们考中文"
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 44,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "私たちは授業があります。",
+      "original_pinyin": "Wǒmen shàng kè",
+      "standard_answers": [
+        "我们上课"
+      ]
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 45,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "先日、空港まで送ってくださってありがとうございました。",
+      "original_pinyin": "xiè xie nǐ nà tiān kāi chē sòng wǒ dào jī chǎng",
+      "standard_answers": [
+        "谢谢你那天开车送我到机场。"
+      ],
+      "context_examples": [
+        {
+          "cn": "谢谢你那天开车送我到机场。",
+          "py": "xiè xie nǐ nà tiān kāi chē sòng wǒ dào jī chǎng",
+          "translation": "先日、空港まで送ってくださってありがとうございました。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 7
+      }
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 46,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "この数日、毎日車で旧友に会いに行っています。",
+      "original_pinyin": "wǒ zhè jǐ tiān měi tiān dōu kāi chē chū qù kàn lǎo péng you",
+      "standard_answers": [
+        "我这几天每天都开车出去看老朋友。"
+      ],
+      "context_examples": [
+        {
+          "cn": "我这几天每天都开车出去看老朋友。",
+          "py": "wǒ zhè jǐ tiān měi tiān dōu kāi chē chū qù kàn lǎo péng you",
+          "translation": "この数日、毎日車で旧友に会いに行っています。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 9
+      }
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 47,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "この街の人たちは特に運転が速いです。",
+      "original_pinyin": "zhè ge chéng shì de rén kāi chē kāi de tè bié kuài",
+      "standard_answers": [
+        "这个城市的人开车开得特别快。"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个城市的人开车开得特别快。",
+          "py": "zhè ge chéng shì de rén kāi chē kāi de tè bié kuài",
+          "translation": "この街の人たちは特に運転が速いです。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 10
+      }
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 48,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "もうすぐお正月ですね。良いお年を！",
+      "original_pinyin": "xīnnián kuàiyào dào le zhù nǐ xīnnián kuàilè",
+      "standard_answers": [
+        "新年快要到了，祝你新年快乐！"
+      ],
+      "context_examples": [
+        {
+          "cn": "新年快要到了，祝你新年快乐！",
+          "py": "xīnnián kuàiyào dào le zhù nǐ xīnnián kuàilè",
+          "translation": "もうすぐお正月ですね。良いお年を！"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 14
+      }
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 49,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "先日、空港まで送ってくれてありがとうございました。",
+      "original_pinyin": "xiè xie nǐ nà tiān kāi chē sòng wǒ dào jī chǎng",
+      "standard_answers": [
+        "谢谢你那天开车送我到机场。"
+      ],
+      "context_examples": [
+        {
+          "cn": "谢谢你那天开车送我到机场。",
+          "py": "xiè xie nǐ nà tiān kāi chē sòng wǒ dào jī chǎng",
+          "translation": "先日、空港まで送ってくれてありがとうございました。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 50,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "でも、大変お時間を取らせてしまって申し訳ありませんでした。",
+      "original_pinyin": "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si",
+      "standard_answers": [
+        "不过，让你花那么多时间，真不好意思。"
+      ],
+      "context_examples": [
+        {
+          "cn": "不过，让你花那么多时间，真不好意思。",
+          "py": "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si",
+          "translation": "でも、大変お時間を取らせてしまって申し訳ありませんでした。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 51,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "この数日、毎日車で旧友に会いに行っています。",
+      "original_pinyin": "wǒ zhè jǐ tiān měi tiān dōu kāi chē chū qù kàn lǎo péng you",
+      "standard_answers": [
+        "我这几天每天都开车出去看老朋友。"
+      ],
+      "context_examples": [
+        {
+          "cn": "我这几天每天都开车出去看老朋友。",
+          "py": "wǒ zhè jǐ tiān měi tiān dōu kāi chē chū qù kàn lǎo péng you",
+          "translation": "この数日、毎日車で旧友に会いに行っています。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 1002,
+      "question_id": 52,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "この街の人たちは特に運転が速いです。",
+      "original_pinyin": "zhè ge chéng shì de rén kāi chē kāi de tè bié kuài",
+      "standard_answers": [
+        "这个城市的人开车开得特别快。"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个城市的人开车开得特别快。",
+          "py": "zhè ge chéng shì de rén kāi chē kāi de tè bié kuài",
+          "translation": "この街の人たちは特に運転が速いです。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    }
+  ],
+  "video_plan": {
+    "lesson_video_plan": {
+      "lesson_id": 1002,
+      "course_id": 1,
+      "lesson_title": "乘车致谢",
+      "target_audience": "English native speakers learning Chinese",
+      "primary_language": "zh",
+      "support_language": "en",
+      "subtitle_options": {
+        "hanzi": true,
+        "pinyin": true,
+        "translation": true
+      }
+    },
+    "dramatization": {
+      "global_config": {
+        "visual_style": "Modern, warm, and cinematic, with a cozy indoor lighting for the present and slightly brighter, dynamic lighting for the flashback.",
+        "setting_summary_cn": "李友的房间（现在）和机场航站楼外（回忆）。",
+        "setting_summary_en": "Li You's cozy room (present) and outside an airport terminal (flashback).",
+        "character_definitions": [
+          {
+            "name": "李友",
+            "appearance_description_en": "A young Asian female college student, wearing casual and comfortable indoor clothes, with a gentle and appreciative smile."
+          },
+          {
+            "name": "王朋",
+            "appearance_description_en": "A young Asian male college student, wearing a casual jacket, looking friendly and helpful."
+          }
+        ]
+      },
+      "scenes": [
+        {
+          "scene_id": 1,
+          "source_line_refs": [
+            1
+          ],
+          "source_text": {
+            "hanzi": [
+              "李友给王朋写电子邮件："
+            ],
+            "pinyin": [
+              "lǐ yǒu gěi wáng péng xiě diàn zǐ yóu jiàn"
+            ],
+            "translation": [
+              "Li You writes an email to Wang Peng:"
+            ]
+          },
+          "scene_goal": "交代李友正在写邮件的动作和情境。",
+          "scene_description_cn": "李友坐在书桌前，打开笔记本电脑，准备写一封电子邮件。",
+          "setting_en": "Li You's room, at a desk with a laptop.",
+          "characters_on_screen": [
+            "李友"
+          ],
+          "camera_movement": "Slow push in",
+          "shot_type": "Medium shot",
+          "video_prompt_en": "A young Asian woman, Li You, sitting at a cozy desk in her room, opening a laptop and starting to type. Warm indoor lighting, soft focus background.",
+          "voice_over": {
+            "speaker": "旁白",
+            "hanzi": "李友给王朋写电子邮件：",
+            "pinyin": "lǐ yǒu gěi wáng péng xiě diàn zǐ yóu jiàn",
+            "translation": "Li You writes an email to Wang Peng:"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 5
+        },
+        {
+          "scene_id": 2,
+          "source_line_refs": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "source_text": {
+            "hanzi": [
+              "Date: 12月20日",
+              "From: 李友",
+              "To: 王朋",
+              "Subject: 谢谢！"
+            ],
+            "pinyin": [
+              "yuè rì",
+              "lǐ yǒu",
+              "Wáng Péng",
+              "xièxie"
+            ],
+            "translation": [
+              "Date: December 20",
+              "From: Li You",
+              "To: Wang Peng",
+              "Subject: Thank you!"
+            ]
+          },
+          "scene_goal": "展示邮件的头部信息，明确收发件人和主题。",
+          "scene_description_cn": "镜头特写电脑屏幕，屏幕上依次显示出邮件的日期、发件人、收件人和主题“谢谢！”。",
+          "setting_en": "Laptop screen interface.",
+          "characters_on_screen": [],
+          "camera_movement": "Static",
+          "shot_type": "Close-up",
+          "video_prompt_en": "Close-up shot of a laptop screen showing an email interface. Text fields for Date, From, To, and Subject are being filled in. The subject line says 'Thank you!'.",
+          "voice_over": {
+            "speaker": "旁白",
+            "hanzi": "Date: 12月20日。From: 李友。To: 王朋。Subject: 谢谢！",
+            "pinyin": "Date: shí èr yuè èr shí rì. From: lǐ yǒu. To: Wáng Péng. Subject: xièxie!",
+            "translation": "Date: December 20. From: Li You. To: Wang Peng. Subject: Thank you!"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 6
+        },
+        {
+          "scene_id": 3,
+          "source_line_refs": [
+            6,
+            7
+          ],
+          "source_text": {
+            "hanzi": [
+              "王朋：",
+              "谢谢你那天开车送我到机场。"
+            ],
+            "pinyin": [
+              "Wáng Péng",
+              "xiè xie nǐ nà tiān kāi chē sòng wǒ dào jī chǎng"
+            ],
+            "translation": [
+              "Wang Peng:",
+              "Thank you for driving me to the airport the other day."
+            ]
+          },
+          "scene_goal": "李友写下感谢的话，画面闪回王朋送她去机场的情景。",
+          "scene_description_cn": "李友微笑着敲击键盘，画面过渡到几天前王朋开车载着李友到达机场航站楼外的场景。",
+          "setting_en": "Li You's room transitioning to an airport terminal drop-off zone.",
+          "characters_on_screen": [
+            "李友",
+            "王朋"
+          ],
+          "camera_movement": "Pan and transition",
+          "shot_type": "Medium shot to Wide shot",
+          "video_prompt_en": "Li You smiles while typing on her laptop. The scene smoothly transitions to a flashback: a young Asian man, Wang Peng, driving a car and dropping Li You off at a busy airport terminal during the day.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "王朋：谢谢你那天开车送我到机场。",
+            "pinyin": "Wáng Péng: xiè xie nǐ nà tiān kāi chē sòng wǒ dào jī chǎng.",
+            "translation": "Wang Peng: Thank you for driving me to the airport the other day."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 8
+        },
+        {
+          "scene_id": 4,
+          "source_line_refs": [
+            8,
+            9
+          ],
+          "source_text": {
+            "hanzi": [
+              "不过，让你花那么多时间，真不好意思。",
+              "我这几天每天都开车出去看老朋友。"
+            ],
+            "pinyin": [
+              "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si",
+              "wǒ zhè jǐ tiān měi tiān dōu kāi chē chū qù kàn lǎo péng you"
+            ],
+            "translation": [
+              "However, I feel bad for taking up so much of your time.",
+              "These past few days I've been driving out to see old friends every day."
+            ]
+          },
+          "scene_goal": "表现李友的歉意以及她最近的行程。",
+          "scene_description_cn": "李友坐在书桌前，拿着手机发语音信息，表情有些歉意。随后画面切到她白天开车在路上的情景。",
+          "setting_en": "A cozy bedroom desk at night, transitioning to a sunny road during the day.",
+          "characters_on_screen": [
+            "李友"
+          ],
+          "camera_movement": "Slow push in",
+          "shot_type": "Medium shot",
+          "video_prompt_en": "A young Asian woman sitting at a cozy desk at night, holding a smartphone and speaking into it with an apologetic smile. The scene then transitions to her driving a car on a sunny day, looking relaxed.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "不过，让你花那么多时间，真不好意思。我这几天每天都开车出去看老朋友。",
+            "pinyin": "bú guò ràng nǐ huā nà me duō shí jiān zhēn bù hǎo yì si. wǒ zhè jǐ tiān měi tiān dōu kāi chē chū qù kàn lǎo péng you.",
+            "translation": "However, I feel bad for taking up so much of your time. These past few days I've been driving out to see old friends every day."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 10
+        },
+        {
+          "scene_id": 5,
+          "source_line_refs": [
+            10,
+            11
+          ],
+          "source_text": {
+            "hanzi": [
+              "这个城市的人开车开得特别快。",
+              "我在高速公路上开车，真有点儿紧张。"
+            ],
+            "pinyin": [
+              "zhè ge chéng shì de rén kāi chē kāi de tè bié kuài",
+              "wǒ zài gāo sù gōng lù shang kāi chē zhēn yǒu diǎnr jǐn zhāng"
+            ],
+            "translation": [
+              "People in this city drive especially fast.",
+              "I get a little nervous driving on the highway."
+            ]
+          },
+          "scene_goal": "展示李友在高速公路上开车的紧张感。",
+          "scene_description_cn": "画面显示李友在高速公路上开车，旁边有车快速驶过，李友双手紧握方向盘，神情有些紧张。",
+          "setting_en": "Inside a moving car on a busy highway during the day.",
+          "characters_on_screen": [
+            "李友"
+          ],
+          "camera_movement": "Static from passenger seat",
+          "shot_type": "Close-up",
+          "video_prompt_en": "Close-up of a young Asian woman driving a car on a busy highway. Other cars blur past quickly in the background. She grips the steering wheel tightly, looking slightly nervous and focused.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "这个城市的人开车开得特别快。我在高速公路上开车，真有点儿紧张。",
+            "pinyin": "zhè ge chéng shì de rén kāi chē kāi de tè bié kuài. wǒ zài gāo sù gōng lù shang kāi chē zhēn yǒu diǎnr jǐn zhāng.",
+            "translation": "People in this city drive especially fast. I get a little nervous driving on the highway."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 8
+        },
+        {
+          "scene_id": 6,
+          "source_line_refs": [
+            12
+          ],
+          "source_text": {
+            "hanzi": [
+              "可是这儿没有公共汽车，也没有地铁，只能自己开车，很不方便。"
+            ],
+            "pinyin": [
+              "kě shì zhèr méi yǒu gōng gòng qì chē yě méi yǒu dì tiě zhǐ néng zì jǐ kāi chē hěn bù fāng biàn"
+            ],
+            "translation": [
+              "But there are no buses or subways here. I have to drive myself, which is very inconvenient."
+            ]
+          },
+          "scene_goal": "表达当地交通不便的无奈。",
+          "scene_description_cn": "李友把车停在路边，看着空荡荡的街道，没有公交站牌和地铁标志，她无奈地叹了口气。",
+          "setting_en": "An empty suburban street with no public transport infrastructure.",
+          "characters_on_screen": [
+            "李友"
+          ],
+          "camera_movement": "Pan left",
+          "shot_type": "Wide shot to Medium shot",
+          "video_prompt_en": "A young Asian woman sitting in her parked car, looking out the window at an empty suburban street. There are no bus stops or subway stations in sight. She sighs, looking a bit frustrated by the inconvenience.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "可是这儿没有公共汽车，也没有地铁，只能自己开车，很不方便。",
+            "pinyin": "kě shì zhèr méi yǒu gōng gòng qì chē yě méi yǒu dì tiě zhǐ néng zì jǐ kāi chē hěn bù fāng biàn.",
+            "translation": "But there are no buses or subways here. I have to drive myself, which is very inconvenient."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 8
+        },
+        {
+          "scene_id": 7,
+          "source_line_refs": [
+            13,
+            14,
+            15
+          ],
+          "source_text": {
+            "hanzi": [
+              "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+              "新年快要到了，祝你新年快乐！",
+              "李友"
+            ],
+            "pinyin": [
+              "yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn wǒ xiǎng gēn nǐ liáo tiānr",
+              "xīnnián kuàiyào dào le zhù nǐ xīnnián kuàilè",
+              "Lǐ Yǒu"
+            ],
+            "translation": [
+              "If you have free time, call my cell phone or send me a text message. I'd like to chat with you.",
+              "New Year is almost here. Happy New Year!",
+              "Li You"
+            ]
+          },
+          "scene_goal": "结束语，表达新年祝福。",
+          "scene_description_cn": "画面切回李友的房间，她对着手机微笑着说完最后的话，点击发送。屏幕上浮现出“新年快乐”和署名“李友”的字样。",
+          "setting_en": "A cozy bedroom desk at night.",
+          "characters_on_screen": [
+            "李友"
+          ],
+          "camera_movement": "Static",
+          "shot_type": "Medium close-up",
+          "video_prompt_en": "A young Asian woman sitting at a cozy desk at night, smiling warmly as she speaks into her smartphone. She taps the screen to send the message. Festive warm lights are visible in the background.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。新年快要到了，祝你新年快乐！李友。",
+            "pinyin": "yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn wǒ xiǎng gēn nǐ liáo tiānr. xīnnián kuàiyào dào le zhù nǐ xīnnián kuàilè! Lǐ Yǒu.",
+            "translation": "If you have free time, call my cell phone or send me a text message. I'd like to chat with you. New Year is almost here. Happy New Year! Li You."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 12
+        }
+      ]
+    },
+    "explanation": {
+      "global_config": {
+        "teaching_style": "Clear, step-by-step line walkthrough focusing on meaning, vocabulary, and natural pronunciation.",
+        "target_audience": "English native speakers learning Chinese",
+        "presenter_mode": "voice_over",
+        "visual_style": "Clean and structured, highlighting key vocabulary and sentence components for easy reading.",
+        "lesson_main_title": "乘车致谢"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "Context: Writing an Email",
+          "teaching_goal": "Introduce the context of the lesson and the word for email.",
+          "narration": {
+            "subtitle_en": "Welcome to our new lesson. Today, we are looking at an email. The context is set with [zh:李友给王朋写电子邮件]. This means Li You writes an email to Wang Peng. The key word here is [zh:电子邮件], meaning electronic mail or email. Just like in English, it is often abbreviated to [zh:电邮] in daily life. Let's look at the email format."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "李友给王朋写电子邮件：",
+            "focus_pinyin": "Lǐ Yǒu gěi Wáng Péng xiě diànzǐ yóujiàn:",
+            "focus_gloss_en": "Li You writes an email to Wang Peng:",
+            "notes": "Context introduction"
+          },
+          "highlight_words": [
+            {
+              "word": "电子邮件",
+              "pinyin": "diànzǐ yóujiàn",
+              "translation": "email",
+              "explanation_en": "Electronic mail. Often abbreviated as 电邮 (diàn yóu).",
+              "character_insight_en": "电子 means electronic, and 邮件 means mail."
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight the word 电子邮件 in the sentence.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 2,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Email Header: Date",
+          "teaching_goal": "Understand the date format in an email header.",
+          "narration": {
+            "subtitle_en": "The email starts with the date header. It says Date, followed by [zh:十二月二十日]. This simply means December twentieth. Notice how Chinese dates always go from the larger unit, the month, to the smaller unit, the day."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "Date: 12月20日",
+            "focus_pinyin": "Date: shí'èr yuè èrshí rì",
+            "focus_gloss_en": "Date: December 20",
+            "notes": "Email header"
+          },
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Show the date clearly.",
+          "estimated_duration_seconds": 12
+        },
+        {
+          "segment_id": 3,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Email Header: Sender",
+          "teaching_goal": "Identify the sender of the email.",
+          "narration": {
+            "subtitle_en": "Next is the sender information. It reads From, [zh:李友]. This confirms that Li You is the one writing the message."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "From: 李友",
+            "focus_pinyin": "From: Lǐ Yǒu",
+            "focus_gloss_en": "From: Li You",
+            "notes": "Email header"
+          },
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Show the sender line.",
+          "estimated_duration_seconds": 8
+        },
+        {
+          "segment_id": 4,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Email Header: Recipient",
+          "teaching_goal": "Identify the recipient of the email.",
+          "narration": {
+            "subtitle_en": "Then we have the recipient. It says To, [zh:王朋]. So the email is directed to her friend Wang Peng."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "To: 王朋",
+            "focus_pinyin": "To: Wáng Péng",
+            "focus_gloss_en": "To: Wang Peng",
+            "notes": "Email header"
+          },
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Show the recipient line.",
+          "estimated_duration_seconds": 8
+        },
+        {
+          "segment_id": 5,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Email Header: Subject",
+          "teaching_goal": "Understand the subject line of the email.",
+          "narration": {
+            "subtitle_en": "The subject line gives away the purpose of the email. It says Subject, [zh:谢谢]. This is a straightforward thank you message. Let's read the main body to see what she is thankful for."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "Subject: 谢谢！",
+            "focus_pinyin": "Subject: Xièxie!",
+            "focus_gloss_en": "Subject: Thank you!",
+            "notes": "Email header"
+          },
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Show the subject line.",
+          "estimated_duration_seconds": 12
+        },
+        {
+          "segment_id": 6,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "Greeting",
+          "teaching_goal": "Learn how to start an informal Chinese email.",
+          "narration": {
+            "subtitle_en": "The email body opens with a simple greeting, [zh:王朋]. In Chinese emails or letters to friends, it is very common to just state the person's name followed by a colon, without adding words like dear."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "王朋：",
+            "focus_pinyin": "Wáng Péng:",
+            "focus_gloss_en": "Wang Peng:",
+            "notes": "Salutation"
+          },
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Show the greeting.",
+          "estimated_duration_seconds": 12
+        },
+        {
+          "segment_id": 7,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "Expressing Thanks for a Ride",
+          "teaching_goal": "Learn how to thank someone for driving you somewhere.",
+          "narration": {
+            "subtitle_en": "Here is the main point of her email. She says [zh:谢谢你那天开车送我到机场]. This translates to, thank you for driving me to the airport the other day. The phrase [zh:开车] means to drive a car. The verb [zh:送] means to see someone off or to deliver. So [zh:送我到机场] means to take me to the airport."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "谢谢你那天开车送我到机场。",
+            "focus_pinyin": "Xièxie nǐ nà tiān kāi chē sòng wǒ dào jīchǎng.",
+            "focus_gloss_en": "Thank you for driving me to the airport the other day.",
+            "notes": "Main purpose of the email"
+          },
+          "highlight_words": [
+            {
+              "word": "开车",
+              "pinyin": "kāi chē",
+              "translation": "to drive a car",
+              "explanation_en": "Literally 'to open a vehicle', used for driving.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "送",
+              "pinyin": "sòng",
+              "translation": "to see off or out; to take (someone somewhere)",
+              "explanation_en": "Used when escorting or driving someone to a destination.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "机场",
+              "pinyin": "jīchǎng",
+              "translation": "airport",
+              "explanation_en": "A common destination word.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight 开车, 送, and 机场.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 8,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            8
+          ],
+          "segment_title": "Expressing Apology for Inconvenience",
+          "teaching_goal": "Learn how to politely express feeling bad for taking up someone's time.",
+          "narration": {
+            "subtitle_en": "She then expresses her gratitude politely. She writes [zh:不过让你花那么多时间真不好意思]. This means, however, I feel bad for taking up so much of your time. The verb [zh:让] means to cause someone to do something. The word [zh:花] means to spend, in this case, spending time. Finally, [zh:不好意思] is a very useful phrase meaning to feel embarrassed or to feel bad about inconveniencing someone."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "不过，让你花那么多时间，真不好意思。",
+            "focus_pinyin": "Búguò, ràng nǐ huā nàme duō shíjiān, zhēn bù hǎoyìsi.",
+            "focus_gloss_en": "However, I feel bad for taking up so much of your time.",
+            "notes": "Polite expression of gratitude and slight apology"
+          },
+          "highlight_words": [
+            {
+              "word": "让",
+              "pinyin": "ràng",
+              "translation": "to allow or cause",
+              "explanation_en": "Used here to mean 'causing you to...'",
+              "character_insight_en": ""
+            },
+            {
+              "word": "花",
+              "pinyin": "huā",
+              "translation": "to spend",
+              "explanation_en": "Can be used for spending money or time.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "不好意思",
+              "pinyin": "bù hǎoyìsi",
+              "translation": "to feel embarrassed",
+              "explanation_en": "A common polite phrase used when you feel you have inconvenienced someone.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight 让, 花, and 不好意思.",
+          "estimated_duration_seconds": 25
+        },
+        {
+          "segment_id": 9,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            9
+          ],
+          "segment_title": "Daily Activities",
+          "teaching_goal": "Understand a sentence describing daily repeated actions.",
+          "narration": {
+            "subtitle_en": "Now Li You shares what she has been up to. She says [zh:我这几天每天都开车出去看老朋友]. This means, these past few days I've been driving out to see old friends every day. Notice the word [zh:每] meaning every, paired with [zh:都] meaning all. We will explore this grammar pattern in detail later. The phrase [zh:出去] means to go out."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "我这几天每天都开车出去看老朋友。",
+            "focus_pinyin": "Wǒ zhè jǐ tiān měitiān dōu kāi chē chūqu kàn lǎo péngyou.",
+            "focus_gloss_en": "These past few days I've been driving out to see old friends every day.",
+            "notes": "Describing recent activities"
+          },
+          "highlight_words": [
+            {
+              "word": "每",
+              "pinyin": "měi",
+              "translation": "every, each",
+              "explanation_en": "Often paired with 都 to indicate totality.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "出去",
+              "pinyin": "chūqu",
+              "translation": "to go out",
+              "explanation_en": "A directional complement indicating movement away from the speaker.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight 每天都 and 出去.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 10,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            10
+          ],
+          "segment_title": "Observing Local Traffic",
+          "teaching_goal": "Learn how to describe how an action is performed.",
+          "narration": {
+            "subtitle_en": "She makes an observation about the local traffic. She notes [zh:这个城市的人开车开得特别快]. This translates to, people in this city drive especially fast. The word [zh:城市] means city. The adverb [zh:特别] means especially or particularly. She uses the descriptive complement to describe how they drive."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "这个城市的人开车开得特别快。",
+            "focus_pinyin": "Zhège chéngshì de rén kāi chē kāi de tèbié kuài.",
+            "focus_gloss_en": "People in this city drive especially fast.",
+            "notes": "Describing an action"
+          },
+          "highlight_words": [
+            {
+              "word": "城市",
+              "pinyin": "chéngshì",
+              "translation": "city",
+              "explanation_en": "A noun referring to an urban area.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "特别",
+              "pinyin": "tèbié",
+              "translation": "especially",
+              "explanation_en": "An adverb used to intensify an adjective.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight 城市 and 特别.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 11,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            11
+          ],
+          "segment_title": "Expressing Nervousness",
+          "teaching_goal": "Learn vocabulary for highway and feeling nervous.",
+          "narration": {
+            "subtitle_en": "Because they drive so fast, she shares her feelings. She says [zh:我在高速公路上开车真有点儿紧张]. This means, I get a little nervous driving on the highway. The word [zh:高速公路] means highway, literally high-speed public road. And [zh:紧张] means nervous or anxious."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "我在高速公路上开车，真有点儿紧张。",
+            "focus_pinyin": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒudiǎnr jǐnzhāng.",
+            "focus_gloss_en": "I get a little nervous driving on the highway.",
+            "notes": "Expressing feelings"
+          },
+          "highlight_words": [
+            {
+              "word": "高速公路",
+              "pinyin": "gāosù gōnglù",
+              "translation": "highway",
+              "explanation_en": "Literally 'high-speed public road'.",
+              "character_insight_en": "高速 means high speed, and 公路 means public road."
+            },
+            {
+              "word": "紧张",
+              "pinyin": "jǐnzhāng",
+              "translation": "nervous, anxious",
+              "explanation_en": "Used to describe feeling stressed or nervous.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight 高速公路 and 紧张.",
+          "estimated_duration_seconds": 20
+        },
+        {
+          "segment_id": 12,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            12
+          ],
+          "segment_title": "Explaining the Situation",
+          "teaching_goal": "Learn transportation vocabulary and how to express having no choice.",
+          "narration": {
+            "subtitle_en": "She explains why she has to drive despite being nervous. She writes [zh:可是这儿没有公共汽车也没有地铁只能自己开车很不方便]. This means, but there are no buses or subways here, I have to drive myself, which is very inconvenient. She lists [zh:公共汽车] for bus, and [zh:地铁] for subway. The phrase [zh:只能] means can only, or have no choice but to."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "可是这儿没有公共汽车，也没有地铁，只能自己开车，很不方便。",
+            "focus_pinyin": "Kěshì zhèr méiyǒu gōnggòng qìchē, yě méiyǒu dìtiě, zhǐ néng zìjǐ kāi chē, hěn bù fāngbiàn.",
+            "focus_gloss_en": "But there are no buses or subways here. I have to drive myself, which is very inconvenient.",
+            "notes": "Explaining a lack of options"
+          },
+          "highlight_words": [
+            {
+              "word": "公共汽车",
+              "pinyin": "gōnggòng qìchē",
+              "translation": "bus",
+              "explanation_en": "Public bus.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "地铁",
+              "pinyin": "dìtiě",
+              "translation": "subway",
+              "explanation_en": "Underground railway.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "只能",
+              "pinyin": "zhǐ néng",
+              "translation": "can only; have no choice but to",
+              "explanation_en": "Indicates a lack of alternatives.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight 公共汽车, 地铁, and 只能.",
+          "estimated_duration_seconds": 25
+        },
+        {
+          "segment_id": 13,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            13
+          ],
+          "segment_title": "Inviting to Connect",
+          "teaching_goal": "Learn how to suggest keeping in touch via phone or text.",
+          "narration": {
+            "subtitle_en": "She wraps up the email by inviting him to connect. She says [zh:有空儿的话打我的手机或者给我发短信我想跟你聊天儿]. This means, if you have free time, call my cell phone or send me a text message, I'd like to chat with you. The phrase [zh:有空儿的话] means if you have free time. [zh:发短信] means to send a text message, and [zh:聊天儿] means to chat."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+            "focus_pinyin": "Yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn, wǒ xiǎng gēn nǐ liáo tiānr.",
+            "focus_gloss_en": "If you have free time, call my cell phone or send me a text message. I'd like to chat with you.",
+            "notes": "Suggesting ways to communicate"
+          },
+          "highlight_words": [
+            {
+              "word": "有空儿",
+              "pinyin": "yǒu kòngr",
+              "translation": "to have free time",
+              "explanation_en": "A casual way to say having spare time.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "发短信",
+              "pinyin": "fā duǎnxìn",
+              "translation": "to send a text message",
+              "explanation_en": "发 means to send, and 短信 means short message.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "聊天儿",
+              "pinyin": "liáo tiānr",
+              "translation": "to chat",
+              "explanation_en": "A casual conversation.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight 有空儿, 发短信, and 聊天儿.",
+          "estimated_duration_seconds": 24
+        },
+        {
+          "segment_id": 14,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            14
+          ],
+          "segment_title": "Holiday Greeting",
+          "teaching_goal": "Learn how to wish someone a Happy New Year.",
+          "narration": {
+            "subtitle_en": "Finally, she sends a holiday greeting. She writes [zh:新年快要到了祝你新年快乐]. This translates to, New Year is almost here, Happy New Year! The structure [zh:快要到了] indicates that something is about to happen soon. The verb [zh:祝] means to wish, so she is wishing him a happy new year."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "新年快要到了，祝你新年快乐！",
+            "focus_pinyin": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+            "focus_gloss_en": "New Year is almost here. Happy New Year!",
+            "notes": "Holiday wishes"
+          },
+          "highlight_words": [
+            {
+              "word": "新年",
+              "pinyin": "xīnnián",
+              "translation": "New Year",
+              "explanation_en": "Refers to the upcoming year.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "快要",
+              "pinyin": "kuàiyào",
+              "translation": "soon; almost",
+              "explanation_en": "Used to indicate an imminent event.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "祝",
+              "pinyin": "zhù",
+              "translation": "to wish",
+              "explanation_en": "Used when offering good wishes.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight 新年, 快要, and 祝.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 15,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            15
+          ],
+          "segment_title": "Sign-off",
+          "teaching_goal": "Learn how to sign off an informal email.",
+          "narration": {
+            "subtitle_en": "The email ends with her signature, [zh:李友]. This is a standard and simple way to sign off an informal email in Chinese. Just your name at the bottom."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "李友",
+            "focus_pinyin": "Lǐ Yǒu",
+            "focus_gloss_en": "Li You",
+            "notes": "Email sign-off"
+          },
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Show the signature.",
+          "estimated_duration_seconds": 8
+        },
+        {
+          "segment_id": 16,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            9
+          ],
+          "segment_title": "Grammar: Indicating Totality with 每...都...",
+          "teaching_goal": "Teach students how to use 每...都... to express 'every' or 'each' without exception.",
+          "narration": {
+            "subtitle_en": "Let's look at a very important grammar structure for expressing 'every' or 'each'. When a sentence contains the word [zh:每], meaning 'every', we usually must insert the adverb [zh:都], meaning 'all' or 'both', right before the verb. For example, in our dialogue, Li You says [zh:每天都开车], meaning she drives 'every day'. You cannot just say [zh:每天开车]; the [zh:都] is essential to emphasize that the action applies to every single instance without exception. Let's look at another example: [zh:我每节课都来], meaning 'I come to every class'. Remember, the pattern is always [zh:每] plus a measure word and noun, followed by [zh:都] and the verb."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "我这几天每天都开车出去看老朋友。",
+            "focus_pinyin": "Wǒ zhè jǐ tiān měi tiān dōu kāi chē chū qù kàn lǎo péng you.",
+            "focus_gloss_en": "These past few days I've been driving out to see old friends every day.",
+            "notes": "Use 都 before the verb when 每 is present."
+          },
+          "highlight_words": [
+            {
+              "word": "每",
+              "pinyin": "měi",
+              "translation": "every, each",
+              "explanation_en": "A pronoun used to indicate every individual or unit in a group.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "都",
+              "pinyin": "dōu",
+              "translation": "both, all",
+              "explanation_en": "An adverb used to summarize or include everything previously mentioned.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "每 + [Measure Word/Noun] + 都 + [Verb]",
+              "pattern_pinyin": "měi dōu",
+              "explanation_en": "In sentences containing 每 (every), the adverb 都 (all) is usually inserted before the verb to indicate totality."
+            },
+            {
+              "pattern": "他每天晚上都预习课文。",
+              "pattern_pinyin": "Tā měi tiān wǎnshang dōu yùxí kèwén.",
+              "explanation_en": "He studies the lessons in advance every night."
+            },
+            {
+              "pattern": "这儿每个人我都认识。",
+              "pattern_pinyin": "Zhèr měi gè rén wǒ dōu rènshi.",
+              "explanation_en": "I know everyone here."
+            }
+          ],
+          "visual_notes": "Highlight '每' and '都' in the example sentences to show their pairing.",
+          "estimated_duration_seconds": 35
+        },
+        {
+          "segment_id": 17,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            14
+          ],
+          "segment_title": "Grammar: Indicating Imminence with 要...了",
+          "teaching_goal": "Teach students how to express that an action or situation is about to happen soon.",
+          "narration": {
+            "subtitle_en": "Next, let's learn how to say that something is about to happen soon. To indicate the imminence of an anticipated action or situation, we use the structure [zh:要] followed by the verb or event, and ending with [zh:了]. You can also add [zh:快] to make it [zh:快要], which adds a sense of urgency, like 'almost' or 'very soon'. In the email, Li You writes [zh:新年快要到了], meaning 'The New Year is almost here'. Another common example is [zh:电影快要开始了], meaning 'The movie is going to start soon'. This structure is incredibly useful for talking about upcoming events, weather changes, or holidays. Just remember to place [zh:了] at the end of the sentence to show the upcoming change of state."
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "新年快要到了，祝你新年快乐！",
+            "focus_pinyin": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+            "focus_gloss_en": "New Year is almost here. Happy New Year!",
+            "notes": "Indicates an action or situation is about to happen."
+          },
+          "highlight_words": [
+            {
+              "word": "快要",
+              "pinyin": "kuàiyào",
+              "translation": "soon, almost",
+              "explanation_en": "An adverbial phrase indicating that an event will happen in the very near future.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "[快]要 + [Verb/Event] + 了",
+              "pattern_pinyin": "kuài yào le",
+              "explanation_en": "The 要...了 (soon) structure indicates the imminence of an anticipated action or situation. It often appears as 快要...了."
+            },
+            {
+              "pattern": "寒假要到了，你要做什么？",
+              "pattern_pinyin": "Hánjià yào dào le, nǐ yào zuò shénme?",
+              "explanation_en": "It'll be winter break soon. What do you want to do?"
+            },
+            {
+              "pattern": "电影快要开始了，你买票了吗？",
+              "pattern_pinyin": "Diànyǐng kuài yào kāishǐ le, nǐ mǎi piào le ma?",
+              "explanation_en": "The movie is going to start soon. Did you get the tickets?"
+            }
+          ],
+          "visual_notes": "Use a timeline graphic if possible, or simply highlight '快要' and '了' at the beginning and end of the phrase.",
+          "estimated_duration_seconds": 35
+        },
+        {
+          "segment_id": 18,
+          "segment_type": "recap",
+          "source_line_refs": [
+            9,
+            14
+          ],
+          "segment_title": "Lesson Recap",
+          "teaching_goal": "Summarize the key grammar points and vocabulary learned in this lesson.",
+          "narration": {
+            "subtitle_en": "Great job! Let's do a quick recap of what we've learned today. We mastered the 'every' structure using [zh:每] and [zh:都], as in [zh:每天都开车]. We also learned how to express that something is about to happen using [zh:快要] and [zh:了], like in [zh:新年快要到了]. Additionally, we picked up some useful vocabulary for transportation and communication, such as [zh:高速公路] for highway, and [zh:发短信] for sending a text message. Keep practicing these patterns, and try writing your own short email in Chinese. See you next time!"
+          },
+          "on_screen_text": {
+            "main_title": "乘车致谢",
+            "focus_text": "Key Phrases Review",
+            "focus_pinyin": "Key Phrases Review",
+            "focus_gloss_en": "Review of Lesson 1002",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "每...都...",
+              "pinyin": "měi... dōu...",
+              "translation": "every... all...",
+              "explanation_en": "Grammar pattern indicating totality.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "快要...了",
+              "pinyin": "kuàiyào... le",
+              "translation": "soon / about to",
+              "explanation_en": "Grammar pattern indicating imminence.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "电子邮件",
+              "pinyin": "diànzǐ yóujiàn",
+              "translation": "email",
+              "explanation_en": "Often abbreviated as 电邮 (diànyóu).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "高速公路",
+              "pinyin": "gāosù gōnglù",
+              "translation": "highway",
+              "explanation_en": "Literally 'high-speed public road'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "不好意思",
+              "pinyin": "bù hǎoyìsi",
+              "translation": "to feel embarrassed",
+              "explanation_en": "Used to express mild apology or embarrassment.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Display the key phrases in a bulleted list with clear pinyin and English translations.",
+          "estimated_duration_seconds": 25
+        }
+      ]
+    },
+    "production_notes": {
+      "recommended_workflow": [
+        "generate dramatization visuals",
+        "generate explanation visuals",
+        "generate voice-over",
+        "compose subtitles"
+      ],
+      "remarks": "This schema is model-agnostic and designed for script planning plus downstream rendering."
+    }
+  },
+  "video_render_plan": {
+    "explanation": {
+      "lesson_id": 1002,
+      "course_id": 1,
+      "lesson_title": "乘车致谢",
+      "target_audience": "英語ネイティブの中国語学習者",
+      "video_style": {
+        "presenter_mode": "voice_over",
+        "teaching_style": "Clear, step-by-step line walkthrough focusing on meaning, vocabulary, and natural pronunciation.",
+        "visual_style": "Clean and structured, highlighting key vocabulary and sentence components for easy reading.",
+        "aspect_ratio": "16:9",
+        "safe_area": "title_safe"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_order": 1,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "場面：メールを書く",
+          "teaching_goal": "レッスンの背景と「メール」という言葉を紹介します。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "新しいレッスンへようこそ。今日はメールを見ていきましょう。文脈は「[zh:李友给王朋写电子邮件]」で設定されています。これは「李友が王朋にメールを書く」という意味です。ここでのキーワードは「[zh:电子邮件]」で、電子メール、つまりメールのことです。日常会話では、日本語の「メール」のように「[zh:电邮]」と略されることが多いです。では、メールの形式を見ていきましょう。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "李友给王朋写电子邮件：",
+                "focus_pinyin": "Lǐ Yǒu gěi Wáng Péng xiě diànzǐ yóujiàn:",
+                "focus_gloss_en": "李友 [zh:Lǐ Yǒu] が王朋 [zh:Wáng Péng] にメールを書きます。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "状況説明",
+                "highlight_words": [
+                  {
+                    "word": "电子邮件",
+                    "pinyin": "diànzǐ yóujiàn",
+                    "translation": "メール",
+                    "explanation_en": "電子メールのことです。よく「电邮 [zh:diàn yóu]」と略されます。",
+                    "character_insight_en": "电子 means electronic, and 邮件 means mail."
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "电子邮件",
+              "pinyin": "diànzǐ yóujiàn",
+              "translation": "メール",
+              "explanation_en": "電子メールのことです。よく「电邮 [zh:diàn yóu]」と略されます。",
+              "character_insight_en": "电子 means electronic, and 邮件 means mail."
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "文中の「电子邮件」という言葉を強調表示します。",
+          "start_time_seconds": 0.0,
+          "duration_seconds": 27.764,
+          "end_time_seconds": 22.0
+        },
+        {
+          "segment_id": 2,
+          "segment_order": 2,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "メールのヘッダー：日付",
+          "teaching_goal": "メールのヘッダーにおける日付の形式を理解しましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "メールは日付のヘッダーから始まります。「Date」とあり、その後に「[zh:十二月二十日]」と続きます。これは単に12月20日という意味です。中国語の日付は、常に大きな単位である「月」から、小さな単位である「日」へと並びます。これに注目してください。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 5.28,
+              "duration_seconds": 5.28,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "Date: 12月20日",
+                "focus_pinyin": "Date: shí'èr yuè èrshí rì",
+                "focus_gloss_en": "日付：12月20日"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 5.28,
+              "end_time_seconds": 12.0,
+              "duration_seconds": 6.72,
+              "content": {
+                "notes": "メールのヘッダー",
+                "highlight_words": []
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "日付を明確に表示します。",
+          "start_time_seconds": 27.764,
+          "duration_seconds": 17.204,
+          "end_time_seconds": 34.0
+        },
+        {
+          "segment_id": 3,
+          "segment_order": 3,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "メールのヘッダー：送信者",
+          "teaching_goal": "メールの送信者を特定する。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "次は送信者情報です。「From」とあり、「[zh:李友]」と書かれています。これは、李友がメッセージを書いていることを示しています。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 3.52,
+              "duration_seconds": 3.52,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "From: 李友",
+                "focus_pinyin": "From: Lǐ Yǒu",
+                "focus_gloss_en": "差出人：李友"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 3.52,
+              "end_time_seconds": 8.0,
+              "duration_seconds": 4.48,
+              "content": {
+                "notes": "メールヘッダー",
+                "highlight_words": []
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "送信者欄を表示する。",
+          "start_time_seconds": 44.968,
+          "duration_seconds": 10.364,
+          "end_time_seconds": 42.0
+        },
+        {
+          "segment_id": 4,
+          "segment_order": 4,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "メールヘッダー：宛先",
+          "teaching_goal": "メールの受信者を特定する。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "次に、宛先です。「宛先」には「[zh:王朋]」とあります。つまり、このメールは友人の王朋さん宛てですね。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 3.52,
+              "duration_seconds": 3.52,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "To: 王朋",
+                "focus_pinyin": "To: Wáng Péng",
+                "focus_gloss_en": "宛先：王朋"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 3.52,
+              "end_time_seconds": 8.0,
+              "duration_seconds": 4.48,
+              "content": {
+                "notes": "メールヘッダー",
+                "highlight_words": []
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "受信者欄を表示する。",
+          "start_time_seconds": 55.332,
+          "duration_seconds": 8.9,
+          "end_time_seconds": 50.0
+        },
+        {
+          "segment_id": 5,
+          "segment_order": 5,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "メールヘッダー：件名",
+          "teaching_goal": "メールの件名を理解する。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "件名を見ると、メールの目的が分かります。件名には「[zh:谢谢]」と書かれています。これは、率直な感謝のメッセージですね。何に感謝しているのか、本文を読んでみましょう。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 5.28,
+              "duration_seconds": 5.28,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "Subject: 谢谢！",
+                "focus_pinyin": "Subject: Xièxie!",
+                "focus_gloss_en": "件名：ありがとう！"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 5.28,
+              "end_time_seconds": 12.0,
+              "duration_seconds": 6.72,
+              "content": {
+                "notes": "メールヘッダー",
+                "highlight_words": []
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "件名欄を表示する。",
+          "start_time_seconds": 64.232,
+          "duration_seconds": 12.98,
+          "end_time_seconds": 62.0
+        },
+        {
+          "segment_id": 6,
+          "segment_order": 6,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "挨拶",
+          "teaching_goal": "中国語のカジュアルなメールの書き出し方を学ぶ。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "メール本文は、簡単な挨拶「[zh:王朋]」で始まります。中国語の友人宛てのメールや手紙では、名前の後にコロンを付けるのが一般的です。「親愛なる」のような言葉は付けません。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 5.28,
+              "duration_seconds": 5.28,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "王朋：",
+                "focus_pinyin": "Wáng Péng:",
+                "focus_gloss_en": "王朋さん："
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 5.28,
+              "end_time_seconds": 12.0,
+              "duration_seconds": 6.72,
+              "content": {
+                "notes": "呼びかけ",
+                "highlight_words": []
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "挨拶を表示する。",
+          "start_time_seconds": 77.212,
+          "duration_seconds": 14.324,
+          "end_time_seconds": 74.0
+        },
+        {
+          "segment_id": 7,
+          "segment_order": 7,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "送ってもらったことへのお礼",
+          "teaching_goal": "誰かに車で送ってもらった時のお礼の伝え方を学ぶ。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "彼女のメールの要点はここです。\n彼女は「[zh:谢谢你那天开车送我到机场]」と言っています。\nこれは「先日、空港まで車で送ってくれてありがとう」という意味ですね。\n「[zh:开车]」というフレーズは「車を運転する」という意味です。\n動詞の「[zh:送]」は「見送る」や「届ける」という意味があります。\nですから、「[zh:送我到机场]」は「私を空港まで送る」という意味になります。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "谢谢你那天开车送我到机场。",
+                "focus_pinyin": "Xièxie nǐ nà tiān kāi chē sòng wǒ dào jīchǎng.",
+                "focus_gloss_en": "先日は空港まで送ってくれてありがとう。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "メールの主な目的",
+                "highlight_words": [
+                  {
+                    "word": "开车",
+                    "pinyin": "kāi chē",
+                    "translation": "車を運転する",
+                    "explanation_en": "直訳すると「車を開ける」ですが、運転するという意味で使われます。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "送",
+                    "pinyin": "sòng",
+                    "translation": "見送る、送っていく",
+                    "explanation_en": "誰かを目的地まで送っていくときに使います。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "机场",
+                    "pinyin": "jīchǎng",
+                    "translation": "空港",
+                    "explanation_en": "よく使われる目的地の言葉です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "开车",
+              "pinyin": "kāi chē",
+              "translation": "車を運転する",
+              "explanation_en": "「車を開ける」が文字通りの意味ですが、運転する際に使われます。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "送",
+              "pinyin": "sòng",
+              "translation": "見送る、送る、連れて行く",
+              "explanation_en": "誰かを目的地まで送ったり、車で連れて行ったりする際に使われます。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "机场",
+              "pinyin": "jīchǎng",
+              "translation": "空港",
+              "explanation_en": "よく使われる目的地の言葉です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「开车」「送」「机场」を強調表示する。",
+          "start_time_seconds": 91.536,
+          "duration_seconds": 24.788,
+          "end_time_seconds": 96.0
+        },
+        {
+          "segment_id": 8,
+          "segment_order": 8,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            8
+          ],
+          "segment_title": "ご迷惑をおかけしたことへのお詫び",
+          "teaching_goal": "相手の時間を取ってしまったことに対して、丁寧に申し訳ない気持ちを伝える方法を学びましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "彼女は続けて、丁寧に感謝の気持ちを伝えています。\n「[zh:不过让你花那么多时间真不好意思]」と書いていますね。\nこれは「でも、そんなに時間を取らせてしまって申し訳ない」という意味です。\n動詞の「[zh:让]」は「誰かに何かをさせる」という意味です。\n「[zh:花]」という言葉は「費やす」という意味で、ここでは時間を費やすことを指します。\n最後に、「[zh:不好意思]」は「恥ずかしい」とか「迷惑をかけて申し訳ない」という意味の、とても便利なフレーズです。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.0,
+              "duration_seconds": 11.0,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "不过，让你花那么多时间，真不好意思。",
+                "focus_pinyin": "Búguò, ràng nǐ huā nàme duō shíjiān, zhēn bù hǎoyìsi.",
+                "focus_gloss_en": "しかし、こんなに時間を取らせてしまって申し訳ありません。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 14.0,
+              "content": {
+                "notes": "感謝と軽いお詫びを丁寧に表現する",
+                "highlight_words": [
+                  {
+                    "word": "让",
+                    "pinyin": "ràng",
+                    "translation": "させる、引き起こす",
+                    "explanation_en": "ここでは「あなたに〜させる」という意味で使われます。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "花",
+                    "pinyin": "huā",
+                    "translation": "費やす、使う",
+                    "explanation_en": "お金や時間を使うときに使えます。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "不好意思",
+                    "pinyin": "bù hǎoyìsi",
+                    "translation": "申し訳なく思う、恐縮する",
+                    "explanation_en": "相手に迷惑をかけてしまったと感じたときに使う、丁寧な決まり文句です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "让",
+              "pinyin": "ràng",
+              "translation": "させる、引き起こす",
+              "explanation_en": "ここでは「あなたに〜させる」という意味で使われます。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "花",
+              "pinyin": "huā",
+              "translation": "費やす、使う",
+              "explanation_en": "お金や時間を使うときに使えます。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "不好意思",
+              "pinyin": "bù hǎoyìsi",
+              "translation": "申し訳なく思う、恐縮する",
+              "explanation_en": "相手に迷惑をかけてしまったと感じたときに使う、丁寧な決まり文句です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「让」「花」「不好意思」に注目しましょう。",
+          "start_time_seconds": 116.324,
+          "duration_seconds": 31.148,
+          "end_time_seconds": 121.0
+        },
+        {
+          "segment_id": 9,
+          "segment_order": 9,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            9
+          ],
+          "segment_title": "日常の行動",
+          "teaching_goal": "毎日繰り返される行動を表す文を理解しましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "さて、李友が最近の出来事を話しています。\n彼女は「[zh:我这几天每天都开车出去看老朋友]」と言っています。\nこれは「この数日間、毎日車で出かけて古い友人に会っている」という意味ですね。\n「[zh:每]」は「毎」という意味で、「[zh:都]」は「全て」という意味です。\nこの二つの組み合わせに注目してください。\nこの文法パターンについては、後ほど詳しく見ていきましょう。\n「[zh:出去]」というフレーズは「外出する」という意味です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "我这几天每天都开车出去看老朋友。",
+                "focus_pinyin": "Wǒ zhè jǐ tiān měitiān dōu kāi chē chūqu kàn lǎo péngyou.",
+                "focus_gloss_en": "ここ数日、毎日車で昔の友達に会いに行っています。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "最近の行動を説明する",
+                "highlight_words": [
+                  {
+                    "word": "每",
+                    "pinyin": "měi",
+                    "translation": "毎、各",
+                    "explanation_en": "全体を示すために、よく「都」と一緒に使われます。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "出去",
+                    "pinyin": "chūqu",
+                    "translation": "出かける",
+                    "explanation_en": "話者から離れる動きを示す方向補語です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "每",
+              "pinyin": "měi",
+              "translation": "毎〜、各〜",
+              "explanation_en": "全体を指す「都」と組み合わせて使われることが多いです。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "出去",
+              "pinyin": "chūqu",
+              "translation": "外出する",
+              "explanation_en": "話者から離れる動きを示す方向補語です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「每天都」「出去」に注目しましょう。",
+          "start_time_seconds": 147.472,
+          "duration_seconds": 26.828,
+          "end_time_seconds": 143.0
+        },
+        {
+          "segment_id": 10,
+          "segment_order": 10,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            10
+          ],
+          "segment_title": "現地の交通状況を見る",
+          "teaching_goal": "動作がどのように行われるかを説明する方法を学びましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "彼女は地元の交通事情について話しています。彼女は「[zh:这个城市的人开车开得特别快]」と言っています。これは「この街の人たちは特に運転が速い」という意味です。「[zh:城市]」は「街」という意味です。副詞の「[zh:特别]」は「特に」や「とりわけ」という意味ですね。彼女は運転の様子を説明するために様態補語を使っています。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "这个城市的人开车开得特别快。",
+                "focus_pinyin": "Zhège chéngshì de rén kāi chē kāi de tèbié kuài.",
+                "focus_gloss_en": "この都市の人々は特に速く運転します。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "動作を説明する",
+                "highlight_words": [
+                  {
+                    "word": "城市",
+                    "pinyin": "chéngshì",
+                    "translation": "都市",
+                    "explanation_en": "都市部を指す名詞です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "特别",
+                    "pinyin": "tèbié",
+                    "translation": "特に",
+                    "explanation_en": "形容詞を強調するために使われる副詞です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "城市",
+              "pinyin": "chéngshì",
+              "translation": "都市",
+              "explanation_en": "都市部を指す名詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "特别",
+              "pinyin": "tèbié",
+              "translation": "特に",
+              "explanation_en": "形容詞を強調するために使われる副詞です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "[zh:chéngshì] と [zh:tèbié] を強調しましょう。",
+          "start_time_seconds": 174.3,
+          "duration_seconds": 25.196,
+          "end_time_seconds": 165.0
+        },
+        {
+          "segment_id": 11,
+          "segment_order": 11,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            11
+          ],
+          "segment_title": "緊張を表現する",
+          "teaching_goal": "高速道路と緊張する気持ちに関する語彙を学びましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "みんな運転が速いので、彼女は自分の気持ちを話しています。彼女は「[zh:我在高速公路上开车真有点儿紧张]」と言っています。これは「高速道路を運転するのは少し緊張する」という意味です。「[zh:高速公路]」は「高速道路」という意味で、文字通り「高速の公共道路」です。そして「[zh:紧张]」は「緊張する」や「不安な」という意味です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 8.8,
+              "duration_seconds": 8.8,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "我在高速公路上开车，真有点儿紧张。",
+                "focus_pinyin": "Wǒ zài gāosù gōnglù shang kāi chē, zhēn yǒudiǎnr jǐnzhāng.",
+                "focus_gloss_en": "高速道路を運転すると、少し緊張します。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 8.8,
+              "end_time_seconds": 20.0,
+              "duration_seconds": 11.2,
+              "content": {
+                "notes": "感情を表現する",
+                "highlight_words": [
+                  {
+                    "word": "高速公路",
+                    "pinyin": "gāosù gōnglù",
+                    "translation": "高速道路",
+                    "explanation_en": "直訳すると「高速の公共道路」です。",
+                    "character_insight_en": "高速 means high speed, and 公路 means public road."
+                  },
+                  {
+                    "word": "紧张",
+                    "pinyin": "jǐnzhāng",
+                    "translation": "緊張する、不安な",
+                    "explanation_en": "ストレスを感じたり、緊張したりする気持ちを表すときに使います。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "高速公路",
+              "pinyin": "gāosù gōnglù",
+              "translation": "高速道路",
+              "explanation_en": "直訳すると「高速の公共道路」です。",
+              "character_insight_en": "高速 means high speed, and 公路 means public road."
+            },
+            {
+              "word": "紧张",
+              "pinyin": "jǐnzhāng",
+              "translation": "緊張する、不安な",
+              "explanation_en": "ストレスを感じたり、緊張したりする気持ちを説明するために使われます。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "[zh:gāosùgōnglù] と [zh:jǐnzhāng] を強調しましょう。",
+          "start_time_seconds": 199.496,
+          "duration_seconds": 23.804,
+          "end_time_seconds": 185.0
+        },
+        {
+          "segment_id": 12,
+          "segment_order": 12,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            12
+          ],
+          "segment_title": "状況を説明する",
+          "teaching_goal": "交通手段に関する語彙と、「〜するしかない」という表現を学びましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "彼女は、緊張するのに運転しなければならない理由を説明しています。彼女は「[zh:可是这儿没有公共汽车也没有地铁只能自己开车很不方便]」と書いています。これは「でもここにはバスも地下鉄もないから、自分で運転するしかなくて、とても不便だ」という意味です。彼女は「[zh:公共汽车]」をバス、「[zh:地铁]」を地下鉄として挙げています。フレーズの「[zh:只能]」は「〜するしかない」や「〜するよりほかない」という意味です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.0,
+              "duration_seconds": 11.0,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "可是这儿没有公共汽车，也没有地铁，只能自己开车，很不方便。",
+                "focus_pinyin": "Kěshì zhèr méiyǒu gōnggòng qìchē, yě méiyǒu dìtiě, zhǐ néng zìjǐ kāi chē, hěn bù fāngbiàn.",
+                "focus_gloss_en": "でも、ここにはバスも地下鉄もありません。自分で運転するしかないので、とても不便です。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 14.0,
+              "content": {
+                "notes": "選択肢がないことを説明する",
+                "highlight_words": [
+                  {
+                    "word": "公共汽车",
+                    "pinyin": "gōnggòng qìchē",
+                    "translation": "バス",
+                    "explanation_en": "公共のバスです。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "地铁",
+                    "pinyin": "dìtiě",
+                    "translation": "地下鉄",
+                    "explanation_en": "地下を走る鉄道です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "只能",
+                    "pinyin": "zhǐ néng",
+                    "translation": "〜するしかない、〜しかできない",
+                    "explanation_en": "他に選択肢がないことを示します。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "公共汽车",
+              "pinyin": "gōnggòng qìchē",
+              "translation": "バス",
+              "explanation_en": "公共のバスです。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "地铁",
+              "pinyin": "dìtiě",
+              "translation": "地下鉄",
+              "explanation_en": "地下を走る鉄道です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "只能",
+              "pinyin": "zhǐ néng",
+              "translation": "〜するしかない、〜しかできない",
+              "explanation_en": "他に選択肢がないことを示します。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "公共汽车、地铁、そして只能に注目しましょう。",
+          "start_time_seconds": 223.3,
+          "duration_seconds": 30.236,
+          "end_time_seconds": 210.0
+        },
+        {
+          "segment_id": 13,
+          "segment_order": 13,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            13
+          ],
+          "segment_title": "連絡を取り合う誘い",
+          "teaching_goal": "電話やメッセージで連絡を取り合うことを提案する方法を学びましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "彼女はメールの最後に、彼に連絡を取るよう誘っています。彼女は「[zh:有空儿的话打我的手机或者给我发短信我想跟你聊天儿]」と言っています。これは「もし時間があれば、私の携帯に電話するか、メッセージを送ってください。お話したいです」という意味です。「[zh:有空儿的话]」は「もし時間があれば」という意味ですね。「[zh:发短信]」は「メッセージを送る」という意味で、「[zh:聊天儿]」は「おしゃべりする」という意味です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.56,
+              "duration_seconds": 10.56,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+                "focus_pinyin": "Yǒu kòngr de huà dǎ wǒ de shǒujī huòzhě gěi wǒ fā duǎnxìn, wǒ xiǎng gēn nǐ liáo tiānr.",
+                "focus_gloss_en": "もし時間があったら、私の携帯に電話するか、メッセージを送ってください。おしゃべりしたいです。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.56,
+              "end_time_seconds": 24.0,
+              "duration_seconds": 13.44,
+              "content": {
+                "notes": "コミュニケーションの方法を提案する",
+                "highlight_words": [
+                  {
+                    "word": "有空儿",
+                    "pinyin": "yǒu kòngr",
+                    "translation": "暇がある",
+                    "explanation_en": "暇があることをカジュアルに言う表現です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "发短信",
+                    "pinyin": "fā duǎnxìn",
+                    "translation": "ショートメッセージを送る",
+                    "explanation_en": "「发」は送る、「短信」はショートメッセージという意味です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "聊天儿",
+                    "pinyin": "liáo tiānr",
+                    "translation": "おしゃべりする",
+                    "explanation_en": "気軽な会話のことです。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "有空儿",
+              "pinyin": "yǒu kòngr",
+              "translation": "暇がある、時間がある",
+              "explanation_en": "暇な時間があることをカジュアルに言う表現です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "发短信",
+              "pinyin": "fā duǎnxìn",
+              "translation": "メッセージを送る、メールを送る",
+              "explanation_en": "发は「送る」という意味で、短信は「短いメッセージ」という意味です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "聊天儿",
+              "pinyin": "liáo tiānr",
+              "translation": "おしゃべりする、話す",
+              "explanation_en": "気軽な会話のことです。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "有空儿、发短信、そして聊天儿に注目しましょう。",
+          "start_time_seconds": 253.536,
+          "duration_seconds": 27.116,
+          "end_time_seconds": 234.0
+        },
+        {
+          "segment_id": 14,
+          "segment_order": 14,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            14
+          ],
+          "segment_title": "季節の挨拶",
+          "teaching_goal": "新年の挨拶の仕方を学びましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "最後に、彼女は年末年始の挨拶を送っています。彼女は「[zh:新年快要到了祝你新年快乐]」と書いています。これは「もうすぐお正月ですね。良いお年を！」という意味です。「[zh:快要到了]」という形は、何かがもうすぐ起こることを示しています。動詞の「[zh:祝]」は「祈る」や「願う」という意味です。ここでは、彼に良いお正月を願っているわけですね。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "新年快要到了，祝你新年快乐！",
+                "focus_pinyin": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+                "focus_gloss_en": "もうすぐ新年ですね。良いお年を！"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "季節の挨拶",
+                "highlight_words": [
+                  {
+                    "word": "新年",
+                    "pinyin": "xīnnián",
+                    "translation": "新年",
+                    "explanation_en": "来る年を指します。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "快要",
+                    "pinyin": "kuàiyào",
+                    "translation": "もうすぐ、まもなく",
+                    "explanation_en": "間近に迫った出来事を表すときに使います。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "祝",
+                    "pinyin": "zhù",
+                    "translation": "願う",
+                    "explanation_en": "良い願いを伝えるときに使います。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "新年",
+              "pinyin": "xīnnián",
+              "translation": "新年",
+              "explanation_en": "来る年を指します。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "快要",
+              "pinyin": "kuàiyào",
+              "translation": "もうすぐ、まもなく",
+              "explanation_en": "間近に迫った出来事を表すときに使います。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "祝",
+              "pinyin": "zhù",
+              "translation": "願う",
+              "explanation_en": "良い願いを伝えるときに使います。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「新年」、「快要」、「祝」に注目しましょう。",
+          "start_time_seconds": 280.652,
+          "duration_seconds": 23.516,
+          "end_time_seconds": 256.0
+        },
+        {
+          "segment_id": 15,
+          "segment_order": 15,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            15
+          ],
+          "segment_title": "結びの言葉",
+          "teaching_goal": "カジュアルなメールの結びの言葉の書き方を学びましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "メールは彼女の署名「[zh:李友]」で締めくくられています。これは中国語のカジュアルなメールで、ごく一般的な結びの言葉です。下に自分の名前を書くだけですね。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 3.52,
+              "duration_seconds": 3.52,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "李友",
+                "focus_pinyin": "Lǐ Yǒu",
+                "focus_gloss_en": "李友"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 3.52,
+              "end_time_seconds": 8.0,
+              "duration_seconds": 4.48,
+              "content": {
+                "notes": "メールの結びの言葉",
+                "highlight_words": []
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "署名を表示します。",
+          "start_time_seconds": 304.168,
+          "duration_seconds": 11.516,
+          "end_time_seconds": 264.0
+        },
+        {
+          "segment_id": 16,
+          "segment_order": 16,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            9
+          ],
+          "segment_title": "文法: 「毎...都...」で全体を表す表現",
+          "teaching_goal": "「毎...都...」を使って、「例外なくすべて」という意味を表す方法を生徒に教えます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "「〜ごとに」や「全ての」を表す、とても重要な文法構造を見ていきましょう。文中に「〜ごとに」を意味する[zh:每]がある場合、通常、動詞の直前に「全て」や「両方」を意味する副詞[zh:都]を入れなければなりません。例えば、会話の中で李友は[zh:每天都开车]と言っています。これは「毎日運転する」という意味です。[zh:每天开车]とは言えません。[zh:都]は、その行動が例外なく全ての場合に当てはまることを強調するために不可欠です。別の例を見てみましょう。[zh:我每节课都来]は「私は全ての授業に来る」という意味です。パターンは常に[zh:每]の後に量詞と名詞が続き、その後に[zh:都]と動詞が来ると覚えてください。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 14.7,
+              "duration_seconds": 14.7,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "我这几天每天都开车出去看老朋友。",
+                "focus_pinyin": "Wǒ zhè jǐ tiān měi tiān dōu kāi chē chū qù kàn lǎo péng you.",
+                "focus_gloss_en": "この数日、毎日車で昔の友達に会いに行っています。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 14.7,
+              "end_time_seconds": 35.0,
+              "duration_seconds": 20.3,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "每 + [Measure Word/Noun] + 都 + [Verb]",
+                    "pattern_pinyin": "měi dōu",
+                    "explanation_en": "「毎 [zh:měi]」（〜ごとに）を含む文では、全体を表す副詞の「都 [zh:dōu]」（全て）が動詞の前に置かれるのが一般的です。"
+                  },
+                  {
+                    "pattern": "他每天晚上都预习课文。",
+                    "pattern_pinyin": "Tā měi tiān wǎnshang dōu yùxí kèwén.",
+                    "explanation_en": "彼は毎晩、授業の予習をしています。"
+                  },
+                  {
+                    "pattern": "这儿每个人我都认识。",
+                    "pattern_pinyin": "Zhèr měi gè rén wǒ dōu rènshi.",
+                    "explanation_en": "ここにいる人は全員知っています。"
+                  }
+                ],
+                "notes": "「毎」がある文では、「都」を動詞の前に置きます。"
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "每",
+              "pinyin": "měi",
+              "translation": "毎、各",
+              "explanation_en": "グループ内の全ての個人や単位を表す代名詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "都",
+              "pinyin": "dōu",
+              "translation": "両方、全て",
+              "explanation_en": "以前に述べた全てをまとめたり、含めたりする際に使う副詞です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "每 + [Measure Word/Noun] + 都 + [Verb]",
+              "pattern_pinyin": "měi dōu",
+              "explanation_en": "「毎 [zh:měi]」（〜ごとに）を含む文では、全体を表す副詞の「都 [zh:dōu]」（全て）が動詞の前に置かれるのが一般的です。"
+            },
+            {
+              "pattern": "他每天晚上都预习课文。",
+              "pattern_pinyin": "Tā měi tiān wǎnshang dōu yùxí kèwén.",
+              "explanation_en": "彼は毎晩、授業の予習をしています。"
+            },
+            {
+              "pattern": "这儿每个人我都认识。",
+              "pattern_pinyin": "Zhèr měi gè rén wǒ dōu rènshi.",
+              "explanation_en": "ここにいる人は全員知っています。"
+            }
+          ],
+          "visual_notes": "「毎」と「都」の組み合わせを示すため、例文でこれらをハイライト表示してください。",
+          "start_time_seconds": 315.684,
+          "duration_seconds": 46.964,
+          "end_time_seconds": 299.0
+        },
+        {
+          "segment_id": 17,
+          "segment_order": 17,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            14
+          ],
+          "segment_title": "文法: 「要...了」で差し迫った状況を示す",
+          "teaching_goal": "行動や状況が間もなく起こることを、どのように表現するか生徒に教えます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "次に、何かがもうすぐ起こることを伝える方法を学びましょう。予期される行動や状況が差し迫っていることを示すには、動詞や出来事の後に[zh:要]を使い、文末に[zh:了]を置く形を使います。[zh:快]を加えて[zh:快要]とすることもできます。これは「もうすぐ」や「間もなく」といった切迫感を加える表現です。メールの中で、李友は[zh:新年快要到了]と書いています。これは「新年がもうすぐ来る」という意味です。他のよくある例は[zh:电影快要开始了]で、「映画がもうすぐ始まる」という意味です。この形は、今後のイベントや天候の変化、祝日について話すのにとても便利です。状態の変化が近づいていることを示すために、文末に[zh:了]を置くのを忘れないでください。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 14.7,
+              "duration_seconds": 14.7,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "新年快要到了，祝你新年快乐！",
+                "focus_pinyin": "Xīnnián kuàiyào dào le, zhù nǐ xīnnián kuàilè!",
+                "focus_gloss_en": "もうすぐお正月です。明けましておめでとうございます！"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 14.7,
+              "end_time_seconds": 35.0,
+              "duration_seconds": 20.3,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "[快]要 + [Verb/Event] + 了",
+                    "pattern_pinyin": "kuài yào le",
+                    "explanation_en": "「要 [zh:yào]...了 [zh:le]」（もうすぐ）の構文は、予期される行動や状況が差し迫っていることを示します。多くの場合、「快要 [zh:kuàiyào]...了 [zh:le]」の形で使われます。"
+                  },
+                  {
+                    "pattern": "寒假要到了，你要做什么？",
+                    "pattern_pinyin": "Hánjià yào dào le, nǐ yào zuò shénme?",
+                    "explanation_en": "もうすぐ冬休みですね。何をしたいですか？"
+                  },
+                  {
+                    "pattern": "电影快要开始了，你买票了吗？",
+                    "pattern_pinyin": "Diànyǐng kuài yào kāishǐ le, nǐ mǎi piào le ma?",
+                    "explanation_en": "もうすぐ映画が始まりますよ。チケットは買いましたか？"
+                  }
+                ],
+                "notes": "行動や状況が間もなく起こることを示します。"
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "快要",
+              "pinyin": "kuàiyào",
+              "translation": "もうすぐ、間もなく",
+              "explanation_en": "非常に近い将来に出来事が起こることを示す副詞句です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "[快]要 + [Verb/Event] + 了",
+              "pattern_pinyin": "kuài yào le",
+              "explanation_en": "「要 [zh:yào]...了 [zh:le]」（もうすぐ）の構文は、予期される行動や状況が差し迫っていることを示します。多くの場合、「快要 [zh:kuàiyào]...了 [zh:le]」の形で使われます。"
+            },
+            {
+              "pattern": "寒假要到了，你要做什么？",
+              "pattern_pinyin": "Hánjià yào dào le, nǐ yào zuò shénme?",
+              "explanation_en": "もうすぐ冬休みですね。何をしたいですか？"
+            },
+            {
+              "pattern": "电影快要开始了，你买票了吗？",
+              "pattern_pinyin": "Diànyǐng kuài yào kāishǐ le, nǐ mǎi piào le ma?",
+              "explanation_en": "もうすぐ映画が始まりますよ。チケットは買いましたか？"
+            }
+          ],
+          "visual_notes": "可能であればタイムラインの図を使うか、フレーズの最初と最後に「快要」と「了」をハイライト表示してください。",
+          "start_time_seconds": 362.648,
+          "duration_seconds": 49.94,
+          "end_time_seconds": 334.0
+        },
+        {
+          "segment_id": 18,
+          "segment_order": 18,
+          "segment_type": "recap",
+          "template_name": "lesson_recap",
+          "source_line_refs": [
+            9,
+            14
+          ],
+          "segment_title": "レッスンのおさらい",
+          "teaching_goal": "このレッスンで学んだ主要な文法ポイントと語彙をまとめましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "よくできました！今日学んだことを簡単に復習しましょう。[zh:每天都开车]のように、[zh:每]と[zh:都]を使った「〜ごとに」の形を習得しました。また、[zh:新年快要到了]のように、[zh:快要]と[zh:了]を使って何かがもうすぐ起こることを表現する方法も学びました。さらに、交通やコミュニケーションに関する役立つ語彙もいくつか覚えました。例えば、高速道路は[zh:高速公路]、テキストメッセージを送るは[zh:发短信]です。これらのパターンを練習し続け、自分で短い中国語のメールを書いてみましょう。また次回お会いしましょう！"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "recap_summary",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 25.0,
+              "content": {
+                "main_title": "乘车致谢",
+                "focus_text": "Key Phrases Review",
+                "highlight_words": [
+                  {
+                    "word": "每...都...",
+                    "pinyin": "měi... dōu...",
+                    "translation": "すべての… / 全て…",
+                    "explanation_en": "全体を示す文法パターン。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "快要...了",
+                    "pinyin": "kuàiyào... le",
+                    "translation": "もうすぐ / 間もなく",
+                    "explanation_en": "差し迫った状況を示す文法パターン。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "电子邮件",
+                    "pinyin": "diànzǐ yóujiàn",
+                    "translation": "メール",
+                    "explanation_en": "電邮 (diànyóu) と略されることが多いです。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "高速公路",
+                    "pinyin": "gāosù gōnglù",
+                    "translation": "高速道路",
+                    "explanation_en": "文字通り「高速の公共の道」です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "不好意思",
+                    "pinyin": "bù hǎoyìsi",
+                    "translation": "気まずいと感じる",
+                    "explanation_en": "軽い謝罪や気まずさを表す際に使われます。",
+                    "character_insight_en": ""
+                  }
+                ],
+                "grammar_points": [],
+                "notes": ""
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "每...都...",
+              "pinyin": "měi... dōu...",
+              "translation": "毎...都...",
+              "explanation_en": "全体を示す文法パターン。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "快要...了",
+              "pinyin": "kuàiyào... le",
+              "translation": "もうすぐ / 間もなく",
+              "explanation_en": "差し迫った状況を示す文法パターン。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "电子邮件",
+              "pinyin": "diànzǐ yóujiàn",
+              "translation": "メール",
+              "explanation_en": "電邮 (diànyóu) と略されることが多いです。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "高速公路",
+              "pinyin": "gāosù gōnglù",
+              "translation": "高速道路",
+              "explanation_en": "文字通り「高速の公共の道」です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "不好意思",
+              "pinyin": "bù hǎoyìsi",
+              "translation": "気まずいと感じる",
+              "explanation_en": "軽い謝罪や気まずさを表す際に使われます。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "主要なフレーズを、明確なピンインと日本語訳を付けて箇条書きで表示します。",
+          "start_time_seconds": 412.588,
+          "duration_seconds": 38.516,
+          "end_time_seconds": 359.0
+        }
+      ],
+      "timeline": {
+        "total_duration_seconds": 451.104,
+        "segment_count": 18
+      },
+      "renderer_notes": {
+        "recommended_renderer": "template_video",
+        "recommended_stack": [
+          "react_templates",
+          "motion_graphics",
+          "ffmpeg_or_remotion"
+        ],
+        "remarks": "This plan is intended for explanation-video composition, not direct AIGC generation."
+      }
+    }
+  },
+  "lesson_audio_assets": {
+    "lesson_id": 1002,
+    "course_id": 1,
+    "lesson_title": "乘车致谢",
+    "provider": "tencent_tts",
+    "mode": "sentence_audio",
+    "default_voice_type": 501002,
+    "role_voice_map": {
+      "王朋": 601011,
+      "李友": 601009,
+      "高文中": 601008,
+      "高小音": 601013,
+      "白英爱": 601010,
+      "常老师": 601013,
+      "王红": 601010,
+      "海伦": 501004,
+      "费先生": 501005,
+      "王朋的父母": 501005,
+      "张天明": 601011,
+      "丽莎": 501004,
+      "柯林": 601008,
+      "林雪梅": 601010,
+      "李哲": 601011,
+      "李文": 601013,
+      "马克": 501005,
+      "张天明的老表": 601008,
+      "林雪梅的父母": 501005
+    },
+    "codec": "mp3",
+    "sample_rate": 16000,
+    "include_speakers": false,
+    "storage_backend": "local",
+    "sentence_gap_ms": 300,
+    "full_audio": {
+      "status": "ready",
+      "audio_url": "",
+      "object_key": "zh/audio/lesson1002/full/lesson1002_full_dialogue.mp3",
+      "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_full_dialogue.mp3",
+      "codec": "mp3",
+      "duration_seconds": 47.34
+    },
+    "items": [
+      {
+        "line_ref": 1,
+        "role": "课文",
+        "hanzi": "李友给王朋写电子邮件：",
+        "source_text": "李友给王朋写电子邮件：",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.304,
+        "start_time_seconds": 0.0,
+        "end_time_seconds": 3.204,
+        "status": "ready",
+        "session_id": "lesson-1002-line-1",
+        "request_id": "68cda7f4-bde2-4c4a-8d80-940c73f59fd9",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line1.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line1.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 2,
+        "role": "课文",
+        "hanzi": "Date: 12月20日",
+        "source_text": "Date: 12月20日",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.16,
+        "start_time_seconds": 3.504,
+        "end_time_seconds": 5.664,
+        "status": "ready",
+        "session_id": "lesson-1002-line-2",
+        "request_id": "c7d2c192-c4bb-49bc-9d04-b0fc2238326f",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line2.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line2.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 3,
+        "role": "课文",
+        "hanzi": "From: 李友",
+        "source_text": "From: 李友",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.016,
+        "start_time_seconds": 5.964,
+        "end_time_seconds": 7.404,
+        "status": "ready",
+        "session_id": "lesson-1002-line-3",
+        "request_id": "718d4621-9f89-4f80-940c-dddc6280a2a7",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line3.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line3.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 4,
+        "role": "课文",
+        "hanzi": "To: 王朋",
+        "source_text": "To: 王朋",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.764,
+        "start_time_seconds": 7.704,
+        "end_time_seconds": 9.108,
+        "status": "ready",
+        "session_id": "lesson-1002-line-4",
+        "request_id": "c7215e06-2317-4b44-b3eb-d14b04c2e0fc",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line4.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line4.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 5,
+        "role": "课文",
+        "hanzi": "Subject: 谢谢！",
+        "source_text": "Subject: 谢谢！",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.052,
+        "start_time_seconds": 9.408,
+        "end_time_seconds": 11.712,
+        "status": "ready",
+        "session_id": "lesson-1002-line-5",
+        "request_id": "9cb67b77-9143-47c2-9d50-488c379eb79a",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line5.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line5.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 6,
+        "role": "课文",
+        "hanzi": "王朋：",
+        "source_text": "王朋：",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.224,
+        "start_time_seconds": 12.012,
+        "end_time_seconds": 13.452,
+        "status": "ready",
+        "session_id": "lesson-1002-line-6",
+        "request_id": "64da2682-9335-4deb-8f47-18cf4eb72d2b",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line6.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line6.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 7,
+        "role": "课文",
+        "hanzi": "谢谢你那天开车送我到机场。",
+        "source_text": "谢谢你那天开车送我到机场。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.484,
+        "start_time_seconds": 13.752,
+        "end_time_seconds": 17.568,
+        "status": "ready",
+        "session_id": "lesson-1002-line-7",
+        "request_id": "6e26bf74-0d88-4d64-9d64-afbc43152a5b",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line7.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line7.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 8,
+        "role": "课文",
+        "hanzi": "不过，让你花那么多时间，真不好意思。",
+        "source_text": "不过，让你花那么多时间，真不好意思。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.924,
+        "start_time_seconds": 17.868,
+        "end_time_seconds": 22.512,
+        "status": "ready",
+        "session_id": "lesson-1002-line-8",
+        "request_id": "11e28da0-1d98-4f84-b83f-ef63e1cb7f69",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line8.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line8.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 9,
+        "role": "课文",
+        "hanzi": "我这几天每天都开车出去看老朋友。",
+        "source_text": "我这几天每天都开车出去看老朋友。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.844,
+        "start_time_seconds": 22.812,
+        "end_time_seconds": 27.312,
+        "status": "ready",
+        "session_id": "lesson-1002-line-9",
+        "request_id": "08ca5980-7fa2-43be-8a8f-8e19352f1fff",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line9.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line9.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 10,
+        "role": "课文",
+        "hanzi": "这个城市的人开车开得特别快。",
+        "source_text": "这个城市的人开车开得特别快。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.664,
+        "start_time_seconds": 27.612,
+        "end_time_seconds": 31.644,
+        "status": "ready",
+        "session_id": "lesson-1002-line-10",
+        "request_id": "014229a8-615d-4c2d-b6a8-316b36608677",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line10.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line10.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 11,
+        "role": "课文",
+        "hanzi": "我在高速公路上开车，真有点儿紧张。",
+        "source_text": "我在高速公路上开车，真有点儿紧张。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.564,
+        "start_time_seconds": 31.944,
+        "end_time_seconds": 36.372,
+        "status": "ready",
+        "session_id": "lesson-1002-line-11",
+        "request_id": "6f2b51f1-4e95-4caa-8335-9c53ac56b9d5",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line11.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line11.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 12,
+        "role": "课文",
+        "hanzi": "可是这儿没有公共汽车，也没有地铁，只能自己开车，很不方便。",
+        "source_text": "可是这儿没有公共汽车，也没有地铁，只能自己开车，很不方便。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 6.012,
+        "start_time_seconds": 36.672,
+        "end_time_seconds": 43.296,
+        "status": "ready",
+        "session_id": "lesson-1002-line-12",
+        "request_id": "fb0b4d71-f327-4c63-8509-dae638ba7ed5",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line12.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line12.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 13,
+        "role": "课文",
+        "hanzi": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+        "source_text": "有空儿的话打我的手机或者给我发短信，我想跟你聊天儿。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 4.464,
+        "start_time_seconds": 43.596,
+        "end_time_seconds": 49.752,
+        "status": "ready",
+        "session_id": "lesson-1002-line-13",
+        "request_id": "5a4aacd0-5a6d-4684-9fb1-ffc2c9ce4e8d",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line13.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line13.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 14,
+        "role": "课文",
+        "hanzi": "新年快要到了，祝你新年快乐！",
+        "source_text": "新年快要到了，祝你新年快乐！",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.312,
+        "start_time_seconds": 50.052,
+        "end_time_seconds": 54.084,
+        "status": "ready",
+        "session_id": "lesson-1002-line-14",
+        "request_id": "9c564891-5e62-4656-9f9f-2cbd1fb468e3",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line14.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line14.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 15,
+        "role": "课文",
+        "hanzi": "李友",
+        "source_text": "李友",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.044,
+        "start_time_seconds": 54.384,
+        "end_time_seconds": 55.104,
+        "status": "ready",
+        "session_id": "lesson-1002-line-15",
+        "request_id": "2d24ffbb-f325-4f4d-9629-4ecd5786f2c9",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson1002/sentences/lesson1002_line15.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson1002\\lesson1002_line15.mp3",
+        "subtitles": []
+      }
+    ]
+  },
+  "llm_usage": {
+    "calls": 31,
+    "input_tokens": 115496,
+    "output_tokens": 31499,
+    "total_tokens": 211093,
+    "estimated_cost_usd": 0.60898,
+    "provider": "GeminiProvider",
+    "items": [
+      {
+        "input_tokens": 9579,
+        "output_tokens": 778,
+        "total_tokens": 15007,
+        "estimated_cost_usd": 0.028494000000000002,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 399,
+        "output_tokens": 495,
+        "total_tokens": 3222,
+        "estimated_cost_usd": 0.006738,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 382,
+        "output_tokens": 306,
+        "total_tokens": 2268,
+        "estimated_cost_usd": 0.004436,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 427,
+        "output_tokens": 1075,
+        "total_tokens": 3521,
+        "estimated_cost_usd": 0.013754,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 429,
+        "output_tokens": 1225,
+        "total_tokens": 3448,
+        "estimated_cost_usd": 0.015557999999999999,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 424,
+        "output_tokens": 987,
+        "total_tokens": 3607,
+        "estimated_cost_usd": 0.012692,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 9141,
+        "output_tokens": 102,
+        "total_tokens": 10789,
+        "estimated_cost_usd": 0.019506,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 9207,
+        "output_tokens": 127,
+        "total_tokens": 10170,
+        "estimated_cost_usd": 0.019938,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 9404,
+        "output_tokens": 355,
+        "total_tokens": 12257,
+        "estimated_cost_usd": 0.023067999999999998,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 9400,
+        "output_tokens": 536,
+        "total_tokens": 11309,
+        "estimated_cost_usd": 0.025232,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 9269,
+        "output_tokens": 946,
+        "total_tokens": 13727,
+        "estimated_cost_usd": 0.02989,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 874,
+        "output_tokens": 168,
+        "total_tokens": 2502,
+        "estimated_cost_usd": 0.003764,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 865,
+        "output_tokens": 236,
+        "total_tokens": 2383,
+        "estimated_cost_usd": 0.004562,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 862,
+        "output_tokens": 209,
+        "total_tokens": 2179,
+        "estimated_cost_usd": 0.0042320000000000005,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 870,
+        "output_tokens": 228,
+        "total_tokens": 3405,
+        "estimated_cost_usd": 0.004476,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 867,
+        "output_tokens": 264,
+        "total_tokens": 3107,
+        "estimated_cost_usd": 0.004902,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 880,
+        "output_tokens": 301,
+        "total_tokens": 2565,
+        "estimated_cost_usd": 0.005372,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 797,
+        "output_tokens": 73,
+        "total_tokens": 1826,
+        "estimated_cost_usd": 0.00247,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 9140,
+        "output_tokens": 275,
+        "total_tokens": 12799,
+        "estimated_cost_usd": 0.021580000000000002,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 1670,
+        "output_tokens": 1419,
+        "total_tokens": 4684,
+        "estimated_cost_usd": 0.020367999999999997,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 1784,
+        "output_tokens": 1450,
+        "total_tokens": 4560,
+        "estimated_cost_usd": 0.020968,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 1742,
+        "output_tokens": 1417,
+        "total_tokens": 4730,
+        "estimated_cost_usd": 0.020488000000000003,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 2024,
+        "output_tokens": 1584,
+        "total_tokens": 5605,
+        "estimated_cost_usd": 0.023055999999999997,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 1634,
+        "output_tokens": 1162,
+        "total_tokens": 3962,
+        "estimated_cost_usd": 0.017212,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 575,
+        "output_tokens": 670,
+        "total_tokens": 2671,
+        "estimated_cost_usd": 0.00919,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 991,
+        "output_tokens": 1302,
+        "total_tokens": 3902,
+        "estimated_cost_usd": 0.017606,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 1330,
+        "output_tokens": 978,
+        "total_tokens": 3893,
+        "estimated_cost_usd": 0.014395999999999999,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 1885,
+        "output_tokens": 1611,
+        "total_tokens": 5150,
+        "estimated_cost_usd": 0.023102,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 3280,
+        "output_tokens": 2458,
+        "total_tokens": 8794,
+        "estimated_cost_usd": 0.036056000000000005,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 12674,
+        "output_tokens": 6363,
+        "total_tokens": 24367,
+        "estimated_cost_usd": 0.10170399999999999,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      },
+      {
+        "input_tokens": 12691,
+        "output_tokens": 2399,
+        "total_tokens": 18684,
+        "estimated_cost_usd": 0.054169999999999996,
+        "meta": {
+          "model": "gemini-3.1-pro-preview",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 2.0,
+          "output_price_per_m_tokens_usd": 12.0
+        }
+      }
+    ]
+  },
+  "localization": {
+    "source_lang": "en",
+    "target_lang": "ja",
+    "target_lang_name": "Japanese",
+    "target_lang_native": "日本語"
+  }
+}

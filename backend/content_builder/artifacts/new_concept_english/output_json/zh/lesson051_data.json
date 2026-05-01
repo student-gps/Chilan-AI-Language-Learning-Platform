@@ -1,0 +1,1304 @@
+{
+  "schema_version": "2.0",
+  "pipeline_id": "new_concept_english",
+  "target_language": "en",
+  "support_language": "zh",
+  "lesson_metadata": {
+    "course_id": "new_concept_english_1",
+    "lesson_id": "lesson051",
+    "title": "A card from Jimmy",
+    "title_localized": "吉米的明信片",
+    "content_type": "dialogue_pattern",
+    "source": {
+      "textbook": "New Concept English",
+      "book": 1,
+      "source_lessons": [
+        101,
+        102
+      ],
+      "source_pdf": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\new_concept_english\\raw_materials\\book1\\新概念英语1 英语初阶.pdf",
+      "lesson_pdf": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\new_concept_english\\raw_materials\\book1\\lesson051.pdf",
+      "pdf_pages": [
+        209,
+        210,
+        211,
+        212
+      ]
+    }
+  },
+  "course_content": {
+    "anchor": {
+      "type": "dialogue",
+      "source_lesson": 101,
+      "title": "A card from Jimmy",
+      "listening_question": {
+        "text": "Does Grandmother seem pleased to get a card from Jimmy? Why/Why not?",
+        "translation": "收到吉米寄来的一张明信片,祖母是否显得高兴?为什么为什么不高兴?",
+        "answer": "No, she doesn't seem pleased. She can't hear Penny well and Jimmy doesn't say very much on the card."
+      },
+      "lines": [
+        {
+          "line_ref": 1,
+          "speaker": "GRANDMOTHER",
+          "text": "Read Jimmy's card to me please, Penny.",
+          "translation": "请把吉米的明信片念给我听听,彭妮。",
+          "tokens": [
+            {
+              "text": "Read",
+              "highlight": false
+            },
+            {
+              "text": "Jimmy's",
+              "highlight": false
+            },
+            {
+              "text": "card",
+              "highlight": true
+            },
+            {
+              "text": "to",
+              "highlight": false
+            },
+            {
+              "text": "me",
+              "highlight": false
+            },
+            {
+              "text": "please",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "Penny",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 2,
+          "speaker": "PENNY",
+          "text": "'I have just arrived in Scotland and I'm staying at a Youth Hostel.'",
+          "translation": "“我刚到苏格兰,我现住在一家青年招待所。”",
+          "tokens": [
+            {
+              "text": "'I",
+              "highlight": false
+            },
+            {
+              "text": "have",
+              "highlight": false
+            },
+            {
+              "text": "just",
+              "highlight": false
+            },
+            {
+              "text": "arrived",
+              "highlight": false
+            },
+            {
+              "text": "in",
+              "highlight": false
+            },
+            {
+              "text": "Scotland",
+              "highlight": true
+            },
+            {
+              "text": "and",
+              "highlight": false
+            },
+            {
+              "text": "I'm",
+              "highlight": false
+            },
+            {
+              "text": "staying",
+              "highlight": false
+            },
+            {
+              "text": "at",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "Youth",
+              "highlight": true
+            },
+            {
+              "text": "Hostel",
+              "highlight": true
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "'",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 3,
+          "speaker": "GRANDMOTHER",
+          "text": "Eh?",
+          "translation": "什么?",
+          "tokens": [
+            {
+              "text": "Eh",
+              "highlight": false
+            },
+            {
+              "text": "?",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 4,
+          "speaker": "PENNY",
+          "text": "He says he's just arrived in Scotland. He says he's staying at a Youth Hostel. You know he's a member of the Y.H.A.",
+          "translation": "他说他刚到苏格兰。他说他现住在一家青年招待所。您知道,他是“青招协”的一个成员。",
+          "tokens": [
+            {
+              "text": "He",
+              "highlight": false
+            },
+            {
+              "text": "says",
+              "highlight": false
+            },
+            {
+              "text": "he's",
+              "highlight": false
+            },
+            {
+              "text": "just",
+              "highlight": false
+            },
+            {
+              "text": "arrived",
+              "highlight": false
+            },
+            {
+              "text": "in",
+              "highlight": false
+            },
+            {
+              "text": "Scotland",
+              "highlight": true
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "He",
+              "highlight": false
+            },
+            {
+              "text": "says",
+              "highlight": false
+            },
+            {
+              "text": "he's",
+              "highlight": false
+            },
+            {
+              "text": "staying",
+              "highlight": false
+            },
+            {
+              "text": "at",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "Youth",
+              "highlight": true
+            },
+            {
+              "text": "Hostel",
+              "highlight": true
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "You",
+              "highlight": false
+            },
+            {
+              "text": "know",
+              "highlight": false
+            },
+            {
+              "text": "he's",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "member",
+              "highlight": false
+            },
+            {
+              "text": "of",
+              "highlight": false
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "Y",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "H",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "A",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 5,
+          "speaker": "GRANDMOTHER",
+          "text": "The what?",
+          "translation": "什么?",
+          "tokens": [
+            {
+              "text": "The",
+              "highlight": false
+            },
+            {
+              "text": "what",
+              "highlight": false
+            },
+            {
+              "text": "?",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 6,
+          "speaker": "PENNY",
+          "text": "The Y.H.A., Mum. The Youth Hostels Association.",
+          "translation": "“青招协”,妈妈。青年招待所协会。",
+          "tokens": [
+            {
+              "text": "The",
+              "highlight": false
+            },
+            {
+              "text": "Y",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "H",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "A",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "Mum",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "The",
+              "highlight": false
+            },
+            {
+              "text": "Youth",
+              "highlight": true
+            },
+            {
+              "text": "Hostels",
+              "highlight": false
+            },
+            {
+              "text": "Association",
+              "highlight": true
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 7,
+          "speaker": "GRANDMOTHER",
+          "text": "What else does he say?",
+          "translation": "他还说了些什么?",
+          "tokens": [
+            {
+              "text": "What",
+              "highlight": false
+            },
+            {
+              "text": "else",
+              "highlight": false
+            },
+            {
+              "text": "does",
+              "highlight": false
+            },
+            {
+              "text": "he",
+              "highlight": false
+            },
+            {
+              "text": "say",
+              "highlight": false
+            },
+            {
+              "text": "?",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 8,
+          "speaker": "PENNY",
+          "text": "'I'll write a letter soon. I hope you are all well.'",
+          "translation": "“我很快会写信的。祝你们大家身体都好。”",
+          "tokens": [
+            {
+              "text": "'I'll",
+              "highlight": false
+            },
+            {
+              "text": "write",
+              "highlight": true
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "letter",
+              "highlight": false
+            },
+            {
+              "text": "soon",
+              "highlight": true
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "hope",
+              "highlight": false
+            },
+            {
+              "text": "you",
+              "highlight": false
+            },
+            {
+              "text": "are",
+              "highlight": false
+            },
+            {
+              "text": "all",
+              "highlight": false
+            },
+            {
+              "text": "well",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "'",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 9,
+          "speaker": "GRANDMOTHER",
+          "text": "What? Speak up, Penny. I'm afraid I can't hear you.",
+          "translation": "什么?彭妮,大声一点。我可听不见你念的。",
+          "tokens": [
+            {
+              "text": "What",
+              "highlight": false
+            },
+            {
+              "text": "?",
+              "highlight": false
+            },
+            {
+              "text": "Speak",
+              "highlight": false
+            },
+            {
+              "text": "up",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "Penny",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "I'm",
+              "highlight": false
+            },
+            {
+              "text": "afraid",
+              "highlight": false
+            },
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "can't",
+              "highlight": false
+            },
+            {
+              "text": "hear",
+              "highlight": false
+            },
+            {
+              "text": "you",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 10,
+          "speaker": "PENNY",
+          "text": "He says he'll write a letter soon. He hopes we are all well. 'Love, Jimmy.'",
+          "translation": "他说他很快会写信的。他祝我们大家身体好。“谨此问候,吉米。”",
+          "tokens": [
+            {
+              "text": "He",
+              "highlight": false
+            },
+            {
+              "text": "says",
+              "highlight": false
+            },
+            {
+              "text": "he'll",
+              "highlight": false
+            },
+            {
+              "text": "write",
+              "highlight": true
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "letter",
+              "highlight": false
+            },
+            {
+              "text": "soon",
+              "highlight": true
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "He",
+              "highlight": false
+            },
+            {
+              "text": "hopes",
+              "highlight": false
+            },
+            {
+              "text": "we",
+              "highlight": false
+            },
+            {
+              "text": "are",
+              "highlight": false
+            },
+            {
+              "text": "all",
+              "highlight": false
+            },
+            {
+              "text": "well",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "'Love",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "Jimmy",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            },
+            {
+              "text": "'",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 11,
+          "speaker": "GRANDMOTHER",
+          "text": "Is that all? He doesn't say very much, does he?",
+          "translation": "就这些吗?他没写许多,是吗?",
+          "tokens": [
+            {
+              "text": "Is",
+              "highlight": false
+            },
+            {
+              "text": "that",
+              "highlight": false
+            },
+            {
+              "text": "all",
+              "highlight": false
+            },
+            {
+              "text": "?",
+              "highlight": false
+            },
+            {
+              "text": "He",
+              "highlight": false
+            },
+            {
+              "text": "doesn't",
+              "highlight": false
+            },
+            {
+              "text": "say",
+              "highlight": false
+            },
+            {
+              "text": "very",
+              "highlight": false
+            },
+            {
+              "text": "much",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "does",
+              "highlight": false
+            },
+            {
+              "text": "he",
+              "highlight": false
+            },
+            {
+              "text": "?",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 12,
+          "speaker": "PENNY",
+          "text": "He can't write very much on a card, Mum.",
+          "translation": "在明信片上他写不了很多,妈妈。",
+          "tokens": [
+            {
+              "text": "He",
+              "highlight": false
+            },
+            {
+              "text": "can't",
+              "highlight": false
+            },
+            {
+              "text": "write",
+              "highlight": true
+            },
+            {
+              "text": "very",
+              "highlight": false
+            },
+            {
+              "text": "much",
+              "highlight": false
+            },
+            {
+              "text": "on",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "card",
+              "highlight": true
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "Mum",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        }
+      ]
+    },
+    "vocabulary": [
+      {
+        "term": "Scotland",
+        "pronunciation": "/'skotlənd/",
+        "part_of_speech": "n.",
+        "translation": "苏格兰(英国)",
+        "source_lesson": 101,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "card",
+        "pronunciation": "/ka:d/",
+        "part_of_speech": "n.",
+        "translation": "明信片",
+        "source_lesson": 101,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "youth",
+        "pronunciation": "/ju:θ/",
+        "part_of_speech": "n.",
+        "translation": "青年",
+        "source_lesson": 101,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "hostel",
+        "pronunciation": "/'hostl/",
+        "part_of_speech": "n.",
+        "translation": "招待所,旅馆",
+        "source_lesson": 101,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "association",
+        "pronunciation": "/əˌsəʊsiˈeɪʃən/",
+        "part_of_speech": "n.",
+        "translation": "协会",
+        "source_lesson": 101,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "soon",
+        "pronunciation": "/su:n/",
+        "part_of_speech": "adv.",
+        "translation": "不久",
+        "source_lesson": 101,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "write",
+        "pronunciation": "/raɪt/",
+        "part_of_speech": "v.",
+        "translation": "写",
+        "source_lesson": 101,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "tired",
+        "pronunciation": "/taɪəd/",
+        "part_of_speech": "adj.",
+        "translation": "疲倦的",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "thirsty",
+        "pronunciation": "/ˈθɜːsti/",
+        "part_of_speech": "adj.",
+        "translation": "口渴的",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "cold",
+        "pronunciation": "/kəʊld/",
+        "part_of_speech": "adj.",
+        "translation": "寒冷的",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "ill",
+        "pronunciation": "/ɪl/",
+        "part_of_speech": "adj.",
+        "translation": "生病的",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "a cold",
+        "pronunciation": "/ə kəʊld/",
+        "part_of_speech": "n.",
+        "translation": "感冒",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "a headache",
+        "pronunciation": "/ˈhɛdeɪk/",
+        "part_of_speech": "n.",
+        "translation": "头痛",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "an earache",
+        "pronunciation": "/ˈɪəreɪk/",
+        "part_of_speech": "n.",
+        "translation": "耳痛",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "a toothache",
+        "pronunciation": "/ˈtuːθeɪk/",
+        "part_of_speech": "n.",
+        "translation": "牙痛",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "a haircut",
+        "pronunciation": "/ˈhɛəkʌt/",
+        "part_of_speech": "n.",
+        "translation": "理发",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "a licence",
+        "pronunciation": "/ˈlaɪsns/",
+        "part_of_speech": "n.",
+        "translation": "执照",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "an X-ray",
+        "pronunciation": "/ˈɛks reɪ/",
+        "part_of_speech": "n.",
+        "translation": "X光片",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "some money",
+        "pronunciation": "/sʌm ˈmʌni/",
+        "part_of_speech": "n.",
+        "translation": "一些钱",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "wait",
+        "pronunciation": "/weɪt/",
+        "part_of_speech": "v.",
+        "translation": "等待",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "catch",
+        "pronunciation": "/kætʃ/",
+        "part_of_speech": "v.",
+        "translation": "赶上",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "repair",
+        "pronunciation": "/rɪˈpɛə/",
+        "part_of_speech": "v.",
+        "translation": "修理",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "sell",
+        "pronunciation": "/sɛl/",
+        "part_of_speech": "v.",
+        "translation": "卖",
+        "source_lesson": 102,
+        "role": "pattern_slot"
+      }
+    ],
+    "pattern_drills": [
+      {
+        "source_lesson": 102,
+        "pattern": "{speaker} says {speaker_pronoun} {item}.",
+        "translation_pattern": "{speaker_translation}说{speaker_pronoun_translation}{slot_translation}。",
+        "response_patterns": [],
+        "slots": [
+          {
+            "text": "is tired",
+            "pronunciation": "/ɪz taɪəd/",
+            "translation": "感到疲倦",
+            "image_index": 1
+          },
+          {
+            "text": "is thirsty",
+            "pronunciation": "/ɪz ˈθɜːsti/",
+            "translation": "口渴",
+            "image_index": 2
+          },
+          {
+            "text": "is cold",
+            "pronunciation": "/ɪz kəʊld/",
+            "translation": "感到寒冷",
+            "image_index": 3
+          },
+          {
+            "text": "is ill",
+            "pronunciation": "/ɪz ɪl/",
+            "translation": "生病了",
+            "image_index": 4
+          },
+          {
+            "text": "has a cold",
+            "pronunciation": "/hæz ə kəʊld/",
+            "translation": "感冒了",
+            "image_index": 5
+          },
+          {
+            "text": "has a headache",
+            "pronunciation": "/hæz ə ˈhɛdeɪk/",
+            "translation": "头痛",
+            "image_index": 6
+          },
+          {
+            "text": "has an earache",
+            "pronunciation": "/hæz ən ˈɪəreɪk/",
+            "translation": "耳痛",
+            "image_index": 7
+          },
+          {
+            "text": "has a toothache",
+            "pronunciation": "/hæz ə ˈtuːθeɪk/",
+            "translation": "牙痛",
+            "image_index": 8
+          },
+          {
+            "text": "needs a haircut",
+            "pronunciation": "/niːdz ə ˈhɛəkʌt/",
+            "translation": "需要理发",
+            "image_index": 9
+          },
+          {
+            "text": "needs a licence",
+            "pronunciation": "/niːdz ə ˈlaɪsns/",
+            "translation": "需要执照",
+            "image_index": 10
+          },
+          {
+            "text": "needs an X-ray",
+            "pronunciation": "/niːdz ən ˈɛks reɪ/",
+            "translation": "需要X光片",
+            "image_index": 11
+          },
+          {
+            "text": "needs some money",
+            "pronunciation": "/niːdz sʌm ˈmʌni/",
+            "translation": "需要一些钱",
+            "image_index": 12
+          },
+          {
+            "text": "will wait",
+            "pronunciation": "/wɪl weɪt/",
+            "translation": "将等待",
+            "image_index": 13
+          },
+          {
+            "text": "will catch",
+            "pronunciation": "/wɪl kætʃ/",
+            "translation": "将赶上",
+            "image_index": 14
+          },
+          {
+            "text": "will repair",
+            "pronunciation": "/wɪl rɪˈpɛə/",
+            "translation": "将修理",
+            "image_index": 15
+          },
+          {
+            "text": "will sell",
+            "pronunciation": "/wɪl sɛl/",
+            "translation": "将出售",
+            "image_index": 16
+          }
+        ],
+        "generated_prompts": [
+          {
+            "text": "He says he is tired.",
+            "translation": "他说他感到疲倦。",
+            "slot_values": {
+              "speaker": "He",
+              "speaker_pronoun": "he",
+              "slot": "is tired"
+            }
+          },
+          {
+            "text": "She says she has a cold.",
+            "translation": "她说她感冒了。",
+            "slot_values": {
+              "speaker": "She",
+              "speaker_pronoun": "she",
+              "slot": "has a cold"
+            }
+          },
+          {
+            "text": "They say they need a haircut.",
+            "translation": "他们说他们需要理发。",
+            "slot_values": {
+              "speaker": "They",
+              "speaker_pronoun": "they",
+              "slot": "need a haircut"
+            }
+          },
+          {
+            "text": "He says he will wait.",
+            "translation": "他说他将等待。",
+            "slot_values": {
+              "speaker": "He",
+              "speaker_pronoun": "he",
+              "slot": "will wait"
+            }
+          }
+        ]
+      }
+    ],
+    "writing_exercises": [
+      {
+        "title": "A. Rewrite these sentences.",
+        "instructions": "Rewrite these sentences, changing direct speech to indirect speech as in the example.",
+        "instructions_localized": "模仿例句把下列句子改写成间接引语。",
+        "example": {
+          "original": "He is drinking his milk.",
+          "rewritten": "He says he has drunk his milk."
+        },
+        "items": [
+          {
+            "original": "She is shutting the door.",
+            "rewritten": "She says she is shutting the door."
+          },
+          {
+            "original": "He is putting on his coat.",
+            "rewritten": "He says he is putting on his coat."
+          },
+          {
+            "original": "He is reading this magazine.",
+            "rewritten": "He says he is reading this magazine."
+          },
+          {
+            "original": "They are speaking to the boss.",
+            "rewritten": "They say they are speaking to the boss."
+          },
+          {
+            "original": "The sun is rising.",
+            "rewritten": "He says the sun is rising."
+          }
+        ]
+      },
+      {
+        "title": "B. Look at this table. Now write nine sentences.",
+        "instructions": "Use the phrases from the table to write nine sentences following the pattern 'He says he...'.",
+        "instructions_localized": "利用上表中的短语,模仿例句写出9句话。",
+        "example": {
+          "original": "He says he feels ill."
+        },
+        "table_data": {
+          "column1": [
+            "has got",
+            "feels",
+            "will sell",
+            "needs",
+            "must wait for"
+          ],
+          "column2": [
+            "cold",
+            "a bus",
+            "a haircut",
+            "tired",
+            "a cold",
+            "thirsty",
+            "an X-ray",
+            "an earache",
+            "his house",
+            "ill"
+          ]
+        },
+        "items": [
+          {
+            "generated_sentence": "He says he has got a cold."
+          },
+          {
+            "generated_sentence": "He says he feels tired."
+          },
+          {
+            "generated_sentence": "He says he will sell his house."
+          },
+          {
+            "generated_sentence": "He says he needs a haircut."
+          },
+          {
+            "generated_sentence": "He says he must wait for a bus."
+          },
+          {
+            "generated_sentence": "He says he feels cold."
+          },
+          {
+            "generated_sentence": "He says he has got an earache."
+          },
+          {
+            "generated_sentence": "He says he needs an X-ray."
+          },
+          {
+            "generated_sentence": "He says he feels thirsty."
+          }
+        ]
+      }
+    ]
+  },
+  "teaching_materials": {
+    "lesson_flow": [],
+    "notes_on_text": [
+      {
+        "title": "Direct Speech",
+        "text": "'I have just arrived in Scotland... a Youth Hostel.' This is an example of direct speech. Direct speech is a way of representing spoken language in written form in English. The actual words spoken are placed within quotation marks, and punctuation marks at the end of the sentence are also placed within the quotation marks.",
+        "translation": "“我刚到苏格兰,我现住在一家青年招待所。”这是一个直接引语的例子。直接引语是英文中用书面语的形式来表示口语的方式,实际讲的话要放在引号之间,句尾的标点符号也要放在引号之内。"
+      },
+      {
+        "title": "The Y.H.A.",
+        "text": "The Y.H.A. = the Youth Hostels Association. The Youth Hostels Association. A Youth Hostel is a type of inexpensive accommodation for young people participating in outdoor adventure holidays. These youth hostels operate on a membership basis; one must first join the Y.H.A. to be eligible for its services.",
+        "translation": "the Y.H.A. = the Youth Hostels Association 青年招待所协会。简称“青招协”。a Youth Hostel 是一种为参加野外探险度假活动的青年人提供廉价住宿的招待所。这种青年招待所实行会员制,首先要加入“青招协”才有资格享受这种待遇。"
+      },
+      {
+        "title": "Speak up",
+        "text": "Speak up means to speak louder.",
+        "translation": "speak up, 大声地说。"
+      },
+      {
+        "title": "Letter Closings",
+        "text": "Love, Jimmy. Yours, Jimmy. These are common closing remarks used in correspondence between friends.",
+        "translation": "Love, Jimmy. 爱你的吉米。 Yours, Jimmy (你的,吉米)。这是朋友间通信时常用的结束语。"
+      },
+      {
+        "title": "Tag Questions",
+        "text": "He doesn't say very much, does he? This is an English tag question, which consists of two parts: a statement followed by a short question after a comma. Tag questions can be used to confirm one's judgment, obtain factual information, or express surprise or anger. If the first part (statement) is affirmative, the tag question should be negative; if the first part is negative, the tag question should be affirmative.",
+        "translation": "这是英文中的反意疑问句,它是由两部分组成的,前面是一个陈述句,逗号之后是一个简略问句。反意疑问句可以用来确认自己的判断,获取真实的信息,还可以用来表示惊讶、愤怒等感情。如果前一部分陈述句是肯定形式,简略问句就要用否定形式;如果前一部分是否定形式,后一部分则用肯定形式。"
+      }
+    ],
+    "grammar_sections": [
+      {
+        "title": "Reported Speech (Indirect Speech)",
+        "explanation": "Reported speech is used to convey what someone else said without using their exact words. The main verb in the reporting clause (e.g., 'He says...') often determines the tense changes in the reported clause. When the reporting verb is in the present tense, the tense in the reported clause usually remains the same as in direct speech. For example, 'I am tired' becomes 'He says he is tired.'",
+        "examples": [
+          {
+            "text": "He says he's just arrived in Scotland.",
+            "translation": "他说他刚到苏格兰。"
+          },
+          {
+            "text": "She says she needs a haircut.",
+            "translation": "她说她需要理发。"
+          }
+        ]
+      },
+      {
+        "title": "Direct Speech",
+        "explanation": "Direct speech uses the exact words of the speaker, enclosed in quotation marks. It's often used in dialogues to make conversations more vivid.",
+        "examples": [
+          {
+            "text": "'I have just arrived in Scotland.'",
+            "translation": "“我刚到苏格兰。”"
+          },
+          {
+            "text": "'I'll write a letter soon.'",
+            "translation": "“我很快会写信的。”"
+          }
+        ]
+      },
+      {
+        "title": "Tag Questions",
+        "explanation": "Tag questions are short questions added to the end of a statement. They are used to ask for confirmation or to express an opinion. If the main statement is positive, the tag is negative, and vice versa. The auxiliary verb in the tag matches the auxiliary verb in the main statement.",
+        "examples": [
+          {
+            "text": "He doesn't say very much, does he?",
+            "translation": "他没写许多,是吗?"
+          },
+          {
+            "text": "You are Penny, aren't you?",
+            "translation": "你是彭妮,不是吗?"
+          }
+        ]
+      }
+    ]
+  },
+  "explanation_plan": {
+    "target_audience": "Chinese speakers learning English",
+    "segments": [
+      {
+        "segment_id": "scene_setup",
+        "title": "Lesson Introduction & Context",
+        "description": "Introduce Lesson 101, 'A card from Jimmy'. Set the scene with Grandmother and Penny, explaining they are reading a postcard. Present the main listening question to guide students' initial understanding of the dialogue."
+      },
+      {
+        "segment_id": "line_walkthrough",
+        "title": "Dialogue Analysis & Key Phrases",
+        "description": "Go through the dialogue line by line. Explain the meaning of each sentence, focusing on new vocabulary and expressions like 'Youth Hostel', 'Y.H.A.', 'speak up', and 'Love, Jimmy'. Highlight instances of direct speech and how Penny reports Jimmy's words, laying the groundwork for reported speech."
+      },
+      {
+        "segment_id": "pattern_focus",
+        "title": "Mastering Reported Speech: 'He says he...'",
+        "description": "Introduce the core grammar point: reported speech, specifically the pattern 'He says he...' (or 'She says she...', 'They say they...'). Explain how to transform direct statements into reported speech when the reporting verb is in the present tense. Utilize the pattern drills from Lesson 102, demonstrating how to combine the reporting clause with various reported actions/states (e.g., 'is tired', 'has a cold', 'needs a haircut', 'will wait')."
+      },
+      {
+        "segment_id": "vocabulary_focus",
+        "title": "Vocabulary Expansion",
+        "description": "Review all new words and expressions from both Lesson 101 and Lesson 102. For each word, provide pronunciation, part of speech, and translation. Group related words (e.g., ailments like 'headache', 'earache') to aid memorization. Emphasize practical usage in the context of reported speech."
+      },
+      {
+        "segment_id": "guided_practice",
+        "title": "Application & Practice",
+        "description": "Guide students through the writing exercises from Lesson 102. Work together on converting direct speech to indirect speech (Exercise A) and constructing sentences using the 'He says he...' pattern with the provided table and phrases (Exercise B). Encourage students to create their own sentences to reinforce understanding and build confidence."
+      }
+    ]
+  },
+  "practice_items": [
+    {
+      "item_id": "p1",
+      "type": "SUPPORT_TO_TARGET",
+      "question": "Translate '吉米的明信片' to English.",
+      "answer": "A card from Jimmy"
+    },
+    {
+      "item_id": "p2",
+      "type": "TARGET_TO_SUPPORT",
+      "question": "Translate 'He says he's just arrived in Scotland.' to Chinese.",
+      "answer": "他说他刚到苏格兰。"
+    },
+    {
+      "item_id": "p3",
+      "type": "TARGET_LISTEN_WRITE",
+      "question": "Listen and write down the sentence: 'She says she needs a haircut.'",
+      "answer": "She says she needs a haircut."
+    },
+    {
+      "item_id": "p4",
+      "type": "TARGET_SPEAK",
+      "question": "Read the following sentence aloud: 'They say they will repair the car.'",
+      "answer": "They say they will repair the car."
+    },
+    {
+      "item_id": "p5",
+      "type": "PATTERN_DRILL",
+      "question": "Complete the sentence using reported speech: 'He says he ____ (thirsty).'",
+      "answer": "He says he is thirsty."
+    }
+  ]
+}

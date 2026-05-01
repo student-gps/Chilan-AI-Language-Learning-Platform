@@ -29,7 +29,8 @@ function SegmentScene({ segment }) {
 
     // Compute which subtitle sentence to show based on current frame
     const narrationText = segment?.narration_track?.subtitle_en || '';
-    const sentences = splitSentences(narrationText);
+    const sentenceTexts = Array.isArray(segment?.sentence_texts) ? segment.sentence_texts : null;
+    const sentences = sentenceTexts?.length ? sentenceTexts : splitSentences(narrationText);
     const durationInSeconds = segment?.duration_seconds || segment?.estimated_duration_seconds || 12;
     const currentTimeSec = frame / fps;
     const timings = segment?.sentence_timings_seconds;
@@ -50,7 +51,7 @@ function SegmentScene({ segment }) {
     }
 
     return (
-        <SubtitleContext.Provider value={{ sentenceIndex }}>
+        <SubtitleContext.Provider value={{ sentenceIndex, sentenceTexts }}>
             <AbsoluteFill
                 style={{
                     background: 'linear-gradient(180deg, #f8fafc 0%, #eef2ff 48%, #f8fafc 100%)',

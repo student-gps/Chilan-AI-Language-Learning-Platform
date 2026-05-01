@@ -1,0 +1,1195 @@
+{
+  "schema_version": "2.0",
+  "pipeline_id": "new_concept_english",
+  "target_language": "en",
+  "support_language": "zh",
+  "lesson_metadata": {
+    "course_id": "new_concept_english_1",
+    "lesson_id": "lesson045",
+    "title": "For sale",
+    "title_localized": "待售",
+    "content_type": "dialogue_pattern",
+    "source": {
+      "textbook": "New Concept English",
+      "book": 1,
+      "source_lessons": [
+        89,
+        90
+      ],
+      "source_pdf": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\new_concept_english\\raw_materials\\book1\\新概念英语1 英语初阶.pdf",
+      "lesson_pdf": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\new_concept_english\\raw_materials\\book1\\lesson045.pdf",
+      "pdf_pages": [
+        185,
+        186,
+        187,
+        188
+      ]
+    }
+  },
+  "course_content": {
+    "anchor": {
+      "type": "dialogue",
+      "source_lesson": 89,
+      "title": "For sale",
+      "listening_question": {
+        "text": "Why couldn't Nigel decide?",
+        "translation": "为什么奈杰尔作不了决定?",
+        "answer": "Because his wife must see it first."
+      },
+      "lines": [
+        {
+          "line_ref": 1,
+          "speaker": "NIGEL",
+          "text": "Good afternoon.",
+          "translation": "下午好。",
+          "tokens": [
+            {
+              "text": "Good",
+              "highlight": false
+            },
+            {
+              "text": "afternoon",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 2,
+          "speaker": "NIGEL",
+          "text": "I believe that",
+          "translation": "我相信",
+          "tokens": [
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "believe",
+              "highlight": true
+            },
+            {
+              "text": "that",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 3,
+          "speaker": "NIGEL",
+          "text": "this house is for sale.",
+          "translation": "这房子是要出售的。",
+          "tokens": [
+            {
+              "text": "this",
+              "highlight": false
+            },
+            {
+              "text": "house",
+              "highlight": false
+            },
+            {
+              "text": "is",
+              "highlight": false
+            },
+            {
+              "text": "for",
+              "highlight": false
+            },
+            {
+              "text": "sale",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 4,
+          "speaker": "IAN",
+          "text": "That's right.",
+          "translation": "是的。",
+          "tokens": [
+            {
+              "text": "That's",
+              "highlight": false
+            },
+            {
+              "text": "right",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 5,
+          "speaker": "NIGEL",
+          "text": "May I have a look at it, please?",
+          "translation": "我可以看一看吗？",
+          "tokens": [
+            {
+              "text": "May",
+              "highlight": true
+            },
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "have",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "look",
+              "highlight": false
+            },
+            {
+              "text": "at",
+              "highlight": false
+            },
+            {
+              "text": "it",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "please",
+              "highlight": false
+            },
+            {
+              "text": "?",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 6,
+          "speaker": "IAN",
+          "text": "Yes, of course.",
+          "translation": "可以，当然可以。",
+          "tokens": [
+            {
+              "text": "Yes",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "of",
+              "highlight": false
+            },
+            {
+              "text": "course",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 7,
+          "speaker": "IAN",
+          "text": "Come in.",
+          "translation": "请进。",
+          "tokens": [
+            {
+              "text": "Come",
+              "highlight": true
+            },
+            {
+              "text": "in",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 8,
+          "speaker": "NIGEL",
+          "text": "How long have you lived here?",
+          "translation": "您在这里住了多长时间？",
+          "tokens": [
+            {
+              "text": "How",
+              "highlight": false
+            },
+            {
+              "text": "long",
+              "highlight": false
+            },
+            {
+              "text": "have",
+              "highlight": false
+            },
+            {
+              "text": "you",
+              "highlight": false
+            },
+            {
+              "text": "lived",
+              "highlight": false
+            },
+            {
+              "text": "here",
+              "highlight": false
+            },
+            {
+              "text": "?",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 9,
+          "speaker": "IAN",
+          "text": "I've lived here for twenty years.",
+          "translation": "我在这里已经住了20年了。",
+          "tokens": [
+            {
+              "text": "I've",
+              "highlight": false
+            },
+            {
+              "text": "lived",
+              "highlight": false
+            },
+            {
+              "text": "here",
+              "highlight": false
+            },
+            {
+              "text": "for",
+              "highlight": false
+            },
+            {
+              "text": "twenty",
+              "highlight": false
+            },
+            {
+              "text": "years",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 10,
+          "speaker": "NIGEL",
+          "text": "Twenty years!",
+          "translation": "20年！",
+          "tokens": [
+            {
+              "text": "Twenty",
+              "highlight": false
+            },
+            {
+              "text": "years",
+              "highlight": false
+            },
+            {
+              "text": "!",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 11,
+          "speaker": "NIGEL",
+          "text": "That's a long time.",
+          "translation": "这个时间可不短。",
+          "tokens": [
+            {
+              "text": "That's",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "long",
+              "highlight": false
+            },
+            {
+              "text": "time",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 12,
+          "speaker": "IAN",
+          "text": "Yes, I've been here since 1976.",
+          "translation": "是啊，从1976年起我就住在这里。",
+          "tokens": [
+            {
+              "text": "Yes",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "I've",
+              "highlight": false
+            },
+            {
+              "text": "been",
+              "highlight": false
+            },
+            {
+              "text": "here",
+              "highlight": false
+            },
+            {
+              "text": "since",
+              "highlight": true
+            },
+            {
+              "text": "1976",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 13,
+          "speaker": "NIGEL",
+          "text": "Then why do you want to sell it?",
+          "translation": "那么，您为什么要卖掉它呢？",
+          "tokens": [
+            {
+              "text": "Then",
+              "highlight": false
+            },
+            {
+              "text": "why",
+              "highlight": true
+            },
+            {
+              "text": "do",
+              "highlight": true
+            },
+            {
+              "text": "you",
+              "highlight": false
+            },
+            {
+              "text": "want",
+              "highlight": false
+            },
+            {
+              "text": "to",
+              "highlight": false
+            },
+            {
+              "text": "sell",
+              "highlight": true
+            },
+            {
+              "text": "it",
+              "highlight": false
+            },
+            {
+              "text": "?",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 14,
+          "speaker": "IAN",
+          "text": "Because I've just retired.",
+          "translation": "因为我刚退休。",
+          "tokens": [
+            {
+              "text": "Because",
+              "highlight": true
+            },
+            {
+              "text": "I've",
+              "highlight": false
+            },
+            {
+              "text": "just",
+              "highlight": false
+            },
+            {
+              "text": "retired",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 15,
+          "speaker": "IAN",
+          "text": "I want to buy",
+          "translation": "我想买",
+          "tokens": [
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "want",
+              "highlight": false
+            },
+            {
+              "text": "to",
+              "highlight": false
+            },
+            {
+              "text": "buy",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 16,
+          "speaker": "IAN",
+          "text": "a small house in the country.",
+          "translation": "乡下的一幢小房子。",
+          "tokens": [
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "small",
+              "highlight": false
+            },
+            {
+              "text": "house",
+              "highlight": false
+            },
+            {
+              "text": "in",
+              "highlight": false
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "country",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 17,
+          "speaker": "NIGEL",
+          "text": "How much does this house cost?",
+          "translation": "这座房子卖多少钱？",
+          "tokens": [
+            {
+              "text": "How",
+              "highlight": false
+            },
+            {
+              "text": "much",
+              "highlight": false
+            },
+            {
+              "text": "does",
+              "highlight": false
+            },
+            {
+              "text": "this",
+              "highlight": false
+            },
+            {
+              "text": "house",
+              "highlight": false
+            },
+            {
+              "text": "cost",
+              "highlight": true
+            },
+            {
+              "text": "?",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 18,
+          "speaker": "IAN",
+          "text": "£68,500.",
+          "translation": "68,500英镑。",
+          "tokens": [
+            {
+              "text": "£",
+              "highlight": false
+            },
+            {
+              "text": "68",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "500",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 19,
+          "speaker": "NIGEL",
+          "text": "That's a lot of money!",
+          "translation": "那可真是一大笔钱呢！",
+          "tokens": [
+            {
+              "text": "That's",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "lot",
+              "highlight": false
+            },
+            {
+              "text": "of",
+              "highlight": false
+            },
+            {
+              "text": "money",
+              "highlight": false
+            },
+            {
+              "text": "!",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 20,
+          "speaker": "IAN",
+          "text": "It's worth every penny of it.",
+          "translation": "它确确实实值这么多钱。",
+          "tokens": [
+            {
+              "text": "It's",
+              "highlight": false
+            },
+            {
+              "text": "worth",
+              "highlight": true
+            },
+            {
+              "text": "every",
+              "highlight": false
+            },
+            {
+              "text": "penny",
+              "highlight": true
+            },
+            {
+              "text": "of",
+              "highlight": false
+            },
+            {
+              "text": "it",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 21,
+          "speaker": "NIGEL",
+          "text": "Well, I like the house,",
+          "translation": "啊，我喜欢这房子，",
+          "tokens": [
+            {
+              "text": "Well",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "like",
+              "highlight": false
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "house",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 22,
+          "speaker": "NIGEL",
+          "text": "but I can't decide yet.",
+          "translation": "但我还不能决定。",
+          "tokens": [
+            {
+              "text": "but",
+              "highlight": false
+            },
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "can't",
+              "highlight": false
+            },
+            {
+              "text": "decide",
+              "highlight": false
+            },
+            {
+              "text": "yet",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 23,
+          "speaker": "NIGEL",
+          "text": "My wife must see it first.",
+          "translation": "我妻子必须先来看一看。",
+          "tokens": [
+            {
+              "text": "My",
+              "highlight": false
+            },
+            {
+              "text": "wife",
+              "highlight": false
+            },
+            {
+              "text": "must",
+              "highlight": false
+            },
+            {
+              "text": "see",
+              "highlight": true
+            },
+            {
+              "text": "it",
+              "highlight": false
+            },
+            {
+              "text": "first",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 24,
+          "speaker": "IAN",
+          "text": "Women always have",
+          "translation": "女人总是",
+          "tokens": [
+            {
+              "text": "Women",
+              "highlight": false
+            },
+            {
+              "text": "always",
+              "highlight": false
+            },
+            {
+              "text": "have",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 25,
+          "speaker": "IAN",
+          "text": "the last word.",
+          "translation": "最后说了算的。",
+          "tokens": [
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "last",
+              "highlight": false
+            },
+            {
+              "text": "word",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        }
+      ]
+    },
+    "vocabulary": [
+      {
+        "term": "believe",
+        "pronunciation": "/br'li:v/",
+        "part_of_speech": "v.",
+        "translation": "相信,认为",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "may",
+        "pronunciation": "/meɪ/",
+        "part_of_speech": "modal verb",
+        "translation": "(用于请求许可)可以",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "how long",
+        "pronunciation": "",
+        "part_of_speech": "",
+        "translation": "多长",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "since",
+        "pronunciation": "/sɪns/",
+        "part_of_speech": "prep.",
+        "translation": "自从",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "why",
+        "pronunciation": "/waɪ/",
+        "part_of_speech": "adv.",
+        "translation": "为什么",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "sell",
+        "pronunciation": "/sel/",
+        "part_of_speech": "v.",
+        "translation": "卖、出售",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "because",
+        "pronunciation": "/bɪ'kɒz/",
+        "part_of_speech": "conj.",
+        "translation": "因为",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "retire",
+        "pronunciation": "/rɪ'taɪə/",
+        "part_of_speech": "v.",
+        "translation": "退休",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "cost",
+        "pronunciation": "/kɒst/",
+        "part_of_speech": "v.",
+        "translation": "花费",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "pound",
+        "pronunciation": "/paʊnd/",
+        "part_of_speech": "n.",
+        "translation": "英镑(£)",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "worth",
+        "pronunciation": "/wɜːθ/",
+        "part_of_speech": "prep.",
+        "translation": "值……钱",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "penny",
+        "pronunciation": "/'peni/",
+        "part_of_speech": "n.",
+        "translation": "便士",
+        "source_lesson": 89,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "cut",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "剪",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "do",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "做",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "put",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "放",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "come",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "来",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "read",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "读",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "give",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "给",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "set",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "设置",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "rise",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "升起",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "shut",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "关",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "swim",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "游泳",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "take",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "拿",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "eat",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "吃",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "go",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "去",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "see",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "看",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "speak",
+        "pronunciation": "",
+        "part_of_speech": "v.",
+        "translation": "说",
+        "source_lesson": 90,
+        "role": "pattern_slot"
+      }
+    ],
+    "pattern_drills": [
+      {
+        "source_lesson": 90,
+        "pattern": "Have you ... yet?",
+        "translation_pattern": "你已经……了吗?",
+        "response_patterns": [],
+        "slots": [
+          {
+            "text": "read this book",
+            "pronunciation": "",
+            "translation": "读这本书",
+            "image_index": 1
+          },
+          {
+            "text": "done your homework",
+            "pronunciation": "",
+            "translation": "做完你的作业",
+            "image_index": 2
+          },
+          {
+            "text": "gone",
+            "pronunciation": "",
+            "translation": "走了",
+            "image_index": 3
+          },
+          {
+            "text": "spoken to him",
+            "pronunciation": "",
+            "translation": "和他说话",
+            "image_index": 4
+          }
+        ],
+        "generated_prompts": [
+          {
+            "text": "Have you read this book yet?",
+            "translation": "你读过这本书了吗？",
+            "image_index": 1
+          },
+          {
+            "text": "Have you done your homework yet?",
+            "translation": "你做完作业了吗？",
+            "image_index": 2
+          },
+          {
+            "text": "Has he gone yet?",
+            "translation": "他走了吗？",
+            "image_index": 3
+          },
+          {
+            "text": "Has she spoken to him yet?",
+            "translation": "她和他说话了吗？",
+            "image_index": 4
+          }
+        ]
+      }
+    ],
+    "writing_exercises": []
+  },
+  "teaching_materials": {
+    "lesson_flow": [],
+    "notes_on_text": [
+      {
+        "title": "1 for sale",
+        "content": "供出售,待售。"
+      },
+      {
+        "title": "2 May I...?",
+        "content": "是一种比较正式的表示请求的句型。其中的may有“请求允许”的意思。"
+      },
+      {
+        "title": "3 It's worth every penny of it.",
+        "content": "有强调的意思,后面的一个it是指刚才提到的那笔钱。全句的意思是:“你支付出的每一个便士都是划算的”,可以译成:“它确实值这么多钱。”"
+      },
+      {
+        "title": "4 I can't decide yet.",
+        "content": "我还不能决定。句中的 yet 常用在否定句中,表示“迄今仍未”的意思。"
+      },
+      {
+        "title": "5 My wife must see it first.",
+        "content": "我的妻子必须先来看一看。其中的must当“必须”讲。"
+      },
+      {
+        "title": "6 have the last word",
+        "content": "最后拍板。"
+      }
+    ],
+    "grammar_sections": [
+      {
+        "title": "Formal requests with 'May I...?'",
+        "explanation": "The phrase 'May I...?' is a polite and formal way to ask for permission or make a request. 'May' in this context means 'to be allowed to'."
+      },
+      {
+        "title": "Expression: 'It's worth every penny of it.'",
+        "explanation": "This idiom emphasizes that something is of very good value and worth the money or effort spent on it. 'It' refers to the item or service being discussed."
+      },
+      {
+        "title": "Usage of 'yet' in negative sentences",
+        "explanation": "'Yet' is often used in negative sentences and questions in the present perfect tense to mean 'up to now' or 'so far'. It indicates that an action has not happened by a certain time, but is expected to happen."
+      },
+      {
+        "title": "Modal verb 'must' for obligation",
+        "explanation": "'Must' is a modal verb used to express strong obligation, necessity, or certainty. It indicates that something is essential or required."
+      },
+      {
+        "title": "Present Perfect Tense with 'yet'",
+        "explanation": "The present perfect tense (have/has + past participle) is used to describe actions that happened at an unspecified time before now, or actions that started in the past and continue to the present. When combined with 'yet' in questions or negative statements, it asks if something has happened up to the present moment or states that it hasn't."
+      },
+      {
+        "title": "Irregular Verbs (Past Participle Forms)",
+        "explanation": "Many English verbs have irregular past tense and past participle forms. It is important to memorize these forms, especially the past participle, as they are crucial for forming the present perfect tense and passive voice."
+      }
+    ]
+  },
+  "explanation_plan": {
+    "target_audience": "Chinese speakers learning English",
+    "segments": [
+      {
+        "segment_id": "scene_setup",
+        "title": "Lesson Introduction and Context",
+        "description": "Introduce Lesson 89's dialogue about Nigel looking at a house for sale and Lesson 90's focus on the 'Have you...yet?' pattern. Present the listening question for Lesson 89 to set the context for understanding the dialogue."
+      },
+      {
+        "segment_id": "line_walkthrough",
+        "title": "Dialogue Analysis: Lesson 89 'For sale'",
+        "description": "Go through the Lesson 89 dialogue line by line. Explain the meaning of each sentence, clarify pronunciation, and highlight key phrases and expressions used by Nigel and Ian. Discuss the interaction between the characters."
+      },
+      {
+        "segment_id": "pattern_focus",
+        "title": "Grammar Focus: Present Perfect with 'Have you...yet?'",
+        "description": "Introduce the 'Have you...yet?' pattern from Lesson 90. Explain the structure and function of the present perfect tense for asking about completed actions up to the present. Review the irregular verbs table, focusing on past participle forms, and practice forming questions and answers using the pattern and example phrases from Lesson 90."
+      },
+      {
+        "segment_id": "vocabulary_focus",
+        "title": "Vocabulary Review: New Words and Expressions",
+        "description": "Review all new words and expressions from both Lesson 89 and Lesson 90. Provide clear definitions, pronunciations, and example sentences for each term to ensure comprehensive understanding and correct usage."
+      },
+      {
+        "segment_id": "guided_practice",
+        "title": "Interactive Practice and Application",
+        "description": "Engage students in guided practice activities. This includes role-playing the Lesson 89 dialogue, creating new sentences using the 'Have you...yet?' pattern with various irregular verbs, and answering comprehension questions related to both lessons to reinforce learning."
+      }
+    ]
+  },
+  "practice_items": [
+    {
+      "item_id": "p1",
+      "type": "SUPPORT_TO_TARGET",
+      "question": "Translate the following sentence into English: '我在这里已经住了20年了。'",
+      "answer": "I've lived here for twenty years."
+    },
+    {
+      "item_id": "p2",
+      "type": "TARGET_TO_SUPPORT",
+      "question": "Translate the following sentence into Chinese: 'It's worth every penny of it.'",
+      "answer": "它确确实实值这么多钱。"
+    },
+    {
+      "item_id": "p3",
+      "type": "PATTERN_DRILL",
+      "question": "Form a question using 'Have you...yet?' with the phrase 'finish your work'.",
+      "answer": "Have you finished your work yet?"
+    },
+    {
+      "item_id": "p4",
+      "type": "TARGET_SPEAK",
+      "question": "Imagine you are Ian. Respond to Nigel's question: 'How long have you lived here?'",
+      "answer": "I've lived here for twenty years."
+    },
+    {
+      "item_id": "p5",
+      "type": "TARGET_LISTEN_WRITE",
+      "question": "Listen to the sentence and write it down: 'My wife must see it first.'",
+      "answer": "My wife must see it first."
+    }
+  ]
+}

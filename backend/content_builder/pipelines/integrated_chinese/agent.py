@@ -306,6 +306,7 @@ class ContentCreatorAgent:
                 # 将实际 TTS 时长写回 render plan
                 segment_timings = narration_result.get("segment_timings", {})
                 segment_actual_durations = narration_result.get("segment_actual_durations", {})
+                segment_sentences = narration_result.get("segment_sentences", {})
                 plan_segments = (
                     lesson_data.get("video_render_plan", {})
                     .get("explanation", {})
@@ -317,6 +318,8 @@ class ContentCreatorAgent:
                         seg["sentence_timings_seconds"] = segment_timings[seg_key]
                     if seg_key in segment_actual_durations:
                         seg["duration_seconds"] = segment_actual_durations[seg_key]
+                    if seg_key in segment_sentences:
+                        seg["sentence_texts"] = segment_sentences[seg_key]
 
                 cursor = 0.0
                 for seg in plan_segments:

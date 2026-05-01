@@ -1,0 +1,5530 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 201,
+    "title": "看家庭照片",
+    "content_type": "dialogue",
+    "title_localized": "家族写真を見る"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "王朋",
+            "translation": "高文中さん、それはあなたの写真ですか？",
+            "words": [
+              {
+                "cn": "高文中",
+                "py": "Gāo Wénzhōng",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "那",
+                "py": "nà",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": true
+              },
+              {
+                "cn": "照片",
+                "py": "zhàopiàn",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "translation": "はい。これは父で、こちらは母です。",
+            "words": [
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "这",
+                "py": "zhè",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "爸爸",
+                "py": "bàba",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "这",
+                "py": "zhè",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "妈妈",
+                "py": "māma",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "この女の子は誰ですか？",
+            "words": [
+              {
+                "cn": "这",
+                "py": "zhè",
+                "highlight": true
+              },
+              {
+                "cn": "个",
+                "py": "ge",
+                "highlight": true
+              },
+              {
+                "cn": "女",
+                "py": "nǚ",
+                "highlight": true
+              },
+              {
+                "cn": "孩子",
+                "py": "háizi",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "谁",
+                "py": "shéi",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "translation": "彼女は姉です。",
+            "words": [
+              {
+                "cn": "她",
+                "py": "tā",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "姐姐",
+                "py": "jiějie",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "この男の子はあなたの弟ですか？",
+            "words": [
+              {
+                "cn": "这个",
+                "py": "zhè ge",
+                "highlight": true
+              },
+              {
+                "cn": "男",
+                "py": "nán",
+                "highlight": true
+              },
+              {
+                "cn": "孩子",
+                "py": "háizi",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "弟弟",
+                "py": "dìdi",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "translation": "いいえ、彼は兄の息子です。",
+            "words": [
+              {
+                "cn": "不",
+                "py": "bú",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "他",
+                "py": "tā",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "大哥",
+                "py": "dàgē",
+                "highlight": true
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": true
+              },
+              {
+                "cn": "儿子",
+                "py": "érzi",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "お兄さんには娘さんがいますか？",
+            "words": [
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "大哥",
+                "py": "dàgē",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu",
+                "highlight": true
+              },
+              {
+                "cn": "女儿",
+                "py": "nǚ'ér",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": false
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "高文中",
+            "translation": "彼には娘がいません。",
+            "words": [
+              {
+                "cn": "他",
+                "py": "tā",
+                "highlight": false
+              },
+              {
+                "cn": "没有",
+                "py": "méiyǒu",
+                "highlight": true
+              },
+              {
+                "cn": "女儿",
+                "py": "nǚ'ér",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "那",
+        "pinyin": "nà",
+        "part_of_speech": "代名詞",
+        "definition": "それ",
+        "example_sentence": {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng, nà shì nǐ de zhàopiàn ma?",
+          "tokens": [
+            {
+              "cn": "高文中",
+              "py": "Gāo Wénzhōng"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "那",
+              "py": "nà"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "照片",
+              "py": "zhàopiàn"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      },
+      {
+        "word": "的",
+        "pinyin": "de",
+        "part_of_speech": "助詞",
+        "definition": "所有や説明を表す助詞",
+        "example_sentence": {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+          "tokens": [
+            {
+              "cn": "高文中",
+              "py": "Gāo Wénzhōng"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "那",
+              "py": "nà"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "照片",
+              "py": "zhàopiàn"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      },
+      {
+        "word": "照片",
+        "pinyin": "zhàopiàn",
+        "part_of_speech": "名詞",
+        "definition": "写真",
+        "example_sentence": {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng, nà shì nǐ de zhàopiàn ma?",
+          "tokens": [
+            {
+              "cn": "高文中",
+              "py": "Gāo Wénzhōng"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "那",
+              "py": "nà"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "照片",
+              "py": "zhàopiàn"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      },
+      {
+        "word": "这",
+        "pinyin": "zhè",
+        "part_of_speech": "代名詞",
+        "definition": "これ",
+        "example_sentence": {
+          "cn": "这是我爸爸,这是我妈妈。",
+          "py": "Zhè shì wǒ bàba, zhè shì wǒ māma.",
+          "tokens": [
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "これは父で、こちらは母です。"
+        }
+      },
+      {
+        "word": "爸爸",
+        "pinyin": "bàba",
+        "part_of_speech": "名詞",
+        "definition": "父",
+        "example_sentence": {
+          "cn": "这是我爸爸,这是我妈妈。",
+          "py": "Zhè shì wǒ bàba, zhè shì wǒ māma.",
+          "tokens": [
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "これは父で、こちらは母です。"
+        }
+      },
+      {
+        "word": "妈妈",
+        "pinyin": "māma",
+        "part_of_speech": "名詞",
+        "definition": "母",
+        "example_sentence": {
+          "cn": "这是我爸爸,这是我妈妈。",
+          "py": "Zhè shì wǒ bàba, zhè shì wǒ māma.",
+          "tokens": [
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "これは父で、こちらは母です。"
+        }
+      },
+      {
+        "word": "个",
+        "pinyin": "gè/ge",
+        "part_of_speech": "量詞",
+        "definition": "多くの一般的な日常品に使う量詞",
+        "example_sentence": {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "tokens": [
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "女",
+              "py": "nǚ"
+            },
+            {
+              "cn": "孩子",
+              "py": "háizi"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "谁",
+              "py": "shéi"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "この女の子は誰ですか？"
+        }
+      },
+      {
+        "word": "女",
+        "pinyin": "nǚ",
+        "part_of_speech": "形容詞",
+        "definition": "女性",
+        "example_sentence": {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "tokens": [
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "女",
+              "py": "nǚ"
+            },
+            {
+              "cn": "孩子",
+              "py": "háizi"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "谁",
+              "py": "shéi"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "この女の子は誰ですか？"
+        }
+      },
+      {
+        "word": "孩子",
+        "pinyin": "háizi",
+        "part_of_speech": "名詞",
+        "definition": "子供",
+        "example_sentence": {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "tokens": [
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "女",
+              "py": "nǚ"
+            },
+            {
+              "cn": "孩子",
+              "py": "háizi"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "谁",
+              "py": "shéi"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "この女の子は誰ですか？"
+        }
+      },
+      {
+        "word": "谁",
+        "pinyin": "shéi",
+        "part_of_speech": "疑問代名詞",
+        "definition": "誰",
+        "example_sentence": {
+          "cn": "这个女孩子是谁？",
+          "py": "Zhège nǚháizi shì shéi?",
+          "tokens": [
+            {
+              "cn": "这",
+              "py": "zhè"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "女",
+              "py": "nǚ"
+            },
+            {
+              "cn": "孩子",
+              "py": "háizi"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "谁",
+              "py": "shéi"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "この女の子は誰ですか？"
+        }
+      },
+      {
+        "word": "她",
+        "pinyin": "tā",
+        "part_of_speech": "代名詞",
+        "definition": "彼女",
+        "example_sentence": {
+          "cn": "她是我姐姐。",
+          "py": "Tā shì wǒ jiějie.",
+          "tokens": [
+            {
+              "cn": "她",
+              "py": "tā"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "姐姐",
+              "py": "jiějie"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "彼女は私の姉です。"
+        }
+      },
+      {
+        "word": "姐姐",
+        "pinyin": "jiějie",
+        "part_of_speech": "名詞",
+        "definition": "姉",
+        "example_sentence": {
+          "cn": "她是我姐姐。",
+          "py": "Tā shì wǒ jiějie.",
+          "tokens": [
+            {
+              "cn": "她",
+              "py": "tā"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "姐姐",
+              "py": "jiějie"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "彼女は私の姉です。"
+        }
+      },
+      {
+        "word": "男",
+        "pinyin": "nán",
+        "part_of_speech": "形容詞",
+        "definition": "男性",
+        "example_sentence": {
+          "cn": "这个男孩子是你弟弟吗？",
+          "py": "zhè ge nán háizi shì nǐ dìdi ma",
+          "tokens": [
+            {
+              "cn": "这个",
+              "py": "zhè ge"
+            },
+            {
+              "cn": "男",
+              "py": "nán"
+            },
+            {
+              "cn": "孩子",
+              "py": "háizi"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "弟弟",
+              "py": "dìdi"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "この男の子はあなたの弟ですか？"
+        }
+      },
+      {
+        "word": "弟弟",
+        "pinyin": "dìdi",
+        "part_of_speech": "名詞",
+        "definition": "弟",
+        "example_sentence": {
+          "cn": "这个男孩子是你弟弟吗？",
+          "py": "Zhège nán háizi shì nǐ dìdi ma?",
+          "tokens": [
+            {
+              "cn": "这个",
+              "py": "zhè ge"
+            },
+            {
+              "cn": "男",
+              "py": "nán"
+            },
+            {
+              "cn": "孩子",
+              "py": "háizi"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "弟弟",
+              "py": "dìdi"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "この男の子はあなたの弟ですか？"
+        }
+      },
+      {
+        "word": "他",
+        "pinyin": "tā",
+        "part_of_speech": "代名詞",
+        "definition": "彼",
+        "example_sentence": {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "bú shì tā shì wǒ dàgē de érzi",
+          "tokens": [
+            {
+              "cn": "不",
+              "py": "bú"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "他",
+              "py": "tā"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "大哥",
+              "py": "dàgē"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "儿子",
+              "py": "érzi"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "いいえ、彼は私の兄の息子です。"
+        }
+      },
+      {
+        "word": "大哥",
+        "pinyin": "dàgē",
+        "part_of_speech": "名詞",
+        "definition": "兄",
+        "example_sentence": {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "Bú shì, tā shì wǒ dàgē de érzi.",
+          "tokens": [
+            {
+              "cn": "不",
+              "py": "bú"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "他",
+              "py": "tā"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "大哥",
+              "py": "dàgē"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "儿子",
+              "py": "érzi"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "いいえ、彼は私の兄の息子です。"
+        }
+      },
+      {
+        "word": "儿子",
+        "pinyin": "érzi",
+        "part_of_speech": "名詞",
+        "definition": "息子",
+        "example_sentence": {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "Bú shì, tā shì wǒ dàgē de érzi.",
+          "tokens": [
+            {
+              "cn": "不",
+              "py": "bú"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "他",
+              "py": "tā"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "大哥",
+              "py": "dàgē"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "儿子",
+              "py": "érzi"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "いいえ、彼は私の兄の息子です。"
+        }
+      },
+      {
+        "word": "有",
+        "pinyin": "yǒu",
+        "part_of_speech": "動詞",
+        "definition": "ある、いる",
+        "example_sentence": {
+          "cn": "你大哥有女儿吗？",
+          "py": "Nǐ dàgē yǒu nǚ'ér ma?",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "大哥",
+              "py": "dàgē"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "女儿",
+              "py": "nǚ'ér"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "お兄さんは娘さんがいますか？"
+        }
+      },
+      {
+        "word": "女儿",
+        "pinyin": "nǚ'ér",
+        "part_of_speech": "名詞",
+        "definition": "娘",
+        "example_sentence": {
+          "cn": "你大哥有女儿吗？",
+          "py": "Nǐ dàgē yǒu nǚ'ér ma?",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "大哥",
+              "py": "dàgē"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "女儿",
+              "py": "nǚ'ér"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "お兄さんは娘さんがいますか？"
+        }
+      },
+      {
+        "word": "没",
+        "pinyin": "méi",
+        "part_of_speech": "副詞",
+        "definition": "～ない",
+        "example_sentence": {
+          "cn": "他没有女儿。",
+          "py": "tā méiyǒu nǚ'ér",
+          "tokens": [
+            {
+              "cn": "他",
+              "py": "tā"
+            },
+            {
+              "cn": "没有",
+              "py": "méiyǒu"
+            },
+            {
+              "cn": "女儿",
+              "py": "nǚ'ér"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "彼には娘がいません。"
+        }
+      },
+      {
+        "word": "高文中",
+        "pinyin": "Gāo Wénzhōng",
+        "part_of_speech": "固有名詞",
+        "definition": "人名",
+        "example_sentence": {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+          "tokens": [
+            {
+              "cn": "高文中",
+              "py": "Gāo Wénzhōng"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "那",
+              "py": "nà"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "照片",
+              "py": "zhàopiàn"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      },
+      {
+        "word": "高",
+        "pinyin": "gāo",
+        "part_of_speech": "固有名詞・形容詞",
+        "definition": "姓、高い",
+        "example_sentence": {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+          "tokens": [
+            {
+              "cn": "高文中",
+              "py": "Gāo Wénzhōng"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "那",
+              "py": "nà"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "照片",
+              "py": "zhàopiàn"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      }
+    ]
+  },
+  "teaching_materials": {
+    "lesson_id": 201,
+    "course_id": 1,
+    "lesson_title": "",
+    "language_notes": [
+      {
+        "note_id": "LN-1",
+        "label": "a",
+        "focus_text": "这, 那",
+        "focus_pinyin": "",
+        "explanation_en": "中国語の口語では、[zh:这] は [zh:zhèi] と、[zh:那] は [zh:nèi] と発音されることがあります。これらは量詞、または数詞と量詞の後に続きます。",
+        "source_section": "Language Notes"
+      },
+      {
+        "note_id": "LN-2",
+        "label": "b",
+        "focus_text": "儿子, 女儿",
+        "focus_pinyin": "érzi, nǚ'ér",
+        "explanation_en": "誰かの息子を [zh:儿子] と言う代わりに [zh:男孩子] と呼んだり、娘を [zh:女儿] と言う代わりに [zh:女孩子] と呼んだりしてはいけません。",
+        "source_section": "Language Notes"
+      }
+    ],
+    "grammar_sections": [
+      {
+        "grammar_id": "G-1",
+        "title": "助詞 [zh:的] (de) (1)",
+        "explanation_en": "所有関係を示すには、所有者と所有物の間に助詞 [zh:的] を使います。これは日本語の「～の」に相当します。例えば、[zh:老师的名字] (先生の名前) のように使います。口語では、人称代名詞の後に続く [zh:的] はよく省略されます。そのため、[zh:王朋的妈妈] (王朋のお母さん) とは言いますが、[zh:我妈妈] (私のお母さん) と言います。文法4、レッスン3も参照してください。",
+        "patterns": [
+          {
+            "pattern": "Possessor + 的 + Possessed",
+            "pattern_pinyin": "",
+            "meaning_en": "所有関係を示すのに使われます。"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "老师的名字",
+            "pinyin": "lǎoshī de míngzi",
+            "translation": "先生の名前"
+          },
+          {
+            "hanzi": "王朋的妈妈",
+            "pinyin": "Wáng Péng de māma",
+            "translation": "王朋のお母さん"
+          },
+          {
+            "hanzi": "我妈妈",
+            "pinyin": "wǒ māma",
+            "translation": "私のお母さん"
+          },
+          {
+            "hanzi": "李友的爸爸",
+            "pinyin": "Lǐ Yǒu de bàba",
+            "translation": "李友のお父さん"
+          },
+          {
+            "hanzi": "哥哥的女儿",
+            "pinyin": "gēge de nǚ'ér",
+            "translation": "兄の娘"
+          }
+        ],
+        "usage_notes": [
+          "口語では、人称代名詞の後に続く助詞 [zh:的] はよく省略されます。"
+        ],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "G-2",
+        "title": "量詞 (1)",
+        "explanation_en": "中国語では、数詞のすぐ後に名詞が続くことは通常ありません。代わりに、(A)、(B)、(C) のように、数詞と名詞の間に量詞が挿入されます。同様に、(D)、(E) のように、指示代名詞と名詞の間にも量詞がよく挿入されます。中国語には百以上の量詞がありますが、日常会話で出会うのは20〜30種類程度です。多くの名詞には特定の量詞が関連付けられており、それらは名詞の意味と関連していることが多いです。[zh:个] (gè/ge) は中国語で最も一般的な量詞です。他の量詞の代わりとして使われることもあります。",
+        "patterns": [
+          {
+            "pattern": "Numeral + Measure Word + Noun",
+            "pattern_pinyin": "",
+            "meaning_en": "名詞の数を数えるのに使われます。"
+          },
+          {
+            "pattern": "Demonstrative Pronoun + Measure Word + Noun",
+            "pattern_pinyin": "",
+            "meaning_en": "名詞を特定するのに使われます。"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "一个人",
+            "pinyin": "yí ge rén",
+            "translation": "人"
+          },
+          {
+            "hanzi": "一个学生",
+            "pinyin": "yí ge xuésheng",
+            "translation": "学生"
+          },
+          {
+            "hanzi": "一个老师",
+            "pinyin": "yí ge lǎoshī",
+            "translation": "先生"
+          },
+          {
+            "hanzi": "这个孩子",
+            "pinyin": "zhè ge háizi",
+            "translation": "この子"
+          },
+          {
+            "hanzi": "那个男学生",
+            "pinyin": "nà ge nán xuésheng",
+            "translation": "あの男子学生"
+          }
+        ],
+        "usage_notes": [],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "G-3",
+        "title": "疑問代名詞",
+        "explanation_en": "疑問代名詞には、誰 [zh:shéi] (誰)、何 [zh:shénme] (何)、どの [zh:nǎ/něi] (どの、第6課参照)、どこ [zh:nǎr] (どこ、第5課参照)、そしていくつ [zh:jǐ] (いくつ) などがあります。疑問代名詞を使った疑問文では、語順は肯定文と全く同じです。ですから、疑問代名詞を使って質問を作る際は、まず肯定文を作り、質問したい部分を適切な疑問代名詞に置き換えてください。",
+        "patterns": [
+          {
+            "pattern": "Question Pronoun (as Subject) + Verb + (Object)?",
+            "pattern_pinyin": "",
+            "meaning_en": "質問の対象が文の主語である場合に使う質問の仕方です。"
+          },
+          {
+            "pattern": "Subject + Verb + Question Pronoun (as Object)?",
+            "pattern_pinyin": "",
+            "meaning_en": "質問の対象が文の目的語である場合に使う質問の仕方です。"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "那个女孩子是李友。",
+            "pinyin": "Nà ge nǚ háizi shì Lǐ Yǒu.",
+            "translation": "あの女の子は李友です。"
+          },
+          {
+            "hanzi": "谁是李友？",
+            "pinyin": "Shéi shì Lǐ Yǒu?",
+            "translation": "李友は誰ですか？"
+          },
+          {
+            "hanzi": "那个女孩子是谁？",
+            "pinyin": "Nà ge nǚ háizi shì shéi?",
+            "translation": "あの女の子は誰ですか？"
+          },
+          {
+            "hanzi": "Q: 谁是老师？ A: 李先生是老师。",
+            "pinyin": "Q: Shéi shì lǎoshī? A: Lǐ xiānsheng shì lǎoshī.",
+            "translation": "Q: 先生は誰ですか？ A: 李先生が先生です。"
+          },
+          {
+            "hanzi": "Q: 那个女孩子姓什么？ A: 那个女孩子姓王。",
+            "pinyin": "Q: Nà ge nǚ háizi xìng shénme? A: Nà ge nǚ háizi xìng Wáng.",
+            "translation": "Q: あの女の子の苗字は何ですか？ A: あの女の子の苗字は王です。"
+          },
+          {
+            "hanzi": "Q: 谁有姐姐？ A: 高文中有姐姐。",
+            "pinyin": "Q: Shéi yǒu jiějie? A: Gāo Wénzhōng yǒu jiějie.",
+            "translation": "Q: 誰がお姉さんを持っていますか？ A: 高文中にはお姉さんがいます。"
+          }
+        ],
+        "usage_notes": [
+          "疑問代名詞を使った疑問文の語順は、肯定文と全く同じです。",
+          "質問を作るには、肯定文の中で質問したい部分を適切な疑問代名詞に置き換えるだけでいいです。",
+          "誰 [zh:shéi] は、文の主語 (例: 誰が先生ですか？) にも、目的語 (例: あの女の子は誰ですか？) にもなり得ます。"
+        ],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "G-4",
+        "title": "有 [zh:yǒu] を使った所有の表現",
+        "explanation_en": "有 [zh:yǒu] の否定形は、常に不 [zh:bù] ではなく、没 [zh:méi] を使います。",
+        "patterns": [],
+        "examples": [
+          {
+            "hanzi": "王先生有弟弟吗?",
+            "pinyin": "Wáng xiānsheng yǒu dìdi ma?",
+            "translation": "王先生には弟がいますか？"
+          },
+          {
+            "hanzi": "王先生没有弟弟。",
+            "pinyin": "Wáng xiānsheng méiyǒu dìdi.",
+            "translation": "王先生には弟がいません。"
+          },
+          {
+            "hanzi": "我有三个姐姐, 你呢?",
+            "pinyin": "Wǒ yǒu sān ge jiějie, nǐ ne?",
+            "translation": "私は姉が三人います。あなたは？"
+          },
+          {
+            "hanzi": "我没有姐姐。",
+            "pinyin": "Wǒ méiyǒu jiějie.",
+            "translation": "私は姉がいません。"
+          }
+        ],
+        "usage_notes": [
+          "有 [zh:yǒu] の否定形は、常に不 [zh:bù] ではなく、没 [zh:méi] を使います。"
+        ],
+        "common_errors": []
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 201,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "那",
+      "original_pinyin": "nà",
+      "standard_answers": [
+        "それ"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng, nà shì nǐ de zhàopiàn ma?",
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "照片",
+      "original_pinyin": "zhàopiàn",
+      "standard_answers": [
+        "写真",
+        "写真"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng, nà shì nǐ de zhàopiàn ma?",
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "这",
+      "original_pinyin": "zhè",
+      "standard_answers": [
+        "こちら"
+      ],
+      "context_examples": [
+        {
+          "cn": "这是我爸爸,这是我妈妈。",
+          "py": "Zhè shì wǒ bàba, zhè shì wǒ māma.",
+          "translation": "こちらは私の父で、こちらは私の母です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "爸爸",
+      "original_pinyin": "bàba",
+      "standard_answers": [
+        "父",
+        "パパ"
+      ],
+      "context_examples": [
+        {
+          "cn": "这是我爸爸,这是我妈妈。",
+          "py": "Zhè shì wǒ bàba, zhè shì wǒ māma.",
+          "translation": "こちらは私の父で、こちらは私の母です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "妈妈",
+      "original_pinyin": "māma",
+      "standard_answers": [
+        "母",
+        "ママ"
+      ],
+      "context_examples": [
+        {
+          "cn": "这是我爸爸,这是我妈妈。",
+          "py": "Zhè shì wǒ bàba, zhè shì wǒ māma.",
+          "translation": "こちらは私の父で、こちらは私の母です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "个",
+      "original_pinyin": "gè/ge",
+      "standard_answers": [
+        "一般的な物の数を数える助数詞"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "translation": "この女の子は誰ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "女",
+      "original_pinyin": "nǚ",
+      "standard_answers": [
+        "女性"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "translation": "この女の子は誰ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "孩子",
+      "original_pinyin": "háizi",
+      "standard_answers": [
+        "子供"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "translation": "この女の子は誰ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "谁",
+      "original_pinyin": "shéi",
+      "standard_answers": [
+        "誰",
+        "誰"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "Zhège nǚháizi shì shéi?",
+          "translation": "この女の子は誰ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "她",
+      "original_pinyin": "tā",
+      "standard_answers": [
+        "彼女",
+        "彼女"
+      ],
+      "context_examples": [
+        {
+          "cn": "她是我姐姐。",
+          "py": "Tā shì wǒ jiějie.",
+          "translation": "彼女は私の姉です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "姐姐",
+      "original_pinyin": "jiějie",
+      "standard_answers": [
+        "姉"
+      ],
+      "context_examples": [
+        {
+          "cn": "她是我姐姐。",
+          "py": "Tā shì wǒ jiějie.",
+          "translation": "彼女は私の姉です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "男",
+      "original_pinyin": "nán",
+      "standard_answers": [
+        "男性"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个男孩子是你弟弟吗？",
+          "py": "zhè ge nán háizi shì nǐ dìdi ma",
+          "translation": "この男の子はあなたの弟ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "弟弟",
+      "original_pinyin": "dìdi",
+      "standard_answers": [
+        "弟"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个男孩子是你弟弟吗？",
+          "py": "Zhège nán háizi shì nǐ dìdi ma?",
+          "translation": "この男の子はあなたの弟ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "他",
+      "original_pinyin": "tā",
+      "standard_answers": [
+        "彼",
+        "彼"
+      ],
+      "context_examples": [
+        {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "bú shì tā shì wǒ dàgē de érzi",
+          "translation": "いいえ、彼は私の兄の息子です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "大哥",
+      "original_pinyin": "dàgē",
+      "standard_answers": [
+        "兄",
+        "兄"
+      ],
+      "context_examples": [
+        {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "Bú shì, tā shì wǒ dàgē de érzi.",
+          "translation": "いいえ、彼は私の兄の息子です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "儿子",
+      "original_pinyin": "érzi",
+      "standard_answers": [
+        "息子"
+      ],
+      "context_examples": [
+        {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "Bú shì, tā shì wǒ dàgē de érzi.",
+          "translation": "いいえ、彼は私の兄の息子です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "有",
+      "original_pinyin": "yǒu",
+      "standard_answers": [
+        "います"
+      ],
+      "context_examples": [
+        {
+          "cn": "你大哥有女儿吗？",
+          "py": "Nǐ dàgē yǒu nǚ'ér ma?",
+          "translation": "あなたのお兄さんには娘さんがいますか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "女儿",
+      "original_pinyin": "nǚ'ér",
+      "standard_answers": [
+        "娘"
+      ],
+      "context_examples": [
+        {
+          "cn": "你大哥有女儿吗？",
+          "py": "Nǐ dàgē yǒu nǚ'ér ma?",
+          "translation": "あなたのお兄さんには娘さんがいますか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "没",
+      "original_pinyin": "méi",
+      "standard_answers": [
+        "〜ません"
+      ],
+      "context_examples": [
+        {
+          "cn": "他没有女儿。",
+          "py": "tā méiyǒu nǚ'ér",
+          "translation": "彼には娘がいません。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "高文中",
+      "original_pinyin": "Gāo Wénzhōng",
+      "standard_answers": [
+        "髙文中 (人名)"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+          "translation": "髙文中さん、それはあなたの写真ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "高",
+      "original_pinyin": "gāo",
+      "standard_answers": [
+        "髙 (苗字); 高い"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+          "translation": "髙文中さん、それはあなたの写真ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "それ",
+      "original_pinyin": null,
+      "standard_answers": [
+        "那"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng, nà shì nǐ de zhàopiàn ma?",
+          "translation": "髙文中さん、それはあなたの写真ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "写真",
+      "original_pinyin": null,
+      "standard_answers": [
+        "照片"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng, nà shì nǐ de zhàopiàn ma?",
+          "translation": "髙文中さん、それはあなたの写真ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "これ",
+      "original_pinyin": null,
+      "standard_answers": [
+        "这"
+      ],
+      "context_examples": [
+        {
+          "cn": "这是我爸爸,这是我妈妈。",
+          "py": "Zhè shì wǒ bàba, zhè shì wǒ māma.",
+          "translation": "こちらは私の父で、こちらは私の母です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "父",
+      "original_pinyin": null,
+      "standard_answers": [
+        "爸爸"
+      ],
+      "context_examples": [
+        {
+          "cn": "这是我爸爸,这是我妈妈。",
+          "py": "Zhè shì wǒ bàba, zhè shì wǒ māma.",
+          "translation": "こちらは私の父で、こちらは私の母です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "母",
+      "original_pinyin": null,
+      "standard_answers": [
+        "妈妈"
+      ],
+      "context_examples": [
+        {
+          "cn": "这是我爸爸,这是我妈妈。",
+          "py": "Zhè shì wǒ bàba, zhè shì wǒ māma.",
+          "translation": "こちらは私の父で、こちらは私の母です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "個 [zh:gè] (多くの一般的な日常品に使う助数詞)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "个"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "translation": "この女の子は誰ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "女",
+      "original_pinyin": null,
+      "standard_answers": [
+        "女"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "translation": "この女の子は誰ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "子供",
+      "original_pinyin": null,
+      "standard_answers": [
+        "孩子"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "translation": "この女の子は誰ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "誰",
+      "original_pinyin": null,
+      "standard_answers": [
+        "谁"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "Zhège nǚháizi shì shéi?",
+          "translation": "この女の子は誰ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "彼女",
+      "original_pinyin": null,
+      "standard_answers": [
+        "她"
+      ],
+      "context_examples": [
+        {
+          "cn": "她是我姐姐。",
+          "py": "Tā shì wǒ jiějie.",
+          "translation": "彼女は私の姉です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "姉",
+      "original_pinyin": null,
+      "standard_answers": [
+        "姐姐"
+      ],
+      "context_examples": [
+        {
+          "cn": "她是我姐姐。",
+          "py": "Tā shì wǒ jiějie.",
+          "translation": "彼女は私の姉です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "男",
+      "original_pinyin": null,
+      "standard_answers": [
+        "男"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个男孩子是你弟弟吗？",
+          "py": "zhè ge nán háizi shì nǐ dìdi ma",
+          "translation": "この男の子はあなたの弟ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "弟",
+      "original_pinyin": null,
+      "standard_answers": [
+        "弟弟"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个男孩子是你弟弟吗？",
+          "py": "Zhège nán háizi shì nǐ dìdi ma?",
+          "translation": "この男の子はあなたの弟ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "彼",
+      "original_pinyin": null,
+      "standard_answers": [
+        "他"
+      ],
+      "context_examples": [
+        {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "bú shì tā shì wǒ dàgē de érzi",
+          "translation": "いいえ、彼は私の兄の息子です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "兄",
+      "original_pinyin": null,
+      "standard_answers": [
+        "大哥"
+      ],
+      "context_examples": [
+        {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "Bú shì, tā shì wǒ dàgē de érzi.",
+          "translation": "いいえ、彼は私の兄の息子です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "息子",
+      "original_pinyin": null,
+      "standard_answers": [
+        "儿子"
+      ],
+      "context_examples": [
+        {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "Bú shì, tā shì wǒ dàgē de érzi.",
+          "translation": "いいえ、彼は私の兄の息子です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "いる、ある",
+      "original_pinyin": null,
+      "standard_answers": [
+        "有"
+      ],
+      "context_examples": [
+        {
+          "cn": "你大哥有女儿吗？",
+          "py": "Nǐ dàgē yǒu nǚ'ér ma?",
+          "translation": "あなたのお兄さんには娘がいますか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "娘",
+      "original_pinyin": null,
+      "standard_answers": [
+        "女儿"
+      ],
+      "context_examples": [
+        {
+          "cn": "你大哥有女儿吗？",
+          "py": "Nǐ dàgē yǒu nǚ'ér ma?",
+          "translation": "あなたのお兄さんには娘がいますか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "〜ない",
+      "original_pinyin": null,
+      "standard_answers": [
+        "没"
+      ],
+      "context_examples": [
+        {
+          "cn": "他没有女儿。",
+          "py": "tā méiyǒu nǚ'ér",
+          "translation": "彼には娘がいません。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "[zh:高文中]、高文中 人名",
+      "original_pinyin": null,
+      "standard_answers": [
+        "高文中"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "[zh:高]、高 姓; 高い",
+      "original_pinyin": null,
+      "standard_answers": [
+        "高"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 43,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "李友のお父さん",
+      "original_pinyin": "",
+      "standard_answers": [
+        "李友的爸爸"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 44,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "姪",
+      "original_pinyin": "",
+      "standard_answers": [
+        "哥哥的女儿"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 45,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "中国人",
+      "original_pinyin": "",
+      "standard_answers": [
+        "一个中国人"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 46,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "弟が三人",
+      "original_pinyin": "",
+      "standard_answers": [
+        "三个弟弟"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 47,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "高文中にはお姉さんがいます。",
+      "original_pinyin": "",
+      "standard_answers": [
+        "高文中有姐姐。"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 48,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "お兄さんはいますか？",
+      "original_pinyin": "",
+      "standard_answers": [
+        "你有哥哥吗？"
+      ]
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 49,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "高文中さん、それはあなたの写真ですか？",
+      "original_pinyin": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+      "standard_answers": [
+        "高文中,那是你的照片吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 1
+      }
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 50,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "この女の子は誰ですか？",
+      "original_pinyin": "zhè ge nǚ háizi shì shéi",
+      "standard_answers": [
+        "这个女孩子是谁？"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "translation": "この女の子は誰ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 3
+      }
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 51,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "この男の子はあなたの弟ですか？",
+      "original_pinyin": "zhè ge nán háizi shì nǐ dìdi ma",
+      "standard_answers": [
+        "这个男孩子是你弟弟吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个男孩子是你弟弟吗？",
+          "py": "zhè ge nán háizi shì nǐ dìdi ma",
+          "translation": "この男の子はあなたの弟ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 5
+      }
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 52,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "いいえ、彼は私の長兄の息子です。",
+      "original_pinyin": "bú shì tā shì wǒ dàgē de érzi",
+      "standard_answers": [
+        "不是,他是我大哥的儿子。"
+      ],
+      "context_examples": [
+        {
+          "cn": "不是,他是我大哥的儿子。",
+          "py": "bú shì tā shì wǒ dàgē de érzi",
+          "translation": "いいえ、彼は私の長兄の息子です。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 6
+      }
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 53,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "高文中さん、それはあなたの写真ですか？",
+      "original_pinyin": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+      "standard_answers": [
+        "高文中,那是你的照片吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "高文中,那是你的照片吗？",
+          "py": "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma",
+          "translation": "高文中さん、それはあなたの写真ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 54,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "この女の子は誰ですか？",
+      "original_pinyin": "zhè ge nǚ háizi shì shéi",
+      "standard_answers": [
+        "这个女孩子是谁？"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个女孩子是谁？",
+          "py": "zhè ge nǚ háizi shì shéi",
+          "translation": "この女の子は誰ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 55,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "この男の子はあなたの弟ですか？",
+      "original_pinyin": "zhè ge nán háizi shì nǐ dìdi ma",
+      "standard_answers": [
+        "这个男孩子是你弟弟吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "这个男孩子是你弟弟吗？",
+          "py": "zhè ge nán háizi shì nǐ dìdi ma",
+          "translation": "この男の子はあなたの弟ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 201,
+      "question_id": 56,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "あなたの長兄には娘さんがいますか？",
+      "original_pinyin": "nǐ dàgē yǒu nǚ'ér ma",
+      "standard_answers": [
+        "你大哥有女儿吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "你大哥有女儿吗？",
+          "py": "nǐ dàgē yǒu nǚ'ér ma",
+          "translation": "あなたの長兄には娘さんがいますか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    }
+  ],
+  "video_plan": {
+    "lesson_video_plan": {
+      "lesson_id": 201,
+      "course_id": 1,
+      "lesson_title": "看家庭照片",
+      "target_audience": "English native speakers learning Chinese",
+      "primary_language": "zh",
+      "support_language": "en",
+      "subtitle_options": {
+        "hanzi": true,
+        "pinyin": true,
+        "translation": true
+      }
+    },
+    "dramatization": {
+      "global_config": {
+        "visual_style": "Warm, natural lighting, cinematic, slice-of-life anime style.",
+        "setting_summary_cn": "两个年轻朋友，高文中和王朋，正在高文中的大学宿舍里，围绕一张家庭照片展开对话。",
+        "setting_summary_en": "Two young friends, Gao Wenzhong and Wang Peng, are in Gao Wenzhong's university dorm room, having a conversation about a family photo.",
+        "character_definitions": [
+          {
+            "name": "王朋",
+            "appearance_description_en": "A friendly and curious male university student, around 19 years old, with short black hair, wearing a casual blue t-shirt and jeans."
+          },
+          {
+            "name": "高文中",
+            "appearance_description_en": "A proud and happy male university student, around 19 years old, with slightly styled black hair, wearing a comfortable grey hoodie."
+          }
+        ]
+      },
+      "scenes": [
+        {
+          "scene_id": 1,
+          "source_line_refs": [
+            1
+          ],
+          "source_text": {
+            "hanzi": [
+              "高文中,那是你的照片吗？"
+            ],
+            "pinyin": [
+              "Gāo Wénzhōng nà shì nǐ de zhàopiàn ma"
+            ],
+            "translation": [
+              "Gao Wenzhong, is that your photo?"
+            ]
+          },
+          "scene_goal": "王朋发现一张照片并好奇地提问。",
+          "scene_description_cn": "王朋走进高文中的宿舍，看到他书桌上立着一个相框。他好奇地走过去，拿起相框，看着照片问高文中。",
+          "setting_en": "A cozy and slightly messy university dorm room. Books on the shelf, a laptop on the desk. Natural light from a window.",
+          "characters_on_screen": [
+            "王朋",
+            "高文中"
+          ],
+          "camera_movement": "Slow pan across the room, then a gentle push-in towards the desk where Wang Peng spots the photo.",
+          "shot_type": "Medium shot to close-up",
+          "video_prompt_en": "Slice-of-life anime style. A male university student, Wang Peng, walks into his friend Gao Wenzhong's dorm room. He notices a framed photo on the desk. He picks it up with a curious expression and turns to Gao Wenzhong, who is sitting on his bed. Warm, soft lighting.",
+          "voice_over": {
+            "speaker": "王朋",
+            "hanzi": "高文中,那是你的照片吗？",
+            "pinyin": "Gāo Wénzhōng, nà shì nǐ de zhàopiàn ma?",
+            "translation": "Gao Wenzhong, is that your photo?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 5
+        },
+        {
+          "scene_id": 2,
+          "source_line_refs": [
+            2
+          ],
+          "source_text": {
+            "hanzi": [
+              "是。这是我爸爸,这是我妈妈。"
+            ],
+            "pinyin": [
+              "shì zhè shì wǒ bàba zhè shì wǒ māma"
+            ],
+            "translation": [
+              "Yes. This is my dad, and this is my mom."
+            ]
+          },
+          "scene_goal": "高文中确认照片是自己的，并介绍父母。",
+          "scene_description_cn": "高文中笑着点点头，从王朋手中接过相框。他用手指着照片上的一位男士，然后又指着一位女士，向王朋介绍他们。",
+          "setting_en": "Same university dorm room. Focus is on the two friends and the photo.",
+          "characters_on_screen": [
+            "高文中",
+            "王朋"
+          ],
+          "camera_movement": "Static shot, then a cut to an extreme close-up of the photo.",
+          "shot_type": "Medium close-up on Gao Wenzhong, then extreme close-up on the photo.",
+          "video_prompt_en": "Slice-of-life anime style. Gao Wenzhong smiles and nods, taking the photo frame. Cut to an extreme close-up of the photo, showing a happy family. His finger points first to a middle-aged man (his father), then to a middle-aged woman (his mother). He looks proud.",
+          "voice_over": {
+            "speaker": "高文中",
+            "hanzi": "是。这是我爸爸，这是我妈妈。",
+            "pinyin": "Shì. Zhè shì wǒ bàba, zhè shì wǒ māma.",
+            "translation": "Yes. This is my dad, and this is my mom."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 6
+        },
+        {
+          "scene_id": 3,
+          "source_line_refs": [
+            3
+          ],
+          "source_text": {
+            "hanzi": [
+              "这个女孩子是谁？"
+            ],
+            "pinyin": [
+              "zhè ge nǚ háizi shì shéi"
+            ],
+            "translation": [
+              "Who is this girl?"
+            ]
+          },
+          "scene_goal": "王朋追问照片中女孩的身份。",
+          "scene_description_cn": "王朋凑近看照片，指着照片里的一个年轻女孩，好奇地问她是谁。",
+          "setting_en": "Same university dorm room. Close interaction over the photo.",
+          "characters_on_screen": [
+            "王朋",
+            "高文中"
+          ],
+          "camera_movement": "Quick zoom-in on the girl in the photo from Wang Peng's perspective.",
+          "shot_type": "Over-the-shoulder shot",
+          "video_prompt_en": "Slice-of-life anime style. Over-the-shoulder shot from Wang Peng, his finger pointing to a teenage girl in the family photo. He looks at Gao Wenzhong with a questioning look. The focus is on his curiosity.",
+          "voice_over": {
+            "speaker": "王朋",
+            "hanzi": "这个女孩子是谁？",
+            "pinyin": "Zhè ge nǚ háizi shì shéi?",
+            "translation": "Who is this girl?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 4
+        },
+        {
+          "scene_id": 4,
+          "source_line_refs": [
+            4
+          ],
+          "source_text": {
+            "hanzi": [
+              "她是我姐姐。"
+            ],
+            "pinyin": [
+              "tā shì wǒ jiějie"
+            ],
+            "translation": [
+              "She is my older sister."
+            ]
+          },
+          "scene_goal": "高文中介绍那是他姐姐。",
+          "scene_description_cn": "高文中看着照片里的姐姐，脸上露出温暖的笑容，自豪地告诉王朋那是他的姐姐。",
+          "setting_en": "Same university dorm room.",
+          "characters_on_screen": [
+            "高文中",
+            "王朋"
+          ],
+          "camera_movement": "Static shot, focus on Gao Wenzhong's facial expression.",
+          "shot_type": "Medium close-up",
+          "video_prompt_en": "Slice-of-life anime style. Medium close-up on Gao Wenzhong. He looks at the photo with a fond, warm smile and then looks at Wang Peng to answer his question. He seems proud of his sister.",
+          "voice_over": {
+            "speaker": "高文中",
+            "hanzi": "她是我姐姐。",
+            "pinyin": "Tā shì wǒ jiějie.",
+            "translation": "She is my older sister."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 4
+        },
+        {
+          "scene_id": 5,
+          "source_line_refs": [
+            7
+          ],
+          "source_text": {
+            "hanzi": [
+              "你大哥有女儿吗？"
+            ],
+            "pinyin": [
+              "nǐ dàgē yǒu nǚ'ér ma"
+            ],
+            "translation": [
+              "Does your oldest brother have a daughter?"
+            ]
+          },
+          "scene_goal": "王朋在了解了小男孩的身份后，继续好奇地询问高文中大哥的家庭情况。",
+          "scene_description_cn": "王朋的目光从照片上移开，转向高文中，脸上带着好奇的微笑。他身体微微前倾，饶有兴致地提出下一个问题。",
+          "setting_en": "Cozy living room with soft afternoon light. A photo album is open on a wooden coffee table.",
+          "characters_on_screen": [
+            "王朋",
+            "高文中"
+          ],
+          "camera_movement": "Slow zoom in",
+          "shot_type": "Medium shot",
+          "video_prompt_en": "Medium shot of two young Asian men sitting on a sofa. The focus is on Wang Peng, who looks up from the photo album towards his friend Gao Wenzhong with a curious and friendly smile. The camera slowly zooms in on his face as he asks the question. The background is a warm, sunlit living room.",
+          "voice_over": {
+            "speaker": "王朋",
+            "hanzi": "你大哥有女儿吗？",
+            "pinyin": "nǐ dàgē yǒu nǚ'ér ma",
+            "translation": "Does your oldest brother have a daughter?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 4
+        },
+        {
+          "scene_id": 6,
+          "source_line_refs": [
+            8
+          ],
+          "source_text": {
+            "hanzi": [
+              "他没有女儿。"
+            ],
+            "pinyin": [
+              "tā méiyǒu nǚ'ér"
+            ],
+            "translation": [
+              "He doesn't have a daughter."
+            ]
+          },
+          "scene_goal": "高文中平静地回答了王朋的问题，结束了这个话题。",
+          "scene_description_cn": "听到问题，高文中温和地笑了笑，轻轻摇了摇头。他的目光再次落回到相册上，表情平静而满足。",
+          "setting_en": "Cozy living room. The photo album is open on the coffee table, showing pictures of a family.",
+          "characters_on_screen": [
+            "高文中"
+          ],
+          "camera_movement": "Static shot",
+          "shot_type": "Close-up",
+          "video_prompt_en": "Close-up shot on Gao Wenzhong's face. He gives a gentle, warm smile and shakes his head slightly. His expression is calm and content. He then glances down at the photo album again. Soft, natural light illuminates his features.",
+          "voice_over": {
+            "speaker": "高文中",
+            "hanzi": "他没有女儿。",
+            "pinyin": "tā méiyǒu nǚ'ér",
+            "translation": "He doesn't have a daughter."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 4
+        }
+      ]
+    },
+    "explanation": {
+      "global_config": {
+        "teaching_style": "A clear, encouraging, and structured approach. We break down sentences word-by-word and introduce new concepts step-by-step, focusing on practical usage.",
+        "target_audience": "English native speakers learning Chinese",
+        "presenter_mode": "voice_over",
+        "visual_style": "Clean, modern, with animated text and graphics on teaching cards.",
+        "lesson_main_title": "看家庭照片"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "Asking about a photo",
+          "teaching_goal": "To understand how to ask a yes-no question about possession using '是...的...吗?' structure.",
+          "narration": {
+            "subtitle_en": "Let's start with the first sentence. Wang Peng sees a photo and asks Gao Wenzhong, [zh:那是你的照片吗]. This means, 'Is that your photo?'. Let's break it down. [zh:那] means 'that'. [zh:是] is the verb 'to be'. [zh:你的照片] means 'your photo', using the possessive particle [zh:的]. Finally, [zh:吗] at the end turns the statement into a yes-or-no question. It's a very common and useful sentence pattern."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "高文中,那是你的照片吗？",
+            "focus_pinyin": "Gāo Wénzhōng, nà shì nǐ de zhàopiàn ma?",
+            "focus_gloss_en": "Gao Wenzhong, is that your photo?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "那",
+              "pinyin": "nà",
+              "translation": "that",
+              "explanation_en": "A pronoun used to refer to something that is relatively far from the speaker.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "的",
+              "pinyin": "de",
+              "translation": "possessive particle",
+              "explanation_en": "A particle used after a pronoun or noun to show possession, similar to 's in English.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "照片",
+              "pinyin": "zhàopiàn",
+              "translation": "photo",
+              "explanation_en": "A noun meaning picture or photograph.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "吗",
+              "pinyin": "ma",
+              "translation": "question particle",
+              "explanation_en": "A particle placed at the end of a declarative sentence to turn it into a yes-no question.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Animate an arrow pointing from '你' to '照片' when '的' is explained to show possession.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 2,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Identifying family members",
+          "teaching_goal": "To learn how to identify people using '这是...' and introduce basic family vocabulary.",
+          "narration": {
+            "subtitle_en": "Gao Wenzhong replies, [zh:是]. This is a simple 'Yes'. Then he points to the photo and says, [zh:这是我爸爸, 这是我妈妈]. This means, 'This is my dad, this is my mom'. Notice the word [zh:这], which means 'this'. He introduces his father, [zh:爸爸], and his mother, [zh:妈妈]. Also, notice he says [zh:我爸爸] not [zh:我的爸爸]. With close family members, the possessive particle [zh:的] is often omitted in spoken Chinese."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "是。这是我爸爸,这是我妈妈。",
+            "focus_pinyin": "Shì. Zhè shì wǒ bàba, zhè shì wǒ māma.",
+            "focus_gloss_en": "Yes. This is my dad, and this is my mom.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "是",
+              "pinyin": "shì",
+              "translation": "to be; yes",
+              "explanation_en": "The verb 'to be'. It can also be used as an affirmative answer, meaning 'yes'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "这",
+              "pinyin": "zhè",
+              "translation": "this",
+              "explanation_en": "A pronoun used to refer to something that is close to the speaker.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "爸爸",
+              "pinyin": "bàba",
+              "translation": "dad, father",
+              "explanation_en": "The informal term for father.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "妈妈",
+              "pinyin": "māma",
+              "translation": "mom, mother",
+              "explanation_en": "The informal term for mother.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "When mentioning the omission of '的', show '我的爸爸' on screen with the '的' fading out.",
+          "estimated_duration_seconds": 23
+        },
+        {
+          "segment_id": 3,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Asking 'Who?'",
+          "teaching_goal": "To learn how to ask 'who' someone is using the question pronoun '谁'.",
+          "narration": {
+            "subtitle_en": "Wang Peng then asks about a girl in the photo: [zh:这个女孩子是谁]. This translates to 'Who is this girl?'. Here, [zh:这个] means 'this one'. [zh:个] is a very common measure word that you'll see a lot. [zh:女孩子] means 'girl'. The most important new word here is [zh:谁], which is a question word meaning 'who'. Notice how it's placed at the end of the sentence, right where the answer would be."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "这个女孩子是谁？",
+            "focus_pinyin": "Zhè ge nǚ háizi shì shéi?",
+            "focus_gloss_en": "Who is this girl?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "个",
+              "pinyin": "ge",
+              "translation": "measure word",
+              "explanation_en": "The most common measure word in Chinese, used for people and many other objects.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "女孩子",
+              "pinyin": "nǚ háizi",
+              "translation": "girl",
+              "explanation_en": "A compound word made of '女' (female) and '孩子' (child).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "谁",
+              "pinyin": "shéi",
+              "translation": "who, whom",
+              "explanation_en": "A question pronoun used to ask about a person.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight '谁' and show a question mark icon next to it to emphasize it's a question word.",
+          "estimated_duration_seconds": 21
+        },
+        {
+          "segment_id": 4,
+          "segment_type": "usage_focus",
+          "source_line_refs": [
+            3,
+            5,
+            7,
+            8
+          ],
+          "segment_title": "Usage: Girl vs. Daughter",
+          "teaching_goal": "To distinguish between the general terms 'boy/girl' and the specific family terms 'son/daughter'.",
+          "narration": {
+            "subtitle_en": "Let's clarify an important point. We learned [zh:女孩子] for 'girl' and [zh:男孩子] for 'boy'. These are general terms. However, when you are talking about your own children, you must use specific family terms. For a son, you say [zh:儿子]. For a daughter, you say [zh:女儿]. Using [zh:男孩子] or [zh:女孩子] to refer to your own son or daughter is not standard. Remember this distinction."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "Correct: 他是我大哥的儿子。 Incorrect: 他是我大哥的男孩子。",
+            "focus_pinyin": "",
+            "focus_gloss_en": "Use 儿子 (son) / 女儿 (daughter) for family members, not 男孩子 (boy) / 女孩子 (girl).",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "女孩子",
+              "pinyin": "nǚ háizi",
+              "translation": "girl",
+              "explanation_en": "General term for a female child.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "男孩子",
+              "pinyin": "nán háizi",
+              "translation": "boy",
+              "explanation_en": "General term for a male child.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "女儿",
+              "pinyin": "nǚ'ér",
+              "translation": "daughter",
+              "explanation_en": "Specific term for one's own daughter.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "儿子",
+              "pinyin": "érzi",
+              "translation": "son",
+              "explanation_en": "Specific term for one's own son.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show a family tree icon. When '儿子' and '女儿' are mentioned, link them to the 'parent' nodes. When '男孩子' and '女孩子' are mentioned, show them as general icons not connected to the family tree.",
+          "estimated_duration_seconds": 25
+        },
+        {
+          "segment_id": 5,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Identifying her",
+          "teaching_goal": "To learn the pronoun '她' (she/her) and the word for 'older sister'.",
+          "narration": {
+            "subtitle_en": "Gao Wenzhong answers, [zh:她是我姐姐]. This means 'She is my older sister'. The first word, [zh:她], is the pronoun for 'she' or 'her'. You can see the female radical, which looks like [zh:女], on the left side of the character. Then we have [zh:是], 'is', and [zh:我姐姐], 'my older sister'. Again, notice the possessive particle [zh:的] is dropped between [zh:我] and [zh:姐姐] because they are close family."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "她是我姐姐。",
+            "focus_pinyin": "Tā shì wǒ jiějie.",
+            "focus_gloss_en": "She is my older sister.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "她",
+              "pinyin": "tā",
+              "translation": "she, her",
+              "explanation_en": "The third-person singular pronoun for females.",
+              "character_insight_en": "The left part '女' (nǚ) is the radical for 'female', indicating the pronoun refers to a female."
+            },
+            {
+              "word": "姐姐",
+              "pinyin": "jiějie",
+              "translation": "older sister",
+              "explanation_en": "The term for one's older sister.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Zoom in on the '女' radical in '她' when explaining its meaning.",
+          "estimated_duration_seconds": 20
+        },
+        {
+          "segment_id": 6,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Asking about a boy",
+          "teaching_goal": "To practice the '是...吗?' question structure and learn the word for 'younger brother'.",
+          "narration": {
+            "subtitle_en": "Next, Wang Peng points to a boy and asks, [zh:这个男孩子是你弟弟吗]. This means, 'Is this boy your younger brother?'. This question has the same structure as the first one we saw. [zh:这个男孩子] means 'this boy'. [zh:是你弟弟] means 'is your younger brother'. And the particle [zh:吗] at the end signals that it's a yes-or-no question. The new family word here is [zh:弟弟], younger brother."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "这个男孩子是你弟弟吗？",
+            "focus_pinyin": "Zhè ge nán háizi shì nǐ dìdi ma?",
+            "focus_gloss_en": "Is this boy your younger brother?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "男",
+              "pinyin": "nán",
+              "translation": "male",
+              "explanation_en": "An adjective meaning male.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "弟弟",
+              "pinyin": "dìdi",
+              "translation": "younger brother",
+              "explanation_en": "The term for one's younger brother.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show the sentence structure on screen: [Subject] + 是 + [Object] + 吗?",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 7,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "Giving a negative answer",
+          "teaching_goal": "To learn how to negate '是' with '不是' and introduce more complex family relations.",
+          "narration": {
+            "subtitle_en": "Gao Wenzhong clarifies, [zh:不是, 他是我大哥的儿子]. This means, 'No, he is my oldest brother's son'. The sentence starts with [zh:不是], the negative form of [zh:是], meaning 'is not'. Then he uses [zh:他], the pronoun for 'he'. He explains the boy is his [zh:大哥的儿子], his 'oldest brother's son'. Notice that here, the particle [zh:的] is used because the relationship is not as immediate as 'my father'."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "不是,他是我大哥的儿子。",
+            "focus_pinyin": "Bú shì, tā shì wǒ dàgē de érzi.",
+            "focus_gloss_en": "No, he is my oldest brother's son.",
+            "notes": "Note the tone change: 不 (bù) becomes bú before a fourth-tone syllable like 是 (shì)."
+          },
+          "highlight_words": [
+            {
+              "word": "不是",
+              "pinyin": "bú shì",
+              "translation": "is not",
+              "explanation_en": "The negation of '是' (to be). '不' is the negation word.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "他",
+              "pinyin": "tā",
+              "translation": "he, him",
+              "explanation_en": "The third-person singular pronoun for males.",
+              "character_insight_en": "The left part '人' (rén) is the radical for 'person'."
+            },
+            {
+              "word": "大哥",
+              "pinyin": "dàgē",
+              "translation": "oldest brother",
+              "explanation_en": "A term for one's eldest brother, combining '大' (big) and '哥' (older brother).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "儿子",
+              "pinyin": "érzi",
+              "translation": "son",
+              "explanation_en": "The term for one's son.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "When '不是' is explained, show '是' with a red 'X' over it, transforming into '不是'.",
+          "estimated_duration_seconds": 24
+        },
+        {
+          "segment_id": 8,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "Asking about possession with '有'",
+          "teaching_goal": "To learn how to ask about possession using the verb '有' (to have) in a yes-no question.",
+          "narration": {
+            "subtitle_en": "Wang Peng continues to ask about the family, [zh:你大哥有女儿吗]. This means, 'Does your oldest brother have a daughter?'. This sentence introduces a new and very important verb: [zh:有], which means 'to have'. The structure is 'Subject + [zh:有] + Object'. To make it a question, you simply add [zh:吗] at the end. The new vocabulary here is [zh:女儿], which means 'daughter'."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "你大哥有女儿吗？",
+            "focus_pinyin": "Nǐ dàgē yǒu nǚ'ér ma?",
+            "focus_gloss_en": "Does your oldest brother have a daughter?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "有",
+              "pinyin": "yǒu",
+              "translation": "to have, to exist",
+              "explanation_en": "A verb indicating possession or existence.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "女儿",
+              "pinyin": "nǚ'ér",
+              "translation": "daughter",
+              "explanation_en": "The term for one's daughter, combining '女' (female) and '儿' (child).",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Display the sentence pattern: [Subject] + 有 + [Object] + 吗?",
+          "estimated_duration_seconds": 21
+        },
+        {
+          "segment_id": 9,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            8
+          ],
+          "segment_title": "Negating '有' with '没有'",
+          "teaching_goal": "To learn the correct way to negate '有' using '没有'.",
+          "narration": {
+            "subtitle_en": "Finally, Gao Wenzhong replies, [zh:他没有女儿]. This means, 'He doesn't have a daughter'. This is a crucial point. To say 'don't have', you must use [zh:没有]. The word [zh:没] is used to negate the verb [zh:有]. You cannot say '[zh:不有]'. Always remember, the opposite of [zh:有] is [zh:没有]. This is a fixed rule in Chinese."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "他没有女儿。",
+            "focus_pinyin": "Tā méiyǒu nǚ'ér.",
+            "focus_gloss_en": "He doesn't have a daughter.",
+            "notes": "Rule: To negate 有 (yǒu), always use 没有 (méiyǒu), never 不有 (bù yǒu)."
+          },
+          "highlight_words": [
+            {
+              "word": "没有",
+              "pinyin": "méiyǒu",
+              "translation": "to not have",
+              "explanation_en": "The negation of '有' (to have). It means 'don't have' or 'doesn't have'.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show '不有' on screen with a large red 'X' through it, and next to it, show '没有' with a green checkmark.",
+          "estimated_duration_seconds": 20
+        },
+        {
+          "segment_id": 10,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            1,
+            6
+          ],
+          "segment_title": "The Possessive Particle 的 (de)",
+          "teaching_goal": "To teach students how to indicate possession using the particle 的 (de).",
+          "narration": {
+            "subtitle_en": "Now, let's look at our first grammar point: the particle [zh:的]. This is one of the most common characters in Chinese and is used to show possession, much like 'apostrophe s' in English. The structure is simple: the 'possessor' comes first, followed by [zh:的], and then the 'possessed' item or person. For example, in the dialogue, Wang Peng asks, [zh:那是你的照片吗], 'Is that YOUR photo?'. Here, [zh:你] (you) is the possessor, and [zh:照片] (photo) is the possessed. Later, Gao Wenzhong says [zh:他是我大哥的儿子], 'He is my oldest brother's son.' However, notice that for close family members, like in [zh:我爸爸] or [zh:我妈妈], the [zh:的] is often omitted in spoken Chinese. So while [zh:王朋的妈妈] is correct, you'll more commonly hear people say [zh:我妈妈]."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "Possessor + 的 + Possessed",
+            "focus_pinyin": "Possessor + de + Possessed",
+            "focus_gloss_en": "Structure for showing possession",
+            "notes": "Example: 你的照片 (nǐ de zhàopiàn) - your photo"
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "你的照片",
+              "pattern_pinyin": "nǐ de zhàopiàn",
+              "explanation_en": "Your photo. '你' (you) is the possessor."
+            },
+            {
+              "pattern": "我大哥的儿子",
+              "pattern_pinyin": "wǒ dàgē de érzi",
+              "explanation_en": "My oldest brother's son. '我大哥' is the possessor."
+            },
+            {
+              "pattern": "我妈妈 (我(的)妈妈)",
+              "pattern_pinyin": "wǒ māma (wǒ (de) māma)",
+              "explanation_en": "My mom. The particle '的' is often omitted with close relations."
+            }
+          ],
+          "visual_notes": "Animate the structure 'Possessor + 的 + Possessed'. Highlight '你' and '照片' in the example sentence, then show '的' appearing between them.",
+          "estimated_duration_seconds": 32
+        },
+        {
+          "segment_id": 11,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            3,
+            5
+          ],
+          "segment_title": "Measure Words (Part 1)",
+          "teaching_goal": "To introduce the concept of measure words, focusing on the most common one, 个 (ge).",
+          "narration": {
+            "subtitle_en": "Next, let's talk about measure words. In English, we say 'this girl' or 'one student'. But in Chinese, you almost always need to insert a special 'measure word' between a number or a demonstrative pronoun like 'this' or 'that', and the noun. The most common measure word, which you can use for many everyday objects and people, is [zh:个]. In our dialogue, you see it in [zh:这个女孩子] (this girl) and [zh:这个男孩子] (this boy). The structure is 'Demonstrative Pronoun + Measure Word + Noun'. Also, a quick pronunciation tip: while [zh:这] is formally 'zhè', when it's followed by a measure word, you'll often hear it pronounced as 'zhèi' in colloquial speech. The same goes for [zh:那], which can sound like 'nèi'."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "[这/那] + 个 + Noun",
+            "focus_pinyin": "[zhè/nà] + ge + Noun",
+            "focus_gloss_en": "Demonstrative Pronoun + Measure Word + Noun",
+            "notes": "个 (ge) is the most common measure word."
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "这个女孩子",
+              "pattern_pinyin": "zhè ge nǚ háizi",
+              "explanation_en": "This girl. '这' (this) + '个' (measure word) + '女孩子' (girl)."
+            },
+            {
+              "pattern": "一个学生",
+              "pattern_pinyin": "yí ge xuésheng",
+              "explanation_en": "A student. '一' (one) + '个' (measure word) + '学生' (student)."
+            },
+            {
+              "pattern": "那个男学生",
+              "pattern_pinyin": "nà ge nán xuésheng",
+              "explanation_en": "That male student. '那' (that) + '个' (measure word) + '男学生' (male student)."
+            }
+          ],
+          "visual_notes": "Show the structure visually, with '个' fitting in like a puzzle piece between '这' and '孩子'. Add a small pop-up note about the 'zhèi/nèi' pronunciation.",
+          "estimated_duration_seconds": 35
+        },
+        {
+          "segment_id": 12,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            3,
+            4
+          ],
+          "segment_title": "Question Pronouns",
+          "teaching_goal": "To teach how to form questions using the question pronoun 谁 (shéi).",
+          "narration": {
+            "subtitle_en": "How do you ask 'who' in Chinese? You use the question pronoun [zh:谁]. A great thing about Chinese grammar is that when you use a question pronoun, the word order stays the same as in a declarative sentence. You simply replace the information you want to ask about with the question word. For example, look at the answer: [zh:她是我姐姐] (She is my older sister). If you want to ask who 'she' is, you replace '我姐姐' with [zh:谁]. This gives you the question from our dialogue: [zh:这个女孩子是谁] (Who is this girl?). It's that simple! The question word goes right where the answer would be."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "Statement: 这个女孩子是[我姐姐]。 / Question: 这个女孩子是[谁]？",
+            "focus_pinyin": "Statement: zhè ge nǚ háizi shì [wǒ jiějie]. / Question: zhè ge nǚ háizi shì [shéi]?",
+            "focus_gloss_en": "Statement: This girl is [my older sister]. / Question: Who is this girl?",
+            "notes": "The question pronoun replaces the part of the sentence you are asking about."
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "Q: 谁是老师？ A: 李先生是老师。",
+              "pattern_pinyin": "Shéi shì lǎoshī? Lǐ xiānsheng shì lǎoshī.",
+              "explanation_en": "When asking about the subject, '谁' (who) comes at the beginning."
+            },
+            {
+              "pattern": "Q: 那个女孩子是谁？ A: 那个女孩子是李友。",
+              "pattern_pinyin": "Nà ge nǚ háizi shì shéi? Nà ge nǚ háizi shì Lǐ Yǒu.",
+              "explanation_en": "When asking about the object, '谁' (who) comes after the verb."
+            }
+          ],
+          "visual_notes": "Animate '我姐姐' transforming into '谁' to show the direct replacement.",
+          "estimated_duration_seconds": 30
+        },
+        {
+          "segment_id": 13,
+          "segment_type": "usage_focus",
+          "source_line_refs": [
+            3,
+            5,
+            6,
+            7,
+            8
+          ],
+          "segment_title": "Usage: 孩子 vs. 儿子/女儿",
+          "teaching_goal": "To clarify the difference between the general term 'child' (孩子) and the specific terms 'son' (儿子) and 'daughter' (女儿).",
+          "narration": {
+            "subtitle_en": "Here's an important usage note. In the dialogue, you see the terms [zh:女孩子] (girl) and [zh:男孩子] (boy). These are general terms for a 'girl' or a 'boy'. However, when you are talking about your own or someone else's son or daughter, you must use the specific family terms. For a son, you say [zh:儿子], and for a daughter, you say [zh:女儿]. It would be incorrect to refer to your son as your [zh:男孩子]. Think of [zh:孩子] as 'child' in general, while [zh:儿子] and [zh:女儿] specifically denote the family relationship of son and daughter."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "孩子 (háizi) vs. 儿子 (érzi) / 女儿 (nǚ'ér)",
+            "focus_pinyin": "",
+            "focus_gloss_en": "General 'child' vs. specific 'son' / 'daughter'",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "孩子",
+              "pinyin": "háizi",
+              "translation": "child",
+              "explanation_en": "A general term for a child, boy, or girl.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "儿子",
+              "pinyin": "érzi",
+              "translation": "son",
+              "explanation_en": "Used specifically to refer to one's son.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "女儿",
+              "pinyin": "nǚ'ér",
+              "translation": "daughter",
+              "explanation_en": "Used specifically to refer to one's daughter.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show a family tree diagram. Point to a generic child icon for '孩子'. Then point to the specific son and daughter icons for '儿子' and '女儿' to clarify the relationship.",
+          "estimated_duration_seconds": 28
+        },
+        {
+          "segment_id": 14,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            7,
+            8
+          ],
+          "segment_title": "Possession with 有 (yǒu) and 没 (méi)",
+          "teaching_goal": "To teach how to express 'to have' with 有 (yǒu) and its negation with 没 (méi).",
+          "narration": {
+            "subtitle_en": "Our final grammar point is about possession using the verb [zh:有], which means 'to have'. In the dialogue, Wang Peng asks, [zh:你大哥有女儿吗], 'Does your oldest brother have a daughter?'. The key thing to remember here is how to say 'don't have'. Unlike many other verbs that are negated with [zh:不], the verb [zh:有] is ALWAYS negated with [zh:没]. So, the answer is [zh:他没有女儿], 'He doesn't have a daughter.' Never say 'bù yǒu'. Remember: to have is [zh:有], and to not have is [zh:没有]."
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "Q: 你大哥有女儿吗？ A: 他没有女儿。",
+            "focus_pinyin": "Nǐ dàgē yǒu nǚ'ér ma? Tā méiyǒu nǚ'ér.",
+            "focus_gloss_en": "Q: Does your oldest brother have a daughter? A: He doesn't have a daughter.",
+            "notes": "To negate 有 (yǒu), always use 没 (méi), not 不 (bù)."
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "有 (yǒu)",
+              "pattern_pinyin": "",
+              "explanation_en": "To have; to possess."
+            },
+            {
+              "pattern": "没有 (méiyǒu)",
+              "pattern_pinyin": "",
+              "explanation_en": "To not have. This is the only way to negate 有."
+            },
+            {
+              "pattern": "Incorrect: 不有 (bù yǒu)",
+              "pattern_pinyin": "",
+              "explanation_en": "This is a common error. Always use 没有."
+            }
+          ],
+          "visual_notes": "Show a large '有' on screen. Then, show a '不' character approaching it, but a red 'X' appears over it. The '不' is replaced by '没', which then combines with '有' to form '没有'.",
+          "estimated_duration_seconds": 28
+        },
+        {
+          "segment_id": 15,
+          "segment_type": "recap",
+          "source_line_refs": [],
+          "segment_title": "Lesson Recap",
+          "teaching_goal": "To review the key grammar points and vocabulary from the lesson.",
+          "narration": {
+            "subtitle_en": "Great job! Let's quickly review what we've learned in this lesson. We learned how to identify family members in a photo, ask who someone is using [zh:谁], and talk about possession using [zh:的] and [zh:有]. Remember the key grammar: use [zh:个] as a general measure word, and always negate [zh:有] with [zh:没有]. Keep practicing these patterns!"
+          },
+          "on_screen_text": {
+            "main_title": "看家庭照片",
+            "focus_text": "Key Phrases Review",
+            "focus_pinyin": "",
+            "focus_gloss_en": "",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "这是我爸爸。",
+              "pinyin": "Zhè shì wǒ bàba.",
+              "translation": "This is my dad.",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "这个女孩子是谁？",
+              "pinyin": "Zhè ge nǚ háizi shì shéi?",
+              "translation": "Who is this girl?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "你大哥有女儿吗？",
+              "pinyin": "Nǐ dàgē yǒu nǚ'ér ma?",
+              "translation": "Does your oldest brother have a daughter?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "的",
+              "pinyin": "de",
+              "translation": "possessive particle",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "个",
+              "pinyin": "ge",
+              "translation": "common measure word",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "没有",
+              "pinyin": "méiyǒu",
+              "translation": "to not have",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Display the key phrases and words as a list on the screen, with icons next to each to aid memory.",
+          "estimated_duration_seconds": 20
+        }
+      ]
+    },
+    "production_notes": {
+      "recommended_workflow": [
+        "generate dramatization visuals",
+        "generate explanation visuals",
+        "generate voice-over",
+        "compose subtitles"
+      ],
+      "remarks": "This schema is model-agnostic and designed for script planning plus downstream rendering."
+    }
+  },
+  "video_render_plan": {
+    "explanation": {
+      "lesson_id": 201,
+      "course_id": 1,
+      "lesson_title": "看家庭照片",
+      "target_audience": "中国語を学ぶ英語ネイティブスピーカー",
+      "video_style": {
+        "presenter_mode": "voice_over",
+        "teaching_style": "A clear, encouraging, and structured approach. We break down sentences word-by-word and introduce new concepts step-by-step, focusing on practical usage.",
+        "visual_style": "Clean, modern, with animated text and graphics on teaching cards.",
+        "aspect_ratio": "16:9",
+        "safe_area": "title_safe"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_order": 1,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "写真について尋ねる",
+          "teaching_goal": "「是...的...吗?」の構造を使って、所有に関するはい/いいえの質問をする方法を理解しましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "これはとても一般的で便利な文の形ですよ。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "高文中,那是你的照片吗？",
+                "focus_pinyin": "Gāo Wénzhōng, nà shì nǐ de zhàopiàn ma?",
+                "focus_gloss_en": "高文中さん、それはあなたの写真ですか？"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "那",
+                    "pinyin": "nà",
+                    "translation": "あれ",
+                    "explanation_en": "話し手から比較的離れたものを指す代名詞です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "的",
+                    "pinyin": "de",
+                    "translation": "所有を表す助詞",
+                    "explanation_en": "代名詞や名詞の後に置いて所有を表す助詞です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "照片",
+                    "pinyin": "zhàopiàn",
+                    "translation": "写真",
+                    "explanation_en": "絵や写真を意味する名詞です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "那",
+              "pinyin": "nà",
+              "translation": "あれ",
+              "explanation_en": "話者から比較的離れたものを指す代名詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "的",
+              "pinyin": "de",
+              "translation": "所有を表す助詞",
+              "explanation_en": "代名詞や名詞の後に置いて所有を示す助詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "照片",
+              "pinyin": "zhàopiàn",
+              "translation": "写真",
+              "explanation_en": "絵や写真を意味する名詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "吗",
+              "pinyin": "ma",
+              "translation": "疑問の助詞",
+              "explanation_en": "平叙文の最後に置いて、はい/いいえで答える疑問文にする助詞です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「的」が所有を示すことを説明する際、「你」から「照片」へ矢印が指すアニメーションを表示します。",
+          "start_time_seconds": 0.0,
+          "duration_seconds": 30.068,
+          "end_time_seconds": 22.0
+        },
+        {
+          "segment_id": 2,
+          "segment_order": 2,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "家族の紹介",
+          "teaching_goal": "「这是...」を使って人を特定する方法と、基本的な家族の語彙を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "親しい家族の場合、中国語の話し言葉では所有を表す助詞[zh:的]がよく省略されます。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.12,
+              "duration_seconds": 10.12,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "是。这是我爸爸,这是我妈妈。",
+                "focus_pinyin": "Shì. Zhè shì wǒ bàba, zhè shì wǒ māma.",
+                "focus_gloss_en": "はい。こちらは私の父で、こちらは私の母です。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.12,
+              "end_time_seconds": 23.0,
+              "duration_seconds": 12.88,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "是",
+                    "pinyin": "shì",
+                    "translation": "〜です；はい",
+                    "explanation_en": "動詞「〜である」です。肯定の返事として「はい」という意味でも使われます。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "这",
+                    "pinyin": "zhè",
+                    "translation": "これ",
+                    "explanation_en": "話し手から近いものを指す代名詞です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "爸爸",
+                    "pinyin": "bàba",
+                    "translation": "お父さん",
+                    "explanation_en": "父親のくだけた言い方です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "是",
+              "pinyin": "shì",
+              "translation": "〜です；はい",
+              "explanation_en": "動詞「〜である」です。肯定の返事として「はい」という意味でも使われます。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "这",
+              "pinyin": "zhè",
+              "translation": "これ",
+              "explanation_en": "話し手から近いものを指す代名詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "爸爸",
+              "pinyin": "bàba",
+              "translation": "お父さん",
+              "explanation_en": "父親のくだけた言い方です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "妈妈",
+              "pinyin": "māma",
+              "translation": "お母さん",
+              "explanation_en": "母親のくだけた言い方です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「的」の省略について説明する際は、画面に「我的爸爸」と表示し、「的」がフェードアウトする演出を加えてください。",
+          "start_time_seconds": 30.068,
+          "duration_seconds": 35.132,
+          "end_time_seconds": 45.0
+        },
+        {
+          "segment_id": 3,
+          "segment_order": 3,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "「誰？」と尋ねる",
+          "teaching_goal": "疑問代名詞「谁」を使って、誰であるかを尋ねる方法を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "答えが来るはずの場所、つまり文末に置かれていることに注目してください。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.24,
+              "duration_seconds": 9.24,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "这个女孩子是谁？",
+                "focus_pinyin": "Zhè ge nǚ háizi shì shéi?",
+                "focus_gloss_en": "この女の子は誰ですか？"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.24,
+              "end_time_seconds": 21.0,
+              "duration_seconds": 11.76,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "个",
+                    "pinyin": "ge",
+                    "translation": "量詞",
+                    "explanation_en": "中国語で最も一般的な量詞で、人や多くの物に使われます。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "女孩子",
+                    "pinyin": "nǚ háizi",
+                    "translation": "女の子",
+                    "explanation_en": "「女」と「孩子」を組み合わせた言葉です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "谁",
+                    "pinyin": "shéi",
+                    "translation": "誰",
+                    "explanation_en": "人について尋ねるときに使う疑問代名詞です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "个",
+              "pinyin": "ge",
+              "translation": "量詞",
+              "explanation_en": "中国語で最も一般的な量詞で、人や多くの他の物に使われます。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "女孩子",
+              "pinyin": "nǚ háizi",
+              "translation": "女の子",
+              "explanation_en": "「女」と「孩子」を組み合わせた言葉です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "谁",
+              "pinyin": "shéi",
+              "translation": "誰",
+              "explanation_en": "人について尋ねるときに使う疑問代名詞です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「谁」をハイライトし、疑問詞であることを強調するために横に疑問符アイコンを表示してください。",
+          "start_time_seconds": 65.2,
+          "duration_seconds": 30.356,
+          "end_time_seconds": 66.0
+        },
+        {
+          "segment_id": 4,
+          "segment_order": 4,
+          "segment_type": "usage_focus",
+          "template_name": "usage_note",
+          "source_line_refs": [
+            3,
+            5,
+            7,
+            8
+          ],
+          "segment_title": "使い方：女の子と娘",
+          "teaching_goal": "一般的な「男の子/女の子」と、家族を表す「息子/娘」を区別します。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "重要な点をはっきりさせておきましょう。「女の子」は [zh:女孩子]、「男の子」は [zh:男孩子] と習いましたね。これらは一般的な呼び方です。しかし、自分の子供について話すときは、特定の家族の呼び方を使わなければなりません。息子さんの場合は [zh:儿子] と言います。娘さんの場合は [zh:女儿] です。自分の息子や娘を [zh:男孩子] や [zh:女孩子] と呼ぶのは一般的ではありません。この違いを覚えておいてください。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "usage_context",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 25.0,
+              "content": {
+                "focus_text": "Correct: 他是我大哥的儿子。 Incorrect: 他是我大哥的男孩子。",
+                "focus_pinyin": "",
+                "focus_gloss_en": "家族には「儿子」（息子）や「女儿」（娘）を使い、「男孩子」（男の子）や「女孩子」（女の子）は使いません。",
+                "notes": ""
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "女孩子",
+              "pinyin": "nǚ háizi",
+              "translation": "女の子",
+              "explanation_en": "女の子全般を指す言葉です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "男孩子",
+              "pinyin": "nán háizi",
+              "translation": "男の子",
+              "explanation_en": "男の子全般を指す言葉です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "女儿",
+              "pinyin": "nǚ'ér",
+              "translation": "娘",
+              "explanation_en": "自分の娘を指す言葉です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "儿子",
+              "pinyin": "érzi",
+              "translation": "息子",
+              "explanation_en": "自分の息子を指す言葉です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "家系図のアイコンを表示します。「儿子」と「女儿」が出てきたら、親のノードにリンクさせます。「男孩子」と「女孩子」が出てきたら、家系図に接続されていない一般的なアイコンとして表示します。",
+          "start_time_seconds": 95.556,
+          "duration_seconds": 30.068,
+          "end_time_seconds": 91.0
+        },
+        {
+          "segment_id": 5,
+          "segment_order": 5,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "彼女について",
+          "teaching_goal": "代名詞の「她」（彼女）と「お姉さん」という言葉を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "髙文中が「[zh:她是我姐姐]」と答えます。これは「彼女は私の姉です」という意味ですね。最初の [zh:她] は「彼女」を意味する代名詞です。この漢字の左側には、「女」のような女性を表す部首が見えます。次に「〜です」を意味する [zh:是]、そして「私の姉」を意味する [zh:我姐姐] が続きます。ここでも、親しい家族なので [zh:我] と [zh:姐姐] の間の所有を表す助詞 [zh:的] が省略されています。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 8.8,
+              "duration_seconds": 8.8,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "她是我姐姐。",
+                "focus_pinyin": "Tā shì wǒ jiějie.",
+                "focus_gloss_en": "彼女は私の姉です。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 8.8,
+              "end_time_seconds": 20.0,
+              "duration_seconds": 11.2,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "她",
+                    "pinyin": "tā",
+                    "translation": "彼女",
+                    "explanation_en": "女性の三人称単数代名詞です。",
+                    "character_insight_en": "The left part '女' (nǚ) is the radical for 'female', indicating the pronoun refers to a female."
+                  },
+                  {
+                    "word": "姐姐",
+                    "pinyin": "jiějie",
+                    "translation": "姉",
+                    "explanation_en": "自分の姉を指す言葉です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "她",
+              "pinyin": "tā",
+              "translation": "彼女",
+              "explanation_en": "女性を表す三人称単数代名詞です。",
+              "character_insight_en": "The left part '女' (nǚ) is the radical for 'female', indicating the pronoun refers to a female."
+            },
+            {
+              "word": "姐姐",
+              "pinyin": "jiějie",
+              "translation": "お姉さん",
+              "explanation_en": "自分の姉を指す言葉です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「她」の意味を説明するときは、「女」の部首にズームインしてください。",
+          "start_time_seconds": 125.624,
+          "duration_seconds": 31.052,
+          "end_time_seconds": 111.0
+        },
+        {
+          "segment_id": 6,
+          "segment_order": 6,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "男の子について尋ねる",
+          "teaching_goal": "「是...吗?」という疑問文の構造を練習し、「弟」という単語を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "次に、王朋は男の子を指して「[zh:这个男孩子是你弟弟吗]」と尋ねます。これは「この男の子はあなたの弟ですか？」という意味ですね。この質問は、最初に出てきたものと同じ構造をしています。[zh:这个男孩子] は「この男の子」という意味です。[zh:是你弟弟] は「あなたの弟ですか」という意味になります。文末の助詞 [zh:吗] は、それがはい・いいえで答える質問であることを示しています。ここでの新しい家族の単語は「弟」を意味する [zh:弟弟] です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "这个男孩子是你弟弟吗？",
+                "focus_pinyin": "Zhè ge nán háizi shì nǐ dìdi ma?",
+                "focus_gloss_en": "この男の子はあなたの弟ですか？"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "男",
+                    "pinyin": "nán",
+                    "translation": "男性",
+                    "explanation_en": "男性であることを意味する形容詞です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "弟弟",
+                    "pinyin": "dìdi",
+                    "translation": "弟",
+                    "explanation_en": "自分の弟を指す言葉です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "男",
+              "pinyin": "nán",
+              "translation": "男性",
+              "explanation_en": "男性であることを意味する形容詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "弟弟",
+              "pinyin": "dìdi",
+              "translation": "弟",
+              "explanation_en": "自分の弟を指す言葉です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "画面に文の構造を表示します：[主語] + 是 + [目的語] + 吗?",
+          "start_time_seconds": 156.676,
+          "duration_seconds": 30.332,
+          "end_time_seconds": 133.0
+        },
+        {
+          "segment_id": 7,
+          "segment_order": 7,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "否定の返事をする",
+          "teaching_goal": "「是」を「不是」で否定する方法を学び、より複雑な家族関係を紹介します。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "高文中が「[zh:不是, 他是我大哥的儿子]」と説明します。これは「いいえ、彼は私の兄の息子です」という意味です。文頭の「[zh:不是]」は、「〜である」を意味する「[zh:是]」の否定形です。つまり「〜ではない」という意味ですね。次に「彼」を意味する代名詞「[zh:他]」を使っています。彼はその少年が「[zh:大哥的儿子]」、つまり「兄の息子」だと説明しています。ここでは「私の父」のような直接的な関係ではないため、助詞の「[zh:的]」が使われている点に注目してください。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.56,
+              "duration_seconds": 10.56,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "不是,他是我大哥的儿子。",
+                "focus_pinyin": "Bú shì, tā shì wǒ dàgē de érzi.",
+                "focus_gloss_en": "いいえ、彼は私の兄の息子です。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.56,
+              "end_time_seconds": 24.0,
+              "duration_seconds": 13.44,
+              "content": {
+                "notes": "声調の変化に注意してください：「不 [zh:bù]」は「是 [zh:shì]」のような第四声の音節の前に来ると「不 [zh:bú]」になります。",
+                "highlight_words": [
+                  {
+                    "word": "不是",
+                    "pinyin": "bú shì",
+                    "translation": "ではない",
+                    "explanation_en": "「是」の否定形です。「不」が否定の言葉になります。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "他",
+                    "pinyin": "tā",
+                    "translation": "彼",
+                    "explanation_en": "男性の三人称単数代名詞です。",
+                    "character_insight_en": "The left part '人' (rén) is the radical for 'person'."
+                  },
+                  {
+                    "word": "大哥",
+                    "pinyin": "dàgē",
+                    "translation": "長男、兄",
+                    "explanation_en": "「大」と「哥」を組み合わせた、一番上の兄を指す言葉です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "不是",
+              "pinyin": "bú shì",
+              "translation": "ではない",
+              "explanation_en": "「是」（〜である）の否定形です。「不」は否定を表す言葉です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "他",
+              "pinyin": "tā",
+              "translation": "彼",
+              "explanation_en": "男性の三人称単数代名詞です。",
+              "character_insight_en": "The left part '人' (rén) is the radical for 'person'."
+            },
+            {
+              "word": "大哥",
+              "pinyin": "dàgē",
+              "translation": "兄",
+              "explanation_en": "自分の長兄を指す言葉で、「大」（大きい）と「哥」（兄）を組み合わせたものです。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "儿子",
+              "pinyin": "érzi",
+              "translation": "息子",
+              "explanation_en": "自分の息子を指す言葉です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「不是」を説明する際、「是」の上に赤いバツ印を表示し、「不是」に変化させます。",
+          "start_time_seconds": 187.008,
+          "duration_seconds": 32.156,
+          "end_time_seconds": 157.0
+        },
+        {
+          "segment_id": 8,
+          "segment_order": 8,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "「有」を使った所有の尋ね方",
+          "teaching_goal": "動詞「有」を使って、所有についてはい/いいえで尋ねる方法を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "王朋は家族について尋ね続けます。「[zh:你大哥有女儿吗]」。これは「あなたのお兄さんには娘さんがいますか？」という意味です。この文では、新しい、そして非常に重要な動詞「[zh:有]」が登場します。「持つ」という意味です。構造は「主語 + [zh:有] + 目的語」となります。疑問文にするには、文末に「[zh:吗]」を付けるだけです。ここでの新しい語彙は「娘」を意味する「[zh:女儿]」です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.24,
+              "duration_seconds": 9.24,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "你大哥有女儿吗？",
+                "focus_pinyin": "Nǐ dàgē yǒu nǚ'ér ma?",
+                "focus_gloss_en": "あなたのお兄さんには娘さんがいますか？"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.24,
+              "end_time_seconds": 21.0,
+              "duration_seconds": 11.76,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "有",
+                    "pinyin": "yǒu",
+                    "translation": "持っている、ある",
+                    "explanation_en": "所有や存在を示す動詞です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "女儿",
+                    "pinyin": "nǚ'ér",
+                    "translation": "娘",
+                    "explanation_en": "「女」と「儿」を組み合わせた、自分の娘を指す言葉です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "有",
+              "pinyin": "yǒu",
+              "translation": "持っている、ある",
+              "explanation_en": "所有や存在を示す動詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "女儿",
+              "pinyin": "nǚ'ér",
+              "translation": "娘",
+              "explanation_en": "「女」と「儿」を組み合わせた、自分の娘を指す言葉です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "文型を表示します：[主語] + 有 + [目的語] + 吗?",
+          "start_time_seconds": 219.164,
+          "duration_seconds": 30.692,
+          "end_time_seconds": 178.0
+        },
+        {
+          "segment_id": 9,
+          "segment_order": 9,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            8
+          ],
+          "segment_title": "「有」を「没有」で否定する",
+          "teaching_goal": "「有」を「没有」を使って正しく否定する方法を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "最後に、高文中が「[zh:他没有女儿]」と答えます。これは「彼には娘がいません」という意味です。ここが重要なポイントです。「持っていない」と言うには、「[zh:没有]」を使わなければなりません。「[zh:没]」は動詞「[zh:有]」を否定するために使われます。「[zh:不有]」とは言えません。「[zh:有]」の反対は「[zh:没有]」であると常に覚えておきましょう。これは中国語の決まったルールです。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 8.8,
+              "duration_seconds": 8.8,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "他没有女儿。",
+                "focus_pinyin": "Tā méiyǒu nǚ'ér.",
+                "focus_gloss_en": "彼には娘がいません。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 8.8,
+              "end_time_seconds": 20.0,
+              "duration_seconds": 11.2,
+              "content": {
+                "notes": "ルール：「有 [zh:yǒu]」を否定するときは、常に「没有 [zh:méiyǒu]」を使い、「不有 [zh:bù yǒu]」は使いません。",
+                "highlight_words": [
+                  {
+                    "word": "没有",
+                    "pinyin": "méiyǒu",
+                    "translation": "持っていない、ない",
+                    "explanation_en": "「有」の否定形です。「持っていない」や「ない」という意味になります。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "没有",
+              "pinyin": "méiyǒu",
+              "translation": "持っていない、ない",
+              "explanation_en": "「有」の否定形です。「持っていない」や「ない」という意味になります。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "画面に「不有」を大きな赤いバツ印付きで表示し、その隣に「没有」を緑のチェックマーク付きで表示します。",
+          "start_time_seconds": 249.856,
+          "duration_seconds": 30.98,
+          "end_time_seconds": 198.0
+        },
+        {
+          "segment_id": 10,
+          "segment_order": 10,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            1,
+            6
+          ],
+          "segment_title": "所有を表す助詞「的」",
+          "teaching_goal": "助詞「的」を使って所有を表す方法を生徒に教えます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "では、最初の文法ポイント、助詞の[zh:的]を見ていきましょう。これは中国語で最もよく使われる漢字の一つで、日本語の「〜の」のように所有を表します。構造はシンプルです。まず「所有者」が来て、その後に[zh:的]、そして「所有されるもの」や「人」が続きます。例えば、会話で王朋は「[zh:那是你的照片吗]」と尋ねます。「それはあなたの写真ですか？」という意味です。ここでは、[zh:你]が所有者で、[zh:照片]が所有されるものです。次に、高文中は「[zh:他是我大哥的儿子]」と言います。「彼は私の長兄の息子です」という意味です。ですが、[zh:我爸爸]や[zh:我妈妈]のように、親しい家族を表す場合、口語では[zh:的]がよく省略されます。ですから、[zh:王朋的妈妈]も正しいですが、[zh:我妈妈]と聞くことの方が一般的でしょう。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 13.44,
+              "duration_seconds": 13.44,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "Possessor + 的 + Possessed",
+                "focus_pinyin": "Possessor + de + Possessed",
+                "focus_gloss_en": "所有の表現方法"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 13.44,
+              "end_time_seconds": 32.0,
+              "duration_seconds": 18.56,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "你的照片",
+                    "pattern_pinyin": "nǐ de zhàopiàn",
+                    "explanation_en": "あなたの写真。「你」は所有者です。"
+                  },
+                  {
+                    "pattern": "我大哥的儿子",
+                    "pattern_pinyin": "wǒ dàgē de érzi",
+                    "explanation_en": "私の兄の息子。「我大哥」は所有者です。"
+                  },
+                  {
+                    "pattern": "我妈妈 (我(的)妈妈)",
+                    "pattern_pinyin": "wǒ māma (wǒ (de) māma)",
+                    "explanation_en": "私のお母さん。「的」は親しい関係の場合、よく省略されます。"
+                  }
+                ],
+                "notes": "例：[zh:nǐ de zhàopiàn] 你的照片 - あなたの写真"
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "你的照片",
+              "pattern_pinyin": "nǐ de zhàopiàn",
+              "explanation_en": "あなたの写真。「你」は所有者です。"
+            },
+            {
+              "pattern": "我大哥的儿子",
+              "pattern_pinyin": "wǒ dàgē de érzi",
+              "explanation_en": "私の兄の息子。「我大哥」は所有者です。"
+            },
+            {
+              "pattern": "我妈妈 (我(的)妈妈)",
+              "pattern_pinyin": "wǒ māma (wǒ (de) māma)",
+              "explanation_en": "私のお母さん。「的」は親しい関係の場合、よく省略されます。"
+            }
+          ],
+          "visual_notes": "「所有者 + 的 + 所有物」という構造をアニメーションで表示します。例文の「你」と「照片」をハイライトし、その間に「的」が現れるようにします。",
+          "start_time_seconds": 280.836,
+          "duration_seconds": 56.42,
+          "end_time_seconds": 230.0
+        },
+        {
+          "segment_id": 11,
+          "segment_order": 11,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            3,
+            5
+          ],
+          "segment_title": "量詞（その1）",
+          "teaching_goal": "量詞の概念を導入し、最も一般的な「个 [zh:ge]」に焦点を当てます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "次に、量詞について話しましょう。日本語では「この女の子」や「一人の学生」と言いますよね。中国語では、数詞や「これ」「あれ」のような指示代名詞と名詞の間に、特別な「量詞」をほとんど必ず入れます。多くの日常的な物や人に使える最も一般的な量詞は[zh:个]です。会話では、「[zh:这个女孩子]」（この女の子）や「[zh:这个男孩子]」（この男の子）という形で出てきます。構造は「指示代名詞＋量詞＋名詞」です。発音のヒントです。[zh:这]は正式には「zhè」です。ですが、量詞が続く場合、口語では「zhèi」と発音されることが多いです。[zh:那]も同様で、「nèi」のように聞こえることがあります。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 14.7,
+              "duration_seconds": 14.7,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "[这/那] + 个 + Noun",
+                "focus_pinyin": "[zhè/nà] + ge + Noun",
+                "focus_gloss_en": "指示代名詞 + 量詞 + 名詞"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 14.7,
+              "end_time_seconds": 35.0,
+              "duration_seconds": 20.3,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "这个女孩子",
+                    "pattern_pinyin": "zhè ge nǚ háizi",
+                    "explanation_en": "この女の子。「这」は「これ」を意味し、「个」は量詞、「女孩子」は「女の子」です。"
+                  },
+                  {
+                    "pattern": "一个学生",
+                    "pattern_pinyin": "yí ge xuésheng",
+                    "explanation_en": "一人の学生。「一」は「いち」、「个」は量詞、「学生」は「学生」です。"
+                  },
+                  {
+                    "pattern": "那个男学生",
+                    "pattern_pinyin": "nà ge nán xuésheng",
+                    "explanation_en": "あの男子学生。「那」は「あれ」、「个」は量詞、「男学生」は「男子学生」です。"
+                  }
+                ],
+                "notes": "「个 [zh:ge]」は最も一般的な量詞です。"
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "这个女孩子",
+              "pattern_pinyin": "zhè ge nǚ háizi",
+              "explanation_en": "この女の子。「这」は「これ」を意味し、「个」は量詞、「女孩子」は「女の子」です。"
+            },
+            {
+              "pattern": "一个学生",
+              "pattern_pinyin": "yí ge xuésheng",
+              "explanation_en": "一人の学生。「一」は「いち」、「个」は量詞、「学生」は「学生」です。"
+            },
+            {
+              "pattern": "那个男学生",
+              "pattern_pinyin": "nà ge nán xuésheng",
+              "explanation_en": "あの男子学生。「那」は「あれ」、「个」は量詞、「男学生」は「男子学生」です。"
+            }
+          ],
+          "visual_notes": "「这」と「孩子」の間に「个」がパズルのピースのように収まる構造を視覚的に示します。「zhèi/nèi」の発音に関する小さなポップアップノートを追加します。",
+          "start_time_seconds": 337.256,
+          "duration_seconds": 52.484,
+          "end_time_seconds": 265.0
+        },
+        {
+          "segment_id": 12,
+          "segment_order": 12,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            3,
+            4
+          ],
+          "segment_title": "疑問代名詞",
+          "teaching_goal": "疑問代名詞「谁 [zh:shéi]」を使った質問の作り方を教えます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "中国語で「誰」と尋ねるにはどうしますか？疑問代名詞の[zh:谁]を使います。中国語の文法の素晴らしい点は、疑問代名詞を使っても語順が肯定文と同じであることです。尋ねたい情報がある部分を、疑問詞に置き換えるだけです。例えば、答えを見てみましょう。「[zh:她是我姐姐]」（彼女は私の姉です）。「彼女は誰ですか？」と尋ねたい場合、「我姐姐」を[zh:谁]に置き換えます。すると、会話に出てくる「[zh:这个女孩子是谁]」（この女の子は誰ですか？）という質問になります。とても簡単でしょう？疑問詞は答えが来るはずの場所にそのまま置かれます。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 12.6,
+              "duration_seconds": 12.6,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "Statement: 这个女孩子是[我姐姐]。 / Question: 这个女孩子是[谁]？",
+                "focus_pinyin": "Statement: zhè ge nǚ háizi shì [wǒ jiějie]. / Question: zhè ge nǚ háizi shì [shéi]?",
+                "focus_gloss_en": "肯定文：この女の子は私の姉です。／疑問文：この女の子は誰ですか？"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 12.6,
+              "end_time_seconds": 30.0,
+              "duration_seconds": 17.4,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "Q: 谁是老师？ A: 李先生是老师。",
+                    "pattern_pinyin": "Shéi shì lǎoshī? Lǐ xiānsheng shì lǎoshī.",
+                    "explanation_en": "主語について尋ねる場合、「谁 [zh:shéi]」は文頭に来ます。"
+                  },
+                  {
+                    "pattern": "Q: 那个女孩子是谁？ A: 那个女孩子是李友。",
+                    "pattern_pinyin": "Nà ge nǚ háizi shì shéi? Nà ge nǚ háizi shì Lǐ Yǒu.",
+                    "explanation_en": "目的語について尋ねる場合、「谁 [zh:shéi]」は動詞の後に来ます。"
+                  }
+                ],
+                "notes": "疑問代名詞は、質問したい文の部分を置き換えます。"
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "Q: 谁是老师？ A: 李先生是老师。",
+              "pattern_pinyin": "Shéi shì lǎoshī? Lǐ xiānsheng shì lǎoshī.",
+              "explanation_en": "主語について尋ねる場合、「谁 [zh:shéi]」は文頭に来ます。"
+            },
+            {
+              "pattern": "Q: 那个女孩子是谁？ A: 那个女孩子是李友。",
+              "pattern_pinyin": "Nà ge nǚ háizi shì shéi? Nà ge nǚ háizi shì Lǐ Yǒu.",
+              "explanation_en": "目的語について尋ねる場合、「谁 [zh:shéi]」は動詞の後に来ます。"
+            }
+          ],
+          "visual_notes": "「我姐姐」が「谁」に変化するアニメーションで、直接置き換えられることを示します。",
+          "start_time_seconds": 389.74,
+          "duration_seconds": 42.188,
+          "end_time_seconds": 295.0
+        },
+        {
+          "segment_id": 13,
+          "segment_order": 13,
+          "segment_type": "usage_focus",
+          "template_name": "usage_note",
+          "source_line_refs": [
+            3,
+            5,
+            6,
+            7,
+            8
+          ],
+          "segment_title": "使い方：「孩子 [zh:háizi]」と「儿子 [zh:érzi]／女儿 [zh:nǚ'ér]」",
+          "teaching_goal": "一般的な「子供」を意味する「孩子 [zh:háizi]」と、特定の「息子」を意味する「儿子 [zh:érzi]」、「娘」を意味する「女儿 [zh:nǚ'ér]」の違いを明確にします。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "ここで重要な使い方について説明します。会話では、[zh:女孩子] と [zh:男孩子] という言葉が出てきましたね。これらは一般的な「女の子」や「男の子」を指します。でも、自分の子供や他人の息子、娘について話すときは、特定の家族用語を使います。息子には [zh:儿子]、娘には [zh:女儿] と言いましょう。自分の息子を [zh:男孩子] と呼ぶのは間違いです。[zh:孩子] は一般的な「子供」です。[zh:儿子] と [zh:女儿] は、息子や娘という家族関係を具体的に表す言葉です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "usage_context",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 28.0,
+              "duration_seconds": 28.0,
+              "content": {
+                "focus_text": "孩子 (háizi) vs. 儿子 (érzi) / 女儿 (nǚ'ér)",
+                "focus_pinyin": "",
+                "focus_gloss_en": "一般的な「子供」と特定の「息子」・「娘」",
+                "notes": ""
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "孩子",
+              "pinyin": "háizi",
+              "translation": "子供",
+              "explanation_en": "子供、男の子、女の子全般を指す言葉です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "儿子",
+              "pinyin": "érzi",
+              "translation": "息子",
+              "explanation_en": "自分の息子を指すときに使います。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "女儿",
+              "pinyin": "nǚ'ér",
+              "translation": "娘",
+              "explanation_en": "自分の娘を指すときに使います。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "家系図を表示します。まず「[zh:hái zi]」の一般的な子供のアイコンを指します。その後、「[zh:ér zi]」と「[zh:nǚ ér]」の息子と娘それぞれのアイコンを指して、関係性を明確にします。",
+          "start_time_seconds": 431.928,
+          "duration_seconds": 39.212,
+          "end_time_seconds": 323.0
+        },
+        {
+          "segment_id": 14,
+          "segment_order": 14,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            7,
+            8
+          ],
+          "segment_title": "有 [zh:yǒu] と 没 [zh:méi] を使った所有の表現",
+          "teaching_goal": "有 [zh:yǒu] を使った「持っている」という表現と、その否定形である 没 [zh:méi] を使った表現を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "最後の文法ポイントは、動詞 [zh:有] を使った所有の表現です。[zh:有] は「持っている」という意味ですね。会話で王朋は「あなたのお兄さんには娘さんがいますか？」と尋ねています。中国語では [zh:你大哥有女儿吗] です。ここで覚えておきたいのは、「持っていない」という否定の言い方です。多くの動詞は [zh:不] で否定されますが、動詞 [zh:有] は常に [zh:没] で否定されます。ですから、「彼には娘がいません」は [zh:他没有女儿] となります。「bù yǒu」とは言いません。覚えておきましょう。「持っている」は [zh:有]、「持っていない」は [zh:没有] です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.76,
+              "duration_seconds": 11.76,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "Q: 你大哥有女儿吗？ A: 他没有女儿。",
+                "focus_pinyin": "Nǐ dàgē yǒu nǚ'ér ma? Tā méiyǒu nǚ'ér.",
+                "focus_gloss_en": "質問: お兄さんは娘さんがいますか？ 答え: 娘さんはいません。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 11.76,
+              "end_time_seconds": 28.0,
+              "duration_seconds": 16.24,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "有 (yǒu)",
+                    "pattern_pinyin": "",
+                    "explanation_en": "持っている、所有する"
+                  },
+                  {
+                    "pattern": "没有 (méiyǒu)",
+                    "pattern_pinyin": "",
+                    "explanation_en": "持っていない。これは 有 [zh:yǒu] を否定する唯一の方法です。"
+                  },
+                  {
+                    "pattern": "Incorrect: 不有 (bù yǒu)",
+                    "pattern_pinyin": "",
+                    "explanation_en": "これはよくある間違いです。必ず [zh:méi yǒu] を使ってください。"
+                  }
+                ],
+                "notes": "有 [zh:yǒu] を否定するときは、不 [zh:bù] ではなく必ず 没 [zh:méi] を使います。"
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "有 (yǒu)",
+              "pattern_pinyin": "",
+              "explanation_en": "持っている、所有する"
+            },
+            {
+              "pattern": "没有 (méiyǒu)",
+              "pattern_pinyin": "",
+              "explanation_en": "持っていない。これは 有 [zh:yǒu] を否定する唯一の方法です。"
+            },
+            {
+              "pattern": "Incorrect: 不有 (bù yǒu)",
+              "pattern_pinyin": "",
+              "explanation_en": "これはよくある間違いです。必ず [zh:méi yǒu] を使ってください。"
+            }
+          ],
+          "visual_notes": "画面に大きく「[zh:yǒu]」を表示します。次に「[zh:bù]」の文字が近づいてきますが、その上に赤いバツ印が表示されます。「[zh:bù]」は「[zh:méi]」に置き換わり、それが「[zh:yǒu]」と組み合わさって「[zh:méi yǒu]」になります。",
+          "start_time_seconds": 471.14,
+          "duration_seconds": 39.188,
+          "end_time_seconds": 351.0
+        },
+        {
+          "segment_id": 15,
+          "segment_order": 15,
+          "segment_type": "recap",
+          "template_name": "lesson_recap",
+          "source_line_refs": [],
+          "segment_title": "レッスンのまとめ",
+          "teaching_goal": "レッスンの主要な文法ポイントと語彙を復習します。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "よくできました！このレッスンで学んだことを簡単に復習しましょう。写真で家族を紹介する方法、[zh:谁] を使って「誰」かを尋ねる方法、そして [zh:的] と [zh:有] を使って所有を話す方法を学びました。重要な文法を覚えておきましょう。[zh:个] を一般的な量詞として使うこと、そして [zh:有] は常に [zh:没有] で否定することです。これらのパターンを繰り返し練習してくださいね！"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "recap_summary",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 20.0,
+              "duration_seconds": 20.0,
+              "content": {
+                "main_title": "看家庭照片",
+                "focus_text": "Key Phrases Review",
+                "highlight_words": [
+                  {
+                    "word": "这是我爸爸。",
+                    "pinyin": "Zhè shì wǒ bàba.",
+                    "translation": "これは私の父です。",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "这个女孩子是谁？",
+                    "pinyin": "Zhè ge nǚ háizi shì shéi?",
+                    "translation": "この女の子は誰ですか？",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "你大哥有女儿吗？",
+                    "pinyin": "Nǐ dàgē yǒu nǚ'ér ma?",
+                    "translation": "お兄さんに娘さんはいますか？",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "的",
+                    "pinyin": "de",
+                    "translation": "所有を表す助詞",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "个",
+                    "pinyin": "ge",
+                    "translation": "一般的な助数詞",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "没有",
+                    "pinyin": "méiyǒu",
+                    "translation": "持っていない",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  }
+                ],
+                "grammar_points": [],
+                "notes": ""
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "这是我爸爸。",
+              "pinyin": "Zhè shì wǒ bàba.",
+              "translation": "これは私の父です。",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "这个女孩子是谁？",
+              "pinyin": "Zhè ge nǚ háizi shì shéi?",
+              "translation": "この女の子は誰ですか？",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "你大哥有女儿吗？",
+              "pinyin": "Nǐ dàgē yǒu nǚ'ér ma?",
+              "translation": "お兄さんは娘さんがいますか？",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "的",
+              "pinyin": "de",
+              "translation": "所有を表す助詞",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "个",
+              "pinyin": "ge",
+              "translation": "一般的な量詞",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "没有",
+              "pinyin": "méiyǒu",
+              "translation": "持っていない",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "主要なフレーズと単語をリスト形式で画面に表示し、記憶を助けるアイコンをそれぞれの横に配置します。",
+          "start_time_seconds": 510.328,
+          "duration_seconds": 24.74,
+          "end_time_seconds": 371.0
+        }
+      ],
+      "timeline": {
+        "total_duration_seconds": 535.068,
+        "segment_count": 15
+      },
+      "renderer_notes": {
+        "recommended_renderer": "template_video",
+        "recommended_stack": [
+          "react_templates",
+          "motion_graphics",
+          "ffmpeg_or_remotion"
+        ],
+        "remarks": "This plan is intended for explanation-video composition, not direct AIGC generation."
+      }
+    }
+  },
+  "lesson_audio_assets": {
+    "lesson_id": 201,
+    "course_id": 1,
+    "lesson_title": "看家庭照片",
+    "provider": "tencent_tts",
+    "mode": "sentence_audio",
+    "default_voice_type": 501002,
+    "role_voice_map": {
+      "王朋": 601011,
+      "李友": 601009,
+      "高文中": 601008,
+      "高小音": 601013,
+      "白英爱": 601010,
+      "常老师": 601013,
+      "王红": 601010,
+      "海伦": 501004,
+      "费先生": 501005,
+      "王朋的父母": 501005,
+      "张天明": 601011,
+      "丽莎": 501004,
+      "柯林": 601008,
+      "林雪梅": 601010,
+      "李哲": 601011,
+      "李文": 601013,
+      "马克": 501005,
+      "张天明的老表": 601008,
+      "林雪梅的父母": 501005
+    },
+    "codec": "mp3",
+    "sample_rate": 16000,
+    "include_speakers": false,
+    "storage_backend": "local",
+    "sentence_gap_ms": 300,
+    "full_audio": {
+      "status": "ready",
+      "audio_url": "",
+      "object_key": "zh/audio/lesson201/full/lesson201_full_dialogue.mp3",
+      "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson201\\lesson201_full_dialogue.mp3",
+      "codec": "mp3",
+      "duration_seconds": 20.268
+    },
+    "items": [
+      {
+        "line_ref": 1,
+        "role": "王朋",
+        "hanzi": "高文中,那是你的照片吗？",
+        "source_text": "高文中,那是你的照片吗？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.52,
+        "start_time_seconds": 0.0,
+        "end_time_seconds": 2.52,
+        "status": "ready",
+        "session_id": "lesson-201-line-1",
+        "request_id": "c331a1c9-776e-4c51-9bdd-36f799195cc8",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson201/sentences/lesson201_line1.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson201\\lesson201_line1.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 2,
+        "role": "高文中",
+        "hanzi": "是。这是我爸爸,这是我妈妈。",
+        "source_text": "是。这是我爸爸,这是我妈妈。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.78,
+        "start_time_seconds": 2.82,
+        "end_time_seconds": 6.6,
+        "status": "ready",
+        "session_id": "lesson-201-line-2",
+        "request_id": "feb04cb8-37b5-48ee-8fdc-01567d0d9d93",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson201/sentences/lesson201_line2.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson201\\lesson201_line2.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 3,
+        "role": "王朋",
+        "hanzi": "这个女孩子是谁？",
+        "source_text": "这个女孩子是谁？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.764,
+        "start_time_seconds": 6.9,
+        "end_time_seconds": 8.664,
+        "status": "ready",
+        "session_id": "lesson-201-line-3",
+        "request_id": "99c44d07-e0b7-44db-8468-9395dc985de1",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson201/sentences/lesson201_line3.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson201\\lesson201_line3.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 4,
+        "role": "高文中",
+        "hanzi": "她是我姐姐。",
+        "source_text": "她是我姐姐。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.404,
+        "start_time_seconds": 8.964,
+        "end_time_seconds": 10.368,
+        "status": "ready",
+        "session_id": "lesson-201-line-4",
+        "request_id": "bb271e6f-06f8-4220-8af3-ecf7b221e71e",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson201/sentences/lesson201_line4.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson201\\lesson201_line4.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 5,
+        "role": "王朋",
+        "hanzi": "这个男孩子是你弟弟吗？",
+        "source_text": "这个男孩子是你弟弟吗？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.268,
+        "start_time_seconds": 10.668,
+        "end_time_seconds": 12.936,
+        "status": "ready",
+        "session_id": "lesson-201-line-5",
+        "request_id": "8bd91075-f05f-4177-a519-a5ca4123db01",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson201/sentences/lesson201_line5.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson201\\lesson201_line5.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 6,
+        "role": "高文中",
+        "hanzi": "不是,他是我大哥的儿子。",
+        "source_text": "不是,他是我大哥的儿子。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.736,
+        "start_time_seconds": 13.236,
+        "end_time_seconds": 15.972,
+        "status": "ready",
+        "session_id": "lesson-201-line-6",
+        "request_id": "bb0cbc71-be8a-403a-9500-0b54c3f5bfa0",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson201/sentences/lesson201_line6.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson201\\lesson201_line6.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 7,
+        "role": "王朋",
+        "hanzi": "你大哥有女儿吗？",
+        "source_text": "你大哥有女儿吗？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.656,
+        "start_time_seconds": 16.272,
+        "end_time_seconds": 17.928,
+        "status": "ready",
+        "session_id": "lesson-201-line-7",
+        "request_id": "94fa5fa7-9b22-4d68-ae6b-1b409a7ec36d",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson201/sentences/lesson201_line7.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson201\\lesson201_line7.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 8,
+        "role": "高文中",
+        "hanzi": "他没有女儿。",
+        "source_text": "他没有女儿。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.404,
+        "start_time_seconds": 18.228,
+        "end_time_seconds": 19.632,
+        "status": "ready",
+        "session_id": "lesson-201-line-8",
+        "request_id": "5e4b8e10-4054-4d46-b278-4379579e3ae0",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson201/sentences/lesson201_line8.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson201\\lesson201_line8.mp3",
+        "subtitles": []
+      }
+    ]
+  },
+  "llm_usage": {
+    "calls": 33,
+    "input_tokens": 71389,
+    "output_tokens": 29023,
+    "total_tokens": 162971,
+    "estimated_cost_usd": 0.379466,
+    "provider": "GeminiProvider",
+    "items": [
+      {
+        "input_tokens": 3269,
+        "output_tokens": 419,
+        "total_tokens": 6103,
+        "estimated_cost_usd": 0.00827625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 408,
+        "output_tokens": 916,
+        "total_tokens": 2832,
+        "estimated_cost_usd": 0.00967,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 398,
+        "output_tokens": 770,
+        "total_tokens": 3882,
+        "estimated_cost_usd": 0.0081975,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 366,
+        "output_tokens": 368,
+        "total_tokens": 1663,
+        "estimated_cost_usd": 0.0041375000000000006,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2832,
+        "output_tokens": 94,
+        "total_tokens": 4269,
+        "estimated_cost_usd": 0.00448,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2897,
+        "output_tokens": 242,
+        "total_tokens": 4096,
+        "estimated_cost_usd": 0.00604125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3070,
+        "output_tokens": 497,
+        "total_tokens": 5798,
+        "estimated_cost_usd": 0.0088075,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3062,
+        "output_tokens": 504,
+        "total_tokens": 4865,
+        "estimated_cost_usd": 0.0088675,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3058,
+        "output_tokens": 816,
+        "total_tokens": 7319,
+        "estimated_cost_usd": 0.0119825,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3070,
+        "output_tokens": 340,
+        "total_tokens": 5281,
+        "estimated_cost_usd": 0.0072375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2961,
+        "output_tokens": 1055,
+        "total_tokens": 6192,
+        "estimated_cost_usd": 0.01425125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 690,
+        "output_tokens": 180,
+        "total_tokens": 2560,
+        "estimated_cost_usd": 0.0026625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 687,
+        "output_tokens": 180,
+        "total_tokens": 3428,
+        "estimated_cost_usd": 0.00265875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 691,
+        "output_tokens": 148,
+        "total_tokens": 2458,
+        "estimated_cost_usd": 0.00234375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 689,
+        "output_tokens": 134,
+        "total_tokens": 2113,
+        "estimated_cost_usd": 0.00220125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 686,
+        "output_tokens": 165,
+        "total_tokens": 2006,
+        "estimated_cost_usd": 0.0025075,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 691,
+        "output_tokens": 170,
+        "total_tokens": 2132,
+        "estimated_cost_usd": 0.00256375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 692,
+        "output_tokens": 163,
+        "total_tokens": 2199,
+        "estimated_cost_usd": 0.002495,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 631,
+        "output_tokens": 66,
+        "total_tokens": 1638,
+        "estimated_cost_usd": 0.00144875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2832,
+        "output_tokens": 271,
+        "total_tokens": 6843,
+        "estimated_cost_usd": 0.0062499999999999995,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1611,
+        "output_tokens": 1319,
+        "total_tokens": 4473,
+        "estimated_cost_usd": 0.01520375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1475,
+        "output_tokens": 1230,
+        "total_tokens": 4363,
+        "estimated_cost_usd": 0.01414375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1386,
+        "output_tokens": 1199,
+        "total_tokens": 4386,
+        "estimated_cost_usd": 0.0137225,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1587,
+        "output_tokens": 1291,
+        "total_tokens": 5097,
+        "estimated_cost_usd": 0.01489375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1428,
+        "output_tokens": 1266,
+        "total_tokens": 4141,
+        "estimated_cost_usd": 0.014445,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 960,
+        "output_tokens": 353,
+        "total_tokens": 2088,
+        "estimated_cost_usd": 0.00473,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 570,
+        "output_tokens": 574,
+        "total_tokens": 2389,
+        "estimated_cost_usd": 0.0064525,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 888,
+        "output_tokens": 1146,
+        "total_tokens": 3955,
+        "estimated_cost_usd": 0.012570000000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 859,
+        "output_tokens": 842,
+        "total_tokens": 3666,
+        "estimated_cost_usd": 0.00949375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1816,
+        "output_tokens": 2026,
+        "total_tokens": 6896,
+        "estimated_cost_usd": 0.02253,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1726,
+        "output_tokens": 1129,
+        "total_tokens": 5050,
+        "estimated_cost_usd": 0.0134475,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 11693,
+        "output_tokens": 5106,
+        "total_tokens": 21383,
+        "estimated_cost_usd": 0.06567625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 11710,
+        "output_tokens": 4044,
+        "total_tokens": 17407,
+        "estimated_cost_usd": 0.055077499999999995,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      }
+    ]
+  },
+  "localization": {
+    "source_lang": "en",
+    "target_lang": "ja",
+    "target_lang_name": "Japanese",
+    "target_lang_native": "日本語"
+  }
+}
