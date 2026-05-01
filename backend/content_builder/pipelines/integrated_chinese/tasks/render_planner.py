@@ -279,46 +279,15 @@ class Task4CExplanationComposer:
         if cn_count <= self._MAX_CN_CHARS:
             return [segment]
 
-        # Find best split point: prefer 。；！？，near the middle
-        import re
-        mid = len(focus_text) // 2
-        best_idx = None
-        for radius in range(0, mid):
-            for offset in (mid - radius, mid + radius):
-                if 0 < offset < len(focus_text) and focus_text[offset] in '。；！？，':
-                    best_idx = offset + 1  # include the punctuation in the first half
-                    break
-            if best_idx is not None:
-                break
-        if best_idx is None:
-            best_idx = mid  # fallback: split at character midpoint
-
-        part_a = focus_text[:best_idx].strip()
-        part_b = focus_text[best_idx:].strip()
-
-        # Split pinyin proportionally by character count
-        focus_pinyin = (on_screen.get("focus_pinyin") or "").strip()
-        pinyin_tokens = focus_pinyin.split()
-        cn_a = len(self._CN_RE.findall(part_a))
-        py_a = " ".join(pinyin_tokens[:cn_a])
-        py_b = " ".join(pinyin_tokens[cn_a:])
-
-        duration = segment.get("estimated_duration_seconds", 12)
-        half_dur = round(duration / 2, 1)
-
-        def _clone(text, pinyin, dur):
-            import copy
-            cloned = copy.deepcopy(segment)
-            cloned_ost = cloned.get("on_screen_text") if isinstance(cloned.get("on_screen_text"), dict) else {}
-            cloned_ost["focus_text"] = text
-            cloned_ost["focus_pinyin"] = pinyin
-            cloned_ost["focus_gloss_en"] = ""
-            cloned["on_screen_text"] = cloned_ost
-            cloned["estimated_duration_seconds"] = dur
-            return cloned
-
-        print(f"  ✂️ focus_text 超过 {self._MAX_CN_CHARS} 字（{cn_count} 字），自动拆分为 2 个 segment。")
-        return [_clone(part_a, py_a, half_dur), _clone(part_b, py_b, half_dur)]
+        # Do not split the render segment here: duplicating the visual segment also
+        # duplicates the full narration, which breaks TTS/subtitle timing. Long
+        # lines should be handled by template wrapping or by asking the writer to
+        # produce separate source segments with their own narration.
+        print(
+            f"  ⚠️ focus_text 超过 {self._MAX_CN_CHARS} 字（{cn_count} 字），"
+            "保留为单个 segment，避免复制旁白导致音画错位。"
+        )
+        return [segment]
 
     def _timeline_blocks(self, duration_seconds: float, blocks: list) -> list:
         normalized_blocks = []

@@ -1,0 +1,5066 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 202,
+    "title": "讨论家庭",
+    "content_type": "dialogue",
+    "title_localized": "Über die Familie sprechen"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "李友",
+            "translation": "Bai Ying'ai, wie viele Leute sind in deiner Familie?",
+            "words": [
+              {
+                "cn": "白",
+                "py": "Bái",
+                "highlight": false
+              },
+              {
+                "cn": "英",
+                "py": "Yīng",
+                "highlight": false
+              },
+              {
+                "cn": "爱",
+                "py": "ài",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu",
+                "highlight": true
+              },
+              {
+                "cn": "几",
+                "py": "jǐ",
+                "highlight": true
+              },
+              {
+                "cn": "口",
+                "py": "kǒu",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "translation": "Wir sind sechs Personen in meiner Familie: mein Vater, meine Mutter, ein älterer Bruder, zwei jüngere Schwestern und ich. Li You, wie viele Leute seid ihr in deiner Familie?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu",
+                "highlight": true
+              },
+              {
+                "cn": "六",
+                "py": "liù",
+                "highlight": false
+              },
+              {
+                "cn": "口",
+                "py": "kǒu",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "爸爸",
+                "py": "bàba",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "妈妈",
+                "py": "māma",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "一",
+                "py": "yí",
+                "highlight": false
+              },
+              {
+                "cn": "个",
+                "py": "ge",
+                "highlight": false
+              },
+              {
+                "cn": "哥哥",
+                "py": "gēge",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "两",
+                "py": "liǎng",
+                "highlight": false
+              },
+              {
+                "cn": "个",
+                "py": "ge",
+                "highlight": false
+              },
+              {
+                "cn": "妹妹",
+                "py": "mèimei",
+                "highlight": true
+              },
+              {
+                "cn": "和",
+                "py": "hé",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "李",
+                "py": "Lǐ",
+                "highlight": false
+              },
+              {
+                "cn": "友",
+                "py": "Yǒu",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu",
+                "highlight": true
+              },
+              {
+                "cn": "几",
+                "py": "jǐ",
+                "highlight": true
+              },
+              {
+                "cn": "口",
+                "py": "kǒu",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "translation": "Wir sind fünf Personen in meiner Familie: Vater, Mutter, meine älteste Schwester, meine zweitälteste Schwester und ich. Was machen deine Eltern beruflich?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "有",
+                "py": "yǒu",
+                "highlight": true
+              },
+              {
+                "cn": "五",
+                "py": "wǔ",
+                "highlight": false
+              },
+              {
+                "cn": "口",
+                "py": "kǒu",
+                "highlight": true
+              },
+              {
+                "cn": "人",
+                "py": "rén",
+                "highlight": true
+              },
+              {
+                "cn": ":",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "爸爸",
+                "py": "bàba",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "妈妈",
+                "py": "māma",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "大姐",
+                "py": "dàjiě",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "二姐",
+                "py": "èrjiě",
+                "highlight": true
+              },
+              {
+                "cn": "和",
+                "py": "hé",
+                "highlight": true
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "爸爸",
+                "py": "bàba",
+                "highlight": true
+              },
+              {
+                "cn": "妈妈",
+                "py": "māma",
+                "highlight": true
+              },
+              {
+                "cn": "做",
+                "py": "zuò",
+                "highlight": true
+              },
+              {
+                "cn": "什么",
+                "py": "shénme",
+                "highlight": true
+              },
+              {
+                "cn": "工作",
+                "py": "gōngzuò",
+                "highlight": true
+              },
+              {
+                "cn": "?",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "白英爱",
+            "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "爸爸",
+                "py": "bàba",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "律师",
+                "py": "lǜshī",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "妈妈",
+                "py": "māma",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "英文",
+                "py": "yīngwén",
+                "highlight": true
+              },
+              {
+                "cn": "老师",
+                "py": "lǎoshī",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "哥哥",
+                "py": "gēge",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "妹妹",
+                "py": "mèimei",
+                "highlight": true
+              },
+              {
+                "cn": "都",
+                "py": "dōu",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "大学生",
+                "py": "dàxuéshēng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "translation": "Meine Mutter ist auch Lehrerin und mein Vater ist Arzt.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "妈妈",
+                "py": "māma",
+                "highlight": true
+              },
+              {
+                "cn": "也",
+                "py": "yě",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "老师",
+                "py": "lǎoshī",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "爸爸",
+                "py": "bàba",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "医生",
+                "py": "yīshēng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "家",
+        "pinyin": "Jiā",
+        "part_of_speech": "Nomen",
+        "definition": "Familie, Zuhause",
+        "example_sentence": {
+          "cn": "你家有几口人?",
+          "py": "Nǐ jiā yǒu jǐ kǒu rén?",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "几",
+              "py": "jǐ"
+            },
+            {
+              "cn": "口",
+              "py": "kǒu"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": "?",
+              "py": ""
+            }
+          ],
+          "translation": "Wie viele Leute sind in deiner Familie?"
+        }
+      },
+      {
+        "word": "几",
+        "pinyin": "Jǐ",
+        "part_of_speech": "Zahlwort",
+        "definition": "wie viele, einige, ein paar",
+        "example_sentence": {
+          "cn": "你家有几口人?",
+          "py": "Nǐ jiā yǒu jǐ kǒu rén?",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "几",
+              "py": "jǐ"
+            },
+            {
+              "cn": "口",
+              "py": "kǒu"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": "?",
+              "py": ""
+            }
+          ],
+          "translation": "Wie viele Leute sind in deiner Familie?"
+        }
+      },
+      {
+        "word": "口",
+        "pinyin": "Kǒu",
+        "part_of_speech": "Zählwort",
+        "definition": "Zählwort für die Anzahl der Familienmitglieder",
+        "example_sentence": {
+          "cn": "我家有六口人。",
+          "py": "Wǒ jiā yǒu liù kǒu rén.",
+          "tokens": [],
+          "translation": "Wir sind sechs Personen in meiner Familie."
+        }
+      },
+      {
+        "word": "哥哥",
+        "pinyin": "Gēge",
+        "part_of_speech": "Nomen",
+        "definition": "älterer Bruder",
+        "example_sentence": {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "律师",
+              "py": "lǜshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "英文",
+              "py": "yīngwén"
+            },
+            {
+              "cn": "老师",
+              "py": "lǎoshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "哥哥",
+              "py": "gēge"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "妹妹",
+              "py": "mèimei"
+            },
+            {
+              "cn": "都",
+              "py": "dōu"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "大学生",
+              "py": "dàxuéshēng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      },
+      {
+        "word": "两",
+        "pinyin": "Liǎng",
+        "part_of_speech": "Zahlwort",
+        "definition": "zwei, ein paar",
+        "example_sentence": {
+          "cn": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+          "py": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "六",
+              "py": "liù"
+            },
+            {
+              "cn": "口",
+              "py": "kǒu"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "一",
+              "py": "yí"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "哥哥",
+              "py": "gēge"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "两",
+              "py": "liǎng"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "妹妹",
+              "py": "mèimei"
+            },
+            {
+              "cn": "和",
+              "py": "hé"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Wir sind sechs Personen in meiner Familie: mein Vater, meine Mutter, ein älterer Bruder, zwei jüngere Schwestern und ich."
+        }
+      },
+      {
+        "word": "妹妹",
+        "pinyin": "Mèimei",
+        "part_of_speech": "Nomen",
+        "definition": "jüngere Schwester",
+        "example_sentence": {
+          "cn": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+          "py": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "六",
+              "py": "liù"
+            },
+            {
+              "cn": "口",
+              "py": "kǒu"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "一",
+              "py": "yí"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "哥哥",
+              "py": "gēge"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "两",
+              "py": "liǎng"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "妹妹",
+              "py": "mèimei"
+            },
+            {
+              "cn": "和",
+              "py": "hé"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Wir sind sechs Personen in meiner Familie: mein Vater, meine Mutter, ein älterer Bruder, zwei jüngere Schwestern und ich."
+        }
+      },
+      {
+        "word": "和",
+        "pinyin": "Hé",
+        "part_of_speech": "Konjunktion",
+        "definition": "und",
+        "example_sentence": {
+          "cn": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+          "py": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "六",
+              "py": "liù"
+            },
+            {
+              "cn": "口",
+              "py": "kǒu"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "一",
+              "py": "yí"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "哥哥",
+              "py": "gēge"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "两",
+              "py": "liǎng"
+            },
+            {
+              "cn": "个",
+              "py": "ge"
+            },
+            {
+              "cn": "妹妹",
+              "py": "mèimei"
+            },
+            {
+              "cn": "和",
+              "py": "hé"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Wir sind sechs Personen in meiner Familie: mein Vater, meine Mutter, ein älterer Bruder, zwei jüngere Schwestern und ich."
+        }
+      },
+      {
+        "word": "大姐",
+        "pinyin": "Dàjiě",
+        "part_of_speech": "Nomen",
+        "definition": "älteste Schwester",
+        "example_sentence": {
+          "cn": "我家有五口人:爸爸、妈妈、大姐、二姐和我。",
+          "py": "Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, dàjiě, èrjiě hé wǒ.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "五",
+              "py": "wǔ"
+            },
+            {
+              "cn": "口",
+              "py": "kǒu"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": ":",
+              "py": ""
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "大姐",
+              "py": "dàjiě"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "二姐",
+              "py": "èrjiě"
+            },
+            {
+              "cn": "和",
+              "py": "hé"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Wir sind fünf Personen in meiner Familie: Vater, Mutter, meine älteste Schwester, meine zweitälteste Schwester und ich."
+        }
+      },
+      {
+        "word": "二姐",
+        "pinyin": "Èrjiě",
+        "part_of_speech": "Nomen",
+        "definition": "zweitälteste Schwester",
+        "example_sentence": {
+          "cn": "我家有五口人:爸爸、妈妈、大姐、二姐和我。",
+          "py": "Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, dàjiě, èrjiě hé wǒ.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "五",
+              "py": "wǔ"
+            },
+            {
+              "cn": "口",
+              "py": "kǒu"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": ":",
+              "py": ""
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "大姐",
+              "py": "dàjiě"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "二姐",
+              "py": "èrjiě"
+            },
+            {
+              "cn": "和",
+              "py": "hé"
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Meine Familie besteht aus fünf Personen: Papa, Mama, meiner ältesten Schwester, meiner zweitältesten Schwester und mir."
+        }
+      },
+      {
+        "word": "做",
+        "pinyin": "Zuò",
+        "part_of_speech": "Verb",
+        "definition": "machen",
+        "example_sentence": {
+          "cn": "你爸爸妈妈做什么工作?",
+          "py": "Nǐ bàba māma zuò shénme gōngzuò?",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "做",
+              "py": "zuò"
+            },
+            {
+              "cn": "什么",
+              "py": "shénme"
+            },
+            {
+              "cn": "工作",
+              "py": "gōngzuò"
+            },
+            {
+              "cn": "?",
+              "py": ""
+            }
+          ],
+          "translation": "Was machen deine Eltern beruflich?"
+        }
+      },
+      {
+        "word": "工作",
+        "pinyin": "Gōngzuò",
+        "part_of_speech": "Nomen/Verb",
+        "definition": "Arbeit; arbeiten",
+        "example_sentence": {
+          "cn": "你爸爸妈妈做什么工作?",
+          "py": "Nǐ bàba māma zuò shénme gōngzuò?",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "做",
+              "py": "zuò"
+            },
+            {
+              "cn": "什么",
+              "py": "shénme"
+            },
+            {
+              "cn": "工作",
+              "py": "gōngzuò"
+            },
+            {
+              "cn": "?",
+              "py": ""
+            }
+          ],
+          "translation": "Was machen deine Eltern beruflich?"
+        }
+      },
+      {
+        "word": "律师",
+        "pinyin": "Lǜshī",
+        "part_of_speech": "Nomen",
+        "definition": "Anwalt",
+        "example_sentence": {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "律师",
+              "py": "lǜshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "英文",
+              "py": "yīngwén"
+            },
+            {
+              "cn": "老师",
+              "py": "lǎoshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "哥哥",
+              "py": "gēge"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "妹妹",
+              "py": "mèimei"
+            },
+            {
+              "cn": "都",
+              "py": "dōu"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "大学生",
+              "py": "dàxuéshēng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      },
+      {
+        "word": "英文",
+        "pinyin": "Yīngwén",
+        "part_of_speech": "Nomen",
+        "definition": "Englisch",
+        "example_sentence": {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "律师",
+              "py": "lǜshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "英文",
+              "py": "yīngwén"
+            },
+            {
+              "cn": "老师",
+              "py": "lǎoshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "哥哥",
+              "py": "gēge"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "妹妹",
+              "py": "mèimei"
+            },
+            {
+              "cn": "都",
+              "py": "dōu"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "大学生",
+              "py": "dàxuéshēng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      },
+      {
+        "word": "都",
+        "pinyin": "Dōu",
+        "part_of_speech": "Adverb",
+        "definition": "beide, alle",
+        "example_sentence": {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "律师",
+              "py": "lǜshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "英文",
+              "py": "yīngwén"
+            },
+            {
+              "cn": "老师",
+              "py": "lǎoshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "哥哥",
+              "py": "gēge"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "妹妹",
+              "py": "mèimei"
+            },
+            {
+              "cn": "都",
+              "py": "dōu"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "大学生",
+              "py": "dàxuéshēng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      },
+      {
+        "word": "大学生",
+        "pinyin": "Dàxuéshēng",
+        "part_of_speech": "Nomen",
+        "definition": "Student",
+        "example_sentence": {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "律师",
+              "py": "lǜshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "妈妈",
+              "py": "māma"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "英文",
+              "py": "yīngwén"
+            },
+            {
+              "cn": "老师",
+              "py": "lǎoshī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "哥哥",
+              "py": "gēge"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "妹妹",
+              "py": "mèimei"
+            },
+            {
+              "cn": "都",
+              "py": "dōu"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "大学生",
+              "py": "dàxuéshēng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      },
+      {
+        "word": "大学",
+        "pinyin": "Dàxué",
+        "part_of_speech": "Nomen",
+        "definition": "Universität, Hochschule",
+        "example_sentence": {
+          "cn": "哥哥、妹妹都是大学生。",
+          "py": "Gēge, mèimei dōu shì dàxuéshēng.",
+          "tokens": [
+            {
+              "cn": "哥哥",
+              "py": "gēge"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "妹妹",
+              "py": "mèimei"
+            },
+            {
+              "cn": "都",
+              "py": "dōu"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "大学生",
+              "py": "dàxuéshēng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      },
+      {
+        "word": "医生",
+        "pinyin": "Yīshēng",
+        "part_of_speech": "Nomen",
+        "definition": "Arzt",
+        "example_sentence": {
+          "cn": "我爸爸是医生。",
+          "py": "Wǒ bàba shì yīshēng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "爸爸",
+              "py": "bàba"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "医生",
+              "py": "yīshēng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Meine Mutter ist auch Lehrerin und mein Vater ist Arzt."
+        }
+      },
+      {
+        "word": "白英爱",
+        "pinyin": "Bái Yīng'ài",
+        "part_of_speech": "Eigenname",
+        "definition": "ein Eigenname",
+        "example_sentence": {
+          "cn": "白英爱,你家有几口人?",
+          "py": "Bái Yīng ài nǐ jiā yǒu jǐ kǒu rén",
+          "tokens": [
+            {
+              "cn": "白",
+              "py": "Bái"
+            },
+            {
+              "cn": "英",
+              "py": "Yīng"
+            },
+            {
+              "cn": "爱",
+              "py": "ài"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": "有",
+              "py": "yǒu"
+            },
+            {
+              "cn": "几",
+              "py": "jǐ"
+            },
+            {
+              "cn": "口",
+              "py": "kǒu"
+            },
+            {
+              "cn": "人",
+              "py": "rén"
+            },
+            {
+              "cn": "?",
+              "py": ""
+            }
+          ],
+          "translation": "Bai Ying'ai, wie viele Personen sind in deiner Familie?"
+        }
+      }
+    ]
+  },
+  "teaching_materials": {
+    "lesson_id": 202,
+    "course_id": 1,
+    "lesson_title": "",
+    "language_notes": [
+      {
+        "note_id": "LN-1",
+        "label": "a",
+        "focus_text": "家",
+        "focus_pinyin": "jiā",
+        "explanation_en": "Dieses Wort kann sich auf die eigene Familie oder das Zuhause beziehen. `我家有四口人 (Wǒ jiā yǒu sì kǒu rén)` (Ich habe vier Familienmitglieder) kann verwendet werden, um die Anzahl der Familienmitglieder zu beschreiben, und `这是我家 (Zhè shì wǒ jiā)` (Das ist mein Zuhause) kann verwendet werden, um auf Ihr Haus zu zeigen.",
+        "source_section": "Language Notes"
+      },
+      {
+        "note_id": "LN-2",
+        "label": "b",
+        "focus_text": "口",
+        "focus_pinyin": "kǒu",
+        "explanation_en": "Dies ist das idiomatische Zählwort, das in Nordchina für die Anzahl der Familienmitglieder verwendet wird. Im Süden sagt man stattdessen `个 (gè/ge)`.",
+        "source_section": "Language Notes"
+      },
+      {
+        "note_id": "LN-3",
+        "label": "c",
+        "focus_text": "一",
+        "focus_pinyin": "yī/yí",
+        "explanation_en": "Die Ziffer `一 (yī)` (eins) wird in den folgenden Fällen im ersten Ton (yī) ausgesprochen: wenn sie allein steht, wenn sie eine Ordnungszahl impliziert, zum Beispiel in `一楼 (yī lóu)` (erster Stock), und wenn sie am Ende einer Phrase steht. Andernfalls ändert sich ihr Ton gemäß den folgenden Regeln:\n\n• Vor einem Wort im vierten Ton wird sie zum zweiten Ton: `一个 (yí gè)`.\n• Vor einem Wort im ersten, zweiten oder dritten Ton wird sie im vierten Ton ausgesprochen, zum Beispiel in `一张 (yì zhāng)` (ein Blatt), `一盘 (yì pán)` (ein Teller), `一本 (yì běn)` (ein Band).",
+        "source_section": "Language Notes"
+      },
+      {
+        "note_id": "LN-4",
+        "label": "d",
+        "focus_text": "和",
+        "focus_pinyin": "hé",
+        "explanation_en": "Im Gegensatz zu „und“ kann `和 (hé)` keine zwei Teilsätze oder zwei Sätze miteinander verbinden: `我爸爸是老师 (Wǒ bàba shì lǎoshī)`, X `和我妈妈是医生`.",
+        "source_section": "Language Notes"
+      },
+      {
+        "note_id": "LN-5",
+        "label": "e",
+        "focus_text": "、",
+        "focus_pinyin": "",
+        "explanation_en": "Das Pausenzeichen oder die Aufzählungs-Komma, `、`, wird oft verwendet, um zwei, drei oder sogar mehr parallele Wörter oder Phrasen zu verbinden, zum Beispiel `爸爸、妈妈、两个妹妹和我 (bàba, māma, liǎng ge mèimei hé wǒ)` (Papa, Mama, zwei jüngere Schwestern und ich). Weitere Informationen finden Sie in Sprachnotiz A, Dialog 1, Lektion 4.",
+        "source_section": "Language Notes"
+      }
+    ],
+    "grammar_sections": [
+      {
+        "grammar_id": "G-5",
+        "title": "Existenz mit `有 (yǒu)` ausdrücken",
+        "explanation_en": "Das Verb `有 (yǒu)` wird verwendet, um Existenz auszudrücken und wird oft mit „haben“ oder „es gibt“ übersetzt. Es wird häufig verwendet, um über die Anzahl der Familienmitglieder oder die Existenz von etwas innerhalb eines bestimmten Bereichs, wie einer Familie oder eines Ortes, zu sprechen.",
+        "patterns": [],
+        "examples": [
+          {
+            "hanzi": "我家有五口人。",
+            "pinyin": "Wǒ jiā yǒu wǔ kǒu rén.",
+            "translation": "In meiner Familie gibt es fünf Personen."
+          },
+          {
+            "hanzi": "小高家有两个大学生。",
+            "pinyin": "Xiǎo Gāo jiā yǒu liǎng ge dàxuéshēng.",
+            "translation": "In der Familie von Klein Gao gibt es zwei Studenten."
+          }
+        ],
+        "usage_notes": [],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "G-6",
+        "title": "Verwendung von `二 (èr)` und `两 (liǎng)`",
+        "explanation_en": "`二 (èr)` und `两 (liǎng)` bedeuten beide „zwei“, unterscheiden sich aber in ihrer Verwendung. `两 (liǎng)` wird vor gängigen Zählwörtern verwendet, um eine Menge auszudrücken, zum Beispiel in `两个人 (liǎng ge rén)` (zwei Personen). Beim Zählen von Zahlen wird jedoch `二 (èr)` verwendet, zum Beispiel `一, 二, 三, 四 (yī, èr, sān, sì)` (eins, zwei, drei, vier). Bei zusammengesetzten Zahlen wird `二 (èr)` immer in den letzten beiden Ziffern verwendet, zum Beispiel in `二十二 (èrshí’èr)` (22) und `一百二十五 (yìbǎi èrshíwǔ)` (125). Aber `二百二十二 (èrbǎi èrshí’èr)` (222) kann auch als `两百二十二 (liǎngbǎi èrshí’èr)` (222) ausgedrückt werden.",
+        "patterns": [],
+        "examples": [
+          {
+            "hanzi": "两个人",
+            "pinyin": "liǎng ge rén",
+            "translation": "zwei Personen"
+          },
+          {
+            "hanzi": "两个妹妹",
+            "pinyin": "liǎng ge mèimei",
+            "translation": "zwei jüngere Schwestern"
+          },
+          {
+            "hanzi": "小高家有两个大学生。",
+            "pinyin": "Xiǎo Gāo jiā yǒu liǎng ge dàxuéshēng.",
+            "translation": "In der Familie von Klein Gao gibt es zwei Studenten."
+          },
+          {
+            "hanzi": "一, 二, 三, 四",
+            "pinyin": "yī, èr, sān, sì",
+            "translation": "eins, zwei, drei, vier"
+          },
+          {
+            "hanzi": "二姐",
+            "pinyin": "èrjiě",
+            "translation": "zweitälteste Schwester"
+          },
+          {
+            "hanzi": "二十二",
+            "pinyin": "èrshí'èr",
+            "translation": "22"
+          },
+          {
+            "hanzi": "一百二十五",
+            "pinyin": "yìbǎi èrshíwǔ",
+            "translation": "125"
+          },
+          {
+            "hanzi": "二百二十二",
+            "pinyin": "èrbǎi èrshí'èr",
+            "translation": "222"
+          },
+          {
+            "hanzi": "两百二十二",
+            "pinyin": "liǎngbǎi èrshí'èr",
+            "translation": "222"
+          }
+        ],
+        "usage_notes": [
+          "Verwenden Sie `两 (liǎng)` vor einem Zählwort, um eine Menge von zwei auszudrücken.",
+          "Verwenden Sie `二 (èr)` beim Zählen von Zahlen, zum Beispiel eins, zwei, drei...",
+          "Verwenden Sie `二 (èr)` für Ordnungszahlen, zum Beispiel `二姐` (zweitälteste Schwester).",
+          "Bei mehrstelligen Zahlen verwenden Sie `二 (èr)` für die Zehner- und Einerstellen.",
+          "Bei mehrstelligen Zahlen kann für die Hunderterstelle entweder `二 (èr)` oder `两 (liǎng)` verwendet werden."
+        ],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "7",
+        "title": "Das Adverb `都 (dōu)` (beide, alle)",
+        "explanation_en": "Das Wort `都 (dōu)` (beide, alle) drückt Inklusivität aus. Da es immer vor einem Verb steht, wird es als Adverb klassifiziert. Weil es sich auf gerade erwähnte Dinge oder Personen bezieht, muss es am Ende einer Aufzählung verwendet werden.",
+        "patterns": [],
+        "examples": [
+          {
+            "hanzi": "王朋、李友和高文中都是学生。",
+            "pinyin": "Wáng Péng, Lǐ Yǒu hé Gāo Wénzhōng dōu shì xuésheng.",
+            "translation": "Wang Peng, Li You und Gao Wenzhong sind alle Studenten."
+          },
+          {
+            "hanzi": "王朋和李友都不是律师。",
+            "pinyin": "Wáng Péng hé Lǐ Yǒu dōu bú shì lǜshī.",
+            "translation": "Weder Wang Peng noch Li You ist Anwalt."
+          },
+          {
+            "hanzi": "王朋和白英爱都有妹妹。",
+            "pinyin": "Wáng Péng hé Bái Yīng’ài dōu yǒu mèimei.",
+            "translation": "Sowohl Wang Peng als auch Bai Ying'ai haben jüngere Schwestern."
+          },
+          {
+            "hanzi": "高文中和李友都没有弟弟。",
+            "pinyin": "Gāo Wénzhōng hé Lǐ Yǒu dōu méiyǒu dìdi.",
+            "translation": "Weder Gao Wenzhong noch Li You haben jüngere Brüder."
+          },
+          {
+            "hanzi": "他们不都是中国人。",
+            "pinyin": "Tāmen bù dōu shì Zhōngguó rén.",
+            "translation": "Nicht alle von ihnen sind Chinesen."
+          },
+          {
+            "hanzi": "他们都不是中国人。",
+            "pinyin": "Tāmen dōu bú shì Zhōngguó rén.",
+            "translation": "Keiner von ihnen ist Chinese."
+          },
+          {
+            "hanzi": "他们不都有弟弟。",
+            "pinyin": "Tāmen bù dōu yǒu dìdi.",
+            "translation": "Nicht alle von ihnen haben jüngere Brüder."
+          },
+          {
+            "hanzi": "他们都没有弟弟。",
+            "pinyin": "Tāmen dōu méiyǒu dìdi.",
+            "translation": "Keiner von ihnen hat jüngere Brüder."
+          }
+        ],
+        "usage_notes": [
+          "[zh:都] (dōu) bezieht sich auf Wang Peng, Li You und Gao Wenzhong und steht daher nach ihnen.",
+          "[zh:没] (méi) wird immer verwendet, um [zh:有] (yǒu) zu verneinen. Um jedoch „nicht alle haben“ auszudrücken, sagen wir [zh:不都有] (bù dōu yǒu) anstatt [zh:没都有].",
+          "Ob die Verneinung vor oder nach dem Wort [zh:都] (dōu) steht, macht den Unterschied zwischen teilweiser und vollständiger Verneinung aus."
+        ],
+        "common_errors": []
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 202,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "家",
+      "original_pinyin": "Jiā",
+      "standard_answers": [
+        "Familie, Zuhause"
+      ],
+      "context_examples": [
+        {
+          "cn": "你家有几口人?",
+          "py": "Nǐ jiā yǒu jǐ kǒu rén?",
+          "translation": "Wie viele Personen sind in deiner Familie?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "几",
+      "original_pinyin": "Jǐ",
+      "standard_answers": [
+        "wie viele, einige, ein paar"
+      ],
+      "context_examples": [
+        {
+          "cn": "你家有几口人?",
+          "py": "Nǐ jiā yǒu jǐ kǒu rén?",
+          "translation": "Wie viele Personen sind in deiner Familie?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "口",
+      "original_pinyin": "Kǒu",
+      "standard_answers": [
+        "(Zählwort für die Anzahl der Familienmitglieder)"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有六口人。",
+          "py": "Wǒ jiā yǒu liù kǒu rén.",
+          "translation": "Meine Familie besteht aus sechs Personen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "哥哥",
+      "original_pinyin": "Gēge",
+      "standard_answers": [
+        "älterer Bruder"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "两",
+      "original_pinyin": "Liǎng",
+      "standard_answers": [
+        "zwei, ein paar"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+          "py": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ.",
+          "translation": "Meine Familie besteht aus sechs Personen: meinem Vater, meiner Mutter, einem älteren Bruder, zwei jüngeren Schwestern und mir."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "妹妹",
+      "original_pinyin": "Mèimei",
+      "standard_answers": [
+        "jüngere Schwester"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+          "py": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ.",
+          "translation": "Meine Familie besteht aus sechs Personen: meinem Vater, meiner Mutter, einem älteren Bruder, zwei jüngeren Schwestern und mir."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "和",
+      "original_pinyin": "Hé",
+      "standard_answers": [
+        "und"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+          "py": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ.",
+          "translation": "Meine Familie besteht aus sechs Personen: meinem Vater, meiner Mutter, einem älteren Bruder, zwei jüngeren Schwestern und mir."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "大姐",
+      "original_pinyin": "Dàjiě",
+      "standard_answers": [
+        "älteste Schwester"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有五口人:爸爸、妈妈、大姐、二姐和我。",
+          "py": "Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, dàjiě, èrjiě hé wǒ.",
+          "translation": "Meine Familie besteht aus fünf Personen: Vater, Mutter, meiner ältesten Schwester, meiner zweitältesten Schwester und mir."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "二姐",
+      "original_pinyin": "Èrjiě",
+      "standard_answers": [
+        "zweitälteste Schwester"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有五口人:爸爸、妈妈、大姐、二姐和我。",
+          "py": "Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, dàjiě, èrjiě hé wǒ.",
+          "translation": "Meine Familie besteht aus fünf Personen: Vater, Mutter, meiner ältesten Schwester, meiner zweitältesten Schwester und mir."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "做",
+      "original_pinyin": "Zuò",
+      "standard_answers": [
+        "tun, machen"
+      ],
+      "context_examples": [
+        {
+          "cn": "你爸爸妈妈做什么工作?",
+          "py": "Nǐ bàba māma zuò shénme gōngzuò?",
+          "translation": "Was machen dein Vater und deine Mutter beruflich?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "工作",
+      "original_pinyin": "Gōngzuò",
+      "standard_answers": [
+        "Beruf, Arbeit",
+        "arbeiten"
+      ],
+      "context_examples": [
+        {
+          "cn": "你爸爸妈妈做什么工作?",
+          "py": "Nǐ bàba māma zuò shénme gōngzuò?",
+          "translation": "Was machen dein Vater und deine Mutter beruflich?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "律师",
+      "original_pinyin": "Lǜshī",
+      "standard_answers": [
+        "Anwalt"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "英文",
+      "original_pinyin": "Yīngwén",
+      "standard_answers": [
+        "Englisch"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "都",
+      "original_pinyin": "Dōu",
+      "standard_answers": [
+        "beide, alle"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "大学生",
+      "original_pinyin": "Dàxuéshēng",
+      "standard_answers": [
+        "Student"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "大学",
+      "original_pinyin": "Dàxué",
+      "standard_answers": [
+        "Universität, Hochschule"
+      ],
+      "context_examples": [
+        {
+          "cn": "哥哥、妹妹都是大学生。",
+          "py": "Gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "医生",
+      "original_pinyin": "Yīshēng",
+      "standard_answers": [
+        "Arzt",
+        "Arzt"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是医生。",
+          "py": "Wǒ bàba shì yīshēng.",
+          "translation": "Meine Mutter ist auch Lehrerin und mein Vater ist Arzt."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "白英爱",
+      "original_pinyin": "Bái Yīng'ài",
+      "standard_answers": [
+        "Bai Ying'ai"
+      ],
+      "context_examples": [
+        {
+          "cn": "白英爱,你家有几口人?",
+          "py": "Bái Ying ài nǐ jiā yǒu jǐ kǒu rén",
+          "translation": "Bai Ying'ai, wie viele Personen sind in deiner Familie?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Familie, Zuhause",
+      "original_pinyin": null,
+      "standard_answers": [
+        "家"
+      ],
+      "context_examples": [
+        {
+          "cn": "你家有几口人?",
+          "py": "Nǐ jiā yǒu jǐ kǒu rén?",
+          "translation": "Wie viele Personen sind in deiner Familie?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "wie viele, einige, ein paar",
+      "original_pinyin": null,
+      "standard_answers": [
+        "几"
+      ],
+      "context_examples": [
+        {
+          "cn": "你家有几口人?",
+          "py": "Nǐ jiā yǒu jǐ kǒu rén?",
+          "translation": "Wie viele Personen sind in deiner Familie?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Kǒu, Zählwort für Familienmitglieder",
+      "original_pinyin": null,
+      "standard_answers": [
+        "口"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有六口人。",
+          "py": "Wǒ jiā yǒu liù kǒu rén.",
+          "translation": "In meiner Familie sind sechs Personen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "älterer Bruder",
+      "original_pinyin": null,
+      "standard_answers": [
+        "哥哥"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "zwei, ein paar",
+      "original_pinyin": null,
+      "standard_answers": [
+        "两"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+          "py": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ.",
+          "translation": "In meiner Familie sind sechs Personen: mein Vater, meine Mutter, ein älterer Bruder, zwei jüngere Schwestern und ich."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "jüngere Schwester",
+      "original_pinyin": null,
+      "standard_answers": [
+        "妹妹"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+          "py": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ.",
+          "translation": "In meiner Familie sind sechs Personen: mein Vater, meine Mutter, ein älterer Bruder, zwei jüngere Schwestern und ich."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "und",
+      "original_pinyin": null,
+      "standard_answers": [
+        "和"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。",
+          "py": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ.",
+          "translation": "In meiner Familie sind sechs Personen: mein Vater, meine Mutter, ein älterer Bruder, zwei jüngere Schwestern und ich."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "älteste Schwester",
+      "original_pinyin": null,
+      "standard_answers": [
+        "大姐"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有五口人:爸爸、妈妈、大姐、二姐和我。",
+          "py": "Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, dàjiě, èrjiě hé wǒ.",
+          "translation": "In meiner Familie sind fünf Personen: Papa, Mama, meine älteste Schwester, meine zweitälteste Schwester und ich."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "zweitälteste Schwester",
+      "original_pinyin": null,
+      "standard_answers": [
+        "二姐"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有五口人:爸爸、妈妈、大姐、二姐和我。",
+          "py": "Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, dàjiě, èrjiě hé wǒ.",
+          "translation": "In meiner Familie sind fünf Personen: Papa, Mama, meine älteste Schwester, meine zweitälteste Schwester und ich."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "machen",
+      "original_pinyin": null,
+      "standard_answers": [
+        "做"
+      ],
+      "context_examples": [
+        {
+          "cn": "你爸爸妈妈做什么工作?",
+          "py": "Nǐ bàba māma zuò shénme gōngzuò?",
+          "translation": "Was machen deine Eltern beruflich?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Beruf; arbeiten",
+      "original_pinyin": null,
+      "standard_answers": [
+        "工作"
+      ],
+      "context_examples": [
+        {
+          "cn": "你爸爸妈妈做什么工作?",
+          "py": "Nǐ bàba māma zuò shénme gōngzuò?",
+          "translation": "Was machen deine Eltern beruflich?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Anwalt",
+      "original_pinyin": null,
+      "standard_answers": [
+        "律师"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Englisch",
+      "original_pinyin": null,
+      "standard_answers": [
+        "英文"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "beide, alle",
+      "original_pinyin": null,
+      "standard_answers": [
+        "都"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Student",
+      "original_pinyin": null,
+      "standard_answers": [
+        "大学生"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Universität, Hochschule",
+      "original_pinyin": null,
+      "standard_answers": [
+        "大学"
+      ],
+      "context_examples": [
+        {
+          "cn": "哥哥、妹妹都是大学生。",
+          "py": "Gēge, mèimei dōu shì dàxuéshēng.",
+          "translation": "Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Arzt",
+      "original_pinyin": null,
+      "standard_answers": [
+        "医生"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是医生。",
+          "py": "Wǒ bàba shì yīshēng.",
+          "translation": "Meine Mutter ist auch Lehrerin und mein Vater ist Arzt."
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Bái Yīng Ài, Bai Ying'ai [zh:Bái Yīng Ài]",
+      "original_pinyin": null,
+      "standard_answers": [
+        "白英爱"
+      ],
+      "context_examples": [
+        {
+          "cn": "白英爱,你家有几口人?",
+          "py": "Bái Ying ài nǐ jiā yǒu jǐ kǒu rén",
+          "translation": "Bai Ying'ai, wie viele Personen sind in deiner Familie?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Bai Ying'ais Mutter ist Lehrerin.",
+      "original_pinyin": "",
+      "standard_answers": [
+        "白英爱的妈妈是老师。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Li You hat keinen jüngeren Bruder.",
+      "original_pinyin": "",
+      "standard_answers": [
+        "李友没有弟弟。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Meine ältere Schwester hat zwei Töchter.",
+      "original_pinyin": "",
+      "standard_answers": [
+        "我姐姐有两个女儿。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Entschuldigen Sie, wie viele Personen sind in Ihrer Familie?",
+      "original_pinyin": "",
+      "standard_answers": [
+        "请问, 你家有几口人?"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Was machen Sie beruflich?",
+      "original_pinyin": "",
+      "standard_answers": [
+        "你做什么工作?"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Li Yous Vater ist Arzt.",
+      "original_pinyin": "",
+      "standard_answers": [
+        "李友的爸爸是医生。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 43,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Wang Peng ist Student und Li You ist auch Student.",
+      "original_pinyin": "",
+      "standard_answers": [
+        "王朋是学生, 李友也是学生。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 44,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Wang Peng hat keinen älteren Bruder und Li You hat auch keinen älteren Bruder.",
+      "original_pinyin": "",
+      "standard_answers": [
+        "王朋没有哥哥, 李友也没有哥哥。"
+      ]
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 45,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Bai Ying'ai, wie viele Personen seid ihr in deiner Familie?",
+      "original_pinyin": "Bái Yīng ài nǐ jiā yǒu jǐ kǒu rén",
+      "standard_answers": [
+        "白英爱,你家有几口人?"
+      ],
+      "context_examples": [
+        {
+          "cn": "白英爱,你家有几口人?",
+          "py": "Bái Yīng ài nǐ jiā yǒu jǐ kǒu rén",
+          "translation": "Bai Ying'ai, wie viele Personen seid ihr in deiner Familie?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 1
+      }
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 46,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Wir sind fünf Personen in meiner Familie: Papa, Mama, meine älteste Schwester, meine zweitälteste Schwester und ich. Was machen deine Eltern beruflich?",
+      "original_pinyin": "wǒ jiā yǒu wǔ kǒu rén bàba māma dàjiě èrjiě hé wǒ nǐ bàba māma zuò shénme gōngzuò",
+      "standard_answers": [
+        "我家有五口人:爸爸、妈妈、大姐、二姐和我。你爸爸妈妈做什么工作?"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有五口人:爸爸、妈妈、大姐、二姐和我。你爸爸妈妈做什么工作?",
+          "py": "wǒ jiā yǒu wǔ kǒu rén bàba māma dàjiě èrjiě hé wǒ nǐ bàba māma zuò shénme gōngzuò",
+          "translation": "Wir sind fünf Personen in meiner Familie: Papa, Mama, meine älteste Schwester, meine zweitälteste Schwester und ich. Was machen deine Eltern beruflich?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 3
+      }
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 47,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten.",
+      "original_pinyin": "wǒ bàba shì lǜshī māma shì yīngwén lǎoshī gēge mèimei dōu shì dàxuéshēng",
+      "standard_answers": [
+        "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "wǒ bàba shì lǜshī māma shì yīngwén lǎoshī gēge mèimei dōu shì dàxuéshēng",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 4
+      }
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 48,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Meine Mutter ist auch Lehrerin und mein Vater ist Arzt.",
+      "original_pinyin": "wǒ māma yě shì lǎoshī wǒ bàba shì yīshēng",
+      "standard_answers": [
+        "我妈妈也是老师,我爸爸是医生。"
+      ],
+      "context_examples": [
+        {
+          "cn": "我妈妈也是老师,我爸爸是医生。",
+          "py": "wǒ māma yě shì lǎoshī wǒ bàba shì yīshēng",
+          "translation": "Meine Mutter ist auch Lehrerin und mein Vater ist Arzt."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 5
+      }
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 49,
+      "course_id": 1,
+      "question_type": "DE_TO_CN_SPEAK",
+      "original_text": "Bai Ying'ai, wie viele Personen seid ihr in deiner Familie?",
+      "original_pinyin": "Bái Yīng ài nǐ jiā yǒu jǐ kǒu rén",
+      "standard_answers": [
+        "白英爱,你家有几口人?"
+      ],
+      "context_examples": [
+        {
+          "cn": "白英爱,你家有几口人?",
+          "py": "Bái Yīng ài nǐ jiā yǒu jǐ kǒu rén",
+          "translation": "Bai Ying'ai, wie viele Personen seid ihr in deiner Familie?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 50,
+      "course_id": 1,
+      "question_type": "DE_TO_CN_SPEAK",
+      "original_text": "Wir sind fünf Personen in meiner Familie: Papa, Mama, meine älteste Schwester, meine zweitälteste Schwester und ich. Was machen deine Eltern beruflich?",
+      "original_pinyin": "wǒ jiā yǒu wǔ kǒu rén bàba māma dàjiě èrjiě hé wǒ nǐ bàba māma zuò shénme gōngzuò",
+      "standard_answers": [
+        "我家有五口人:爸爸、妈妈、大姐、二姐和我。你爸爸妈妈做什么工作?"
+      ],
+      "context_examples": [
+        {
+          "cn": "我家有五口人:爸爸、妈妈、大姐、二姐和我。你爸爸妈妈做什么工作?",
+          "py": "wǒ jiā yǒu wǔ kǒu rén bàba māma dàjiě èrjiě hé wǒ nǐ bàba māma zuò shénme gōngzuò",
+          "translation": "Wir sind fünf Personen in meiner Familie: Papa, Mama, meine älteste Schwester, meine zweitälteste Schwester und ich. Was machen deine Eltern beruflich?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 51,
+      "course_id": 1,
+      "question_type": "DE_TO_CN_SPEAK",
+      "original_text": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten.",
+      "original_pinyin": "wǒ bàba shì lǜshī māma shì yīngwén lǎoshī gēge mèimei dōu shì dàxuéshēng",
+      "standard_answers": [
+        "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。"
+      ],
+      "context_examples": [
+        {
+          "cn": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+          "py": "wǒ bàba shì lǜshī māma shì yīngwén lǎoshī gēge mèimei dōu shì dàxuéshēng",
+          "translation": "Mein Vater ist Anwalt und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 202,
+      "question_id": 52,
+      "course_id": 1,
+      "question_type": "DE_TO_CN_SPEAK",
+      "original_text": "Meine Mutter ist auch Lehrerin und mein Vater ist Arzt.",
+      "original_pinyin": "wǒ māma yě shì lǎoshī wǒ bàba shì yīshēng",
+      "standard_answers": [
+        "我妈妈也是老师,我爸爸是医生。"
+      ],
+      "context_examples": [
+        {
+          "cn": "我妈妈也是老师,我爸爸是医生。",
+          "py": "wǒ māma yě shì lǎoshī wǒ bàba shì yīshēng",
+          "translation": "Meine Mutter ist auch Lehrerin und mein Vater ist Arzt."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    }
+  ],
+  "video_plan": {
+    "lesson_video_plan": {
+      "lesson_id": 202,
+      "course_id": 1,
+      "lesson_title": "讨论家庭",
+      "target_audience": "English native speakers learning Chinese",
+      "primary_language": "zh",
+      "support_language": "en",
+      "subtitle_options": {
+        "hanzi": true,
+        "pinyin": true,
+        "translation": true
+      }
+    },
+    "dramatization": {
+      "global_config": {
+        "visual_style": "Cinematic, slice-of-life style with warm, natural lighting and a shallow depth of field.",
+        "setting_summary_cn": "两个年轻的大学生，李友和白英爱，在一个阳光明媚的下午，坐在大学校园的长椅上轻松地聊天。",
+        "setting_summary_en": "Two young university students, Li You and Bai Ying'ai, are having a casual conversation on a bench on a sunny afternoon on their university campus.",
+        "character_definitions": [
+          {
+            "name": "李友",
+            "appearance_description_en": "A friendly Chinese male university student in his early 20s, with short black hair, wearing a casual hoodie and jeans."
+          },
+          {
+            "name": "白英爱",
+            "appearance_description_en": "A cheerful Chinese female university student in her early 20s, with long dark hair, wearing a stylish but comfortable sweater and skirt."
+          }
+        ]
+      },
+      "scenes": [
+        {
+          "scene_id": 1,
+          "source_line_refs": [
+            1
+          ],
+          "source_text": {
+            "hanzi": [
+              "白英爱,你家有几口人?"
+            ],
+            "pinyin": [
+              "Bái Yīng ài nǐ jiā yǒu jǐ kǒu rén"
+            ],
+            "translation": [
+              "Bai Ying'ai, how many people are in your family?"
+            ]
+          },
+          "scene_goal": "李友发起关于家庭的友好对话。",
+          "scene_description_cn": "李友和白英爱并排坐在校园的长椅上。李友喝了一口手里的咖啡，然后自然地转向白英爱，带着友善和好奇的微笑问她问题。",
+          "setting_en": "A sunny university campus, on a wooden bench under a large tree, with students walking in the background.",
+          "characters_on_screen": [
+            "李友",
+            "白英爱"
+          ],
+          "camera_movement": "Slow pan from a two-shot to a medium shot focusing on Li You as he speaks.",
+          "shot_type": "Medium Shot",
+          "video_prompt_en": "A young Chinese man (Li You) and a young Chinese woman (Bai Ying'ai) sit on a park bench on a sunny university campus. He takes a sip of coffee, then turns to her with a friendly, curious smile. Cinematic, natural lighting, shallow depth of field, students blurred in the background.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "白英爱,你家有几口人?",
+            "pinyin": "Bái Yīng'ài, nǐ jiā yǒu jǐ kǒu rén?",
+            "translation": "Bai Ying'ai, how many people are in your family?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 5
+        },
+        {
+          "scene_id": 2,
+          "source_line_refs": [
+            2
+          ],
+          "source_text": {
+            "hanzi": [
+              "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。李友,你家有几口人?"
+            ],
+            "pinyin": [
+              "wǒ jiā yǒu liù kǒu rén wǒ bàba wǒ māma yí ge gēge liǎng ge mèimei hé wǒ Lǐ Yǒu nǐ jiā yǒu jǐ kǒu rén"
+            ],
+            "translation": [
+              "There are six people in my family: my dad, my mom, an older brother, two younger sisters, and me. Li You, how many people are in your family?"
+            ]
+          },
+          "scene_goal": "白英爱愉快地介绍自己的大家庭，并通过视觉化的照片增强感染力，然后将对话延续下去。",
+          "scene_description_cn": "白英爱听到问题后，开心地笑了起来。她伸出手，一边用手指计数，一边介绍她的家人。随着她提到每个家庭成员，屏幕上会快速闪现一张对应的温馨家庭照片。介绍完后，她看着李友，好奇地反问他。",
+          "setting_en": "Same university campus bench. Quick flashes of warm, candid family photos.",
+          "characters_on_screen": [
+            "白英爱",
+            "李友"
+          ],
+          "camera_movement": "Start with a medium close-up on Bai Ying'ai, quick cuts to photos, then back to a medium two-shot as she asks Li You.",
+          "shot_type": "Medium Close-up / Medium Shot",
+          "video_prompt_en": "Medium close-up on Bai Ying'ai, she smiles brightly and starts counting on her fingers. As she speaks, a quick montage of warm, candid photos appears: a smiling middle-aged father and mother, a handsome older brother, two cute younger sisters. The shot returns to a medium two-shot, showing her turning to Li You and asking him the question with a curious expression.",
+          "voice_over": {
+            "speaker": "白英爱",
+            "hanzi": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。李友,你家有几口人?",
+            "pinyin": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ. Lǐ Yǒu, nǐ jiā yǒu jǐ kǒu rén?",
+            "translation": "There are six people in my family: my dad, my mom, an older brother, two younger sisters, and me. Li You, how many people are in your family?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 12
+        },
+        {
+          "scene_id": 3,
+          "source_line_refs": [
+            4
+          ],
+          "source_text": {
+            "hanzi": [
+              "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。"
+            ],
+            "pinyin": [
+              "wǒ bàba shì lǜshī māma shì yīngwén lǎoshī gēge mèimei dōu shì dàxuéshēng"
+            ],
+            "translation": [
+              "My dad is a lawyer, and my mom is an English teacher. My older brother and younger sisters are all college students."
+            ]
+          },
+          "scene_goal": "白英爱介绍她家人的职业和身份，通过想象中的画面来生动地展示。",
+          "scene_description_cn": "白英爱微笑着回答李友的问题。随着她的话语，画面中快速闪过几个她想象中的家庭场景：她爸爸穿着律师袍在法庭上自信地辩护，妈妈在大学教室里和蔼地教英文，哥哥和妹妹则在阳光充足的图书馆里一起学习。最后镜头切回咖啡馆，白英爱正看着李友。",
+          "setting_en": "Cozy university campus coffee shop, sunlit.",
+          "characters_on_screen": [
+            "白英爱",
+            "李友"
+          ],
+          "camera_movement": "Static shot on Bai Ying'ai, then quick cuts to montage scenes, then back to the static shot.",
+          "shot_type": "Medium shot, with close-ups in the montage.",
+          "video_prompt_en": "A medium shot of a young Asian woman (Bai Ying'ai) in a coffee shop, smiling as she talks. A quick montage sequence appears: 1. A confident middle-aged Asian man in a lawyer's robe speaking in a courtroom. 2. A kind middle-aged Asian woman with glasses, standing before a whiteboard with English words, smiling at students. 3. A young man and a teenage girl studying together in a bright, modern university library. The scene returns to Bai Ying'ai in the coffee shop. Slice-of-life anime style, bright and warm lighting.",
+          "voice_over": {
+            "speaker": "白英爱",
+            "hanzi": "我爸爸是律师，妈妈是英文老师，哥哥、妹妹都是大学生。",
+            "pinyin": "wǒ bàba shì lǜshī, māma shì yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+            "translation": "My dad is a lawyer, and my mom is an English teacher. My older brother and younger sisters are all college students."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 10
+        },
+        {
+          "scene_id": 4,
+          "source_line_refs": [
+            5
+          ],
+          "source_text": {
+            "hanzi": [
+              "我妈妈也是老师,我爸爸是医生。"
+            ],
+            "pinyin": [
+              "wǒ māma yě shì lǎoshī wǒ bàba shì yīshēng"
+            ],
+            "translation": [
+              "My mom is also a teacher, and my dad is a doctor."
+            ]
+          },
+          "scene_goal": "李友回应白英爱，并介绍自己父母的职业，同样用想象画面来辅助说明。",
+          "scene_description_cn": "听到白英爱的妈妈也是老师，李友的眼睛一亮，显得有些惊喜。她也开心地分享自己家的情况，画面随之闪过她妈妈在画室里教学生画画，以及她爸爸穿着白大褂在医院办公室里和蔼地看诊的场景。",
+          "setting_en": "Cozy university campus coffee shop, sunlit.",
+          "characters_on_screen": [
+            "李友",
+            "白英爱"
+          ],
+          "camera_movement": "Static shot focusing on Li You's reaction, with quick cuts to montage scenes.",
+          "shot_type": "Medium close-up on Li You.",
+          "video_prompt_en": "A medium close-up on another young Asian woman (Li You) in a coffee shop, her expression is pleasantly surprised. A quick montage sequence appears: 1. A gentle middle-aged Asian woman teaching an art class to young students. 2. A kind middle-aged Asian man in a doctor's white coat with a stethoscope, smiling warmly in a bright hospital office. The scene returns to Li You smiling at Bai Ying'ai. Slice-of-life anime style, bright and warm lighting.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "我妈妈也是老师，我爸爸是医生。",
+            "pinyin": "wǒ māma yě shì lǎoshī, wǒ bàba shì yīshēng.",
+            "translation": "My mom is also a teacher, and my dad is a doctor."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 8
+        }
+      ]
+    },
+    "explanation": {
+      "global_config": {
+        "teaching_style": "A clear, structured, and encouraging guide for beginners, breaking down dialogue into manageable parts with a focus on practical usage and core concepts.",
+        "target_audience": "English native speakers learning Chinese",
+        "presenter_mode": "voice_over",
+        "visual_style": "Clean, modern, and card-based, using animations to highlight characters, words, and sentence structures.",
+        "lesson_main_title": "讨论家庭"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "Asking About Family Size",
+          "teaching_goal": "To learn how to ask about the number of people in someone's family.",
+          "narration": {
+            "subtitle_en": "Let's start with the first line. Li You asks Bai Ying'ai a question about her family. The sentence is [zh:你家有几口人]. Let's break it down. [zh:你家] means 'your family'. [zh:有] means 'to have' or 'there are'. [zh:几] is a question word that means 'how many', typically used for numbers under ten. Finally, [zh:口人] is a special way to count people in a family. So, the whole question means, 'How many people are in your family?'"
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "白英爱,你家有几口人?",
+            "focus_pinyin": "Bái Yīng'ài, nǐ jiā yǒu jǐ kǒu rén?",
+            "focus_gloss_en": "Bai Ying'ai, how many people are in your family?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "家",
+              "pinyin": "jiā",
+              "translation": "family, home",
+              "explanation_en": "Refers to one's family or home. Here, it means family.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "有",
+              "pinyin": "yǒu",
+              "translation": "to have, there is/are",
+              "explanation_en": "Indicates possession or existence.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "几",
+              "pinyin": "jǐ",
+              "translation": "how many",
+              "explanation_en": "A question word used to ask about a small number of items.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "口",
+              "pinyin": "kǒu",
+              "translation": "measure word for family members",
+              "explanation_en": "An idiomatic measure word for counting people in a family.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Animate the characters for '你家', '有', '几', and '口人' sequentially as they are explained.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 2,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Answering About Family Size",
+          "teaching_goal": "To learn how to state the number of people in one's family and list the members.",
+          "narration": {
+            "subtitle_en": "Bai Ying'ai answers with [zh:我家有六口人]. This follows the same structure: 'My family has six people.' Then she lists them: [zh:我爸爸] (my dad), [zh:我妈妈] (my mom), [zh:一个哥哥] (one older brother), [zh:两个妹妹] (two younger sisters), [zh:和我] (and me). Notice the use of [zh:和] to connect the last item in the list. Finally, she asks the same question back to Li You: [zh:你家有几口人]?"
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。李友,你家有几口人?",
+            "focus_pinyin": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ. Lǐ Yǒu, nǐ jiā yǒu jǐ kǒu rén?",
+            "focus_gloss_en": "There are six people in my family: my dad, my mom, an older brother, two younger sisters, and me. Li You, how many people are in your family?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "爸爸",
+              "pinyin": "bàba",
+              "translation": "dad",
+              "explanation_en": "The word for father.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "妈妈",
+              "pinyin": "māma",
+              "translation": "mom",
+              "explanation_en": "The word for mother.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "哥哥",
+              "pinyin": "gēge",
+              "translation": "older brother",
+              "explanation_en": "Used to refer to an older male sibling.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "妹妹",
+              "pinyin": "mèimei",
+              "translation": "younger sister",
+              "explanation_en": "Used to refer to a younger female sibling.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "和",
+              "pinyin": "hé",
+              "translation": "and",
+              "explanation_en": "A conjunction used to link nouns, not sentences.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Display icons for each family member as they are mentioned. Highlight the word '和' when explaining its function.",
+          "estimated_duration_seconds": 25
+        },
+        {
+          "segment_id": 3,
+          "segment_type": "usage_focus",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Using 两 (liǎng) for 'Two'",
+          "teaching_goal": "To understand when to use 两 (liǎng) instead of 二 (èr) for the number two.",
+          "narration": {
+            "subtitle_en": "In the last sentence, you heard [zh:两个妹妹], which means 'two younger sisters'. Why do we use [zh:两] here instead of [zh:二]? The rule is simple: when you are expressing a quantity of two before a measure word, like [zh:个] here, you must use [zh:两]. You use [zh:二] when you are just counting numbers, like 'one, two, three', or for ordinal numbers. So, it's always [zh:两个人] (two people), not '二个人'."
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "两个妹妹",
+            "focus_pinyin": "liǎng ge mèimei",
+            "focus_gloss_en": "two younger sisters",
+            "notes": "Use 两 (liǎng) before a measure word to say 'two of something'."
+          },
+          "highlight_words": [
+            {
+              "word": "两",
+              "pinyin": "liǎng",
+              "translation": "two (used with measure words)",
+              "explanation_en": "Used to express a quantity of two before a measure word.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "二",
+              "pinyin": "èr",
+              "translation": "two (used in counting)",
+              "explanation_en": "Used when counting numbers or for ordinal numbers.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show a visual comparison: '两 + measure word' with a green checkmark, and '二 + measure word' with a red X.",
+          "estimated_duration_seconds": 24
+        },
+        {
+          "segment_id": 4,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Asking About Jobs",
+          "teaching_goal": "To learn how to list family members with ordinal numbers and ask about professions.",
+          "narration": {
+            "subtitle_en": "Now it's Li You's turn. She says, [zh:我家有五口人], 'My family has five people.' She lists them: [zh:爸爸、妈妈、大姐、二姐和我]. Here we see new words: [zh:大姐] means 'oldest sister' and [zh:二姐] means 'second oldest sister'. Then, she asks a new question: [zh:你爸爸妈妈做什么工作]. [zh:做] means 'to do', [zh:什么] means 'what', and [zh:工作] means 'work' or 'job'. So, she's asking, 'What do your dad and mom do for work?'"
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "我家有五口人:爸爸、妈妈、大姐、二姐和我。你爸爸妈妈做什么工作?",
+            "focus_pinyin": "Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, dàjiě, èrjiě hé wǒ. Nǐ bàba māma zuò shénme gōngzuò?",
+            "focus_gloss_en": "There are five people in my family: dad, mom, my oldest sister, my second oldest sister, and me. What do your dad and mom do for work?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "大姐",
+              "pinyin": "dàjiě",
+              "translation": "oldest sister",
+              "explanation_en": "Refers to the eldest female sibling.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "二姐",
+              "pinyin": "èrjiě",
+              "translation": "second oldest sister",
+              "explanation_en": "Refers to the second eldest female sibling. Note the use of 'èr' for ordinal numbers.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "做",
+              "pinyin": "zuò",
+              "translation": "to do",
+              "explanation_en": "A verb meaning to do, to make, or to be.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "工作",
+              "pinyin": "gōngzuò",
+              "translation": "job; to work",
+              "explanation_en": "Can be used as a noun for 'job' or a verb for 'to work'.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight '大' and '二' in '大姐' and '二姐' to show the ordinal ranking. For the second sentence, animate the words '做', '什么', '工作' to form the question.",
+          "estimated_duration_seconds": 26
+        },
+        {
+          "segment_id": 5,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Talking About Professions",
+          "teaching_goal": "To learn vocabulary for different professions and how to use the adverb 都 (dōu).",
+          "narration": {
+            "subtitle_en": "Bai Ying'ai describes her family's jobs. She says, [zh:我爸爸是律师], 'My dad is a lawyer,' and [zh:妈妈是英文老师], 'Mom is an English teacher.' Then she talks about her siblings: [zh:哥哥、妹妹都是大学生]. The key word here is [zh:都], which means 'all' or 'both'. It comes before the verb [zh:是]. This tells us that both her older brother and her younger sisters are all college students, [zh:大学生]."
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+            "focus_pinyin": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+            "focus_gloss_en": "My dad is a lawyer, and my mom is an English teacher. My older brother and younger sisters are all college students.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "律师",
+              "pinyin": "lǜshī",
+              "translation": "lawyer",
+              "explanation_en": "The profession of a lawyer.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "老师",
+              "pinyin": "lǎoshī",
+              "translation": "teacher",
+              "explanation_en": "The profession of a teacher.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "大学生",
+              "pinyin": "dàxuéshēng",
+              "translation": "college student",
+              "explanation_en": "A student attending a university or college.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "都",
+              "pinyin": "dōu",
+              "translation": "both, all",
+              "explanation_en": "An adverb indicating that what is said applies to all of the preceding subjects.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show icons for lawyer, teacher, and college student. When '都' is mentioned, visually group the brother and sisters together to illustrate the 'all' concept.",
+          "estimated_duration_seconds": 24
+        },
+        {
+          "segment_id": 6,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Also a Teacher",
+          "teaching_goal": "To learn how to use the adverb 也 (yě) to mean 'also' or 'too'.",
+          "narration": {
+            "subtitle_en": "In the final line, Li You shares what her parents do. She says, [zh:我妈妈也是老师]. The important word here is [zh:也], which means 'also' or 'too'. It's placed before the verb, just like [zh:都]. Since Bai Ying'ai's mom is a teacher, Li You uses [zh:也] to say her mom is *also* a teacher. Then she adds, [zh:我爸爸是医生], 'My dad is a doctor.' This introduces our last new profession, [zh:医生]."
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "我妈妈也是老师,我爸爸是医生。",
+            "focus_pinyin": "Wǒ māma yě shì lǎoshī, wǒ bàba shì yīshēng.",
+            "focus_gloss_en": "My mom is also a teacher, and my dad is a doctor.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "也",
+              "pinyin": "yě",
+              "translation": "also, too",
+              "explanation_en": "An adverb used to indicate similarity or inclusion, placed before the verb.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "医生",
+              "pinyin": "yīshēng",
+              "translation": "doctor",
+              "explanation_en": "The profession of a medical doctor.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight the word '也' and show a visual link back to Bai Ying'ai's mom being a teacher to emphasize the 'also' connection. Then, display an icon for a doctor.",
+          "estimated_duration_seconds": 23
+        },
+        {
+          "segment_id": 7,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            1,
+            2,
+            3
+          ],
+          "segment_title": "Using 有 (yǒu) for Existence",
+          "teaching_goal": "To teach students how to use the verb 有 (yǒu) to talk about possession and existence, specifically for family members.",
+          "narration": {
+            "subtitle_en": "Let's begin with our first grammar point: the verb [zh:有]. In Chinese, [zh:有] is used to express existence, similar to 'to have' or 'there is/are' in English. In our dialogue, you heard the question [zh:你家有几口人], 'How many people are in your family?'. The answer was [zh:我家有六口人], 'There are six people in my family.' The basic structure is 'Subject + [zh:有] + Object'. This is a very common and useful pattern for talking about what you have, including family members, pets, or items. For example, you can say [zh:小高家有两个大学生], meaning 'There are two college students in Little Gao's family.'"
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "Q: 你家有几口人？ A: 我家有六口人。",
+            "focus_pinyin": "Nǐ jiā yǒu jǐ kǒu rén? Wǒ jiā yǒu liù kǒu rén.",
+            "focus_gloss_en": "Q: How many people are in your family? A: There are six people in my family.",
+            "notes": "The verb 有 (yǒu) indicates existence or possession."
+          },
+          "highlight_words": [
+            {
+              "word": "有",
+              "pinyin": "yǒu",
+              "translation": "to have, there is/are",
+              "explanation_en": "A verb used to indicate possession or the existence of something.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "我家有五口人。",
+              "pattern_pinyin": "Wǒ jiā yǒu wǔ kǒu rén.",
+              "explanation_en": "Use '家 (jiā) + 有 (yǒu) + [Number] + 口 (kǒu) + 人 (rén)' to state the number of people in your family."
+            },
+            {
+              "pattern": "小高家有两个大学生。",
+              "pattern_pinyin": "Xiǎo Gāo jiā yǒu liǎng ge dàxuéshēng.",
+              "explanation_en": "The verb 有 (yǒu) can also be used to state the existence of something within a group or place."
+            }
+          ],
+          "visual_notes": "Animate the sentence structure 'Subject + 有 + Object' appearing on screen. Highlight the word '有' as it's mentioned.",
+          "estimated_duration_seconds": 30
+        },
+        {
+          "segment_id": 8,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            2,
+            3
+          ],
+          "segment_title": "The Two 'Twos': 二 (èr) vs. 两 (liǎng)",
+          "teaching_goal": "To clarify the difference between 二 (èr) and 两 (liǎng), both of which mean 'two'.",
+          "narration": {
+            "subtitle_en": "Next, let's talk about the number two. Chinese has two words for 'two': [zh:二] and [zh:两]. They are not interchangeable. The key rule is to use [zh:两] before a measure word to express a quantity. For instance, in the dialogue, Bai Ying'ai says she has [zh:两个妹妹], 'two younger sisters.' Here, [zh:个] is the measure word. In contrast, [zh:二] is used for counting, like 'one, two, three' or [zh:一, 二, 三]. It's also used for ordinal numbers, like [zh:二姐], which means 'second oldest sister.' When forming larger numbers, [zh:二] is used in the tens and ones place, like in twenty-two, [zh:二十二]. So remember: for quantity with a measure word, use [zh:两]; for counting and ordinal numbers, use [zh:二]."
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "两 + [Measure Word]: 两个妹妹 / 二 for Ordinals: 二姐",
+            "focus_pinyin": "liǎng + [Measure Word]: liǎng ge mèimei / èr for Ordinals: èrjiě",
+            "focus_gloss_en": "两 (liǎng) + [Measure Word]: two younger sisters / 二 (èr) for Ordinals: second oldest sister",
+            "notes": "两 (liǎng) is for quantity; 二 (èr) is for counting and order."
+          },
+          "highlight_words": [
+            {
+              "word": "两",
+              "pinyin": "liǎng",
+              "translation": "two (with a measure word)",
+              "explanation_en": "Used to express a quantity of two before a measure word.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "二",
+              "pinyin": "èr",
+              "translation": "two (for counting, ordinals)",
+              "explanation_en": "Used when counting numbers in sequence or for ordinal numbers.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "Use 两 (liǎng) before a measure word: 两个妹妹",
+              "pattern_pinyin": "liǎng ge mèimei",
+              "explanation_en": "To express a quantity of two for a noun, use 两 (liǎng) followed by the appropriate measure word."
+            },
+            {
+              "pattern": "Use 二 (èr) for ordinal numbers: 二姐",
+              "pattern_pinyin": "èrjiě",
+              "explanation_en": "To indicate order, like 'second', use 二 (èr)."
+            },
+            {
+              "pattern": "Use 二 (èr) when counting: 一, 二, 三",
+              "pattern_pinyin": "yī, èr, sān",
+              "explanation_en": "When simply counting numbers in sequence, use 二 (èr)."
+            }
+          ],
+          "visual_notes": "Show a split screen. On one side, display '两 + 个' with images of two people. On the other, show '一, 二, 三' and a list with '1st, 2nd, 3rd' to illustrate the difference.",
+          "estimated_duration_seconds": 35
+        },
+        {
+          "segment_id": 9,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Expressing 'All' or 'Both' with 都 (dōu)",
+          "teaching_goal": "To teach the use of the adverb 都 (dōu) to indicate that a verb applies to all preceding subjects.",
+          "narration": {
+            "subtitle_en": "Our final grammar point is the adverb [zh:都], which means 'both' or 'all'. It's used to show that what you're saying applies to everyone or everything you just mentioned. A crucial rule is that [zh:都] must come *after* the subjects and *before* the verb. In the dialogue, Bai Ying'ai says [zh:哥哥、妹妹都是大学生], meaning her older brother and younger sisters 'are all' college students. Notice how [zh:都] comes after 'brother and sisters' and before the verb 'are', [zh:是]. When negating with [zh:都], the position of the negative word is important. [zh:不都] means 'not all', which is a partial negation. But [zh:都不] means 'none of them', which is a complete negation. For example, [zh:他们不都是中国人] means 'Not all of them are Chinese,' while [zh:他们都不是中国人] means 'None of them are Chinese.'"
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "哥哥、妹妹都 是 大学生。",
+            "focus_pinyin": "gēge, mèimei dōu shì dàxuéshēng.",
+            "focus_gloss_en": "My older brother and younger sisters are all college students.",
+            "notes": "都 (dōu) comes after the subject(s) and before the verb."
+          },
+          "highlight_words": [
+            {
+              "word": "都",
+              "pinyin": "dōu",
+              "translation": "both; all",
+              "explanation_en": "An adverb that indicates inclusiveness, placed before the verb.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "[Subject 1] 和 [Subject 2] 都 + [Verb]",
+              "pattern_pinyin": "hé dōu",
+              "explanation_en": "都 (dōu) appears after the subjects and before the verb to indicate 'all' or 'both'."
+            },
+            {
+              "pattern": "他们不都是中国人。",
+              "pattern_pinyin": "Tāmen bù dōu shì Zhōngguó rén.",
+              "explanation_en": "Partial negation: 'Not all of them are Chinese.'"
+            },
+            {
+              "pattern": "他们都不是中国人。",
+              "pattern_pinyin": "Tāmen dōu bú shì Zhōngguó rén.",
+              "explanation_en": "Complete negation: 'None of them are Chinese.'"
+            }
+          ],
+          "visual_notes": "Visually break down the sentence '哥哥、妹妹 | 都 | 是 | 大学生' to show the position of 都. Use checkmarks and crosses to illustrate the difference between '不都' and '都不'.",
+          "estimated_duration_seconds": 38
+        },
+        {
+          "segment_id": 10,
+          "segment_type": "recap",
+          "source_line_refs": [],
+          "segment_title": "Lesson Recap",
+          "teaching_goal": "To review the key sentence patterns and vocabulary for discussing families and occupations.",
+          "narration": {
+            "subtitle_en": "Great job! Let's quickly review what we've learned. We focused on how to talk about family and jobs. You learned the key question [zh:你家有几口人] and how to answer it. We also covered essential grammar, including using [zh:有] for existence, the difference between [zh:二] and [zh:两], and how to use the adverb [zh:都] to mean 'all'. Keep practicing these useful patterns!"
+          },
+          "on_screen_text": {
+            "main_title": "讨论家庭",
+            "focus_text": "Key Phrases Review",
+            "focus_pinyin": "",
+            "focus_gloss_en": "",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "你家有几口人？",
+              "pinyin": "Nǐ jiā yǒu jǐ kǒu rén?",
+              "translation": "How many people are in your family?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我家有...口人。",
+              "pinyin": "Wǒ jiā yǒu ... kǒu rén.",
+              "translation": "My family has ... people.",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "做什么工作？",
+              "pinyin": "zuò shénme gōngzuò?",
+              "translation": "What kind of work do (you) do?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "都",
+              "pinyin": "dōu",
+              "translation": "all; both",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "两",
+              "pinyin": "liǎng",
+              "translation": "two (used with measure words)",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "工作",
+              "pinyin": "gōngzuò",
+              "translation": "job; to work",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Display the key phrases as a list of flashcards, each flipping to reveal the pinyin and English translation.",
+          "estimated_duration_seconds": 20
+        }
+      ]
+    },
+    "production_notes": {
+      "recommended_workflow": [
+        "generate dramatization visuals",
+        "generate explanation visuals",
+        "generate voice-over",
+        "compose subtitles"
+      ],
+      "remarks": "This schema is model-agnostic and designed for script planning plus downstream rendering."
+    }
+  },
+  "video_render_plan": {
+    "explanation": {
+      "lesson_id": 202,
+      "course_id": 1,
+      "lesson_title": "讨论家庭",
+      "target_audience": "Englische Muttersprachler, die Chinesisch lernen",
+      "video_style": {
+        "presenter_mode": "voice_over",
+        "teaching_style": "A clear, structured, and encouraging guide for beginners, breaking down dialogue into manageable parts with a focus on practical usage and core concepts.",
+        "visual_style": "Clean, modern, and card-based, using animations to highlight characters, words, and sentence structures.",
+        "aspect_ratio": "16:9",
+        "safe_area": "title_safe"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_order": 1,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "Nach der Familiengröße fragen",
+          "teaching_goal": "Lernen, wie man nach der Familiengröße fragt.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Beginnen wir mit der ersten Zeile. Li You stellt Bai Ying'ai eine Frage zu ihrer Familie. Der Satz lautet: „[zh:你家有几口人]“. Lassen Sie uns das aufschlüsseln. [zh:你家] bedeutet „deine Familie“. [zh:有] bedeutet „haben“ oder „es gibt“. [zh:几] ist ein Fragewort, das „wie viele“ bedeutet. Es wird typischerweise für Zahlen unter zehn verwendet. Schließlich ist [zh:口人] eine spezielle Art, Familienmitglieder zu zählen. Die ganze Frage bedeutet also: „Wie viele Personen gehören zu deiner Familie?“"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "讨论家庭",
+                "focus_text": "白英爱,你家有几口人?",
+                "focus_pinyin": "Bái Yīng'ài, nǐ jiā yǒu jǐ kǒu rén?",
+                "focus_gloss_en": "Bai Ying'ai, wie viele Personen seid ihr in deiner Familie?"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "家",
+                    "pinyin": "jiā",
+                    "translation": "Familie, Zuhause",
+                    "explanation_en": "Bezieht sich auf die eigene Familie oder das Zuhause. Hier bedeutet es Familie.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "有",
+                    "pinyin": "yǒu",
+                    "translation": "haben, es gibt",
+                    "explanation_en": "Zeigt Besitz oder Existenz an.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "几",
+                    "pinyin": "jǐ",
+                    "translation": "wie viele",
+                    "explanation_en": "Ein Fragewort, das verwendet wird, um nach einer kleinen Anzahl von Dingen zu fragen.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "家",
+              "pinyin": "jiā",
+              "translation": "Familie, Zuhause",
+              "explanation_en": "Bezieht sich auf die eigene Familie oder das Zuhause. Hier bedeutet es Familie.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "有",
+              "pinyin": "yǒu",
+              "translation": "haben, es gibt",
+              "explanation_en": "Zeigt Besitz oder Existenz an.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "几",
+              "pinyin": "jǐ",
+              "translation": "wie viele",
+              "explanation_en": "Ein Fragewort, das verwendet wird, um nach einer kleinen Anzahl von Dingen zu fragen.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "口",
+              "pinyin": "kǒu",
+              "translation": "Zählwort für Familienmitglieder",
+              "explanation_en": "Ein idiomatisches Zählwort, um Personen in einer Familie zu zählen.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Die Zeichen für '你家', '有', '几' und '口人' nacheinander animieren, während sie erklärt werden.",
+          "start_time_seconds": 0.0,
+          "duration_seconds": 34.508,
+          "end_time_seconds": 22.0
+        },
+        {
+          "segment_id": 2,
+          "segment_order": 2,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Angaben zur Familiengröße machen",
+          "teaching_goal": "Lernen, wie man die Anzahl der Familienmitglieder angibt und diese aufzählt.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Bai Ying'ai antwortet mit „[zh:我家有六口人]“. Das folgt der gleichen Struktur. Es bedeutet: „Meine Familie hat sechs Personen.“ Dann zählt sie die Familienmitglieder auf. Zuerst [zh:我爸爸], das ist „mein Vater“. Dann [zh:我妈妈], „meine Mutter“. Weiter geht es mit [zh:一个哥哥], „einem älteren Bruder“. Und [zh:两个妹妹], „zwei jüngeren Schwestern“. Schließlich [zh:和我], „und ich“. Beachten Sie die Verwendung von [zh:和], um das letzte Element in der Aufzählung zu verbinden. Schließlich stellt sie Li You die gleiche Frage zurück: „[zh:你家有几口人]“?"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.0,
+              "duration_seconds": 11.0,
+              "content": {
+                "main_title": "讨论家庭",
+                "focus_text": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。李友,你家有几口人?",
+                "focus_pinyin": "Wǒ jiā yǒu liù kǒu rén, wǒ bàba, wǒ māma, yí ge gēge, liǎng ge mèimei hé wǒ. Lǐ Yǒu, nǐ jiā yǒu jǐ kǒu rén?",
+                "focus_gloss_en": "Meine Familie besteht aus sechs Personen: meinem Papa, meiner Mama, einem älteren Bruder, zwei jüngeren Schwestern und mir. Li You, wie viele Personen sind in deiner Familie?"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 14.0,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "爸爸",
+                    "pinyin": "bàba",
+                    "translation": "Papa",
+                    "explanation_en": "Das Wort für Vater.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "妈妈",
+                    "pinyin": "māma",
+                    "translation": "Mama",
+                    "explanation_en": "Das Wort für Mutter.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "哥哥",
+                    "pinyin": "gēge",
+                    "translation": "älterer Bruder",
+                    "explanation_en": "Wird verwendet, um einen älteren männlichen Geschwisterteil zu bezeichnen.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "爸爸",
+              "pinyin": "bàba",
+              "translation": "Papa",
+              "explanation_en": "Das Wort für Vater.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "妈妈",
+              "pinyin": "māma",
+              "translation": "Mama",
+              "explanation_en": "Das Wort für Mutter.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "哥哥",
+              "pinyin": "gēge",
+              "translation": "älterer Bruder",
+              "explanation_en": "Wird verwendet, um einen älteren männlichen Geschwisterteil zu bezeichnen.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "妹妹",
+              "pinyin": "mèimei",
+              "translation": "jüngere Schwester",
+              "explanation_en": "Wird verwendet, um einen jüngeren weiblichen Geschwisterteil zu bezeichnen.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "和",
+              "pinyin": "hé",
+              "translation": "und",
+              "explanation_en": "Eine Konjunktion, die verwendet wird, um Nomen zu verbinden, nicht Sätze.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Zeigen Sie Symbole für jedes Familienmitglied an, während es erwähnt wird. Heben Sie das Wort '和' hervor, wenn seine Funktion erklärt wird.",
+          "start_time_seconds": 34.508,
+          "duration_seconds": 29.3,
+          "end_time_seconds": 47.0
+        },
+        {
+          "segment_id": 3,
+          "segment_order": 3,
+          "segment_type": "usage_focus",
+          "template_name": "usage_note",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Verwendung von 两 (liǎng) für 'zwei'",
+          "teaching_goal": "Verstehen, wann man 两 (liǎng) anstelle von 二 (èr) für die Zahl zwei verwendet.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Im letzten Satz haben Sie „[zh:两个妹妹]“ gehört. Das bedeutet „zwei jüngere Schwestern“. Warum verwenden wir hier [zh:两] anstelle von [zh:二]? Die Regel ist einfach: Wenn Sie eine Menge von zwei vor einem Zählwort ausdrücken, wie hier bei [zh:个], müssen Sie [zh:两] verwenden. [zh:二] verwenden Sie, wenn Sie nur Zahlen zählen, zum Beispiel „eins, zwei, drei“, oder für Ordnungszahlen. Es heißt also immer „[zh:两个人]“, das bedeutet „zwei Personen“, und nicht „二个人“."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "usage_context",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 24.0,
+              "duration_seconds": 24.0,
+              "content": {
+                "focus_text": "两个妹妹",
+                "focus_pinyin": "liǎng ge mèimei",
+                "focus_gloss_en": "zwei jüngere Schwestern",
+                "notes": "Verwenden Sie 两 [zh:liǎng] vor einem Zählwort, um „zwei von etwas“ zu sagen."
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "两",
+              "pinyin": "liǎng",
+              "translation": "zwei (wird mit Zählwörtern verwendet)",
+              "explanation_en": "Wird verwendet, um eine Menge von zwei vor einem Zählwort auszudrücken.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "二",
+              "pinyin": "èr",
+              "translation": "zwei (Zahlwort)",
+              "explanation_en": "Wird beim Zählen oder für Ordnungszahlen verwendet.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Zeigen Sie einen visuellen Vergleich: '两 + Zählwort' mit einem grünen Haken und '二 + Zählwort' mit einem roten X.",
+          "start_time_seconds": 63.808,
+          "duration_seconds": 30.86,
+          "end_time_seconds": 71.0
+        },
+        {
+          "segment_id": 4,
+          "segment_order": 4,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Nach Berufen fragen",
+          "teaching_goal": "Lernen, wie man Familienmitglieder mit Ordnungszahlen aufzählt und nach Berufen fragt.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Nun ist Li You an der Reihe. Sie sagt: „[zh:我家有五口人]“, was bedeutet: „Meine Familie hat fünf Personen.“ Sie zählt sie auf: [zh:爸爸、妈妈、大姐、二姐和我]. Hier sehen wir neue Wörter. [zh:大姐] bedeutet „älteste Schwester“. Und [zh:二姐] bedeutet „zweitälteste Schwester“. Dann stellt sie eine neue Frage: [zh:你爸爸妈妈做什么工作]. [zh:做] bedeutet „machen“. [zh:什么] bedeutet „was“. Und [zh:工作] bedeutet „Arbeit“ oder „Beruf“. Sie fragt also: „Was machen deine Eltern beruflich?“"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.44,
+              "duration_seconds": 11.44,
+              "content": {
+                "main_title": "讨论家庭",
+                "focus_text": "我家有五口人:爸爸、妈妈、大姐、二姐和我。你爸爸妈妈做什么工作?",
+                "focus_pinyin": "Wǒ jiā yǒu wǔ kǒu rén: bàba, māma, dàjiě, èrjiě hé wǒ. Nǐ bàba māma zuò shénme gōngzuò?",
+                "focus_gloss_en": "In meiner Familie sind fünf Personen: Papa, Mama, meine älteste Schwester, meine zweitälteste Schwester und ich. Was machen dein Papa und deine Mama beruflich?"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.44,
+              "end_time_seconds": 26.0,
+              "duration_seconds": 14.56,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "大姐",
+                    "pinyin": "dàjiě",
+                    "translation": "älteste Schwester",
+                    "explanation_en": "Bezieht sich auf die älteste Schwester.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "二姐",
+                    "pinyin": "èrjiě",
+                    "translation": "zweitälteste Schwester",
+                    "explanation_en": "Bezieht sich auf die zweitälteste Schwester. Beachten Sie die Verwendung von 'èr' [zh:èr] für Ordnungszahlen.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "做",
+                    "pinyin": "zuò",
+                    "translation": "machen",
+                    "explanation_en": "Ein Verb, das „machen“, „tun“ oder „sein“ bedeuten kann.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "大姐",
+              "pinyin": "dàjiě",
+              "translation": "älteste Schwester",
+              "explanation_en": "Bezieht sich auf die älteste Schwester.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "二姐",
+              "pinyin": "èrjiě",
+              "translation": "zweitälteste Schwester",
+              "explanation_en": "Bezieht sich auf die zweitälteste Schwester. Beachten Sie die Verwendung von 'èr' [zh:èr] für Ordnungszahlen.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "做",
+              "pinyin": "zuò",
+              "translation": "machen",
+              "explanation_en": "Ein Verb, das „machen“, „tun“ oder „sein“ bedeuten kann.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "工作",
+              "pinyin": "gōngzuò",
+              "translation": "Beruf; arbeiten",
+              "explanation_en": "Kann als Substantiv für „Beruf“ oder als Verb für „arbeiten“ verwendet werden.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Heben Sie '大' und '二' in '大姐' und '二姐' hervor, um die Rangfolge zu verdeutlichen. Animieren Sie für den zweiten Satz die Wörter '做', '什么', '工作', um die Frage zu bilden.",
+          "start_time_seconds": 94.668,
+          "duration_seconds": 37.34,
+          "end_time_seconds": 97.0
+        },
+        {
+          "segment_id": 5,
+          "segment_order": 5,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Über Berufe sprechen",
+          "teaching_goal": "Lernen, Vokabeln für verschiedene Berufe und wie man das Adverb 都 [zh:dōu] verwendet.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Bai Ying'ai beschreibt die Berufe ihrer Familie. Sie sagt: „[zh:我爸爸是律师]“, also „Mein Vater ist Anwalt“. Und „[zh:妈妈是英文老师]“, also „Meine Mutter ist Englischlehrerin“. Dann spricht sie über ihre Geschwister: [zh:哥哥、妹妹都是大学生]. Das Schlüsselwort hier ist [zh:都]. Es bedeutet „alle“ oder „beide“. Es steht vor dem Verb [zh:是]. Das sagt uns, dass sowohl ihr älterer Bruder als auch ihre jüngeren Schwestern alle Studenten sind, [zh:大学生]."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.56,
+              "duration_seconds": 10.56,
+              "content": {
+                "main_title": "讨论家庭",
+                "focus_text": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+                "focus_pinyin": "Wǒ bàba shì lǜshī, māma shì Yīngwén lǎoshī, gēge, mèimei dōu shì dàxuéshēng.",
+                "focus_gloss_en": "Mein Vater ist Anwalt, und meine Mutter ist Englischlehrerin. Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.56,
+              "end_time_seconds": 24.0,
+              "duration_seconds": 13.44,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "律师",
+                    "pinyin": "lǜshī",
+                    "translation": "Anwalt",
+                    "explanation_en": "Der Beruf eines Anwalts.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "老师",
+                    "pinyin": "lǎoshī",
+                    "translation": "Lehrer",
+                    "explanation_en": "Der Beruf eines Lehrers.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "大学生",
+                    "pinyin": "dàxuéshēng",
+                    "translation": "Student",
+                    "explanation_en": "Ein Student, der eine Universität oder Hochschule besucht.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "律师",
+              "pinyin": "lǜshī",
+              "translation": "Anwalt",
+              "explanation_en": "Der Beruf eines Anwalts.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "老师",
+              "pinyin": "lǎoshī",
+              "translation": "Lehrer",
+              "explanation_en": "Der Beruf eines Lehrers.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "大学生",
+              "pinyin": "dàxuéshēng",
+              "translation": "Student",
+              "explanation_en": "Ein Student an einer Universität oder Hochschule.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "都",
+              "pinyin": "dōu",
+              "translation": "beide, alle",
+              "explanation_en": "Ein Adverb, das anzeigt, dass das Gesagte für alle vorhergehenden Subjekte gilt.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Zeigen Sie Symbole für Anwalt, Lehrer und Student. Wenn 都 [zh:dōu] erwähnt wird, gruppieren Sie den Bruder und die Schwestern visuell zusammen, um das Konzept von „alle“ zu veranschaulichen.",
+          "start_time_seconds": 132.008,
+          "duration_seconds": 30.068,
+          "end_time_seconds": 121.0
+        },
+        {
+          "segment_id": 6,
+          "segment_order": 6,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Auch Lehrer",
+          "teaching_goal": "Lernen Sie, wie man das Adverb 也 (yě) verwendet, um 'auch' zu bedeuten.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Im letzten Satz erzählt Li You, was ihre Eltern beruflich machen. Sie sagt: [zh:我妈妈也是老师]. Das wichtige Wort hier ist [zh:也]. Es bedeutet „auch“. Es steht vor dem Verb, genau wie [zh:都]. Da Bai Ying'ais Mutter Lehrerin ist, verwendet Li You [zh:也], um zu sagen, dass ihre Mutter auch Lehrerin ist. Dann fügt sie hinzu: „[zh:我爸爸是医生]“, also „Mein Vater ist Arzt“. Dies stellt unseren letzten neuen Beruf vor: [zh:医生]."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.12,
+              "duration_seconds": 10.12,
+              "content": {
+                "main_title": "讨论家庭",
+                "focus_text": "我妈妈也是老师,我爸爸是医生。",
+                "focus_pinyin": "Wǒ māma yě shì lǎoshī, wǒ bàba shì yīshēng.",
+                "focus_gloss_en": "Meine Mutter ist auch Lehrerin, und mein Vater ist Arzt."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.12,
+              "end_time_seconds": 23.0,
+              "duration_seconds": 12.88,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "也",
+                    "pinyin": "yě",
+                    "translation": "auch",
+                    "explanation_en": "Ein Adverb, das Ähnlichkeit oder Inklusion anzeigt und vor dem Verb platziert wird.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "医生",
+                    "pinyin": "yīshēng",
+                    "translation": "Arzt",
+                    "explanation_en": "Der Beruf eines Arztes.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "也",
+              "pinyin": "yě",
+              "translation": "auch",
+              "explanation_en": "Ein Adverb, das Ähnlichkeit oder Inklusion anzeigt und vor dem Verb platziert wird.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "医生",
+              "pinyin": "yīshēng",
+              "translation": "Arzt",
+              "explanation_en": "Der Beruf eines Arztes.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Heben Sie das Wort '也' hervor und zeigen Sie eine visuelle Verbindung zu Bai Ying'ais Mutter, die Lehrerin ist, um die 'auch'-Verbindung zu betonen. Zeigen Sie dann ein Symbol für einen Arzt an.",
+          "start_time_seconds": 162.076,
+          "duration_seconds": 32.42,
+          "end_time_seconds": 144.0
+        },
+        {
+          "segment_id": 7,
+          "segment_order": 7,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            1,
+            2,
+            3
+          ],
+          "segment_title": "有 (yǒu) für Existenz",
+          "teaching_goal": "Den Schülern beibringen, wie man das Verb 有 (yǒu) verwendet, um über Besitz und Existenz zu sprechen, insbesondere bei Familienmitgliedern.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Beginnen wir mit unserem ersten Grammatikpunkt: dem Verb [zh:有]. Im Chinesischen wird [zh:有] verwendet, um Existenz auszudrücken. Es ist vergleichbar mit „haben“ oder „es gibt“ im Deutschen. In unserem Dialog hörten Sie die Frage [zh:你家有几口人]. Das bedeutet „Wie viele Personen gibt es in Ihrer Familie?“ Die Antwort war [zh:我家有六口人]. Das heißt „Es gibt sechs Personen in meiner Familie.“ Die Grundstruktur ist „Subjekt + [zh:有] + Objekt“. Dies ist ein sehr gebräuchliches und nützliches Muster. Damit sprechen Sie darüber, was Sie besitzen, zum Beispiel Familienmitglieder, Haustiere oder Gegenstände. Zum Beispiel können Sie sagen: [zh:小高家有两个大学生]. Das bedeutet „In Klein Gaos Familie gibt es zwei Studenten.“"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 12.6,
+              "duration_seconds": 12.6,
+              "content": {
+                "main_title": "讨论家庭",
+                "focus_text": "Q: 你家有几口人？ A: 我家有六口人。",
+                "focus_pinyin": "Nǐ jiā yǒu jǐ kǒu rén? Wǒ jiā yǒu liù kǒu rén.",
+                "focus_gloss_en": "F: Wie viele Personen sind in Ihrer Familie? A: In meiner Familie sind sechs Personen."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 12.6,
+              "end_time_seconds": 30.0,
+              "duration_seconds": 17.4,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "我家有五口人。",
+                    "pattern_pinyin": "Wǒ jiā yǒu wǔ kǒu rén.",
+                    "explanation_en": "Verwenden Sie '家 (jiā) + 有 (yǒu) + [Anzahl] + 口 (kǒu) + 人 (rén)', um die Anzahl der Personen in Ihrer Familie anzugeben."
+                  },
+                  {
+                    "pattern": "小高家有两个大学生。",
+                    "pattern_pinyin": "Xiǎo Gāo jiā yǒu liǎng ge dàxuéshēng.",
+                    "explanation_en": "Das Verb 有 (yǒu) kann auch verwendet werden, um die Existenz von etwas innerhalb einer Gruppe oder an einem Ort auszudrücken."
+                  }
+                ],
+                "notes": "Das Verb 有 (yǒu) zeigt Existenz oder Besitz an."
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "有",
+              "pinyin": "yǒu",
+              "translation": "haben, es gibt",
+              "explanation_en": "Ein Verb, das Besitz oder die Existenz von etwas anzeigt.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "我家有五口人。",
+              "pattern_pinyin": "Wǒ jiā yǒu wǔ kǒu rén.",
+              "explanation_en": "Verwenden Sie „家 (jiā) + 有 (yǒu) + [Number] + 口 (kǒu) + 人 (rén)“, um die Anzahl der Personen in Ihrer Familie anzugeben."
+            },
+            {
+              "pattern": "小高家有两个大学生。",
+              "pattern_pinyin": "Xiǎo Gāo jiā yǒu liǎng ge dàxuéshēng.",
+              "explanation_en": "Das Verb 有 (yǒu) kann auch verwendet werden, um die Existenz von etwas innerhalb einer Gruppe oder an einem Ort auszudrücken."
+            }
+          ],
+          "visual_notes": "Animieren Sie die Satzstruktur 'Subjekt + 有 + Objekt', die auf dem Bildschirm erscheint. Heben Sie das Wort '有' hervor, wenn es erwähnt wird.",
+          "start_time_seconds": 194.496,
+          "duration_seconds": 46.436,
+          "end_time_seconds": 174.0
+        },
+        {
+          "segment_id": 8,
+          "segment_order": 8,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            2,
+            3
+          ],
+          "segment_title": "Die zwei „Zwei“: 二 (èr) vs. 两 (liǎng)",
+          "teaching_goal": "Um den Unterschied zwischen 二 (èr) und 两 (liǎng) zu verdeutlichen, die beide „zwei“ bedeuten.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Als Nächstes sprechen wir über die Zahl Zwei. Im Chinesischen gibt es zwei Wörter für „zwei“: [zh:二] und [zh:两]. Sie sind nicht austauschbar. Die wichtigste Regel ist: Verwenden Sie [zh:两] vor einem Zählwort, um eine Menge auszudrücken. Zum Beispiel sagt Bai Ying'ai im Dialog, sie habe [zh:两个妹妹]. Das bedeutet „zwei jüngere Schwestern“. Hier ist [zh:个] das Zählwort. Im Gegensatz dazu wird [zh:二] zum Zählen verwendet. Zum Beispiel „eins, zwei, drei“ oder [zh:一, 二, 三]. Es wird auch für Ordnungszahlen verwendet, wie bei [zh:二姐]. Das bedeutet „zweite älteste Schwester“. Bei größeren Zahlen wird [zh:二] an der Zehner- und Einerstelle verwendet. Zum Beispiel bei zweiundzwanzig, [zh:二十二]. Merken Sie sich also: Für Mengen mit einem Zählwort verwenden Sie [zh:两]. Zum Zählen und für Ordnungszahlen verwenden Sie [zh:二]."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 14.7,
+              "duration_seconds": 14.7,
+              "content": {
+                "main_title": "讨论家庭",
+                "focus_text": "两 + [Measure Word]: 两个妹妹 / 二 for Ordinals: 二姐",
+                "focus_pinyin": "liǎng + [Measure Word]: liǎng ge mèimei / èr for Ordinals: èrjiě",
+                "focus_gloss_en": "两 (liǎng) + [Zählwort]: zwei jüngere Schwestern / 二 (èr) für Ordnungszahlen: zweitälteste Schwester"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 14.7,
+              "end_time_seconds": 35.0,
+              "duration_seconds": 20.3,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "Use 两 (liǎng) before a measure word: 两个妹妹",
+                    "pattern_pinyin": "liǎng ge mèimei",
+                    "explanation_en": "Um eine Menge von zwei für ein Nomen auszudrücken, verwenden Sie 两 (liǎng), gefolgt vom passenden Zählwort."
+                  },
+                  {
+                    "pattern": "Use 二 (èr) for ordinal numbers: 二姐",
+                    "pattern_pinyin": "èrjiě",
+                    "explanation_en": "Um eine Reihenfolge anzugeben, wie „zweite“, verwenden Sie 二 (èr)."
+                  },
+                  {
+                    "pattern": "Use 二 (èr) when counting: 一, 二, 三",
+                    "pattern_pinyin": "yī, èr, sān",
+                    "explanation_en": "Wenn Sie einfach Zahlen in einer Reihenfolge zählen, verwenden Sie 二 (èr)."
+                  }
+                ],
+                "notes": "两 (liǎng) ist für Mengen; 二 (èr) ist zum Zählen und für die Reihenfolge."
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "两",
+              "pinyin": "liǎng",
+              "translation": "zwei (mit Zählwort)",
+              "explanation_en": "Wird verwendet, um eine Menge von zwei vor einem Zählwort auszudrücken.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "二",
+              "pinyin": "èr",
+              "translation": "zwei (zum Zählen, Ordnungszahlen)",
+              "explanation_en": "Wird verwendet, wenn Zahlen in einer Reihenfolge gezählt werden oder für Ordnungszahlen.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "Use 两 (liǎng) before a measure word: 两个妹妹",
+              "pattern_pinyin": "liǎng ge mèimei",
+              "explanation_en": "Um eine Menge von zwei für ein Nomen auszudrücken, verwenden Sie 两 (liǎng), gefolgt vom passenden Zählwort."
+            },
+            {
+              "pattern": "Use 二 (èr) for ordinal numbers: 二姐",
+              "pattern_pinyin": "èrjiě",
+              "explanation_en": "Um eine Reihenfolge anzugeben, wie „zweite“, verwenden Sie 二 (èr)."
+            },
+            {
+              "pattern": "Use 二 (èr) when counting: 一, 二, 三",
+              "pattern_pinyin": "yī, èr, sān",
+              "explanation_en": "Wenn Sie einfach Zahlen in einer Reihenfolge zählen, verwenden Sie 二 (èr)."
+            }
+          ],
+          "visual_notes": "Zeigen Sie einen geteilten Bildschirm. Auf der einen Seite „两 + 个“ mit Bildern von zwei Personen anzeigen. Auf der anderen Seite „一, 二, 三“ und eine Liste mit „1., 2., 3.“ zeigen, um den Unterschied zu veranschaulichen.",
+          "start_time_seconds": 240.932,
+          "duration_seconds": 55.604,
+          "end_time_seconds": 209.0
+        },
+        {
+          "segment_id": 9,
+          "segment_order": 9,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "„Alle“ oder „beide“ mit 都 (dōu) ausdrücken",
+          "teaching_goal": "Um die Verwendung des Adverbs 都 (dōu) zu lehren, das anzeigt, dass ein Verb für alle vorhergehenden Subjekte gilt.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Unser letzter Grammatikpunkt ist das Adverb [zh:都]. Es bedeutet „beide“ oder „alle“. Es wird verwendet, um zu zeigen, dass sich Ihre Aussage auf alle oder alles bezieht, was Sie gerade erwähnt haben. Eine wichtige Regel ist, dass [zh:都] *nach* den Subjekten und *vor* dem Verb stehen muss. Im Dialog sagt Bai Ying'ai: [zh:哥哥、妹妹都是大学生]. Das bedeutet, ihr älterer Bruder und ihre jüngeren Schwestern sind „alle“ Studenten. Beachten Sie, wie [zh:都] nach „Bruder und Schwestern“ und vor dem Verb „sind“, [zh:是], steht. Bei der Verneinung mit [zh:都] ist die Position des Verneinungswortes wichtig. [zh:不都] bedeutet „nicht alle“. Das ist eine teilweise Verneinung. Aber [zh:都不] bedeutet „keiner von ihnen“. Das ist eine vollständige Verneinung. Zum Beispiel bedeutet [zh:他们不都是中国人]: „Nicht alle von ihnen sind Chinesen“. Während [zh:他们都不是中国人] bedeutet: „Keiner von ihnen ist Chinese“."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 15.96,
+              "duration_seconds": 15.96,
+              "content": {
+                "main_title": "讨论家庭",
+                "focus_text": "哥哥、妹妹都 是 大学生。",
+                "focus_pinyin": "gēge, mèimei dōu shì dàxuéshēng.",
+                "focus_gloss_en": "Mein älterer Bruder und meine jüngeren Schwestern sind alle Studenten."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 15.96,
+              "end_time_seconds": 38.0,
+              "duration_seconds": 22.04,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "[Subject 1] 和 [Subject 2] 都 + [Verb]",
+                    "pattern_pinyin": "hé dōu",
+                    "explanation_en": "都 (dōu) steht nach den Subjekten und vor dem Verb, um „alle“ oder „beide“ anzuzeigen."
+                  },
+                  {
+                    "pattern": "他们不都是中国人。",
+                    "pattern_pinyin": "Tāmen bù dōu shì Zhōngguó rén.",
+                    "explanation_en": "Teilweise Verneinung: „Nicht alle von ihnen sind Chinesen.“"
+                  },
+                  {
+                    "pattern": "他们都不是中国人。",
+                    "pattern_pinyin": "Tāmen dōu bú shì Zhōngguó rén.",
+                    "explanation_en": "Vollständige Verneinung: „Keiner von ihnen ist Chinese.“"
+                  }
+                ],
+                "notes": "都 (dōu) steht nach dem/den Subjekt(en) und vor dem Verb."
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "都",
+              "pinyin": "dōu",
+              "translation": "beide; alle",
+              "explanation_en": "Ein Adverb, das Inklusivität anzeigt und vor dem Verb platziert wird.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "[Subject 1] 和 [Subject 2] 都 + [Verb]",
+              "pattern_pinyin": "hé dōu",
+              "explanation_en": "都 (dōu) steht nach den Subjekten und vor dem Verb, um „alle“ oder „beide“ anzuzeigen."
+            },
+            {
+              "pattern": "他们不都是中国人。",
+              "pattern_pinyin": "Tāmen bù dōu shì Zhōngguó rén.",
+              "explanation_en": "Teilweise Verneinung: „Nicht alle von ihnen sind Chinesen.“"
+            },
+            {
+              "pattern": "他们都不是中国人。",
+              "pattern_pinyin": "Tāmen dōu bú shì Zhōngguó rén.",
+              "explanation_en": "Vollständige Verneinung: Keiner von ihnen ist Chinese."
+            }
+          ],
+          "visual_notes": "Zerlegen Sie den Satz „哥哥、妹妹 | 都 | 是 | 大学生“ visuell, um die Position von 都 zu zeigen. Verwenden Sie Häkchen und Kreuze, um den Unterschied zwischen „不都“ und „都不“ zu veranschaulichen.",
+          "start_time_seconds": 296.536,
+          "duration_seconds": 59.156,
+          "end_time_seconds": 247.0
+        },
+        {
+          "segment_id": 10,
+          "segment_order": 10,
+          "segment_type": "recap",
+          "template_name": "lesson_recap",
+          "source_line_refs": [],
+          "segment_title": "Lektionsrückblick",
+          "teaching_goal": "Wiederholung der wichtigsten Satzmuster und des Wortschatzes zum Thema Familie und Beruf.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Super gemacht! Fassen wir kurz zusammen, was wir gelernt haben. Wir haben uns darauf konzentriert, wie man über Familie und Berufe spricht. Du hast die Schlüsselfrage [zh:你家有几口人] gelernt und wie man sie beantwortet. Wir haben auch wichtige Grammatik behandelt. Dazu gehört die Verwendung von [zh:有] für die Existenz, der Unterschied zwischen [zh:二] und [zh:两] und wie man das Adverb [zh:都] benutzt, um „alle“ auszudrücken. Übe diese nützlichen Muster weiter!"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "recap_summary",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 20.0,
+              "duration_seconds": 20.0,
+              "content": {
+                "main_title": "讨论家庭",
+                "focus_text": "Key Phrases Review",
+                "highlight_words": [
+                  {
+                    "word": "你家有几口人？",
+                    "pinyin": "Nǐ jiā yǒu jǐ kǒu rén?",
+                    "translation": "Wie viele Personen hat Ihre Familie?",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "我家有...口人。",
+                    "pinyin": "Wǒ jiā yǒu ... kǒu rén.",
+                    "translation": "Meine Familie hat ... Personen.",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "做什么工作？",
+                    "pinyin": "zuò shénme gōngzuò?",
+                    "translation": "Was machen Sie beruflich?",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "都",
+                    "pinyin": "dōu",
+                    "translation": "alle; beide",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "两",
+                    "pinyin": "liǎng",
+                    "translation": "zwei (in Verbindung mit Zähleinheitswörtern)",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "工作",
+                    "pinyin": "gōngzuò",
+                    "translation": "Arbeit; arbeiten",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  }
+                ],
+                "grammar_points": [],
+                "notes": ""
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "你家有几口人？",
+              "pinyin": "Nǐ jiā yǒu jǐ kǒu rén?",
+              "translation": "Wie viele Personen hat Ihre Familie?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我家有...口人。",
+              "pinyin": "Wǒ jiā yǒu ... kǒu rén.",
+              "translation": "Meine Familie hat ... Personen.",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "做什么工作？",
+              "pinyin": "zuò shénme gōngzuò?",
+              "translation": "Was machen Sie beruflich?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "都",
+              "pinyin": "dōu",
+              "translation": "alle; beide",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "两",
+              "pinyin": "liǎng",
+              "translation": "zwei (in Verbindung mit Zähleinheitswörtern)",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "工作",
+              "pinyin": "gōngzuò",
+              "translation": "Arbeit; arbeiten",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Die wichtigen Phrasen als Lernkarten anzeigen. Jede Karte zeigt beim Umdrehen das Pinyin und die deutsche Übersetzung.",
+          "start_time_seconds": 355.692,
+          "duration_seconds": 28.556,
+          "end_time_seconds": 267.0
+        }
+      ],
+      "timeline": {
+        "total_duration_seconds": 384.248,
+        "segment_count": 10
+      },
+      "renderer_notes": {
+        "recommended_renderer": "template_video",
+        "recommended_stack": [
+          "react_templates",
+          "motion_graphics",
+          "ffmpeg_or_remotion"
+        ],
+        "remarks": "This plan is intended for explanation-video composition, not direct AIGC generation."
+      }
+    }
+  },
+  "lesson_audio_assets": {
+    "lesson_id": 202,
+    "course_id": 1,
+    "lesson_title": "讨论家庭",
+    "provider": "tencent_tts",
+    "mode": "sentence_audio",
+    "default_voice_type": 501002,
+    "role_voice_map": {
+      "王朋": 601011,
+      "李友": 601009,
+      "高文中": 601008,
+      "高小音": 601013,
+      "白英爱": 601010,
+      "常老师": 601013,
+      "王红": 601010,
+      "海伦": 501004,
+      "费先生": 501005,
+      "王朋的父母": 501005,
+      "张天明": 601011,
+      "丽莎": 501004,
+      "柯林": 601008,
+      "林雪梅": 601010,
+      "李哲": 601011,
+      "李文": 601013,
+      "马克": 501005,
+      "张天明的老表": 601008,
+      "林雪梅的父母": 501005
+    },
+    "codec": "mp3",
+    "sample_rate": 16000,
+    "include_speakers": false,
+    "storage_backend": "local",
+    "sentence_gap_ms": 300,
+    "full_audio": {
+      "status": "ready",
+      "audio_url": "",
+      "object_key": "zh/audio/lesson202/full/lesson202_full_dialogue.mp3",
+      "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson202\\lesson202_full_dialogue.mp3",
+      "codec": "mp3",
+      "duration_seconds": 30.996
+    },
+    "items": [
+      {
+        "line_ref": 1,
+        "role": "李友",
+        "hanzi": "白英爱,你家有几口人?",
+        "source_text": "白英爱,你家有几口人?",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601009,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.448,
+        "start_time_seconds": 0.0,
+        "end_time_seconds": 2.448,
+        "status": "ready",
+        "session_id": "lesson-202-line-1",
+        "request_id": "274e6a10-a5f6-41e6-8fd6-e942126d2b1b",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson202/sentences/lesson202_line1.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson202\\lesson202_line1.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 2,
+        "role": "白英爱",
+        "hanzi": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。李友,你家有几口人?",
+        "source_text": "我家有六口人,我爸爸、我妈妈、一个哥哥、两个妹妹和我。李友,你家有几口人?",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601010,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 9.324,
+        "start_time_seconds": 2.748,
+        "end_time_seconds": 12.072,
+        "status": "ready",
+        "session_id": "lesson-202-line-2",
+        "request_id": "b56a81a5-6e3d-4f51-846c-f0dc9503e5d1",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson202/sentences/lesson202_line2.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson202\\lesson202_line2.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 3,
+        "role": "李友",
+        "hanzi": "我家有五口人:爸爸、妈妈、大姐、二姐和我。你爸爸妈妈做什么工作?",
+        "source_text": "我家有五口人:爸爸、妈妈、大姐、二姐和我。你爸爸妈妈做什么工作?",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601009,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 7.524,
+        "start_time_seconds": 12.372,
+        "end_time_seconds": 19.896,
+        "status": "ready",
+        "session_id": "lesson-202-line-3",
+        "request_id": "099be21a-465a-4a0a-8110-dd83b44b7572",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson202/sentences/lesson202_line3.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson202\\lesson202_line3.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 4,
+        "role": "白英爱",
+        "hanzi": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+        "source_text": "我爸爸是律师,妈妈是英文老师,哥哥、妹妹都是大学生。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601010,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 6.624,
+        "start_time_seconds": 20.196,
+        "end_time_seconds": 26.82,
+        "status": "ready",
+        "session_id": "lesson-202-line-4",
+        "request_id": "2212ff96-aebc-418b-94b2-f3fd3aaf2331",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson202/sentences/lesson202_line4.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson202\\lesson202_line4.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 5,
+        "role": "李友",
+        "hanzi": "我妈妈也是老师,我爸爸是医生。",
+        "source_text": "我妈妈也是老师,我爸爸是医生。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601009,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.528,
+        "start_time_seconds": 27.12,
+        "end_time_seconds": 30.648,
+        "status": "ready",
+        "session_id": "lesson-202-line-5",
+        "request_id": "cbeb67d1-44dc-4680-bda3-2631090934c1",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson202/sentences/lesson202_line5.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson202\\lesson202_line5.mp3",
+        "subtitles": []
+      }
+    ]
+  },
+  "llm_usage": {
+    "calls": 28,
+    "input_tokens": 78941,
+    "output_tokens": 29367,
+    "total_tokens": 175641,
+    "estimated_cost_usd": 0.392346,
+    "provider": "GeminiProvider",
+    "items": [
+      {
+        "input_tokens": 3785,
+        "output_tokens": 425,
+        "total_tokens": 6623,
+        "estimated_cost_usd": 0.00898125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 502,
+        "output_tokens": 2104,
+        "total_tokens": 5687,
+        "estimated_cost_usd": 0.0216675,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 404,
+        "output_tokens": 910,
+        "total_tokens": 3053,
+        "estimated_cost_usd": 0.009605,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3348,
+        "output_tokens": 121,
+        "total_tokens": 4603,
+        "estimated_cost_usd": 0.005395,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3434,
+        "output_tokens": 738,
+        "total_tokens": 5975,
+        "estimated_cost_usd": 0.0116725,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3586,
+        "output_tokens": 248,
+        "total_tokens": 4871,
+        "estimated_cost_usd": 0.0069625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3590,
+        "output_tokens": 804,
+        "total_tokens": 7885,
+        "estimated_cost_usd": 0.0125275,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3592,
+        "output_tokens": 707,
+        "total_tokens": 6596,
+        "estimated_cost_usd": 0.01156,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3477,
+        "output_tokens": 884,
+        "total_tokens": 6333,
+        "estimated_cost_usd": 0.01318625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 779,
+        "output_tokens": 152,
+        "total_tokens": 2314,
+        "estimated_cost_usd": 0.0024937500000000003,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 774,
+        "output_tokens": 318,
+        "total_tokens": 5741,
+        "estimated_cost_usd": 0.004147499999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 778,
+        "output_tokens": 297,
+        "total_tokens": 2748,
+        "estimated_cost_usd": 0.0039425,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 775,
+        "output_tokens": 218,
+        "total_tokens": 2759,
+        "estimated_cost_usd": 0.00314875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 776,
+        "output_tokens": 312,
+        "total_tokens": 2916,
+        "estimated_cost_usd": 0.00409,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 782,
+        "output_tokens": 178,
+        "total_tokens": 2666,
+        "estimated_cost_usd": 0.0027575,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3348,
+        "output_tokens": 969,
+        "total_tokens": 9424,
+        "estimated_cost_usd": 0.013875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1546,
+        "output_tokens": 1349,
+        "total_tokens": 4862,
+        "estimated_cost_usd": 0.015422499999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2384,
+        "output_tokens": 1666,
+        "total_tokens": 6137,
+        "estimated_cost_usd": 0.01964,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1825,
+        "output_tokens": 1457,
+        "total_tokens": 5695,
+        "estimated_cost_usd": 0.016851249999999998,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2020,
+        "output_tokens": 1568,
+        "total_tokens": 5459,
+        "estimated_cost_usd": 0.018205,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1137,
+        "output_tokens": 674,
+        "total_tokens": 3579,
+        "estimated_cost_usd": 0.00816125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1198,
+        "output_tokens": 827,
+        "total_tokens": 3969,
+        "estimated_cost_usd": 0.0097675,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 991,
+        "output_tokens": 1428,
+        "total_tokens": 4408,
+        "estimated_cost_usd": 0.015518750000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 939,
+        "output_tokens": 1112,
+        "total_tokens": 4937,
+        "estimated_cost_usd": 0.012293749999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1989,
+        "output_tokens": 1439,
+        "total_tokens": 7960,
+        "estimated_cost_usd": 0.01687625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2237,
+        "output_tokens": 1513,
+        "total_tokens": 6577,
+        "estimated_cost_usd": 0.01792625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 14464,
+        "output_tokens": 3873,
+        "total_tokens": 20278,
+        "estimated_cost_usd": 0.05681,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 14481,
+        "output_tokens": 3076,
+        "total_tokens": 21586,
+        "estimated_cost_usd": 0.04886125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      }
+    ]
+  },
+  "localization": {
+    "source_lang": "en",
+    "target_lang": "de",
+    "target_lang_name": "German",
+    "target_lang_native": "Deutsch"
+  }
+}

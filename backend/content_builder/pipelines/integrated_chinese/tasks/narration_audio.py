@@ -97,35 +97,105 @@ _ABBREV_RE = re.compile(
 )
 _PLACEHOLDER = '\x00'
 
+
+def _ensure_tts_terminal_punctuation(text: str) -> str:
+    text = text.strip()
+    if text and text[-1] not in '.!?,:;。！？，：；»”」』)]':
+        return text + '.'
+    return text
+
 def _split_sentences(text: str) -> list[str]:
     """
-    Split narration text into sentences on .!?。！？ boundaries,
-    while preserving common abbreviations like Mr. Dr. etc. from being split.
-    Punctuation-only fragments (e.g. French closing guillemets '».') are merged
-    back into the preceding sentence to avoid orphaned subtitle flashes.
+    Split narration text on sentence boundaries while protecting paired
+    quotation spans. This keeps quoted examples such as
+    « Le temps passe vite. Nous allons bientôt être en vacances. » aligned
+    with the single TTS clip/subtitle sentence that should contain them.
     """
     if not text:
         return []
-    _ELLIPSIS = '\x01'
-    # Step 1: protect ellipses (…  or  ...) so their dots don't trigger sentence splits
-    text = text.replace('…', _ELLIPSIS)
-    text = re.sub(r'\.{2,}', _ELLIPSIS, text.strip())
-    # Step 2: collapse space between sentence-ending punctuation and closing guillemets/brackets
-    # so that '? »' and '! »' inside quoted expressions are NOT treated as sentence boundaries.
-    text = re.sub(r'([.!?！？])\s+([»›)\]])', r'\1\2', text)
-    # Step 3: protect abbreviation periods with a placeholder
-    protected = _ABBREV_RE.sub(lambda m: m.group(0)[:-1] + _PLACEHOLDER, text)
-    # Step 4: split on sentence-ending punctuation followed by whitespace
-    parts = re.split(r'(?<=[.!?。！？]["\'])\s+|(?<=[.!?。！？])\s+', protected)
-    sentences = [p.replace(_PLACEHOLDER, '.').replace(_ELLIPSIS, '...').strip() for p in parts if p.strip()]
-    # Step 5: merge any remaining punctuation-only fragments into the preceding sentence
-    merged: list[str] = []
-    for s in sentences:
-        if merged and not any(c.isalpha() or c.isdigit() for c in s):
-            merged[-1] = merged[-1] + ' ' + s
-        else:
-            merged.append(s)
-    return merged
+
+    ellipsis_placeholder = '\x01'
+    protected = text.strip().replace('…', ellipsis_placeholder)
+    protected = re.sub(r'\.{2,}', ellipsis_placeholder, protected)
+    protected = _ABBREV_RE.sub(lambda m: m.group(0)[:-1] + _PLACEHOLDER, protected)
+
+    terminators = '.!?。！？'
+    trailing_closers = '"”\')]}」』'
+    sentences: list[str] = []
+    start = 0
+    quote_stack: list[str] = []
+    quote_pairs = {
+        '«': '»',
+        '»': '«',
+        '„': '“',
+        '“': '”',
+        '「': '」',
+        '『': '』',
+    }
+    i = 0
+
+    def restore(value: str) -> str:
+        return value.replace(_PLACEHOLDER, '.').replace(ellipsis_placeholder, '...').strip()
+
+    def prev_non_space(index: int) -> str:
+        j = index
+        while j >= 0 and protected[j].isspace():
+            j -= 1
+        return protected[j] if j >= 0 else ''
+
+    def is_boundary(next_index: int, terminator: str) -> bool:
+        return (
+            next_index == len(protected)
+            or protected[next_index].isspace()
+            or terminator in '。！？'
+        )
+
+    while i < len(protected):
+        ch = protected[i]
+
+        if protected.startswith('[zh:', i):
+            end = protected.find(']', i + 4)
+            if end != -1:
+                i = end + 1
+                continue
+
+        if quote_stack and ch == quote_stack[-1]:
+            quote_stack.pop()
+            if not quote_stack and prev_non_space(i - 1) in terminators:
+                j = i + 1
+                while j < len(protected) and protected[j] in trailing_closers:
+                    j += 1
+                if j == len(protected) or protected[j].isspace():
+                    sentence = restore(protected[start:j])
+                    if sentence:
+                        sentences.append(sentence)
+                    while j < len(protected) and protected[j].isspace():
+                        j += 1
+                    start = j
+                    i = j
+                    continue
+        elif ch in quote_pairs:
+            quote_stack.append(quote_pairs[ch])
+        elif ch in terminators and not quote_stack:
+            j = i + 1
+            while j < len(protected) and protected[j] in trailing_closers:
+                j += 1
+            if is_boundary(j, ch):
+                sentence = restore(protected[start:j])
+                if sentence:
+                    sentences.append(sentence)
+                while j < len(protected) and protected[j].isspace():
+                    j += 1
+                start = j
+                i = j
+                continue
+
+        i += 1
+
+    tail = restore(protected[start:])
+    if tail:
+        sentences.append(tail)
+    return sentences
 
 
 
@@ -210,6 +280,7 @@ class Task4DExplanationNarrator:
             padded_files = []
             segment_timings: dict[str, list[float]] = {}
             segment_actual_durations: dict[str, float] = {}
+            segment_sentences: dict[str, list[str]] = {}
 
             for seg in segments:
                 seg_id = seg.get("segment_id") or seg.get("segment_order") or len(padded_files)
@@ -225,6 +296,7 @@ class Task4DExplanationNarrator:
                     sentences = _split_sentences(text)
                     if not sentences:
                         sentences = [text]
+                    segment_sentences[seg_key] = sentences
 
                     # Generate TTS per sentence and record actual durations
                     timings: list[float] = []
@@ -245,7 +317,15 @@ class Task4DExplanationNarrator:
                         tts_text = tts_text.strip()
                         if not tts_text or not any(c.isalpha() or c.isdigit() for c in tts_text):
                             continue  # skip empty or punctuation-only fragments
-                        self._synthesize(tts_text, sent_file)
+                        try:
+                            self._synthesize(tts_text, sent_file)
+                        except Exception as e:
+                            preview = tts_text.replace("\n", " ")[:240]
+                            raise RuntimeError(
+                                f"TTS failed at segment {seg_id}, sentence {si}, "
+                                f"provider={self.provider}, voice={self.voice}: {e}. "
+                                f"Text preview: {preview}"
+                            ) from e
                         sent_dur = self._get_audio_duration(sent_file)
                         if sent_dur <= 0:
                             continue  # skip corrupt/empty audio files
@@ -272,6 +352,7 @@ class Task4DExplanationNarrator:
                     self._generate_silence(padded_file, planned_duration)
                     segment_timings[seg_key] = []
                     segment_actual_durations[seg_key] = planned_duration
+                    segment_sentences[seg_key] = []
 
                 padded_files.append(padded_file)
 
@@ -296,6 +377,7 @@ class Task4DExplanationNarrator:
             "segment_count": len(padded_files),
             "segment_timings": segment_timings,
             "segment_actual_durations": segment_actual_durations,
+            "segment_sentences": segment_sentences,
         }
 
     # ── TTS ──────────────────────────────────────────────────────────────────
@@ -354,19 +436,29 @@ class Task4DExplanationNarrator:
             "X-Microsoft-OutputFormat": "audio-24khz-96kbitrate-mono-mp3",
         }
 
+        def _request_ssml(ssml: str) -> bytes:
+            resp = _requests.post(endpoint, headers=headers, data=ssml.encode("utf-8"), timeout=60)
+            if not resp.ok:
+                raise RuntimeError(f"Azure TTS error {resp.status_code}: {resp.text[:500]}")
+            if len(resp.content) < 100:
+                content_type = resp.headers.get("Content-Type", "")
+                raise RuntimeError(
+                    f"Azure returned empty/corrupt audio "
+                    f"(bytes={len(resp.content)}, content-type={content_type}, body={resp.text[:200]!r})"
+                )
+            return resp.content
+
         def _call(voice: str, content: str) -> bytes:
             lang_code = "-".join(voice.split("-")[:2]) if "-" in voice else "en-US"
             import xml.sax.saxutils as _sx
+            content = _ensure_tts_terminal_punctuation(content)
             ssml = (
                 f'<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" '
                 f'xml:lang="{lang_code}">'
                 f'<voice name="{voice}">{_sx.escape(content)}</voice>'
                 f'</speak>'
             )
-            resp = _requests.post(endpoint, headers=headers, data=ssml.encode("utf-8"), timeout=60)
-            if not resp.ok:
-                raise RuntimeError(f"Azure TTS error {resp.status_code}: {resp.text[:500]}")
-            return resp.content
+            return _request_ssml(ssml)
 
         if '[zh:' not in text:
             output_path.write_bytes(_call(self.voice, text))

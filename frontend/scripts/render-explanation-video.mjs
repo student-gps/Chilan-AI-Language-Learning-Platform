@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import process from 'node:process';
 
 const currentFilePath = fileURLToPath(import.meta.url);
@@ -84,24 +84,79 @@ if (process.platform === 'win32') {
         : ['remotion', 'render', 'remotion/index.jsx', 'ExplanationLessonVideo', outputFile];
 }
 
-const result = spawnSync(
-    executable,
-    args,
-    {
-        cwd: frontendDir,
-        stdio: 'inherit',
-        shell: false,
+const stripAnsi = (value) => value.replace(/\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])/g, '');
+const progressRe = /(?:Rendering frames|Rendered)\s+.*?(\d+)\/(\d+)/;
+let lastProgressPercent = -1;
+let lastProgressAt = 0;
+
+const renderBar = (current, total) => {
+    const width = 26;
+    const ratio = total > 0 ? Math.min(1, current / total) : 0;
+    const done = Math.round(ratio * width);
+    return `${'█'.repeat(done)}${'░'.repeat(width - done)} ${current}/${total} ${Math.round(ratio * 100)}%`;
+};
+
+const printProgress = (current, total, done = false) => {
+    const percent = total > 0 ? Math.floor((current / total) * 100) : 0;
+    const now = Date.now();
+    const shouldPrint = (
+        done ||
+        lastProgressPercent < 0 ||
+        percent >= lastProgressPercent + 5 ||
+        now - lastProgressAt > 5000
+    );
+    if (!shouldPrint) return;
+    lastProgressPercent = percent;
+    lastProgressAt = now;
+    const line = `🎞️ Remotion frames ${renderBar(current, total)}`;
+    process.stdout.write(`\r${line.padEnd(90, ' ')}`);
+    if (done) process.stdout.write('\n');
+};
+
+const handleRemotionOutput = (chunk) => {
+    const raw = chunk.toString();
+    for (const part of raw.split(/[\r\n]+/)) {
+        const clean = stripAnsi(part).trim();
+        if (!clean) continue;
+        const progress = clean.match(progressRe);
+        if (progress) {
+            printProgress(Number(progress[1]), Number(progress[2]));
+            continue;
+        }
+        if (/time remaining:/i.test(clean)) {
+            continue;
+        }
+        console.log(clean);
     }
-);
+};
 
-if (result.error) {
-    console.error('❌ Remotion 渲染进程启动失败:', result.error);
+const runRemotion = () => new Promise((resolve, reject) => {
+    const child = spawn(executable, args, {
+        cwd: frontendDir,
+        stdio: ['ignore', 'pipe', 'pipe'],
+        shell: false,
+    });
+
+    child.stdout.on('data', handleRemotionOutput);
+    child.stderr.on('data', handleRemotionOutput);
+    child.on('error', reject);
+    child.on('close', (code) => {
+        if (lastProgressPercent >= 0) {
+            process.stdout.write('\n');
+        }
+        if (code === 0) {
+            resolve();
+        } else {
+            reject(new Error(`Remotion 渲染失败，退出码: ${code}`));
+        }
+    });
+});
+
+try {
+    await runRemotion();
+} catch (error) {
+    console.error('❌ Remotion 渲染进程失败:', error);
     process.exit(1);
-}
-
-if (result.status !== 0) {
-    console.error(`❌ Remotion 渲染失败，退出码: ${result.status}`);
-    process.exit(result.status ?? 1);
 }
 
 console.log(`✅ 渲染完成: ${outputFile}`);

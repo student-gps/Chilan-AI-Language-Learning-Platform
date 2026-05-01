@@ -31,6 +31,7 @@ LANG_META = {
     "es": {"name": "Spanish", "native": "Español"},
     "ja": {"name": "Japanese", "native": "日本語"},
     "ko": {"name": "Korean", "native": "한국어"},
+    "vi": {"name": "Vietnamese", "native": "Tiếng Việt"},
 }
 
 SHORT_BATCH_SIZE = 30   # strings per call for short fields
@@ -43,13 +44,31 @@ _TYPE_REMAP: dict[str, dict[str, str]] = {
     "es": {"CN_TO_EN": "CN_TO_ES", "EN_TO_CN": "ES_TO_CN", "EN_TO_CN_SPEAK": "ES_TO_CN_SPEAK"},
     "ja": {"CN_TO_EN": "CN_TO_JA", "EN_TO_CN": "JA_TO_CN", "EN_TO_CN_SPEAK": "JA_TO_CN_SPEAK"},
     "ko": {"CN_TO_EN": "CN_TO_KO", "EN_TO_CN": "KO_TO_CN", "EN_TO_CN_SPEAK": "KO_TO_CN_SPEAK"},
+    "vi": {"CN_TO_EN": "CN_TO_VI", "EN_TO_CN": "VI_TO_CN", "EN_TO_CN_SPEAK": "VI_TO_CN_SPEAK"},
 }
 
 
 # ── Prompt ───────────────────────────────────────────────────────────────────
 
-def _build_translate_prompt(lang_name: str, strings_dict: dict) -> str:
+def _build_translate_prompt(lang_name: str, strings_dict: dict, mode: str = "general") -> str:
     payload = json.dumps(strings_dict, ensure_ascii=False, indent=2)
+    if mode == "narration":
+        field_rules = f"""
+Narration-specific rules for TTS subtitles:
+8. These strings are video voice-over scripts. Translate and lightly adapt them into natural spoken {lang_name}; do not translate word-for-word if that creates stiff or long sentences.
+9. Keep each sentence subtitle-friendly: prefer short spoken sentences, usually under 18–24 words. Split long source sentences into two natural target-language sentences when helpful.
+10. Do NOT place multiple complete sentences inside one quoted span. If the source has a multi-sentence quote, move the explanation outside the quote or split it into separate spoken sentences.
+11. Use standard quotation marks for the target language consistently, but keep quoted examples short. Preferred styles: French « … »; German „…“; Spanish « … »; Italian « … »; Arabic « … »; Japanese 「…」; Korean “…”; Vietnamese “…”; Portuguese « … » or “…” consistently; Russian « … »; Chinese 「…」 or “…” consistently. If the target language is not listed, use the most natural quotation style for that language and use it consistently.
+12. Avoid parentheses, long dash asides, semicolon chains, and deeply nested clauses. They make TTS and subtitle timing fragile.
+13. Avoid ellipses unless they are part of a fixed teaching pattern such as "some... others..."; never use ellipses as dramatic punctuation.
+14. Keep [zh:...] markers exactly where the Chinese term is being discussed. Do not put extra punctuation inside the marker, and do not translate or romanize the marker content.
+15. The period, question mark, or exclamation mark in your output will become a timing boundary for subtitles. Make every sentence boundary meaningful."""
+    else:
+        field_rules = f"""
+Field-specific rules:
+8. For short UI labels, vocabulary definitions, grammar notes, quiz answers, and examples, stay concise and faithful to the source meaning.
+9. Keep the result appropriate for a language-learning app: clear, learner-friendly, and not overly literary.
+10. If a field is a single word or short phrase, return a single word or short phrase when possible."""
     return f"""You are a professional translator for Chinese language learning materials. Translate each English string below into {lang_name}.
 
 Rules:
@@ -60,6 +79,7 @@ Rules:
 5. Avoid parentheses ( ), brackets [ ], and dashes used only for clarification — they interrupt TTS rhythm. Fold the clarifying content into the sentence naturally instead (e.g. "X, qui signifie Y," rather than "X (Y)").
 6. For single-word vocabulary answers, give the most natural single-word (or short phrase) {lang_name} equivalent.
 7. Keep narration text conversational and spoken-friendly — it will be read aloud by a TTS voice.
+{field_rules}
 
 Input:
 {payload}
@@ -224,8 +244,8 @@ def _set_by_path(obj, path: str, value):
 
 # ── Translation engine ────────────────────────────────────────────────────────
 
-def _translate_batch(llm, lang_name: str, batch_dict: dict) -> dict:
-    prompt = _build_translate_prompt(lang_name, batch_dict)
+def _translate_batch(llm, lang_name: str, batch_dict: dict, mode: str = "general") -> dict:
+    prompt = _build_translate_prompt(lang_name, batch_dict, mode=mode)
     result = llm.generate_structured_json(prompt, file_path=None)
     if isinstance(result, dict):
         return result
@@ -247,7 +267,7 @@ def _run_translation(llm, lang_name: str, items: list) -> dict:
         batch_num = start // SHORT_BATCH_SIZE + 1
         total_batches = (len(short_items) + SHORT_BATCH_SIZE - 1) // SHORT_BATCH_SIZE
         print(f"  🌐 Batch {batch_num}/{total_batches}: translating {len(batch)} strings...")
-        result = _translate_batch(llm, lang_name, batch_dict)
+        result = _translate_batch(llm, lang_name, batch_dict, mode="general")
         for i, (path, _) in enumerate(batch):
             key = f"t{start + i:04d}"
             if key in result:
@@ -260,7 +280,7 @@ def _run_translation(llm, lang_name: str, items: list) -> dict:
         batch_num = start // NARRATION_BATCH_SIZE + 1
         total_batches = (len(narration_items) + NARRATION_BATCH_SIZE - 1) // NARRATION_BATCH_SIZE
         print(f"  🎙️  Narration batch {batch_num}/{total_batches}: {len(batch)} segment(s)...")
-        result = _translate_batch(llm, lang_name, batch_dict)
+        result = _translate_batch(llm, lang_name, batch_dict, mode="narration")
         for i, (path, _) in enumerate(batch):
             key = f"n{start + i:04d}"
             if key in result:
@@ -304,8 +324,29 @@ def translate_lesson(source_path: Path, lang: str, llm) -> dict:
         "target_lang_name": lang_name,
         "target_lang_native": LANG_META[lang]["native"],
     }
+    _reset_render_outputs(translated)
 
     return translated
+
+
+def _reset_render_outputs(data: dict) -> None:
+    """Remove generated render artifacts from a localized JSON draft.
+
+    Localization starts from the English source JSON, which may already contain
+    English narration timings, sentence text lists, audio paths, or video paths.
+    Target-language JSON should keep only the translated render plan; Stage 2
+    writes target-language sentence_texts, timings, durations, and artifact paths.
+    """
+    data.pop("explanation_narration_audio", None)
+    data.pop("explanation_video_urls", None)
+
+    explanation = data.get("video_render_plan", {}).get("explanation", {})
+    segments = explanation.get("segments", []) if isinstance(explanation, dict) else []
+    for seg in segments if isinstance(segments, list) else []:
+        if not isinstance(seg, dict):
+            continue
+        seg.pop("sentence_texts", None)
+        seg.pop("sentence_timings_seconds", None)
 
 
 # ── CLI ───────────────────────────────────────────────────────────────────────
@@ -330,6 +371,11 @@ def main():
     paths = default_paths()
     pipeline = get_pipeline(args.pipeline)
     json_dir = pipeline.output_json_dir(paths, "en")
+    if not list(json_dir.glob("lesson*_data.json")):
+        fallback_json_dir = pipeline.synced_json_dir(paths, "en")
+        if fallback_json_dir.exists() and list(fallback_json_dir.glob("lesson*_data.json")):
+            print(f"ℹ️ output_json/en 为空，改用 synced_json/en 作为英文源: {fallback_json_dir}")
+            json_dir = fallback_json_dir
     out_dir = pipeline.output_json_dir(paths, lang)
     out_dir.mkdir(parents=True, exist_ok=True)
 

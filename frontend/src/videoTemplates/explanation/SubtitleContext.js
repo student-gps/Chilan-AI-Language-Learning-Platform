@@ -8,8 +8,12 @@ import { createContext, useContext } from 'react';
  * - In the preview page (no provider): falls back to sentenceIndex = 0,
  *   so the first sentence is always shown statically.
  */
-export const SubtitleContext = createContext({ sentenceIndex: 0 });
+export const SubtitleContext = createContext({ sentenceIndex: 0, sentenceTexts: null });
 
 export function useSubtitleIndex() {
     return useContext(SubtitleContext).sentenceIndex;
+}
+
+export function useSubtitle() {
+    return useContext(SubtitleContext);
 }

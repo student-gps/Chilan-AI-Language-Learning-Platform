@@ -1,0 +1,3941 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 102,
+    "title": "你是老师吗？",
+    "content_type": "dialogue",
+    "title_localized": "先生ですか？"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "李友",
+            "translation": "王さん、先生ですか？",
+            "words": [
+              {
+                "cn": "王",
+                "py": "wáng",
+                "highlight": false
+              },
+              {
+                "cn": "先生",
+                "py": "xiān sheng",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "老师",
+                "py": "lǎo shī",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "私は先生ではありません、学生です。",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": true
+              },
+              {
+                "cn": "不",
+                "py": "bú",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "老师",
+                "py": "lǎo shī",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "学生",
+                "py": "xué sheng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "李友さんは？",
+            "words": [
+              {
+                "cn": "李",
+                "py": "lǐ",
+                "highlight": false
+              },
+              {
+                "cn": "友",
+                "py": "yǒu",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": true
+              },
+              {
+                "cn": "呢",
+                "py": "ne",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "translation": "私も学生です。あなたは中国人ですか？",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "也",
+                "py": "yě",
+                "highlight": true
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "学生",
+                "py": "xué sheng",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "中国人",
+                "py": "zhōng guó rén",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "はい、私は北京出身です。あなたはアメリカ人ですか？",
+            "words": [
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "北京人",
+                "py": "běi jīng rén",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "美国人",
+                "py": "měi guó rén",
+                "highlight": true
+              },
+              {
+                "cn": "吗",
+                "py": "ma",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "translation": "はい、私はニューヨーク出身です。",
+            "words": [
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "是",
+                "py": "shì",
+                "highlight": true
+              },
+              {
+                "cn": "纽约人",
+                "py": "niǔ yuē rén",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "是",
+        "pinyin": "Shì",
+        "part_of_speech": "動詞",
+        "definition": "です",
+        "example_sentence": {
+          "cn": "我是北京人。",
+          "py": "Wǒ shì Běijīng rén.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "北京人",
+              "py": "běi jīng rén"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "私は北京出身です。"
+        }
+      },
+      {
+        "word": "老师",
+        "pinyin": "Lǎoshī",
+        "part_of_speech": "名詞",
+        "definition": "先生",
+        "example_sentence": {
+          "cn": "王先生,你是老师吗？",
+          "py": "Wáng xiānsheng, nǐ shì lǎoshī ma?",
+          "tokens": [
+            {
+              "cn": "王",
+              "py": "wáng"
+            },
+            {
+              "cn": "先生",
+              "py": "xiān sheng"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "老师",
+              "py": "lǎo shī"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "王さん、先生ですか？"
+        }
+      },
+      {
+        "word": "吗",
+        "pinyin": "Ma",
+        "part_of_speech": "疑問の助詞",
+        "definition": "疑問の助詞",
+        "example_sentence": {
+          "cn": "王先生,你是老师吗？",
+          "py": "wáng xiān sheng nǐ shì lǎo shī ma",
+          "tokens": [
+            {
+              "cn": "王",
+              "py": "wáng"
+            },
+            {
+              "cn": "先生",
+              "py": "xiān sheng"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "老师",
+              "py": "lǎo shī"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "王さん、先生ですか？"
+        }
+      },
+      {
+        "word": "不",
+        "pinyin": "Bù",
+        "part_of_speech": "副詞",
+        "definition": "ではありません",
+        "example_sentence": {
+          "cn": "我不是老师,我是学生。",
+          "py": "Wǒ bùshì lǎoshī, wǒ shì xuéshēng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "不",
+              "py": "bú"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "老师",
+              "py": "lǎo shī"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "学生",
+              "py": "xué sheng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "私は先生ではありません、学生です。"
+        }
+      },
+      {
+        "word": "学生",
+        "pinyin": "Xuéshēng",
+        "part_of_speech": "名詞",
+        "definition": "学生",
+        "example_sentence": {
+          "cn": "我也是学生。",
+          "py": "Wǒ yěshì xuéshēng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "也",
+              "py": "yě"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "学生",
+              "py": "xué sheng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "私も学生です。"
+        }
+      },
+      {
+        "word": "也",
+        "pinyin": "Yě",
+        "part_of_speech": "副詞",
+        "definition": "も",
+        "example_sentence": {
+          "cn": "我也是学生。",
+          "py": "Wǒ yěshì xuéshēng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "也",
+              "py": "yě"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "学生",
+              "py": "xué sheng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "私も学生です。"
+        }
+      },
+      {
+        "word": "人",
+        "pinyin": "Rén",
+        "part_of_speech": "名詞",
+        "definition": "人",
+        "example_sentence": {
+          "cn": "我也是学生。你是中国人吗？",
+          "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "也",
+              "py": "yě"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "学生",
+              "py": "xué sheng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "中国人",
+              "py": "zhōng guó rén"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "私も学生です。あなたは中国人ですか？"
+        }
+      },
+      {
+        "word": "中国",
+        "pinyin": "Zhōngguó",
+        "part_of_speech": "固有名詞",
+        "definition": "中国",
+        "example_sentence": {
+          "cn": "我也是学生。你是中国人吗？",
+          "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "也",
+              "py": "yě"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "学生",
+              "py": "xué sheng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "中国人",
+              "py": "zhōng guó rén"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "私も学生です。あなたは中国人ですか？"
+        }
+      },
+      {
+        "word": "北京",
+        "pinyin": "Běijīng",
+        "part_of_speech": "固有名詞",
+        "definition": "北京",
+        "example_sentence": {
+          "cn": "是,我是北京人。",
+          "py": "Shì, wǒ shì Běijīng rén.",
+          "tokens": [
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "北京人",
+              "py": "běi jīng rén"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "はい、北京出身です。"
+        }
+      },
+      {
+        "word": "美国",
+        "pinyin": "Měiguó",
+        "part_of_speech": "固有名詞",
+        "definition": "アメリカ",
+        "example_sentence": {
+          "cn": "你是美国人吗？",
+          "py": "Nǐ shì Měiguó rén ma?",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "美国人",
+              "py": "měi guó rén"
+            },
+            {
+              "cn": "吗",
+              "py": "ma"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "あなたはアメリカ人ですか？"
+        }
+      },
+      {
+        "word": "纽约",
+        "pinyin": "Niǔyuē",
+        "part_of_speech": "固有名詞",
+        "definition": "ニューヨーク",
+        "example_sentence": {
+          "cn": "是,我是纽约人。",
+          "py": "Shì, wǒ shì Niǔyuē rén.",
+          "tokens": [
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "是",
+              "py": "shì"
+            },
+            {
+              "cn": "纽约人",
+              "py": "niǔ yuē rén"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "はい、ニューヨーク出身です。"
+        }
+      }
+    ]
+  },
+  "teaching_materials": {
+    "lesson_id": 102,
+    "course_id": 1,
+    "lesson_title": "",
+    "language_notes": [
+      {
+        "note_id": "LN-1",
+        "label": "a",
+        "focus_text": "不",
+        "focus_pinyin": "bù",
+        "explanation_en": "不 [zh:bù] の本来の声調は、下降する第四声です。しかし、別の第四声の音節が続く場合、不 [zh:bù] は不是 [zh:bú shì] のように第二声に変化します。",
+        "source_section": "Language Notes"
+      },
+      {
+        "note_id": "LN-2",
+        "label": "b",
+        "focus_text": "是 / 不是",
+        "focus_pinyin": "shì / bú shì",
+        "explanation_en": "これらは「はい」と「いいえ」の普遍的な同義語ではありません。疑問文に対する肯定の返答を是 [zh:shì] で、否定の返答を不是 [zh:bú shì] で始める必要は常にありません。例えば、你姓王吗？ [zh:Nǐ xìng Wáng ma?] （あなたの姓は王ですか？）という質問に肯定的に答えるには、对, 我姓王 [zh:Duì, wǒ xìng Wáng] （はい、私の姓は王です）と答えるか、単に我姓王 [zh:Wǒ xìng Wáng] と答えることができます。否定的に答えるには、不, 我不姓王 [zh:Bù, wǒ bú xìng Wáng] （いいえ、私の姓は王ではありません）と言うか、単に我不姓王 [zh:Wǒ bú xìng Wáng] と言います。",
+        "source_section": "Language Notes"
+      }
+    ],
+    "grammar_sections": [
+      {
+        "grammar_id": "G-5",
+        "title": "動詞 是 [zh:shì] （〜である）",
+        "explanation_en": "是 [zh:shì] （〜である）は、何らかの形で同等な二つのものを結びつけるのに使える動詞です。この二つのものとは、名詞、代名詞、または名詞句です。是 [zh:shì] は不 [zh:bù] で否定されます。",
+        "patterns": [
+          {
+            "pattern": "Subject + 是 + Noun/Pronoun.",
+            "pattern_pinyin": "",
+            "meaning_en": "肯定文：主語は名詞／代名詞です。"
+          },
+          {
+            "pattern": "Subject + 不是 + Noun/Pronoun.",
+            "pattern_pinyin": "",
+            "meaning_en": "否定文：主語は名詞／代名詞ではありません。"
+          },
+          {
+            "pattern": "Subject + 是 + Noun/Pronoun + 吗?",
+            "pattern_pinyin": "",
+            "meaning_en": "疑問文：主語は名詞／代名詞ですか？"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "你是老师吗？",
+            "pinyin": "Nǐ shì lǎoshī ma?",
+            "translation": "あなたは先生ですか？"
+          },
+          {
+            "hanzi": "我是老师。",
+            "pinyin": "Wǒ shì lǎoshī.",
+            "translation": "私は先生です。"
+          },
+          {
+            "hanzi": "李友是学生。",
+            "pinyin": "Lǐ Yōu shì xuésheng.",
+            "translation": "李友 [zh:Lǐ Yǒu] は学生です。"
+          },
+          {
+            "hanzi": "王朋不是美国人。",
+            "pinyin": "Wáng Péng bú shì Měiguó rén.",
+            "translation": "王朋 [zh:Wáng Péng] はアメリカ人ではありません。"
+          }
+        ],
+        "usage_notes": [
+          "是 [zh:shì] と不是 [zh:bú shì] は「はい」と「いいえ」の普遍的な同義語ではありません。疑問文に対する肯定の返答を是 [zh:shì] で、否定の返答を不是 [zh:bú shì] で始める必要は常にありません。"
+        ],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "6",
+        "title": "吗 [zh:ma] で終わる質問",
+        "explanation_en": "吗 [zh:ma] が平叙文の末尾に追加されると、その文は疑問文になります。質問に肯定的に答えるには、質問の末尾から吗 [zh:ma] を削除します。否定的に答えるには、吗 [zh:ma] を削除し、動詞の前に否定の副詞（通常は不 [zh:bù]）を挿入します。文法7を参照してください。",
+        "patterns": [
+          {
+            "pattern": "Statement + 吗?",
+            "pattern_pinyin": "",
+            "meaning_en": "平叙文をはい／いいえの質問に変えます。"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "你是老师吗？",
+            "pinyin": "Nǐ shì lǎoshī ma?",
+            "translation": "あなたは先生ですか？"
+          },
+          {
+            "hanzi": "我是老师。",
+            "pinyin": "Wǒ shì lǎoshī.",
+            "translation": "私は先生です。（肯定）"
+          },
+          {
+            "hanzi": "我不是老师。",
+            "pinyin": "Wǒ bú shì lǎoshī.",
+            "translation": "私は先生ではありません。（否定）"
+          },
+          {
+            "hanzi": "你姓王吗？",
+            "pinyin": "Nǐ xìng Wáng ma?",
+            "translation": "あなたの姓は王ですか？"
+          },
+          {
+            "hanzi": "我姓王。",
+            "pinyin": "Wǒ xìng Wáng.",
+            "translation": "私の姓は王です。（肯定）"
+          },
+          {
+            "hanzi": "我不姓王。",
+            "pinyin": "Wǒ bú xìng Wáng.",
+            "translation": "私の姓は王ではありません。"
+          }
+        ],
+        "usage_notes": [
+          "質問に肯定的に答えるには、質問の語尾にある[zh:ma]を削除します。",
+          "質問に否定的に答えるには、[zh:ma]を削除し、動詞の前に否定副詞、通常は[zh:bù]を挿入します。"
+        ],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "G-7",
+        "title": "否定副詞[zh:bù]「〜ではない」",
+        "explanation_en": "中国語には主に2つの否定副詞があります。そのうちの1つである[zh:bù]「〜ではない」は、動詞を否定するために使われ、否定する動詞の前に置かれます。",
+        "patterns": [
+          {
+            "pattern": "Subject + 不 + Verb (+ Object)",
+            "pattern_pinyin": "Subject + bù + Verb (+ Object)",
+            "meaning_en": "否定文を作るために使われます。"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "我不是北京人。",
+            "pinyin": "Wǒ bú shì Běijīng rén.",
+            "translation": "私は北京出身ではありません。"
+          },
+          {
+            "hanzi": "李友不是中国人。",
+            "pinyin": "Lǐ Yōu bú shì Zhōngguó rén.",
+            "translation": "李友は中国人ではありません。"
+          },
+          {
+            "hanzi": "老师不姓王。",
+            "pinyin": "Lǎoshī bú xìng Wáng.",
+            "translation": "先生の姓は王ではありません。"
+          },
+          {
+            "hanzi": "我不叫李中。",
+            "pinyin": "Wǒ bú jiào Lǐ Zhōng.",
+            "translation": "私の名前は李忠ではありません。"
+          },
+          {
+            "hanzi": "王朋不是美国人。",
+            "pinyin": "Wáng Péng bú shì Měiguó rén.",
+            "translation": "王朋はアメリカ人ではありません。"
+          },
+          {
+            "hanzi": "我不是老师。",
+            "pinyin": "Wǒ bú shì lǎoshī.",
+            "translation": "私は先生ではありません。"
+          },
+          {
+            "hanzi": "我不姓王。",
+            "pinyin": "Wǒ bú xìng Wáng.",
+            "translation": "私の姓は王ではありません。"
+          }
+        ],
+        "usage_notes": [
+          "[zh:bù]の本来の声調は第四声の「[zh:bù]」です。しかし、別の第四声の音節が続く場合、[zh:bù]は[zh:bú shì]のように第二声に変化します。",
+          "はい/いいえの質問に否定的に答えるには、質問の語尾にある[zh:ma]を削除し、動詞の前に[zh:bù]を挿入します。",
+          "副詞の[zh:yě]が否定副詞の[zh:bù]と一緒に使われる場合、[zh:yě]は[zh:bù]の前に置かれます。"
+        ],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "G-8",
+        "title": "副詞[zh:yě]「〜もまた」",
+        "explanation_en": "副詞の[zh:yě]は基本的に「〜もまた」という意味です。中国語では、副詞、特に一音節の副詞は通常、主語の後、動詞の前に置かれます。副詞の[zh:yě]は主語の前に置いたり、文の最後に置いたりすることはできません。副詞の[zh:yě]が否定副詞の[zh:bù]「〜ではない」と一緒に使われる場合、[zh:yě]は[zh:bù]の前に置かれます。",
+        "patterns": [
+          {
+            "pattern": "Subj. + 也 + Verb (+ Obj.)",
+            "pattern_pinyin": "Subj. + yě + Verb (+ Obj.)",
+            "meaning_en": "主語が特定の行動も行う、または特定の状態にあることを表現するために使われます。"
+          },
+          {
+            "pattern": "Subj. + 也 + 不 + Verb (+ Obj.)",
+            "pattern_pinyin": "Subj. + yě + bù + Verb (+ Obj.)",
+            "meaning_en": "主語についても当てはまる否定的な事柄を表現するために使われます。"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "我也是学生。",
+            "pinyin": "Wǒ yě shì xuésheng.",
+            "translation": "私も学生です。"
+          },
+          {
+            "hanzi": "王朋是学生, 李友也是学生。",
+            "pinyin": "Wáng Péng shì xuésheng, Lǐ Yǒu yě shì xuésheng.",
+            "translation": "王朋は学生です。李友も学生です。"
+          },
+          {
+            "hanzi": "你是中国人, 我也是中国人。",
+            "pinyin": "Nǐ shì Zhōngguó rén, wǒ yě shì Zhōngguó rén.",
+            "translation": "あなたは中国人です。私も中国人です。"
+          },
+          {
+            "hanzi": "王朋不是老师, 李友也不是老师。",
+            "pinyin": "Wáng Péng bú shì lǎoshī, Lǐ Yǒu yě bú shì lǎoshī.",
+            "translation": "王朋は先生ではありません。李友も先生ではありません。"
+          },
+          {
+            "hanzi": "你不是纽约人, 我也不是纽约人。",
+            "pinyin": "Nǐ bú shì Niǔyuē rén, wǒ yě bú shì Niǔyuē rén.",
+            "translation": "あなたはニューヨーク出身ではありません。私もニューヨーク出身ではありません。"
+          }
+        ],
+        "usage_notes": [
+          "副詞の[zh:yě]は主語の後、動詞の前に置かれなければなりません。",
+          "否定副詞の[zh:bù]と一緒に使う場合、[zh:yě]は[zh:bù]の前に置かれます。"
+        ],
+        "common_errors": [
+          {
+            "wrong": "我是中国人也。",
+            "correct": "我也是中国人。",
+            "explanation_en": "副詞の[zh:yě]を文の最後に置くことはできません。"
+          },
+          {
+            "wrong": "也我是中国人。",
+            "correct": "我也是中国人。",
+            "explanation_en": "副詞の[zh:yě]を主語の前に置くことはできません。"
+          }
+        ]
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 102,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "是",
+      "original_pinyin": "Shì",
+      "standard_answers": [
+        "です"
+      ],
+      "context_examples": [
+        {
+          "cn": "我是北京人。",
+          "py": "Wǒ shì Běijīng rén.",
+          "translation": "私は北京出身です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "老师",
+      "original_pinyin": "Lǎoshī",
+      "standard_answers": [
+        "先生"
+      ],
+      "context_examples": [
+        {
+          "cn": "王先生,你是老师吗？",
+          "py": "Wáng xiānsheng, nǐ shì lǎoshī ma?",
+          "translation": "王先生、あなたは先生ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "不",
+      "original_pinyin": "Bù",
+      "standard_answers": [
+        "ではありません",
+        "いいえ"
+      ],
+      "context_examples": [
+        {
+          "cn": "我不是老师,我是学生。",
+          "py": "Wǒ bùshì lǎoshī, wǒ shì xuéshēng.",
+          "translation": "私は先生ではありません、学生です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "学生",
+      "original_pinyin": "Xuéshēng",
+      "standard_answers": [
+        "学生"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。",
+          "py": "Wǒ yěshì xuéshēng.",
+          "translation": "私も学生です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "也",
+      "original_pinyin": "Yě",
+      "standard_answers": [
+        "も"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。",
+          "py": "Wǒ yěshì xuéshēng.",
+          "translation": "私も学生です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "人",
+      "original_pinyin": "Rén",
+      "standard_answers": [
+        "人"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。你是中国人吗？",
+          "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+          "translation": "私も学生です。あなたは中国人ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "中国",
+      "original_pinyin": "Zhōngguó",
+      "standard_answers": [
+        "中国"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。你是中国人吗？",
+          "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+          "translation": "私も学生です。あなたは中国人ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "北京",
+      "original_pinyin": "Běijīng",
+      "standard_answers": [
+        "北京"
+      ],
+      "context_examples": [
+        {
+          "cn": "是,我是北京人。",
+          "py": "Shì, wǒ shì Běijīng rén.",
+          "translation": "はい、私は北京出身です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "美国",
+      "original_pinyin": "Měiguó",
+      "standard_answers": [
+        "アメリカ"
+      ],
+      "context_examples": [
+        {
+          "cn": "你是美国人吗？",
+          "py": "Nǐ shì Měiguó rén ma?",
+          "translation": "あなたはアメリカ人ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_JA",
+      "original_text": "纽约",
+      "original_pinyin": "Niǔyuē",
+      "standard_answers": [
+        "ニューヨーク"
+      ],
+      "context_examples": [
+        {
+          "cn": "是,我是纽约人。",
+          "py": "Shì, wǒ shì Niǔyuē rén.",
+          "translation": "はい、私はニューヨーク出身です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "です",
+      "original_pinyin": null,
+      "standard_answers": [
+        "是"
+      ],
+      "context_examples": [
+        {
+          "cn": "我是北京人。",
+          "py": "Wǒ shì Běijīng rén.",
+          "translation": "私は北京出身です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "先生",
+      "original_pinyin": null,
+      "standard_answers": [
+        "老师"
+      ],
+      "context_examples": [
+        {
+          "cn": "王先生,你是老师吗？",
+          "py": "Wáng xiānsheng, nǐ shì lǎoshī ma?",
+          "translation": "王先生、あなたは先生ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "ではありません、いいえ",
+      "original_pinyin": null,
+      "standard_answers": [
+        "不"
+      ],
+      "context_examples": [
+        {
+          "cn": "我不是老师,我是学生。",
+          "py": "Wǒ bùshì lǎoshī, wǒ shì xuéshēng.",
+          "translation": "私は先生ではありません、学生です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "学生",
+      "original_pinyin": null,
+      "standard_answers": [
+        "学生"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。",
+          "py": "Wǒ yěshì xuéshēng.",
+          "translation": "私も学生です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "も",
+      "standard_answers": [
+        "也"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。",
+          "py": "Wǒ yěshì xuéshēng.",
+          "translation": "私も学生です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "人",
+      "standard_answers": [
+        "人"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。你是中国人吗？",
+          "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+          "translation": "私も学生です。あなたは中国人ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "中国",
+      "standard_answers": [
+        "中国"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。你是中国人吗？",
+          "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+          "translation": "私も学生です。あなたは中国人ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "北京",
+      "standard_answers": [
+        "北京"
+      ],
+      "context_examples": [
+        {
+          "cn": "是,我是北京人。",
+          "py": "Shì, wǒ shì Běijīng rén.",
+          "translation": "はい、私は北京出身です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "アメリカ",
+      "original_pinyin": null,
+      "standard_answers": [
+        "美国"
+      ],
+      "context_examples": [
+        {
+          "cn": "你是美国人吗？",
+          "py": "Nǐ shì Měiguó rén ma?",
+          "translation": "あなたはアメリカ人ですか？"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "ニューヨーク",
+      "original_pinyin": null,
+      "standard_answers": [
+        "纽约"
+      ],
+      "context_examples": [
+        {
+          "cn": "是,我是纽约人。",
+          "py": "Shì, wǒ shì Niǔyuē rén.",
+          "translation": "はい、私はニューヨーク出身です。"
+        }
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "李友は中国人ですか？",
+      "original_pinyin": null,
+      "standard_answers": [
+        "李友是中国人吗？"
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "王朋は先生ですか？",
+      "original_pinyin": null,
+      "standard_answers": [
+        "王朋是老师吗？"
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "王朋は学生です。",
+      "original_pinyin": null,
+      "standard_answers": [
+        "王朋是学生。"
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "李友は先生ではありません。",
+      "original_pinyin": null,
+      "standard_answers": [
+        "李友不是老师。"
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "王朋はニューヨーク出身ですか？",
+      "original_pinyin": null,
+      "standard_answers": [
+        "王朋是纽约人吗？"
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "あなたも中国人ですか？",
+      "original_pinyin": null,
+      "standard_answers": [
+        "你也是中国人吗？"
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "李友は中国人ではありません。あなたはどうですか？",
+      "original_pinyin": null,
+      "standard_answers": [
+        "李友不是中国人，你呢？"
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "JA_TO_CN",
+      "original_text": "李友はアメリカ人です。",
+      "original_pinyin": null,
+      "standard_answers": [
+        "李友是美国人。"
+      ]
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "王先生、あなたは先生ですか？",
+      "original_pinyin": "wáng xiān sheng nǐ shì lǎo shī ma",
+      "standard_answers": [
+        "王先生,你是老师吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "王先生,你是老师吗？",
+          "py": "wáng xiān sheng nǐ shì lǎo shī ma",
+          "translation": "王先生、あなたは先生ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 1
+      }
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "私は先生ではありません、学生です。",
+      "original_pinyin": "wǒ bú shì lǎo shī wǒ shì xué sheng",
+      "standard_answers": [
+        "我不是老师,我是学生。"
+      ],
+      "context_examples": [
+        {
+          "cn": "我不是老师,我是学生。",
+          "py": "wǒ bú shì lǎo shī wǒ shì xué sheng",
+          "translation": "私は先生ではありません、学生です。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 2
+      }
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "私も学生です。あなたは中国人ですか？",
+      "original_pinyin": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+      "standard_answers": [
+        "我也是学生。你是中国人吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。你是中国人吗？",
+          "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+          "translation": "私も学生です。あなたは中国人ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 4
+      }
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "はい、私は北京出身です。あなたはアメリカ人ですか？",
+      "original_pinyin": "shì wǒ shì běi jīng rén nǐ shì měi guó rén ma",
+      "standard_answers": [
+        "是,我是北京人。你是美国人吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "是,我是北京人。你是美国人吗？",
+          "py": "shì wǒ shì běi jīng rén nǐ shì měi guó rén ma",
+          "translation": "はい、私は北京出身です。あなたはアメリカ人ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 5
+      }
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "王先生、あなたは先生ですか？",
+      "original_pinyin": "wáng xiān sheng nǐ shì lǎo shī ma",
+      "standard_answers": [
+        "王先生,你是老师吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "王先生,你是老师吗？",
+          "py": "wáng xiān sheng nǐ shì lǎo shī ma",
+          "translation": "王先生、あなたは先生ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "私は先生ではありません、学生です。",
+      "original_pinyin": "wǒ bú shì lǎo shī wǒ shì xué sheng",
+      "standard_answers": [
+        "我不是老师,我是学生。"
+      ],
+      "context_examples": [
+        {
+          "cn": "我不是老师,我是学生。",
+          "py": "wǒ bú shì lǎo shī wǒ shì xué sheng",
+          "translation": "私は先生ではありません、学生です。"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "私も学生です。あなたは中国人ですか？",
+      "original_pinyin": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+      "standard_answers": [
+        "我也是学生。你是中国人吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "我也是学生。你是中国人吗？",
+          "py": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+          "translation": "私も学生です。あなたは中国人ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 102,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "JA_TO_CN_SPEAK",
+      "original_text": "はい、私は北京出身です。あなたはアメリカ人ですか？",
+      "original_pinyin": "shì wǒ shì běi jīng rén nǐ shì měi guó rén ma",
+      "standard_answers": [
+        "是,我是北京人。你是美国人吗？"
+      ],
+      "context_examples": [
+        {
+          "cn": "是,我是北京人。你是美国人吗？",
+          "py": "shì wǒ shì běi jīng rén nǐ shì měi guó rén ma",
+          "translation": "はい、私は北京出身です。あなたはアメリカ人ですか？"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    }
+  ],
+  "video_plan": {
+    "lesson_video_plan": {
+      "lesson_id": 102,
+      "course_id": 1,
+      "lesson_title": "你是老师吗？",
+      "target_audience": "English native speakers learning Chinese",
+      "primary_language": "zh",
+      "support_language": "en",
+      "subtitle_options": {
+        "hanzi": true,
+        "pinyin": true,
+        "translation": true
+      }
+    },
+    "dramatization": {
+      "global_config": {
+        "visual_style": "Cinematic, realistic, bright and warm tones, shallow depth of field.",
+        "setting_summary_cn": "在一个阳光明媚的大学校园里，两位年轻学生李友和王朋在一条林荫道上初次相遇并交谈。",
+        "setting_summary_en": "On a sunny university campus, two young students, Li You and Wang Peng, meet for the first time and have a conversation on a tree-lined path.",
+        "character_definitions": [
+          {
+            "name": "李友",
+            "appearance_description_en": "Li You, a female Chinese student in her early 20s, with long black hair, wearing a casual light-colored sweater and jeans, carrying a backpack. She has a curious and friendly expression."
+          },
+          {
+            "name": "王朋",
+            "appearance_description_en": "Wang Peng, a male Chinese student in his early 20s, with short black hair, wearing a light jacket over a t-shirt and glasses. He appears calm and approachable."
+          }
+        ]
+      },
+      "scenes": [
+        {
+          "scene_id": 1,
+          "source_line_refs": [
+            1
+          ],
+          "source_text": {
+            "hanzi": [
+              "王先生,你是老师吗？"
+            ],
+            "pinyin": [
+              "wáng xiān sheng nǐ shì lǎo shī ma"
+            ],
+            "translation": [
+              "Mr. Wang, are you a teacher?"
+            ]
+          },
+          "scene_goal": "李友看到王朋，误以为他是老师，于是上前询问。",
+          "scene_description_cn": "在大学校园的林荫道上，李友看到王朋正坐在长椅上看书，气质显得比周围的学生成熟一些。她犹豫了一下，然后鼓起勇气走上前，带着一点不确定地轻声询问。",
+          "setting_en": "A tree-lined path on a university campus in the afternoon. Sunlight filters through the leaves. Other students are walking in the background, out of focus.",
+          "characters_on_screen": [
+            "李友",
+            "王朋"
+          ],
+          "camera_movement": "The camera follows Li You as she walks, then slowly pushes in on her as she speaks.",
+          "shot_type": "Medium shot",
+          "video_prompt_en": "Cinematic, realistic style. A young Asian woman (Li You) hesitantly approaches a young Asian man (Wang Peng) who is sitting on a bench reading a book on a sunny university campus path. She has a curious and slightly nervous expression. Medium shot, slow push-in.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "王先生,你是老师吗？",
+            "pinyin": "wáng xiān sheng nǐ shì lǎo shī ma",
+            "translation": "Mr. Wang, are you a teacher?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 5
+        },
+        {
+          "scene_id": 2,
+          "source_line_refs": [
+            2
+          ],
+          "source_text": {
+            "hanzi": [
+              "我不是老师,我是学生。"
+            ],
+            "pinyin": [
+              "wǒ bú shì lǎo shī wǒ shì xué sheng"
+            ],
+            "translation": [
+              "I'm not a teacher, I'm a student."
+            ]
+          },
+          "scene_goal": "王朋听到询问，友好地澄清自己的学生身份。",
+          "scene_description_cn": "王朋听到声音，从书中抬起头。他看到李友，先是愣了一下，然后理解了她的问题，友好地笑了笑，轻轻摇头，然后清晰地回答。",
+          "setting_en": "Same university campus path, by the bench.",
+          "characters_on_screen": [
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "Static shot.",
+          "shot_type": "Close-up on Wang Peng's face, then cuts to a medium two-shot.",
+          "video_prompt_en": "Cinematic, realistic style. Close-up shot of a young Asian man (Wang Peng) looking up from his book. He smiles warmly and shakes his head slightly. He looks directly at the person off-screen (Li You) as he speaks. The shot then widens to a two-shot showing Li You's relieved reaction.",
+          "voice_over": {
+            "speaker": "王朋",
+            "hanzi": "我不是老师,我是学生。",
+            "pinyin": "wǒ bú shì lǎo shī wǒ shì xué sheng",
+            "translation": "I'm not a teacher, I'm a student."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 5
+        },
+        {
+          "scene_id": 3,
+          "source_line_refs": [
+            3
+          ],
+          "source_text": {
+            "hanzi": [
+              "李友,你呢？"
+            ],
+            "pinyin": [
+              "lǐ yǒu nǐ ne"
+            ],
+            "translation": [
+              "Li You, what about you?"
+            ]
+          },
+          "scene_goal": "王朋澄清身份后，自然地反问李友，开启了两人之间的对话。",
+          "scene_description_cn": "王朋合上书，身体微微转向李友，表现出继续交谈的意愿。他用友善和好奇的眼神看着她，反问她的身份。",
+          "setting_en": "Same university campus path, by the bench.",
+          "characters_on_screen": [
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "Static shot.",
+          "shot_type": "Medium two-shot",
+          "video_prompt_en": "Cinematic, realistic style. Medium two-shot of the young Asian man (Wang Peng) and woman (Li You) on a campus bench. He has closed his book and is looking at her expectantly with a friendly smile, asking a question. She looks ready to reply.",
+          "voice_over": {
+            "speaker": "王朋",
+            "hanzi": "李友,你呢？",
+            "pinyin": "lǐ yǒu nǐ ne",
+            "translation": "Li You, what about you?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 4
+        },
+        {
+          "scene_id": 4,
+          "source_line_refs": [
+            4
+          ],
+          "source_text": {
+            "hanzi": [
+              "我也是学生。你是中国人吗？"
+            ],
+            "pinyin": [
+              "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma"
+            ],
+            "translation": [
+              "I'm a student, too. Are you Chinese?"
+            ]
+          },
+          "scene_goal": "李友与王朋建立共同点（都是学生），并好奇地询问他的国籍。",
+          "scene_description_cn": "李友和王朋坐在校园咖啡店的户外座位上。李友微笑着，身体微微前倾，看着王朋，语气友好而好奇。",
+          "setting_en": "Outdoor seating area of a university campus coffee shop, sunny afternoon.",
+          "characters_on_screen": [
+            "李友",
+            "王朋"
+          ],
+          "camera_movement": "Slow push-in",
+          "shot_type": "Medium shot",
+          "video_prompt_en": "A young East Asian woman (Li You) and a young East Asian man (Wang Peng) are sitting at an outdoor cafe table on a university campus. She smiles warmly, leans forward slightly, and asks him a question with a curious expression. Bright, natural lighting, cinematic style, shallow depth of field.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "我也是学生。你是中国人吗？",
+            "pinyin": "wǒ yě shì xué sheng nǐ shì zhōng guó rén ma",
+            "translation": "I'm a student, too. Are you Chinese?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 5
+        },
+        {
+          "scene_id": 5,
+          "source_line_refs": [
+            5
+          ],
+          "source_text": {
+            "hanzi": [
+              "是,我是北京人。你是美国人吗？"
+            ],
+            "pinyin": [
+              "shì wǒ shì běi jīng rén nǐ shì měi guó rén ma"
+            ],
+            "translation": [
+              "Yes, I am from Beijing. Are you American?"
+            ]
+          },
+          "scene_goal": "王朋确认自己的身份，并反问李友的国籍，推动对话继续。",
+          "scene_description_cn": "镜头切换到王朋。他自信地点点头，脸上带着友善的微笑。他回答后，很自然地反问李友，保持着眼神交流。",
+          "setting_en": "Outdoor seating area of a university campus coffee shop, sunny afternoon.",
+          "characters_on_screen": [
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "Static",
+          "shot_type": "Medium close-up",
+          "video_prompt_en": "Medium close-up on the young East Asian man (Wang Peng). He nods confidently with a friendly smile, answers the question, and then asks a question back, maintaining eye contact. The background shows the campus cafe.",
+          "voice_over": {
+            "speaker": "王朋",
+            "hanzi": "是,我是北京人。你是美国人吗？",
+            "pinyin": "shì wǒ shì běi jīng rén nǐ shì měi guó rén ma",
+            "translation": "Yes, I am from Beijing. Are you American?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 6
+        },
+        {
+          "scene_id": 6,
+          "source_line_refs": [
+            6
+          ],
+          "source_text": {
+            "hanzi": [
+              "是,我是纽约人。"
+            ],
+            "pinyin": [
+              "shì wǒ shì niǔ yuē rén"
+            ],
+            "translation": [
+              "Yes, I am from New York."
+            ]
+          },
+          "scene_goal": "李友回答了王朋的问题，两人互相了解了对方的背景。",
+          "scene_description_cn": "镜头回到李友。她听到王朋的问题后，开心地笑了，爽快地回答。两人相视一笑，气氛变得更加轻松愉快。",
+          "setting_en": "Outdoor seating area of a university campus coffee shop, sunny afternoon.",
+          "characters_on_screen": [
+            "李友",
+            "王朋"
+          ],
+          "camera_movement": "Static, then a slight pull back",
+          "shot_type": "Medium close-up, widening to a two-shot",
+          "video_prompt_en": "Medium close-up on the young East Asian woman (Li You). She smiles brightly and answers confidently. The camera then pulls back slightly to a two-shot, showing both of them smiling at each other, creating a friendly atmosphere.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "是,我是纽约人。",
+            "pinyin": "shì wǒ shì niǔ yuē rén",
+            "translation": "Yes, I am from New York."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 4
+        }
+      ]
+    },
+    "explanation": {
+      "global_config": {
+        "teaching_style": "A clear, structured, and encouraging voice-over style that breaks down concepts step-by-step, focusing on practical application and building confidence.",
+        "target_audience": "English native speakers learning Chinese",
+        "presenter_mode": "voice_over",
+        "visual_style": "Clean, modern, and card-based, using animations to highlight characters, tones, and sentence structures.",
+        "lesson_main_title": "你是老师吗？"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "Asking 'Are you a teacher?'",
+          "teaching_goal": "To learn how to ask a yes-no question about someone's profession using the '是...吗?' structure.",
+          "narration": {
+            "subtitle_en": "Let's start with the first line. Li You asks, [zh:王先生,你是老师吗]. This means 'Mr. Wang, are you a teacher?'. The phrase [zh:王先生] is a polite way to address a man, meaning 'Mr. Wang'. The core of the question is [zh:你是老师吗]. [zh:你] is 'you', [zh:是] is the verb 'to be', and [zh:老师] means 'teacher'. The key to making this a question is the particle [zh:吗] at the end. Adding [zh:吗] to a statement turns it into a simple yes-or-no question."
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "王先生,你是老师吗？",
+            "focus_pinyin": "Wáng xiānsheng, nǐ shì lǎoshī ma?",
+            "focus_gloss_en": "Mr. Wang, are you a teacher?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "先生",
+              "pinyin": "xiānsheng",
+              "translation": "Mr.; husband; teacher",
+              "explanation_en": "A polite title for a man, similar to 'Mr.' or 'Sir'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "是",
+              "pinyin": "shì",
+              "translation": "to be",
+              "explanation_en": "The verb 'to be', used to link two nouns or pronouns that are equivalent.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "老师",
+              "pinyin": "lǎoshī",
+              "translation": "teacher",
+              "explanation_en": "The word for 'teacher'. It combines 'lǎo' (venerable) and 'shī' (master).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "吗",
+              "pinyin": "ma",
+              "translation": "question particle",
+              "explanation_en": "A particle placed at the end of a statement to turn it into a yes-no question.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Animate the character '吗' appearing at the end of the sentence to visually represent the transformation from a statement to a question.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 2,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Answering with 'not'",
+          "teaching_goal": "To learn how to form a negative statement using '不' and provide a corrected affirmative statement.",
+          "narration": {
+            "subtitle_en": "Wang Peng replies, [zh:我不是老师,我是学生]. This means 'I'm not a teacher, I'm a student.' Let's break this down. The first part, [zh:我不是老师], is a negative sentence. [zh:我] means 'I'. The key word here is [zh:不], the negative adverb for 'not'. Notice its pronunciation: when [zh:不] comes before a fourth-tone syllable like [zh:是], its own tone changes from fourth to second, so we say [zh:bú shì]. The second part, [zh:我是学生], clarifies his actual identity: 'I am a student'."
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "我不是老师,我是学生。",
+            "focus_pinyin": "Wǒ bú shì lǎoshī, wǒ shì xuésheng.",
+            "focus_gloss_en": "I'm not a teacher, I'm a student.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "不",
+              "pinyin": "bù / bú",
+              "translation": "not; no",
+              "explanation_en": "The negative adverb, placed before a verb to negate it. Its tone changes to 'bú' when followed by a fourth tone.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "学生",
+              "pinyin": "xuésheng",
+              "translation": "student",
+              "explanation_en": "The word for 'student'. It combines 'xué' (to study) and 'shēng' (person).",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight the tone change on '不' from 'bù' to 'bú' when it's placed before '是'. Show the pinyin changing visually.",
+          "estimated_duration_seconds": 24
+        },
+        {
+          "segment_id": 3,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Asking 'What about you?'",
+          "teaching_goal": "To learn how to use the particle '呢' to ask a reciprocal question.",
+          "narration": {
+            "subtitle_en": "Next, Wang Peng asks Li You the same question back, but in a much shorter way: [zh:李友,你呢]. This means 'Li You, what about you?'. This is a very useful pattern. Instead of repeating the full question 'Are you a teacher?', you can simply use the person's name or a pronoun like [zh:你] for 'you', and add the particle [zh:呢] at the end. It's a conversational shortcut to bounce the question back to the other person."
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "李友,你呢？",
+            "focus_pinyin": "Lǐ Yǒu, nǐ ne?",
+            "focus_gloss_en": "Li You, what about you?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "呢",
+              "pinyin": "ne",
+              "translation": "question particle",
+              "explanation_en": "A particle used to ask 'what about...?' or to bounce a question back to someone.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show the full question '你是老师吗？' fading out and being replaced by the shorter, more efficient '你呢？'.",
+          "estimated_duration_seconds": 18
+        },
+        {
+          "segment_id": 4,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Using '也' for 'too'",
+          "teaching_goal": "To learn how to use the adverb '也' (also, too) and to ask about nationality.",
+          "narration": {
+            "subtitle_en": "Li You first answers the question about her profession, then asks a new one. She says, [zh:我也是学生。你是中国人吗]. The first sentence, [zh:我也是学生], means 'I'm a student, too.' The adverb [zh:也] means 'also' or 'too', and it's always placed after the subject and before the verb. Then she asks, [zh:你是中国人吗], which means 'Are you Chinese?'. This follows the same question pattern we saw earlier. The word [zh:中国人] is formed by combining [zh:中国] (China) and [zh:人] (person)."
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "我也是学生。你是中国人吗？",
+            "focus_pinyin": "Wǒ yě shì xuésheng. Nǐ shì Zhōngguó rén ma?",
+            "focus_gloss_en": "I'm a student, too. Are you Chinese?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "也",
+              "pinyin": "yě",
+              "translation": "too; also",
+              "explanation_en": "An adverb meaning 'too' or 'also'. It is placed after the subject and before the verb.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "中国人",
+              "pinyin": "Zhōngguó rén",
+              "translation": "Chinese person/people",
+              "explanation_en": "Combines 'Zhōngguó' (China) and 'rén' (person).",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "In the first sentence, highlight the position of '也' between '我' and '是'. In the second sentence, show the components '中国' + '人' combining to form '中国人'.",
+          "estimated_duration_seconds": 25
+        },
+        {
+          "segment_id": 5,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Stating Your Origin",
+          "teaching_goal": "To learn how to answer a '是...吗?' question affirmatively and state one's origin using the 'Place + 人' pattern.",
+          "narration": {
+            "subtitle_en": "Wang Peng confirms his nationality and asks about Li You's. He says, [zh:是,我是北京人。你是美国人吗]. He starts with [zh:是], a simple and direct 'yes'. Then he specifies, [zh:我是北京人], meaning 'I am from Beijing.' Notice the pattern: the city name [zh:北京] plus the character [zh:人] for 'person' means 'a person from Beijing'. He then uses this same structure to ask about Li You: [zh:你是美国人吗], 'Are you American?'. [zh:美国] is America."
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "是,我是北京人。你是美国人吗？",
+            "focus_pinyin": "Shì, wǒ shì Běijīng rén. Nǐ shì Měiguó rén ma?",
+            "focus_gloss_en": "Yes, I am from Beijing. Are you American?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "北京人",
+              "pinyin": "Běijīng rén",
+              "translation": "person from Beijing",
+              "explanation_en": "Combines 'Běijīng' (Beijing) and 'rén' (person).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "美国人",
+              "pinyin": "Měiguó rén",
+              "translation": "American person/people",
+              "explanation_en": "Combines 'Měiguó' (America) and 'rén' (person).",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Visually highlight the 'Place + 人' structure for both '北京人' and '美国人'. Maybe show a map icon next to the place names.",
+          "estimated_duration_seconds": 26
+        },
+        {
+          "segment_id": 6,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "Confirming Origin",
+          "teaching_goal": "To reinforce the pattern for answering affirmatively and stating one's origin.",
+          "narration": {
+            "subtitle_en": "Finally, Li You answers. She says, [zh:是,我是纽约人]. This follows the exact same pattern we just learned. She confirms with [zh:是] for 'yes'. Then she states her origin: [zh:我是纽约人], 'I am from New York.' Here, [zh:纽约] is the Chinese name for New York. This is a great example of how once you learn a sentence pattern in Chinese, you can substitute different words like city or country names to say many new things."
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "是,我是纽约人。",
+            "focus_pinyin": "Shì, wǒ shì Niǔyuē rén.",
+            "focus_gloss_en": "Yes, I am from New York.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "纽约人",
+              "pinyin": "Niǔyuē rén",
+              "translation": "New Yorker; person from New York",
+              "explanation_en": "Combines 'Niǔyuē' (New York) and 'rén' (person).",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show the 'Place + 人' template again, this time plugging in '纽约' to reinforce the concept of substitution.",
+          "estimated_duration_seconds": 20
+        },
+        {
+          "segment_id": 7,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            1,
+            2,
+            4,
+            5,
+            6
+          ],
+          "segment_title": "The Verb 是 (shì): To Be",
+          "teaching_goal": "To understand how to use the verb 是 (shì) to link nouns and form basic statements, questions, and negative sentences.",
+          "narration": {
+            "subtitle_en": "Let's dive into our first grammar point: the verb [zh:是]. In Chinese, [zh:是] acts like the verb 'to be' and is used to link two nouns or pronouns that are equivalent. For example, to say 'I am a student,' you say [zh:我是学生]. To form a negative statement, you place the adverb [zh:不] before [zh:是], as in [zh:我不是老师], meaning 'I am not a teacher.' To ask a yes-no question, you can simply add the particle [zh:吗] to the end of a statement, like in the dialogue: [zh:你是老师吗] 'Are you a teacher?' This structure is fundamental for introducing yourself and others."
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "Q: 你是老师吗？ A: 我是学生。/ 我不是老师。",
+            "focus_pinyin": "nǐ shì lǎo shī ma? wǒ shì xué sheng. / wǒ bú shì lǎo shī.",
+            "focus_gloss_en": "Q: Are you a teacher? A: I am a student. / I am not a teacher.",
+            "notes": "是 (shì) links two equivalent nouns or pronouns."
+          },
+          "highlight_words": [
+            {
+              "word": "是",
+              "pinyin": "shì",
+              "translation": "to be",
+              "explanation_en": "A verb used to link two nouns, pronouns, or noun phrases that are in some way equivalent.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "老师",
+              "pinyin": "lǎo shī",
+              "translation": "teacher",
+              "explanation_en": "A noun for 'teacher'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "学生",
+              "pinyin": "xué sheng",
+              "translation": "student",
+              "explanation_en": "A noun for 'student'.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "Subject + 是 + Noun.",
+              "pattern_pinyin": "shì",
+              "explanation_en": "Affirmative: Links a subject to a noun. (e.g., 我是学生。)"
+            },
+            {
+              "pattern": "Subject + 不是 + Noun.",
+              "pattern_pinyin": "bú shì",
+              "explanation_en": "Negative: Negates the link between a subject and a noun. (e.g., 我不是老师。)"
+            },
+            {
+              "pattern": "Subject + 是 + Noun + 吗？",
+              "pattern_pinyin": "shì ma",
+              "explanation_en": "Question: Turns the statement into a yes-no question. (e.g., 你是老师吗？)"
+            }
+          ],
+          "visual_notes": "Animate the three patterns appearing one by one. Highlight the characters 是, 不, and 吗 as they are mentioned.",
+          "estimated_duration_seconds": 32
+        },
+        {
+          "segment_id": 8,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            1,
+            4,
+            5
+          ],
+          "segment_title": "Asking Yes-No Questions with 吗 (ma)",
+          "teaching_goal": "To learn how to form yes-no questions by adding the particle 吗 (ma) to the end of a statement.",
+          "narration": {
+            "subtitle_en": "Now, let's focus on how to ask simple yes-no questions. The easiest way is by using the question particle [zh:吗]. You simply take a declarative statement, like [zh:你是中国人] ('You are Chinese'), and add [zh:吗] to the end to turn it into a question: [zh:你是中国人吗] ('Are you Chinese?'). To answer, you don't use [zh:吗]. For an affirmative answer, you just state the fact: [zh:我是中国人]. For a negative answer, you negate the verb with [zh:不], saying [zh:我不是中国人]. It's a very straightforward and common pattern."
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "Q: 你是美国人吗？ A: 是，我是美国人。/ 不，我不是美国人。",
+            "focus_pinyin": "nǐ shì měi guó rén ma? shì, wǒ shì měi guó rén. / bù, wǒ bú shì měi guó rén.",
+            "focus_gloss_en": "Q: Are you American? A: Yes, I am American. / No, I am not American.",
+            "notes": "Add 吗 (ma) to the end of a statement to form a yes-no question."
+          },
+          "highlight_words": [
+            {
+              "word": "吗",
+              "pinyin": "ma",
+              "translation": "question particle",
+              "explanation_en": "A particle placed at the end of a declarative sentence to turn it into a yes-no question.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "[Statement] + 吗？",
+              "pattern_pinyin": "ma",
+              "explanation_en": "Turns a statement into a yes-no question."
+            },
+            {
+              "pattern": "Affirmative Answer: Drop 吗.",
+              "pattern_pinyin": "",
+              "explanation_en": "To answer 'yes', simply state the original sentence without 吗."
+            },
+            {
+              "pattern": "Negative Answer: Drop 吗 and add 不.",
+              "pattern_pinyin": "bù",
+              "explanation_en": "To answer 'no', remove 吗 and insert the negative adverb 不 before the verb."
+            }
+          ],
+          "visual_notes": "Show a statement sentence. Animate the character '吗' being added to the end, with a question mark appearing. Then show the two possible answers below.",
+          "estimated_duration_seconds": 30
+        },
+        {
+          "segment_id": 9,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "The Negative Adverb 不 (bù)",
+          "teaching_goal": "To learn how to negate verbs using the adverb 不 (bù) and understand its tone change rule.",
+          "narration": {
+            "subtitle_en": "Let's look closer at the negative adverb [zh:不]. It's used to say 'not' or 'no' and is placed directly before the verb it negates. For example, [zh:我是学生] becomes [zh:我不是学生]. Now, there's a very important pronunciation rule to remember. The original tone of [zh:不] is the fourth, or falling, tone. However, when it's followed by another fourth-tone syllable, like [zh:是], its tone changes to the second, or rising, tone. So, we don't say 'bù shì,' we say [zh:不是] 'bú shì'. You'll hear this tone change often, so it's a great rule to master early."
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "我不是老师。",
+            "focus_pinyin": "wǒ bú shì lǎo shī.",
+            "focus_gloss_en": "I am not a teacher.",
+            "notes": "Tone Change Rule: bù (4th tone) + shì (4th tone) → bú shì (2nd + 4th tone)"
+          },
+          "highlight_words": [
+            {
+              "word": "不",
+              "pinyin": "bù",
+              "translation": "not, no",
+              "explanation_en": "An adverb used to negate verbs. Its tone changes from 'bù' to 'bú' when followed by a fourth-tone syllable.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "Subject + 不 + Verb (+ Object)",
+              "pattern_pinyin": "bù",
+              "explanation_en": "The basic structure for forming a negative sentence."
+            },
+            {
+              "pattern": "Tone Change: 不 (bù) → 不 (bú) / __ (4th tone)",
+              "pattern_pinyin": "bù → bú",
+              "explanation_en": "The tone of 不 changes to the 2nd tone when it precedes a 4th tone syllable."
+            }
+          ],
+          "visual_notes": "Display the sentence '我不是老师'. Animate the pinyin above '不' changing from 'bù' to 'bú' to illustrate the tone sandhi.",
+          "estimated_duration_seconds": 33
+        },
+        {
+          "segment_id": 10,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "The Adverb 也 (yě): Too, Also",
+          "teaching_goal": "To learn how to use the adverb 也 (yě) to mean 'too' or 'also', and understand its correct placement in a sentence.",
+          "narration": {
+            "subtitle_en": "Our final grammar point is the adverb [zh:也], which means 'too' or 'also'. Its placement is very important: it always comes after the subject and before the verb. In the dialogue, Li You says [zh:我也是学生], 'I am also a student.' Notice how [zh:也] is placed between the subject [zh:我] and the verb [zh:是]. You cannot put it at the beginning or end of the sentence. When used in a negative sentence, [zh:也] comes before [zh:不]. For example, [zh:他不是老师，我也不是老师] means 'He is not a teacher, I am not a teacher either.'"
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "我也是学生。/ 我也不是老师。",
+            "focus_pinyin": "wǒ yě shì xué sheng. / wǒ yě bú shì lǎo shī.",
+            "focus_gloss_en": "I am also a student. / I am not a teacher, either.",
+            "notes": "Placement: Subject + 也 + [不] + Verb"
+          },
+          "highlight_words": [
+            {
+              "word": "也",
+              "pinyin": "yě",
+              "translation": "too, also",
+              "explanation_en": "An adverb that indicates similarity or inclusion. It is placed after the subject and before the verb.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "Subj. + 也 + Verb (+ Obj.)",
+              "pattern_pinyin": "yě",
+              "explanation_en": "Used to express that the subject also does something or is in a certain state."
+            },
+            {
+              "pattern": "Subj. + 也 + 不 + Verb (+ Obj.)",
+              "pattern_pinyin": "yě bù",
+              "explanation_en": "Used to express a shared negative situation ('neither' or 'not... either')."
+            },
+            {
+              "pattern": "Incorrect: 我是学生也。",
+              "pattern_pinyin": "wǒ shì xué sheng yě",
+              "explanation_en": "Common Error: Do not place 也 at the end of a sentence."
+            }
+          ],
+          "visual_notes": "Show the correct sentence structure visually, with boxes for 'Subject', '也', and 'Verb'. Then show an incorrect example with a red 'X' over it.",
+          "estimated_duration_seconds": 35
+        },
+        {
+          "segment_id": 11,
+          "segment_type": "recap",
+          "source_line_refs": [],
+          "segment_title": "Lesson Recap",
+          "teaching_goal": "To review the key vocabulary and sentence patterns from the lesson.",
+          "narration": {
+            "subtitle_en": "Great job! Let's quickly review what we've learned. We covered how to ask and answer questions about identity and nationality using the verb [zh:是], the negative adverb [zh:不], the question particle [zh:吗], and the adverb [zh:也]. Practice these key phrases to build your confidence. See you in the next lesson!"
+          },
+          "on_screen_text": {
+            "main_title": "你是老师吗？",
+            "focus_text": "Key Phrases Review",
+            "focus_pinyin": "",
+            "focus_gloss_en": "",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "你是...吗？",
+              "pinyin": "nǐ shì... ma?",
+              "translation": "Are you...?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我(不)是...",
+              "pinyin": "wǒ (bú) shì...",
+              "translation": "I am (not)...",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我也...",
+              "pinyin": "wǒ yě...",
+              "translation": "I also... / I... too.",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "老师",
+              "pinyin": "lǎo shī",
+              "translation": "teacher",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "学生",
+              "pinyin": "xué sheng",
+              "translation": "student",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "中国人",
+              "pinyin": "zhōng guó rén",
+              "translation": "Chinese person",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Display the key phrases as a list on the screen with their pinyin and English translations.",
+          "estimated_duration_seconds": 20
+        }
+      ]
+    },
+    "production_notes": {
+      "recommended_workflow": [
+        "generate dramatization visuals",
+        "generate explanation visuals",
+        "generate voice-over",
+        "compose subtitles"
+      ],
+      "remarks": "This schema is model-agnostic and designed for script planning plus downstream rendering."
+    }
+  },
+  "video_render_plan": {
+    "explanation": {
+      "lesson_id": 102,
+      "course_id": 1,
+      "lesson_title": "你是老师吗？",
+      "target_audience": "中国語を学習する英語ネイティブスピーカー",
+      "video_style": {
+        "presenter_mode": "voice_over",
+        "teaching_style": "A clear, structured, and encouraging voice-over style that breaks down concepts step-by-step, focusing on practical application and building confidence.",
+        "visual_style": "Clean, modern, and card-based, using animations to highlight characters, tones, and sentence structures.",
+        "aspect_ratio": "16:9",
+        "safe_area": "title_safe"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_order": 1,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "「あなたは先生ですか？」と尋ねる",
+          "teaching_goal": "「[zh:shì...ma?]」の構造を使って、相手の職業についてはい/いいえで答える質問の仕方を学びましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "最初の行から始めましょう。李友が尋ねます。「[zh:王先生,你是老师吗]」。これは「王さん、あなたは先生ですか？」という意味です。「[zh:王先生]」というフレーズは、男性に呼びかける丁寧な言い方で、「王さん」という意味です。質問の核となるのは「[zh:你是老师吗]」です。「[zh:你]」は「あなた」、「[zh:是]」は動詞の「〜である」、「[zh:老师]」は「先生」という意味です。これを質問にする鍵は、文末の助詞「[zh:吗]」です。平叙文に「[zh:吗]」を加えることで、簡単なはい・いいえで答えられる質問になります。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "王先生,你是老师吗？",
+                "focus_pinyin": "Wáng xiānsheng, nǐ shì lǎoshī ma?",
+                "focus_gloss_en": "王先生、あなたは先生ですか？"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "先生",
+                    "pinyin": "xiānsheng",
+                    "translation": "先生；夫；教師",
+                    "explanation_en": "男性に対する丁寧な敬称で、日本語の「～さん」や「～先生」のようなものです。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "是",
+                    "pinyin": "shì",
+                    "translation": "です；である",
+                    "explanation_en": "2つの名詞や代名詞が同等であることをつなぐために使われる動詞「[zh:shì]」です。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "老师",
+                    "pinyin": "lǎoshī",
+                    "translation": "先生；教師",
+                    "explanation_en": "「先生」を意味する単語です。「[zh:lǎo]」（年長者、尊敬すべき）と「[zh:shī]」（師匠、達人）を組み合わせたものです。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "先生",
+              "pinyin": "xiānsheng",
+              "translation": "先生；夫；教師",
+              "explanation_en": "男性に対する丁寧な敬称で、日本語の「～さん」や「～先生」のようなものです。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "是",
+              "pinyin": "shì",
+              "translation": "です；である",
+              "explanation_en": "2つの名詞や代名詞が同等であることをつなぐために使われる動詞「[zh:shì]」です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "老师",
+              "pinyin": "lǎoshī",
+              "translation": "先生；教師",
+              "explanation_en": "「先生」を意味する単語です。「[zh:lǎo]」（年長者、尊敬すべき）と「[zh:shī]」（師匠、達人）を組み合わせたものです。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "吗",
+              "pinyin": "ma",
+              "translation": "疑問助詞",
+              "explanation_en": "平叙文の最後に置かれる助詞で、はい/いいえで答える疑問文に変えます。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "文末に現れる「[zh:ma]」の文字をアニメーションで表示し、平叙文が疑問文に変わる様子を視覚的に表現します。",
+          "start_time_seconds": 0.0,
+          "duration_seconds": 38.084,
+          "end_time_seconds": 22.0
+        },
+        {
+          "segment_id": 2,
+          "segment_order": 2,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "「～ではない」と答える",
+          "teaching_goal": "「[zh:bù]」を使って否定文を作る方法を学び、正しい肯定文を提示します。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "王朋が答えます。「[zh:我不是老师,我是学生]」。これは「私は先生ではありません、私は学生です」という意味です。これを分解してみましょう。最初の部分「[zh:我不是老师]」は否定文です。「[zh:我]」は「私」という意味です。ここでのキーワードは、否定の副詞「[zh:不]」です。発音に注目してください。「[zh:不]」が「[zh:是]」のような第四声の音節の前に来ると、それ自体の声調が第四声から第二声に変化し、「[zh:bú shì]」と発音します。二番目の部分「[zh:我是学生]」は、彼の実際の身元を明確にしています。「私は学生です」という意味です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.56,
+              "duration_seconds": 10.56,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "我不是老师,我是学生。",
+                "focus_pinyin": "Wǒ bú shì lǎoshī, wǒ shì xuésheng.",
+                "focus_gloss_en": "私は先生ではありません、学生です。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.56,
+              "end_time_seconds": 24.0,
+              "duration_seconds": 13.44,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "不",
+                    "pinyin": "bù / bú",
+                    "translation": "〜ではない、いいえ",
+                    "explanation_en": "動詞の前に置いて否定を表す副詞です。四声の後に続く場合、声調が「bú」に変化します。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "学生",
+                    "pinyin": "xuésheng",
+                    "translation": "学生",
+                    "explanation_en": "「学生」という言葉です。「学」[zh:xué]（学ぶ）と「生」[zh:shēng]（人）を組み合わせたものです。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "不",
+              "pinyin": "bù / bú",
+              "translation": "～ではない；いいえ",
+              "explanation_en": "否定の副詞で、動詞の前に置いて否定します。後ろに第四声が続く場合、声調が「[zh:bú]」に変化します。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "学生",
+              "pinyin": "xuésheng",
+              "translation": "学生",
+              "explanation_en": "「学生」を意味する単語です。「[zh:xué]」（学ぶ）と「[zh:shēng]」（人）を組み合わせたものです。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「[zh:bù]」が「[zh:shì]」の前に置かれると、声調が「[zh:bù]」から「[zh:bú]」に変化することに注目しましょう。ピンインが視覚的に変化する様子を表示します。",
+          "start_time_seconds": 38.084,
+          "duration_seconds": 39.86,
+          "end_time_seconds": 46.0
+        },
+        {
+          "segment_id": 3,
+          "segment_order": 3,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "「あなたは？」と尋ねる",
+          "teaching_goal": "助詞「呢」[zh:ne]を使って、相手に質問を返す方法を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "次に、王朋は李友に同じ質問を、もっと短い方法で尋ね返します。「[zh:李友,你呢]」。これは「李友、あなたは？」という意味です。これは非常に便利なパターンです。「あなたは先生ですか？」という完全な質問を繰り返す代わりに、単に相手の名前や「あなた」を意味する「[zh:你]」のような代名詞を使い、最後に助詞「[zh:呢]」を加えることができます。これは、質問を相手に投げ返すための会話のショートカットです。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 7.92,
+              "duration_seconds": 7.92,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "李友,你呢？",
+                "focus_pinyin": "Lǐ Yǒu, nǐ ne?",
+                "focus_gloss_en": "李友さん、あなたは？"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 7.92,
+              "end_time_seconds": 18.0,
+              "duration_seconds": 10.08,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "呢",
+                    "pinyin": "ne",
+                    "translation": "疑問の助詞",
+                    "explanation_en": "「〜は？」と尋ねたり、質問を相手に返したりするのに使う助詞です。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "呢",
+              "pinyin": "ne",
+              "translation": "疑問の助詞",
+              "explanation_en": "「〜は？」と尋ねたり、質問を相手に返したりするのに使う助詞です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「你是老师吗？」[zh:Nǐ shì lǎoshī ma?]という完全な質問がフェードアウトし、より短く効率的な「你呢？」[zh:Nǐ ne?]に置き換わる様子を示します。",
+          "start_time_seconds": 77.944,
+          "duration_seconds": 30.092,
+          "end_time_seconds": 64.0
+        },
+        {
+          "segment_id": 4,
+          "segment_order": 4,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "「也」[zh:yě]を使って「〜も」を表す",
+          "teaching_goal": "副詞「也」[zh:yě]（〜も）の使い方と、国籍を尋ねる方法を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "李友はまず自分の職業について答えます。そして、新しい質問をします。彼女は「[zh:我也是学生。你是中国人吗]」と言います。最初の文「[zh:我也是学生]」は、「私も学生です」という意味です。副詞の[zh:也]は「〜も」という意味です。常に主語の後、動詞の前に置かれます。それから彼女は「[zh:你是中国人吗]」と尋ねます。これは「あなたは中国人ですか」という意味です。これは以前に見たのと同じ質問のパターンです。[zh:中国人]という単語は、[zh:中国]「中国」と[zh:人]「人」を組み合わせたものです。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.0,
+              "duration_seconds": 11.0,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "我也是学生。你是中国人吗？",
+                "focus_pinyin": "Wǒ yě shì xuésheng. Nǐ shì Zhōngguó rén ma?",
+                "focus_gloss_en": "私も学生です。あなたは中国人ですか？"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 14.0,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "也",
+                    "pinyin": "yě",
+                    "translation": "〜も",
+                    "explanation_en": "「〜も」という意味の副詞です。主語の後、動詞の前に置かれます。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "中国人",
+                    "pinyin": "Zhōngguó rén",
+                    "translation": "中国人",
+                    "explanation_en": "「中国」[zh:Zhōngguó]（中国）と「人」[zh:rén]（人）を組み合わせたものです。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "也",
+              "pinyin": "yě",
+              "translation": "〜も",
+              "explanation_en": "「〜も」という意味の副詞です。主語の後、動詞の前に置かれます。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "中国人",
+              "pinyin": "Zhōngguó rén",
+              "translation": "中国人",
+              "explanation_en": "「中国」[zh:Zhōngguó]（中国）と「人」[zh:rén]（人）を組み合わせたものです。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "最初の文では、「我」[zh:wǒ]と「是」[zh:shì]の間の「也」[zh:yě]の位置を強調します。2番目の文では、「中国」[zh:Zhōngguó]と「人」[zh:rén]が組み合わさって「中国人」[zh:Zhōngguórén]になる様子を示します。",
+          "start_time_seconds": 108.036,
+          "duration_seconds": 36.692,
+          "end_time_seconds": 89.0
+        },
+        {
+          "segment_id": 5,
+          "segment_order": 5,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "出身地を述べる",
+          "teaching_goal": "「是...吗？」[zh:shì...ma?]の質問に肯定的に答え、「場所＋人」[zh:rén]のパターンを使って出身地を述べる方法を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "王鵬は自分の国籍を確認し、李友の国籍を尋ねます。彼は「[zh:是,我是北京人。你是美国人吗]」と言います。彼は[zh:是]から始めます。これはシンプルで直接的な「はい」です。それから彼は「[zh:我是北京人]」と具体的に言います。これは「私は北京出身です」という意味です。このパターンに注目してください。都市名の[zh:北京]に「人」を表す[zh:人]の文字を組み合わせます。すると、「北京出身の人」という意味になります。彼はこの同じ構造を使って李友に尋ねます。「[zh:你是美国人吗]」は「あなたはアメリカ人ですか」という意味です。[zh:美国]はアメリカのことです。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.44,
+              "duration_seconds": 11.44,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "是,我是北京人。你是美国人吗？",
+                "focus_pinyin": "Shì, wǒ shì Běijīng rén. Nǐ shì Měiguó rén ma?",
+                "focus_gloss_en": "はい、私は北京出身です。あなたはアメリカ人ですか？"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.44,
+              "end_time_seconds": 26.0,
+              "duration_seconds": 14.56,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "北京人",
+                    "pinyin": "Běijīng rén",
+                    "translation": "北京出身の人、北京人",
+                    "explanation_en": "「Běijīng」（北京）と「rén」（人）を組み合わせたものです。",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "美国人",
+                    "pinyin": "Měiguó rén",
+                    "translation": "アメリカ人",
+                    "explanation_en": "「Měiguó」（アメリカ）と「rén」（人）を組み合わせたものです。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "北京人",
+              "pinyin": "Běijīng rén",
+              "translation": "北京人",
+              "explanation_en": "「北京」[zh:Běijīng]（北京）と「人」[zh:rén]（人）を組み合わせたものです。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "美国人",
+              "pinyin": "Měiguó rén",
+              "translation": "アメリカ人",
+              "explanation_en": "「Měiguó」（アメリカ）と「rén」（人）を組み合わせたものです。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「北京人」[zh:Běijīngrén]と「美国人」[zh:Měiguórén]の両方で「場所＋人」[zh:rén]の構造を視覚的に強調します。地名の横に地図のアイコンを表示しても良いでしょう。",
+          "start_time_seconds": 144.728,
+          "duration_seconds": 36.62,
+          "end_time_seconds": 115.0
+        },
+        {
+          "segment_id": 6,
+          "segment_order": 6,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "出身地の確認",
+          "teaching_goal": "肯定的に答え、出身地を述べるパターンを再確認します。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "最後に、李友が答えます。彼女は「[zh:是,我是纽约人]」と言います。これは、私たちが今学んだのと全く同じパターンです。彼女は[zh:是]で「はい」と確認します。それから彼女は自分の出身地を述べます。「[zh:我是纽约人]」は「私はニューヨーク出身です」という意味です。ここで、[zh:纽约]はニューヨークの中国語名です。これは素晴らしい例です。中国語で文のパターンを一度学べば、多くの新しいことを言えます。都市名や国名など、異なる単語を置き換えることができるからです。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 8.8,
+              "duration_seconds": 8.8,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "是,我是纽约人。",
+                "focus_pinyin": "Shì, wǒ shì Niǔyuē rén.",
+                "focus_gloss_en": "はい、私はニューヨーク出身です。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 8.8,
+              "end_time_seconds": 20.0,
+              "duration_seconds": 11.2,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "纽约人",
+                    "pinyin": "Niǔyuē rén",
+                    "translation": "ニューヨーカー、ニューヨーク出身の人",
+                    "explanation_en": "「Niǔyuē」（ニューヨーク）と「rén」（人）を組み合わせたものです。",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "纽约人",
+              "pinyin": "Niǔyuē rén",
+              "translation": "ニューヨーカー、ニューヨーク出身の人",
+              "explanation_en": "「Niǔyuē」（ニューヨーク）と「rén」（人）を組み合わせたものです。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "「場所 + 人」のテンプレートをもう一度示し、今回は「纽约」を当てはめて、置き換えの概念を強化します。",
+          "start_time_seconds": 181.348,
+          "duration_seconds": 33.116,
+          "end_time_seconds": 135.0
+        },
+        {
+          "segment_id": 7,
+          "segment_order": 7,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            1,
+            2,
+            4,
+            5,
+            6
+          ],
+          "segment_title": "動詞 是 [zh:shì]：「〜である」",
+          "teaching_goal": "動詞 是 [zh:shì] を使って名詞をつなぎ、基本的な肯定文、疑問文、否定文を作る方法を理解します。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "最初の文法ポイント、動詞の[zh:是]について見ていきましょう。中国語の[zh:是]は、「〜である」のような働きをします。2つの名詞や代名詞が同等であることを示す際に使われます。例えば、「私は学生です」と言うには、[zh:我是学生]と言います。否定文を作るには、副詞の[zh:不]を[zh:是]の前に置きます。例えば、[zh:我不是老师]は「私は先生ではありません」という意味です。はい・いいえの質問をするには、文の最後に助詞の[zh:吗]を付けます。例えば、[zh:你是老师吗]は「あなたは先生ですか？」という意味です。この構文は、自己紹介や他者を紹介する際に非常に重要です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 13.44,
+              "duration_seconds": 13.44,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "Q: 你是老师吗？ A: 我是学生。/ 我不是老师。",
+                "focus_pinyin": "nǐ shì lǎo shī ma? wǒ shì xué sheng. / wǒ bú shì lǎo shī.",
+                "focus_gloss_en": "質問：あなたは先生ですか？ 答え：私は学生です。／私は先生ではありません。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 13.44,
+              "end_time_seconds": 32.0,
+              "duration_seconds": 18.56,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "Subject + 是 + Noun.",
+                    "pattern_pinyin": "shì",
+                    "explanation_en": "肯定文：主語と名詞を連結します。（例：我是学生。）"
+                  },
+                  {
+                    "pattern": "Subject + 不是 + Noun.",
+                    "pattern_pinyin": "bú shì",
+                    "explanation_en": "否定文：主語と名詞の連結を否定します。（例：我不是老师。）"
+                  },
+                  {
+                    "pattern": "Subject + 是 + Noun + 吗？",
+                    "pattern_pinyin": "shì ma",
+                    "explanation_en": "疑問文：文をはい・いいえで答える質問に変えます。（例：你是老师吗？）"
+                  }
+                ],
+                "notes": "是 [zh:shì] は、同等の2つの名詞または代名詞を連結します。"
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "是",
+              "pinyin": "shì",
+              "translation": "〜である",
+              "explanation_en": "2つの名詞、代名詞、または名詞句を、何らかの形で同等であることを示すために連結する動詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "老师",
+              "pinyin": "lǎo shī",
+              "translation": "先生",
+              "explanation_en": "「先生」を表す名詞です。",
+              "character_insight_en": ""
+            },
+            {
+              "word": "学生",
+              "pinyin": "xué sheng",
+              "translation": "学生",
+              "explanation_en": "「学生」を表す名詞です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "Subject + 是 + Noun.",
+              "pattern_pinyin": "shì",
+              "explanation_en": "肯定文：主語と名詞を連結します。（例：我是学生。）"
+            },
+            {
+              "pattern": "Subject + 不是 + Noun.",
+              "pattern_pinyin": "bú shì",
+              "explanation_en": "否定形：主語と名詞の間のつながりを否定します。例：[zh:我不是老师。]"
+            },
+            {
+              "pattern": "Subject + 是 + Noun + 吗？",
+              "pattern_pinyin": "shì ma",
+              "explanation_en": "疑問形：平叙文をはい/いいえで答える疑問文にします。例：[zh:你是老师吗？]"
+            }
+          ],
+          "visual_notes": "3つのパターンを一つずつ表示します。是、不、吗 の文字が言及される際にハイライトします。",
+          "start_time_seconds": 214.464,
+          "duration_seconds": 40.748,
+          "end_time_seconds": 167.0
+        },
+        {
+          "segment_id": 8,
+          "segment_order": 8,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            1,
+            4,
+            5
+          ],
+          "segment_title": "吗 [zh:ma] を使ったはい/いいえの質問",
+          "teaching_goal": "平叙文の最後に助詞の 吗 [zh:ma] を加えることで、はい/いいえの質問文を作る方法を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "次に、簡単なはい・いいえの質問の仕方について見ていきましょう。最も簡単な方法は、疑問の助詞[zh:吗]を使うことです。[zh:你是中国人]「あなたは中国人です」のような肯定文に[zh:吗]を付けると、[zh:你是中国人吗]「あなたは中国人ですか？」という疑問文になります。答えるときは、[zh:吗]を使いません。肯定の場合は、[zh:我是中国人]のように事実を述べます。否定の場合は、動詞を[zh:不]で否定し、[zh:我不是中国人]と言います。これはとても簡単で、よく使われるパターンです。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 12.6,
+              "duration_seconds": 12.6,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "Q: 你是美国人吗？ A: 是，我是美国人。/ 不，我不是美国人。",
+                "focus_pinyin": "nǐ shì měi guó rén ma? shì, wǒ shì měi guó rén. / bù, wǒ bú shì měi guó rén.",
+                "focus_gloss_en": "質問：あなたはアメリカ人ですか？ 答え：はい、私はアメリカ人です。／いいえ、私はアメリカ人ではありません。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 12.6,
+              "end_time_seconds": 30.0,
+              "duration_seconds": 17.4,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "[Statement] + 吗？",
+                    "pattern_pinyin": "ma",
+                    "explanation_en": "平叙文をはい/いいえの質問文にします。"
+                  },
+                  {
+                    "pattern": "Affirmative Answer: Drop 吗.",
+                    "pattern_pinyin": "",
+                    "explanation_en": "「はい」と答えるには、吗 を付けずに元の文をそのまま言います。"
+                  },
+                  {
+                    "pattern": "Negative Answer: Drop 吗 and add 不.",
+                    "pattern_pinyin": "bù",
+                    "explanation_en": "「いいえ」と答えるには、吗 を取り除き、動詞の前に否定の副詞 不 を挿入します。"
+                  }
+                ],
+                "notes": "平叙文の最後に 吗 [zh:ma] を加えることで、はい/いいえの質問文を作ります。"
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "吗",
+              "pinyin": "ma",
+              "translation": "疑問の助詞",
+              "explanation_en": "平叙文の文末に置かれ、はい/いいえで答える疑問文にする助詞です。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "[Statement] + 吗？",
+              "pattern_pinyin": "ma",
+              "explanation_en": "平叙文をはい/いいえの質問文にします。"
+            },
+            {
+              "pattern": "Affirmative Answer: Drop 吗.",
+              "pattern_pinyin": "",
+              "explanation_en": "「はい」と答えるには、吗 を付けずに元の文をそのまま言います。"
+            },
+            {
+              "pattern": "Negative Answer: Drop 吗 and add 不.",
+              "pattern_pinyin": "bù",
+              "explanation_en": "「いいえ」と答えるには、吗 を取り除き、動詞の前に否定の副詞 不 を挿入します。"
+            }
+          ],
+          "visual_notes": "平叙文を表示します。文末に「吗」が追加され、疑問符が表示されるアニメーションを見せます。その後、考えられる2つの答えを下に表示します。",
+          "start_time_seconds": 255.212,
+          "duration_seconds": 38.444,
+          "end_time_seconds": 197.0
+        },
+        {
+          "segment_id": 9,
+          "segment_order": 9,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "否定の副詞 不 [zh:bù]",
+          "teaching_goal": "副詞の 不 [zh:bù] を使って動詞を否定する方法と、その声調変化のルールを学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "否定の副詞[zh:不]について、さらに詳しく見ていきましょう。「〜ではない」という意味で、否定する動詞の直前に置かれます。例えば、[zh:我是学生]は[zh:我不是学生]になります。ここで、非常に重要な発音のルールがあります。[zh:不]の本来の声調は、第4声、つまり下がる声調です。しかし、[zh:是]のように別の第4声の音節が続く場合、声調が第2声、つまり上がる声調に変わります。ですから、「ブー シー」ではなく、[zh:不是]「ブー シー」と発音します。この声調変化はよく耳にするので、早めに習得しておくと良いでしょう。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 13.86,
+              "duration_seconds": 13.86,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "我不是老师。",
+                "focus_pinyin": "wǒ bú shì lǎo shī.",
+                "focus_gloss_en": "私は先生ではありません。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 13.86,
+              "end_time_seconds": 33.0,
+              "duration_seconds": 19.14,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "Subject + 不 + Verb (+ Object)",
+                    "pattern_pinyin": "bù",
+                    "explanation_en": "否定文を作るための基本的な構造です。"
+                  },
+                  {
+                    "pattern": "Tone Change: 不 (bù) → 不 (bú) / __ (4th tone)",
+                    "pattern_pinyin": "bù → bú",
+                    "explanation_en": "不 の声調は、第四声の音節の前に来ると第二声に変化します。"
+                  }
+                ],
+                "notes": "声調変化のルール：bù（第四声）＋ shì（第四声）→ bú shì（第二声＋第四声）"
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "不",
+              "pinyin": "bù",
+              "translation": "～ない、いいえ",
+              "explanation_en": "動詞を否定するために使われる副詞です。第四声の音節が続く場合、声調が「bù」から「bú」に変化します。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "Subject + 不 + Verb (+ Object)",
+              "pattern_pinyin": "bù",
+              "explanation_en": "否定文を作るための基本的な構造です。"
+            },
+            {
+              "pattern": "Tone Change: 不 (bù) → 不 (bú) / __ (4th tone)",
+              "pattern_pinyin": "bù → bú",
+              "explanation_en": "不 の声調は、第四声の音節の前に来ると第二声に変化します。"
+            }
+          ],
+          "visual_notes": "「[zh:我不是老师]」という文を表示します。「不」の上のピンインが「bù」から「bú」に変化するアニメーションで、声調変化を説明します。",
+          "start_time_seconds": 293.656,
+          "duration_seconds": 44.708,
+          "end_time_seconds": 230.0
+        },
+        {
+          "segment_id": 10,
+          "segment_order": 10,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "副詞の 也 [zh:yě]：～もまた、～も",
+          "teaching_goal": "副詞の 也 [zh:yě] を「～もまた」や「～も」という意味で使う方法と、文中の正しい位置を学びます。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "最後の文法ポイントは副詞の [zh:也] です。これは「〜も」という意味です。その位置が非常に重要です。常に主語の後ろ、動詞の前に置かれます。会話の中で、李友は「[zh:我也是学生]」と言っています。これは「私も学生です」という意味です。[zh:也] が主語の [zh:我] と動詞の [zh:是] の間に置かれていることに注目してください。文頭や文末に置くことはできません。否定文で使う場合、[zh:也] は [zh:不] の前に来ます。例えば、「[zh:他不是老师，我也不是老师]」という文があります。これは「彼は先生ではありません、私も先生ではありません」という意味です。"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 14.7,
+              "duration_seconds": 14.7,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "我也是学生。/ 我也不是老师。",
+                "focus_pinyin": "wǒ yě shì xué sheng. / wǒ yě bú shì lǎo shī.",
+                "focus_gloss_en": "私は学生でもあります。/ 私は先生でもありません。"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 14.7,
+              "end_time_seconds": 35.0,
+              "duration_seconds": 20.3,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "Subj. + 也 + Verb (+ Obj.)",
+                    "pattern_pinyin": "yě",
+                    "explanation_en": "主語も何かをする、またはある状態にあることを表すのに使います。"
+                  },
+                  {
+                    "pattern": "Subj. + 也 + 不 + Verb (+ Obj.)",
+                    "pattern_pinyin": "yě bù",
+                    "explanation_en": "共通の否定的な状況（「～でもない」「～もまた～ない」）を表すのに使います。"
+                  },
+                  {
+                    "pattern": "Incorrect: 我是学生也。",
+                    "pattern_pinyin": "wǒ shì xué sheng yě",
+                    "explanation_en": "よくある間違い：也を文末に置かないようにしましょう。"
+                  }
+                ],
+                "notes": "配置は「主語 + 也 + [不] + 動詞」です。"
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "也",
+              "pinyin": "yě",
+              "translation": "～もまた、～も",
+              "explanation_en": "類似性や包含を示す副詞です。主語の後に置き、動詞の前に置きます。",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [
+            {
+              "pattern": "Subj. + 也 + Verb (+ Obj.)",
+              "pattern_pinyin": "yě",
+              "explanation_en": "主語も何かをする、またはある状態にあることを表すのに使います。"
+            },
+            {
+              "pattern": "Subj. + 也 + 不 + Verb (+ Obj.)",
+              "pattern_pinyin": "yě bù",
+              "explanation_en": "共通の否定的な状況（「～でもない」「～もまた～ない」）を表すのに使います。"
+            },
+            {
+              "pattern": "Incorrect: 我是学生也。",
+              "pattern_pinyin": "wǒ shì xué sheng yě",
+              "explanation_en": "よくある間違い：也を文末に置かないようにしましょう。"
+            }
+          ],
+          "visual_notes": "「主語」「也」「動詞」のボックスを使って、正しい文の構造を視覚的に示します。その後、赤い「X」が付いた間違った例を表示します。",
+          "start_time_seconds": 338.364,
+          "duration_seconds": 41.276,
+          "end_time_seconds": 265.0
+        },
+        {
+          "segment_id": 11,
+          "segment_order": 11,
+          "segment_type": "recap",
+          "template_name": "lesson_recap",
+          "source_line_refs": [],
+          "segment_title": "レッスンを振り返る",
+          "teaching_goal": "レッスンで学んだ主要な語彙と文型を復習しましょう。",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "よくできました！学んだことを簡単に復習しましょう。動詞の [zh:是]、否定副詞の [zh:不]、疑問詞の [zh:吗]、副詞の [zh:也] を使いました。これらを使って、身元や国籍について質問したり答えたりする方法を学びましたね。これらの重要なフレーズを練習して、自信をつけましょう。次のレッスンでお会いしましょう！"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "recap_summary",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 20.0,
+              "duration_seconds": 20.0,
+              "content": {
+                "main_title": "你是老师吗？",
+                "focus_text": "Key Phrases Review",
+                "highlight_words": [
+                  {
+                    "word": "你是...吗？",
+                    "pinyin": "nǐ shì... ma?",
+                    "translation": "～ですか？",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "我(不)是...",
+                    "pinyin": "wǒ (bú) shì...",
+                    "translation": "私は～です／ではありません。",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "我也...",
+                    "pinyin": "wǒ yě...",
+                    "translation": "私も～です。",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "老师",
+                    "pinyin": "lǎo shī",
+                    "translation": "先生",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "学生",
+                    "pinyin": "xué sheng",
+                    "translation": "学生",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "中国人",
+                    "pinyin": "zhōng guó rén",
+                    "translation": "中国人",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  }
+                ],
+                "grammar_points": [],
+                "notes": ""
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "你是...吗？",
+              "pinyin": "nǐ shì... ma?",
+              "translation": "～ですか？",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我(不)是...",
+              "pinyin": "wǒ (bú) shì...",
+              "translation": "私は～です／ではありません。",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我也...",
+              "pinyin": "wǒ yě...",
+              "translation": "私も～です。",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "老师",
+              "pinyin": "lǎo shī",
+              "translation": "先生",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "学生",
+              "pinyin": "xué sheng",
+              "translation": "学生",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "中国人",
+              "pinyin": "zhōng guó rén",
+              "translation": "中国人",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "主要なフレーズをピンインと英語訳とともに画面にリスト表示します。",
+          "start_time_seconds": 379.64,
+          "duration_seconds": 22.148,
+          "end_time_seconds": 285.0
+        }
+      ],
+      "timeline": {
+        "total_duration_seconds": 401.788,
+        "segment_count": 11
+      },
+      "renderer_notes": {
+        "recommended_renderer": "template_video",
+        "recommended_stack": [
+          "react_templates",
+          "motion_graphics",
+          "ffmpeg_or_remotion"
+        ],
+        "remarks": "This plan is intended for explanation-video composition, not direct AIGC generation."
+      }
+    }
+  },
+  "lesson_audio_assets": {
+    "lesson_id": 102,
+    "course_id": 1,
+    "lesson_title": "你是老师吗？",
+    "provider": "tencent_tts",
+    "mode": "sentence_audio",
+    "default_voice_type": 501002,
+    "role_voice_map": {
+      "王朋": 601011,
+      "李友": 601009,
+      "高文中": 601008,
+      "高小音": 601013,
+      "白英爱": 601010,
+      "常老师": 601013,
+      "王红": 601010,
+      "海伦": 501004,
+      "费先生": 501005,
+      "王朋的父母": 501005,
+      "张天明": 601011,
+      "丽莎": 501004,
+      "柯林": 601008,
+      "林雪梅": 601010,
+      "李哲": 601011,
+      "李文": 601013,
+      "马克": 501005,
+      "张天明的老表": 601008,
+      "林雪梅的父母": 501005
+    },
+    "codec": "mp3",
+    "sample_rate": 16000,
+    "include_speakers": false,
+    "storage_backend": "local",
+    "sentence_gap_ms": 300,
+    "full_audio": {
+      "status": "ready",
+      "audio_url": "",
+      "object_key": "zh/audio/lesson102/full/lesson102_full_dialogue.mp3",
+      "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson102\\lesson102_full_dialogue.mp3",
+      "codec": "mp3",
+      "duration_seconds": 17.604
+    },
+    "items": [
+      {
+        "line_ref": 1,
+        "role": "李友",
+        "hanzi": "王先生,你是老师吗？",
+        "source_text": "王先生,你是老师吗？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601009,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.34,
+        "start_time_seconds": 0.0,
+        "end_time_seconds": 2.34,
+        "status": "ready",
+        "session_id": "lesson-102-line-1",
+        "request_id": "67b73fce-7b13-4173-a9c8-5b7f2b14e711",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson102/sentences/lesson102_line1.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson102\\lesson102_line1.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 2,
+        "role": "王朋",
+        "hanzi": "我不是老师,我是学生。",
+        "source_text": "我不是老师,我是学生。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.484,
+        "start_time_seconds": 2.64,
+        "end_time_seconds": 5.124,
+        "status": "ready",
+        "session_id": "lesson-102-line-2",
+        "request_id": "ae4e14d0-4a1c-4f31-b870-26bc3b8dbabe",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson102/sentences/lesson102_line2.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson102\\lesson102_line2.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 3,
+        "role": "王朋",
+        "hanzi": "李友,你呢？",
+        "source_text": "李友,你呢？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.548,
+        "start_time_seconds": 5.424,
+        "end_time_seconds": 6.972,
+        "status": "ready",
+        "session_id": "lesson-102-line-3",
+        "request_id": "0485ad7f-36cb-4b56-884c-84f17ce23cdf",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson102/sentences/lesson102_line3.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson102\\lesson102_line3.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 4,
+        "role": "李友",
+        "hanzi": "我也是学生。你是中国人吗？",
+        "source_text": "我也是学生。你是中国人吗？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601009,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.204,
+        "start_time_seconds": 7.272,
+        "end_time_seconds": 10.476,
+        "status": "ready",
+        "session_id": "lesson-102-line-4",
+        "request_id": "c425c1b6-6b6a-45c4-ac73-65788f908a8e",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson102/sentences/lesson102_line4.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson102\\lesson102_line4.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 5,
+        "role": "王朋",
+        "hanzi": "是,我是北京人。你是美国人吗？",
+        "source_text": "是,我是北京人。你是美国人吗？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.636,
+        "start_time_seconds": 10.776,
+        "end_time_seconds": 14.412,
+        "status": "ready",
+        "session_id": "lesson-102-line-5",
+        "request_id": "03ed1352-0f24-4811-92a2-ca86c12032d6",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson102/sentences/lesson102_line5.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson102\\lesson102_line5.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 6,
+        "role": "李友",
+        "hanzi": "是,我是纽约人。",
+        "source_text": "是,我是纽约人。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601009,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.448,
+        "start_time_seconds": 14.712,
+        "end_time_seconds": 17.16,
+        "status": "ready",
+        "session_id": "lesson-102-line-6",
+        "request_id": "4290efd2-63c3-4e37-af1f-6892d55230fd",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson102/sentences/lesson102_line6.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson102\\lesson102_line6.mp3",
+        "subtitles": []
+      }
+    ]
+  },
+  "llm_usage": {
+    "calls": 25,
+    "input_tokens": 67878,
+    "output_tokens": 23077,
+    "total_tokens": 146811,
+    "estimated_cost_usd": 0.315618,
+    "provider": "GeminiProvider",
+    "items": [
+      {
+        "input_tokens": 3785,
+        "output_tokens": 349,
+        "total_tokens": 7107,
+        "estimated_cost_usd": 0.00822125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 405,
+        "output_tokens": 770,
+        "total_tokens": 4241,
+        "estimated_cost_usd": 0.00820625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 412,
+        "output_tokens": 894,
+        "total_tokens": 3552,
+        "estimated_cost_usd": 0.009455,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3348,
+        "output_tokens": 117,
+        "total_tokens": 4778,
+        "estimated_cost_usd": 0.0053549999999999995,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3418,
+        "output_tokens": 370,
+        "total_tokens": 5798,
+        "estimated_cost_usd": 0.0079725,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3590,
+        "output_tokens": 543,
+        "total_tokens": 7155,
+        "estimated_cost_usd": 0.0099175,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3584,
+        "output_tokens": 549,
+        "total_tokens": 5809,
+        "estimated_cost_usd": 0.00997,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3594,
+        "output_tokens": 637,
+        "total_tokens": 6481,
+        "estimated_cost_usd": 0.0108625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3592,
+        "output_tokens": 800,
+        "total_tokens": 7068,
+        "estimated_cost_usd": 0.012490000000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3477,
+        "output_tokens": 527,
+        "total_tokens": 5822,
+        "estimated_cost_usd": 0.00961625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 663,
+        "output_tokens": 145,
+        "total_tokens": 2842,
+        "estimated_cost_usd": 0.00227875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 667,
+        "output_tokens": 155,
+        "total_tokens": 3626,
+        "estimated_cost_usd": 0.00238375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 669,
+        "output_tokens": 144,
+        "total_tokens": 2127,
+        "estimated_cost_usd": 0.00227625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 638,
+        "output_tokens": 97,
+        "total_tokens": 2278,
+        "estimated_cost_usd": 0.0017675,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3348,
+        "output_tokens": 823,
+        "total_tokens": 7952,
+        "estimated_cost_usd": 0.012414999999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1422,
+        "output_tokens": 1239,
+        "total_tokens": 4379,
+        "estimated_cost_usd": 0.014167500000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1502,
+        "output_tokens": 1218,
+        "total_tokens": 4956,
+        "estimated_cost_usd": 0.0140575,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1050,
+        "output_tokens": 608,
+        "total_tokens": 2782,
+        "estimated_cost_usd": 0.0073925,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1059,
+        "output_tokens": 791,
+        "total_tokens": 3675,
+        "estimated_cost_usd": 0.00923375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 828,
+        "output_tokens": 1210,
+        "total_tokens": 4085,
+        "estimated_cost_usd": 0.013134999999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 783,
+        "output_tokens": 894,
+        "total_tokens": 3349,
+        "estimated_cost_usd": 0.00991875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1586,
+        "output_tokens": 1652,
+        "total_tokens": 5640,
+        "estimated_cost_usd": 0.018502499999999998,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1679,
+        "output_tokens": 1611,
+        "total_tokens": 6256,
+        "estimated_cost_usd": 0.01820875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 11381,
+        "output_tokens": 3345,
+        "total_tokens": 17659,
+        "estimated_cost_usd": 0.04767625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 11398,
+        "output_tokens": 3589,
+        "total_tokens": 17394,
+        "estimated_cost_usd": 0.0501375,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      }
+    ]
+  },
+  "localization": {
+    "source_lang": "en",
+    "target_lang": "ja",
+    "target_lang_name": "Japanese",
+    "target_lang_native": "日本語"
+  }
+}

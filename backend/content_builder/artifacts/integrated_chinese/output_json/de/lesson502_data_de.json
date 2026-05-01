@@ -1,0 +1,3842 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 502,
+    "title": "在朋友家",
+    "content_type": "passage",
+    "title_localized": "Bei einem Freund"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "旁白",
+            "translation": "Gestern Abend gingen Wang Peng und Li You zu Gao Wenzhong nach Hause, um sich zu treffen.",
+            "words": [
+              {
+                "cn": "昨天",
+                "py": "zuótiān",
+                "highlight": false
+              },
+              {
+                "cn": "晚上",
+                "py": "wǎnshang",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "王朋",
+                "py": "Wáng Péng",
+                "highlight": false
+              },
+              {
+                "cn": "和",
+                "py": "hé",
+                "highlight": false
+              },
+              {
+                "cn": "李友",
+                "py": "Lǐ Yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "去",
+                "py": "qù",
+                "highlight": true
+              },
+              {
+                "cn": "高文中",
+                "py": "Gāo Wénzhōng",
+                "highlight": false
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": "玩儿",
+                "py": "wánr",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "旁白",
+            "translation": "Bei Gao Wenzhong trafen sie seine ältere Schwester.",
+            "words": [
+              {
+                "cn": "在",
+                "py": "zài",
+                "highlight": true
+              },
+              {
+                "cn": "高文中",
+                "py": "Gāo Wénzhōng",
+                "highlight": false
+              },
+              {
+                "cn": "家",
+                "py": "jiā",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "他们",
+                "py": "tāmen",
+                "highlight": true
+              },
+              {
+                "cn": "认识",
+                "py": "rènshi",
+                "highlight": true
+              },
+              {
+                "cn": "了",
+                "py": "le",
+                "highlight": false
+              },
+              {
+                "cn": "高文中",
+                "py": "Gāo Wénzhōng",
+                "highlight": false
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "姐姐",
+                "py": "jiějie",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "旁白",
+            "translation": "Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek.",
+            "words": [
+              {
+                "cn": "她",
+                "py": "tā",
+                "highlight": true
+              },
+              {
+                "cn": "叫",
+                "py": "jiào",
+                "highlight": true
+              },
+              {
+                "cn": "高小音",
+                "py": "Gāo Xiǎoyīn",
+                "highlight": false
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "在",
+                "py": "zài",
+                "highlight": true
+              },
+              {
+                "cn": "学校",
+                "py": "xuéxiào",
+                "highlight": true
+              },
+              {
+                "cn": "的",
+                "py": "de",
+                "highlight": false
+              },
+              {
+                "cn": "图书馆",
+                "py": "túshūguǎn",
+                "highlight": true
+              },
+              {
+                "cn": "工作",
+                "py": "gōngzuò",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "旁白",
+            "translation": "Sie bot Wang Peng Tee an, und Wang Peng trank zwei Tassen.",
+            "words": [
+              {
+                "cn": "她",
+                "py": "tā",
+                "highlight": true
+              },
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "王朋",
+                "py": "wáng péng",
+                "highlight": false
+              },
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "茶",
+                "py": "chá",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "王朋",
+                "py": "wáng péng",
+                "highlight": false
+              },
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "了",
+                "py": "le",
+                "highlight": true
+              },
+              {
+                "cn": "两",
+                "py": "liǎng",
+                "highlight": true
+              },
+              {
+                "cn": "杯",
+                "py": "bēi",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "旁白",
+            "translation": "Li You trinkt keinen Tee; sie trank nur ein Glas Wasser.",
+            "words": [
+              {
+                "cn": "李友",
+                "py": "lǐ yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "不",
+                "py": "bù",
+                "highlight": true
+              },
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "茶",
+                "py": "chá",
+                "highlight": true
+              },
+              {
+                "cn": ",",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "只",
+                "py": "zhǐ",
+                "highlight": true
+              },
+              {
+                "cn": "喝",
+                "py": "hē",
+                "highlight": true
+              },
+              {
+                "cn": "了",
+                "py": "le",
+                "highlight": true
+              },
+              {
+                "cn": "一",
+                "py": "yì",
+                "highlight": true
+              },
+              {
+                "cn": "杯",
+                "py": "bēi",
+                "highlight": true
+              },
+              {
+                "cn": "水",
+                "py": "shuǐ",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "旁白",
+            "translation": "Sie unterhielten sich und sahen zusammen fern.",
+            "words": [
+              {
+                "cn": "他们",
+                "py": "tāmen",
+                "highlight": true
+              },
+              {
+                "cn": "一起",
+                "py": "yìqǐ",
+                "highlight": true
+              },
+              {
+                "cn": "聊天儿",
+                "py": "liáotiānr",
+                "highlight": true
+              },
+              {
+                "cn": "、",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "看",
+                "py": "kàn",
+                "highlight": true
+              },
+              {
+                "cn": "电视",
+                "py": "diànshì",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "旁白",
+            "translation": "Wang Peng und Li You gingen erst um Mitternacht nach Hause.",
+            "words": [
+              {
+                "cn": "王朋",
+                "py": "wáng péng",
+                "highlight": false
+              },
+              {
+                "cn": "和",
+                "py": "hé",
+                "highlight": false
+              },
+              {
+                "cn": "李友",
+                "py": "lǐ yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "晚上",
+                "py": "wǎn shang",
+                "highlight": true
+              },
+              {
+                "cn": "十二",
+                "py": "shí èr",
+                "highlight": false
+              },
+              {
+                "cn": "点",
+                "py": "diǎn",
+                "highlight": true
+              },
+              {
+                "cn": "才",
+                "py": "cái",
+                "highlight": true
+              },
+              {
+                "cn": "回家",
+                "py": "huí jiā",
+                "highlight": true
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "玩(儿)",
+        "pinyin": "wán(r)",
+        "part_of_speech": "Verb",
+        "definition": "Spaß haben, spielen",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "tokens": [],
+          "translation": ""
+        }
+      },
+      {
+        "word": "了",
+        "pinyin": "le",
+        "part_of_speech": "Partikel",
+        "definition": "eine dynamische Partikel",
+        "example_sentence": {
+          "cn": "在高文中家,他们认识了高文中的姐姐。",
+          "py": "zài Gāo Wénzhōng jiā tāmen rènshi le Gāo Wénzhōng de jiějie",
+          "tokens": [
+            {
+              "cn": "在",
+              "py": "zài"
+            },
+            {
+              "cn": "高文中",
+              "py": "Gāo Wénzhōng"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "他们",
+              "py": "tāmen"
+            },
+            {
+              "cn": "认识",
+              "py": "rènshi"
+            },
+            {
+              "cn": "了",
+              "py": "le"
+            },
+            {
+              "cn": "高文中",
+              "py": "Gāo Wénzhōng"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "姐姐",
+              "py": "jiějie"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Bei Gao Wenzhong trafen sie seine ältere Schwester."
+        }
+      },
+      {
+        "word": "图书馆",
+        "pinyin": "túshūguǎn",
+        "part_of_speech": "Nomen",
+        "definition": "Bibliothek",
+        "example_sentence": {
+          "cn": "她叫高小音,在学校的图书馆工作。",
+          "py": "Tā jiào Gāo Xiǎoyīn, zài xuéxiào de túshūguǎn gōngzuò.",
+          "tokens": [
+            {
+              "cn": "她",
+              "py": "tā"
+            },
+            {
+              "cn": "叫",
+              "py": "jiào"
+            },
+            {
+              "cn": "高小音",
+              "py": "Gāo Xiǎoyīn"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "在",
+              "py": "zài"
+            },
+            {
+              "cn": "学校",
+              "py": "xuéxiào"
+            },
+            {
+              "cn": "的",
+              "py": "de"
+            },
+            {
+              "cn": "图书馆",
+              "py": "túshūguǎn"
+            },
+            {
+              "cn": "工作",
+              "py": "gōngzuò"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek."
+        }
+      },
+      {
+        "word": "一起",
+        "pinyin": "yīqǐ",
+        "part_of_speech": "Adverb",
+        "definition": "zusammen",
+        "example_sentence": {
+          "cn": "他们一起聊天儿、看电视。",
+          "py": "Tāmen yīqǐ liáo tiānr, kàn diànshì.",
+          "tokens": [
+            {
+              "cn": "他们",
+              "py": "tāmen"
+            },
+            {
+              "cn": "一起",
+              "py": "yìqǐ"
+            },
+            {
+              "cn": "聊天儿",
+              "py": "liáotiānr"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "看",
+              "py": "kàn"
+            },
+            {
+              "cn": "电视",
+              "py": "diànshì"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Sie unterhielten sich und sahen zusammen fern."
+        }
+      },
+      {
+        "word": "聊天(儿)",
+        "pinyin": "liáo tiān(r)",
+        "part_of_speech": "Verb-Objekt",
+        "definition": "sich unterhalten",
+        "example_sentence": {
+          "cn": "",
+          "py": "",
+          "tokens": [],
+          "translation": ""
+        }
+      },
+      {
+        "word": "聊",
+        "pinyin": "liáo",
+        "part_of_speech": "Verb",
+        "definition": "sich unterhalten",
+        "example_sentence": {
+          "cn": "他们一起聊天儿、看电视。",
+          "py": "Tāmen yīqǐ liáo tiānr, kàn diànshì.",
+          "tokens": [
+            {
+              "cn": "他们",
+              "py": "tāmen"
+            },
+            {
+              "cn": "一起",
+              "py": "yìqǐ"
+            },
+            {
+              "cn": "聊天儿",
+              "py": "liáotiānr"
+            },
+            {
+              "cn": "、",
+              "py": ""
+            },
+            {
+              "cn": "看",
+              "py": "kàn"
+            },
+            {
+              "cn": "电视",
+              "py": "diànshì"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Sie unterhielten sich und sahen zusammen fern."
+        }
+      },
+      {
+        "word": "天",
+        "pinyin": "tiān",
+        "part_of_speech": "Nomen",
+        "definition": "Himmel",
+        "example_sentence": {
+          "cn": "昨天晚上,王朋和李友去高文中家玩儿。",
+          "py": "zuótiān wǎnshang Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr",
+          "tokens": [
+            {
+              "cn": "昨天",
+              "py": "zuótiān"
+            },
+            {
+              "cn": "晚上",
+              "py": "wǎnshang"
+            },
+            {
+              "cn": ",",
+              "py": ""
+            },
+            {
+              "cn": "王朋",
+              "py": "Wáng Péng"
+            },
+            {
+              "cn": "和",
+              "py": "hé"
+            },
+            {
+              "cn": "李友",
+              "py": "Lǐ Yǒu"
+            },
+            {
+              "cn": "去",
+              "py": "qù"
+            },
+            {
+              "cn": "高文中",
+              "py": "Gāo Wénzhōng"
+            },
+            {
+              "cn": "家",
+              "py": "jiā"
+            },
+            {
+              "cn": "玩儿",
+              "py": "wánr"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Gestern Abend gingen Wang Peng und Li You zu Gao Wenzhong nach Hause, um sich zu treffen."
+        }
+      },
+      {
+        "word": "才",
+        "pinyin": "cái",
+        "part_of_speech": "Adverb",
+        "definition": "erst",
+        "example_sentence": {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.",
+          "tokens": [
+            {
+              "cn": "王朋",
+              "py": "wáng péng"
+            },
+            {
+              "cn": "和",
+              "py": "hé"
+            },
+            {
+              "cn": "李友",
+              "py": "lǐ yǒu"
+            },
+            {
+              "cn": "晚上",
+              "py": "wǎn shang"
+            },
+            {
+              "cn": "十二",
+              "py": "shí èr"
+            },
+            {
+              "cn": "点",
+              "py": "diǎn"
+            },
+            {
+              "cn": "才",
+              "py": "cái"
+            },
+            {
+              "cn": "回家",
+              "py": "huí jiā"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Wang Peng und Li You gingen erst um Mitternacht nach Hause."
+        }
+      },
+      {
+        "word": "回家",
+        "pinyin": "huí jiā",
+        "part_of_speech": "Verb-Objekt",
+        "definition": "nach Hause gehen",
+        "example_sentence": {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.",
+          "tokens": [
+            {
+              "cn": "王朋",
+              "py": "wáng péng"
+            },
+            {
+              "cn": "和",
+              "py": "hé"
+            },
+            {
+              "cn": "李友",
+              "py": "lǐ yǒu"
+            },
+            {
+              "cn": "晚上",
+              "py": "wǎn shang"
+            },
+            {
+              "cn": "十二",
+              "py": "shí èr"
+            },
+            {
+              "cn": "点",
+              "py": "diǎn"
+            },
+            {
+              "cn": "才",
+              "py": "cái"
+            },
+            {
+              "cn": "回家",
+              "py": "huí jiā"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Wang Peng und Li You gingen erst um Mitternacht nach Hause."
+        }
+      },
+      {
+        "word": "回",
+        "pinyin": "huí",
+        "part_of_speech": "Verb",
+        "definition": "zurückkehren",
+        "example_sentence": {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "wáng péng hé lǐ yǒu wǎn shang shí èr diǎn cái huí jiā",
+          "tokens": [
+            {
+              "cn": "王朋",
+              "py": "wáng péng"
+            },
+            {
+              "cn": "和",
+              "py": "hé"
+            },
+            {
+              "cn": "李友",
+              "py": "lǐ yǒu"
+            },
+            {
+              "cn": "晚上",
+              "py": "wǎn shang"
+            },
+            {
+              "cn": "十二",
+              "py": "shí èr"
+            },
+            {
+              "cn": "点",
+              "py": "diǎn"
+            },
+            {
+              "cn": "才",
+              "py": "cái"
+            },
+            {
+              "cn": "回家",
+              "py": "huí jiā"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Wang Peng und Li You gingen erst um Mitternacht nach Hause."
+        }
+      }
+    ]
+  },
+  "teaching_materials": {
+    "lesson_id": 502,
+    "course_id": 1,
+    "lesson_title": "",
+    "language_notes": [
+      {
+        "note_id": "LN-1",
+        "label": "a",
+        "focus_text": "喝",
+        "focus_pinyin": "hē",
+        "explanation_en": "Im Gegensatz zum Deutschen funktioniert 喝 [zh:hē] immer als transitives Verb. Das heißt, wenn es nicht aus dem Kontext klar ist, muss das Getränk angegeben werden. Daher ist 他常常喝 [zh:Tā chángcháng hē] kein vollständiger Satz, es sei denn, das Getränk ist bereits bekannt. Zum Beispiel als bejahende Antwort auf eine Frage:\n\nQ: 他常常喝咖啡吗? [zh:Tā chángcháng hē kāfēi ma?]\nTrinkt er oft Kaffee?\n\nA: 他常常喝。 [zh:Tā chángcháng hē.]\nJa, das tut er oft.",
+        "source_section": "Language Note"
+      }
+    ],
+    "grammar_sections": [
+      {
+        "grammar_id": "G-1",
+        "title": "Die Partikel 了 [zh:le] (I)",
+        "explanation_en": "Die dynamische Partikel 了 [zh:le] bedeutet: 1) das Eintreten oder den Abschluss einer Handlung oder eines Ereignisses, oder 2) das Entstehen einer Situation. Die Handlung, das Ereignis oder die Situation bezieht sich normalerweise auf die Vergangenheit, kann aber manchmal auch die Zukunft betreffen. Daher ist 了 [zh:le] kein Marker für die „Vergangenheitsform“ und sollte nicht als Äquivalent zur deutschen Vergangenheitsform verstanden werden. In dieser Lektion zeigt es das Eintreten oder den Abschluss einer Handlung oder eines Ereignisses an. Es wird normalerweise direkt nach einem Verb verwendet. In Frage- und Aussagesätzen erscheint es manchmal nach einem Verb und dem Objekt des Verbs.",
+        "patterns": [
+          {
+            "pattern": "V + 了 + O + V (+ O)",
+            "pattern_pinyin": "V + le + O + V (+ O)",
+            "meaning_en": "Diese Struktur kann verwendet werden, um eine Abfolge von Handlungen darzustellen, unabhängig vom Zeitpunkt ihres Eintretens."
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "今天妈妈喝了三杯水。",
+            "pinyin": "Jīntiān Māma hē le sān bēi shuǐ.",
+            "translation": "Mama hat heute drei Gläser Wasser getrunken."
+          },
+          {
+            "hanzi": "星期一小高请我喝了一瓶可乐。",
+            "pinyin": "Xīngqīyī Xiǎo Gāo qǐng wǒ hē le yì píng kělè.",
+            "translation": "Am Montag hat der kleine Gao mir eine Flasche Cola gekauft."
+          },
+          {
+            "hanzi": "Q: 昨天晚上你去打球了吗？\nA: 昨天晚上我去打球了。",
+            "pinyin": "Q: Zuótiān wǎnshang nǐ qù dǎ qiú le ma?\nA: Zuótiān wǎnshang wǒ qù dǎ qiú le.",
+            "translation": "Q: Hast du gestern Abend Ball gespielt?\nA: Ich habe gestern Abend Ball gespielt."
+          },
+          {
+            "hanzi": "明天我吃了晚饭去看电影。",
+            "pinyin": "Míngtiān wǒ chī le wǎnfàn qù kàn diànyǐng.",
+            "translation": "Morgen gehe ich ins Kino, nachdem ich zu Abend gegessen habe."
+          },
+          {
+            "hanzi": "我昨天看了《星球大战》，那个电影很好。",
+            "pinyin": "Wǒ zuótiān kàn le «Xīngqiú Dàzhàn», nà ge diànyǐng hěn hǎo.",
+            "translation": "Ich habe gestern Star Wars gesehen. Der Film war sehr gut."
+          },
+          {
+            "hanzi": "昨天我没有听音乐。",
+            "pinyin": "",
+            "translation": "Ich habe gestern keine Musik gehört."
+          },
+          {
+            "hanzi": "Q: 你吃饭了吗？or 你吃饭了没有？\nA: 我没吃。",
+            "pinyin": "Q: Nǐ chī fàn le ma? or Nǐ chī fàn le méiyǒu?\nA: Wǒ méi chī.",
+            "translation": "Q: Hast du schon gegessen?\nA: Nein, noch nicht."
+          },
+          {
+            "hanzi": "Q: 你喝了几杯水？\nA: 我喝了一杯水。",
+            "pinyin": "Q: Nǐ hē le jǐ bēi shuǐ?\nA: Wǒ hē le yì bēi shuǐ.",
+            "translation": "Q: Wie viele Gläser Wasser hast du getrunken?\nA: Ich habe ein Glas Wasser getrunken."
+          }
+        ],
+        "usage_notes": [
+          "In einem Satz mit der dynamischen Partikel 了 [zh:le] gibt es oft eine spezifische Zeitangabe, wie zum Beispiel: 今天 [zh:jīntiān] (heute), 昨天晚上 [zh:zuótiān wǎnshang] (gestern Abend) oder 星期一 [zh:xīngqīyī] (Montag).",
+          "Wenn 了 [zh:le] zwischen dem Verb und dem Objekt verwendet wird, wird das Objekt normalerweise von einem Modifikator begleitet. Die Kombination aus Zahl und Zählwort ist die häufigste Art von Modifikator für das Objekt, zum Beispiel 三杯 [zh:sānbēi], 一瓶 [zh:yīpíng].",
+          "Wenn dem Objekt des ersten Satzteils weitere Phrasen oder Sätze folgen, benötigt das Objekt keinen Modifikator.",
+          "Wenn das Objekt, das auf 了 [zh:le] folgt, ein Eigenname ist, benötigt es ebenfalls keinen Modifikator.",
+          "Um auszudrücken, dass eine Handlung in der Vergangenheit nicht stattgefunden hat, verwendet man 没(有) [zh:méi (yǒu)]."
+        ],
+        "common_errors": [
+          {
+            "wrong": "昨天我不听音乐了。",
+            "correct": "昨天我没有听音乐。",
+            "explanation_en": "Um auszudrücken, dass eine Handlung in der Vergangenheit nicht stattgefunden hat, verwendet man 没(有) [zh:méi (yǒu)] anstelle von 不...了 [zh:bù...le]."
+          },
+          {
+            "wrong": "昨天我没有听音乐了。",
+            "correct": "昨天我没有听音乐。",
+            "explanation_en": "Um auszudrücken, dass eine Handlung in der Vergangenheit nicht stattgefunden hat, verwendet man 没(有) [zh:méi (yǒu)] anstelle von 没有...了 [zh:méiyǒu...le]."
+          }
+        ]
+      },
+      {
+        "grammar_id": "6",
+        "title": "Das Adverb 才 [zh:cái] (erst dann)",
+        "explanation_en": "Das Adverb 才 [zh:cái] (erst dann) zeigt an, dass eine Handlung oder Situation später eintritt, als der Sprecher erwartet. Diese Verspätung wird vom Sprecher so empfunden und ist nicht unbedingt objektiv, wie in den Beispielen B und C. 才 [zh:cái] nimmt niemals die Partikel 了 [zh:le] an, selbst wenn es sich auf eine vergangene Handlung oder Situation bezieht.",
+        "patterns": [],
+        "examples": [
+          {
+            "hanzi": "我请他六点吃晚饭,他六点半才来。",
+            "pinyin": "Wǒ qǐng tā liù diǎn chī wǎnfàn, tā liù diǎn bàn cái lái.",
+            "translation": "Ich habe ihn um sechs Uhr zum Abendessen eingeladen. Er kam erst um halb sieben an."
+          },
+          {
+            "hanzi": "小高常常晚上十二点才回家。",
+            "pinyin": "Xiǎo Gāo chángcháng wǎnshang shí'èr diǎn cái huí jiā.",
+            "translation": "Der kleine Gao kommt oft erst um Mitternacht nach Hause."
+          },
+          {
+            "hanzi": "她晚上很晚才睡觉。",
+            "pinyin": "Tā wǎnshang hěn wǎn cái shuì jiào.",
+            "translation": "Sie geht nachts sehr spät ins Bett."
+          }
+        ],
+        "usage_notes": [],
+        "common_errors": []
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 502,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "玩(儿)",
+      "original_pinyin": "wán(r)",
+      "standard_answers": [
+        "Spaß haben",
+        "spielen"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "translation": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "图书馆",
+      "original_pinyin": "túshūguǎn",
+      "standard_answers": [
+        "Bibliothek"
+      ],
+      "context_examples": [
+        {
+          "cn": "她叫高小音,在学校的图书馆工作。",
+          "py": "Tā jiào Gāo Xiǎoyīn, zài xuéxiào de túshūguǎn gōngzuò.",
+          "translation": "Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "一起",
+      "original_pinyin": "yīqǐ",
+      "standard_answers": [
+        "zusammen"
+      ],
+      "context_examples": [
+        {
+          "cn": "他们一起聊天儿、看电视。",
+          "py": "Tāmen yīqǐ liáo tiānr, kàn diànshì.",
+          "translation": "Sie haben zusammen geplaudert und ferngesehen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "聊天(儿)",
+      "original_pinyin": "liáo tiān(r)",
+      "standard_answers": [
+        "plaudern"
+      ],
+      "context_examples": [
+        {
+          "cn": "他们一起聊天儿、看电视。",
+          "py": "Tāmen yīqǐ liáo tiānr, kàn diànshì.",
+          "translation": "Sie haben zusammen geplaudert und ferngesehen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "聊",
+      "original_pinyin": "liáo",
+      "standard_answers": [
+        "plaudern"
+      ],
+      "context_examples": [
+        {
+          "cn": "他们一起聊天儿、看电视。",
+          "py": "Tāmen yīqǐ liáo tiānr, kàn diànshì.",
+          "translation": "Sie haben zusammen geplaudert und ferngesehen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "天",
+      "original_pinyin": "tiān",
+      "standard_answers": [
+        "Himmel"
+      ],
+      "context_examples": [
+        {
+          "cn": "昨天晚上,王朋和李友去高文中家玩儿。",
+          "py": "zuótiān wǎnshang Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr",
+          "translation": "Gestern Abend sind Wang Peng und Li You zu Gao Wenzhong gegangen, um sich zu treffen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "才",
+      "original_pinyin": "cái",
+      "standard_answers": [
+        "erst dann, nicht vor"
+      ],
+      "context_examples": [
+        {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.",
+          "translation": "Wang Peng und Li You sind erst um Mitternacht nach Hause gegangen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "回家",
+      "original_pinyin": "huí jiā",
+      "standard_answers": [
+        "nach Hause gehen"
+      ],
+      "context_examples": [
+        {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.",
+          "translation": "Wang Peng und Li You sind erst um Mitternacht nach Hause gegangen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_DE",
+      "original_text": "回",
+      "original_pinyin": "huí",
+      "standard_answers": [
+        "zurückkehren, zurückkommen"
+      ],
+      "context_examples": [
+        {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "wáng péng hé lǐ yǒu wǎn shang shí èr diǎn cái huí jiā",
+          "translation": "Wang Peng und Li You sind erst um Mitternacht nach Hause gegangen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Spaß haben, spielen",
+      "original_pinyin": null,
+      "standard_answers": [
+        "玩(儿)"
+      ],
+      "context_examples": [
+        {
+          "cn": "",
+          "py": "",
+          "translation": ""
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Bibliothek",
+      "original_pinyin": null,
+      "standard_answers": [
+        "图书馆"
+      ],
+      "context_examples": [
+        {
+          "cn": "她叫高小音,在学校的图书馆工作。",
+          "py": "Tā jiào Gāo Xiǎoyīn, zài xuéxiào de túshūguǎn gōngzuò.",
+          "translation": "Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "zusammen",
+      "original_pinyin": null,
+      "standard_answers": [
+        "一起"
+      ],
+      "context_examples": [
+        {
+          "cn": "他们一起聊天儿、看电视。",
+          "py": "Tāmen yīqǐ liáo tiānr, kàn diànshì.",
+          "translation": "Sie haben zusammen geplaudert und ferngesehen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "plaudern",
+      "original_pinyin": null,
+      "standard_answers": [
+        "聊天(儿)"
+      ],
+      "context_examples": [
+        {
+          "cn": "他们一起聊天儿、看电视。",
+          "py": "Tāmen yīqǐ liáo tiānr, kàn diànshì.",
+          "translation": "Sie haben zusammen geplaudert und ferngesehen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "plaudern",
+      "original_pinyin": null,
+      "standard_answers": [
+        "聊"
+      ],
+      "context_examples": [
+        {
+          "cn": "他们一起聊天儿、看电视。",
+          "py": "Tāmen yīqǐ liáo tiānr, kàn diànshì.",
+          "translation": "Sie haben zusammen geplaudert und ferngesehen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Himmel",
+      "original_pinyin": null,
+      "standard_answers": [
+        "天"
+      ],
+      "context_examples": [
+        {
+          "cn": "昨天晚上,王朋和李友去高文中家玩儿。",
+          "py": "zuótiān wǎnshang Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr",
+          "translation": "Gestern Abend sind Wang Peng und Li You zu Gao Wenzhong gegangen, um sich zu treffen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "erst dann",
+      "original_pinyin": null,
+      "standard_answers": [
+        "才"
+      ],
+      "context_examples": [
+        {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.",
+          "translation": "Wang Peng und Li You sind erst um Mitternacht nach Hause gegangen."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "nach Hause gehen",
+      "original_pinyin": null,
+      "standard_answers": [
+        "回家"
+      ],
+      "context_examples": [
+        {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.",
+          "translation": "Wang Peng und Li You gingen erst um zwölf Uhr nachts nach Hause."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "zurückkehren",
+      "original_pinyin": null,
+      "standard_answers": [
+        "回"
+      ],
+      "context_examples": [
+        {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "wáng péng hé lǐ yǒu wǎn shang shí èr diǎn cái huí jiā",
+          "translation": "Wang Peng und Li You gingen erst um zwölf Uhr nachts nach Hause."
+        }
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Ich habe eine Flasche Cola getrunken.",
+      "original_pinyin": "Wǒ hē le yì píng kělè.",
+      "standard_answers": [
+        "我喝了一瓶可乐。"
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Gao hat gestern vier Tassen Kaffee getrunken.",
+      "original_pinyin": "Xiǎo Gāo zuótiān hē le sì bēi kāfēi.",
+      "standard_answers": [
+        "小高昨天喝了四杯咖啡。"
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Wohin bist du gestern Abend gegangen?",
+      "original_pinyin": "Nǐ zuótiān wǎnshang qù nǎr le?",
+      "standard_answers": [
+        "你昨天晚上去哪儿了?"
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Was hast du getrunken?",
+      "original_pinyin": "Nǐ hē shénme le?",
+      "standard_answers": [
+        "你喝什么了?"
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Gao Xiaoyin arbeitet in der Bibliothek.",
+      "original_pinyin": "Gāo Xiǎoyīn zài túshūguǎn gōngzuò.",
+      "standard_answers": [
+        "高小音在图书馆工作。"
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Sie haben zusammen geplaudert und ferngesehen.",
+      "original_pinyin": "Tāmen yìqǐ liáotiānr, kàn diànshì.",
+      "standard_answers": [
+        "他们一起聊天儿、看电视。"
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Sie kommt erst um Viertel nach sechs.",
+      "original_pinyin": "tā liù diǎn yí kè cái lái.",
+      "standard_answers": [
+        "她六点一刻才来。"
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "DE_TO_CN",
+      "original_text": "Wang Peng und Li You gingen erst um zwölf Uhr nachts nach Hause.",
+      "original_pinyin": "Wǎnshang shí'èr diǎn Wáng Péng hé Lǐ Yǒu cái huí jiā.",
+      "standard_answers": [
+        "晚上十二点王朋和李友才回家。"
+      ]
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Gestern Abend gingen Wang Peng und Li You zu Gao Wenzhong nach Hause, um sich zu treffen.",
+      "original_pinyin": "zuótiān wǎnshang Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr",
+      "standard_answers": [
+        "昨天晚上,王朋和李友去高文中家玩儿。"
+      ],
+      "context_examples": [
+        {
+          "cn": "昨天晚上,王朋和李友去高文中家玩儿。",
+          "py": "zuótiān wǎnshang Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr",
+          "translation": "Gestern Abend gingen Wang Peng und Li You zu Gao Wenzhong nach Hause, um sich zu treffen."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 1
+      }
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek.",
+      "original_pinyin": "tā jiào Gāo Xiǎoyīn zài xuéxiào de túshūguǎn gōngzuò",
+      "standard_answers": [
+        "她叫高小音,在学校的图书馆工作。"
+      ],
+      "context_examples": [
+        {
+          "cn": "她叫高小音,在学校的图书馆工作。",
+          "py": "tā jiào Gāo Xiǎoyīn zài xuéxiào de túshūguǎn gōngzuò",
+          "translation": "Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 3
+      }
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Li You trinkt keinen Tee; sie hat nur ein Glas Wasser getrunken.",
+      "original_pinyin": "lǐ yǒu bù hē chá zhǐ hē le yì bēi shuǐ",
+      "standard_answers": [
+        "李友不喝茶,只喝了一杯水。"
+      ],
+      "context_examples": [
+        {
+          "cn": "李友不喝茶,只喝了一杯水。",
+          "py": "lǐ yǒu bù hē chá zhǐ hē le yì bēi shuǐ",
+          "translation": "Li You trinkt keinen Tee; sie hat nur ein Glas Wasser getrunken."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 5
+      }
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Wang Peng und Li You gingen erst um zwölf Uhr nachts nach Hause.",
+      "original_pinyin": "wáng péng hé lǐ yǒu wǎn shang shí èr diǎn cái huí jiā",
+      "standard_answers": [
+        "王朋和李友晚上十二点才回家。"
+      ],
+      "context_examples": [
+        {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "wáng péng hé lǐ yǒu wǎn shang shí èr diǎn cái huí jiā",
+          "translation": "Wang Peng und Li You gingen erst um zwölf Uhr nachts nach Hause."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 7
+      }
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "DE_TO_CN_SPEAK",
+      "original_text": "Gestern Abend gingen Wang Peng und Li You zu Gao Wenzhong nach Hause, um sich zu treffen.",
+      "original_pinyin": "zuótiān wǎnshang Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr",
+      "standard_answers": [
+        "昨天晚上,王朋和李友去高文中家玩儿。"
+      ],
+      "context_examples": [
+        {
+          "cn": "昨天晚上,王朋和李友去高文中家玩儿。",
+          "py": "zuótiān wǎnshang Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr",
+          "translation": "Gestern Abend gingen Wang Peng und Li You zu Gao Wenzhong nach Hause, um sich zu treffen."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "DE_TO_CN_SPEAK",
+      "original_text": "Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek.",
+      "original_pinyin": "tā jiào Gāo Xiǎoyīn zài xuéxiào de túshūguǎn gōngzuò",
+      "standard_answers": [
+        "她叫高小音,在学校的图书馆工作。"
+      ],
+      "context_examples": [
+        {
+          "cn": "她叫高小音,在学校的图书馆工作。",
+          "py": "tā jiào Gāo Xiǎoyīn zài xuéxiào de túshūguǎn gōngzuò",
+          "translation": "Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "DE_TO_CN_SPEAK",
+      "original_text": "Li You trinkt keinen Tee; sie hat nur ein Glas Wasser getrunken.",
+      "original_pinyin": "lǐ yǒu bù hē chá zhǐ hē le yì bēi shuǐ",
+      "standard_answers": [
+        "李友不喝茶,只喝了一杯水。"
+      ],
+      "context_examples": [
+        {
+          "cn": "李友不喝茶,只喝了一杯水。",
+          "py": "lǐ yǒu bù hē chá zhǐ hē le yì bēi shuǐ",
+          "translation": "Li You trinkt keinen Tee; sie hat nur ein Glas Wasser getrunken."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 502,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "DE_TO_CN_SPEAK",
+      "original_text": "Wang Peng und Li You gingen erst um zwölf Uhr nachts nach Hause.",
+      "original_pinyin": "wáng péng hé lǐ yǒu wǎn shang shí èr diǎn cái huí jiā",
+      "standard_answers": [
+        "王朋和李友晚上十二点才回家。"
+      ],
+      "context_examples": [
+        {
+          "cn": "王朋和李友晚上十二点才回家。",
+          "py": "wáng péng hé lǐ yǒu wǎn shang shí èr diǎn cái huí jiā",
+          "translation": "Wang Peng und Li You gingen erst um zwölf Uhr nachts nach Hause."
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    }
+  ],
+  "video_plan": {
+    "lesson_video_plan": {
+      "lesson_id": 502,
+      "course_id": 1,
+      "lesson_title": "在朋友家",
+      "target_audience": "English native speakers learning Chinese",
+      "primary_language": "zh",
+      "support_language": "en",
+      "subtitle_options": {
+        "hanzi": true,
+        "pinyin": true,
+        "translation": true
+      }
+    },
+    "dramatization": {
+      "global_config": {
+        "visual_style": "现代都市生活风,温馨明亮,色彩饱和度适中",
+        "setting_summary_cn": "傍晚时分,两个朋友去另一个朋友家做客,见到了他的姐姐。场景包括公寓楼外和温馨的客厅。",
+        "setting_summary_en": "Evening visit to a friend's cozy apartment. Two friends arrive and are introduced to their friend's older sister in the living room.",
+        "character_definitions": [
+          {
+            "name": "王朋",
+            "appearance_description_en": "A friendly and outgoing Chinese male university student in his early 20s, wearing a casual blue hoodie and jeans."
+          },
+          {
+            "name": "李友",
+            "appearance_description_en": "A curious and cheerful Chinese female university student in her early 20s, with shoulder-length hair, wearing a stylish yellow sweater and a skirt."
+          },
+          {
+            "name": "高文中",
+            "appearance_description_en": "A warm and hospitable Chinese male university student in his early 20s, dressed in comfortable home clothes, like a grey t-shirt and sweatpants."
+          },
+          {
+            "name": "高小音",
+            "appearance_description_en": "Gao Wenzhong's older sister, in her mid-20s, with a gentle and intellectual demeanor, wearing glasses and a simple, elegant light-colored dress."
+          }
+        ]
+      },
+      "scenes": [
+        {
+          "scene_id": 1,
+          "source_line_refs": [
+            1
+          ],
+          "source_text": {
+            "hanzi": [
+              "昨天晚上,王朋和李友去高文中家玩儿。"
+            ],
+            "pinyin": [
+              "zuótiān wǎnshang Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr"
+            ],
+            "translation": [
+              "Yesterday evening, Wang Peng and Li You went to Gao Wenzhong's house to hang out."
+            ]
+          },
+          "scene_goal": "展示王朋和李友在傍晚时分到达高文中家楼下,准备上楼做客。",
+          "scene_description_cn": "傍晚,天色渐暗,城市华灯初上。王朋和李友并肩走着,来到一栋现代公寓楼下。他们抬头看了看亮着灯的窗户,脸上带着期待的笑容,然后一起走进大门。",
+          "setting_en": "Outside a modern apartment building at dusk.",
+          "characters_on_screen": [
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "跟随镜头,然后向上摇摄",
+          "shot_type": "中远景",
+          "video_prompt_en": "Dusk, modern city apartment building exterior with warm lights in the windows. A young Chinese man (Wang Peng) and woman (Li You) walk towards the entrance, smiling and talking. The camera follows them and then tilts up to show the building. Cinematic, warm lighting.",
+          "voice_over": {
+            "speaker": "旁白",
+            "hanzi": "昨天晚上,王朋和李友去高文中家玩儿。",
+            "pinyin": "zuótiān wǎnshang Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr",
+            "translation": "Yesterday evening, Wang Peng and Li You went to Gao Wenzhong's house to hang out."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 6
+        },
+        {
+          "scene_id": 2,
+          "source_line_refs": [
+            2
+          ],
+          "source_text": {
+            "hanzi": [
+              "在高文中家,他们认识了高文中的姐姐。"
+            ],
+            "pinyin": [
+              "zài Gāo Wénzhōng jiā tāmen rènshi le Gāo Wénzhōng de jiějie"
+            ],
+            "translation": [
+              "At Gao Wenzhong's house, they met Gao Wenzhong's older sister."
+            ]
+          },
+          "scene_goal": "表现王朋和李友进入高文中家,高文中为他们介绍自己的姐姐。",
+          "scene_description_cn": "镜头切换到高文中家的客厅,布置温馨整洁。高文中热情地打开门,欢迎王朋和李友进来。一位文静的女士(高小音)从沙发上站起来,微笑着看着他们。高文中伸手指着她,向朋友们介绍。",
+          "setting_en": "Inside a cozy and tidy apartment living room.",
+          "characters_on_screen": [
+            "王朋",
+            "李友",
+            "高文中",
+            "高小音"
+          ],
+          "camera_movement": "固定镜头",
+          "shot_type": "中景",
+          "video_prompt_en": "Interior of a warm, cozy apartment living room. Gao Wenzhong opens the door, greeting Wang Peng and Li You. A gentle-looking woman (Gao Xiaoyin) stands up from a sofa in the background. Gao Wenzhong gestures towards her, introducing her. All characters are smiling warmly.",
+          "voice_over": {
+            "speaker": "旁白",
+            "hanzi": "在高文中家,他们认识了高文中的姐姐。",
+            "pinyin": "zài Gāo Wénzhōng jiā tāmen rènshi le Gāo Wénzhōng de jiějie",
+            "translation": "At Gao Wenzhong's house, they met Gao Wenzhong's older sister."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 6
+        },
+        {
+          "scene_id": 3,
+          "source_line_refs": [
+            3
+          ],
+          "source_text": {
+            "hanzi": [
+              "她叫高小音,在学校的图书馆工作。"
+            ],
+            "pinyin": [
+              "tā jiào Gāo Xiǎoyīn zài xuéxiào de túshūguǎn gōngzuò"
+            ],
+            "translation": [
+              "Her name is Gao Xiaoyin, and she works at the school library."
+            ]
+          },
+          "scene_goal": "通过一个想象/闪回镜头,补充介绍高小音的身份和工作。",
+          "scene_description_cn": "镜头特写高小音,她友好地点头致意。然后画面快速切换,展现高小音在明亮的学校图书馆里整理书籍的场景,她戴着眼镜,神情专注而温柔。最后镜头切回客厅,高小音正在和王朋、李友微笑交谈。",
+          "setting_en": "Apartment living room, with a brief cutaway to a bright, modern school library.",
+          "characters_on_screen": [
+            "高小音",
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "推近,然后切换场景",
+          "shot_type": "特写切换到中景",
+          "video_prompt_en": "Close-up on Gao Xiaoyin's smiling face as she nods. Quick cut to a bright, sunlit university library. Gao Xiaoyin, wearing glasses, is carefully arranging books on a shelf. She looks professional and gentle. Cut back to the living room as she is talking with Wang Peng and Li You.",
+          "voice_over": {
+            "speaker": "旁白",
+            "hanzi": "她叫高小音,在学校的图书馆工作。",
+            "pinyin": "tā jiào Gāo Xiǎoyīn zài xuéxiào de túshūguǎn gōngzuò",
+            "translation": "Her name is Gao Xiaoyin, and she works at the school library."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 7
+        },
+        {
+          "scene_id": 4,
+          "source_line_refs": [
+            4,
+            5
+          ],
+          "source_text": {
+            "hanzi": [
+              "她请王朋喝茶,王朋喝了两杯。",
+              "李友不喝茶,只喝了一杯水。"
+            ],
+            "pinyin": [
+              "tā qǐng wáng péng hē chá wáng péng hē le liǎng bēi",
+              "lǐ yǒu bù hē chá zhǐ hē le yì bēi shuǐ"
+            ],
+            "translation": [
+              "She offered Wang Peng tea, and Wang Peng drank two cups.",
+              "Li You doesn't drink tea; she only drank a glass of water."
+            ]
+          },
+          "scene_goal": "展示主人招待客人喝饮料，以及客人们不同的选择。",
+          "scene_description_cn": "在高小音舒适的客厅里，她端着茶具给王朋倒茶。王朋高兴地接过茶杯，喝了一口，又示意再来一杯。镜头转向李友，她微笑着摆摆手，表示不喝茶，然后端起自己面前的一杯水喝了一口。",
+          "setting_en": "Cozy and warm living room in a modern apartment, evening. A coffee table with a tea set and glasses of water.",
+          "characters_on_screen": [
+            "高小音",
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "Slow pan from Gao Xiaoyin to Wang Peng, then cut to a shot of Li You.",
+          "shot_type": "Medium shot",
+          "video_prompt_en": "Slice-of-life anime style. In a cozy living room, a cheerful young woman (Gao Xiaoyin) pours tea for a young man (Wang Peng). He smiles and drinks it, then gestures for a refill. The camera then shows another young woman (Li You) politely declining the tea and drinking a glass of water instead. Warm, soft lighting.",
+          "voice_over": {
+            "speaker": "旁白",
+            "hanzi": "她请王朋喝茶,王朋喝了两杯。李友不喝茶,只喝了一杯水。",
+            "pinyin": "tā qǐng wáng péng hē chá wáng péng hē le liǎng bēi. lǐ yǒu bù hē chá zhǐ hē le yì bēi shuǐ.",
+            "translation": "She offered Wang Peng tea, and Wang Peng drank two cups. Li You doesn't drink tea; she only drank a glass of water."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 8
+        },
+        {
+          "scene_id": 5,
+          "source_line_refs": [
+            6
+          ],
+          "source_text": {
+            "hanzi": [
+              "他们一起聊天儿、看电视。"
+            ],
+            "pinyin": [
+              "tāmen yìqǐ liáotiānr kàn diànshì"
+            ],
+            "translation": [
+              "They chatted and watched TV together."
+            ]
+          },
+          "scene_goal": "表现三位朋友在一起放松、愉快相处的氛围。",
+          "scene_description_cn": "三人坐在沙发上，面前的电视正在播放一个有趣的节目。他们一边看，一边轻松地交谈，时而发出笑声。镜头捕捉他们之间愉快互动的瞬间。",
+          "setting_en": "Same living room. The three friends are sitting comfortably on the sofa, facing a television that is on.",
+          "characters_on_screen": [
+            "高小音",
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "Static shot, then a slow zoom-in on their smiling faces.",
+          "shot_type": "Wide shot, transitioning to medium close-up",
+          "video_prompt_en": "Slice-of-life anime style. Three young friends (Gao Xiaoyin, Wang Peng, Li You) are sitting on a sofa in a cozy living room, watching TV together. They are laughing and chatting happily, creating a warm and friendly atmosphere. The TV screen glows in the dimly lit room.",
+          "voice_over": {
+            "speaker": "旁白",
+            "hanzi": "他们一起聊天儿、看电视。",
+            "pinyin": "tāmen yìqǐ liáotiānr kàn diànshì",
+            "translation": "They chatted and watched TV together."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 6
+        },
+        {
+          "scene_id": 6,
+          "source_line_refs": [
+            7
+          ],
+          "source_text": {
+            "hanzi": [
+              "王朋和李友晚上十二点才回家。"
+            ],
+            "pinyin": [
+              "wáng péng hé lǐ yǒu wǎn shang shí èr diǎn cái huí jiā"
+            ],
+            "translation": [
+              "Wang Peng and Li You didn't go home until twelve o'clock at night."
+            ]
+          },
+          "scene_goal": "表明时间很晚了，客人们才告辞回家，强调他们玩得很开心。",
+          "scene_description_cn": "客厅墙上的挂钟显示时间是午夜十二点。王朋和李友站在门口，向高小音挥手告别。高小音也微笑着向他们挥手。门外的夜色已深。",
+          "setting_en": "The entrance/doorway of the apartment. A clock on the wall shows it's 12:00 AM.",
+          "characters_on_screen": [
+            "高小音",
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "Start with a close-up on the clock, then pull back to show the friends saying goodbye at the door.",
+          "shot_type": "Close-up, then medium shot",
+          "video_prompt_en": "Slice-of-life anime style. Close-up on a wall clock showing midnight (12:00). Pan down to show Wang Peng and Li You at the apartment door, waving goodbye to their friend Gao Xiaoyin. The night outside is dark. They all have happy expressions, suggesting a wonderful evening.",
+          "voice_over": {
+            "speaker": "旁白",
+            "hanzi": "王朋和李友晚上十二点才回家。",
+            "pinyin": "wáng péng hé lǐ yǒu wǎn shang shí èr diǎn cái huí jiā",
+            "translation": "Wang Peng and Li You didn't go home until twelve o'clock at night."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 6
+        }
+      ]
+    },
+    "explanation": {
+      "global_config": {
+        "teaching_style": "A clear, structured, and encouraging guide for beginners, breaking down sentences word-by-word and explaining key concepts in a simple, accessible way.",
+        "target_audience": "English native speakers learning Chinese",
+        "presenter_mode": "voice_over",
+        "visual_style": "Clean, modern, and minimalist, using animated text and icons on cards to highlight key information.",
+        "lesson_main_title": "在朋友家"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "Going to a Friend's House",
+          "teaching_goal": "Understand how to describe a past event, including when, who, where, and what activity took place.",
+          "narration": {
+            "subtitle_en": "Let's begin with the first sentence, which sets the scene. It says [zh:昨天晚上,王朋和李友去高文中家玩儿]. This means 'Yesterday evening, Wang Peng and Li You went to Gao Wenzhong's house to hang out.' Let's break it down. [zh:昨天晚上] means 'yesterday evening,' a time phrase that often starts a sentence. Then we have the subjects, [zh:王朋和李友]. The key action is [zh:去高文中家], 'to go to Gao Wenzhong's house.' The purpose of their visit is to [zh:玩儿], a very useful word that means 'to hang out' or 'to have fun'."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "昨天晚上,王朋和李友去高文中家玩儿。",
+            "focus_pinyin": "zuótiān wǎnshang, Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr.",
+            "focus_gloss_en": "Yesterday evening, Wang Peng and Li You went to Gao Wenzhong's house to hang out.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "去",
+              "pinyin": "qù",
+              "translation": "to go",
+              "explanation_en": "A verb indicating movement towards a destination.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "家",
+              "pinyin": "jiā",
+              "translation": "home, family",
+              "explanation_en": "Used after a person's name, it means 'someone's house'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "玩儿",
+              "pinyin": "wánr",
+              "translation": "to have fun, to hang out",
+              "explanation_en": "A general term for recreational activities, playing, or socializing.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Animate icons for 'yesterday evening', 'two people', 'a house', and 'playing/chatting' to illustrate the sentence components.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 2,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Meeting Someone New",
+          "teaching_goal": "Learn how to state a location with '在' and how to express meeting someone for the first time using '认识了'.",
+          "narration": {
+            "subtitle_en": "The story continues: [zh:在高文中家,他们认识了高文中的姐姐]. This translates to 'At Gao Wenzhong's house, they met Gao Wenzhong's older sister.' The phrase [zh:在高文中家] starts the sentence to specify the location. [zh:他们] means 'they.' The main action is [zh:认识了], which means 'met' or 'got to know.' The particle [zh:了] indicates that this action is completed. And who did they meet? [zh:高文中的姐姐], 'Gao Wenzhong's older sister'."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "在高文中家,他们认识了高文中的姐姐。",
+            "focus_pinyin": "zài Gāo Wénzhōng jiā, tāmen rènshi le Gāo Wénzhōng de jiějie.",
+            "focus_gloss_en": "At Gao Wenzhong's house, they met Gao Wenzhong's older sister.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "在",
+              "pinyin": "zài",
+              "translation": "at, in, on",
+              "explanation_en": "A preposition used to indicate location. The structure is '在 + Place'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "认识",
+              "pinyin": "rènshi",
+              "translation": "to know, to recognize, to meet for the first time",
+              "explanation_en": "This verb is used when you are introduced to someone or get acquainted with them.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "了",
+              "pinyin": "le",
+              "translation": "(particle for completed action)",
+              "explanation_en": "A dynamic particle placed after a verb to indicate that an action has been completed.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "姐姐",
+              "pinyin": "jiějie",
+              "translation": "older sister",
+              "explanation_en": "The term for one's elder sister.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight '在' and the location first, then animate the characters meeting a new person (the sister).",
+          "estimated_duration_seconds": 23
+        },
+        {
+          "segment_id": 3,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Introducing a Person",
+          "teaching_goal": "Review how to state someone's name and introduce their job and workplace.",
+          "narration": {
+            "subtitle_en": "Now we learn more about the sister. [zh:她叫高小音,在学校的图书馆工作]. This means 'Her name is Gao Xiaoyin, and she works at the school library.' The first part, [zh:她叫高小音], tells us her name, using the verb [zh:叫]. The second part describes her job using the structure [zh:在...工作], which means 'to work at a place.' Here, the place is [zh:学校的图书馆], 'the school's library.' [zh:图书馆] is 'library' and [zh:工作] is 'to work'."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "她叫高小音,在学校的图书馆工作。",
+            "focus_pinyin": "tā jiào Gāo Xiǎoyīn, zài xuéxiào de túshūguǎn gōngzuò.",
+            "focus_gloss_en": "Her name is Gao Xiaoyin, and she works at the school library.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "叫",
+              "pinyin": "jiào",
+              "translation": "to be called",
+              "explanation_en": "Used to state a person's given name. Structure: Subject + 叫 + Name.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "图书馆",
+              "pinyin": "túshūguǎn",
+              "translation": "library",
+              "explanation_en": "A compound word: 图 (pictures) + 书 (books) + 馆 (a place/hall).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "工作",
+              "pinyin": "gōngzuò",
+              "translation": "to work, job",
+              "explanation_en": "Can function as both a verb ('to work') and a noun ('job').",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Split the screen to show the two clauses. On the left, an icon for a name tag. On the right, an icon for a library and a person working.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 4,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Offering and Drinking Tea",
+          "teaching_goal": "Understand the verb '请' (to treat/invite) and how to express quantity with 'number + measure word' for a completed action.",
+          "narration": {
+            "subtitle_en": "This sentence describes the hospitality. [zh:她请王朋喝茶,王朋喝了两杯]. This means 'She offered Wang Peng tea, and Wang Peng drank two cups.' The verb [zh:请] here means 'to invite' or 'to treat someone to something.' So, [zh:她请王朋喝茶] means she treated Wang Peng to tea. The second part, [zh:王朋喝了两杯], tells us what happened next. He [zh:喝], 'drank,' and the particle [zh:了] shows the action is complete. How much? [zh:两杯], 'two cups.' Notice we use [zh:两] instead of 'èr' before a measure word like [zh:杯]."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "她请王朋喝茶,王朋喝了两杯。",
+            "focus_pinyin": "tā qǐng Wáng Péng hē chá, Wáng Péng hē le liǎng bēi.",
+            "focus_gloss_en": "She offered Wang Peng tea, and Wang Peng drank two cups.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "请",
+              "pinyin": "qǐng",
+              "translation": "to invite, to treat",
+              "explanation_en": "A polite verb used for invitations, requests, or treating someone to something.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "喝",
+              "pinyin": "hē",
+              "translation": "to drink",
+              "explanation_en": "The verb for drinking any beverage.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "两",
+              "pinyin": "liǎng",
+              "translation": "two (used with measure words)",
+              "explanation_en": "Used instead of '二' (èr) when counting items with a measure word, e.g., 'two cups'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "杯",
+              "pinyin": "bēi",
+              "translation": "cup, glass (measure word)",
+              "explanation_en": "A measure word for drinks served in cups or glasses.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show an animation of someone offering a cup of tea, then the other person drinking, with 'x2' appearing next to the cup.",
+          "estimated_duration_seconds": 25
+        },
+        {
+          "segment_id": 5,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Preferences and Quantities",
+          "teaching_goal": "Learn to express negation with '不' and limitation with '只', and see another example of a completed action with a quantity.",
+          "narration": {
+            "subtitle_en": "What about Li You? [zh:李友不喝茶,只喝了一杯水]. This translates to 'Li You doesn't drink tea; she only drank a glass of water.' The first part, [zh:不喝茶], shows her preference; 'bu' negates the verb 'he'. The word [zh:只] is an adverb meaning 'only.' So, what did she drink? She [zh:喝了一杯水], 'drank one cup of water.' Again, we see the pattern of verb plus [zh:了] followed by a quantity, [zh:一杯], 'one cup'."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "李友不喝茶,只喝了一杯水。",
+            "focus_pinyin": "Lǐ Yǒu bù hē chá, zhǐ hē le yì bēi shuǐ.",
+            "focus_gloss_en": "Li You doesn't drink tea; she only drank a glass of water.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "不",
+              "pinyin": "bù",
+              "translation": "not, no",
+              "explanation_en": "The most common adverb for negating verbs and adjectives.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "只",
+              "pinyin": "zhǐ",
+              "translation": "only, just",
+              "explanation_en": "An adverb placed before a verb to indicate that the action is limited.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "水",
+              "pinyin": "shuǐ",
+              "translation": "water",
+              "explanation_en": "The noun for water.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show a cup of tea with a red 'X' over it, then an arrow pointing to a glass of water with 'x1' next to it.",
+          "estimated_duration_seconds": 23
+        },
+        {
+          "segment_id": 6,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "Activities Together",
+          "teaching_goal": "Learn how to list activities and use the adverb '一起' (together).",
+          "narration": {
+            "subtitle_en": "So, what did they do together? [zh:他们一起聊天儿、看电视]. This means 'They chatted and watched TV together.' The adverb [zh:一起] is important here; it means 'together' and is placed before the verbs. The two activities they did together are [zh:聊天儿], which means 'to chat,' and [zh:看电视], which means 'to watch TV.' The enumeration comma '、' is used to separate items in a list."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "他们一起聊天儿、看电视。",
+            "focus_pinyin": "tāmen yìqǐ liáotiānr, kàn diànshì.",
+            "focus_gloss_en": "They chatted and watched TV together.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "一起",
+              "pinyin": "yìqǐ",
+              "translation": "together",
+              "explanation_en": "An adverb that indicates an action is performed by multiple people jointly. It comes before the verb.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "聊天儿",
+              "pinyin": "liáotiānr",
+              "translation": "to chat",
+              "explanation_en": "A verb-object phrase: 聊 (to chat) + 天儿 (sky, talk).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "看电视",
+              "pinyin": "kàn diànshì",
+              "translation": "to watch TV",
+              "explanation_en": "A verb-object phrase: 看 (to look, to watch) + 电视 (television).",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show three people on a couch. First, speech bubbles appear above them for 'chatting'. Then, a TV appears in front of them.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 7,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "Returning Home Late",
+          "teaching_goal": "Introduce the adverb '才' to indicate that something happened later than expected.",
+          "narration": {
+            "subtitle_en": "Finally, the last sentence tells us when they left. [zh:王朋和李友晚上十二点才回家]. This means 'Wang Peng and Li You didn't go home until twelve o'clock at night.' The key word here is the adverb [zh:才]. It implies that the action happened later than the speaker considers normal or expected. So, [zh:十二点才回家] emphasizes that they didn't go home until as late as 12 o'clock. [zh:回家] is a common phrase meaning 'to go home'."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "王朋和李友晚上十二点才回家。",
+            "focus_pinyin": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.",
+            "focus_gloss_en": "Wang Peng and Li You didn't go home until twelve o'clock at night.",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "才",
+              "pinyin": "cái",
+              "translation": "not until, only then",
+              "explanation_en": "An adverb indicating that an action occurred later than expected. It often conveys a sense of lateness.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "回家",
+              "pinyin": "huí jiā",
+              "translation": "to go home",
+              "explanation_en": "A verb-object phrase: 回 (to return) + 家 (home).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "点",
+              "pinyin": "diǎn",
+              "translation": "o'clock",
+              "explanation_en": "Used after a number to tell time.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show a clock animation with hands moving quickly to 12:00. Then show two people walking out of a house under a night sky with a moon.",
+          "estimated_duration_seconds": 24
+        },
+        {
+          "segment_id": 8,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            2,
+            4,
+            5
+          ],
+          "segment_title": "The Particle 了 (le): Indicating Completion",
+          "teaching_goal": "To understand how to use the particle '了' (le) to indicate the completion of an action.",
+          "narration": {
+            "subtitle_en": "Now, let's focus on a very important grammar particle: [zh:了]. This particle, 'le', is used to signify the completion of an action or the emergence of a new situation. It's often used for past events, but it's not a simple past tense marker. In our text, you saw it in sentences like [zh:王朋喝了两杯], meaning 'Wang Peng drank two cups.' Notice how [zh:了] comes right after the verb [zh:喝]. This 'Verb + 了' structure is very common. When you want to say an action did not happen, you use [zh:没有] before the verb and you must remove [zh:了]. For example, to negate 'I listened to music yesterday,' you would say [zh:昨天我没有听音乐]."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "王朋喝了两杯。\nQ: 你吃饭了吗？\nA: 我没吃。",
+            "focus_pinyin": "Wáng Péng hē le liǎng bēi.\nQ: Nǐ chī fàn le ma?\nA: Wǒ méi chī.",
+            "focus_gloss_en": "Wang Peng drank two cups.\nQ: Have you eaten?\nA: No, I haven't.",
+            "notes": "了 (le) indicates a completed action. The negative form uses 没有 (méiyǒu) and omits 了 (le)."
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "V + 了 + [Numeral + Measure Word] + O",
+              "pattern_pinyin": "V + le + [Numeral + Measure Word] + O",
+              "explanation_en": "This common pattern indicates the completion of an action, often specifying the quantity of the object. Example from the text: 喝了两杯 (hē le liǎng bēi)."
+            },
+            {
+              "pattern": "Q: [Action] + 了吗？ A: [Action] + 了。 / 没(有) + [Action]。",
+              "pattern_pinyin": "Q: [Action] + le ma? A: [Action] + le. / Méi(yǒu) + [Action].",
+              "explanation_en": "To ask if an action has been completed, you can add '了吗' (le ma). The affirmative answer uses '了' (le), while the negative answer uses '没(有)' (méi[yǒu]) and drops '了' (le)."
+            },
+            {
+              "pattern": "明天我吃了晚饭去看电影。",
+              "pattern_pinyin": "Míngtiān wǒ chī le wǎnfàn qù kàn diànyǐng.",
+              "explanation_en": "了 (le) can also indicate the completion of a first action before a second one begins, even if both are in the future."
+            }
+          ],
+          "visual_notes": "Animate the particle '了' appearing after the verb. For the negative form, show '了' fading out as '没有' appears before the verb.",
+          "estimated_duration_seconds": 32
+        },
+        {
+          "segment_id": 9,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "The Adverb 才 (cái): Later Than Expected",
+          "teaching_goal": "To learn how to use the adverb '才' (cái) to express that an action occurred later than expected.",
+          "narration": {
+            "subtitle_en": "Next, let's look at the adverb [zh:才]. 'Cái' means 'not until' or 'only then' and implies that an action happened later than the speaker expected. In the story, we read [zh:王朋和李友晚上十二点才回家]. This suggests that midnight is considered a late time to go home. The structure is typically 'Time + 才 + Verb'. A very important rule to remember is that you never use the particle [zh:了] in a sentence with [zh:才], even if the event happened in the past. The lateness is already implied by [zh:才] itself."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "王朋和李友晚上十二点才回家。\n他六点半才来。",
+            "focus_pinyin": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.\nTā liù diǎn bàn cái lái.",
+            "focus_gloss_en": "Wang Peng and Li You didn't go home until twelve o'clock at night.\nHe didn't arrive until six-thirty.",
+            "notes": "才 (cái) indicates lateness. Do not use 了 (le) in a sentence with 才 (cái)."
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "[Time] + 才 + Verb",
+              "pattern_pinyin": "[Time] + cái + Verb",
+              "explanation_en": "This structure is used to emphasize that an action happened at a time considered late by the speaker."
+            },
+            {
+              "pattern": "小高常常晚上十二点才回家。",
+              "pattern_pinyin": "Xiǎo Gāo chángcháng wǎnshang shí'èr diǎn cái huí jiā.",
+              "explanation_en": "Little Gao often doesn't come home until midnight."
+            }
+          ],
+          "visual_notes": "Show a clock animation with the hands moving slowly to the specified time, then highlight the word '才' to emphasize the 'lateness'.",
+          "estimated_duration_seconds": 28
+        },
+        {
+          "segment_id": 10,
+          "segment_type": "recap",
+          "source_line_refs": [],
+          "segment_title": "Lesson Recap",
+          "teaching_goal": "To review the key vocabulary and grammar patterns from the lesson.",
+          "narration": {
+            "subtitle_en": "Great job! In this lesson, we learned how to describe past activities at a friend's house. We focused on using the particle [zh:了] to show completed actions and the adverb [zh:才] to express that something happened late. Let's quickly review the most important phrases and words."
+          },
+          "on_screen_text": {
+            "main_title": "在朋友家",
+            "focus_text": "Key Phrases Review",
+            "focus_pinyin": "",
+            "focus_gloss_en": "",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "玩儿",
+              "pinyin": "wánr",
+              "translation": "to have fun; to play",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "聊天儿",
+              "pinyin": "liáotiānr",
+              "translation": "to chat",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "图书馆",
+              "pinyin": "túshūguǎn",
+              "translation": "library",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "喝了两杯",
+              "pinyin": "hē le liǎng bēi",
+              "translation": "drank two cups",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "十二点才回家",
+              "pinyin": "shí'èr diǎn cái huí jiā",
+              "translation": "didn't go home until 12:00",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Display the key phrases as a list on the screen, with icons next to each one.",
+          "estimated_duration_seconds": 18
+        }
+      ]
+    },
+    "production_notes": {
+      "recommended_workflow": [
+        "generate dramatization visuals",
+        "generate explanation visuals",
+        "generate voice-over",
+        "compose subtitles"
+      ],
+      "remarks": "This schema is model-agnostic and designed for script planning plus downstream rendering."
+    }
+  },
+  "video_render_plan": {
+    "explanation": {
+      "lesson_id": 502,
+      "course_id": 1,
+      "lesson_title": "在朋友家",
+      "target_audience": "Englische Muttersprachler, die Chinesisch lernen",
+      "video_style": {
+        "presenter_mode": "voice_over",
+        "teaching_style": "A clear, structured, and encouraging guide for beginners, breaking down sentences word-by-word and explaining key concepts in a simple, accessible way.",
+        "visual_style": "Clean, modern, and minimalist, using animated text and icons on cards to highlight key information.",
+        "aspect_ratio": "16:9",
+        "safe_area": "title_safe"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_order": 1,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "Besuch bei einem Freund",
+          "teaching_goal": "Verstehen Sie, wie man ein vergangenes Ereignis beschreibt, einschließlich wann, wer, wo und welche Aktivität stattgefunden hat.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Fangen wir mit dem ersten Satz an, der die Szene beschreibt. Er lautet: „[zh:昨天晚上,王朋和李友去高文中家玩儿]“. Das bedeutet: „Gestern Abend gingen Wang Peng und Li You zu Gao Wenzhongs Haus, um sich zu treffen.“ Schauen wir uns das genauer an. „[zh:昨天晚上]“ heißt „gestern Abend“. Das ist eine Zeitangabe, die oft am Satzanfang steht. Dann haben wir die Subjekte: „[zh:王朋和李友]“. Die Hauptaktion ist „[zh:去高文中家]“, also „zu Gao Wenzhongs Haus gehen“. Der Zweck ihres Besuchs ist „[zh:玩儿]“. Das ist ein sehr nützliches Wort und bedeutet „sich treffen“ oder „Spaß haben“."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "昨天晚上,王朋和李友去高文中家玩儿。",
+                "focus_pinyin": "zuótiān wǎnshang, Wáng Péng hé Lǐ Yǒu qù Gāo Wénzhōng jiā wánr.",
+                "focus_gloss_en": "Gestern Abend gingen Wang Peng und Li You zu Gao Wenzhongs Haus, um sich zu treffen."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "去",
+                    "pinyin": "qù",
+                    "translation": "gehen",
+                    "explanation_en": "Ein Verb, das eine Bewegung zu einem Ziel anzeigt.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "家",
+                    "pinyin": "jiā",
+                    "translation": "Zuhause, Familie",
+                    "explanation_en": "Nach einem Personennamen verwendet, bedeutet es 'jemandes Haus'.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "玩儿",
+                    "pinyin": "wánr",
+                    "translation": "Spaß haben, sich treffen",
+                    "explanation_en": "Ein allgemeiner Begriff für Freizeitaktivitäten, Spielen oder Geselligkeit.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "去",
+              "pinyin": "qù",
+              "translation": "gehen",
+              "explanation_en": "Ein Verb, das eine Bewegung zu einem Ziel anzeigt.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "家",
+              "pinyin": "jiā",
+              "translation": "Zuhause, Familie",
+              "explanation_en": "Nach einem Personennamen verwendet, bedeutet es 'jemandes Haus'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "玩儿",
+              "pinyin": "wánr",
+              "translation": "Spaß haben, sich treffen",
+              "explanation_en": "Ein allgemeiner Begriff für Freizeitaktivitäten, Spielen oder Geselligkeit.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Animieren Sie Symbole für 'gestern Abend', 'zwei Personen', 'ein Haus' und 'spielen/plaudern', um die Satzkomponenten zu veranschaulichen.",
+          "start_time_seconds": 0.0,
+          "duration_seconds": 39.956,
+          "end_time_seconds": 22.0
+        },
+        {
+          "segment_id": 2,
+          "segment_order": 2,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Jemanden Neues kennenlernen",
+          "teaching_goal": "Lernen Sie, wie man einen Ort mit '[zh:zài]' angibt und wie man das erste Kennenlernen einer Person mit '[zh:rènshi le]' ausdrückt.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Die Geschichte geht weiter: „[zh:在高文中家,他们认识了高文中的姐姐]“. Das heißt: „Bei Gao Wenzhong zu Hause trafen sie Gao Wenzhongs ältere Schwester.“ Die Phrase „[zh:在高文中家]“ steht am Satzanfang. Sie gibt den Ort an. „[zh:他们]“ bedeutet „sie“. Die Hauptaktion ist „[zh:认识了]“. Das heißt „trafen“ oder „lernten kennen“. Die Partikel „[zh:了]“ zeigt an, dass diese Handlung abgeschlossen ist. Und wen trafen sie? „[zh:高文中的姐姐]“, also „Gao Wenzhongs ältere Schwester“."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.12,
+              "duration_seconds": 10.12,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "在高文中家,他们认识了高文中的姐姐。",
+                "focus_pinyin": "zài Gāo Wénzhōng jiā, tāmen rènshi le Gāo Wénzhōng de jiějie.",
+                "focus_gloss_en": "Bei Gao Wenzhong zu Hause trafen sie Gao Wenzhongs ältere Schwester."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.12,
+              "end_time_seconds": 23.0,
+              "duration_seconds": 12.88,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "在",
+                    "pinyin": "zài",
+                    "translation": "an, in, auf",
+                    "explanation_en": "Eine Präposition, die einen Ort angibt. Die Struktur ist '[zh:zài] + Ort'.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "认识",
+                    "pinyin": "rènshi",
+                    "translation": "kennen, erkennen, zum ersten Mal treffen",
+                    "explanation_en": "Dieses Verb wird verwendet, wenn man jemandem vorgestellt wird oder sich mit jemandem bekannt macht.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "了",
+                    "pinyin": "le",
+                    "translation": "Partikel für abgeschlossene Handlung",
+                    "explanation_en": "Ein dynamischer Partikel, der nach einem Verb steht, um anzuzeigen, dass eine Handlung abgeschlossen wurde.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "在",
+              "pinyin": "zài",
+              "translation": "an, in, auf",
+              "explanation_en": "Eine Präposition, die einen Ort angibt. Die Struktur ist '[zh:zài] + Ort'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "认识",
+              "pinyin": "rènshi",
+              "translation": "kennen, erkennen, zum ersten Mal treffen",
+              "explanation_en": "Dieses Verb wird verwendet, wenn man jemandem vorgestellt wird oder sich mit jemandem bekannt macht.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "了",
+              "pinyin": "le",
+              "translation": "Partikel für abgeschlossene Handlung",
+              "explanation_en": "Ein dynamischer Partikel, der nach einem Verb platziert wird, um anzuzeigen, dass eine Handlung abgeschlossen wurde.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "姐姐",
+              "pinyin": "jiějie",
+              "translation": "ältere Schwester",
+              "explanation_en": "Der Begriff für die eigene ältere Schwester.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Heben Sie zuerst '[zh:zài]' und den Ort hervor, dann animieren Sie die Charaktere, wie sie eine neue Person (die Schwester) treffen.",
+          "start_time_seconds": 39.956,
+          "duration_seconds": 34.772,
+          "end_time_seconds": 45.0
+        },
+        {
+          "segment_id": 3,
+          "segment_order": 3,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Eine Person vorstellen",
+          "teaching_goal": "Wiederholen Sie, wie man den Namen einer Person nennt und deren Beruf und Arbeitsplatz vorstellt.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Jetzt erfahren wir mehr über die Schwester. Es lautet: „[zh:她叫高小音,在学校的图书馆工作]“. Das bedeutet: „Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek.“ Der erste Teil, „[zh:她叫高小音]“, nennt uns ihren Namen. Dabei wird das Verb „[zh:叫]“ verwendet. Der zweite Teil beschreibt ihren Beruf. Hier wird die Struktur „[zh:在...工作]“ benutzt. Das bedeutet „an einem Ort arbeiten“. Der Ort ist hier „[zh:学校的图书馆]“, also „die Schulbibliothek“. „[zh:图书馆]“ heißt „Bibliothek“ und „[zh:工作]“ bedeutet „arbeiten“."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "她叫高小音,在学校的图书馆工作。",
+                "focus_pinyin": "tā jiào Gāo Xiǎoyīn, zài xuéxiào de túshūguǎn gōngzuò.",
+                "focus_gloss_en": "Sie heißt Gao Xiaoyin und arbeitet in der Schulbibliothek."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "叫",
+                    "pinyin": "jiào",
+                    "translation": "heißen",
+                    "explanation_en": "Wird verwendet, um den Vornamen einer Person anzugeben. Struktur: Subjekt + 叫 [zh:jiào] + Name.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "图书馆",
+                    "pinyin": "túshūguǎn",
+                    "translation": "Bibliothek",
+                    "explanation_en": "Ein zusammengesetztes Wort: 图 [zh:tú] (Bilder) + 书 [zh:shū] (Bücher) + 馆 [zh:guǎn] (ein Ort/Halle).",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "工作",
+                    "pinyin": "gōngzuò",
+                    "translation": "arbeiten, Beruf",
+                    "explanation_en": "Kann sowohl als Verb (arbeiten) als auch als Nomen (Beruf) fungieren.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "叫",
+              "pinyin": "jiào",
+              "translation": "heißen",
+              "explanation_en": "Wird verwendet, um den Vornamen einer Person anzugeben. Struktur: Subjekt + 叫 [zh:jiào] + Name.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "图书馆",
+              "pinyin": "túshūguǎn",
+              "translation": "Bibliothek",
+              "explanation_en": "Ein zusammengesetztes Wort: 图 [zh:tú] (Bilder) + 书 [zh:shū] (Bücher) + 馆 [zh:guǎn] (ein Ort/Halle).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "工作",
+              "pinyin": "gōngzuò",
+              "translation": "arbeiten, Beruf",
+              "explanation_en": "Kann sowohl als Verb (arbeiten) als auch als Nomen (Beruf) fungieren.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Teilen Sie den Bildschirm, um die beiden Satzteile zu zeigen. Links ein Symbol für ein Namensschild. Rechts ein Symbol für eine Bibliothek und eine arbeitende Person.",
+          "start_time_seconds": 74.728,
+          "duration_seconds": 34.292,
+          "end_time_seconds": 67.0
+        },
+        {
+          "segment_id": 4,
+          "segment_order": 4,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Tee anbieten und trinken",
+          "teaching_goal": "Verstehen Sie das Verb 请 [zh:qǐng] (einladen/behandeln) und wie man Mengen mit „Zahl + Zählwort“ für eine abgeschlossene Handlung ausdrückt.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Dieser Satz beschreibt die Gastfreundschaft. [zh:她请王朋喝茶,王朋喝了两杯]. Das bedeutet: „Sie bot Wang Peng Tee an, und Wang Peng trank zwei Tassen.“ Das Verb [zh:请] bedeutet hier „einladen“ oder „jemanden zu etwas bewirten“. [zh:她请王朋喝茶] heißt also, sie bewirtete Wang Peng mit Tee. Der zweite Teil, [zh:王朋喝了两杯], sagt uns, was als Nächstes geschah. Er [zh:喝] „trank“. Das Partikel [zh:了] zeigt, dass die Handlung abgeschlossen ist. Wie viel? [zh:两杯], also „zwei Tassen“. Beachten Sie, dass wir [zh:两] statt „èr“ verwenden. Das gilt vor einem Zählwort wie [zh:杯]."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.0,
+              "duration_seconds": 11.0,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "她请王朋喝茶,王朋喝了两杯。",
+                "focus_pinyin": "tā qǐng Wáng Péng hē chá, Wáng Péng hē le liǎng bēi.",
+                "focus_gloss_en": "Sie bot Wang Peng Tee an, und Wang Peng trank zwei Tassen."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 14.0,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "请",
+                    "pinyin": "qǐng",
+                    "translation": "einladen, bewirten",
+                    "explanation_en": "Ein höfliches Verb, das für Einladungen, Bitten oder das Ausgeben von etwas verwendet wird.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "喝",
+                    "pinyin": "hē",
+                    "translation": "trinken",
+                    "explanation_en": "Das Verb für das Trinken jeglicher Getränke.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "两",
+                    "pinyin": "liǎng",
+                    "translation": "zwei (wird mit Zählwörtern verwendet)",
+                    "explanation_en": "Wird anstelle von '二' (èr) verwendet, wenn man Gegenstände mit einem Zählwort zählt, zum Beispiel „zwei Tassen“.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "请",
+              "pinyin": "qǐng",
+              "translation": "einladen, behandeln",
+              "explanation_en": "Ein höfliches Verb, das für Einladungen, Bitten oder wenn man jemandem etwas spendiert, verwendet wird.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "喝",
+              "pinyin": "hē",
+              "translation": "trinken",
+              "explanation_en": "Das Verb für das Trinken jeglicher Getränke.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "两",
+              "pinyin": "liǎng",
+              "translation": "zwei (verwendet mit Zählwörtern)",
+              "explanation_en": "Wird anstelle von 二 [zh:èr] verwendet, wenn man Gegenstände mit einem Zählwort zählt, zum Beispiel „zwei Tassen“.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "杯",
+              "pinyin": "bēi",
+              "translation": "Tasse, Glas (Zählwort)",
+              "explanation_en": "Ein Zählwort für Getränke, die in Tassen oder Gläsern serviert werden.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Zeigen Sie eine Animation, in der jemand eine Tasse Tee anbietet und die andere Person trinkt, wobei „x2“ neben der Tasse erscheint.",
+          "start_time_seconds": 109.02,
+          "duration_seconds": 40.244,
+          "end_time_seconds": 92.0
+        },
+        {
+          "segment_id": 5,
+          "segment_order": 5,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Vorlieben und Mengen",
+          "teaching_goal": "Lerne, die Verneinung mit '不' und die Einschränkung mit '只' auszudrücken, und sieh dir ein weiteres Beispiel für eine abgeschlossene Handlung mit einer Mengenangabe an.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Was ist mit Li You? [zh:李友不喝茶,只喝了一杯水]. Das übersetzt sich mit: „Li You trinkt keinen Tee; sie trank nur ein Glas Wasser.“ Der erste Teil, [zh:不喝茶], zeigt ihre Vorliebe. „Bu“ verneint das Verb [zh:喝]. Das Wort [zh:只] ist ein Adverb und bedeutet „nur“. Was trank sie also? Sie [zh:喝了一杯水], also „trank eine Tasse Wasser“. Auch hier sehen wir das Muster: Verb plus [zh:了]. Darauf folgt eine Mengenangabe, [zh:一杯], also „eine Tasse“."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.12,
+              "duration_seconds": 10.12,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "李友不喝茶,只喝了一杯水。",
+                "focus_pinyin": "Lǐ Yǒu bù hē chá, zhǐ hē le yì bēi shuǐ.",
+                "focus_gloss_en": "Li You trinkt keinen Tee; sie trank nur ein Glas Wasser."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.12,
+              "end_time_seconds": 23.0,
+              "duration_seconds": 12.88,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "不",
+                    "pinyin": "bù",
+                    "translation": "nicht, nein",
+                    "explanation_en": "Das gebräuchlichste Adverb zur Verneinung von Verben und Adjektiven.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "只",
+                    "pinyin": "zhǐ",
+                    "translation": "nur, bloß",
+                    "explanation_en": "Ein Adverb, das vor einem Verb steht, um anzuzeigen, dass die Handlung eingeschränkt ist.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "水",
+                    "pinyin": "shuǐ",
+                    "translation": "Wasser",
+                    "explanation_en": "Das Substantiv für Wasser.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "不",
+              "pinyin": "bù",
+              "translation": "nicht, nein",
+              "explanation_en": "Das gebräuchlichste Adverb zur Verneinung von Verben und Adjektiven.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "只",
+              "pinyin": "zhǐ",
+              "translation": "nur, bloß",
+              "explanation_en": "Ein Adverb, das vor einem Verb steht, um anzuzeigen, dass die Handlung eingeschränkt ist.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "水",
+              "pinyin": "shuǐ",
+              "translation": "Wasser",
+              "explanation_en": "Das Substantiv für Wasser.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Zeige eine Tasse Tee mit einem roten „X“ darüber, dann einen Pfeil, der auf ein Glas Wasser mit „x1“ daneben zeigt.",
+          "start_time_seconds": 149.264,
+          "duration_seconds": 34.316,
+          "end_time_seconds": 115.0
+        },
+        {
+          "segment_id": 6,
+          "segment_order": 6,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "Gemeinsame Aktivitäten",
+          "teaching_goal": "Lerne, wie man Aktivitäten aufzählt und das Adverb '一起' (zusammen) verwendet.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Was machten sie also zusammen? [zh:他们一起聊天儿、看电视]. Das bedeutet: „Sie plauderten und sahen zusammen fern.“ Das Adverb [zh:一起] ist hier wichtig. Es bedeutet „zusammen“ und steht vor den Verben. Die beiden gemeinsamen Aktivitäten sind [zh:聊天儿], das heißt „plaudern“, und [zh:看电视], das heißt „fernsehen“. Das Aufzählungszeichen „、“ trennt die Elemente in einer Liste."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 9.68,
+              "duration_seconds": 9.68,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "他们一起聊天儿、看电视。",
+                "focus_pinyin": "tāmen yìqǐ liáotiānr, kàn diànshì.",
+                "focus_gloss_en": "Sie haben zusammen geplaudert und ferngesehen."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 9.68,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 12.32,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "一起",
+                    "pinyin": "yìqǐ",
+                    "translation": "zusammen",
+                    "explanation_en": "Ein Adverb, das anzeigt, dass eine Handlung von mehreren Personen gemeinsam ausgeführt wird. Es steht vor dem Verb.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "聊天儿",
+                    "pinyin": "liáotiānr",
+                    "translation": "plaudern",
+                    "explanation_en": "Eine Verb-Objekt-Phrase: 聊 (plaudern) + 天儿 (Himmel, reden).",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "看电视",
+                    "pinyin": "kàn diànshì",
+                    "translation": "fernsehen",
+                    "explanation_en": "Eine Verb-Objekt-Phrase: 看 (schauen, sehen) + 电视 (Fernseher).",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "一起",
+              "pinyin": "yìqǐ",
+              "translation": "zusammen",
+              "explanation_en": "Ein Adverb, das anzeigt, dass eine Handlung von mehreren Personen gemeinsam ausgeführt wird. Es steht vor dem Verb.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "聊天儿",
+              "pinyin": "liáotiānr",
+              "translation": "chatten",
+              "explanation_en": "Eine Verb-Objekt-Phrase: 聊 (plaudern) + 天儿 (Himmel, reden).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "看电视",
+              "pinyin": "kàn diànshì",
+              "translation": "fernsehen",
+              "explanation_en": "Eine Verb-Objekt-Phrase: 看 (schauen, sehen) + 电视 (Fernseher).",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Zeige drei Personen auf einem Sofa. Zuerst erscheinen Sprechblasen über ihnen für „chatten“. Dann erscheint ein Fernseher vor ihnen.",
+          "start_time_seconds": 183.58,
+          "duration_seconds": 28.604,
+          "end_time_seconds": 137.0
+        },
+        {
+          "segment_id": 7,
+          "segment_order": 7,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "Spät nach Hause kommen",
+          "teaching_goal": "Wir stellen das Adverb '才' vor, um auszudrücken, dass etwas später als erwartet geschah.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Der letzte Satz verrät uns, wann sie gegangen sind. [zh:王朋和李友晚上十二点才回家]. Das bedeutet: „Wang Peng und Li You sind erst um zwölf Uhr nachts nach Hause gegangen.“ Das Schlüsselwort hier ist das Adverb [zh:才]. Es bedeutet, dass die Handlung später geschah, als man es normalerweise erwarten würde. [zh:十二点才回家] betont also, dass sie erst um zwölf Uhr nach Hause gingen. [zh:回家] ist eine gebräuchliche Wendung und bedeutet „nach Hause gehen“."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.56,
+              "duration_seconds": 10.56,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "王朋和李友晚上十二点才回家。",
+                "focus_pinyin": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.",
+                "focus_gloss_en": "Wang Peng und Li You gingen erst um zwölf Uhr nachts nach Hause."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.56,
+              "end_time_seconds": 24.0,
+              "duration_seconds": 13.44,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "才",
+                    "pinyin": "cái",
+                    "translation": "erst dann",
+                    "explanation_en": "Ein Adverb, das anzeigt, dass eine Handlung später als erwartet stattfand. Es vermittelt oft ein Gefühl der Verspätung.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "回家",
+                    "pinyin": "huí jiā",
+                    "translation": "nach Hause gehen",
+                    "explanation_en": "Eine Verb-Objekt-Phrase: 回 (zurückkehren) + 家 (Zuhause).",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "点",
+                    "pinyin": "diǎn",
+                    "translation": "Uhr",
+                    "explanation_en": "Wird nach einer Zahl verwendet, um die Uhrzeit anzugeben.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "才",
+              "pinyin": "cái",
+              "translation": "erst dann",
+              "explanation_en": "Ein Adverb, das anzeigt, dass eine Handlung später als erwartet stattfand. Es vermittelt oft ein Gefühl der Verspätung.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "回家",
+              "pinyin": "huí jiā",
+              "translation": "nach Hause gehen",
+              "explanation_en": "Eine Verb-Objekt-Phrase: 回 (zurückkehren) + 家 (Zuhause).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "点",
+              "pinyin": "diǎn",
+              "translation": "Uhr",
+              "explanation_en": "Wird nach einer Zahl verwendet, um die Uhrzeit anzugeben.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Zeige eine Uhr-Animation, bei der sich die Zeiger schnell auf 12:00 Uhr bewegen. Dann zeige zwei Personen, die unter einem Nachthimmel mit Mond aus einem Haus gehen.",
+          "start_time_seconds": 212.184,
+          "duration_seconds": 32.06,
+          "end_time_seconds": 161.0
+        },
+        {
+          "segment_id": 8,
+          "segment_order": 8,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            2,
+            4,
+            5
+          ],
+          "segment_title": "Die Partikel 了 (le): Zeigt den Abschluss an",
+          "teaching_goal": "Verstehen, wie man die Partikel '了' (le) verwendet, um den Abschluss einer Handlung anzuzeigen.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Konzentrieren wir uns nun auf eine sehr wichtige Grammatikpartikel: [zh:了]. Diese Partikel wird verwendet, um den Abschluss einer Handlung oder das Entstehen einer neuen Situation zu kennzeichnen. Sie wird oft für vergangene Ereignisse verwendet, ist aber kein einfaches Zeichen für die Vergangenheitsform. In unserem Text haben Sie sie in Sätzen wie [zh:王朋喝了两杯] gesehen. Das bedeutet: „Wang Peng hat zwei Tassen getrunken.“ Beachten Sie, dass [zh:了] direkt nach dem Verb [zh:喝] steht. Diese Struktur „Verb + [zh:了]“ ist sehr gebräuchlich. Wenn Sie sagen möchten, dass eine Handlung nicht stattgefunden hat, verwenden Sie [zh:没有] vor dem Verb. Dabei müssen Sie [zh:了] entfernen. Um zum Beispiel „Ich habe gestern Musik gehört“ zu verneinen, würden Sie [zh:昨天我没有听音乐] sagen."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 13.44,
+              "duration_seconds": 13.44,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "王朋喝了两杯。\nQ: 你吃饭了吗？\nA: 我没吃。",
+                "focus_pinyin": "Wáng Péng hē le liǎng bēi.\nQ: Nǐ chī fàn le ma?\nA: Wǒ méi chī.",
+                "focus_gloss_en": "Wang Peng trank zwei Tassen.\nF: Hast du gegessen?\nA: Nein, habe ich nicht."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 13.44,
+              "end_time_seconds": 32.0,
+              "duration_seconds": 18.56,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "V + 了 + [Numeral + Measure Word] + O",
+                    "pattern_pinyin": "V + le + [Numeral + Measure Word] + O",
+                    "explanation_en": "Dieses häufige Muster zeigt den Abschluss einer Handlung an, oft unter Angabe der Menge des Objekts. Beispiel aus dem Text: 喝了两杯 (hē le liǎng bēi)."
+                  },
+                  {
+                    "pattern": "Q: [Action] + 了吗？ A: [Action] + 了。 / 没(有) + [Action]。",
+                    "pattern_pinyin": "Q: [Action] + le ma? A: [Action] + le. / Méi(yǒu) + [Action].",
+                    "explanation_en": "Um zu fragen, ob eine Handlung abgeschlossen wurde, fügen Sie '了吗' (le ma) hinzu. Die bejahende Antwort verwendet '了' (le), während die verneinende Antwort '没(有)' (méi[yǒu]) verwendet und '了' (le) weglässt."
+                  },
+                  {
+                    "pattern": "明天我吃了晚饭去看电影。",
+                    "pattern_pinyin": "Míngtiān wǒ chī le wǎnfàn qù kàn diànyǐng.",
+                    "explanation_en": "了 (le) kann auch den Abschluss einer ersten Handlung anzeigen, bevor eine zweite beginnt, selbst wenn beide in der Zukunft liegen."
+                  }
+                ],
+                "notes": "了 (le) zeigt eine abgeschlossene Handlung an. Die Verneinung verwendet 没有 (méiyǒu) und lässt 了 (le) weg."
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "V + 了 + [Numeral + Measure Word] + O",
+              "pattern_pinyin": "V + le + [Numeral + Measure Word] + O",
+              "explanation_en": "Dieses häufige Muster zeigt den Abschluss einer Handlung an, oft unter Angabe der Menge des Objekts. Beispiel aus dem Text: 喝了两杯 (hē le liǎng bēi)."
+            },
+            {
+              "pattern": "Q: [Action] + 了吗？ A: [Action] + 了。 / 没(有) + [Action]。",
+              "pattern_pinyin": "Q: [Action] + le ma? A: [Action] + le. / Méi(yǒu) + [Action].",
+              "explanation_en": "Um zu fragen, ob eine Handlung abgeschlossen wurde, fügen Sie '了吗' (le ma) hinzu. Die bejahende Antwort verwendet '了' (le), während die verneinende Antwort '没(有)' (méi[yǒu]) verwendet und '了' (le) weglässt."
+            },
+            {
+              "pattern": "明天我吃了晚饭去看电影。",
+              "pattern_pinyin": "Míngtiān wǒ chī le wǎnfàn qù kàn diànyǐng.",
+              "explanation_en": "了 (le) kann auch den Abschluss einer ersten Handlung anzeigen, bevor eine zweite beginnt, selbst wenn beide in der Zukunft liegen."
+            }
+          ],
+          "visual_notes": "Animieren Sie die Partikel '了', die nach dem Verb erscheint. Für die Verneinung zeigen Sie, wie '了' ausgeblendet wird, während '没有' vor dem Verb erscheint.",
+          "start_time_seconds": 244.244,
+          "duration_seconds": 47.588,
+          "end_time_seconds": 193.0
+        },
+        {
+          "segment_id": 9,
+          "segment_order": 9,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "Das Adverb 才 (cái): Später als erwartet",
+          "teaching_goal": "Lernen Sie, wie man das Adverb '才' (cái) verwendet, um auszudrücken, dass eine Handlung später als erwartet stattfand.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Als Nächstes betrachten wir das Adverb [zh:才]. Es bedeutet „nicht vor“ oder „erst dann“. Es deutet darauf hin, dass eine Handlung später geschah, als der Sprecher es erwartet hatte. In der Geschichte lesen wir [zh:王朋和李友晚上十二点才回家]. Das deutet darauf hin, dass Mitternacht als späte Zeit für die Heimkehr gilt. Die Struktur ist typischerweise „Zeit + [zh:才] + Verb“. Eine sehr wichtige Regel ist: Verwenden Sie niemals die Partikel [zh:了] in einem Satz mit [zh:才]. Das gilt auch, wenn das Ereignis in der Vergangenheit liegt. Die Verspätung wird bereits durch [zh:才] selbst ausgedrückt."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.76,
+              "duration_seconds": 11.76,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "王朋和李友晚上十二点才回家。\n他六点半才来。",
+                "focus_pinyin": "Wáng Péng hé Lǐ Yǒu wǎnshang shí'èr diǎn cái huí jiā.\nTā liù diǎn bàn cái lái.",
+                "focus_gloss_en": "Wang Peng und Li You gingen erst um zwölf Uhr nachts nach Hause.\nEr kam erst um halb sieben an."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 11.76,
+              "end_time_seconds": 28.0,
+              "duration_seconds": 16.24,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "[Time] + 才 + Verb",
+                    "pattern_pinyin": "[Time] + cái + Verb",
+                    "explanation_en": "Diese Struktur wird verwendet, um zu betonen, dass eine Handlung zu einem Zeitpunkt stattfand, der vom Sprecher als spät angesehen wird."
+                  },
+                  {
+                    "pattern": "小高常常晚上十二点才回家。",
+                    "pattern_pinyin": "Xiǎo Gāo chángcháng wǎnshang shí'èr diǎn cái huí jiā.",
+                    "explanation_en": "Der kleine Gao kommt oft erst um Mitternacht nach Hause."
+                  }
+                ],
+                "notes": "才 (cái) zeigt eine Verspätung an. Verwenden Sie 了 (le) nicht in einem Satz mit 才 (cái)."
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "[Time] + 才 + Verb",
+              "pattern_pinyin": "[Time] + cái + Verb",
+              "explanation_en": "Diese Struktur wird verwendet, um zu betonen, dass eine Handlung zu einem Zeitpunkt stattfand, der vom Sprecher als spät angesehen wird."
+            },
+            {
+              "pattern": "小高常常晚上十二点才回家。",
+              "pattern_pinyin": "Xiǎo Gāo chángcháng wǎnshang shí'èr diǎn cái huí jiā.",
+              "explanation_en": "Der kleine Gao kommt oft erst um Mitternacht nach Hause."
+            }
+          ],
+          "visual_notes": "Zeigen Sie eine Uhr-Animation, bei der sich die Zeiger langsam zur angegebenen Zeit bewegen, und heben Sie dann das Wort '才' hervor, um die 'Verspätung' zu betonen.",
+          "start_time_seconds": 291.832,
+          "duration_seconds": 37.82,
+          "end_time_seconds": 221.0
+        },
+        {
+          "segment_id": 10,
+          "segment_order": 10,
+          "segment_type": "recap",
+          "template_name": "lesson_recap",
+          "source_line_refs": [],
+          "segment_title": "Lektionszusammenfassung",
+          "teaching_goal": "Wiederholen Sie die wichtigsten Vokabeln und Grammatikmuster der Lektion.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Super gemacht! In dieser Lektion haben wir gelernt, wie man vergangene Aktivitäten bei einem Freund zu Hause beschreibt. Wir haben uns darauf konzentriert, die Partikel [zh:了] zu verwenden, um abgeschlossene Handlungen auszudrücken. Und das Adverb [zh:才] haben wir genutzt, um zu zeigen, dass etwas verspätet geschah. Lasst uns schnell die wichtigsten Sätze und Wörter wiederholen."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "recap_summary",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 18.0,
+              "duration_seconds": 18.0,
+              "content": {
+                "main_title": "在朋友家",
+                "focus_text": "Key Phrases Review",
+                "highlight_words": [
+                  {
+                    "word": "玩儿",
+                    "pinyin": "wánr",
+                    "translation": "Spaß haben; spielen",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "聊天儿",
+                    "pinyin": "liáotiānr",
+                    "translation": "plaudern",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "图书馆",
+                    "pinyin": "túshūguǎn",
+                    "translation": "Bibliothek",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "喝了两杯",
+                    "pinyin": "hē le liǎng bēi",
+                    "translation": "zwei Tassen getrunken",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "十二点才回家",
+                    "pinyin": "shí'èr diǎn cái huí jiā",
+                    "translation": "ging erst um 12:00 Uhr nach Hause",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  }
+                ],
+                "grammar_points": [],
+                "notes": ""
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "玩儿",
+              "pinyin": "wánr",
+              "translation": "Spaß haben; spielen",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "聊天儿",
+              "pinyin": "liáotiānr",
+              "translation": "plaudern",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "图书馆",
+              "pinyin": "túshūguǎn",
+              "translation": "Bibliothek",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "喝了两杯",
+              "pinyin": "hē le liǎng bēi",
+              "translation": "zwei Tassen getrunken",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "十二点才回家",
+              "pinyin": "shí'èr diǎn cái huí jiā",
+              "translation": "ging erst um 12:00 Uhr nach Hause",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Zeigen Sie die Schlüsselphrasen als Liste auf dem Bildschirm an, mit Symbolen neben jeder Phrase.",
+          "start_time_seconds": 329.652,
+          "duration_seconds": 19.196,
+          "end_time_seconds": 239.0
+        }
+      ],
+      "timeline": {
+        "total_duration_seconds": 348.848,
+        "segment_count": 10
+      },
+      "renderer_notes": {
+        "recommended_renderer": "template_video",
+        "recommended_stack": [
+          "react_templates",
+          "motion_graphics",
+          "ffmpeg_or_remotion"
+        ],
+        "remarks": "This plan is intended for explanation-video composition, not direct AIGC generation."
+      }
+    }
+  },
+  "lesson_audio_assets": {
+    "lesson_id": 502,
+    "course_id": 1,
+    "lesson_title": "在朋友家",
+    "provider": "tencent_tts",
+    "mode": "sentence_audio",
+    "default_voice_type": 501002,
+    "role_voice_map": {
+      "王朋": 601011,
+      "李友": 601009,
+      "高文中": 601008,
+      "高小音": 601013,
+      "白英爱": 601010,
+      "常老师": 601013,
+      "王红": 601010,
+      "海伦": 501004,
+      "费先生": 501005,
+      "王朋的父母": 501005,
+      "张天明": 601011,
+      "丽莎": 501004,
+      "柯林": 601008,
+      "林雪梅": 601010,
+      "李哲": 601011,
+      "李文": 601013,
+      "马克": 501005,
+      "张天明的老表": 601008,
+      "林雪梅的父母": 501005
+    },
+    "codec": "mp3",
+    "sample_rate": 16000,
+    "include_speakers": false,
+    "storage_backend": "local",
+    "sentence_gap_ms": 300,
+    "full_audio": {
+      "status": "ready",
+      "audio_url": "",
+      "object_key": "zh/audio/lesson502/full/lesson502_full_dialogue.mp3",
+      "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson502\\lesson502_full_dialogue.mp3",
+      "codec": "mp3",
+      "duration_seconds": 24.624
+    },
+    "items": [
+      {
+        "line_ref": 1,
+        "role": "旁白",
+        "hanzi": "昨天晚上,王朋和李友去高文中家玩儿。",
+        "source_text": "昨天晚上,王朋和李友去高文中家玩儿。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.708,
+        "start_time_seconds": 0.0,
+        "end_time_seconds": 4.86,
+        "status": "ready",
+        "session_id": "lesson-502-line-1",
+        "request_id": "0bc4f8cc-ff45-4f3b-8937-1e0e0c0a69d9",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson502/sentences/lesson502_line1.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson502\\lesson502_line1.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 2,
+        "role": "旁白",
+        "hanzi": "在高文中家,他们认识了高文中的姐姐。",
+        "source_text": "在高文中家,他们认识了高文中的姐姐。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.744,
+        "start_time_seconds": 5.16,
+        "end_time_seconds": 9.876,
+        "status": "ready",
+        "session_id": "lesson-502-line-2",
+        "request_id": "0b7a585d-3f7a-4920-81ab-b5668948e96e",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson502/sentences/lesson502_line2.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson502\\lesson502_line2.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 3,
+        "role": "旁白",
+        "hanzi": "她叫高小音,在学校的图书馆工作。",
+        "source_text": "她叫高小音,在学校的图书馆工作。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.384,
+        "start_time_seconds": 10.176,
+        "end_time_seconds": 14.64,
+        "status": "ready",
+        "session_id": "lesson-502-line-3",
+        "request_id": "d47ea7ae-0a31-4d1e-9256-22151f4cd7c6",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson502/sentences/lesson502_line3.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson502\\lesson502_line3.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 4,
+        "role": "旁白",
+        "hanzi": "她请王朋喝茶,王朋喝了两杯。",
+        "source_text": "她请王朋喝茶,王朋喝了两杯。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.24,
+        "start_time_seconds": 14.94,
+        "end_time_seconds": 19.08,
+        "status": "ready",
+        "session_id": "lesson-502-line-4",
+        "request_id": "eaed7228-8c14-4fcb-96aa-29f58dbbccbc",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson502/sentences/lesson502_line4.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson502\\lesson502_line4.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 5,
+        "role": "旁白",
+        "hanzi": "李友不喝茶,只喝了一杯水。",
+        "source_text": "李友不喝茶,只喝了一杯水。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.88,
+        "start_time_seconds": 19.38,
+        "end_time_seconds": 23.34,
+        "status": "ready",
+        "session_id": "lesson-502-line-5",
+        "request_id": "63f8ddf9-cf8b-436c-8685-c35f53c34c31",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson502/sentences/lesson502_line5.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson502\\lesson502_line5.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 6,
+        "role": "旁白",
+        "hanzi": "他们一起聊天儿、看电视。",
+        "source_text": "他们一起聊天儿、看电视。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.7,
+        "start_time_seconds": 23.64,
+        "end_time_seconds": 26.448,
+        "status": "ready",
+        "session_id": "lesson-502-line-6",
+        "request_id": "4faafc75-393d-4056-ae1d-aef34bc37118",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson502/sentences/lesson502_line6.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson502\\lesson502_line6.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 7,
+        "role": "旁白",
+        "hanzi": "王朋和李友晚上十二点才回家。",
+        "source_text": "王朋和李友晚上十二点才回家。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601008,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 2.628,
+        "start_time_seconds": 26.748,
+        "end_time_seconds": 30.672,
+        "status": "ready",
+        "session_id": "lesson-502-line-7",
+        "request_id": "1c2788b3-939d-43d4-957f-695cd55f520d",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson502/sentences/lesson502_line7.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson502\\lesson502_line7.mp3",
+        "subtitles": []
+      }
+    ]
+  },
+  "llm_usage": {
+    "calls": 24,
+    "input_tokens": 63389,
+    "output_tokens": 23939,
+    "total_tokens": 140290,
+    "estimated_cost_usd": 0.318626,
+    "provider": "GeminiProvider",
+    "items": [
+      {
+        "input_tokens": 3785,
+        "output_tokens": 459,
+        "total_tokens": 6311,
+        "estimated_cost_usd": 0.00932125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 448,
+        "output_tokens": 1090,
+        "total_tokens": 4179,
+        "estimated_cost_usd": 0.01146,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 422,
+        "output_tokens": 1019,
+        "total_tokens": 2667,
+        "estimated_cost_usd": 0.0107175,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 352,
+        "output_tokens": 317,
+        "total_tokens": 2217,
+        "estimated_cost_usd": 0.00361,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3348,
+        "output_tokens": 73,
+        "total_tokens": 5179,
+        "estimated_cost_usd": 0.004914999999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3409,
+        "output_tokens": 213,
+        "total_tokens": 4544,
+        "estimated_cost_usd": 0.00639125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3586,
+        "output_tokens": 1255,
+        "total_tokens": 9228,
+        "estimated_cost_usd": 0.0170325,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3590,
+        "output_tokens": 370,
+        "total_tokens": 5570,
+        "estimated_cost_usd": 0.0081875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3477,
+        "output_tokens": 491,
+        "total_tokens": 5476,
+        "estimated_cost_usd": 0.00925625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 765,
+        "output_tokens": 258,
+        "total_tokens": 2752,
+        "estimated_cost_usd": 0.00353625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 763,
+        "output_tokens": 177,
+        "total_tokens": 2352,
+        "estimated_cost_usd": 0.0027237499999999996,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 761,
+        "output_tokens": 181,
+        "total_tokens": 2674,
+        "estimated_cost_usd": 0.00276125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 691,
+        "output_tokens": 80,
+        "total_tokens": 1844,
+        "estimated_cost_usd": 0.0016637499999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 3348,
+        "output_tokens": 965,
+        "total_tokens": 9261,
+        "estimated_cost_usd": 0.013835,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1321,
+        "output_tokens": 1287,
+        "total_tokens": 6891,
+        "estimated_cost_usd": 0.01452125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1684,
+        "output_tokens": 1436,
+        "total_tokens": 5399,
+        "estimated_cost_usd": 0.016465,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 970,
+        "output_tokens": 366,
+        "total_tokens": 2229,
+        "estimated_cost_usd": 0.0048725,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1208,
+        "output_tokens": 943,
+        "total_tokens": 4005,
+        "estimated_cost_usd": 0.010940000000000002,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1002,
+        "output_tokens": 1350,
+        "total_tokens": 4095,
+        "estimated_cost_usd": 0.014752500000000002,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 969,
+        "output_tokens": 1034,
+        "total_tokens": 4047,
+        "estimated_cost_usd": 0.01155125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1869,
+        "output_tokens": 1977,
+        "total_tokens": 6252,
+        "estimated_cost_usd": 0.02210625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2018,
+        "output_tokens": 2001,
+        "total_tokens": 7410,
+        "estimated_cost_usd": 0.0225325,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 11793,
+        "output_tokens": 4471,
+        "total_tokens": 19916,
+        "estimated_cost_usd": 0.05945125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 11810,
+        "output_tokens": 2126,
+        "total_tokens": 15792,
+        "estimated_cost_usd": 0.0360225,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      }
+    ]
+  },
+  "localization": {
+    "source_lang": "en",
+    "target_lang": "de",
+    "target_lang_name": "German",
+    "target_lang_native": "Deutsch"
+  }
+}

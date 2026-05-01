@@ -1,0 +1,1514 @@
+{
+  "schema_version": "2.0",
+  "pipeline_id": "new_concept_english",
+  "target_language": "en",
+  "support_language": "zh",
+  "lesson_metadata": {
+    "course_id": "new_concept_english_1",
+    "lesson_id": "lesson072",
+    "title": "A walk through the woods",
+    "title_localized": "林中散步",
+    "content_type": "passage_pattern",
+    "source": {
+      "textbook": "New Concept English",
+      "book": 1,
+      "source_lessons": [
+        143,
+        144
+      ],
+      "source_pdf": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\new_concept_english\\raw_materials\\book1\\新概念英语1 英语初阶.pdf",
+      "lesson_pdf": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\new_concept_english\\raw_materials\\book1\\lesson072.pdf",
+      "pdf_pages": [
+        293,
+        294,
+        295,
+        296
+      ]
+    }
+  },
+  "course_content": {
+    "anchor": {
+      "type": "passage",
+      "source_lesson": 143,
+      "title": "A walk through the woods",
+      "listening_question": {
+        "text": "What was so funny about the words on the sign?",
+        "translation": "牌子上的字有什么可笑的地方?",
+        "answer": "The sign warns that anyone who leaves litter will be prosecuted, but the woods are full of litter, showing the sign is ineffective or ignored."
+      },
+      "lines": [
+        {
+          "line_ref": 1,
+          "speaker": "Narrator",
+          "text": "I live in a very old town",
+          "translation": "我住在一个非常古老的小镇上。",
+          "tokens": [
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "live",
+              "highlight": false
+            },
+            {
+              "text": "in",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "very",
+              "highlight": false
+            },
+            {
+              "text": "old",
+              "highlight": false
+            },
+            {
+              "text": "town",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 2,
+          "speaker": "Narrator",
+          "text": "which is surrounded by beautiful woods.",
+          "translation": "它被美丽的树林环绕。",
+          "tokens": [
+            {
+              "text": "which",
+              "highlight": false
+            },
+            {
+              "text": "is",
+              "highlight": false
+            },
+            {
+              "text": "surrounded",
+              "highlight": false
+            },
+            {
+              "text": "by",
+              "highlight": false
+            },
+            {
+              "text": "beautiful",
+              "highlight": false
+            },
+            {
+              "text": "woods",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 3,
+          "speaker": "Narrator",
+          "text": "It is a famous beauty spot.",
+          "translation": "这是一个著名的风景区。",
+          "tokens": [
+            {
+              "text": "It",
+              "highlight": false
+            },
+            {
+              "text": "is",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "famous",
+              "highlight": false
+            },
+            {
+              "text": "beauty",
+              "highlight": false
+            },
+            {
+              "text": "spot",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 4,
+          "speaker": "Narrator",
+          "text": "On Sundays, hundreds of people",
+          "translation": "每逢星期天，成百上千的人",
+          "tokens": [
+            {
+              "text": "On",
+              "highlight": false
+            },
+            {
+              "text": "Sundays",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "hundreds",
+              "highlight": false
+            },
+            {
+              "text": "of",
+              "highlight": false
+            },
+            {
+              "text": "people",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 5,
+          "speaker": "Narrator",
+          "text": "come from the city",
+          "translation": "从城里来",
+          "tokens": [
+            {
+              "text": "come",
+              "highlight": false
+            },
+            {
+              "text": "from",
+              "highlight": false
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "city",
+              "highlight": true
+            }
+          ]
+        },
+        {
+          "line_ref": 6,
+          "speaker": "Narrator",
+          "text": "to see our town",
+          "translation": "参观我们的小镇",
+          "tokens": [
+            {
+              "text": "to",
+              "highlight": false
+            },
+            {
+              "text": "see",
+              "highlight": false
+            },
+            {
+              "text": "our",
+              "highlight": false
+            },
+            {
+              "text": "town",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 7,
+          "speaker": "Narrator",
+          "text": "and to walk through the woods.",
+          "translation": "并在树林中散步。",
+          "tokens": [
+            {
+              "text": "and",
+              "highlight": false
+            },
+            {
+              "text": "to",
+              "highlight": false
+            },
+            {
+              "text": "walk",
+              "highlight": false
+            },
+            {
+              "text": "through",
+              "highlight": true
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "woods",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 8,
+          "speaker": "Narrator",
+          "text": "Visitors have been asked",
+          "translation": "游客们被要求",
+          "tokens": [
+            {
+              "text": "Visitors",
+              "highlight": false
+            },
+            {
+              "text": "have",
+              "highlight": false
+            },
+            {
+              "text": "been",
+              "highlight": false
+            },
+            {
+              "text": "asked",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 9,
+          "speaker": "Narrator",
+          "text": "to keep the woods clean and tidy.",
+          "translation": "保持树林清洁整齐。",
+          "tokens": [
+            {
+              "text": "to",
+              "highlight": false
+            },
+            {
+              "text": "keep",
+              "highlight": false
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "woods",
+              "highlight": false
+            },
+            {
+              "text": "clean",
+              "highlight": true
+            },
+            {
+              "text": "and",
+              "highlight": false
+            },
+            {
+              "text": "tidy",
+              "highlight": true
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 10,
+          "speaker": "Narrator",
+          "text": "Litter baskets have been placed under the trees,",
+          "translation": "垃圾桶已经放在树下，",
+          "tokens": [
+            {
+              "text": "Litter",
+              "highlight": true
+            },
+            {
+              "text": "baskets",
+              "highlight": false
+            },
+            {
+              "text": "have",
+              "highlight": false
+            },
+            {
+              "text": "been",
+              "highlight": false
+            },
+            {
+              "text": "placed",
+              "highlight": false
+            },
+            {
+              "text": "under",
+              "highlight": false
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "trees",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 11,
+          "speaker": "Narrator",
+          "text": "but people still throw their rubbish everywhere.",
+          "translation": "但人们仍然到处乱扔垃圾。",
+          "tokens": [
+            {
+              "text": "but",
+              "highlight": false
+            },
+            {
+              "text": "people",
+              "highlight": false
+            },
+            {
+              "text": "still",
+              "highlight": false
+            },
+            {
+              "text": "throw",
+              "highlight": true
+            },
+            {
+              "text": "their",
+              "highlight": false
+            },
+            {
+              "text": "rubbish",
+              "highlight": true
+            },
+            {
+              "text": "everywhere",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 12,
+          "speaker": "Narrator",
+          "text": "Last Wednesday, I went for a walk in the woods.",
+          "translation": "上周三，我到树林里散步。",
+          "tokens": [
+            {
+              "text": "Last",
+              "highlight": false
+            },
+            {
+              "text": "Wednesday",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "went",
+              "highlight": false
+            },
+            {
+              "text": "for",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "walk",
+              "highlight": false
+            },
+            {
+              "text": "in",
+              "highlight": false
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "woods",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 13,
+          "speaker": "Narrator",
+          "text": "What I saw",
+          "translation": "我所看到的",
+          "tokens": [
+            {
+              "text": "What",
+              "highlight": false
+            },
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "saw",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 14,
+          "speaker": "Narrator",
+          "text": "made me very sad.",
+          "translation": "令我非常难过。",
+          "tokens": [
+            {
+              "text": "made",
+              "highlight": false
+            },
+            {
+              "text": "me",
+              "highlight": false
+            },
+            {
+              "text": "very",
+              "highlight": false
+            },
+            {
+              "text": "sad",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 15,
+          "speaker": "Narrator",
+          "text": "I counted seven old cars",
+          "translation": "我数了七辆旧汽车",
+          "tokens": [
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "counted",
+              "highlight": false
+            },
+            {
+              "text": "seven",
+              "highlight": false
+            },
+            {
+              "text": "old",
+              "highlight": false
+            },
+            {
+              "text": "cars",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 16,
+          "speaker": "Narrator",
+          "text": "and three old refrigerators.",
+          "translation": "和三台旧冰箱。",
+          "tokens": [
+            {
+              "text": "and",
+              "highlight": false
+            },
+            {
+              "text": "three",
+              "highlight": false
+            },
+            {
+              "text": "old",
+              "highlight": false
+            },
+            {
+              "text": "refrigerators",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 17,
+          "speaker": "Narrator",
+          "text": "The litter baskets were empty",
+          "translation": "垃圾桶是空的",
+          "tokens": [
+            {
+              "text": "The",
+              "highlight": false
+            },
+            {
+              "text": "litter",
+              "highlight": true
+            },
+            {
+              "text": "baskets",
+              "highlight": false
+            },
+            {
+              "text": "were",
+              "highlight": false
+            },
+            {
+              "text": "empty",
+              "highlight": true
+            }
+          ]
+        },
+        {
+          "line_ref": 18,
+          "speaker": "Narrator",
+          "text": "and the ground was covered with",
+          "translation": "地上覆盖着",
+          "tokens": [
+            {
+              "text": "and",
+              "highlight": false
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "ground",
+              "highlight": false
+            },
+            {
+              "text": "was",
+              "highlight": false
+            },
+            {
+              "text": "covered",
+              "highlight": false
+            },
+            {
+              "text": "with",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 19,
+          "speaker": "Narrator",
+          "text": "pieces of paper, cigarette ends, old tyres,",
+          "translation": "纸片、烟头、旧轮胎、",
+          "tokens": [
+            {
+              "text": "pieces",
+              "highlight": false
+            },
+            {
+              "text": "of",
+              "highlight": false
+            },
+            {
+              "text": "paper",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "cigarette",
+              "highlight": false
+            },
+            {
+              "text": "ends",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            },
+            {
+              "text": "old",
+              "highlight": false
+            },
+            {
+              "text": "tyres",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 20,
+          "speaker": "Narrator",
+          "text": "empty bottles and rusty tins.",
+          "translation": "空瓶子和生锈的罐头。",
+          "tokens": [
+            {
+              "text": "empty",
+              "highlight": true
+            },
+            {
+              "text": "bottles",
+              "highlight": false
+            },
+            {
+              "text": "and",
+              "highlight": false
+            },
+            {
+              "text": "rusty",
+              "highlight": true
+            },
+            {
+              "text": "tins",
+              "highlight": false
+            },
+            {
+              "text": ".",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 21,
+          "speaker": "Narrator",
+          "text": "Among the rubbish,",
+          "translation": "在这些垃圾中，",
+          "tokens": [
+            {
+              "text": "Among",
+              "highlight": true
+            },
+            {
+              "text": "the",
+              "highlight": false
+            },
+            {
+              "text": "rubbish",
+              "highlight": true
+            },
+            {
+              "text": ",",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 22,
+          "speaker": "Narrator",
+          "text": "I found a sign which said,",
+          "translation": "我发现了一块牌子，上面写着：",
+          "tokens": [
+            {
+              "text": "I",
+              "highlight": false
+            },
+            {
+              "text": "found",
+              "highlight": false
+            },
+            {
+              "text": "a",
+              "highlight": false
+            },
+            {
+              "text": "sign",
+              "highlight": false
+            },
+            {
+              "text": "which",
+              "highlight": false
+            },
+            {
+              "text": "said",
+              "highlight": false
+            },
+            {
+              "text": ",",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 23,
+          "speaker": "Narrator",
+          "text": "'Anyone who leaves litter in these woods",
+          "translation": "“凡在此树林里乱扔垃圾者，",
+          "tokens": [
+            {
+              "text": "'Anyone",
+              "highlight": false
+            },
+            {
+              "text": "who",
+              "highlight": false
+            },
+            {
+              "text": "leaves",
+              "highlight": false
+            },
+            {
+              "text": "litter",
+              "highlight": true
+            },
+            {
+              "text": "in",
+              "highlight": false
+            },
+            {
+              "text": "these",
+              "highlight": false
+            },
+            {
+              "text": "woods",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "line_ref": 24,
+          "speaker": "Narrator",
+          "text": "will be prosecuted!'",
+          "translation": "将被依法处置！”",
+          "tokens": [
+            {
+              "text": "will",
+              "highlight": false
+            },
+            {
+              "text": "be",
+              "highlight": false
+            },
+            {
+              "text": "prosecuted",
+              "highlight": false
+            },
+            {
+              "text": "!",
+              "highlight": false
+            },
+            {
+              "text": "'",
+              "highlight": false
+            }
+          ]
+        }
+      ]
+    },
+    "vocabulary": [
+      {
+        "term": "surround",
+        "pronunciation": "/səˈraʊnd/",
+        "part_of_speech": "v",
+        "translation": "包围",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "wood",
+        "pronunciation": "/wʊd/",
+        "part_of_speech": "n",
+        "translation": "树林",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "beauty spot",
+        "pronunciation": "/ˈbjuːti-spɒt/",
+        "part_of_speech": "n",
+        "translation": "风景点",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "hundred",
+        "pronunciation": "/ˈhʌndrɪd/",
+        "part_of_speech": "n",
+        "translation": "数百",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "city",
+        "pronunciation": "/ˈsɪti/",
+        "part_of_speech": "n",
+        "translation": "城市",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "through",
+        "pronunciation": "/θruː/",
+        "part_of_speech": "prep",
+        "translation": "穿过",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "visitor",
+        "pronunciation": "/ˈvɪzɪtə/",
+        "part_of_speech": "n",
+        "translation": "参观者, 游客, 来访者",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "tidy",
+        "pronunciation": "/ˈtaɪdi/",
+        "part_of_speech": "adj",
+        "translation": "整齐的",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "litter",
+        "pronunciation": "/ˈlɪtə/",
+        "part_of_speech": "n",
+        "translation": "杂乱的东西",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "litter basket",
+        "pronunciation": "",
+        "part_of_speech": "n",
+        "translation": "废物筐",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "place",
+        "pronunciation": "/pleɪs/",
+        "part_of_speech": "v",
+        "translation": "放",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "throw",
+        "pronunciation": "/θrəʊ/",
+        "part_of_speech": "v",
+        "translation": "扔, 抛",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "rubbish",
+        "pronunciation": "/ˈrʌbɪʃ/",
+        "part_of_speech": "n",
+        "translation": "垃圾",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "count",
+        "pronunciation": "/kaʊnt/",
+        "part_of_speech": "v",
+        "translation": "数, 点",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "cover",
+        "pronunciation": "/ˈkʌvə/",
+        "part_of_speech": "v",
+        "translation": "覆盖",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "piece",
+        "pronunciation": "/piːs/",
+        "part_of_speech": "n",
+        "translation": "碎片",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "tyre",
+        "pronunciation": "/taɪə/",
+        "part_of_speech": "n",
+        "translation": "轮胎",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "rusty",
+        "pronunciation": "/ˈrʌsti/",
+        "part_of_speech": "adj",
+        "translation": "生锈的",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "among",
+        "pronunciation": "/əˈmʌŋ/",
+        "part_of_speech": "prep",
+        "translation": "在……之间",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "prosecute",
+        "pronunciation": "/ˈprɒsɪkjuːt/",
+        "part_of_speech": "v",
+        "translation": "依法处置",
+        "source_lesson": 143,
+        "role": "dialogue_word"
+      },
+      {
+        "term": "serve",
+        "pronunciation": "/sɜːrv/",
+        "part_of_speech": "v",
+        "translation": "侍候, 服务",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "repair",
+        "pronunciation": "/rɪˈpeər/",
+        "part_of_speech": "v",
+        "translation": "修理",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "correct",
+        "pronunciation": "/kəˈrekt/",
+        "part_of_speech": "v",
+        "translation": "批改, 纠正",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "catch",
+        "pronunciation": "/kætʃ/",
+        "part_of_speech": "v",
+        "translation": "抓住, 逮捕",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "air",
+        "pronunciation": "/eər/",
+        "part_of_speech": "v",
+        "translation": "通风",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "clean",
+        "pronunciation": "/kliːn/",
+        "part_of_speech": "v",
+        "translation": "打扫",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "empty",
+        "pronunciation": "/ˈempti/",
+        "part_of_speech": "v",
+        "translation": "倒空",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "sharpen",
+        "pronunciation": "/ˈʃɑːrpən/",
+        "part_of_speech": "v",
+        "translation": "削尖",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "turn on",
+        "pronunciation": "/tɜːrn ɒn/",
+        "part_of_speech": "phr. v",
+        "translation": "打开",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "buy",
+        "pronunciation": "/baɪ/",
+        "part_of_speech": "v",
+        "translation": "买",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "sweep",
+        "pronunciation": "/swiːp/",
+        "part_of_speech": "v",
+        "translation": "打扫",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "take",
+        "pronunciation": "/teɪk/",
+        "part_of_speech": "v",
+        "translation": "带走",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "invite",
+        "pronunciation": "/ɪnˈvaɪt/",
+        "part_of_speech": "v",
+        "translation": "邀请",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "tell",
+        "pronunciation": "/tel/",
+        "part_of_speech": "v",
+        "translation": "告诉",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "water",
+        "pronunciation": "/ˈwɔːtər/",
+        "part_of_speech": "v",
+        "translation": "浇水",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "dust",
+        "pronunciation": "/dʌst/",
+        "part_of_speech": "v",
+        "translation": "掸灰",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      },
+      {
+        "term": "shut",
+        "pronunciation": "/ʃʌt/",
+        "part_of_speech": "v",
+        "translation": "关闭",
+        "source_lesson": 144,
+        "role": "pattern_slot"
+      }
+    ],
+    "pattern_drills": [
+      {
+        "source_lesson": 144,
+        "pattern": "Hasn't anyone [verb] [object] yet?",
+        "translation_pattern": "还没有人[动词][宾语]吗？",
+        "response_patterns": [],
+        "slots": [
+          {
+            "text": "repaired",
+            "pronunciation": "/rɪˈpeərd/",
+            "translation": "修理",
+            "image_index": 1
+          },
+          {
+            "text": "this car",
+            "pronunciation": "/ðɪs kɑːr/",
+            "translation": "这辆车",
+            "image_index": 1
+          },
+          {
+            "text": "corrected",
+            "pronunciation": "/kəˈrektɪd/",
+            "translation": "批改",
+            "image_index": 3
+          },
+          {
+            "text": "these exercise books",
+            "pronunciation": "/ðiːz ˈeksərsaɪz bʊks/",
+            "translation": "这些练习册",
+            "image_index": 3
+          },
+          {
+            "text": "caught",
+            "pronunciation": "/kɔːt/",
+            "translation": "抓住",
+            "image_index": 5
+          },
+          {
+            "text": "the thief",
+            "pronunciation": "/ðə θiːf/",
+            "translation": "小偷",
+            "image_index": 5
+          },
+          {
+            "text": "the thieves",
+            "pronunciation": "/ðə θiːvz/",
+            "translation": "小偷们",
+            "image_index": 7
+          }
+        ],
+        "generated_prompts": [
+          {
+            "question": "Hasn't anyone repaired this car yet?",
+            "answer_already": "It has already been repaired!",
+            "answer_not_yet": "It hasn't been repaired yet. It will be repaired soon!"
+          },
+          {
+            "question": "Hasn't anyone corrected these exercise books yet?",
+            "answer_already": "They have already been corrected!",
+            "answer_not_yet": "They haven't been corrected yet. They will be corrected soon!"
+          },
+          {
+            "question": "Hasn't anyone caught the thief yet?",
+            "answer_already": "He has already been caught!",
+            "answer_not_yet": "He hasn't been caught yet. He will be caught soon!"
+          },
+          {
+            "question": "Hasn't anyone caught the thieves yet?",
+            "answer_already": "They have already been caught!",
+            "answer_not_yet": "They haven't been caught yet. They will be caught soon!"
+          }
+        ]
+      }
+    ],
+    "writing_exercises": [
+      {
+        "title": "A. Read the piece in Lesson 143 again. Then answer these questions.",
+        "instruction": "重读第143 课课文,然后回答以下问题:",
+        "items": [
+          {
+            "type": "question_answer",
+            "question": "Where does the writer live?",
+            "answer": "The writer lives in a very old town which is surrounded by beautiful woods."
+          },
+          {
+            "type": "question_answer",
+            "question": "Why do visitors often come from the city?",
+            "answer": "Visitors often come from the city to see the town and to walk through the woods, as it is a famous beauty spot."
+          },
+          {
+            "type": "question_answer",
+            "question": "What have visitors been asked to do?",
+            "answer": "Visitors have been asked to keep the woods clean and tidy."
+          },
+          {
+            "type": "question_answer",
+            "question": "Where have litter baskets been placed?",
+            "answer": "Litter baskets have been placed under the trees."
+          },
+          {
+            "type": "question_answer",
+            "question": "Where did the writer go last Wednesday?",
+            "answer": "The writer went for a walk in the woods last Wednesday."
+          },
+          {
+            "type": "question_answer",
+            "question": "He saw a lot of rubbish, didn't he?",
+            "answer": "Yes, he saw a lot of rubbish."
+          },
+          {
+            "type": "question_answer",
+            "question": "What did he see among the rubbish?",
+            "answer": "Among the rubbish, he saw seven old cars, three old refrigerators, pieces of paper, cigarette ends, old tyres, empty bottles and rusty tins."
+          },
+          {
+            "type": "question_answer",
+            "question": "What did the sign say?",
+            "answer": "The sign said, 'Anyone who leaves litter in these woods will be prosecuted!'"
+          }
+        ]
+      },
+      {
+        "title": "B. Answer these questions.",
+        "instruction": "模仿例句回答以下问题",
+        "examples": [
+          {
+            "question": "Hasn't anyone opened the window yet?",
+            "answer": "Someone has opened it. It has already been opened."
+          },
+          {
+            "question": "Hasn't anyone opened the windows yet?",
+            "answer": "Someone has opened them. They have already been opened."
+          }
+        ],
+        "items": [
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone aired this room yet?",
+            "answer": "Someone has aired it. It has already been aired."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone cleaned these rooms yet?",
+            "answer": "Someone has cleaned them. They have already been cleaned."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone emptied this basket yet?",
+            "answer": "Someone has emptied it. It has already been emptied."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone sharpened this knife yet?",
+            "answer": "Someone has sharpened it. It has already been sharpened."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone turned on the taps yet?",
+            "answer": "Someone has turned them on. They have already been turned on."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone bought these models yet?",
+            "answer": "Someone has bought them. They have already been bought."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone swept the floor yet?",
+            "answer": "Someone has swept it. It has already been swept."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone taken them to school yet?",
+            "answer": "Someone has taken them to school. They have already been taken to school."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone invited them yet?",
+            "answer": "Someone has invited them. They have already been invited."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone told them yet?",
+            "answer": "Someone has told them. They have already been told."
+          }
+        ]
+      },
+      {
+        "title": "C. Answer these questions.",
+        "instruction": "模仿例句回答以下问题",
+        "examples": [
+          {
+            "question": "Hasn't anyone opened the window yet?",
+            "answer": "It hasn't been opened yet. It will be opened tomorrow."
+          },
+          {
+            "question": "Hasn't anyone opened the windows yet?",
+            "answer": "They haven't been opened yet. They will be opened tomorrow."
+          }
+        ],
+        "items": [
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone aired this room yet?",
+            "answer": "It hasn't been aired yet. It will be aired soon."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone cleaned these rooms yet?",
+            "answer": "They haven't been cleaned yet. They will be cleaned soon."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone emptied this basket yet?",
+            "answer": "It hasn't been emptied yet. It will be emptied soon."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone sharpened this knife yet?",
+            "answer": "It hasn't been sharpened yet. It will be sharpened soon."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone turned on the taps yet?",
+            "answer": "They haven't been turned on yet. They will be turned on soon."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone watered these flowers yet?",
+            "answer": "They haven't been watered yet. They will be watered soon."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone repaired this car yet?",
+            "answer": "It hasn't been repaired yet. It will be repaired soon."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone dusted the cupboard yet?",
+            "answer": "It hasn't been dusted yet. It will be dusted soon."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone corrected these exercise books yet?",
+            "answer": "They haven't been corrected yet. They will be corrected soon."
+          },
+          {
+            "type": "question_answer",
+            "question": "Hasn't anyone shut the window yet?",
+            "answer": "It hasn't been shut yet. It will be shut soon."
+          }
+        ]
+      }
+    ]
+  },
+  "teaching_materials": {
+    "lesson_flow": [],
+    "notes_on_text": [
+      {
+        "title": "1. was covered with...,覆盖着……。",
+        "content": "This phrase describes something being completely covered by another thing. It's a common passive structure."
+      },
+      {
+        "title": "2. What I saw made me very sad. 句中的主语 what I saw 是一个以what 引导的名词性从句。",
+        "content": "The clause 'what I saw' functions as the subject of the sentence. 'What' introduces a noun clause, meaning 'the thing that'."
+      },
+      {
+        "title": "3. I found a sign which said... 这里用 said 不当“说”讲,而是“写着……”。",
+        "content": "In this context, 'said' is used to mean 'read' or 'had written on it', referring to the text on the sign, not spoken words."
+      }
+    ],
+    "grammar_sections": [
+      {
+        "title": "Present Perfect Passive Voice",
+        "explanation": "The present perfect passive voice is formed with 'has/have been' + past participle. It is used to describe an action that happened at an unspecified time in the past, or an action that started in the past and continues to the present, with emphasis on the result. In Lesson 144, it's used to ask if something has been done yet, e.g., 'Hasn't anyone repaired this car yet?'",
+        "examples": [
+          "It has already been repaired.",
+          "They have already been corrected."
+        ]
+      },
+      {
+        "title": "Future Passive Voice",
+        "explanation": "The future passive voice is formed with 'will be' + past participle. It is used to describe an action that will be done to the subject in the future. In Lesson 144, it's used to state that something will be done soon, e.g., 'It will be repaired soon!'",
+        "examples": [
+          "It will be repaired soon!",
+          "They will be caught soon!"
+        ]
+      }
+    ]
+  },
+  "explanation_plan": {
+    "target_audience": "Chinese speakers learning English",
+    "segments": [
+      {
+        "segment_id": "scene_setup",
+        "title": "Lesson Introduction: Environmental Awareness and Passive Voice",
+        "description": "Introduce the theme of environmental protection from Lesson 143 and the grammatical focus on the passive voice (present perfect and future) from Lesson 144. Briefly explain how these two lessons complement each other."
+      },
+      {
+        "segment_id": "line_walkthrough",
+        "title": "Exploring 'A Walk Through the Woods'",
+        "description": "Go through Lesson 143 line by line. Explain new vocabulary (e.g., 'surround', 'beauty spot', 'litter', 'prosecute') and discuss the narrative. Pay attention to the 'Notes on the text' for specific linguistic points like noun clauses and the meaning of 'said' on a sign. Discuss the irony in the listening question's answer."
+      },
+      {
+        "segment_id": "pattern_focus",
+        "title": "Mastering Present Perfect and Future Passive",
+        "description": "Focus on Lesson 144's core patterns: 'Hasn't anyone [verb] [object] yet?' and the answers 'It has already been [past participle]!' or 'It hasn't been [past participle] yet. It will be [past participle] soon!'. Explain the structure, usage, and common scenarios for these passive constructions. Use examples from the pattern drills."
+      },
+      {
+        "segment_id": "vocabulary_focus",
+        "title": "Key Vocabulary for Description and Action",
+        "description": "Review and expand on the vocabulary from both lessons. For Lesson 143, focus on descriptive words related to nature and pollution. For Lesson 144, emphasize the verbs used in the passive voice drills (e.g., 'repair', 'correct', 'catch', 'air', 'clean') and their past participles."
+      },
+      {
+        "segment_id": "guided_practice",
+        "title": "Applying Passive Voice and New Words",
+        "description": "Lead students through guided practice exercises. This includes answering questions about Lesson 143, and practicing the passive voice patterns from Lesson 144 by creating new sentences or completing given prompts. Encourage students to use the new vocabulary in their responses."
+      }
+    ]
+  },
+  "practice_items": [
+    {
+      "item_id": "p1",
+      "type": "TARGET_TO_SUPPORT",
+      "question": "The litter baskets were empty and the ground was covered with pieces of paper.",
+      "answer": "垃圾桶是空的，地上覆盖着纸片。",
+      "hint": "注意 'covered with' 的翻译。"
+    },
+    {
+      "item_id": "p2",
+      "type": "SUPPORT_TO_TARGET",
+      "question": "还没有人打扫这些房间吗？",
+      "answer": "Hasn't anyone cleaned these rooms yet?",
+      "hint": "使用现在完成时被动语态的疑问句形式。"
+    },
+    {
+      "item_id": "p3",
+      "type": "PATTERN_DRILL",
+      "pattern_id": "lesson072_pattern1",
+      "question_template": "Hasn't anyone {verb} {object} yet?",
+      "answer_template_already": "{object_pronoun} has already been {verb_past_participle}!",
+      "answer_template_not_yet": "{object_pronoun} hasn't been {verb_past_participle} yet. {object_pronoun} will be {verb_past_participle} soon!",
+      "slots": [
+        {
+          "verb": "watered",
+          "object": "these flowers",
+          "object_pronoun": "They",
+          "verb_past_participle": "watered"
+        }
+      ],
+      "generated_prompts": [
+        {
+          "question": "Hasn't anyone watered these flowers yet?",
+          "answer_already": "They have already been watered!",
+          "answer_not_yet": "They haven't been watered yet. They will be watered soon!"
+        }
+      ]
+    },
+    {
+      "item_id": "p4",
+      "type": "TARGET_LISTEN_WRITE",
+      "audio_url": "audio_for_lesson072_p4.mp3",
+      "answer": "Visitors have been asked to keep the woods clean and tidy.",
+      "hint": "注意 'visitors' 和 'tidy' 的发音。"
+    },
+    {
+      "item_id": "p5",
+      "type": "TARGET_SPEAK",
+      "question": "What did the writer find among the rubbish?",
+      "expected_answer_keywords": [
+        "sign",
+        "prosecuted",
+        "litter"
+      ],
+      "prompt": "Describe what the writer found and what it said.",
+      "model_answer": "The writer found a sign among the rubbish. It said, 'Anyone who leaves litter in these woods will be prosecuted!'"
+    }
+  ]
+}

@@ -1,0 +1,5177 @@
+{
+  "lesson_metadata": {
+    "course_id": 1,
+    "lesson_id": 101,
+    "title": "交换问候",
+    "content_type": "dialogue",
+    "title_localized": "Échanger des salutations"
+  },
+  "course_content": {
+    "dialogues": [
+      {
+        "lines": [
+          {
+            "role": "李友",
+            "translation": "Bonjour !",
+            "words": [
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": true
+              },
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": true
+              },
+              {
+                "cn": "！",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "Bonjour !",
+            "words": [
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": true
+              },
+              {
+                "cn": "好",
+                "py": "hǎo",
+                "highlight": true
+              },
+              {
+                "cn": "！",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "Excusez-moi, quel est votre nom de famille ?",
+            "words": [
+              {
+                "cn": "请",
+                "py": "qǐng",
+                "highlight": true
+              },
+              {
+                "cn": "问",
+                "py": "wèn",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": true
+              },
+              {
+                "cn": "贵",
+                "py": "guì",
+                "highlight": true
+              },
+              {
+                "cn": "姓",
+                "py": "xìng",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "translation": "Mon nom de famille est Li. Et vous ?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "姓",
+                "py": "xìng",
+                "highlight": true
+              },
+              {
+                "cn": "李",
+                "py": "lǐ",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "呢",
+                "py": "ne",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "Mon nom de famille est Wang. Mademoiselle Li, comment vous appelez-vous ?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "姓",
+                "py": "xìng",
+                "highlight": true
+              },
+              {
+                "cn": "王",
+                "py": "wáng",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "李",
+                "py": "lǐ",
+                "highlight": false
+              },
+              {
+                "cn": "小姐",
+                "py": "xiǎojiě",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "叫",
+                "py": "jiào",
+                "highlight": true
+              },
+              {
+                "cn": "什么",
+                "py": "shénme",
+                "highlight": true
+              },
+              {
+                "cn": "名字",
+                "py": "míngzi",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "李友",
+            "translation": "Je m'appelle Li You. Monsieur Wang, comment vous appelez-vous ?",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "叫",
+                "py": "jiào",
+                "highlight": true
+              },
+              {
+                "cn": "李",
+                "py": "lǐ",
+                "highlight": false
+              },
+              {
+                "cn": "友",
+                "py": "yǒu",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "王",
+                "py": "wáng",
+                "highlight": false
+              },
+              {
+                "cn": "先生",
+                "py": "xiānsheng",
+                "highlight": true
+              },
+              {
+                "cn": "，",
+                "py": "",
+                "highlight": false
+              },
+              {
+                "cn": "你",
+                "py": "nǐ",
+                "highlight": false
+              },
+              {
+                "cn": "叫",
+                "py": "jiào",
+                "highlight": true
+              },
+              {
+                "cn": "什么",
+                "py": "shénme",
+                "highlight": true
+              },
+              {
+                "cn": "名字",
+                "py": "míngzi",
+                "highlight": true
+              },
+              {
+                "cn": "？",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          },
+          {
+            "role": "王朋",
+            "translation": "Je m'appelle Wang Peng.",
+            "words": [
+              {
+                "cn": "我",
+                "py": "wǒ",
+                "highlight": false
+              },
+              {
+                "cn": "叫",
+                "py": "jiào",
+                "highlight": true
+              },
+              {
+                "cn": "王",
+                "py": "wáng",
+                "highlight": false
+              },
+              {
+                "cn": "朋",
+                "py": "péng",
+                "highlight": false
+              },
+              {
+                "cn": "。",
+                "py": "",
+                "highlight": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "word": "你",
+        "pinyin": "Nǐ",
+        "part_of_speech": "Pronom",
+        "definition": "tu",
+        "example_sentence": {
+          "cn": "请问，你贵姓？",
+          "py": "Qǐngwèn, nǐ guìxìng?",
+          "tokens": [
+            {
+              "cn": "请",
+              "py": "qǐng"
+            },
+            {
+              "cn": "问",
+              "py": "wèn"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "贵",
+              "py": "guì"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      },
+      {
+        "word": "好",
+        "pinyin": "Hǎo",
+        "part_of_speech": "Adjectif",
+        "definition": "bien, bon, d'accord",
+        "example_sentence": {
+          "cn": "你好！",
+          "py": "nǐ hǎo",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "好",
+              "py": "hǎo"
+            },
+            {
+              "cn": "！",
+              "py": ""
+            }
+          ],
+          "translation": "Bonjour !"
+        }
+      },
+      {
+        "word": "请",
+        "pinyin": "Qǐng",
+        "part_of_speech": "Verbe",
+        "definition": "s'il vous plaît (forme polie de requête), traiter ou inviter (quelqu'un)",
+        "example_sentence": {
+          "cn": "请问，你贵姓？",
+          "py": "qǐng wèn nǐ guì xìng",
+          "tokens": [
+            {
+              "cn": "请",
+              "py": "qǐng"
+            },
+            {
+              "cn": "问",
+              "py": "wèn"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "贵",
+              "py": "guì"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      },
+      {
+        "word": "问",
+        "pinyin": "Wèn",
+        "part_of_speech": "Verbe",
+        "definition": "demander",
+        "example_sentence": {
+          "cn": "请问，你贵姓？",
+          "py": "qǐng wèn nǐ guì xìng",
+          "tokens": [
+            {
+              "cn": "请",
+              "py": "qǐng"
+            },
+            {
+              "cn": "问",
+              "py": "wèn"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "贵",
+              "py": "guì"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      },
+      {
+        "word": "贵",
+        "pinyin": "Guì",
+        "part_of_speech": "Adjectif",
+        "definition": "honorable, cher",
+        "example_sentence": {
+          "cn": "请问，你贵姓？",
+          "py": "Qǐngwèn, nǐ guìxìng?",
+          "tokens": [
+            {
+              "cn": "请",
+              "py": "qǐng"
+            },
+            {
+              "cn": "问",
+              "py": "wèn"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "贵",
+              "py": "guì"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      },
+      {
+        "word": "姓",
+        "pinyin": "Xìng",
+        "part_of_speech": "Verbe/Nom",
+        "definition": "le nom de famille est... ; nom de famille",
+        "example_sentence": {
+          "cn": "我姓李。你呢？",
+          "py": "Wǒ xìng Lǐ. Nǐ ne?",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "李",
+              "py": "lǐ"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "呢",
+              "py": "ne"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "Mon nom de famille est Li. Et vous ?"
+        }
+      },
+      {
+        "word": "我",
+        "pinyin": "Wǒ",
+        "part_of_speech": "Pronom",
+        "definition": "je, moi",
+        "example_sentence": {
+          "cn": "我姓李。",
+          "py": "Wǒ xìng Lǐ.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "李",
+              "py": "lǐ"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Mon nom de famille est Li."
+        }
+      },
+      {
+        "word": "呢",
+        "pinyin": "Ne",
+        "part_of_speech": "Particule interrogative",
+        "definition": "particule interrogative",
+        "example_sentence": {
+          "cn": "我姓李。你呢？",
+          "py": "wǒ xìng lǐ nǐ ne",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "李",
+              "py": "lǐ"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "呢",
+              "py": "ne"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "Mon nom de famille est Li. Et vous ?"
+        }
+      },
+      {
+        "word": "小姐",
+        "pinyin": "Xiǎojiě",
+        "part_of_speech": "Nom",
+        "definition": "Mademoiselle",
+        "example_sentence": {
+          "cn": "李小姐，你叫什么名字？",
+          "py": "Lǐ xiǎojiě, nǐ jiào shénme míngzi?",
+          "tokens": [
+            {
+              "cn": "李",
+              "py": "lǐ"
+            },
+            {
+              "cn": "小姐",
+              "py": "xiǎojiě"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "叫",
+              "py": "jiào"
+            },
+            {
+              "cn": "什么",
+              "py": "shénme"
+            },
+            {
+              "cn": "名字",
+              "py": "míngzi"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "Mademoiselle Li, comment vous appelez-vous ?"
+        }
+      },
+      {
+        "word": "叫",
+        "pinyin": "Jiào",
+        "part_of_speech": "Verbe",
+        "definition": "s'appeler",
+        "example_sentence": {
+          "cn": "我姓王。李小姐，你叫什么名字？",
+          "py": "wǒ xìng wáng lǐ xiǎojiě nǐ jiào shénme míngzi",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "王",
+              "py": "wáng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            },
+            {
+              "cn": "李",
+              "py": "lǐ"
+            },
+            {
+              "cn": "小姐",
+              "py": "xiǎojiě"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "叫",
+              "py": "jiào"
+            },
+            {
+              "cn": "什么",
+              "py": "shénme"
+            },
+            {
+              "cn": "名字",
+              "py": "míngzi"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "Mon nom de famille est Wang. Mademoiselle Li, comment vous appelez-vous ?"
+        }
+      },
+      {
+        "word": "什么",
+        "pinyin": "Shénme",
+        "part_of_speech": "Pronom interrogatif",
+        "definition": "quoi",
+        "example_sentence": {
+          "cn": "你叫什么名字？",
+          "py": "Nǐ jiào shénme míngzi?",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "叫",
+              "py": "jiào"
+            },
+            {
+              "cn": "什么",
+              "py": "shénme"
+            },
+            {
+              "cn": "名字",
+              "py": "míngzi"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "comment vous appelez-vous ?"
+        }
+      },
+      {
+        "word": "名字",
+        "pinyin": "Míngzi",
+        "part_of_speech": "Nom",
+        "definition": "nom",
+        "example_sentence": {
+          "cn": "你叫什么名字？",
+          "py": "Nǐ jiào shénme míngzi?",
+          "tokens": [
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "叫",
+              "py": "jiào"
+            },
+            {
+              "cn": "什么",
+              "py": "shénme"
+            },
+            {
+              "cn": "名字",
+              "py": "míngzi"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "comment vous appelez-vous ?"
+        }
+      },
+      {
+        "word": "先生",
+        "pinyin": "Xiānsheng",
+        "part_of_speech": "Nom",
+        "definition": "Monsieur, mari, professeur",
+        "example_sentence": {
+          "cn": "我叫李友。王先生，你叫什么名字？",
+          "py": "wǒ jiào lǐ yǒu wáng xiānsheng nǐ jiào shénme míngzi",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "叫",
+              "py": "jiào"
+            },
+            {
+              "cn": "李",
+              "py": "lǐ"
+            },
+            {
+              "cn": "友",
+              "py": "yǒu"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            },
+            {
+              "cn": "王",
+              "py": "wáng"
+            },
+            {
+              "cn": "先生",
+              "py": "xiānsheng"
+            },
+            {
+              "cn": "，",
+              "py": ""
+            },
+            {
+              "cn": "你",
+              "py": "nǐ"
+            },
+            {
+              "cn": "叫",
+              "py": "jiào"
+            },
+            {
+              "cn": "什么",
+              "py": "shénme"
+            },
+            {
+              "cn": "名字",
+              "py": "míngzi"
+            },
+            {
+              "cn": "？",
+              "py": ""
+            }
+          ],
+          "translation": "Je m'appelle Li You. Monsieur Wang, comment vous appelez-vous ?"
+        }
+      },
+      {
+        "word": "李友",
+        "pinyin": "Lǐ Yǒu",
+        "part_of_speech": "Prénom",
+        "definition": "un prénom",
+        "example_sentence": {
+          "cn": "我叫李友。",
+          "py": "Wǒ jiào Lǐ Yǒu.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "叫",
+              "py": "jiào"
+            },
+            {
+              "cn": "李",
+              "py": "lǐ"
+            },
+            {
+              "cn": "友",
+              "py": "yǒu"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Je m'appelle Li You."
+        }
+      },
+      {
+        "word": "李",
+        "pinyin": "Lǐ",
+        "part_of_speech": "Prénom/Nom",
+        "definition": "un nom de famille ; prune",
+        "example_sentence": {
+          "cn": "我姓李。",
+          "py": "Wǒ xìng Lǐ.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "李",
+              "py": "lǐ"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Mon nom de famille est Li."
+        }
+      },
+      {
+        "word": "王朋",
+        "pinyin": "Wáng Péng",
+        "part_of_speech": "Prénom",
+        "definition": "un prénom",
+        "example_sentence": {
+          "cn": "我叫王朋。",
+          "py": "Wǒ jiào Wáng Péng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "叫",
+              "py": "jiào"
+            },
+            {
+              "cn": "王",
+              "py": "wáng"
+            },
+            {
+              "cn": "朋",
+              "py": "péng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Je m'appelle Wang Peng."
+        }
+      },
+      {
+        "word": "王",
+        "pinyin": "Wáng",
+        "part_of_speech": "Prénom/Nom",
+        "definition": "un nom de famille ; roi",
+        "example_sentence": {
+          "cn": "我姓王。",
+          "py": "Wǒ xìng Wáng.",
+          "tokens": [
+            {
+              "cn": "我",
+              "py": "wǒ"
+            },
+            {
+              "cn": "姓",
+              "py": "xìng"
+            },
+            {
+              "cn": "王",
+              "py": "wáng"
+            },
+            {
+              "cn": "。",
+              "py": ""
+            }
+          ],
+          "translation": "Mon nom de famille est Wang."
+        }
+      }
+    ]
+  },
+  "teaching_materials": {
+    "lesson_id": 101,
+    "course_id": 1,
+    "lesson_title": "",
+    "language_notes": [
+      {
+        "note_id": "LN-1",
+        "label": "a",
+        "focus_text": "你好!",
+        "focus_pinyin": "Nǐ hǎo!",
+        "explanation_en": "Cette salutation courante est utilisée pour s'adresser aussi bien aux inconnus qu'aux vieilles connaissances. Pour répondre, il suffit de répéter la même salutation.",
+        "source_section": "Language Notes"
+      },
+      {
+        "note_id": "LN-2",
+        "label": "b",
+        "focus_text": "请问",
+        "focus_pinyin": "qǐng wèn",
+        "explanation_en": "C'est une formule de politesse utilisée pour attirer l'attention de quelqu'un avant de poser une question ou de faire une demande, un peu comme « excusez-moi, puis-je vous demander ».",
+        "source_section": "Language Notes"
+      },
+      {
+        "note_id": "LN-3",
+        "label": "c",
+        "focus_text": "你 vs. 您",
+        "focus_pinyin": "nǐ vs. nín",
+        "explanation_en": "Pour être plus poli et respectueux, remplacez 你 [zh:nǐ] par sa forme honorifique, 您 [zh:nín]. Voir la note linguistique A, Dialogue 1, Leçon 6.",
+        "source_section": "Language Notes"
+      },
+      {
+        "note_id": "LN-4",
+        "label": "d",
+        "focus_text": "小姐",
+        "focus_pinyin": "xiǎojiě",
+        "explanation_en": "C'est un mot avec deux syllabes au troisième ton. La règle du sandhi tonal s'applique, transformant ainsi le premier troisième ton, 小 [zh:xiǎo], en un deuxième ton. La deuxième syllabe, 姐 [zh:jiě], peut aussi être prononcée au ton neutre.",
+        "source_section": "Language Notes"
+      }
+    ],
+    "grammar_sections": [
+      {
+        "grammar_id": "G-1",
+        "title": "Le verbe 姓 [zh:xìng]",
+        "explanation_en": "姓 [zh:xìng] est à la fois un nom et un verbe. Lorsqu'il est utilisé comme verbe, il doit être suivi d'un objet. 姓 [zh:xìng] est généralement nié avec 不 [zh:bù]. La manière polie de demander et de donner un nom de famille est d'utiliser 你贵姓 [zh:nǐ guì xìng].",
+        "patterns": [
+          {
+            "pattern": "你姓什么？",
+            "pattern_pinyin": "Nǐ xìng shénme?",
+            "meaning_en": "Quel est votre nom de famille ?"
+          },
+          {
+            "pattern": "我姓 [Family Name]。",
+            "pattern_pinyin": "Wǒ xìng [Family Name].",
+            "meaning_en": "Mon nom de famille est [Nom de famille]."
+          },
+          {
+            "pattern": "你姓 [Family Name] 吗？",
+            "pattern_pinyin": "Nǐ xìng [Family Name] ma?",
+            "meaning_en": "Votre nom de famille est-il [Nom de famille] ?"
+          },
+          {
+            "pattern": "我不姓 [Family Name]。",
+            "pattern_pinyin": "Wǒ bú xìng [Family Name].",
+            "meaning_en": "Mon nom de famille n'est pas [Nom de famille]."
+          },
+          {
+            "pattern": "你贵姓？",
+            "pattern_pinyin": "Nǐ guì xìng?",
+            "meaning_en": "Quel est votre nom de famille ? (formule polie)"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "A: 你姓什么？ B: 我姓李。",
+            "pinyin": "A: Nǐ xìng shénme? B: Wǒ xìng Lǐ.",
+            "translation": "A : Quel est votre nom de famille ? B : Mon nom de famille est Li."
+          },
+          {
+            "hanzi": "A: 你姓李吗？ B: 我不姓李。",
+            "pinyin": "A: Nǐ xìng Lǐ ma? B: Wǒ bú xìng Lǐ.",
+            "translation": "A : Votre nom de famille est-il Li ? B : Mon nom de famille n'est pas Li."
+          },
+          {
+            "hanzi": "A: 你贵姓？ B: 我姓王。",
+            "pinyin": "A: Nǐ guì xìng? B: Wǒ xìng Wáng.",
+            "translation": "A : Quel est votre nom de famille ? (Littéralement : Votre honorable nom de famille est... ?) B : Mon nom de famille est Wang."
+          }
+        ],
+        "usage_notes": [
+          "N'oubliez pas d'omettre l'honorifique 贵 [zh:guì] lorsque vous répondez.",
+          "Vous pouvez aussi répondre à 你贵姓 [zh:nǐ guì xìng] en disant 免贵姓王 [zh:miǎn guì xìng Wáng] ou 免贵姓李 [zh:miǎn guì xìng Lǐ], ce qui signifie littéralement « dispensez-vous de l'honorifique, mon nom de famille est Wang/Li »."
+        ],
+        "common_errors": [
+          {
+            "wrong": "我不姓。",
+            "correct": "我不姓李。",
+            "explanation_en": "Le verbe 姓 [zh:xìng] doit être suivi d'un objet, un nom de famille."
+          },
+          {
+            "wrong": "你贵姓什么？",
+            "correct": "你贵姓？",
+            "explanation_en": "贵姓 [zh:guì xìng] est une expression figée pour demander poliment le nom de famille de quelqu'un et ne peut pas être utilisée avec 什么 [zh:shénme]."
+          },
+          {
+            "wrong": "我贵姓王。",
+            "correct": "我姓王。",
+            "explanation_en": "L'honorifique 贵 [zh:guì] n'est utilisé que pour poser la question, pas dans la réponse."
+          }
+        ]
+      },
+      {
+        "grammar_id": "G-2",
+        "title": "Questions se terminant par 呢 [zh:ne]",
+        "explanation_en": "呢 [zh:ne] suit souvent un nom ou un pronom pour former une question lorsque le contenu de la question est déjà clair grâce au contexte.",
+        "patterns": [
+          {
+            "pattern": "Noun/Pronoun + 呢?",
+            "pattern_pinyin": "Noun/Pronoun + ne?",
+            "meaning_en": "Et... ?"
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "Q: 请问, 你贵姓? A: 我姓李, 你呢?",
+            "pinyin": "Q: Qǐng wèn, nǐ guì xìng? A: Wǒ xìng Lǐ, nǐ ne?",
+            "translation": "Q : Quel est votre nom de famille, s'il vous plaît ? R : Mon nom de famille est Li. Et vous ?"
+          },
+          {
+            "hanzi": "Q: 你叫什么名字? A: 我叫王朋, 你呢?",
+            "pinyin": "Q: Nǐ jiào shénme míngzi? A: Wǒ jiào Wáng Péng, nǐ ne?",
+            "translation": "Q : Comment vous appelez-vous ? R : Je m'appelle Wang Peng. Et vous ?"
+          }
+        ],
+        "usage_notes": [
+          "Lorsque 呢 [zh:ne] est utilisé de cette manière, il doit y avoir un contexte. Dans chacun des deux exemples ci-dessus, le contexte est fourni par la phrase précédente : 我姓李 [zh:wǒ xìng Lǐ] dans l'exemple A, et 我叫王朋 [zh:wǒ jiào Wáng Péng] dans l'exemple B."
+        ],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "G-3",
+        "title": "Le verbe 叫 [zh:jiào]",
+        "explanation_en": "Bien que 叫 [zh:jiào] ait plusieurs significations, il signifie « s'appeler » dans cette leçon. Comme 姓 [zh:xìng], il doit être suivi d'un objet, qui peut être un nom complet ou un prénom, mais rarement un prénom composé d'une seule syllabe. 叫 [zh:jiào] est généralement nié avec 不 [zh:bù].",
+        "patterns": [
+          {
+            "pattern": "Subject + 叫 + Name.",
+            "pattern_pinyin": "Subject + jiào + Name.",
+            "meaning_en": "Donner son nom."
+          },
+          {
+            "pattern": "Subject + 不 + 叫 + Name.",
+            "pattern_pinyin": "Subject + bú + jiào + Name.",
+            "meaning_en": "Dire que son nom n'est pas..."
+          },
+          {
+            "pattern": "你 + 叫 + 什么 + 名字？",
+            "pattern_pinyin": "Nǐ + jiào + shénme + míngzi?",
+            "meaning_en": "Demander le nom de quelqu'un."
+          },
+          {
+            "pattern": "你 + 叫 + Name + 吗？",
+            "pattern_pinyin": "Nǐ + jiào + Name + ma?",
+            "meaning_en": "Demander si le nom de quelqu'un est..."
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "你叫什么名字？",
+            "pinyin": "Nǐ jiào shénme míngzi?",
+            "translation": "Comment vous appelez-vous ?"
+          },
+          {
+            "hanzi": "我叫王小朋。",
+            "pinyin": "Wǒ jiào Wáng Xiǎopéng.",
+            "translation": "Je m'appelle Wang Xiaopeng."
+          },
+          {
+            "hanzi": "你叫李生吗？",
+            "pinyin": "Nǐ jiào Lǐ Shēng ma?",
+            "translation": "Vous vous appelez Li Sheng ?"
+          },
+          {
+            "hanzi": "我不叫李生。",
+            "pinyin": "Wǒ bú jiào Lǐ Shēng.",
+            "translation": "Je ne m'appelle pas Li Sheng."
+          }
+        ],
+        "usage_notes": [],
+        "common_errors": []
+      },
+      {
+        "grammar_id": "G-4",
+        "title": "Sujet + verbe + complément d'objet",
+        "explanation_en": "D'après les exemples des points de grammaire précédents, nous pouvons constater que l'ordre des mots de base dans une phrase chinoise est sujet + verbe + complément d'objet.\n\nCet ordre des mots reste le même dans les phrases affirmatives et interrogatives. Vous ne placez pas le mot interrogatif au début d'une question, comme on le ferait en français, à moins que ce mot interrogatif ne soit le sujet.\n\n[Voir aussi Grammaire 3, Leçon 2, et Grammaire 1, Leçon 4.]",
+        "patterns": [
+          {
+            "pattern": "Subject + verb + object",
+            "pattern_pinyin": "",
+            "meaning_en": "L'ordre des mots de base dans une phrase chinoise, qu'elle soit affirmative ou interrogative."
+          }
+        ],
+        "examples": [
+          {
+            "hanzi": "你姓什么？",
+            "pinyin": "Nǐ xìng shénme?",
+            "translation": "Quel est votre nom de famille ?"
+          },
+          {
+            "hanzi": "我姓李。",
+            "pinyin": "Wǒ xìng Lǐ.",
+            "translation": "Mon nom de famille est Li."
+          },
+          {
+            "hanzi": "你叫什么名字？",
+            "pinyin": "Nǐ jiào shénme míngzi?",
+            "translation": "Comment vous appelez-vous ?"
+          },
+          {
+            "hanzi": "我叫王朋。",
+            "pinyin": "Wǒ jiào Wáng Péng.",
+            "translation": "Je m'appelle Wang Peng."
+          },
+          {
+            "hanzi": "我不叫李生。",
+            "pinyin": "Wǒ bú jiào Lǐ Shēng.",
+            "translation": "Je ne m'appelle pas Li Sheng."
+          }
+        ],
+        "usage_notes": [
+          "L'ordre des mots de base dans une phrase chinoise est sujet + verbe + complément d'objet.",
+          "Cet ordre des mots reste le même dans les phrases affirmatives et interrogatives.",
+          "Contrairement au français, un mot interrogatif n'est pas déplacé au début d'une phrase, à moins qu'il ne fonctionne comme sujet."
+        ],
+        "common_errors": []
+      }
+    ]
+  },
+  "database_items": [
+    {
+      "lesson_id": 101,
+      "question_id": 1,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "你",
+      "original_pinyin": "Nǐ",
+      "standard_answers": [
+        "vous"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "Qǐngwèn, nǐ guìxìng?",
+          "translation": "Excusez-moi, quel est votre honorable nom de famille ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 2,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "好",
+      "original_pinyin": "Hǎo",
+      "standard_answers": [
+        "bien, bon, d'accord, c'est réglé"
+      ],
+      "context_examples": [
+        {
+          "cn": "你好！",
+          "py": "nǐ hǎo",
+          "translation": "Bonjour !"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 3,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "请",
+      "original_pinyin": "Qǐng",
+      "standard_answers": [
+        "s'il vous plaît, utilisé pour une demande polie, ou bien traiter ou inviter quelqu'un"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "qǐng wèn nǐ guì xìng",
+          "translation": "Excusez-moi, quel est votre honorable nom de famille ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 4,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "问",
+      "original_pinyin": "Wèn",
+      "standard_answers": [
+        "poser une question"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "qǐng wèn nǐ guì xìng",
+          "translation": "Excusez-moi, quel est votre honorable nom de famille ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 5,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "贵",
+      "original_pinyin": "Guì",
+      "standard_answers": [
+        "honorable",
+        "cher"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "Qǐngwèn, nǐ guìxìng?",
+          "translation": "Excusez-moi, quel est votre honorable nom de famille ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 6,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "姓",
+      "original_pinyin": "Xìng",
+      "standard_answers": [
+        "son nom de famille est...",
+        "nom de famille"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓李。你呢？",
+          "py": "Wǒ xìng Lǐ. Nǐ ne?",
+          "translation": "Mon nom de famille est Li. Et vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 7,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "我",
+      "original_pinyin": "Wǒ",
+      "standard_answers": [
+        "Je",
+        "moi"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓李。",
+          "py": "Wǒ xìng Lǐ.",
+          "translation": "Mon nom de famille est Li."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 8,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "小姐",
+      "original_pinyin": "Xiǎojiě",
+      "standard_answers": [
+        "Mademoiselle",
+        "jeune femme"
+      ],
+      "context_examples": [
+        {
+          "cn": "李小姐，你叫什么名字？",
+          "py": "Lǐ xiǎojiě, nǐ jiào shénme míngzi?",
+          "translation": "Mademoiselle Li, comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 9,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "叫",
+      "original_pinyin": "Jiào",
+      "standard_answers": [
+        "s'appeler",
+        "appeler"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓王。李小姐，你叫什么名字？",
+          "py": "wǒ xìng wáng lǐ xiǎojiě nǐ jiào shénme míngzi",
+          "translation": "Mon nom de famille est Wang. Mademoiselle Li, comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 10,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "什么",
+      "original_pinyin": "Shénme",
+      "standard_answers": [
+        "quoi"
+      ],
+      "context_examples": [
+        {
+          "cn": "你叫什么名字？",
+          "py": "Nǐ jiào shénme míngzi?",
+          "translation": "comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 11,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "名字",
+      "original_pinyin": "Míngzi",
+      "standard_answers": [
+        "nom"
+      ],
+      "context_examples": [
+        {
+          "cn": "你叫什么名字？",
+          "py": "Nǐ jiào shénme míngzi?",
+          "translation": "comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 12,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "先生",
+      "original_pinyin": "Xiānsheng",
+      "standard_answers": [
+        "Monsieur",
+        "mari",
+        "professeur"
+      ],
+      "context_examples": [
+        {
+          "cn": "我叫李友。王先生，你叫什么名字？",
+          "py": "wǒ jiào lǐ yǒu wáng xiānsheng nǐ jiào shénme míngzi",
+          "translation": "Je m'appelle Li You. Monsieur Wang, comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 13,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "李友",
+      "original_pinyin": "Lǐ Yǒu",
+      "standard_answers": [
+        "Li You, un prénom"
+      ],
+      "context_examples": [
+        {
+          "cn": "我叫李友。",
+          "py": "Wǒ jiào Lǐ Yǒu.",
+          "translation": "Je m'appelle Li You."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 14,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "李",
+      "original_pinyin": "Lǐ",
+      "standard_answers": [
+        "Li, un nom de famille ; prune"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓李。",
+          "py": "Wǒ xìng Lǐ.",
+          "translation": "Mon nom de famille est Li."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 15,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "王朋",
+      "original_pinyin": "Wáng Péng",
+      "standard_answers": [
+        "Wang Peng, un prénom"
+      ],
+      "context_examples": [
+        {
+          "cn": "我叫王朋。",
+          "py": "Wǒ jiào Wáng Péng.",
+          "translation": "Je m'appelle Wang Peng."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 16,
+      "course_id": 1,
+      "question_type": "CN_TO_FR",
+      "original_text": "王",
+      "original_pinyin": "Wáng",
+      "standard_answers": [
+        "Wang, un nom de famille ; roi"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓王。",
+          "py": "Wǒ xìng Wáng.",
+          "translation": "Mon nom de famille est Wang."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 17,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "vous",
+      "original_pinyin": null,
+      "standard_answers": [
+        "你"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "Qǐngwèn, nǐ guìxìng?",
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 18,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "bien, bon, sympa, d'accord, c'est réglé",
+      "original_pinyin": null,
+      "standard_answers": [
+        "好"
+      ],
+      "context_examples": [
+        {
+          "cn": "你好！",
+          "py": "nǐ hǎo",
+          "translation": "Bonjour !"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 19,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "s'il vous plaît, qui est une forme polie de demande ; traiter ou inviter quelqu'un",
+      "original_pinyin": null,
+      "standard_answers": [
+        "请"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "qǐng wèn nǐ guì xìng",
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 20,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "demander",
+      "original_pinyin": null,
+      "standard_answers": [
+        "问"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "qǐng wèn nǐ guì xìng",
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 21,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "honorable, cher",
+      "original_pinyin": null,
+      "standard_answers": [
+        "贵"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "Qǐngwèn, nǐ guìxìng?",
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 22,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Xìng, [zh:姓], le nom de famille est...; nom de famille",
+      "original_pinyin": null,
+      "standard_answers": [
+        "姓"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓李。你呢？",
+          "py": "Wǒ xìng Lǐ. Nǐ ne?",
+          "translation": "Mon nom de famille est Li. Et vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 23,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "je, moi",
+      "original_pinyin": null,
+      "standard_answers": [
+        "我"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓李。",
+          "py": "Wǒ xìng Lǐ.",
+          "translation": "Mon nom de famille est Li."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 24,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Mademoiselle",
+      "original_pinyin": null,
+      "standard_answers": [
+        "小姐"
+      ],
+      "context_examples": [
+        {
+          "cn": "李小姐，你叫什么名字？",
+          "py": "Lǐ xiǎojiě, nǐ jiào shénme míngzi?",
+          "translation": "Mademoiselle Li, comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 25,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "s'appeler, appeler",
+      "original_pinyin": null,
+      "standard_answers": [
+        "叫"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓王。李小姐，你叫什么名字？",
+          "py": "wǒ xìng wáng lǐ xiǎojiě nǐ jiào shénme míngzi",
+          "translation": "Mon nom de famille est Wang. Mademoiselle Li, comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 26,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "quoi",
+      "original_pinyin": null,
+      "standard_answers": [
+        "什么"
+      ],
+      "context_examples": [
+        {
+          "cn": "你叫什么名字？",
+          "py": "Nǐ jiào shénme míngzi?",
+          "translation": "comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 27,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "nom",
+      "original_pinyin": null,
+      "standard_answers": [
+        "名字"
+      ],
+      "context_examples": [
+        {
+          "cn": "你叫什么名字？",
+          "py": "Nǐ jiào shénme míngzi?",
+          "translation": "comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 28,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Monsieur, mari, professeur",
+      "original_pinyin": null,
+      "standard_answers": [
+        "先生"
+      ],
+      "context_examples": [
+        {
+          "cn": "我叫李友。王先生，你叫什么名字？",
+          "py": "wǒ jiào lǐ yǒu wáng xiānsheng nǐ jiào shénme míngzi",
+          "translation": "Je m'appelle Li You. Monsieur Wang, comment vous appelez-vous ?"
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 29,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Lǐ Yǒu, [zh:李友], Li You (un prénom)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "李友"
+      ],
+      "context_examples": [
+        {
+          "cn": "我叫李友。",
+          "py": "Wǒ jiào Lǐ Yǒu.",
+          "translation": "Je m'appelle Li You."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 30,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Lǐ, [zh:李], Li (un nom de famille); prune",
+      "original_pinyin": null,
+      "standard_answers": [
+        "李"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓李。",
+          "py": "Wǒ xìng Lǐ.",
+          "translation": "Mon nom de famille est Li."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 31,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Wáng Péng, [zh:王朋], Wang Peng (un prénom)",
+      "original_pinyin": null,
+      "standard_answers": [
+        "王朋"
+      ],
+      "context_examples": [
+        {
+          "cn": "我叫王朋。",
+          "py": "Wǒ jiào Wáng Péng.",
+          "translation": "Je m'appelle Wang Peng."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 32,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Wáng, [zh:王], Wang (un nom de famille); roi",
+      "original_pinyin": null,
+      "standard_answers": [
+        "王"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓王。",
+          "py": "Wǒ xìng Wáng.",
+          "translation": "Mon nom de famille est Wang."
+        }
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 33,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Excusez-moi, quel est votre nom de famille ?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "请问, 你贵姓?"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 34,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Quel est votre nom de famille ?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "你姓什么?"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 35,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Excusez-moi, comment vous appelez-vous ?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "请问, 你叫什么名字?"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 36,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Comment vous appelez-vous ?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "你叫什么名字?"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 37,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Vous vous appelez Li Hao ?",
+      "original_pinyin": null,
+      "standard_answers": [
+        "你叫李好吗?"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 38,
+      "course_id": 1,
+      "question_type": "FR_TO_CN",
+      "original_text": "Excusez-moi",
+      "original_pinyin": null,
+      "standard_answers": [
+        "请问"
+      ]
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 39,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Excusez-moi, quel est votre nom de famille ?",
+      "original_pinyin": "qǐng wèn nǐ guì xìng",
+      "standard_answers": [
+        "请问，你贵姓？"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "qǐng wèn nǐ guì xìng",
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 3
+      }
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 40,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Mon nom de famille est Li. Et vous ?",
+      "original_pinyin": "wǒ xìng lǐ nǐ ne",
+      "standard_answers": [
+        "我姓李。你呢？"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓李。你呢？",
+          "py": "wǒ xìng lǐ nǐ ne",
+          "translation": "Mon nom de famille est Li. Et vous ?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 4
+      }
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 41,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Mon nom de famille est Wang. Mademoiselle Li, comment vous appelez-vous ?",
+      "original_pinyin": "wǒ xìng wáng lǐ xiǎojiě nǐ jiào shénme míngzi",
+      "standard_answers": [
+        "我姓王。李小姐，你叫什么名字？"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓王。李小姐，你叫什么名字？",
+          "py": "wǒ xìng wáng lǐ xiǎojiě nǐ jiào shénme míngzi",
+          "translation": "Mon nom de famille est Wang. Mademoiselle Li, comment vous appelez-vous ?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 5
+      }
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 42,
+      "course_id": 1,
+      "question_type": "CN_LISTEN_WRITE",
+      "original_text": "Je m'appelle Li You. Monsieur Wang, comment vous appelez-vous ?",
+      "original_pinyin": "wǒ jiào lǐ yǒu wáng xiānsheng nǐ jiào shénme míngzi",
+      "standard_answers": [
+        "我叫李友。王先生，你叫什么名字？"
+      ],
+      "context_examples": [
+        {
+          "cn": "我叫李友。王先生，你叫什么名字？",
+          "py": "wǒ jiào lǐ yǒu wáng xiānsheng nǐ jiào shénme míngzi",
+          "translation": "Je m'appelle Li You. Monsieur Wang, comment vous appelez-vous ?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "text",
+        "line_ref": 6
+      }
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 43,
+      "course_id": 1,
+      "question_type": "FR_TO_CN_SPEAK",
+      "original_text": "Excusez-moi, quel est votre nom de famille ?",
+      "original_pinyin": "qǐng wèn nǐ guì xìng",
+      "standard_answers": [
+        "请问，你贵姓？"
+      ],
+      "context_examples": [
+        {
+          "cn": "请问，你贵姓？",
+          "py": "qǐng wèn nǐ guì xìng",
+          "translation": "Excusez-moi, quel est votre nom de famille ?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 44,
+      "course_id": 1,
+      "question_type": "FR_TO_CN_SPEAK",
+      "original_text": "Mon nom de famille est Li. Et vous ?",
+      "original_pinyin": "wǒ xìng lǐ nǐ ne",
+      "standard_answers": [
+        "我姓李。你呢？"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓李。你呢？",
+          "py": "wǒ xìng lǐ nǐ ne",
+          "translation": "Mon nom de famille est Li. Et vous ?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 45,
+      "course_id": 1,
+      "question_type": "FR_TO_CN_SPEAK",
+      "original_text": "Mon nom de famille est Wang. Mademoiselle Li, comment vous appelez-vous ?",
+      "original_pinyin": "wǒ xìng wáng lǐ xiǎojiě nǐ jiào shénme míngzi",
+      "standard_answers": [
+        "我姓王。李小姐，你叫什么名字？"
+      ],
+      "context_examples": [
+        {
+          "cn": "我姓王。李小姐，你叫什么名字？",
+          "py": "wǒ xìng wáng lǐ xiǎojiě nǐ jiào shénme míngzi",
+          "translation": "Mon nom de famille est Wang. Mademoiselle Li, comment vous appelez-vous ?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    },
+    {
+      "lesson_id": 101,
+      "question_id": 46,
+      "course_id": 1,
+      "question_type": "FR_TO_CN_SPEAK",
+      "original_text": "Je m'appelle Li You. Monsieur Wang, comment vous appelez-vous ?",
+      "original_pinyin": "wǒ jiào lǐ yǒu wáng xiānsheng nǐ jiào shénme míngzi",
+      "standard_answers": [
+        "我叫李友。王先生，你叫什么名字？"
+      ],
+      "context_examples": [
+        {
+          "cn": "我叫李友。王先生，你叫什么名字？",
+          "py": "wǒ jiào lǐ yǒu wáng xiānsheng nǐ jiào shénme míngzi",
+          "translation": "Je m'appelle Li You. Monsieur Wang, comment vous appelez-vous ?"
+        }
+      ],
+      "metadata": {
+        "answer_mode": "speech",
+        "speech_eval_config": {
+          "pass_threshold": 0.88,
+          "review_threshold": 0.78,
+          "min_asr_confidence": 0.6,
+          "max_attempts": 3,
+          "max_duration_sec": 15,
+          "allow_paraphrase": true
+        }
+      }
+    }
+  ],
+  "video_plan": {
+    "lesson_video_plan": {
+      "lesson_id": 101,
+      "course_id": 1,
+      "lesson_title": "交换问候",
+      "target_audience": "English native speakers learning Chinese",
+      "primary_language": "zh",
+      "support_language": "en",
+      "subtitle_options": {
+        "hanzi": true,
+        "pinyin": true,
+        "translation": true
+      }
+    },
+    "dramatization": {
+      "global_config": {
+        "visual_style": "Cinematic, realistic, bright and warm afternoon lighting, shallow depth of field.",
+        "setting_summary_cn": "在一个充满活力的现代大学校园里，两个学生在一条绿树成荫的小路上初次相遇。",
+        "setting_summary_en": "Two students meet for the first time on a lush, tree-lined path in a vibrant, modern university campus.",
+        "character_definitions": [
+          {
+            "name": "李友",
+            "appearance_description_en": "Li You, a female international student in her early 20s, with a friendly and curious expression, wearing a casual but stylish light-colored sweater and jeans."
+          },
+          {
+            "name": "王朋",
+            "appearance_description_en": "Wang Peng, a male Chinese student in his early 20s, with a warm and welcoming smile, dressed in a university sweatshirt and casual pants."
+          }
+        ]
+      },
+      "scenes": [
+        {
+          "scene_id": 1,
+          "source_line_refs": [
+            1
+          ],
+          "source_text": {
+            "hanzi": [
+              "你好！"
+            ],
+            "pinyin": [
+              "nǐ hǎo"
+            ],
+            "translation": [
+              "Hello!"
+            ]
+          },
+          "scene_goal": "表现李友主动、友好地向迎面走来的王朋打招呼。",
+          "scene_description_cn": "大学校园的林荫道上，阳光透过树叶洒下斑驳的光影。李友迎面走来，看到前方的王朋，她脸上露出友善的微笑，主动向他点头问好。",
+          "setting_en": "A sun-dappled, tree-lined path on a modern university campus. Other students are walking in the blurred background.",
+          "characters_on_screen": [
+            "李友",
+            "王朋"
+          ],
+          "camera_movement": "Slow dolly forward, tracking with Li You as she walks.",
+          "shot_type": "Medium shot",
+          "video_prompt_en": "Cinematic medium shot of a young Asian woman (Li You) walking on a sunny university campus path. She makes eye contact with someone off-screen, a friendly smile appears on her face, and she gives a slight nod. Bright, warm lighting, shallow depth of field, realistic style.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "你好！",
+            "pinyin": "nǐ hǎo",
+            "translation": "Hello!"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 3
+        },
+        {
+          "scene_id": 2,
+          "source_line_refs": [
+            2
+          ],
+          "source_text": {
+            "hanzi": [
+              "你好！"
+            ],
+            "pinyin": [
+              "nǐ hǎo"
+            ],
+            "translation": [
+              "Hello!"
+            ]
+          },
+          "scene_goal": "王朋看到李友的问候，礼貌且友好地回应。",
+          "scene_description_cn": "镜头切换到王朋的视角。他注意到李友的问候，立刻报以一个阳光的微笑，也点头回应。两人之间的距离拉近。",
+          "setting_en": "Same university campus path, now focusing on Wang Peng.",
+          "characters_on_screen": [
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "Static shot, slight focus pull from background to Wang Peng.",
+          "shot_type": "Medium close-up",
+          "video_prompt_en": "Cinematic medium close-up shot of a young Asian man (Wang Peng) on a university campus path. He returns a greeting with a warm, genuine smile and a nod. The woman (Li You) is visible and slightly out of focus in the background. Bright, warm lighting.",
+          "voice_over": {
+            "speaker": "王朋",
+            "hanzi": "你好！",
+            "pinyin": "nǐ hǎo",
+            "translation": "Hello!"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 3
+        },
+        {
+          "scene_id": 3,
+          "source_line_refs": [
+            3
+          ],
+          "source_text": {
+            "hanzi": [
+              "请问，你贵姓？"
+            ],
+            "pinyin": [
+              "qǐng wèn nǐ guì xìng"
+            ],
+            "translation": [
+              "Excuse me, what is your honorable surname?"
+            ]
+          },
+          "scene_goal": "王朋在互相问候后，主动、礼貌地询问对方的姓氏，希望开启一段对话。",
+          "scene_description_cn": "两人停下脚步，相视一笑。王朋带着好奇和友善的表情，身体微微前倾，自然地开口询问李友的姓氏。",
+          "setting_en": "Same university campus path. The two are now standing a comfortable distance apart, facing each other.",
+          "characters_on_screen": [
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "Static",
+          "shot_type": "Two-shot, medium shot",
+          "video_prompt_en": "Cinematic medium two-shot of the young man (Wang Peng) and woman (Li You) standing on the campus path. The man has a curious and polite expression as he speaks, leaning forward slightly. The woman listens attentively. Soft afternoon sunlight filters through the trees.",
+          "voice_over": {
+            "speaker": "王朋",
+            "hanzi": "请问，你贵姓？",
+            "pinyin": "qǐng wèn nǐ guì xìng",
+            "translation": "Excuse me, what is your honorable surname?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 4
+        },
+        {
+          "scene_id": 4,
+          "source_line_refs": [
+            6
+          ],
+          "source_text": {
+            "hanzi": [
+              "我叫李友。王先生，你叫什么名字？"
+            ],
+            "pinyin": [
+              "wǒ jiào lǐ yǒu wáng xiānsheng nǐ jiào shénme míngzi"
+            ],
+            "translation": [
+              "My name is Li You. Mr. Wang, what is your name?"
+            ]
+          },
+          "scene_goal": "李友在回答王朋的问题后，礼貌地反问对方的名字，推动对话继续。",
+          "scene_description_cn": "镜头聚焦在李友身上。她微笑着，自信地介绍自己的全名“李友”。然后，她带着好奇和友好的表情，看着王朋，并用尊称“王先生”来询问他的名字。",
+          "setting_en": "A bright, modern coffee shop with minimalist decor. Soft morning light streams through a large window. Other patrons are blurred in the background.",
+          "characters_on_screen": [
+            "李友",
+            "王朋"
+          ],
+          "camera_movement": "Static shot, then a slight pan towards Wang Peng as she asks the question.",
+          "shot_type": "Medium close-up on Li You",
+          "video_prompt_en": "Medium close-up shot of a friendly young Chinese woman, Li You, in a bright modern coffee shop. She smiles warmly and speaks, then gestures slightly towards a young man, Wang Peng, who is sitting opposite her. Cinematic, shallow depth of field, natural lighting.",
+          "voice_over": {
+            "speaker": "李友",
+            "hanzi": "我叫李友。王先生，你叫什么名字？",
+            "pinyin": "wǒ jiào lǐ yǒu. wáng xiānsheng, nǐ jiào shénme míngzi?",
+            "translation": "My name is Li You. Mr. Wang, what is your name?"
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 6
+        },
+        {
+          "scene_id": 5,
+          "source_line_refs": [
+            7
+          ],
+          "source_text": {
+            "hanzi": [
+              "我叫王朋。"
+            ],
+            "pinyin": [
+              "wǒ jiào wáng péng"
+            ],
+            "translation": [
+              "My name is Wang Peng."
+            ]
+          },
+          "scene_goal": "王朋回答李友的问题，完成双方的自我介绍。",
+          "scene_description_cn": "镜头切换到王朋。他听到李友的问题后，露出一个自信友善的微笑，清晰地说出自己的名字“王朋”。他的表情和姿态显示出开放和友好。",
+          "setting_en": "A bright, modern coffee shop. The view is now from over Li You's shoulder, looking at Wang Peng.",
+          "characters_on_screen": [
+            "王朋",
+            "李友"
+          ],
+          "camera_movement": "Static shot",
+          "shot_type": "Medium shot of Wang Peng",
+          "video_prompt_en": "Medium shot of a confident young Chinese man, Wang Peng, sitting in a coffee shop. He smiles and responds directly to the camera (from Li You's POV). The background is softly blurred. Cinematic, warm lighting.",
+          "voice_over": {
+            "speaker": "王朋",
+            "hanzi": "我叫王朋。",
+            "pinyin": "wǒ jiào wáng péng.",
+            "translation": "My name is Wang Peng."
+          },
+          "subtitle_tracks": {
+            "default": "hanzi",
+            "optional": [
+              "pinyin",
+              "english"
+            ]
+          },
+          "estimated_duration_seconds": 4
+        }
+      ]
+    },
+    "explanation": {
+      "global_config": {
+        "teaching_style": "A clear, structured, and encouraging guide for beginners, breaking down dialogue line by line with a focus on practical usage and pronunciation.",
+        "target_audience": "English native speakers learning Chinese",
+        "presenter_mode": "voice_over",
+        "visual_style": "Clean, modern, and card-based, suitable for animated text and graphics.",
+        "lesson_main_title": "交换问候"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "Greeting: 你好 (Nǐ hǎo)",
+          "teaching_goal": "To teach the most common Chinese greeting, its components, and its usage.",
+          "narration": {
+            "subtitle_en": "We begin with the most essential greeting in Chinese: [zh:你好]. This is the equivalent of 'Hello'. Let's break it down. [zh:你] means 'you', and [zh:好] means 'good'. So, you are literally saying 'you good'. This versatile greeting can be used with anyone, from strangers to friends, at any time of day. It's the perfect way to start a conversation."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "你好！",
+            "focus_pinyin": "nǐ hǎo!",
+            "focus_gloss_en": "Hello!",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "你",
+              "pinyin": "nǐ",
+              "translation": "you",
+              "explanation_en": "The pronoun for 'you' (singular).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "好",
+              "pinyin": "hǎo",
+              "translation": "good, fine",
+              "explanation_en": "An adjective meaning 'good'. When combined with '你', it forms the greeting 'hello'.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Animate the characters 你 and 好 coming together to form 你好.",
+          "estimated_duration_seconds": 20
+        },
+        {
+          "segment_id": 2,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Responding to a Greeting",
+          "teaching_goal": "To show students how to properly respond to the greeting '你好'.",
+          "narration": {
+            "subtitle_en": "How do you respond when someone says [zh:你好] to you? It's very simple. You just say [zh:你好] right back! This is a standard and polite way to return the greeting. No need to change anything, just repeat the phrase."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "你好！",
+            "focus_pinyin": "nǐ hǎo!",
+            "focus_gloss_en": "Hello!",
+            "notes": "A simple reply to the same greeting."
+          },
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Show two speech bubbles, one with '你好！' pointing to a character, and the other character replying with their own '你好！' speech bubble.",
+          "estimated_duration_seconds": 8
+        },
+        {
+          "segment_id": 3,
+          "segment_type": "vocabulary_focus",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Polite Opener: 请问 (Qǐng wèn)",
+          "teaching_goal": "To teach the polite phrase '请问' used before asking a question.",
+          "narration": {
+            "subtitle_en": "Before asking a question, it's polite to use the phrase [zh:请问]. Let's look at its parts. [zh:请] means 'please', and [zh:问] means 'to ask'. Together, they form a courteous opener similar to 'Excuse me, may I ask...?' in English. Using [zh:请问] shows respect and makes your inquiry sound much softer. It's a key phrase for polite communication."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "请 / 问",
+            "focus_pinyin": "qǐng / wèn",
+            "focus_gloss_en": "please / to ask",
+            "notes": "Combine to mean 'Excuse me, may I ask...?'"
+          },
+          "highlight_words": [
+            {
+              "word": "请",
+              "pinyin": "qǐng",
+              "translation": "please",
+              "explanation_en": "A verb used to make a polite request.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "问",
+              "pinyin": "wèn",
+              "translation": "to ask",
+              "explanation_en": "A verb meaning 'to ask a question'.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Show the characters 请 and 问 combining with a '+' sign in between, leading to the full phrase 请问.",
+          "estimated_duration_seconds": 22
+        },
+        {
+          "segment_id": 4,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Asking for a Surname (Polite)",
+          "teaching_goal": "To teach the polite and formal way to ask for someone's family name.",
+          "narration": {
+            "subtitle_en": "Now let's look at the full question: [zh:请问，你贵姓？]. After the polite opener [zh:请问], we have [zh:你贵姓]. This is a set phrase for asking for a surname respectfully. [zh:你] is 'you', and [zh:姓] means 'surname'. The key word here is [zh:贵], which means 'honorable' or 'expensive'. So, you are literally asking, 'What is your honorable surname?'. This is a very common and polite way to ask this question in formal situations."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "请问，你贵姓？",
+            "focus_pinyin": "qǐng wèn, nǐ guì xìng?",
+            "focus_gloss_en": "Excuse me, what is your honorable surname?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "贵",
+              "pinyin": "guì",
+              "translation": "honorable; expensive",
+              "explanation_en": "An adjective used here as an honorific to show respect when asking for a name.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "姓",
+              "pinyin": "xìng",
+              "translation": "surname; to be surnamed",
+              "explanation_en": "Can be used as a noun for 'family name' or a verb for 'to be surnamed'.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight the character 贵 to emphasize its role as an honorific.",
+          "estimated_duration_seconds": 24
+        },
+        {
+          "segment_id": 5,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Stating Your Surname & Asking Back",
+          "teaching_goal": "To teach how to state one's surname and use the particle '呢' to return a question.",
+          "narration": {
+            "subtitle_en": "Li You responds with [zh:我姓李。你呢？]. First, she says [zh:我姓李]. [zh:我] means 'I', and [zh:姓] is a verb here, so the sentence means 'My surname is Li'. Notice she doesn't use the honorific [zh:贵] in her answer. Then, she asks [zh:你呢？]. The particle [zh:呢] is a brilliant shortcut. It takes the previous question's topic—in this case, 'what is your surname'—and applies it to the new subject, 'you'. It means 'And you?' or 'How about you?'."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "我姓李。你呢？",
+            "focus_pinyin": "wǒ xìng lǐ. nǐ ne?",
+            "focus_gloss_en": "My surname is Li. And you?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "我",
+              "pinyin": "wǒ",
+              "translation": "I, me",
+              "explanation_en": "The pronoun for 'I' or 'me'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "呢",
+              "pinyin": "ne",
+              "translation": "(question particle)",
+              "explanation_en": "A particle used at the end of a question to ask 'how about...?' based on the context.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Animate an arrow looping back from the first question to the word '呢' to show it's returning the question.",
+          "estimated_duration_seconds": 25
+        },
+        {
+          "segment_id": 6,
+          "segment_type": "vocabulary_focus",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Title: 小姐 (Xiǎojiě)",
+          "teaching_goal": "To teach the title 'Miss', its usage, and the important tone sandhi rule.",
+          "narration": {
+            "subtitle_en": "Here we see the title [zh:小姐], which means 'Miss' or 'young lady'. It's placed after a person's surname, so [zh:李小姐] means 'Miss Li'. There's a crucial pronunciation rule here. Both [zh:小] and [zh:姐] are third tones. When two third-tone syllables are together, the first one changes to a second tone. So, instead of saying 'xiǎo jiě', we pronounce it 'xiáo jiě'. This is a fundamental rule called tone sandhi."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "小姐",
+            "focus_pinyin": "xiǎojiě",
+            "focus_gloss_en": "Miss; young lady",
+            "notes": "Tone sandhi: 3rd tone + 3rd tone → 2nd tone + 3rd tone."
+          },
+          "highlight_words": [
+            {
+              "word": "小姐",
+              "pinyin": "xiǎojiě",
+              "translation": "Miss, young lady",
+              "explanation_en": "A title for an unmarried woman, used after the family name.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Visually show the tone mark on 小 changing from a third tone (ˇ) to a second tone (´).",
+          "estimated_duration_seconds": 24
+        },
+        {
+          "segment_id": 7,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Asking for a Full Name",
+          "teaching_goal": "To teach the standard question for asking someone's full name.",
+          "narration": {
+            "subtitle_en": "Wang Peng first answers, [zh:我姓王], 'My surname is Wang.' Then he asks a new question: [zh:李小姐，你叫什么名字？]. He addresses her politely as 'Miss Li' and then asks for her full name. The verb [zh:叫] means 'to be called'. [zh:什么] means 'what', and [zh:名字] means 'name'. So the question literally means, 'You are called what name?'. This is the most common and direct way to ask, 'What is your name?'."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "你叫什么名字？",
+            "focus_pinyin": "nǐ jiào shénme míngzi?",
+            "focus_gloss_en": "What is your name?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "叫",
+              "pinyin": "jiào",
+              "translation": "to be called",
+              "explanation_en": "A verb used to state one's name.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "什么",
+              "pinyin": "shénme",
+              "translation": "what",
+              "explanation_en": "A question pronoun used to ask 'what'.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "名字",
+              "pinyin": "míngzi",
+              "translation": "name",
+              "explanation_en": "A noun meaning 'name'.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Break down the question into its components: 你 / 叫 / 什么 / 名字？ with their English meanings below.",
+          "estimated_duration_seconds": 26
+        },
+        {
+          "segment_id": 8,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "Stating Your Full Name & Using 先生",
+          "teaching_goal": "To teach how to state one's full name and use the title '先生' (Mr.).",
+          "narration": {
+            "subtitle_en": "Li You replies, [zh:我叫李友], 'My name is Li You.' This follows the simple 'Subject + [zh:叫] + Name' pattern. She then addresses Wang Peng as [zh:王先生]. [zh:先生] means 'Mr.' or 'gentleman'. Like [zh:小姐], it follows the surname. Finally, she asks the same question back, [zh:你叫什么名字？], to find out his full name. This shows how the conversation flows naturally from surnames to full names."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "我叫李友。王先生，你叫什么名字？",
+            "focus_pinyin": "wǒ jiào lǐ yǒu. wáng xiānsheng, nǐ jiào shénme míngzi?",
+            "focus_gloss_en": "My name is Li You. Mr. Wang, what is your name?",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "先生",
+              "pinyin": "xiānsheng",
+              "translation": "Mr., husband, gentleman",
+              "explanation_en": "A title for a man, used after the family name.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Highlight the new title '先生' and contrast it with '小姐' shown earlier.",
+          "estimated_duration_seconds": 25
+        },
+        {
+          "segment_id": 9,
+          "segment_type": "line_walkthrough",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "Final Answer: Stating Your Name",
+          "teaching_goal": "To reinforce the sentence pattern for stating one's full name.",
+          "narration": {
+            "subtitle_en": "To conclude the exchange, Wang Peng gives his full name: [zh:我叫王朋], 'My name is Wang Peng.' He uses the exact same sentence structure that Li You used. This pattern, [zh:我叫] followed by your name, is the standard way to introduce yourself. With this, they have successfully exchanged greetings and names."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "我叫王朋。",
+            "focus_pinyin": "wǒ jiào wáng péng.",
+            "focus_gloss_en": "My name is Wang Peng.",
+            "notes": "A simple and direct way to state your name."
+          },
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Show a final screen with both characters' full names displayed: 李友 (Lǐ Yǒu) and 王朋 (Wáng Péng).",
+          "estimated_duration_seconds": 18
+        },
+        {
+          "segment_id": 10,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            3,
+            4,
+            5
+          ],
+          "segment_title": "The Verb 姓 (xìng)",
+          "teaching_goal": "To teach students how to ask for and state a family name using the verb 姓 (xìng), including polite forms and common mistakes.",
+          "narration": {
+            "subtitle_en": "Now, let's focus on our first grammar point: the verb [zh:姓]. In Chinese, [zh:姓] can be both a noun for 'family name' and a verb meaning 'to have the family name of...'. When used as a verb, it must be followed by the specific surname. The most polite way to ask for someone's surname is [zh:请问，你贵姓], which you saw in the dialogue. The word [zh:贵] means 'honorable'. When you reply, you simply say [zh:我姓] followed by your name, for example, [zh:我姓李]. Notice you drop the polite word [zh:贵] in your answer. A more casual way to ask is [zh:你姓什么]. Remember, it's incorrect to just say [zh:我不姓]; you must specify which name you are not, like [zh:我不姓李]."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "Q: 你贵姓？ A: 我姓王。",
+            "focus_pinyin": "Nǐ guì xìng? Wǒ xìng Wáng.",
+            "focus_gloss_en": "Q: What is your honorable family name? A: My family name is Wang.",
+            "notes": "The honorific 贵 (guì) is only used when asking, not in the reply."
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "Q: 你贵姓？ A: 我姓 [Family Name]。",
+              "pattern_pinyin": "Nǐ guì xìng? Wǒ xìng [Family Name].",
+              "explanation_en": "The polite way to ask for and give a family name."
+            },
+            {
+              "pattern": "Q: 你姓什么？ A: 我姓 [Family Name]。",
+              "pattern_pinyin": "Nǐ xìng shénme? Wǒ xìng [Family Name].",
+              "explanation_en": "A common, less formal way to ask for a family name."
+            },
+            {
+              "pattern": "Q: 你姓 [Family Name] 吗？ A: 我不姓 [Family Name]。",
+              "pattern_pinyin": "Nǐ xìng [Family Name] ma? Wǒ bú xìng [Family Name].",
+              "explanation_en": "How to confirm a family name and state that it is not yours."
+            }
+          ],
+          "visual_notes": "Animate the characters 贵 and 姓. When explaining the reply, show 贵 fading out to emphasize it's not used in the answer.",
+          "estimated_duration_seconds": 35
+        },
+        {
+          "segment_id": 11,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Questions Ending with 呢 (ne)",
+          "teaching_goal": "To teach students how to use the particle 呢 (ne) to form a follow-up question.",
+          "narration": {
+            "subtitle_en": "Next, let's look at the question particle [zh:呢]. This is a very useful particle that you can add after a noun or pronoun to ask a follow-up question. It works like 'and you?' or 'how about...?' in English. The key is that the context must already be clear. In our dialogue, after Li You says [zh:我姓李], she asks [zh:你呢]. Because she just talked about her surname, [zh:你呢] here means 'And what is your surname?'. It's a simple and natural way to return a question without repeating the whole sentence. You could also use it after stating your name, for example: [zh:我叫王朋，你呢], meaning 'My name is Wang Peng, and you?'."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "我姓李，你呢？",
+            "focus_pinyin": "Wǒ xìng Lǐ, nǐ ne?",
+            "focus_gloss_en": "My family name is Li, and you?",
+            "notes": "呢 (ne) turns a statement into a reciprocal question."
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "[Statement], [Pronoun|Noun] + 呢？",
+              "pattern_pinyin": "[Pronoun|Noun] + ne?",
+              "explanation_en": "Use 'ne' to ask a follow-up question when the context is clear."
+            },
+            {
+              "pattern": "Q: 你贵姓？ A: 我姓李，你呢？",
+              "pattern_pinyin": "Nǐ guì xìng? Wǒ xìng Lǐ, nǐ ne?",
+              "explanation_en": "Example: After stating your surname, you can use 'nǐ ne?' to ask for theirs."
+            }
+          ],
+          "visual_notes": "Show a speech bubble with '我姓李。' and then a second bubble popping up with '你呢？' pointing back to the first person.",
+          "estimated_duration_seconds": 30
+        },
+        {
+          "segment_id": 12,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            5,
+            6,
+            7
+          ],
+          "segment_title": "The Verb 叫 (jiào)",
+          "teaching_goal": "To teach students how to ask for and state a full name or given name using the verb 叫 (jiào).",
+          "narration": {
+            "subtitle_en": "Let's move on to the verb [zh:叫], which means 'to be called'. This is how you talk about your full name or given name, as opposed to just your family name. To ask for someone's name, you use the pattern [zh:你叫什么名字]. Here, [zh:什么] means 'what' and [zh:名字] means 'name'. To answer, you simply say [zh:我叫] followed by your name, like [zh:我叫王朋]. Just like the verb [zh:姓], [zh:叫] must be followed by an object, which is the name. To say that your name is not something, you use [zh:不], for example, [zh:我不叫李生]."
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "Q: 你叫什么名字？ A: 我叫王朋。",
+            "focus_pinyin": "Nǐ jiào shénme míngzi? Wǒ jiào Wáng Péng.",
+            "focus_gloss_en": "Q: What is your name? A: My name is Wang Peng.",
+            "notes": "叫 (jiào) is used for full names or given names."
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "Q: 你叫什么名字？ A: 我叫 [Name]。",
+              "pattern_pinyin": "Nǐ jiào shénme míngzi? Wǒ jiào [Name].",
+              "explanation_en": "The standard way to ask for and state one's name."
+            },
+            {
+              "pattern": "Q: 你叫 [Name] 吗？ A: 我不叫 [Name]。",
+              "pattern_pinyin": "Nǐ jiào [Name] ma? Wǒ bú jiào [Name].",
+              "explanation_en": "How to confirm a name and state that it is not yours."
+            }
+          ],
+          "visual_notes": "Visually break down the question '你叫什么名字？' into its components: 你 (you) + 叫 (are called) + 什么 (what) + 名字 (name).",
+          "estimated_duration_seconds": 32
+        },
+        {
+          "segment_id": 13,
+          "segment_type": "grammar_focus",
+          "source_line_refs": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "segment_title": "Basic Word Order: Subject-Verb-Object",
+          "teaching_goal": "To introduce the fundamental Subject-Verb-Object (SVO) word order in Chinese and highlight how it differs from English in questions.",
+          "narration": {
+            "subtitle_en": "Our final grammar point is a very important one: basic Chinese word order. The structure is Subject, then Verb, then Object, or S-V-O. For example, in [zh:我姓李], the subject is [zh:我], the verb is [zh:姓], and the object is [zh:李]. The most important thing to remember is that this S-V-O order stays the same even when you ask a question. In English, you move the question word to the front, like 'What is your name?'. But in Chinese, the question word stays in the object's position. For example, [zh:你姓什么] literally translates to 'You - surname - what?'. The structure is still Subject-Verb-Object. This is a key difference from English, so keep it in mind!"
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "你 姓 什么？ (S+V+O)",
+            "focus_pinyin": "Nǐ xìng shénme?",
+            "focus_gloss_en": "What is your family name? (Lit: You are surnamed what?)",
+            "notes": "The S-V-O word order is the same for both statements and questions."
+          },
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "Subject + Verb + Object",
+              "pattern_pinyin": "",
+              "explanation_en": "The basic word order in a Chinese sentence for both statements and questions."
+            },
+            {
+              "pattern": "我 姓 李。(S+V+O)",
+              "pattern_pinyin": "Wǒ xìng Lǐ.",
+              "explanation_en": "Statement example: 'I' (S) + 'am surnamed' (V) + 'Li' (O)."
+            },
+            {
+              "pattern": "你 叫 什么名字？(S+V+O)",
+              "pattern_pinyin": "Nǐ jiào shénme míngzi?",
+              "explanation_en": "Question example: 'You' (S) + 'are called' (V) + 'what name' (O)."
+            }
+          ],
+          "visual_notes": "Use color coding for Subject, Verb, and Object in both the Chinese sentence and its literal English translation to highlight the consistent SVO structure.",
+          "estimated_duration_seconds": 38
+        },
+        {
+          "segment_id": 14,
+          "segment_type": "recap",
+          "source_line_refs": [],
+          "segment_title": "Lesson Recap",
+          "teaching_goal": "To quickly review and reinforce the most important phrases and grammar points from the lesson.",
+          "narration": {
+            "subtitle_en": "Great work! Let's quickly review the key phrases from this lesson. You learned the essential greeting [zh:你好]. You can now politely ask for a surname with [zh:你贵姓] and answer with [zh:我姓]. To ask for a full name, you use [zh:你叫什么名字] and respond with [zh:我叫]. And don't forget the useful follow-up question particle [zh:呢]. Keep practicing these patterns, and you'll be introducing yourself in no time!"
+          },
+          "on_screen_text": {
+            "main_title": "交换问候",
+            "focus_text": "Key Phrases Review",
+            "focus_pinyin": "",
+            "focus_gloss_en": "",
+            "notes": ""
+          },
+          "highlight_words": [
+            {
+              "word": "你好！",
+              "pinyin": "nǐ hǎo",
+              "translation": "Hello!",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "请问，你贵姓？",
+              "pinyin": "qǐng wèn, nǐ guì xìng",
+              "translation": "Excuse me, what is your honorable surname?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我姓...",
+              "pinyin": "wǒ xìng...",
+              "translation": "My surname is...",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "你叫什么名字？",
+              "pinyin": "nǐ jiào shénme míngzi",
+              "translation": "What is your name?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我叫...",
+              "pinyin": "wǒ jiào...",
+              "translation": "My name is...",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "...你呢？",
+              "pinyin": "...nǐ ne?",
+              "translation": "...and you?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Display the key phrases as a list of flashcards, each flipping to reveal the pinyin and English translation.",
+          "estimated_duration_seconds": 25
+        }
+      ]
+    },
+    "production_notes": {
+      "recommended_workflow": [
+        "generate dramatization visuals",
+        "generate explanation visuals",
+        "generate voice-over",
+        "compose subtitles"
+      ],
+      "remarks": "This schema is model-agnostic and designed for script planning plus downstream rendering."
+    }
+  },
+  "video_render_plan": {
+    "explanation": {
+      "lesson_id": 101,
+      "course_id": 1,
+      "lesson_title": "交换问候",
+      "target_audience": "Anglophones apprenant le chinois",
+      "video_style": {
+        "presenter_mode": "voice_over",
+        "teaching_style": "A clear, structured, and encouraging guide for beginners, breaking down dialogue line by line with a focus on practical usage and pronunciation.",
+        "visual_style": "Clean, modern, and card-based, suitable for animated text and graphics.",
+        "aspect_ratio": "16:9",
+        "safe_area": "title_safe"
+      },
+      "segments": [
+        {
+          "segment_id": 1,
+          "segment_order": 1,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            1
+          ],
+          "segment_title": "Salutation : 你好 [zh:Nǐ hǎo]",
+          "teaching_goal": "Enseigner la salutation chinoise la plus courante, ses composants et son utilisation.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Nous commençons par la salutation la plus essentielle en chinois : [zh:你好]. C'est l'équivalent de « Bonjour ». Décomposons-le. [zh:你] signifie « tu », et [zh:好] signifie « bien ». Vous dites donc littéralement « toi bien ». Cette salutation polyvalente s'utilise avec tout le monde. Que ce soit avec des inconnus ou des amis, à tout moment de la journée. C'est la façon idéale de commencer une conversation."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 8.8,
+              "duration_seconds": 8.8,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "你好！",
+                "focus_pinyin": "nǐ hǎo!",
+                "focus_gloss_en": "Bonjour !"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 8.8,
+              "end_time_seconds": 20.0,
+              "duration_seconds": 11.2,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "你",
+                    "pinyin": "nǐ",
+                    "translation": "tu",
+                    "explanation_en": "Le pronom 'tu' (singulier).",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "好",
+                    "pinyin": "hǎo",
+                    "translation": "bon, bien",
+                    "explanation_en": "Un adjectif qui signifie « bon ». Combiné avec « [zh:nǐ] », il forme la salutation « bonjour ».",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "你",
+              "pinyin": "nǐ",
+              "translation": "tu",
+              "explanation_en": "Le pronom 'tu' (singulier).",
+              "character_insight_en": ""
+            },
+            {
+              "word": "好",
+              "pinyin": "hǎo",
+              "translation": "bon, bien",
+              "explanation_en": "Un adjectif signifiant 'bon'. Lorsqu'il est combiné avec '你', il forme la salutation 'bonjour'.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Animer les caractères 你 et 好 se rejoignant pour former 你好.",
+          "start_time_seconds": 0.0,
+          "duration_seconds": 31.94,
+          "end_time_seconds": 20.0,
+          "sentence_timings_seconds": [
+            0.0,
+            5.4,
+            8.088,
+            9.912,
+            17.04,
+            19.992,
+            23.712,
+            27.96
+          ],
+          "sentence_texts": [
+            "Nous commençons par la salutation la plus essentielle en chinois : [zh:你好].",
+            "C'est l'équivalent de « Bonjour ».",
+            "Décomposons-le.",
+            "[zh:你] signifie « tu », et [zh:好] signifie « bien ».",
+            "Vous dites donc littéralement « toi bien ».",
+            "Cette salutation polyvalente s'utilise avec tout le monde.",
+            "Que ce soit avec des inconnus ou des amis, à tout moment de la journée.",
+            "C'est la façon idéale de commencer une conversation."
+          ]
+        },
+        {
+          "segment_id": 2,
+          "segment_order": 2,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            2
+          ],
+          "segment_title": "Répondre à une salutation",
+          "teaching_goal": "Montrer aux étudiants comment répondre correctement à la salutation « [zh:nǐ hǎo] ».",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Comment répondez-vous quand quelqu'un vous dit [zh:你好] ? C'est très simple. Vous dites simplement [zh:你好] en retour ! C'est une façon standard et polie de rendre la salutation. Pas besoin de changer quoi que ce soit. Répétez simplement la phrase."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 3.52,
+              "duration_seconds": 3.52,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "你好！",
+                "focus_pinyin": "nǐ hǎo!",
+                "focus_gloss_en": "Bonjour !"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 3.52,
+              "end_time_seconds": 8.0,
+              "duration_seconds": 4.48,
+              "content": {
+                "notes": "Une simple réponse à la même salutation.",
+                "highlight_words": []
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Afficher deux bulles de dialogue : l'une avec « [zh:nǐ hǎo] ! » pointant vers un personnage, et l'autre personnage répondant avec sa propre bulle de dialogue « [zh:nǐ hǎo] ! ».",
+          "start_time_seconds": 31.94,
+          "duration_seconds": 20.9,
+          "end_time_seconds": 28.0,
+          "sentence_timings_seconds": [
+            0.0,
+            4.272,
+            6.12,
+            11.28,
+            15.024,
+            17.832
+          ],
+          "sentence_texts": [
+            "Comment répondez-vous quand quelqu'un vous dit [zh:你好] ?",
+            "C'est très simple.",
+            "Vous dites simplement [zh:你好] en retour !",
+            "C'est une façon standard et polie de rendre la salutation.",
+            "Pas besoin de changer quoi que ce soit.",
+            "Répétez simplement la phrase."
+          ]
+        },
+        {
+          "segment_id": 3,
+          "segment_order": 3,
+          "segment_type": "vocabulary_focus",
+          "template_name": "vocab_spotlight",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Formule de politesse : [zh:qǐng wèn]",
+          "teaching_goal": "Enseigner la formule de politesse « [zh:qǐng wèn] » utilisée avant de poser une question.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Avant de poser une question, il est poli d'utiliser l'expression [zh:请问]. Examinons ses parties. [zh:请] signifie « s'il vous plaît », et [zh:问] signifie « demander ». Ensemble, ils forment une entrée en matière courtoise. C'est comme dire « Excusez-moi, puis-je demander... ? ». Utiliser [zh:请问] montre du respect. Cela rend votre question beaucoup plus douce. C'est une phrase clé pour une communication polie."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "vocab_grid",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 15.4,
+              "duration_seconds": 15.4,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "请 / 问",
+                "focus_gloss_en": "s'il vous plaît / demander",
+                "highlight_words": [
+                  {
+                    "word": "请",
+                    "pinyin": "qǐng",
+                    "translation": "s'il vous plaît",
+                    "explanation_en": "Un verbe utilisé pour faire une demande polie.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "问",
+                    "pinyin": "wèn",
+                    "translation": "demander",
+                    "explanation_en": "Un verbe qui signifie « poser une question ».",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "micro_note",
+              "start_time_seconds": 15.4,
+              "end_time_seconds": 22.0,
+              "duration_seconds": 6.6,
+              "content": {
+                "notes": "Combinés, ils signifient « Excusez-moi, puis-je demander... ? »"
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "请",
+              "pinyin": "qǐng",
+              "translation": "s'il vous plaît",
+              "explanation_en": "Un verbe utilisé pour faire une demande polie.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "问",
+              "pinyin": "wèn",
+              "translation": "demander",
+              "explanation_en": "Un verbe qui signifie « poser une question ».",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Montrer les caractères [zh:qǐng] et [zh:wèn] se combinant avec un signe « + » entre eux, pour former l'expression complète [zh:qǐng wèn].",
+          "start_time_seconds": 52.84,
+          "duration_seconds": 35.348,
+          "end_time_seconds": 50.0,
+          "sentence_timings_seconds": [
+            0.0,
+            5.664,
+            7.872,
+            15.888,
+            19.704,
+            23.4,
+            28.536,
+            31.608
+          ],
+          "sentence_texts": [
+            "Avant de poser une question, il est poli d'utiliser l'expression [zh:请问].",
+            "Examinons ses parties.",
+            "[zh:请] signifie « s'il vous plaît », et [zh:问] signifie « demander ».",
+            "Ensemble, ils forment une entrée en matière courtoise.",
+            "C'est comme dire « Excusez-moi, puis-je demander... ? ».",
+            "Utiliser [zh:请问] montre du respect.",
+            "Cela rend votre question beaucoup plus douce.",
+            "C'est une phrase clé pour une communication polie."
+          ]
+        },
+        {
+          "segment_id": 4,
+          "segment_order": 4,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            3
+          ],
+          "segment_title": "Demander un nom de famille (poli)",
+          "teaching_goal": "Enseigner la manière polie et formelle de demander le nom de famille de quelqu'un.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Regardons maintenant la question complète : [zh:请问，你贵姓?]. Après l'introduction polie [zh:请问], nous avons [zh:你贵姓]. C'est une expression figée pour demander le nom de famille avec respect. [zh:你] signifie « tu » ou « vous ». Et [zh:姓] veut dire « nom de famille ». Le mot clé ici est [zh:贵], qui signifie « honorable » ou « cher ». Vous demandez donc littéralement : « Quel est votre honorable nom de famille ? ». C'est une façon très courante et polie de poser cette question dans des situations formelles."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 10.56,
+              "duration_seconds": 10.56,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "请问，你贵姓？",
+                "focus_pinyin": "qǐng wèn, nǐ guì xìng?",
+                "focus_gloss_en": "Excusez-moi, quel est votre honorable nom de famille ?"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 10.56,
+              "end_time_seconds": 24.0,
+              "duration_seconds": 13.44,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "贵",
+                    "pinyin": "guì",
+                    "translation": "honorable ; cher",
+                    "explanation_en": "Un adjectif utilisé ici comme honorifique pour montrer du respect en demandant un nom.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "姓",
+                    "pinyin": "xìng",
+                    "translation": "nom de famille ; s'appeler",
+                    "explanation_en": "Peut être utilisé comme nom pour « nom de famille » ou comme verbe pour « s'appeler ».",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "贵",
+              "pinyin": "guì",
+              "translation": "honorable ; cher",
+              "explanation_en": "Un adjectif utilisé ici comme honorifique pour montrer du respect en demandant un nom.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "姓",
+              "pinyin": "xìng",
+              "translation": "nom de famille ; s'appeler",
+              "explanation_en": "Peut être utilisé comme nom pour « nom de famille » ou comme verbe pour « s'appeler ».",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Mettre en évidence le caractère [zh:guì] pour souligner son rôle d'honorifique.",
+          "start_time_seconds": 88.188,
+          "duration_seconds": 41.948,
+          "end_time_seconds": 74.0,
+          "sentence_timings_seconds": [
+            0.0,
+            5.232,
+            12.192,
+            16.416,
+            20.4,
+            25.488,
+            32.112,
+            36.408
+          ],
+          "sentence_texts": [
+            "Regardons maintenant la question complète : [zh:请问，你贵姓?].",
+            "Après l'introduction polie [zh:请问], nous avons [zh:你贵姓].",
+            "C'est une expression figée pour demander le nom de famille avec respect.",
+            "[zh:你] signifie « tu » ou « vous ».",
+            "Et [zh:姓] veut dire « nom de famille ».",
+            "Le mot clé ici est [zh:贵], qui signifie « honorable » ou « cher ».",
+            "Vous demandez donc littéralement : « Quel est votre honorable nom de famille ? ».",
+            "C'est une façon très courante et polie de poser cette question dans des situations formelles."
+          ]
+        },
+        {
+          "segment_id": 5,
+          "segment_order": 5,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Dire son nom de famille et poser la question en retour",
+          "teaching_goal": "Pour apprendre à dire son nom de famille et à utiliser la particule '呢' pour renvoyer une question.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Li You répond : [zh:我姓李。你呢?]. D'abord, elle dit [zh:我姓李]. [zh:我] signifie « je » ou « moi ». Et [zh:姓] est un verbe ici. Donc la phrase veut dire : « Mon nom de famille est Li ». Remarquez qu'elle n'utilise pas l'honorifique [zh:贵] dans sa réponse. Ensuite, elle demande [zh:你呢?]. La particule [zh:呢] est un raccourci ingénieux. Elle reprend le sujet de la question précédente, ici « quel est votre nom de famille ». Et elle l'applique au nouveau sujet, « vous ». Cela signifie « Et vous ? » ou « Et toi ? »."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.0,
+              "duration_seconds": 11.0,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "我姓李。你呢？",
+                "focus_pinyin": "wǒ xìng lǐ. nǐ ne?",
+                "focus_gloss_en": "Mon nom de famille est Li. Et vous ?"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 14.0,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "我",
+                    "pinyin": "wǒ",
+                    "translation": "Je, moi",
+                    "explanation_en": "Le pronom pour « je » ou « moi ».",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "呢",
+                    "pinyin": "ne",
+                    "translation": "particule interrogative",
+                    "explanation_en": "Une particule utilisée à la fin d'une question pour demander « et vous ? » ou « et cela ? » selon le contexte.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "我",
+              "pinyin": "wǒ",
+              "translation": "Je, moi",
+              "explanation_en": "Le pronom pour « je » ou « moi ».",
+              "character_insight_en": ""
+            },
+            {
+              "word": "呢",
+              "pinyin": "ne",
+              "translation": "particule interrogative",
+              "explanation_en": "Une particule utilisée à la fin d'une question pour demander « et vous ? » ou « et cela ? » selon le contexte.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Animer une flèche qui revient de la première question vers le mot '呢' pour montrer qu'il renvoie la question.",
+          "start_time_seconds": 130.136,
+          "duration_seconds": 49.124,
+          "end_time_seconds": 99.0,
+          "sentence_timings_seconds": [
+            0.0,
+            4.488,
+            8.376,
+            12.6,
+            17.04,
+            20.52,
+            26.88,
+            30.696,
+            36.36,
+            41.64,
+            44.592,
+            46.896
+          ],
+          "sentence_texts": [
+            "Li You répond : [zh:我姓李。你呢?].",
+            "D'abord, elle dit [zh:我姓李].",
+            "[zh:我] signifie « je » ou « moi ».",
+            "Et [zh:姓] est un verbe ici.",
+            "Donc la phrase veut dire : « Mon nom de famille est Li ».",
+            "Remarquez qu'elle n'utilise pas l'honorifique [zh:贵] dans sa réponse.",
+            "Ensuite, elle demande [zh:你呢?].",
+            "La particule [zh:呢] est un raccourci ingénieux.",
+            "Elle reprend le sujet de la question précédente, ici « quel est votre nom de famille ».",
+            "Et elle l'applique au nouveau sujet, « vous ».",
+            "Cela signifie « Et vous ? »",
+            "ou « Et toi ? »."
+          ]
+        },
+        {
+          "segment_id": 6,
+          "segment_order": 6,
+          "segment_type": "vocabulary_focus",
+          "template_name": "vocab_spotlight",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Titre : 小姐 [zh:Xiǎojiě]",
+          "teaching_goal": "Pour enseigner le titre « Mademoiselle », son utilisation et la règle importante du sandhi tonal.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Ici, nous voyons le titre [zh:小姐], qui signifie « Mademoiselle » ou « jeune femme ». Il est placé après le nom de famille d'une personne. Ainsi, [zh:李小姐] signifie « Mademoiselle Li ». Il y a une règle de prononciation cruciale ici. Les deux caractères, [zh:小] et [zh:姐], sont des troisièmes tons. Lorsque deux syllabes au troisième ton sont ensemble, la première passe au deuxième ton. Ainsi, au lieu de dire « xiǎo jiě », nous prononçons « xiáo jiě ». C'est une règle fondamentale appelée sandhi tonal."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "vocab_grid",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 16.8,
+              "duration_seconds": 16.8,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "小姐",
+                "focus_gloss_en": "Mademoiselle ; jeune femme",
+                "highlight_words": [
+                  {
+                    "word": "小姐",
+                    "pinyin": "xiǎojiě",
+                    "translation": "Mademoiselle, jeune femme",
+                    "explanation_en": "Un titre pour une femme non mariée, utilisé après le nom de famille.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "micro_note",
+              "start_time_seconds": 16.8,
+              "end_time_seconds": 24.0,
+              "duration_seconds": 7.2,
+              "content": {
+                "notes": "Sandhi tonal : 3e ton + 3e ton → 2e ton + 3e ton."
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "小姐",
+              "pinyin": "xiǎojiě",
+              "translation": "Mademoiselle, jeune femme",
+              "explanation_en": "Un titre pour une femme non mariée, utilisé après le nom de famille.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Montrer visuellement la marque de ton sur 小 qui passe d'un troisième ton (ˇ) à un deuxième ton (´).",
+          "start_time_seconds": 179.26,
+          "duration_seconds": 42.14,
+          "end_time_seconds": 123.0,
+          "sentence_timings_seconds": [
+            0.0,
+            7.944,
+            11.328,
+            17.016,
+            20.424,
+            28.416,
+            33.432,
+            38.184
+          ],
+          "sentence_texts": [
+            "Ici, nous voyons le titre [zh:小姐], qui signifie « Mademoiselle » ou « jeune femme ».",
+            "Il est placé après le nom de famille d'une personne.",
+            "Ainsi, [zh:李小姐] signifie « Mademoiselle Li ».",
+            "Il y a une règle de prononciation cruciale ici.",
+            "Les deux caractères, [zh:小] et [zh:姐], sont des troisièmes tons.",
+            "Lorsque deux syllabes au troisième ton sont ensemble, la première passe au deuxième ton.",
+            "Ainsi, au lieu de dire « xiǎo jiě », nous prononçons « xiáo jiě ».",
+            "C'est une règle fondamentale appelée sandhi tonal."
+          ]
+        },
+        {
+          "segment_id": 7,
+          "segment_order": 7,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            5
+          ],
+          "segment_title": "Demander le nom complet",
+          "teaching_goal": "Pour enseigner la question standard pour demander le nom complet de quelqu'un.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Wang Peng répond d'abord : « [zh:我姓王] ». Cela signifie « Mon nom de famille est Wang ». Ensuite, il pose une nouvelle question : « [zh:李小姐，你叫什么名字?] ». Il s'adresse poliment à elle en tant que « Mademoiselle Li ». Puis il lui demande son nom complet. Le verbe [zh:叫] signifie « s'appeler ». [zh:什么] signifie « quoi », et [zh:名字] signifie « nom ». La question signifie donc littéralement : « Vous vous appelez quel nom ? ». C'est la manière la plus courante et directe de demander : « Comment vous appelez-vous ? »."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.44,
+              "duration_seconds": 11.44,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "你叫什么名字？",
+                "focus_pinyin": "nǐ jiào shénme míngzi?",
+                "focus_gloss_en": "Comment vous appelez-vous ?"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.44,
+              "end_time_seconds": 26.0,
+              "duration_seconds": 14.56,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "叫",
+                    "pinyin": "jiào",
+                    "translation": "s'appeler",
+                    "explanation_en": "Un verbe utilisé pour dire son nom.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "什么",
+                    "pinyin": "shénme",
+                    "translation": "quoi",
+                    "explanation_en": "Un pronom interrogatif utilisé pour demander 'quoi'.",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "名字",
+                    "pinyin": "míngzi",
+                    "translation": "nom",
+                    "explanation_en": "Un nom signifiant 'nom'.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "叫",
+              "pinyin": "jiào",
+              "translation": "s'appeler",
+              "explanation_en": "Un verbe utilisé pour dire son nom.",
+              "character_insight_en": ""
+            },
+            {
+              "word": "什么",
+              "pinyin": "shénme",
+              "translation": "quoi",
+              "explanation_en": "Un pronom interrogatif utilisé pour demander « quoi ».",
+              "character_insight_en": ""
+            },
+            {
+              "word": "名字",
+              "pinyin": "míngzi",
+              "translation": "nom",
+              "explanation_en": "Un nom signifiant 'nom'.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Décomposer la question en ses composants : 你 / 叫 / 什么 / 名字？ avec leurs significations en français en dessous.",
+          "start_time_seconds": 221.4,
+          "duration_seconds": 41.78,
+          "end_time_seconds": 149.0,
+          "sentence_timings_seconds": [
+            0.0,
+            4.128,
+            7.512,
+            13.68,
+            17.328,
+            19.992,
+            25.224,
+            32.784,
+            36.816
+          ],
+          "sentence_texts": [
+            "Wang Peng répond d'abord : « [zh:我姓王] ».",
+            "Cela signifie « Mon nom de famille est Wang ».",
+            "Ensuite, il pose une nouvelle question : « [zh:李小姐，你叫什么名字?] ».",
+            "Il s'adresse poliment à elle en tant que « Mademoiselle Li ».",
+            "Puis il lui demande son nom complet.",
+            "Le verbe [zh:叫] signifie « s'appeler ».",
+            "[zh:什么] signifie « quoi », et [zh:名字] signifie « nom ».",
+            "La question signifie donc littéralement : « Vous vous appelez quel nom ? ».",
+            "C'est la manière la plus courante et directe de demander : « Comment vous appelez-vous ? »."
+          ]
+        },
+        {
+          "segment_id": 8,
+          "segment_order": 8,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            6
+          ],
+          "segment_title": "Dire votre nom complet et utiliser 先生 [zh:xiānshēng]",
+          "teaching_goal": "Pour apprendre à dire son nom complet et à utiliser le titre '先生' [zh:xiānshēng], qui signifie Monsieur.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Li You répond : « [zh:我叫李友] ». Cela signifie « Je m'appelle Li You ». Cela suit le modèle simple : Sujet + [zh:叫] + Nom. Ensuite, elle s'adresse à Wang Peng en tant que [zh:王先生]. [zh:先生] signifie « Monsieur » ou « gentleman ». Comme [zh:小姐], ce terme suit le nom de famille. Enfin, elle lui pose la même question : « [zh:你叫什么名字?] ». C'est pour connaître son nom complet. Cela montre comment la conversation passe naturellement des noms de famille aux noms complets."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 11.0,
+              "duration_seconds": 11.0,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "我叫李友。王先生，你叫什么名字？",
+                "focus_pinyin": "wǒ jiào lǐ yǒu. wáng xiānsheng, nǐ jiào shénme míngzi?",
+                "focus_gloss_en": "Je m'appelle Li You. Monsieur Wang, comment vous appelez-vous ?"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 11.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 14.0,
+              "content": {
+                "notes": "",
+                "highlight_words": [
+                  {
+                    "word": "先生",
+                    "pinyin": "xiānsheng",
+                    "translation": "Monsieur, mari, gentilhomme",
+                    "explanation_en": "Un titre pour un homme, utilisé après le nom de famille.",
+                    "character_insight_en": ""
+                  }
+                ]
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "先生",
+              "pinyin": "xiānsheng",
+              "translation": "Monsieur, mari, gentilhomme",
+              "explanation_en": "Un titre pour un homme, utilisé après le nom de famille.",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Mettre en évidence le nouveau titre '先生' [zh:xiānshēng] et le comparer à '小姐' [zh:xiǎojiě] vu précédemment.",
+          "start_time_seconds": 263.18,
+          "duration_seconds": 41.66,
+          "end_time_seconds": 174.0,
+          "sentence_timings_seconds": [
+            0.0,
+            3.504,
+            6.36,
+            12.576,
+            17.736,
+            22.824,
+            28.32,
+            33.672,
+            36.312
+          ],
+          "sentence_texts": [
+            "Li You répond : « [zh:我叫李友] ».",
+            "Cela signifie « Je m'appelle Li You ».",
+            "Cela suit le modèle simple : Sujet + [zh:叫] + Nom.",
+            "Ensuite, elle s'adresse à Wang Peng en tant que [zh:王先生].",
+            "[zh:先生] signifie « Monsieur » ou « gentleman ».",
+            "Comme [zh:小姐], ce terme suit le nom de famille.",
+            "Enfin, elle lui pose la même question : « [zh:你叫什么名字?] ».",
+            "C'est pour connaître son nom complet.",
+            "Cela montre comment la conversation passe naturellement des noms de famille aux noms complets."
+          ]
+        },
+        {
+          "segment_id": 9,
+          "segment_order": 9,
+          "segment_type": "line_walkthrough",
+          "template_name": "line_focus",
+          "source_line_refs": [
+            7
+          ],
+          "segment_title": "Réponse finale : Dire votre nom",
+          "teaching_goal": "Pour renforcer la structure de phrase permettant de dire son nom complet.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Pour conclure l'échange, Wang Peng donne son nom complet : « [zh:我叫王朋] ». Cela signifie « Je m'appelle Wang Peng ». Il utilise exactement la même structure de phrase que Li You. Ce modèle, [zh:我叫] suivi de votre nom, est la manière standard de se présenter. Ainsi, ils ont réussi à échanger des salutations et leurs noms."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "hero_line",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 7.92,
+              "duration_seconds": 7.92,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "我叫王朋。",
+                "focus_pinyin": "wǒ jiào wáng péng.",
+                "focus_gloss_en": "Je m'appelle Wang Peng."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "teaching_points",
+              "start_time_seconds": 7.92,
+              "end_time_seconds": 18.0,
+              "duration_seconds": 10.08,
+              "content": {
+                "notes": "Une manière simple et directe de dire votre nom.",
+                "highlight_words": []
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [],
+          "visual_notes": "Afficher un écran final avec les noms complets des deux personnages : 李友 [zh:Lǐ Yǒu] et 王朋 [zh:Wáng Péng].",
+          "start_time_seconds": 304.84,
+          "duration_seconds": 24.788,
+          "end_time_seconds": 192.0,
+          "sentence_timings_seconds": [
+            0.0,
+            5.808,
+            9.072,
+            12.864,
+            20.064
+          ],
+          "sentence_texts": [
+            "Pour conclure l'échange, Wang Peng donne son nom complet : « [zh:我叫王朋] ».",
+            "Cela signifie « Je m'appelle Wang Peng ».",
+            "Il utilise exactement la même structure de phrase que Li You.",
+            "Ce modèle, [zh:我叫] suivi de votre nom, est la manière standard de se présenter.",
+            "Ainsi, ils ont réussi à échanger des salutations et leurs noms."
+          ]
+        },
+        {
+          "segment_id": 10,
+          "segment_order": 10,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            3,
+            4,
+            5
+          ],
+          "segment_title": "Le verbe 姓 [zh:xìng]",
+          "teaching_goal": "Pour apprendre aux étudiants comment demander et donner un nom de famille en utilisant le verbe 姓 [zh:xìng], y compris les formes polies et les erreurs courantes.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Maintenant, abordons notre premier point de grammaire : le verbe [zh:姓]. En chinois, [zh:姓] peut être à la fois un nom commun pour « nom de famille » et un verbe signifiant « porter le nom de famille de… ». Lorsqu'il est utilisé comme verbe, il doit être suivi du nom de famille spécifique. La façon la plus polie de demander le nom de famille de quelqu'un est [zh:请问，你贵姓]. Vous l'avez vu dans le dialogue. Le mot [zh:贵] signifie « honorable ». Pour répondre, vous dites simplement [zh:我姓] suivi de votre nom. Par exemple, vous direz [zh:我姓李]. Remarquez que vous omettez le mot poli [zh:贵] dans votre réponse. Une façon plus informelle de demander est [zh:你姓什么]. Retenez qu'il est incorrect de dire simplement [zh:我不姓]. Vous devez préciser le nom que vous ne portez pas, par exemple [zh:我不姓李]."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 14.7,
+              "duration_seconds": 14.7,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "Q: 你贵姓？ A: 我姓王。",
+                "focus_pinyin": "Nǐ guì xìng? Wǒ xìng Wáng.",
+                "focus_gloss_en": "Q : Quel est votre honorable nom de famille ? R : Mon nom de famille est Wang."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 14.7,
+              "end_time_seconds": 35.0,
+              "duration_seconds": 20.3,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "Q: 你贵姓？ A: 我姓 [Family Name]。",
+                    "pattern_pinyin": "Nǐ guì xìng? Wǒ xìng [Family Name].",
+                    "explanation_en": "La manière polie de demander et de donner un nom de famille."
+                  },
+                  {
+                    "pattern": "Q: 你姓什么？ A: 我姓 [Family Name]。",
+                    "pattern_pinyin": "Nǐ xìng shénme? Wǒ xìng [Family Name].",
+                    "explanation_en": "Une manière courante et moins formelle de demander un nom de famille."
+                  },
+                  {
+                    "pattern": "Q: 你姓 [Family Name] 吗？ A: 我不姓 [Family Name]。",
+                    "pattern_pinyin": "Nǐ xìng [Family Name] ma? Wǒ bú xìng [Family Name].",
+                    "explanation_en": "Comment confirmer un nom de famille et indiquer que ce n'est pas le vôtre."
+                  }
+                ],
+                "notes": "L'honorifique 贵 [zh:guì] est uniquement utilisé pour poser la question, pas dans la réponse."
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "Q: 你贵姓？ A: 我姓 [Family Name]。",
+              "pattern_pinyin": "Nǐ guì xìng? Wǒ xìng [Family Name].",
+              "explanation_en": "La manière polie de demander et de donner un nom de famille."
+            },
+            {
+              "pattern": "Q: 你姓什么？ A: 我姓 [Family Name]。",
+              "pattern_pinyin": "Nǐ xìng shénme? Wǒ xìng [Family Name].",
+              "explanation_en": "Une manière courante et moins formelle de demander un nom de famille."
+            },
+            {
+              "pattern": "Q: 你姓 [Family Name] 吗？ A: 我不姓 [Family Name]。",
+              "pattern_pinyin": "Nǐ xìng [Family Name] ma? Wǒ bú xìng [Family Name].",
+              "explanation_en": "Comment confirmer un nom de famille et indiquer que ce n'est pas le vôtre."
+            }
+          ],
+          "visual_notes": "Animer les caractères 贵 [zh:guì] et 姓 [zh:xìng]. Lors de l'explication de la réponse, montrer 贵 [zh:guì] s'estomper pour souligner qu'il n'est pas utilisé dans la réponse.",
+          "start_time_seconds": 329.628,
+          "duration_seconds": 66.716,
+          "end_time_seconds": 227.0,
+          "sentence_timings_seconds": [
+            0.0,
+            5.808,
+            15.12,
+            20.4,
+            26.784,
+            29.088,
+            34.152,
+            40.488,
+            44.496,
+            50.64,
+            55.464,
+            60.288
+          ],
+          "sentence_texts": [
+            "Maintenant, abordons notre premier point de grammaire : le verbe [zh:姓].",
+            "En chinois, [zh:姓] peut être à la fois un nom commun pour « nom de famille » et un verbe signifiant « porter le nom de famille de... ».",
+            "Lorsqu'il est utilisé comme verbe, il doit être suivi du nom de famille spécifique.",
+            "La façon la plus polie de demander le nom de famille de quelqu'un est [zh:请问，你贵姓].",
+            "Vous l'avez vu dans le dialogue.",
+            "Le mot [zh:贵] signifie « honorable ».",
+            "Pour répondre, vous dites simplement [zh:我姓] suivi de votre nom.",
+            "Par exemple, vous direz [zh:我姓李].",
+            "Remarquez que vous omettez le mot poli [zh:贵] dans votre réponse.",
+            "Une façon plus informelle de demander est [zh:你姓什么].",
+            "Retenez qu'il est incorrect de dire simplement [zh:我不姓].",
+            "Vous devez préciser le nom que vous ne portez pas, par exemple [zh:我不姓李]."
+          ]
+        },
+        {
+          "segment_id": 11,
+          "segment_order": 11,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            4
+          ],
+          "segment_title": "Questions se terminant par 呢 [zh:ne]",
+          "teaching_goal": "Enseigner aux étudiants comment utiliser la particule 呢 [zh:ne] pour former une question de relance.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Ensuite, examinons la particule interrogative [zh:呢]. C'est une particule très utile que vous pouvez ajouter après un nom ou un pronom. Elle sert à poser une question de relance. Elle fonctionne comme « et vous ? » ou « et pour… ? » en français. L'essentiel est que le contexte soit déjà clair. Dans notre dialogue, après que Li You a dit [zh:我姓李], elle demande [zh:你呢]. Puisqu'elle vient de parler de son nom de famille, [zh:你呢] signifie ici « Et quel est votre nom de famille ? ». C'est une façon simple et naturelle de renvoyer une question. Cela évite de répéter toute la phrase. Vous pouvez aussi l'utiliser après avoir donné votre nom. Par exemple : [zh:我叫王朋，你呢], ce qui signifie « Je m'appelle Wang Peng, et vous ? »."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 12.6,
+              "duration_seconds": 12.6,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "我姓李，你呢？",
+                "focus_pinyin": "Wǒ xìng Lǐ, nǐ ne?",
+                "focus_gloss_en": "Mon nom de famille est Li, et vous ?"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 12.6,
+              "end_time_seconds": 30.0,
+              "duration_seconds": 17.4,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "[Statement], [Pronoun|Noun] + 呢？",
+                    "pattern_pinyin": "[Pronoun|Noun] + ne?",
+                    "explanation_en": "Utilisez « ne » pour poser une question de relance lorsque le contexte est clair."
+                  },
+                  {
+                    "pattern": "Q: 你贵姓？ A: 我姓李，你呢？",
+                    "pattern_pinyin": "Nǐ guì xìng? Wǒ xìng Lǐ, nǐ ne?",
+                    "explanation_en": "Exemple : Après avoir donné votre nom de famille, vous pouvez utiliser « nǐ ne? » pour demander le leur."
+                  }
+                ],
+                "notes": "呢 [zh:ne] transforme une affirmation en une question réciproque."
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "[Statement], [Pronoun|Noun] + 呢？",
+              "pattern_pinyin": "[Pronoun|Noun] + ne?",
+              "explanation_en": "Utilisez « ne » pour poser une question de relance lorsque le contexte est clair."
+            },
+            {
+              "pattern": "Q: 你贵姓？ A: 我姓李，你呢？",
+              "pattern_pinyin": "Nǐ guì xìng? Wǒ xìng Lǐ, nǐ ne?",
+              "explanation_en": "Exemple : Après avoir donné votre nom de famille, vous pouvez utiliser « nǐ ne? » pour demander le leur."
+            }
+          ],
+          "visual_notes": "Afficher une bulle de dialogue avec « 我姓李。 » puis une seconde bulle apparaissant avec « 你呢？ » pointant vers la première personne.",
+          "start_time_seconds": 396.344,
+          "duration_seconds": 56.972,
+          "end_time_seconds": 257.0,
+          "sentence_timings_seconds": [
+            0.0,
+            5.136,
+            9.576,
+            12.576,
+            14.928,
+            16.752,
+            18.432,
+            21.816,
+            29.952,
+            38.16,
+            41.856,
+            44.76,
+            48.384
+          ],
+          "sentence_texts": [
+            "Ensuite, examinons la particule interrogative [zh:呢].",
+            "C'est une particule très utile que vous pouvez ajouter après un nom ou un pronom.",
+            "Elle sert à poser une question de relance.",
+            "Elle fonctionne comme « et vous ? »",
+            "ou « et pour... ? »",
+            "en français.",
+            "L'essentiel est que le contexte soit déjà clair.",
+            "Dans notre dialogue, après que Li You a dit [zh:我姓李], elle demande [zh:你呢].",
+            "Puisqu'elle vient de parler de son nom de famille, [zh:你呢] signifie ici « Et quel est votre nom de famille ? ».",
+            "C'est une façon simple et naturelle de renvoyer une question.",
+            "Cela évite de répéter toute la phrase.",
+            "Vous pouvez aussi l'utiliser après avoir donné votre nom.",
+            "Par exemple : [zh:我叫王朋，你呢], ce qui signifie « Je m'appelle Wang Peng, et vous ? »."
+          ]
+        },
+        {
+          "segment_id": 12,
+          "segment_order": 12,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            5,
+            6,
+            7
+          ],
+          "segment_title": "Le verbe 叫 [zh:jiào]",
+          "teaching_goal": "Enseigner aux étudiants comment demander et donner un nom complet ou un prénom en utilisant le verbe 叫 [zh:jiào].",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Passons maintenant au verbe [zh:叫], qui signifie « s'appeler ». C'est ainsi que l'on parle de son nom complet ou de son prénom. Ceci est différent de simplement mentionner son nom de famille. Pour demander le nom de quelqu'un, vous utilisez la structure [zh:你叫什么名字]. Ici, [zh:什么] signifie « quoi » et [zh:名字] signifie « nom ». Pour répondre, vous dites simplement [zh:我叫] suivi de votre nom. Par exemple, [zh:我叫王朋]. Tout comme le verbe [zh:姓], [zh:叫] doit être suivi d'un objet, qui est le nom. Pour dire que votre nom n'est pas tel ou tel, vous utilisez [zh:不]. Par exemple, [zh:我不叫李生]."
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 13.44,
+              "duration_seconds": 13.44,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "Q: 你叫什么名字？ A: 我叫王朋。",
+                "focus_pinyin": "Nǐ jiào shénme míngzi? Wǒ jiào Wáng Péng.",
+                "focus_gloss_en": "Q : Comment vous appelez-vous ? R : Je m'appelle Wang Peng."
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 13.44,
+              "end_time_seconds": 32.0,
+              "duration_seconds": 18.56,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "Q: 你叫什么名字？ A: 我叫 [Name]。",
+                    "pattern_pinyin": "Nǐ jiào shénme míngzi? Wǒ jiào [Name].",
+                    "explanation_en": "La manière standard de demander et de donner son nom."
+                  },
+                  {
+                    "pattern": "Q: 你叫 [Name] 吗？ A: 我不叫 [Name]。",
+                    "pattern_pinyin": "Nǐ jiào [Name] ma? Wǒ bú jiào [Name].",
+                    "explanation_en": "Comment confirmer un nom et indiquer que ce n'est pas le vôtre."
+                  }
+                ],
+                "notes": "叫 [zh:jiào] est utilisé pour les noms complets ou les prénoms."
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "Q: 你叫什么名字？ A: 我叫 [Name]。",
+              "pattern_pinyin": "Nǐ jiào shénme míngzi? Wǒ jiào [Name].",
+              "explanation_en": "La manière standard de demander et de donner son nom."
+            },
+            {
+              "pattern": "Q: 你叫 [Name] 吗？ A: 我不叫 [Name]。",
+              "pattern_pinyin": "Nǐ jiào [Name] ma? Wǒ bú jiào [Name].",
+              "explanation_en": "Comment confirmer un nom et indiquer que ce n'est pas le vôtre."
+            }
+          ],
+          "visual_notes": "Décomposer visuellement la question « 你叫什么名字？ » en ses composants : 你 [zh:nǐ] (tu) + 叫 [zh:jiào] (s'appeler) + 什么 [zh:shénme] (quoi) + 名字 [zh:míngzi] (nom).",
+          "start_time_seconds": 453.316,
+          "duration_seconds": 55.892,
+          "end_time_seconds": 289.0,
+          "sentence_timings_seconds": [
+            0.0,
+            5.952,
+            9.6,
+            13.584,
+            19.8,
+            28.728,
+            35.064,
+            38.712,
+            46.536,
+            51.6
+          ],
+          "sentence_texts": [
+            "Passons maintenant au verbe [zh:叫], qui signifie « s'appeler ».",
+            "C'est ainsi que l'on parle de son nom complet ou de son prénom.",
+            "Ceci est différent de simplement mentionner son nom de famille.",
+            "Pour demander le nom de quelqu'un, vous utilisez la structure [zh:你叫什么名字].",
+            "Ici, [zh:什么] signifie « quoi » et [zh:名字] signifie « nom ».",
+            "Pour répondre, vous dites simplement [zh:我叫] suivi de votre nom.",
+            "Par exemple, [zh:我叫王朋].",
+            "Tout comme le verbe [zh:姓], [zh:叫] doit être suivi d'un objet, qui est le nom.",
+            "Pour dire que votre nom n'est pas tel ou tel, vous utilisez [zh:不].",
+            "Par exemple, [zh:我不叫李生]."
+          ]
+        },
+        {
+          "segment_id": 13,
+          "segment_order": 13,
+          "segment_type": "grammar_focus",
+          "template_name": "grammar_pattern",
+          "source_line_refs": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "segment_title": "Ordre des mots de base : Sujet-Verbe-Objet",
+          "teaching_goal": "Introduire l'ordre des mots fondamental Sujet-Verbe-Objet (SVO) en chinois et souligner ses différences avec le français dans les questions.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Notre dernier point de grammaire est très important : l'ordre des mots de base en chinois. La structure est Sujet, puis Verbe, puis Objet, ou S-V-O. Par exemple, dans [zh:我姓李], le sujet est [zh:我], le verbe est [zh:姓], et l'objet est [zh:李]. Le plus important est que cet ordre S-V-O reste le même même lorsque vous posez une question. En français, vous déplacez le mot interrogatif au début, comme dans « Comment vous appelez-vous ? ». Mais en chinois, le mot interrogatif reste à la position de l'objet. Par exemple, [zh:你姓什么] se traduit littéralement par « Vous – nom de famille – quoi ? ». La structure reste Sujet-Verbe-Objet. C'est une différence clé avec le français, alors retenez bien cela !"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "pattern_hero",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 15.96,
+              "duration_seconds": 15.96,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "你 姓 什么？ (S+V+O)",
+                "focus_pinyin": "Nǐ xìng shénme?",
+                "focus_gloss_en": "Quel est votre nom de famille ? (Littéralement : Vous vous appelez quel nom de famille ?)"
+              }
+            },
+            {
+              "block_order": 2,
+              "block_type": "pattern_breakdown",
+              "start_time_seconds": 15.96,
+              "end_time_seconds": 38.0,
+              "duration_seconds": 22.04,
+              "content": {
+                "grammar_points": [
+                  {
+                    "pattern": "Subject + Verb + Object",
+                    "pattern_pinyin": "",
+                    "explanation_en": "L'ordre des mots de base dans une phrase chinoise pour les affirmations et les questions."
+                  },
+                  {
+                    "pattern": "我 姓 李。(S+V+O)",
+                    "pattern_pinyin": "Wǒ xìng Lǐ.",
+                    "explanation_en": "Exemple d'affirmation : « Je » (S) + « porte le nom de famille » (V) + « Li » (O)."
+                  },
+                  {
+                    "pattern": "你 叫 什么名字？(S+V+O)",
+                    "pattern_pinyin": "Nǐ jiào shénme míngzi?",
+                    "explanation_en": "Exemple de question : « Tu » (S) + « t'appelles » (V) + « quel nom » (O)."
+                  }
+                ],
+                "notes": "L'ordre des mots S-V-O est le même pour les affirmations et les questions."
+              }
+            }
+          ],
+          "highlight_words": [],
+          "grammar_points": [
+            {
+              "pattern": "Subject + Verb + Object",
+              "pattern_pinyin": "",
+              "explanation_en": "L'ordre des mots de base dans une phrase chinoise pour les affirmations et les questions."
+            },
+            {
+              "pattern": "我 姓 李。(S+V+O)",
+              "pattern_pinyin": "Wǒ xìng Lǐ.",
+              "explanation_en": "Exemple d'affirmation : « Je » (S) + « porte le nom de famille » (V) + « Li » (O)."
+            },
+            {
+              "pattern": "你 叫 什么名字？(S+V+O)",
+              "pattern_pinyin": "Nǐ jiào shénme míngzi?",
+              "explanation_en": "Exemple de question : 'Vous' (Sujet) + 'vous appelez' (Verbe) + 'quel nom' (Objet)."
+            }
+          ],
+          "visual_notes": "Utiliser un code couleur pour le Sujet, le Verbe et l'Objet dans la phrase chinoise et sa traduction littérale en français afin de souligner la structure SVO cohérente.",
+          "start_time_seconds": 509.208,
+          "duration_seconds": 52.724,
+          "end_time_seconds": 327.0,
+          "sentence_timings_seconds": [
+            0.0,
+            5.04,
+            9.648,
+            22.488,
+            27.576,
+            33.168,
+            37.632,
+            44.856,
+            47.784
+          ],
+          "sentence_texts": [
+            "Notre dernier point de grammaire est très important : l'ordre des mots de base en chinois.",
+            "La structure est Sujet, puis Verbe, puis Objet, ou S-V-O.",
+            "Par exemple, dans [zh:我姓李], le sujet est [zh:我], le verbe est [zh:姓], et l'objet est [zh:李].",
+            "Le plus important est que cet ordre S-V-O reste le même même lorsque vous posez une question.",
+            "En français, vous déplacez le mot interrogatif au début, comme dans « Comment vous appelez-vous ? ».",
+            "Mais en chinois, le mot interrogatif reste à la position de l'objet.",
+            "Par exemple, [zh:你姓什么] se traduit littéralement par « Vous – nom de famille – quoi ? ».",
+            "La structure reste Sujet-Verbe-Objet.",
+            "C'est une différence clé avec le français, alors retenez bien cela !"
+          ]
+        },
+        {
+          "segment_id": 14,
+          "segment_order": 14,
+          "segment_type": "recap",
+          "template_name": "lesson_recap",
+          "source_line_refs": [],
+          "segment_title": "Récapitulatif de la leçon",
+          "teaching_goal": "Pour revoir rapidement et renforcer les phrases et points de grammaire les plus importants de la leçon.",
+          "narration_track": {
+            "mode": "voice_over",
+            "subtitle_en": "Excellent travail ! Revoyons rapidement les phrases clés de cette leçon. Vous avez appris la salutation essentielle [zh:你好]. Vous pouvez maintenant demander poliment le nom de famille avec [zh:你贵姓] et répondre avec [zh:我姓]. Pour demander le nom complet, vous utilisez [zh:你叫什么名字] et répondez avec [zh:我叫]. Et n'oubliez pas la particule interrogative utile [zh:呢]. Continuez à pratiquer ces modèles, et vous vous présenterez en un rien de temps !"
+          },
+          "visual_blocks": [
+            {
+              "block_order": 1,
+              "block_type": "recap_summary",
+              "start_time_seconds": 0.0,
+              "end_time_seconds": 25.0,
+              "duration_seconds": 25.0,
+              "content": {
+                "main_title": "交换问候",
+                "focus_text": "Key Phrases Review",
+                "highlight_words": [
+                  {
+                    "word": "你好！",
+                    "pinyin": "nǐ hǎo",
+                    "translation": "Bonjour !",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "请问，你贵姓？",
+                    "pinyin": "qǐng wèn, nǐ guì xìng",
+                    "translation": "Excusez-moi, quel est votre nom de famille ?",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "我姓...",
+                    "pinyin": "wǒ xìng...",
+                    "translation": "Mon nom de famille est...",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "你叫什么名字？",
+                    "pinyin": "nǐ jiào shénme míngzi",
+                    "translation": "Comment vous appelez-vous ?",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "我叫...",
+                    "pinyin": "wǒ jiào...",
+                    "translation": "Je m'appelle...",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  },
+                  {
+                    "word": "...你呢？",
+                    "pinyin": "...nǐ ne?",
+                    "translation": "...et vous ?",
+                    "explanation_en": "",
+                    "character_insight_en": ""
+                  }
+                ],
+                "grammar_points": [],
+                "notes": ""
+              }
+            }
+          ],
+          "highlight_words": [
+            {
+              "word": "你好！",
+              "pinyin": "nǐ hǎo",
+              "translation": "Bonjour !",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "请问，你贵姓？",
+              "pinyin": "qǐng wèn, nǐ guì xìng",
+              "translation": "Excusez-moi, quel est votre nom de famille ?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我姓...",
+              "pinyin": "wǒ xìng...",
+              "translation": "Mon nom de famille est...",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "你叫什么名字？",
+              "pinyin": "nǐ jiào shénme míngzi",
+              "translation": "Comment vous appelez-vous ?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "我叫...",
+              "pinyin": "wǒ jiào...",
+              "translation": "Je m'appelle...",
+              "explanation_en": "",
+              "character_insight_en": ""
+            },
+            {
+              "word": "...你呢？",
+              "pinyin": "...nǐ ne?",
+              "translation": "...et vous ?",
+              "explanation_en": "",
+              "character_insight_en": ""
+            }
+          ],
+          "grammar_points": [],
+          "visual_notes": "Afficher les phrases clés sous forme de liste de flashcards, chacune se retournant pour révéler le pinyin et la traduction en français.",
+          "start_time_seconds": 561.932,
+          "duration_seconds": 37.844,
+          "end_time_seconds": 352.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.064,
+            5.328,
+            9.864,
+            18.888,
+            27.888,
+            32.712
+          ],
+          "sentence_texts": [
+            "Excellent travail !",
+            "Revoyons rapidement les phrases clés de cette leçon.",
+            "Vous avez appris la salutation essentielle [zh:你好].",
+            "Vous pouvez maintenant demander poliment le nom de famille avec [zh:你贵姓] et répondre avec [zh:我姓].",
+            "Pour demander le nom complet, vous utilisez [zh:你叫什么名字] et répondez avec [zh:我叫].",
+            "Et n'oubliez pas la particule interrogative utile [zh:呢].",
+            "Continuez à pratiquer ces modèles, et vous vous présenterez en un rien de temps !"
+          ]
+        }
+      ],
+      "timeline": {
+        "total_duration_seconds": 599.776,
+        "segment_count": 14
+      },
+      "renderer_notes": {
+        "recommended_renderer": "template_video",
+        "recommended_stack": [
+          "react_templates",
+          "motion_graphics",
+          "ffmpeg_or_remotion"
+        ],
+        "remarks": "This plan is intended for explanation-video composition, not direct AIGC generation."
+      }
+    }
+  },
+  "lesson_audio_assets": {
+    "lesson_id": 101,
+    "course_id": 1,
+    "lesson_title": "交换问候",
+    "provider": "tencent_tts",
+    "mode": "sentence_audio",
+    "default_voice_type": 501002,
+    "role_voice_map": {
+      "王朋": 601011,
+      "李友": 601009,
+      "高文中": 601008,
+      "高小音": 601013,
+      "白英爱": 601010,
+      "常老师": 601013,
+      "王红": 601010,
+      "海伦": 501004,
+      "费先生": 501005,
+      "王朋的父母": 501005,
+      "张天明": 601011,
+      "丽莎": 501004,
+      "柯林": 601008,
+      "林雪梅": 601010,
+      "李哲": 601011,
+      "李文": 601013,
+      "马克": 501005,
+      "张天明的老表": 601008,
+      "林雪梅的父母": 501005
+    },
+    "codec": "mp3",
+    "sample_rate": 16000,
+    "include_speakers": false,
+    "storage_backend": "local",
+    "sentence_gap_ms": 300,
+    "full_audio": {
+      "status": "ready",
+      "audio_url": "",
+      "object_key": "zh/audio/lesson101/full/lesson101_full_dialogue.mp3",
+      "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson101\\lesson101_full_dialogue.mp3",
+      "codec": "mp3",
+      "duration_seconds": 16.56
+    },
+    "items": [
+      {
+        "line_ref": 1,
+        "role": "李友",
+        "hanzi": "你好！",
+        "source_text": "你好！",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601009,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.116,
+        "start_time_seconds": 0.0,
+        "end_time_seconds": 1.116,
+        "status": "ready",
+        "session_id": "lesson-101-line-1",
+        "request_id": "a6192a37-9ae2-4eeb-a9b8-54d5f6481ec7",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson101/sentences/lesson101_line1.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson101\\lesson101_line1.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 2,
+        "role": "王朋",
+        "hanzi": "你好！",
+        "source_text": "你好！",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 0.9,
+        "start_time_seconds": 1.416,
+        "end_time_seconds": 2.316,
+        "status": "ready",
+        "session_id": "lesson-101-line-2",
+        "request_id": "7d37d5ef-1fce-4a16-838f-7737a4b0a954",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson101/sentences/lesson101_line2.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson101\\lesson101_line2.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 3,
+        "role": "王朋",
+        "hanzi": "请问，你贵姓？",
+        "source_text": "请问，你贵姓？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.872,
+        "start_time_seconds": 2.616,
+        "end_time_seconds": 4.488,
+        "status": "ready",
+        "session_id": "lesson-101-line-3",
+        "request_id": "3cca6f53-5c31-4d2e-9aef-ae2abf60e3b2",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson101/sentences/lesson101_line3.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson101\\lesson101_line3.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 4,
+        "role": "李友",
+        "hanzi": "我姓李。你呢？",
+        "source_text": "我姓李。你呢？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601009,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.944,
+        "start_time_seconds": 4.788,
+        "end_time_seconds": 6.732,
+        "status": "ready",
+        "session_id": "lesson-101-line-4",
+        "request_id": "59d90590-3ee8-43bc-9ad7-86794df4ce43",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson101/sentences/lesson101_line4.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson101\\lesson101_line4.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 5,
+        "role": "王朋",
+        "hanzi": "我姓王。李小姐，你叫什么名字？",
+        "source_text": "我姓王。李小姐，你叫什么名字？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.42,
+        "start_time_seconds": 7.032,
+        "end_time_seconds": 10.452,
+        "status": "ready",
+        "session_id": "lesson-101-line-5",
+        "request_id": "87fc593d-cea0-415a-a5f7-13194f41c04d",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson101/sentences/lesson101_line5.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson101\\lesson101_line5.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 6,
+        "role": "李友",
+        "hanzi": "我叫李友。王先生，你叫什么名字？",
+        "source_text": "我叫李友。王先生，你叫什么名字？",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601009,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 3.708,
+        "start_time_seconds": 10.752,
+        "end_time_seconds": 14.46,
+        "status": "ready",
+        "session_id": "lesson-101-line-6",
+        "request_id": "22a26385-e6f7-4cf6-bb1f-3cf69eef5501",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson101/sentences/lesson101_line6.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson101\\lesson101_line6.mp3",
+        "subtitles": []
+      },
+      {
+        "line_ref": 7,
+        "role": "王朋",
+        "hanzi": "我叫王朋。",
+        "source_text": "我叫王朋。",
+        "provider": "tencent_tts",
+        "mode": "sentence_audio",
+        "voice_type": 601011,
+        "codec": "mp3",
+        "sample_rate": 16000,
+        "sentence_gap_ms": 300,
+        "duration_seconds": 1.26,
+        "start_time_seconds": 14.76,
+        "end_time_seconds": 16.02,
+        "status": "ready",
+        "session_id": "lesson-101-line-7",
+        "request_id": "08f0244f-fe98-4eed-90ad-f99c0f973ecb",
+        "audio_url": "",
+        "object_key": "zh/audio/lesson101/sentences/lesson101_line7.mp3",
+        "local_audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\output_audio\\lesson101\\lesson101_line7.mp3",
+        "subtitles": []
+      }
+    ]
+  },
+  "llm_usage": {
+    "calls": 29,
+    "input_tokens": 61832,
+    "output_tokens": 25093,
+    "total_tokens": 149972,
+    "estimated_cost_usd": 0.32822,
+    "provider": "GeminiProvider",
+    "items": [
+      {
+        "input_tokens": 2753,
+        "output_tokens": 376,
+        "total_tokens": 6703,
+        "estimated_cost_usd": 0.007201249999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 382,
+        "output_tokens": 473,
+        "total_tokens": 3096,
+        "estimated_cost_usd": 0.0052074999999999995,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 426,
+        "output_tokens": 1039,
+        "total_tokens": 3566,
+        "estimated_cost_usd": 0.0109225,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 334,
+        "output_tokens": 180,
+        "total_tokens": 1196,
+        "estimated_cost_usd": 0.0022175000000000003,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2316,
+        "output_tokens": 108,
+        "total_tokens": 3620,
+        "estimated_cost_usd": 0.003975,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2388,
+        "output_tokens": 447,
+        "total_tokens": 4675,
+        "estimated_cost_usd": 0.007455,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2554,
+        "output_tokens": 937,
+        "total_tokens": 5050,
+        "estimated_cost_usd": 0.0125625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2552,
+        "output_tokens": 421,
+        "total_tokens": 6238,
+        "estimated_cost_usd": 0.0074,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2552,
+        "output_tokens": 584,
+        "total_tokens": 4538,
+        "estimated_cost_usd": 0.00903,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2548,
+        "output_tokens": 516,
+        "total_tokens": 6696,
+        "estimated_cost_usd": 0.008345,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2445,
+        "output_tokens": 860,
+        "total_tokens": 6213,
+        "estimated_cost_usd": 0.01165625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 689,
+        "output_tokens": 147,
+        "total_tokens": 2696,
+        "estimated_cost_usd": 0.00233125,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 682,
+        "output_tokens": 165,
+        "total_tokens": 2497,
+        "estimated_cost_usd": 0.0025025,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 670,
+        "output_tokens": 155,
+        "total_tokens": 2817,
+        "estimated_cost_usd": 0.0023875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 669,
+        "output_tokens": 139,
+        "total_tokens": 3042,
+        "estimated_cost_usd": 0.00222625,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 680,
+        "output_tokens": 148,
+        "total_tokens": 2951,
+        "estimated_cost_usd": 0.00233,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 644,
+        "output_tokens": 88,
+        "total_tokens": 1930,
+        "estimated_cost_usd": 0.0016849999999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 2316,
+        "output_tokens": 215,
+        "total_tokens": 5695,
+        "estimated_cost_usd": 0.005045,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1410,
+        "output_tokens": 1269,
+        "total_tokens": 4508,
+        "estimated_cost_usd": 0.0144525,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1437,
+        "output_tokens": 1278,
+        "total_tokens": 4596,
+        "estimated_cost_usd": 0.014576249999999999,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1584,
+        "output_tokens": 1331,
+        "total_tokens": 4866,
+        "estimated_cost_usd": 0.015289999999999998,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1296,
+        "output_tokens": 1206,
+        "total_tokens": 4099,
+        "estimated_cost_usd": 0.013680000000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 528,
+        "output_tokens": 590,
+        "total_tokens": 2858,
+        "estimated_cost_usd": 0.006560000000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 825,
+        "output_tokens": 1234,
+        "total_tokens": 3830,
+        "estimated_cost_usd": 0.013371250000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 779,
+        "output_tokens": 918,
+        "total_tokens": 3846,
+        "estimated_cost_usd": 0.010153750000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1375,
+        "output_tokens": 1528,
+        "total_tokens": 6064,
+        "estimated_cost_usd": 0.01699875,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 1917,
+        "output_tokens": 1196,
+        "total_tokens": 5240,
+        "estimated_cost_usd": 0.014356250000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 11532,
+        "output_tokens": 4129,
+        "total_tokens": 19036,
+        "estimated_cost_usd": 0.055705000000000005,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      },
+      {
+        "input_tokens": 11549,
+        "output_tokens": 3416,
+        "total_tokens": 17810,
+        "estimated_cost_usd": 0.04859625000000001,
+        "meta": {
+          "model": "gemini-2.5-pro",
+          "finish_reason": "FinishReason.STOP",
+          "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+          "pricing_mode": "paid_tier_standard",
+          "input_price_per_m_tokens_usd": 1.25,
+          "output_price_per_m_tokens_usd": 10.0
+        }
+      }
+    ]
+  },
+  "localization": {
+    "source_lang": "en",
+    "target_lang": "fr",
+    "target_lang_name": "French",
+    "target_lang_native": "Français"
+  },
+  "explanation_narration_audio": {
+    "status": "ok",
+    "audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\integrated_chinese\\output_audio\\lesson101_narration_fr\\lesson101_narration_fr.mp3",
+    "segment_count": 14,
+    "segment_timings": {
+      "1": [
+        0.0,
+        5.4,
+        8.088,
+        9.912,
+        17.04,
+        19.992,
+        23.712,
+        27.96
+      ],
+      "2": [
+        0.0,
+        4.272,
+        6.12,
+        11.28,
+        15.024,
+        17.832
+      ],
+      "3": [
+        0.0,
+        5.664,
+        7.872,
+        15.888,
+        19.704,
+        23.4,
+        28.536,
+        31.608
+      ],
+      "4": [
+        0.0,
+        5.232,
+        12.192,
+        16.416,
+        20.4,
+        25.488,
+        32.112,
+        36.408
+      ],
+      "5": [
+        0.0,
+        4.488,
+        8.376,
+        12.6,
+        17.04,
+        20.52,
+        26.88,
+        30.696,
+        36.36,
+        41.64,
+        44.592,
+        46.896
+      ],
+      "6": [
+        0.0,
+        7.944,
+        11.328,
+        17.016,
+        20.424,
+        28.416,
+        33.432,
+        38.184
+      ],
+      "7": [
+        0.0,
+        4.128,
+        7.512,
+        13.68,
+        17.328,
+        19.992,
+        25.224,
+        32.784,
+        36.816
+      ],
+      "8": [
+        0.0,
+        3.504,
+        6.36,
+        12.576,
+        17.736,
+        22.824,
+        28.32,
+        33.672,
+        36.312
+      ],
+      "9": [
+        0.0,
+        5.808,
+        9.072,
+        12.864,
+        20.064
+      ],
+      "10": [
+        0.0,
+        5.808,
+        15.12,
+        20.4,
+        26.784,
+        29.088,
+        34.152,
+        40.488,
+        44.496,
+        50.64,
+        55.464,
+        60.288
+      ],
+      "11": [
+        0.0,
+        5.136,
+        9.576,
+        12.576,
+        14.928,
+        16.752,
+        18.432,
+        21.816,
+        29.952,
+        38.16,
+        41.856,
+        44.76,
+        48.384
+      ],
+      "12": [
+        0.0,
+        5.952,
+        9.6,
+        13.584,
+        19.8,
+        28.728,
+        35.064,
+        38.712,
+        46.536,
+        51.6
+      ],
+      "13": [
+        0.0,
+        5.04,
+        9.648,
+        22.488,
+        27.576,
+        33.168,
+        37.632,
+        44.856,
+        47.784
+      ],
+      "14": [
+        0.0,
+        2.064,
+        5.328,
+        9.864,
+        18.888,
+        27.888,
+        32.712
+      ]
+    },
+    "segment_actual_durations": {
+      "1": 31.94,
+      "2": 20.9,
+      "3": 35.348,
+      "4": 41.948,
+      "5": 49.124,
+      "6": 42.14,
+      "7": 41.78,
+      "8": 41.66,
+      "9": 24.788,
+      "10": 66.716,
+      "11": 56.972,
+      "12": 55.892,
+      "13": 52.724,
+      "14": 37.844
+    },
+    "segment_sentences": {
+      "1": [
+        "Nous commençons par la salutation la plus essentielle en chinois : [zh:你好].",
+        "C'est l'équivalent de « Bonjour ».",
+        "Décomposons-le.",
+        "[zh:你] signifie « tu », et [zh:好] signifie « bien ».",
+        "Vous dites donc littéralement « toi bien ».",
+        "Cette salutation polyvalente s'utilise avec tout le monde.",
+        "Que ce soit avec des inconnus ou des amis, à tout moment de la journée.",
+        "C'est la façon idéale de commencer une conversation."
+      ],
+      "2": [
+        "Comment répondez-vous quand quelqu'un vous dit [zh:你好] ?",
+        "C'est très simple.",
+        "Vous dites simplement [zh:你好] en retour !",
+        "C'est une façon standard et polie de rendre la salutation.",
+        "Pas besoin de changer quoi que ce soit.",
+        "Répétez simplement la phrase."
+      ],
+      "3": [
+        "Avant de poser une question, il est poli d'utiliser l'expression [zh:请问].",
+        "Examinons ses parties.",
+        "[zh:请] signifie « s'il vous plaît », et [zh:问] signifie « demander ».",
+        "Ensemble, ils forment une entrée en matière courtoise.",
+        "C'est comme dire « Excusez-moi, puis-je demander... ? ».",
+        "Utiliser [zh:请问] montre du respect.",
+        "Cela rend votre question beaucoup plus douce.",
+        "C'est une phrase clé pour une communication polie."
+      ],
+      "4": [
+        "Regardons maintenant la question complète : [zh:请问，你贵姓?].",
+        "Après l'introduction polie [zh:请问], nous avons [zh:你贵姓].",
+        "C'est une expression figée pour demander le nom de famille avec respect.",
+        "[zh:你] signifie « tu » ou « vous ».",
+        "Et [zh:姓] veut dire « nom de famille ».",
+        "Le mot clé ici est [zh:贵], qui signifie « honorable » ou « cher ».",
+        "Vous demandez donc littéralement : « Quel est votre honorable nom de famille ? ».",
+        "C'est une façon très courante et polie de poser cette question dans des situations formelles."
+      ],
+      "5": [
+        "Li You répond : [zh:我姓李。你呢?].",
+        "D'abord, elle dit [zh:我姓李].",
+        "[zh:我] signifie « je » ou « moi ».",
+        "Et [zh:姓] est un verbe ici.",
+        "Donc la phrase veut dire : « Mon nom de famille est Li ».",
+        "Remarquez qu'elle n'utilise pas l'honorifique [zh:贵] dans sa réponse.",
+        "Ensuite, elle demande [zh:你呢?].",
+        "La particule [zh:呢] est un raccourci ingénieux.",
+        "Elle reprend le sujet de la question précédente, ici « quel est votre nom de famille ».",
+        "Et elle l'applique au nouveau sujet, « vous ».",
+        "Cela signifie « Et vous ? »",
+        "ou « Et toi ? »."
+      ],
+      "6": [
+        "Ici, nous voyons le titre [zh:小姐], qui signifie « Mademoiselle » ou « jeune femme ».",
+        "Il est placé après le nom de famille d'une personne.",
+        "Ainsi, [zh:李小姐] signifie « Mademoiselle Li ».",
+        "Il y a une règle de prononciation cruciale ici.",
+        "Les deux caractères, [zh:小] et [zh:姐], sont des troisièmes tons.",
+        "Lorsque deux syllabes au troisième ton sont ensemble, la première passe au deuxième ton.",
+        "Ainsi, au lieu de dire « xiǎo jiě », nous prononçons « xiáo jiě ».",
+        "C'est une règle fondamentale appelée sandhi tonal."
+      ],
+      "7": [
+        "Wang Peng répond d'abord : « [zh:我姓王] ».",
+        "Cela signifie « Mon nom de famille est Wang ».",
+        "Ensuite, il pose une nouvelle question : « [zh:李小姐，你叫什么名字?] ».",
+        "Il s'adresse poliment à elle en tant que « Mademoiselle Li ».",
+        "Puis il lui demande son nom complet.",
+        "Le verbe [zh:叫] signifie « s'appeler ».",
+        "[zh:什么] signifie « quoi », et [zh:名字] signifie « nom ».",
+        "La question signifie donc littéralement : « Vous vous appelez quel nom ? ».",
+        "C'est la manière la plus courante et directe de demander : « Comment vous appelez-vous ? »."
+      ],
+      "8": [
+        "Li You répond : « [zh:我叫李友] ».",
+        "Cela signifie « Je m'appelle Li You ».",
+        "Cela suit le modèle simple : Sujet + [zh:叫] + Nom.",
+        "Ensuite, elle s'adresse à Wang Peng en tant que [zh:王先生].",
+        "[zh:先生] signifie « Monsieur » ou « gentleman ».",
+        "Comme [zh:小姐], ce terme suit le nom de famille.",
+        "Enfin, elle lui pose la même question : « [zh:你叫什么名字?] ».",
+        "C'est pour connaître son nom complet.",
+        "Cela montre comment la conversation passe naturellement des noms de famille aux noms complets."
+      ],
+      "9": [
+        "Pour conclure l'échange, Wang Peng donne son nom complet : « [zh:我叫王朋] ».",
+        "Cela signifie « Je m'appelle Wang Peng ».",
+        "Il utilise exactement la même structure de phrase que Li You.",
+        "Ce modèle, [zh:我叫] suivi de votre nom, est la manière standard de se présenter.",
+        "Ainsi, ils ont réussi à échanger des salutations et leurs noms."
+      ],
+      "10": [
+        "Maintenant, abordons notre premier point de grammaire : le verbe [zh:姓].",
+        "En chinois, [zh:姓] peut être à la fois un nom commun pour « nom de famille » et un verbe signifiant « porter le nom de famille de... ».",
+        "Lorsqu'il est utilisé comme verbe, il doit être suivi du nom de famille spécifique.",
+        "La façon la plus polie de demander le nom de famille de quelqu'un est [zh:请问，你贵姓].",
+        "Vous l'avez vu dans le dialogue.",
+        "Le mot [zh:贵] signifie « honorable ».",
+        "Pour répondre, vous dites simplement [zh:我姓] suivi de votre nom.",
+        "Par exemple, vous direz [zh:我姓李].",
+        "Remarquez que vous omettez le mot poli [zh:贵] dans votre réponse.",
+        "Une façon plus informelle de demander est [zh:你姓什么].",
+        "Retenez qu'il est incorrect de dire simplement [zh:我不姓].",
+        "Vous devez préciser le nom que vous ne portez pas, par exemple [zh:我不姓李]."
+      ],
+      "11": [
+        "Ensuite, examinons la particule interrogative [zh:呢].",
+        "C'est une particule très utile que vous pouvez ajouter après un nom ou un pronom.",
+        "Elle sert à poser une question de relance.",
+        "Elle fonctionne comme « et vous ? »",
+        "ou « et pour... ? »",
+        "en français.",
+        "L'essentiel est que le contexte soit déjà clair.",
+        "Dans notre dialogue, après que Li You a dit [zh:我姓李], elle demande [zh:你呢].",
+        "Puisqu'elle vient de parler de son nom de famille, [zh:你呢] signifie ici « Et quel est votre nom de famille ? ».",
+        "C'est une façon simple et naturelle de renvoyer une question.",
+        "Cela évite de répéter toute la phrase.",
+        "Vous pouvez aussi l'utiliser après avoir donné votre nom.",
+        "Par exemple : [zh:我叫王朋，你呢], ce qui signifie « Je m'appelle Wang Peng, et vous ? »."
+      ],
+      "12": [
+        "Passons maintenant au verbe [zh:叫], qui signifie « s'appeler ».",
+        "C'est ainsi que l'on parle de son nom complet ou de son prénom.",
+        "Ceci est différent de simplement mentionner son nom de famille.",
+        "Pour demander le nom de quelqu'un, vous utilisez la structure [zh:你叫什么名字].",
+        "Ici, [zh:什么] signifie « quoi » et [zh:名字] signifie « nom ».",
+        "Pour répondre, vous dites simplement [zh:我叫] suivi de votre nom.",
+        "Par exemple, [zh:我叫王朋].",
+        "Tout comme le verbe [zh:姓], [zh:叫] doit être suivi d'un objet, qui est le nom.",
+        "Pour dire que votre nom n'est pas tel ou tel, vous utilisez [zh:不].",
+        "Par exemple, [zh:我不叫李生]."
+      ],
+      "13": [
+        "Notre dernier point de grammaire est très important : l'ordre des mots de base en chinois.",
+        "La structure est Sujet, puis Verbe, puis Objet, ou S-V-O.",
+        "Par exemple, dans [zh:我姓李], le sujet est [zh:我], le verbe est [zh:姓], et l'objet est [zh:李].",
+        "Le plus important est que cet ordre S-V-O reste le même même lorsque vous posez une question.",
+        "En français, vous déplacez le mot interrogatif au début, comme dans « Comment vous appelez-vous ? ».",
+        "Mais en chinois, le mot interrogatif reste à la position de l'objet.",
+        "Par exemple, [zh:你姓什么] se traduit littéralement par « Vous – nom de famille – quoi ? ».",
+        "La structure reste Sujet-Verbe-Objet.",
+        "C'est une différence clé avec le français, alors retenez bien cela !"
+      ],
+      "14": [
+        "Excellent travail !",
+        "Revoyons rapidement les phrases clés de cette leçon.",
+        "Vous avez appris la salutation essentielle [zh:你好].",
+        "Vous pouvez maintenant demander poliment le nom de famille avec [zh:你贵姓] et répondre avec [zh:我姓].",
+        "Pour demander le nom complet, vous utilisez [zh:你叫什么名字] et répondez avec [zh:我叫].",
+        "Et n'oubliez pas la particule interrogative utile [zh:呢].",
+        "Continuez à pratiquer ces modèles, et vous vous présenterez en un rien de temps !"
+      ]
+    }
+  },
+  "explanation_video_urls": {
+    "media_url": "",
+    "object_key": "zh/video/fr/lesson101_explanation_final.mp4",
+    "local_path": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\integrated_chinese\\output_video\\fr\\lesson101_explanation_final.mp4",
+    "lang": "fr",
+    "youtube_url": "",
+    "bilibili_url": ""
+  }
+}
