@@ -9174,8 +9174,24 @@
           "grammar_points": [],
           "visual_notes": "Animer une icône représentant une petite chambre avec deux personnages stylisés à l'intérieur.",
           "start_time_seconds": 0.0,
-          "duration_seconds": 30.74,
-          "end_time_seconds": 20.0
+          "duration_seconds": 35.948,
+          "end_time_seconds": 20.0,
+          "sentence_timings_seconds": [
+            0.0,
+            3.432,
+            10.056,
+            15.48,
+            23.544,
+            28.512
+          ],
+          "sentence_texts": [
+            "Commençons par décrire la chambre de Zhang Tianming.",
+            "La première partie de la phrase est [zh:张天明宿舍的房间不太大,住两个人].",
+            "Cela signifie que « la chambre de Zhang Tianming n'est pas très grande ; deux personnes y vivent ».",
+            "[zh:宿舍] signifie « dortoir », et [zh:房间] veut dire « chambre ».",
+            "[zh:不太大] est une façon courante de dire « pas très grand ».",
+            "Enfin, [zh:住两个人] nous indique que la chambre « est habitée par deux personnes »."
+          ]
         },
         {
           "segment_id": 2,
@@ -9250,9 +9266,25 @@
           ],
           "grammar_points": [],
           "visual_notes": "Montrer un deuxième personnage apparaissant dans l'illustration de la pièce.",
-          "start_time_seconds": 30.74,
-          "duration_seconds": 26.036,
-          "end_time_seconds": 38.0
+          "start_time_seconds": 35.948,
+          "duration_seconds": 31.892,
+          "end_time_seconds": 38.0,
+          "sentence_timings_seconds": [
+            0.0,
+            3.264,
+            7.32,
+            11.184,
+            17.52,
+            27.768
+          ],
+          "sentence_texts": [
+            "Ensuite, nous découvrons son colocataire.",
+            "La phrase est [zh:他的同屋已经来了].",
+            "Cela se traduit par « Son colocataire est déjà arrivé ».",
+            "Le mot clé ici est [zh:同屋], qui signifie « colocataire ».",
+            "Le mot [zh:已经] signifie « déjà », et [zh:来了] veut dire « est venu » ou « est arrivé ».",
+            "Cette phrase simple nous dit qu'il n'est pas seul dans la chambre."
+          ]
         },
         {
           "segment_id": 3,
@@ -9326,9 +9358,27 @@
           ],
           "grammar_points": [],
           "visual_notes": "Montrer les caractères 同 et 屋 se combinant pour former 同屋, puis faire de même pour 室 et 友.",
-          "start_time_seconds": 56.776,
-          "duration_seconds": 28.172,
-          "end_time_seconds": 60.0
+          "start_time_seconds": 67.84,
+          "duration_seconds": 43.124,
+          "end_time_seconds": 60.0,
+          "sentence_timings_seconds": [
+            0.0,
+            4.728,
+            15.336,
+            19.224,
+            23.856,
+            32.184,
+            34.56
+          ],
+          "sentence_texts": [
+            "Concentrons-nous sur le mot pour colocataire, [zh:同屋].",
+            "Il est composé de [zh:同], qui signifie « même », et de [zh:屋], qui veut dire « pièce » ou « chambre ».",
+            "Donc, cela signifie littéralement « même pièce ».",
+            "Un autre mot très courant pour colocataire est [zh:室友].",
+            "[zh:室] signifie aussi « pièce » ou « chambre », et [zh:友] veut dire « ami ».",
+            "Donc, « ami de chambre ».",
+            "Les deux, [zh:同屋] et [zh:室友], sont fréquemment utilisés."
+          ]
         },
         {
           "segment_id": 4,
@@ -9417,9 +9467,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer deux bureaux apparaissant près de la fenêtre, puis une chaise apparaissant devant chaque bureau.",
-          "start_time_seconds": 84.948,
-          "duration_seconds": 35.468,
-          "end_time_seconds": 88.0
+          "start_time_seconds": 110.964,
+          "duration_seconds": 42.692,
+          "end_time_seconds": 88.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.448,
+            10.584,
+            14.208,
+            17.544,
+            20.736,
+            30.024,
+            37.512
+          ],
+          "sentence_texts": [
+            "Décrivons maintenant les meubles.",
+            "La phrase dit : [zh:房间里家具不多,靠窗户摆着两张书桌,每张桌子的前边有一把椅子].",
+            "Cela signifie qu'il n'y a pas beaucoup de meubles dans la pièce.",
+            "Contre la fenêtre, deux bureaux sont installés.",
+            "Devant chaque bureau, il y a une chaise.",
+            "Remarquez la structure : la localisation vient en premier, comme [zh:靠窗户] qui signifie « contre la fenêtre ».",
+            "Ensuite, un verbe comme [zh:摆着], qui veut dire « sont placés », et enfin l'objet.",
+            "C'est une façon courante d'indiquer la présence de quelque chose à un endroit précis."
+          ]
         },
         {
           "segment_id": 5,
@@ -9508,9 +9578,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer un lit apparaissant à côté du bureau, puis une couette et une couverture apparaissant sur le lit.",
-          "start_time_seconds": 120.416,
-          "duration_seconds": 31.1,
-          "end_time_seconds": 112.0
+          "start_time_seconds": 153.656,
+          "duration_seconds": 40.868,
+          "end_time_seconds": 112.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.64,
+            8.688,
+            12.264,
+            15.816,
+            22.032,
+            25.296,
+            33.864
+          ],
+          "sentence_texts": [
+            "Poursuivons la visite de la pièce.",
+            "Nous avons : [zh:书桌的旁边是床,床上有被子和毯子].",
+            "Cela signifie qu'à côté des bureaux, il y a des lits.",
+            "Sur ces lits, on trouve des couettes et des couvertures.",
+            "Ici, [zh:旁边] signifie « à côté » ou « près de ».",
+            "La phrase introduit deux nouveaux mots pour la literie.",
+            "Ce sont [zh:被子], une couette, et [zh:毯子], une couverture.",
+            "La structure [zh:床上有] signifie « sur le lit, il y a... »."
+          ]
         },
         {
           "segment_id": 6,
@@ -9599,9 +9689,31 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer une armoire qui apparaît. La porte s'ouvre pour montrer des vêtements suspendus à l'intérieur.",
-          "start_time_seconds": 151.516,
-          "duration_seconds": 33.236,
-          "end_time_seconds": 137.0
+          "start_time_seconds": 194.524,
+          "duration_seconds": 45.14,
+          "end_time_seconds": 137.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.784,
+            8.688,
+            12.552,
+            16.608,
+            22.848,
+            30.24,
+            35.616,
+            41.04
+          ],
+          "sentence_texts": [
+            "Ensuite, nous avons les armoires.",
+            "La phrase est : [zh:床旁边有两个衣柜,柜子里挂着一些衣服].",
+            "Cela signifie qu'à côté des lits, il y a deux armoires.",
+            "À l'intérieur de ces armoires, des vêtements sont suspendus.",
+            "[zh:衣柜] est le mot pour « armoire », qui signifie littéralement « meuble à vêtements ».",
+            "[zh:衣] signifie « vêtements » et [zh:柜] signifie « meuble ».",
+            "Le verbe [zh:挂] signifie « suspendre ».",
+            "Donc, [zh:挂着] veut dire « sont suspendus ».",
+            "Cela nous indique ce qu'il y a à l'intérieur des armoires."
+          ]
         },
         {
           "segment_id": 7,
@@ -9690,9 +9802,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer deux bibliothèques vides qui apparaissent à côté de la porte.",
-          "start_time_seconds": 184.752,
-          "duration_seconds": 29.828,
-          "end_time_seconds": 160.0
+          "start_time_seconds": 239.664,
+          "duration_seconds": 39.908,
+          "end_time_seconds": 160.0,
+          "sentence_timings_seconds": [
+            0.0,
+            3.36,
+            9.216,
+            13.56,
+            15.648,
+            23.688,
+            29.688,
+            36.36
+          ],
+          "sentence_texts": [
+            "Enfin, regardons les étagères à livres.",
+            "Le texte dit : [zh:门右边放着两个书架,书架还是空的].",
+            "Cela signifie qu'à droite de la porte, il y a deux étagères à livres.",
+            "Elles sont encore vides.",
+            "[zh:门] signifie « porte » et [zh:右边] signifie « le côté droit ».",
+            "Le nouveau mot est [zh:空], un adjectif qui veut dire « vide ».",
+            "L'expression [zh:还是空的] signifie qu'elles « sont encore vides ».",
+            "Cela sous-entend qu'elles attendent d'être remplies."
+          ]
         },
         {
           "segment_id": 8,
@@ -9767,9 +9899,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Montrer un personnage s'éventant, avec des ondes de chaleur chatoyantes. Une icône de climatiseur barrée apparaît.",
-          "start_time_seconds": 214.58,
-          "duration_seconds": 35.084,
-          "end_time_seconds": 184.0
+          "start_time_seconds": 279.572,
+          "duration_seconds": 44.3,
+          "end_time_seconds": 184.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.832,
+            13.416,
+            17.736,
+            23.016,
+            30.696,
+            33.096,
+            38.592
+          ],
+          "sentence_texts": [
+            "Maintenant, un personnage parle.",
+            "[zh:真热！房间里怎么没有空调？] Cela signifie : « Il fait si chaud ! Comment se fait-il qu'il n'y ait pas de climatisation dans cette pièce ? »",
+            "[zh:真热] veut dire « il fait vraiment chaud ».",
+            "Le mot [zh:真] est utilisé pour insister.",
+            "La question [zh:怎么没有] est une façon courante de demander « comment se fait-il qu'il n'y ait pas... ? »",
+            "ou « pourquoi n'y a-t-il pas... ? ».",
+            "Le nouveau mot est [zh:空调], la climatisation.",
+            "C'est l'abréviation d'un terme plus long, mais cette forme courte est presque toujours utilisée."
+          ]
         },
         {
           "segment_id": 9,
@@ -9858,9 +10010,27 @@
           ],
           "grammar_points": [],
           "visual_notes": "Montrer une illustration d'un bâtiment d'apparence ancienne. Un calendrier recule jusqu'à une page « première année d'université ».",
-          "start_time_seconds": 249.664,
-          "duration_seconds": 31.46,
-          "end_time_seconds": 210.0
+          "start_time_seconds": 323.872,
+          "duration_seconds": 41.66,
+          "end_time_seconds": 210.0,
+          "sentence_timings_seconds": [
+            0.0,
+            6.6,
+            12.72,
+            14.64,
+            18.936,
+            24.432,
+            30.744
+          ],
+          "sentence_texts": [
+            "Voici la réponse : [zh:这栋楼比较旧，我大一的时候在这儿住过].",
+            "Cela signifie : « Ce bâtiment est plutôt vieux. J'y ai habité quand j'étais en première année. »",
+            "Analysons cela.",
+            "[zh:栋] est un classificateur pour les bâtiments.",
+            "[zh:比较旧] signifie « relativement vieux » ou « plutôt vieux ».",
+            "[zh:大一] est une façon familière de dire « étudiant de première année à l'université ».",
+            "Enfin, [zh:住过] utilise la particule [zh:过] pour indiquer une expérience passée, « avoir habité »."
+          ]
         },
         {
           "segment_id": 10,
@@ -9949,9 +10119,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Afficher une icône de petite salle de bain, puis un personnage avec une expression inquiète et un point d'interrogation.",
-          "start_time_seconds": 281.124,
-          "duration_seconds": 34.22,
-          "end_time_seconds": 237.0
+          "start_time_seconds": 365.532,
+          "duration_seconds": 41.3,
+          "end_time_seconds": 237.0,
+          "sentence_timings_seconds": [
+            0.0,
+            3.264,
+            14.088,
+            17.52,
+            21.672,
+            25.32,
+            29.232,
+            33.48
+          ],
+          "sentence_texts": [
+            "Le personnage exprime une autre préoccupation.",
+            "Il dit : [zh:卫生间也比较小。住在这儿恐怕很不方便吧？] Cette phrase signifie : « La salle de bain est aussi assez petite. »",
+            "« Il doit être très peu pratique d'y vivre, n'est-ce pas ? »",
+            "[zh:卫生间] signifie « salle de bain ».",
+            "Le mot clé ici est [zh:恐怕].",
+            "C'est un adverbe qui exprime une évaluation ou une inquiétude.",
+            "On pourrait le traduire par « je crains que » ou « je suppose que ».",
+            "La particule [zh:吧] à la fin transforme l'affirmation en une question spéculative."
+          ]
         },
         {
           "segment_id": 11,
@@ -9993,9 +10183,33 @@
           ],
           "grammar_points": [],
           "visual_notes": "Afficher une coche « Correct » à côté de la structure de phrase correcte et une croix « Incorrect » à côté de la mauvaise.",
-          "start_time_seconds": 315.344,
-          "duration_seconds": 33.308,
-          "end_time_seconds": 265.0
+          "start_time_seconds": 406.832,
+          "duration_seconds": 43.58,
+          "end_time_seconds": 265.0,
+          "sentence_timings_seconds": [
+            0.0,
+            3.768,
+            8.616,
+            15.576,
+            20.184,
+            22.632,
+            27.648,
+            30.912,
+            35.472,
+            39.024
+          ],
+          "sentence_texts": [
+            "Regardons de plus près [zh:恐怕].",
+            "Il est utilisé pour exprimer doucement une inquiétude ou une supposition négative.",
+            "Par exemple, s'il pleut, vous pourriez dire : [zh:下雨了,恐怕我们不能打球了].",
+            "Cela signifie : « Il pleut, je crains que nous ne puissions pas jouer au ballon. »",
+            "Cela adoucit l'affirmation.",
+            "Notez que l'on dit rarement « j'ai peur » ou [zh:我恐怕].",
+            "Le « je » est généralement sous-entendu.",
+            "Ainsi, vous diriez [zh:他恐怕不能去了].",
+            "Cela signifie : « Je crains qu'il ne puisse pas y aller. »",
+            "Et non pas [zh:我恐怕他不能去了]."
+          ]
         },
         {
           "segment_id": 12,
@@ -10084,9 +10298,35 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer des icônes pour une cafétéria, un petit magasin, du savon et un stylo apparaissant près du bâtiment du dortoir.",
-          "start_time_seconds": 348.652,
-          "duration_seconds": 39.02,
-          "end_time_seconds": 294.0
+          "start_time_seconds": 450.412,
+          "duration_seconds": 50.564,
+          "end_time_seconds": 294.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.616,
+            12.504,
+            16.128,
+            19.248,
+            22.224,
+            25.968,
+            29.904,
+            34.224,
+            37.824,
+            44.712
+          ],
+          "sentence_texts": [
+            "L'autre personne n'est pas d'accord.",
+            "Elle répond : [zh:不，这儿很方便。学生餐厅就在楼下，餐厅旁边有一个小商店，卖日用品和文具].",
+            "Cela signifie : « Non, c'est très pratique ici. »",
+            "« Le restaurant universitaire est juste en bas. »",
+            "« À côté, il y a un petit magasin. »",
+            "« Il vend des produits de première nécessité et de la papeterie. »",
+            "[zh:不] est un « non » direct.",
+            "[zh:餐厅] est une cafétéria ou un restaurant.",
+            "[zh:楼下] signifie « en bas ».",
+            "Le magasin vend des [zh:日用品], c'est-à-dire des produits de première nécessité.",
+            "Il vend aussi des [zh:文具], de la papeterie."
+          ]
         },
         {
           "segment_id": 13,
@@ -10175,9 +10415,27 @@
           ],
           "grammar_points": [],
           "visual_notes": "Afficher une ligne pointillée allant du dortoir à un bâtiment de salles de classe, avec une icône d'horloge indiquant '5-6 min'.",
-          "start_time_seconds": 387.672,
-          "duration_seconds": 32.396,
-          "end_time_seconds": 319.0
+          "start_time_seconds": 500.976,
+          "duration_seconds": 37.82,
+          "end_time_seconds": 319.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.976,
+            7.248,
+            13.2,
+            19.152,
+            22.992,
+            29.952
+          ],
+          "sentence_texts": [
+            "L'explication de la commodité continue.",
+            "[zh:教室离这儿不远，走路差不多五、六分钟].",
+            "Cela signifie : « Les salles de classe ne sont pas loin d'ici, à environ cinq ou six minutes à pied. »",
+            "La structure [zh:离...不远] veut dire « pas loin de... ».",
+            "[zh:走路] signifie « marcher ».",
+            "Le mot clé est [zh:差不多], qui veut dire « approximativement » ou « environ ».",
+            "Donc, [zh:差不多五、六分钟] signifie « environ cinq ou six minutes »."
+          ]
         },
         {
           "segment_id": 14,
@@ -10252,9 +10510,27 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer une icône de t-shirt entrant dans une machine à laver, avec un point d'interrogation.",
-          "start_time_seconds": 420.068,
-          "duration_seconds": 28.028,
-          "end_time_seconds": 338.0
+          "start_time_seconds": 538.796,
+          "duration_seconds": 34.892,
+          "end_time_seconds": 338.0,
+          "sentence_timings_seconds": [
+            0.0,
+            4.848,
+            8.448,
+            10.32,
+            13.944,
+            17.808,
+            25.68
+          ],
+          "sentence_texts": [
+            "Voici une question pratique : [zh:洗衣服方便吗？].",
+            "Cela signifie : « Est-ce pratique de faire la lessive ? »",
+            "Décomposons-la.",
+            "[zh:洗] signifie « laver ».",
+            "[zh:衣服] signifie « vêtements ».",
+            "Ainsi, [zh:洗衣服] est l'expression verbale pour « laver les vêtements » ou « faire la lessive ».",
+            "La question suit un modèle simple : [Activité] + [zh:方便吗] ?, pour demander si cette activité est pratique."
+          ]
         },
         {
           "segment_id": 15,
@@ -10343,9 +10619,25 @@
           ],
           "grammar_points": [],
           "visual_notes": "Montrer trois machines à laver et trois sèche-linge apparaissant sur le plan de l'étage du dortoir.",
-          "start_time_seconds": 448.096,
-          "duration_seconds": 32.276,
-          "end_time_seconds": 364.0
+          "start_time_seconds": 573.688,
+          "duration_seconds": 41.468,
+          "end_time_seconds": 364.0,
+          "sentence_timings_seconds": [
+            0.0,
+            7.872,
+            15.144,
+            24.0,
+            26.688,
+            30.312
+          ],
+          "sentence_texts": [
+            "La réponse est très positive : [zh:方便得很。这层楼有三台洗衣机和三台干衣机].",
+            "Cela signifie : « Extrêmement pratique. Cet étage dispose de trois machines à laver et de trois sèche-linge. »",
+            "L'expression [zh:方便得很] utilise une structure spéciale : « adjectif + [zh:得很] ».",
+            "Cela signifie « extrêmement ».",
+            "C'est plus fort que de dire simplement « très pratique ».",
+            "Nous apprenons aussi de nouveaux mots : [zh:洗衣机] pour « machine à laver » et [zh:干衣机] pour « sèche-linge »."
+          ]
         },
         {
           "segment_id": 16,
@@ -10406,9 +10698,25 @@
           ],
           "grammar_points": [],
           "visual_notes": "Montrer une icône de haut-parleur avec des ondes sonores en émanant, suivie d'un point d'interrogation.",
-          "start_time_seconds": 480.372,
-          "duration_seconds": 27.764,
-          "end_time_seconds": 387.0
+          "start_time_seconds": 615.156,
+          "duration_seconds": 36.836,
+          "end_time_seconds": 387.0,
+          "sentence_timings_seconds": [
+            0.0,
+            9.144,
+            16.32,
+            20.352,
+            23.688,
+            29.184
+          ],
+          "sentence_texts": [
+            "La question suivante concerne le niveau sonore : [zh:这儿吵不吵？]\nC'est une question de type « Adjectif-non-Adjectif ».",
+            "Vous prenez un adjectif, ici [zh:吵] (chǎo), qui signifie « bruyant ».",
+            "Vous formez la question en disant « Adjectif non Adjectif ? ».",
+            "C'est une autre façon de poser une question fermée.",
+            "C'est comme ajouter [zh:吗] à la fin d'une phrase.",
+            "Donc, [zh:吵不吵] est la même chose que de demander [zh:吵吗]."
+          ]
         },
         {
           "segment_id": 17,
@@ -10497,9 +10805,23 @@
           ],
           "grammar_points": [],
           "visual_notes": "Montrer le bâtiment du dortoir loin d'une route très fréquentée. Une icône de visage endormi ou un symbole 'chut' apparaît au-dessus du dortoir.",
-          "start_time_seconds": 508.136,
-          "duration_seconds": 29.492,
-          "end_time_seconds": 411.0
+          "start_time_seconds": 651.992,
+          "duration_seconds": 30.404,
+          "end_time_seconds": 411.0,
+          "sentence_timings_seconds": [
+            0.0,
+            6.456,
+            13.008,
+            19.776,
+            25.296
+          ],
+          "sentence_texts": [
+            "La réponse est rassurante : [zh:不吵，这儿离大马路很远，很安静].",
+            "Elle commence par un direct [zh:不吵], qui signifie « pas bruyant ».",
+            "Elle donne ensuite une raison : [zh:离大马路很远], « loin de la route principale ».",
+            "Le résultat est que c'est [zh:很安静], « très calme ».",
+            "[zh:安静] est l'opposé de [zh:吵]."
+          ]
         },
         {
           "segment_id": 18,
@@ -10588,9 +10910,27 @@
           ],
           "grammar_points": [],
           "visual_notes": "Montrer un personnage avec une bulle de dialogue disant '...'. Ensuite, un point d'interrogation apparaît au-dessus d'un bol de nourriture.",
-          "start_time_seconds": 537.628,
-          "duration_seconds": 38.324,
-          "end_time_seconds": 439.0
+          "start_time_seconds": 682.396,
+          "duration_seconds": 38.972,
+          "end_time_seconds": 439.0,
+          "sentence_timings_seconds": [
+            0.0,
+            12.36,
+            17.424,
+            22.152,
+            27.12,
+            29.64,
+            34.608
+          ],
+          "sentence_texts": [
+            "La dernière question concerne la nourriture : [zh:听说学校餐厅的饭一般都不太好。这儿的呢？]\n[zh:听说] signifie « j'ai entendu dire que... ».",
+            "[zh:一般] signifie « généralement » ou « d'habitude ».",
+            "[zh:不太好] est une façon plus douce de dire « pas bon ».",
+            "Le [zh:呢] final est très utile.",
+            "Il crée une question de suivi.",
+            "Il demande « qu'en est-il de... » le sujet qui vient d'être abordé.",
+            "Ici, il s'agit de la nourriture de cette cafétéria."
+          ]
         },
         {
           "segment_id": 19,
@@ -10665,9 +11005,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer les caractères de « [zh:bù zěnmeyàng] 不怎么样 » pour les souligner comme une seule expression.",
-          "start_time_seconds": 575.952,
-          "duration_seconds": 29.324,
-          "end_time_seconds": 459.0
+          "start_time_seconds": 721.368,
+          "duration_seconds": 38.18,
+          "end_time_seconds": 459.0,
+          "sentence_timings_seconds": [
+            0.0,
+            8.376,
+            14.136,
+            16.056,
+            21.264,
+            25.056,
+            29.088,
+            34.68
+          ],
+          "sentence_texts": [
+            "La première personne est d'accord en disant [zh:你说对了], ce qui signifie « Tu as raison » ou « C'est ça ».",
+            "Ensuite, elle ajoute son opinion : [zh:餐厅的饭真的不怎么样].",
+            "Analysons cela.",
+            "[zh:餐厅的饭] signifie « la nourriture de la cafétéria ».",
+            "[zh:真的] signifie « vraiment ».",
+            "L'expression clé ici est [zh:不怎么样].",
+            "C'est une façon familière de dire que quelque chose n'est « pas terrible » ou « juste comme ça ».",
+            "C'est une expression très courante et utile."
+          ]
         },
         {
           "segment_id": 20,
@@ -10709,9 +11069,27 @@
           ],
           "grammar_points": [],
           "visual_notes": "Afficher un emoji pouce sur le côté ou « comme ci, comme ça » à côté de l'expression « [zh:bù zěnmeyàng] 不怎么样 ».",
-          "start_time_seconds": 605.276,
-          "duration_seconds": 29.468,
-          "end_time_seconds": 481.0
+          "start_time_seconds": 759.548,
+          "duration_seconds": 35.588,
+          "end_time_seconds": 481.0,
+          "sentence_timings_seconds": [
+            0.0,
+            4.416,
+            9.288,
+            18.24,
+            21.432,
+            26.352,
+            30.144
+          ],
+          "sentence_texts": [
+            "Examinons de plus près l'expression [zh:不怎么样].",
+            "Elle signifie « pas terrible » et est généralement utilisée comme prédicat.",
+            "Par exemple, vous pourriez dire [zh:这个图书馆不怎么样], ce qui signifie « Cette bibliothèque n'est pas terrible ».",
+            "C'est une expression familière et assez directe.",
+            "Il est donc préférable de l'utiliser entre amis ou avec des personnes que vous connaissez bien.",
+            "Dans ces situations, vous n'avez pas besoin d'être trop poli.",
+            "C'est un excellent moyen de donner une opinion franche et négative sans être trop dur."
+          ]
         },
         {
           "segment_id": 21,
@@ -10786,9 +11164,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer un point d'interrogation qui apparaît à côté de la tête de l'étudiant.",
-          "start_time_seconds": 634.744,
-          "duration_seconds": 33.548,
-          "end_time_seconds": 499.0
+          "start_time_seconds": 795.136,
+          "duration_seconds": 39.02,
+          "end_time_seconds": 499.0,
+          "sentence_timings_seconds": [
+            0.0,
+            6.096,
+            11.472,
+            15.84,
+            20.472,
+            25.152,
+            30.84,
+            32.712
+          ],
+          "sentence_texts": [
+            "En entendant la mauvaise nouvelle à propos de la nourriture, l'étudiant réagit avec surprise et inquiétude.",
+            "Premièrement, [zh:真的] signifie « Vraiment ? ».",
+            "On l'utilise pour demander confirmation ou exprimer de l'incrédulité.",
+            "Vient ensuite la question importante : [zh:那怎么办].",
+            "[zh:那] signifie « alors » ou « dans ce cas ».",
+            "[zh:怎么办] est une expression très courante qui signifie « que faut-il faire ? »",
+            "ou « que faire ? ».",
+            "Donc, la phrase entière demande : « Vraiment ? Alors, que dois-je faire ? »."
+          ]
         },
         {
           "segment_id": 22,
@@ -10877,9 +11275,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Afficher des icônes de restaurant et de repère de carte pour représenter les 'restaurants à proximité'.",
-          "start_time_seconds": 668.292,
-          "duration_seconds": 33.404,
-          "end_time_seconds": 521.0
+          "start_time_seconds": 834.156,
+          "duration_seconds": 44.828,
+          "end_time_seconds": 521.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.856,
+            9.504,
+            14.736,
+            20.88,
+            28.608,
+            33.72,
+            37.512
+          ],
+          "sentence_texts": [
+            "L'autre étudiant propose une solution.",
+            "Il commence par [zh:你别着急], ce qui signifie « Ne t'inquiète pas ».",
+            "[zh:别] est utilisé pour dire à quelqu'un de ne pas faire quelque chose.",
+            "Et [zh:着急] signifie « s'inquiéter » ou « être anxieux ».",
+            "Ensuite, il dit [zh:附近有很多饭馆儿], « Il y a beaucoup de restaurants à proximité ».",
+            "Enfin, il ajoute [zh:还有一家中国餐馆儿呢].",
+            "Cela signifie « et il y a aussi un restaurant chinois ».",
+            "La particule finale [zh:呢] ajoute un ton doux et rassurant à l'affirmation."
+          ]
         },
         {
           "segment_id": 23,
@@ -10954,9 +11372,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer une bulle de pensée au-dessus de la tête du locuteur avec le texte '好吃的不多'.",
-          "start_time_seconds": 701.696,
-          "duration_seconds": 32.684,
-          "end_time_seconds": 541.0
+          "start_time_seconds": 878.984,
+          "duration_seconds": 42.284,
+          "end_time_seconds": 541.0,
+          "sentence_timings_seconds": [
+            0.0,
+            3.888,
+            11.328,
+            18.216,
+            22.8,
+            26.736,
+            31.848,
+            38.016
+          ],
+          "sentence_texts": [
+            "Ici, l'étudiant exprime un certain scepticisme.",
+            "La phrase commence par [zh:我觉得], qui signifie « je pense » ou « je trouve ».",
+            "Le sujet est [zh:美国的中国餐馆儿], « les restaurants chinois en Amérique ».",
+            "Le commentaire sur ce sujet est [zh:好吃的不多].",
+            "[zh:好吃] signifie « délicieux ».",
+            "Et [zh:不多] signifie « pas beaucoup ».",
+            "Donc, le sens complet est : « Je pense que parmi les restaurants chinois en Amérique, peu sont délicieux ».",
+            "C'est une structure de phrase courante pour donner une opinion."
+          ]
         },
         {
           "segment_id": 24,
@@ -11045,9 +11483,29 @@
           ],
           "grammar_points": [],
           "visual_notes": "Mettre en évidence le mot « 地道 » avec un effet lumineux pour souligner son importance.",
-          "start_time_seconds": 734.38,
-          "duration_seconds": 30.836,
-          "end_time_seconds": 565.0
+          "start_time_seconds": 921.268,
+          "duration_seconds": 40.652,
+          "end_time_seconds": 565.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.592,
+            9.336,
+            15.96,
+            21.408,
+            27.432,
+            32.736,
+            36.6
+          ],
+          "sentence_texts": [
+            "L'autre étudiant n'est pas d'accord.",
+            "Il dit [zh:那也不见得], ce qui signifie « Ce n'est pas forcément vrai ».",
+            "Il donne ensuite un exemple précis : [zh:附近那家中国餐馆儿的菜就很地道].",
+            "Cela signifie « Les plats de ce restaurant chinois à proximité sont très authentiques ».",
+            "Le mot clé ici est [zh:地道], qui signifie « authentique ».",
+            "Il étaye son affirmation en disant [zh:我和我的女朋友常去].",
+            "Cela signifie « Ma petite amie et moi y allons souvent ».",
+            "[zh:常] signifie « souvent »."
+          ]
         },
         {
           "segment_id": 25,
@@ -11107,9 +11565,27 @@
           ],
           "grammar_points": [],
           "visual_notes": "Afficher une image d'un plat chinois appétissant avec un visuel de tampon « Certifié Authentique ».",
-          "start_time_seconds": 765.216,
-          "duration_seconds": 32.084,
-          "end_time_seconds": 587.0
+          "start_time_seconds": 961.92,
+          "duration_seconds": 40.124,
+          "end_time_seconds": 587.0,
+          "sentence_timings_seconds": [
+            0.0,
+            3.72,
+            8.16,
+            12.504,
+            22.92,
+            26.496,
+            34.872
+          ],
+          "sentence_texts": [
+            "Concentrons-nous sur le mot [zh:地道].",
+            "C'est un adjectif qui signifie « authentique » ou « véritable ».",
+            "Il implique que quelque chose répond à un certain niveau d'exigence élevé.",
+            "On l'utilise le plus souvent pour décrire la nourriture, comme dans notre dialogue : [zh:地道的中国菜] signifie « de la vraie cuisine chinoise ».",
+            "Il peut aussi décrire une compétence linguistique.",
+            "Par exemple, [zh:他说的北京话很地道] veut dire « Son dialecte de Pékin est très authentique ».",
+            "C'est un mot formidable à utiliser quand on veut louer la qualité de quelque chose."
+          ]
         },
         {
           "segment_id": 26,
@@ -11198,9 +11674,31 @@
           ],
           "grammar_points": [],
           "visual_notes": "Afficher une icône de calendrier avec quelques jours mis en évidence, puis une flèche montrant une personne en entraînant une autre.",
-          "start_time_seconds": 797.3,
-          "duration_seconds": 40.604,
-          "end_time_seconds": 610.0
+          "start_time_seconds": 1002.044,
+          "duration_seconds": 55.172,
+          "end_time_seconds": 610.0,
+          "sentence_timings_seconds": [
+            0.0,
+            7.632,
+            14.376,
+            16.704,
+            21.312,
+            25.608,
+            33.6,
+            44.04,
+            46.536
+          ],
+          "sentence_texts": [
+            "Plein d'espoir, l'étudiant demande à nouveau [zh:真的吗], ce qui signifie « Vraiment ? ».",
+            "Ensuite, il fait une suggestion : [zh:那么过几天你带我去那儿看看，好吗].",
+            "Décomposons cette phrase.",
+            "[zh:那么] signifie « alors » ou « dans ce cas ».",
+            "[zh:过几天] veut dire « dans quelques jours ».",
+            "La requête principale est [zh:你带我去那儿看看], soit « tu m'emmènes là-bas pour jeter un œil ».",
+            "Utiliser [zh:看看], une répétition de « regarder », au lieu de simplement [zh:看], adoucit la demande.",
+            "Cela la rend plus décontractée.",
+            "La phrase se termine par [zh:好吗], « d'accord ? », une façon courante de demander poliment un accord."
+          ]
         },
         {
           "segment_id": 27,
@@ -11261,9 +11759,25 @@
           ],
           "grammar_points": [],
           "visual_notes": "Animer une grande coche verte ou une icône de pouce levé apparaissant à l'écran.",
-          "start_time_seconds": 837.904,
-          "duration_seconds": 24.98,
-          "end_time_seconds": 625.0
+          "start_time_seconds": 1057.216,
+          "duration_seconds": 28.94,
+          "end_time_seconds": 625.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.88,
+            6.792,
+            13.296,
+            18.432,
+            24.312
+          ],
+          "sentence_texts": [
+            "C'est un accord simple et enthousiaste.",
+            "La réponse est [zh:好，没问题].",
+            "[zh:好] signifie « bien » ou « d'accord », et c'est une façon standard d'accepter.",
+            "[zh:没问题] se traduit littéralement par « pas de problème ».",
+            "Ensemble, c'est une façon très positive et courante de dire « Bien sûr, pas de problème ! ».",
+            "Cela montre que l'interlocuteur est heureux de satisfaire la demande."
+          ]
         },
         {
           "segment_id": 28,
@@ -11342,9 +11856,39 @@
             }
           ],
           "visual_notes": "Animer une icône de pièce, avec des meubles comme un bureau et un lit apparaissant au fur et à mesure que les phrases correspondantes sont expliquées.",
-          "start_time_seconds": 862.884,
-          "duration_seconds": 60.044,
-          "end_time_seconds": 660.0
+          "start_time_seconds": 1086.156,
+          "duration_seconds": 80.684,
+          "end_time_seconds": 660.0,
+          "sentence_timings_seconds": [
+            0.0,
+            4.344,
+            7.608,
+            11.424,
+            15.072,
+            23.472,
+            26.736,
+            31.968,
+            45.6,
+            51.72,
+            60.96,
+            68.016,
+            74.28
+          ],
+          "sentence_texts": [
+            "Passons à notre premier point de grammaire : les phrases existentielles.",
+            "Elles nous indiquent ce qui se trouve à un endroit précis.",
+            "La structure de base est : Lieu + Verbe + Objet.",
+            "Dans notre texte, nous en voyons de nombreux exemples.",
+            "Par exemple, [zh:靠窗户摆着两张书桌], qui signifie « Deux bureaux sont placés contre la fenêtre ».",
+            "Ici, « contre la fenêtre » est le lieu.",
+            "[zh:摆] est le verbe « placer », et « deux bureaux » est l'objet.",
+            "D'autres verbes sont également courants, comme [zh:放] pour « mettre », [zh:挂] pour « accrocher », et [zh:坐] pour « s'asseoir ».",
+            "Le texte utilise aussi [zh:有] et [zh:是].",
+            "Par exemple, [zh:餐厅旁边有一个小商店] signifie « À côté de la cafétéria, il y a un petit magasin ».",
+            "Et [zh:书桌的旁边是床] signifie « À côté du bureau, il y a le lit ».",
+            "Retenez que [zh:是] implique souvent que c'est la seule chose présente.",
+            "Tandis que [zh:有] suggère que c'est l'une des nombreuses choses."
+          ]
         },
         {
           "segment_id": 29,
@@ -11422,9 +11966,37 @@
             }
           ],
           "visual_notes": "Afficher un curseur ou une animation d'échelle à côté du mot '比较' pour représenter visuellement 'relativement'. Mettre en contraste avec une icône 'vs.' pour '更'.",
-          "start_time_seconds": 922.928,
-          "duration_seconds": 45.5,
-          "end_time_seconds": 690.0
+          "start_time_seconds": 1166.84,
+          "duration_seconds": 55.052,
+          "end_time_seconds": 690.0,
+          "sentence_timings_seconds": [
+            0.0,
+            4.08,
+            8.736,
+            12.6,
+            16.776,
+            22.368,
+            25.704,
+            29.304,
+            32.352,
+            37.344,
+            41.256,
+            47.688
+          ],
+          "sentence_texts": [
+            "Ensuite, examinons le mot [zh:比较].",
+            "Il signifie « relativement », « comparativement » ou « plutôt ».",
+            "On l'utilise pour faire une déclaration générale sur un degré.",
+            "Pas pour une comparaison directe et nette entre deux choses spécifiques.",
+            "Par exemple, dans le dialogue, Ke Lin dit [zh:这栋楼比较旧].",
+            "Cela signifie « Ce bâtiment est plutôt vieux ».",
+            "Il ne le compare pas à un autre bâtiment spécifique.",
+            "Il décrit simplement son état général.",
+            "De même, Zhang Tianming dit [zh:卫生间也比较小].",
+            "Cela veut dire « La salle de bain est aussi assez petite ».",
+            "Attention à ne pas utiliser [zh:比较] pour des comparaisons directes.",
+            "Pour cela, vous utiliseriez un mot comme [zh:更], qui signifie « encore plus »."
+          ]
         },
         {
           "segment_id": 30,
@@ -11501,9 +12073,31 @@
             }
           ],
           "visual_notes": "Animer un 'indicateur d'intensité' passant de '很' à '得很' pour montrer l'augmentation du degré.",
-          "start_time_seconds": 968.428,
-          "duration_seconds": 40.508,
-          "end_time_seconds": 718.0
+          "start_time_seconds": 1221.892,
+          "duration_seconds": 46.604,
+          "end_time_seconds": 718.0,
+          "sentence_timings_seconds": [
+            0.0,
+            3.696,
+            7.848,
+            12.072,
+            17.376,
+            24.048,
+            27.24,
+            32.544,
+            36.024
+          ],
+          "sentence_texts": [
+            "Comment dire que quelque chose est « extrêmement » ainsi ?",
+            "Vous pouvez utiliser la structure [zh:得很].",
+            "Vous l'ajoutez à la fin d'un adjectif ou d'un verbe exprimant un sentiment.",
+            "Cela crée une emphase bien plus forte que d'utiliser simplement [zh:很].",
+            "Dans le texte, quand on lui demande si faire la lessive est pratique, Ke Lin répond : [zh:方便得很].",
+            "Cela signifie « Extrêmement pratique ! »",
+            "C'est une manière plus emphatique et familière de dire [zh:很方便].",
+            "Vous pouvez aussi l'utiliser avec d'autres adjectifs.",
+            "Par exemple, [zh:热得很] pour « extrêmement chaud » ou [zh:忙得很] pour « extrêmement occupé »."
+          ]
         },
         {
           "segment_id": 31,
@@ -11562,9 +12156,29 @@
             }
           ],
           "visual_notes": "Afficher la phrase complète avec '因为' [zh:yīnwèi] et '所以' [zh:suǒyǐ] visibles, puis les faire disparaître progressivement pour montrer l'omission.",
-          "start_time_seconds": 1008.936,
-          "duration_seconds": 38.468,
-          "end_time_seconds": 743.0
+          "start_time_seconds": 1268.496,
+          "duration_seconds": 43.676,
+          "end_time_seconds": 743.0,
+          "sentence_timings_seconds": [
+            0.0,
+            4.344,
+            15.96,
+            19.848,
+            26.472,
+            32.736,
+            36.0,
+            38.976
+          ],
+          "sentence_texts": [
+            "Notre dernier point de grammaire concerne quelque chose qui est souvent omis.",
+            "En chinois parlé, les conjonctions comme [zh:因为] pour « parce que » et [zh:所以] pour « donc » sont fréquemment omises.",
+            "C'est le cas lorsque la relation de cause à effet est évidente.",
+            "Par exemple, Ke Lin dit : « [zh:不吵，这儿离大马路很远，很安静] ».",
+            "Une traduction plus littérale serait : « Ce n'est pas bruyant, car c'est loin de la grande route et donc très calme. »",
+            "Omettre ces conjonctions rend la langue plus fluide.",
+            "C'est comme dans une conversation informelle.",
+            "C'est une caractéristique essentielle du chinois parlé authentique."
+          ]
         },
         {
           "segment_id": 32,
@@ -11683,13 +12297,31 @@
           ],
           "grammar_points": [],
           "visual_notes": "Afficher les phrases clés sous forme de cartes flash qui se retournent pour révéler leur signification en français.",
-          "start_time_seconds": 1047.404,
-          "duration_seconds": 20.396,
-          "end_time_seconds": 763.0
+          "start_time_seconds": 1312.172,
+          "duration_seconds": 24.956,
+          "end_time_seconds": 763.0,
+          "sentence_timings_seconds": [
+            0.0,
+            2.064,
+            6.312,
+            9.936,
+            14.568,
+            18.36,
+            21.576
+          ],
+          "sentence_texts": [
+            "Excellent travail !",
+            "Passons rapidement en revue les points de grammaire principaux de cette leçon.",
+            "Nous avons appris à décrire ce qui existe à un endroit.",
+            "Comment exprimer des degrés relatifs avec [zh:比较].",
+            "Comment mettre l'accent avec [zh:得很].",
+            "Et que les conjonctions sont souvent omises à l'oral.",
+            "Continuez à pratiquer ces structures !"
+          ]
         }
       ],
       "timeline": {
-        "total_duration_seconds": 1067.8,
+        "total_duration_seconds": 1337.128,
         "segment_count": 32
       },
       "renderer_notes": {
@@ -12707,5 +13339,680 @@
     "target_lang": "fr",
     "target_lang_name": "French",
     "target_lang_native": "Français"
+  },
+  "explanation_narration_audio": {
+    "status": "ok",
+    "audio_file": "C:\\Users\\gaope\\Desktop\\Chilan\\backend\\content_builder\\artifacts\\integrated_chinese\\output_audio\\lesson2201_narration_fr\\lesson2201_narration_fr.mp3",
+    "segment_count": 32,
+    "segment_timings": {
+      "1": [
+        0.0,
+        3.432,
+        10.056,
+        15.48,
+        23.544,
+        28.512
+      ],
+      "2": [
+        0.0,
+        3.264,
+        7.32,
+        11.184,
+        17.52,
+        27.768
+      ],
+      "3": [
+        0.0,
+        4.728,
+        15.336,
+        19.224,
+        23.856,
+        32.184,
+        34.56
+      ],
+      "4": [
+        0.0,
+        2.448,
+        10.584,
+        14.208,
+        17.544,
+        20.736,
+        30.024,
+        37.512
+      ],
+      "5": [
+        0.0,
+        2.64,
+        8.688,
+        12.264,
+        15.816,
+        22.032,
+        25.296,
+        33.864
+      ],
+      "6": [
+        0.0,
+        2.784,
+        8.688,
+        12.552,
+        16.608,
+        22.848,
+        30.24,
+        35.616,
+        41.04
+      ],
+      "7": [
+        0.0,
+        3.36,
+        9.216,
+        13.56,
+        15.648,
+        23.688,
+        29.688,
+        36.36
+      ],
+      "8": [
+        0.0,
+        2.832,
+        13.416,
+        17.736,
+        23.016,
+        30.696,
+        33.096,
+        38.592
+      ],
+      "9": [
+        0.0,
+        6.6,
+        12.72,
+        14.64,
+        18.936,
+        24.432,
+        30.744
+      ],
+      "10": [
+        0.0,
+        3.264,
+        14.088,
+        17.52,
+        21.672,
+        25.32,
+        29.232,
+        33.48
+      ],
+      "11": [
+        0.0,
+        3.768,
+        8.616,
+        15.576,
+        20.184,
+        22.632,
+        27.648,
+        30.912,
+        35.472,
+        39.024
+      ],
+      "12": [
+        0.0,
+        2.616,
+        12.504,
+        16.128,
+        19.248,
+        22.224,
+        25.968,
+        29.904,
+        34.224,
+        37.824,
+        44.712
+      ],
+      "13": [
+        0.0,
+        2.976,
+        7.248,
+        13.2,
+        19.152,
+        22.992,
+        29.952
+      ],
+      "14": [
+        0.0,
+        4.848,
+        8.448,
+        10.32,
+        13.944,
+        17.808,
+        25.68
+      ],
+      "15": [
+        0.0,
+        7.872,
+        15.144,
+        24.0,
+        26.688,
+        30.312
+      ],
+      "16": [
+        0.0,
+        9.144,
+        16.32,
+        20.352,
+        23.688,
+        29.184
+      ],
+      "17": [
+        0.0,
+        6.456,
+        13.008,
+        19.776,
+        25.296
+      ],
+      "18": [
+        0.0,
+        12.36,
+        17.424,
+        22.152,
+        27.12,
+        29.64,
+        34.608
+      ],
+      "19": [
+        0.0,
+        8.376,
+        14.136,
+        16.056,
+        21.264,
+        25.056,
+        29.088,
+        34.68
+      ],
+      "20": [
+        0.0,
+        4.416,
+        9.288,
+        18.24,
+        21.432,
+        26.352,
+        30.144
+      ],
+      "21": [
+        0.0,
+        6.096,
+        11.472,
+        15.84,
+        20.472,
+        25.152,
+        30.84,
+        32.712
+      ],
+      "22": [
+        0.0,
+        2.856,
+        9.504,
+        14.736,
+        20.88,
+        28.608,
+        33.72,
+        37.512
+      ],
+      "23": [
+        0.0,
+        3.888,
+        11.328,
+        18.216,
+        22.8,
+        26.736,
+        31.848,
+        38.016
+      ],
+      "24": [
+        0.0,
+        2.592,
+        9.336,
+        15.96,
+        21.408,
+        27.432,
+        32.736,
+        36.6
+      ],
+      "25": [
+        0.0,
+        3.72,
+        8.16,
+        12.504,
+        22.92,
+        26.496,
+        34.872
+      ],
+      "26": [
+        0.0,
+        7.632,
+        14.376,
+        16.704,
+        21.312,
+        25.608,
+        33.6,
+        44.04,
+        46.536
+      ],
+      "27": [
+        0.0,
+        2.88,
+        6.792,
+        13.296,
+        18.432,
+        24.312
+      ],
+      "28": [
+        0.0,
+        4.344,
+        7.608,
+        11.424,
+        15.072,
+        23.472,
+        26.736,
+        31.968,
+        45.6,
+        51.72,
+        60.96,
+        68.016,
+        74.28
+      ],
+      "29": [
+        0.0,
+        4.08,
+        8.736,
+        12.6,
+        16.776,
+        22.368,
+        25.704,
+        29.304,
+        32.352,
+        37.344,
+        41.256,
+        47.688
+      ],
+      "30": [
+        0.0,
+        3.696,
+        7.848,
+        12.072,
+        17.376,
+        24.048,
+        27.24,
+        32.544,
+        36.024
+      ],
+      "31": [
+        0.0,
+        4.344,
+        15.96,
+        19.848,
+        26.472,
+        32.736,
+        36.0,
+        38.976
+      ],
+      "32": [
+        0.0,
+        2.064,
+        6.312,
+        9.936,
+        14.568,
+        18.36,
+        21.576
+      ]
+    },
+    "segment_actual_durations": {
+      "1": 35.948,
+      "2": 31.892,
+      "3": 43.124,
+      "4": 42.692,
+      "5": 40.868,
+      "6": 45.14,
+      "7": 39.908,
+      "8": 44.3,
+      "9": 41.66,
+      "10": 41.3,
+      "11": 43.58,
+      "12": 50.564,
+      "13": 37.82,
+      "14": 34.892,
+      "15": 41.468,
+      "16": 36.836,
+      "17": 30.404,
+      "18": 38.972,
+      "19": 38.18,
+      "20": 35.588,
+      "21": 39.02,
+      "22": 44.828,
+      "23": 42.284,
+      "24": 40.652,
+      "25": 40.124,
+      "26": 55.172,
+      "27": 28.94,
+      "28": 80.684,
+      "29": 55.052,
+      "30": 46.604,
+      "31": 43.676,
+      "32": 24.956
+    },
+    "segment_sentences": {
+      "1": [
+        "Commençons par décrire la chambre de Zhang Tianming.",
+        "La première partie de la phrase est [zh:张天明宿舍的房间不太大,住两个人].",
+        "Cela signifie que « la chambre de Zhang Tianming n'est pas très grande ; deux personnes y vivent ».",
+        "[zh:宿舍] signifie « dortoir », et [zh:房间] veut dire « chambre ».",
+        "[zh:不太大] est une façon courante de dire « pas très grand ».",
+        "Enfin, [zh:住两个人] nous indique que la chambre « est habitée par deux personnes »."
+      ],
+      "2": [
+        "Ensuite, nous découvrons son colocataire.",
+        "La phrase est [zh:他的同屋已经来了].",
+        "Cela se traduit par « Son colocataire est déjà arrivé ».",
+        "Le mot clé ici est [zh:同屋], qui signifie « colocataire ».",
+        "Le mot [zh:已经] signifie « déjà », et [zh:来了] veut dire « est venu » ou « est arrivé ».",
+        "Cette phrase simple nous dit qu'il n'est pas seul dans la chambre."
+      ],
+      "3": [
+        "Concentrons-nous sur le mot pour colocataire, [zh:同屋].",
+        "Il est composé de [zh:同], qui signifie « même », et de [zh:屋], qui veut dire « pièce » ou « chambre ».",
+        "Donc, cela signifie littéralement « même pièce ».",
+        "Un autre mot très courant pour colocataire est [zh:室友].",
+        "[zh:室] signifie aussi « pièce » ou « chambre », et [zh:友] veut dire « ami ».",
+        "Donc, « ami de chambre ».",
+        "Les deux, [zh:同屋] et [zh:室友], sont fréquemment utilisés."
+      ],
+      "4": [
+        "Décrivons maintenant les meubles.",
+        "La phrase dit : [zh:房间里家具不多,靠窗户摆着两张书桌,每张桌子的前边有一把椅子].",
+        "Cela signifie qu'il n'y a pas beaucoup de meubles dans la pièce.",
+        "Contre la fenêtre, deux bureaux sont installés.",
+        "Devant chaque bureau, il y a une chaise.",
+        "Remarquez la structure : la localisation vient en premier, comme [zh:靠窗户] qui signifie « contre la fenêtre ».",
+        "Ensuite, un verbe comme [zh:摆着], qui veut dire « sont placés », et enfin l'objet.",
+        "C'est une façon courante d'indiquer la présence de quelque chose à un endroit précis."
+      ],
+      "5": [
+        "Poursuivons la visite de la pièce.",
+        "Nous avons : [zh:书桌的旁边是床,床上有被子和毯子].",
+        "Cela signifie qu'à côté des bureaux, il y a des lits.",
+        "Sur ces lits, on trouve des couettes et des couvertures.",
+        "Ici, [zh:旁边] signifie « à côté » ou « près de ».",
+        "La phrase introduit deux nouveaux mots pour la literie.",
+        "Ce sont [zh:被子], une couette, et [zh:毯子], une couverture.",
+        "La structure [zh:床上有] signifie « sur le lit, il y a... »."
+      ],
+      "6": [
+        "Ensuite, nous avons les armoires.",
+        "La phrase est : [zh:床旁边有两个衣柜,柜子里挂着一些衣服].",
+        "Cela signifie qu'à côté des lits, il y a deux armoires.",
+        "À l'intérieur de ces armoires, des vêtements sont suspendus.",
+        "[zh:衣柜] est le mot pour « armoire », qui signifie littéralement « meuble à vêtements ».",
+        "[zh:衣] signifie « vêtements » et [zh:柜] signifie « meuble ».",
+        "Le verbe [zh:挂] signifie « suspendre ».",
+        "Donc, [zh:挂着] veut dire « sont suspendus ».",
+        "Cela nous indique ce qu'il y a à l'intérieur des armoires."
+      ],
+      "7": [
+        "Enfin, regardons les étagères à livres.",
+        "Le texte dit : [zh:门右边放着两个书架,书架还是空的].",
+        "Cela signifie qu'à droite de la porte, il y a deux étagères à livres.",
+        "Elles sont encore vides.",
+        "[zh:门] signifie « porte » et [zh:右边] signifie « le côté droit ».",
+        "Le nouveau mot est [zh:空], un adjectif qui veut dire « vide ».",
+        "L'expression [zh:还是空的] signifie qu'elles « sont encore vides ».",
+        "Cela sous-entend qu'elles attendent d'être remplies."
+      ],
+      "8": [
+        "Maintenant, un personnage parle.",
+        "[zh:真热！房间里怎么没有空调？] Cela signifie : « Il fait si chaud ! Comment se fait-il qu'il n'y ait pas de climatisation dans cette pièce ? »",
+        "[zh:真热] veut dire « il fait vraiment chaud ».",
+        "Le mot [zh:真] est utilisé pour insister.",
+        "La question [zh:怎么没有] est une façon courante de demander « comment se fait-il qu'il n'y ait pas... ? »",
+        "ou « pourquoi n'y a-t-il pas... ? ».",
+        "Le nouveau mot est [zh:空调], la climatisation.",
+        "C'est l'abréviation d'un terme plus long, mais cette forme courte est presque toujours utilisée."
+      ],
+      "9": [
+        "Voici la réponse : [zh:这栋楼比较旧，我大一的时候在这儿住过].",
+        "Cela signifie : « Ce bâtiment est plutôt vieux. J'y ai habité quand j'étais en première année. »",
+        "Analysons cela.",
+        "[zh:栋] est un classificateur pour les bâtiments.",
+        "[zh:比较旧] signifie « relativement vieux » ou « plutôt vieux ».",
+        "[zh:大一] est une façon familière de dire « étudiant de première année à l'université ».",
+        "Enfin, [zh:住过] utilise la particule [zh:过] pour indiquer une expérience passée, « avoir habité »."
+      ],
+      "10": [
+        "Le personnage exprime une autre préoccupation.",
+        "Il dit : [zh:卫生间也比较小。住在这儿恐怕很不方便吧？] Cette phrase signifie : « La salle de bain est aussi assez petite. »",
+        "« Il doit être très peu pratique d'y vivre, n'est-ce pas ? »",
+        "[zh:卫生间] signifie « salle de bain ».",
+        "Le mot clé ici est [zh:恐怕].",
+        "C'est un adverbe qui exprime une évaluation ou une inquiétude.",
+        "On pourrait le traduire par « je crains que » ou « je suppose que ».",
+        "La particule [zh:吧] à la fin transforme l'affirmation en une question spéculative."
+      ],
+      "11": [
+        "Regardons de plus près [zh:恐怕].",
+        "Il est utilisé pour exprimer doucement une inquiétude ou une supposition négative.",
+        "Par exemple, s'il pleut, vous pourriez dire : [zh:下雨了,恐怕我们不能打球了].",
+        "Cela signifie : « Il pleut, je crains que nous ne puissions pas jouer au ballon. »",
+        "Cela adoucit l'affirmation.",
+        "Notez que l'on dit rarement « j'ai peur » ou [zh:我恐怕].",
+        "Le « je » est généralement sous-entendu.",
+        "Ainsi, vous diriez [zh:他恐怕不能去了].",
+        "Cela signifie : « Je crains qu'il ne puisse pas y aller. »",
+        "Et non pas [zh:我恐怕他不能去了]."
+      ],
+      "12": [
+        "L'autre personne n'est pas d'accord.",
+        "Elle répond : [zh:不，这儿很方便。学生餐厅就在楼下，餐厅旁边有一个小商店，卖日用品和文具].",
+        "Cela signifie : « Non, c'est très pratique ici. »",
+        "« Le restaurant universitaire est juste en bas. »",
+        "« À côté, il y a un petit magasin. »",
+        "« Il vend des produits de première nécessité et de la papeterie. »",
+        "[zh:不] est un « non » direct.",
+        "[zh:餐厅] est une cafétéria ou un restaurant.",
+        "[zh:楼下] signifie « en bas ».",
+        "Le magasin vend des [zh:日用品], c'est-à-dire des produits de première nécessité.",
+        "Il vend aussi des [zh:文具], de la papeterie."
+      ],
+      "13": [
+        "L'explication de la commodité continue.",
+        "[zh:教室离这儿不远，走路差不多五、六分钟].",
+        "Cela signifie : « Les salles de classe ne sont pas loin d'ici, à environ cinq ou six minutes à pied. »",
+        "La structure [zh:离...不远] veut dire « pas loin de... ».",
+        "[zh:走路] signifie « marcher ».",
+        "Le mot clé est [zh:差不多], qui veut dire « approximativement » ou « environ ».",
+        "Donc, [zh:差不多五、六分钟] signifie « environ cinq ou six minutes »."
+      ],
+      "14": [
+        "Voici une question pratique : [zh:洗衣服方便吗？].",
+        "Cela signifie : « Est-ce pratique de faire la lessive ? »",
+        "Décomposons-la.",
+        "[zh:洗] signifie « laver ».",
+        "[zh:衣服] signifie « vêtements ».",
+        "Ainsi, [zh:洗衣服] est l'expression verbale pour « laver les vêtements » ou « faire la lessive ».",
+        "La question suit un modèle simple : [Activité] + [zh:方便吗] ?, pour demander si cette activité est pratique."
+      ],
+      "15": [
+        "La réponse est très positive : [zh:方便得很。这层楼有三台洗衣机和三台干衣机].",
+        "Cela signifie : « Extrêmement pratique. Cet étage dispose de trois machines à laver et de trois sèche-linge. »",
+        "L'expression [zh:方便得很] utilise une structure spéciale : « adjectif + [zh:得很] ».",
+        "Cela signifie « extrêmement ».",
+        "C'est plus fort que de dire simplement « très pratique ».",
+        "Nous apprenons aussi de nouveaux mots : [zh:洗衣机] pour « machine à laver » et [zh:干衣机] pour « sèche-linge »."
+      ],
+      "16": [
+        "La question suivante concerne le niveau sonore : [zh:这儿吵不吵？]\nC'est une question de type « Adjectif-non-Adjectif ».",
+        "Vous prenez un adjectif, ici [zh:吵] (chǎo), qui signifie « bruyant ».",
+        "Vous formez la question en disant « Adjectif non Adjectif ? ».",
+        "C'est une autre façon de poser une question fermée.",
+        "C'est comme ajouter [zh:吗] à la fin d'une phrase.",
+        "Donc, [zh:吵不吵] est la même chose que de demander [zh:吵吗]."
+      ],
+      "17": [
+        "La réponse est rassurante : [zh:不吵，这儿离大马路很远，很安静].",
+        "Elle commence par un direct [zh:不吵], qui signifie « pas bruyant ».",
+        "Elle donne ensuite une raison : [zh:离大马路很远], « loin de la route principale ».",
+        "Le résultat est que c'est [zh:很安静], « très calme ».",
+        "[zh:安静] est l'opposé de [zh:吵]."
+      ],
+      "18": [
+        "La dernière question concerne la nourriture : [zh:听说学校餐厅的饭一般都不太好。这儿的呢？]\n[zh:听说] signifie « j'ai entendu dire que... ».",
+        "[zh:一般] signifie « généralement » ou « d'habitude ».",
+        "[zh:不太好] est une façon plus douce de dire « pas bon ».",
+        "Le [zh:呢] final est très utile.",
+        "Il crée une question de suivi.",
+        "Il demande « qu'en est-il de... » le sujet qui vient d'être abordé.",
+        "Ici, il s'agit de la nourriture de cette cafétéria."
+      ],
+      "19": [
+        "La première personne est d'accord en disant [zh:你说对了], ce qui signifie « Tu as raison » ou « C'est ça ».",
+        "Ensuite, elle ajoute son opinion : [zh:餐厅的饭真的不怎么样].",
+        "Analysons cela.",
+        "[zh:餐厅的饭] signifie « la nourriture de la cafétéria ».",
+        "[zh:真的] signifie « vraiment ».",
+        "L'expression clé ici est [zh:不怎么样].",
+        "C'est une façon familière de dire que quelque chose n'est « pas terrible » ou « juste comme ça ».",
+        "C'est une expression très courante et utile."
+      ],
+      "20": [
+        "Examinons de plus près l'expression [zh:不怎么样].",
+        "Elle signifie « pas terrible » et est généralement utilisée comme prédicat.",
+        "Par exemple, vous pourriez dire [zh:这个图书馆不怎么样], ce qui signifie « Cette bibliothèque n'est pas terrible ».",
+        "C'est une expression familière et assez directe.",
+        "Il est donc préférable de l'utiliser entre amis ou avec des personnes que vous connaissez bien.",
+        "Dans ces situations, vous n'avez pas besoin d'être trop poli.",
+        "C'est un excellent moyen de donner une opinion franche et négative sans être trop dur."
+      ],
+      "21": [
+        "En entendant la mauvaise nouvelle à propos de la nourriture, l'étudiant réagit avec surprise et inquiétude.",
+        "Premièrement, [zh:真的] signifie « Vraiment ? ».",
+        "On l'utilise pour demander confirmation ou exprimer de l'incrédulité.",
+        "Vient ensuite la question importante : [zh:那怎么办].",
+        "[zh:那] signifie « alors » ou « dans ce cas ».",
+        "[zh:怎么办] est une expression très courante qui signifie « que faut-il faire ? »",
+        "ou « que faire ? ».",
+        "Donc, la phrase entière demande : « Vraiment ? Alors, que dois-je faire ? »."
+      ],
+      "22": [
+        "L'autre étudiant propose une solution.",
+        "Il commence par [zh:你别着急], ce qui signifie « Ne t'inquiète pas ».",
+        "[zh:别] est utilisé pour dire à quelqu'un de ne pas faire quelque chose.",
+        "Et [zh:着急] signifie « s'inquiéter » ou « être anxieux ».",
+        "Ensuite, il dit [zh:附近有很多饭馆儿], « Il y a beaucoup de restaurants à proximité ».",
+        "Enfin, il ajoute [zh:还有一家中国餐馆儿呢].",
+        "Cela signifie « et il y a aussi un restaurant chinois ».",
+        "La particule finale [zh:呢] ajoute un ton doux et rassurant à l'affirmation."
+      ],
+      "23": [
+        "Ici, l'étudiant exprime un certain scepticisme.",
+        "La phrase commence par [zh:我觉得], qui signifie « je pense » ou « je trouve ».",
+        "Le sujet est [zh:美国的中国餐馆儿], « les restaurants chinois en Amérique ».",
+        "Le commentaire sur ce sujet est [zh:好吃的不多].",
+        "[zh:好吃] signifie « délicieux ».",
+        "Et [zh:不多] signifie « pas beaucoup ».",
+        "Donc, le sens complet est : « Je pense que parmi les restaurants chinois en Amérique, peu sont délicieux ».",
+        "C'est une structure de phrase courante pour donner une opinion."
+      ],
+      "24": [
+        "L'autre étudiant n'est pas d'accord.",
+        "Il dit [zh:那也不见得], ce qui signifie « Ce n'est pas forcément vrai ».",
+        "Il donne ensuite un exemple précis : [zh:附近那家中国餐馆儿的菜就很地道].",
+        "Cela signifie « Les plats de ce restaurant chinois à proximité sont très authentiques ».",
+        "Le mot clé ici est [zh:地道], qui signifie « authentique ».",
+        "Il étaye son affirmation en disant [zh:我和我的女朋友常去].",
+        "Cela signifie « Ma petite amie et moi y allons souvent ».",
+        "[zh:常] signifie « souvent »."
+      ],
+      "25": [
+        "Concentrons-nous sur le mot [zh:地道].",
+        "C'est un adjectif qui signifie « authentique » ou « véritable ».",
+        "Il implique que quelque chose répond à un certain niveau d'exigence élevé.",
+        "On l'utilise le plus souvent pour décrire la nourriture, comme dans notre dialogue : [zh:地道的中国菜] signifie « de la vraie cuisine chinoise ».",
+        "Il peut aussi décrire une compétence linguistique.",
+        "Par exemple, [zh:他说的北京话很地道] veut dire « Son dialecte de Pékin est très authentique ».",
+        "C'est un mot formidable à utiliser quand on veut louer la qualité de quelque chose."
+      ],
+      "26": [
+        "Plein d'espoir, l'étudiant demande à nouveau [zh:真的吗], ce qui signifie « Vraiment ? ».",
+        "Ensuite, il fait une suggestion : [zh:那么过几天你带我去那儿看看，好吗].",
+        "Décomposons cette phrase.",
+        "[zh:那么] signifie « alors » ou « dans ce cas ».",
+        "[zh:过几天] veut dire « dans quelques jours ».",
+        "La requête principale est [zh:你带我去那儿看看], soit « tu m'emmènes là-bas pour jeter un œil ».",
+        "Utiliser [zh:看看], une répétition de « regarder », au lieu de simplement [zh:看], adoucit la demande.",
+        "Cela la rend plus décontractée.",
+        "La phrase se termine par [zh:好吗], « d'accord ? », une façon courante de demander poliment un accord."
+      ],
+      "27": [
+        "C'est un accord simple et enthousiaste.",
+        "La réponse est [zh:好，没问题].",
+        "[zh:好] signifie « bien » ou « d'accord », et c'est une façon standard d'accepter.",
+        "[zh:没问题] se traduit littéralement par « pas de problème ».",
+        "Ensemble, c'est une façon très positive et courante de dire « Bien sûr, pas de problème ! ».",
+        "Cela montre que l'interlocuteur est heureux de satisfaire la demande."
+      ],
+      "28": [
+        "Passons à notre premier point de grammaire : les phrases existentielles.",
+        "Elles nous indiquent ce qui se trouve à un endroit précis.",
+        "La structure de base est : Lieu + Verbe + Objet.",
+        "Dans notre texte, nous en voyons de nombreux exemples.",
+        "Par exemple, [zh:靠窗户摆着两张书桌], qui signifie « Deux bureaux sont placés contre la fenêtre ».",
+        "Ici, « contre la fenêtre » est le lieu.",
+        "[zh:摆] est le verbe « placer », et « deux bureaux » est l'objet.",
+        "D'autres verbes sont également courants, comme [zh:放] pour « mettre », [zh:挂] pour « accrocher », et [zh:坐] pour « s'asseoir ».",
+        "Le texte utilise aussi [zh:有] et [zh:是].",
+        "Par exemple, [zh:餐厅旁边有一个小商店] signifie « À côté de la cafétéria, il y a un petit magasin ».",
+        "Et [zh:书桌的旁边是床] signifie « À côté du bureau, il y a le lit ».",
+        "Retenez que [zh:是] implique souvent que c'est la seule chose présente.",
+        "Tandis que [zh:有] suggère que c'est l'une des nombreuses choses."
+      ],
+      "29": [
+        "Ensuite, examinons le mot [zh:比较].",
+        "Il signifie « relativement », « comparativement » ou « plutôt ».",
+        "On l'utilise pour faire une déclaration générale sur un degré.",
+        "Pas pour une comparaison directe et nette entre deux choses spécifiques.",
+        "Par exemple, dans le dialogue, Ke Lin dit [zh:这栋楼比较旧].",
+        "Cela signifie « Ce bâtiment est plutôt vieux ».",
+        "Il ne le compare pas à un autre bâtiment spécifique.",
+        "Il décrit simplement son état général.",
+        "De même, Zhang Tianming dit [zh:卫生间也比较小].",
+        "Cela veut dire « La salle de bain est aussi assez petite ».",
+        "Attention à ne pas utiliser [zh:比较] pour des comparaisons directes.",
+        "Pour cela, vous utiliseriez un mot comme [zh:更], qui signifie « encore plus »."
+      ],
+      "30": [
+        "Comment dire que quelque chose est « extrêmement » ainsi ?",
+        "Vous pouvez utiliser la structure [zh:得很].",
+        "Vous l'ajoutez à la fin d'un adjectif ou d'un verbe exprimant un sentiment.",
+        "Cela crée une emphase bien plus forte que d'utiliser simplement [zh:很].",
+        "Dans le texte, quand on lui demande si faire la lessive est pratique, Ke Lin répond : [zh:方便得很].",
+        "Cela signifie « Extrêmement pratique ! »",
+        "C'est une manière plus emphatique et familière de dire [zh:很方便].",
+        "Vous pouvez aussi l'utiliser avec d'autres adjectifs.",
+        "Par exemple, [zh:热得很] pour « extrêmement chaud » ou [zh:忙得很] pour « extrêmement occupé »."
+      ],
+      "31": [
+        "Notre dernier point de grammaire concerne quelque chose qui est souvent omis.",
+        "En chinois parlé, les conjonctions comme [zh:因为] pour « parce que » et [zh:所以] pour « donc » sont fréquemment omises.",
+        "C'est le cas lorsque la relation de cause à effet est évidente.",
+        "Par exemple, Ke Lin dit : « [zh:不吵，这儿离大马路很远，很安静] ».",
+        "Une traduction plus littérale serait : « Ce n'est pas bruyant, car c'est loin de la grande route et donc très calme. »",
+        "Omettre ces conjonctions rend la langue plus fluide.",
+        "C'est comme dans une conversation informelle.",
+        "C'est une caractéristique essentielle du chinois parlé authentique."
+      ],
+      "32": [
+        "Excellent travail !",
+        "Passons rapidement en revue les points de grammaire principaux de cette leçon.",
+        "Nous avons appris à décrire ce qui existe à un endroit.",
+        "Comment exprimer des degrés relatifs avec [zh:比较].",
+        "Comment mettre l'accent avec [zh:得很].",
+        "Et que les conjonctions sont souvent omises à l'oral.",
+        "Continuez à pratiquer ces structures !"
+      ]
+    }
   }
 }
