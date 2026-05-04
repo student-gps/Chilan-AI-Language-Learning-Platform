@@ -89,10 +89,17 @@ class BaseLLMProvider(ABC):
         # 2. 尝试标准解析
         try:
             return self._to_simplified(json.loads(clean_text))
-        except json.JSONDecodeError:
+        except json.JSONDecodeError as parse_error:
             # 3. 如果标准解析失败，启动 json-repair 自动缝补
             try:
-                print("⚠️ 检测到 JSON 语法错误，正在启动自动缝补...")
+                start = max(0, parse_error.pos - 120)
+                end = min(len(clean_text), parse_error.pos + 120)
+                snippet = clean_text[start:end].replace("\n", "\\n")
+                print(
+                    "⚠️ 检测到 JSON 语法错误，正在启动自动缝补..."
+                    f" ({parse_error.msg} @ line {parse_error.lineno}, col {parse_error.colno}; "
+                    f"near: {snippet[:240]})"
+                )
                 repaired_json_str = repair_json(clean_text)
                 return self._to_simplified(json.loads(repaired_json_str))
             except Exception as e:
@@ -399,7 +406,7 @@ class LLMFactory:
     @staticmethod
     def create_provider() -> BaseLLMProvider:
         provider_type = get_env("LLM_CONTENT_PROVIDER", default="gemini").lower()
-        
+
         if provider_type == "gemini":
             model_id = get_env("LLM_CONTENT_GEMINI_MODEL_ID", default="gemini-2.0-flash")
             use_vertex = get_env("LLM_GEMINI_USE_VERTEX", default="false").lower() == "true"
@@ -421,18 +428,55 @@ class LLMFactory:
             api_key = get_env("LLM_CONTENT_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
             if not api_key: raise ValueError("❌ 未找到 Gemini API Key")
             return GeminiProvider(api_key, model_id)
-            
+
         elif provider_type == "claude":
             api_key = get_env("LLM_CONTENT_CLAUDE_API_KEY")
             model_id = get_env("LLM_CONTENT_CLAUDE_MODEL_ID", default="claude-3-5-sonnet-latest")
             if not api_key: raise ValueError("❌ 未找到 Claude API Key")
             return ClaudeProvider(api_key, model_id)
-            
+
         elif provider_type == "doubao":
             api_key = get_env("LLM_CONTENT_DOUBAO_API_KEY")
             endpoint_id = get_env("LLM_CONTENT_DOUBAO_ENDPOINT_ID")
             if not api_key or not endpoint_id: raise ValueError("❌ 未找到 Doubao 配置")
             return DoubaoProvider(api_key, endpoint_id)
-            
+
         else:
             raise ValueError(f"❌ 不支持的模型类型: {provider_type}")
+
+    @staticmethod
+    def create_fallback_provider() -> "BaseLLMProvider | None":
+        """返回用于重试的高能力备用 Provider（模型更强但更贵）。
+
+        仅当 LLM_CONTENT_GEMINI_FALLBACK_MODEL_ID 已配置时才返回实例，
+        否则返回 None（调用方降级为继续使用主 provider）。
+        目前仅支持 Gemini provider 的 model 切换。
+        """
+        provider_type = get_env("LLM_CONTENT_PROVIDER", default="gemini").lower()
+        if provider_type != "gemini":
+            return None
+
+        fallback_model = get_env("LLM_CONTENT_GEMINI_FALLBACK_MODEL_ID", default="")
+        if not fallback_model:
+            return None
+
+        use_vertex = get_env("LLM_GEMINI_USE_VERTEX", default="false").lower() == "true"
+        if use_vertex:
+            project = get_env("VERTEX_AI_PROJECT_ID")
+            location = get_env("VERTEX_AI_LOCATION", default="us-central1")
+            fallback_raw = get_env("VERTEX_AI_FALLBACK_LOCATIONS", default="")
+            fallback_locations = [l.strip() for l in fallback_raw.split(",") if l.strip()]
+            sa_key = get_env("GOOGLE_APPLICATION_CREDENTIALS")
+            if sa_key:
+                os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sa_key
+            if not project:
+                return None
+            return GeminiProvider(api_key=None, model_id=fallback_model,
+                                  use_vertex=True, vertex_project=project,
+                                  vertex_location=location,
+                                  vertex_fallback_locations=fallback_locations)
+
+        api_key = get_env("LLM_CONTENT_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
+        if not api_key:
+            return None
+        return GeminiProvider(api_key, fallback_model)

@@ -1,10 +1,8 @@
-import os
 import sys
 import json
 import time
 import re
 import shutil
-import subprocess
 import argparse
 from pathlib import Path
 
@@ -15,32 +13,6 @@ from dotenv import load_dotenv
 from core.paths import default_paths
 from core.pipeline import get_pipeline
 
-def _env_flag(name: str, default: bool = False) -> bool:
-    value = os.getenv(name)
-    if value is None:
-        return default
-    return value.strip().lower() in {"1", "true", "yes", "on"}
-
-
-
-def sync_to_db(base_dir: Path, lesson_id: int) -> bool:
-    sync_script = base_dir / "database" / "sync_to_db.py"
-    if not sync_script.exists():
-        print(f"⚠️ 未找到 sync_to_db.py，跳过入库。")
-        return False
-    print(f"🗄️ 开始将 lesson{lesson_id} 同步入库...")
-    try:
-        subprocess.run(
-            ["python", str(sync_script)],
-            cwd=str(base_dir),
-            check=True,
-        )
-        print(f"✅ lesson{lesson_id} 入库完成。")
-        return True
-    except subprocess.CalledProcessError as e:
-        print(f"⚠️ lesson{lesson_id} 入库失败（退出码 {e.returncode}），请手动执行 sync_to_db.py。")
-        return False
-
 
 def main():
     parser = argparse.ArgumentParser(description="Run the content builder pipeline for raw lesson PDFs.")
@@ -48,11 +20,6 @@ def main():
         "--pipeline",
         default="integrated_chinese",
         help="教材流水线 ID（默认: integrated_chinese）。",
-    )
-    parser.add_argument(
-        "--sync",
-        action="store_true",
-        help="生成内容后自动同步到数据库（默认只生成 JSON，不入库）。",
     )
     args = parser.parse_args()
 
@@ -62,7 +29,6 @@ def main():
 
     # 向上寻找 backend/.env 文件
     load_dotenv(dotenv_path=BASE_DIR / ".env")
-    should_sync = args.sync
     pipeline = get_pipeline(args.pipeline)
 
     # 2. 引擎初始化
@@ -121,9 +87,6 @@ def main():
             with open(output_file, "w", encoding="utf-8") as f:
                 json.dump(result, f, ensure_ascii=False, indent=2)
             print(f"✅ Stage 1 完成: {output_file.name}")
-
-            if should_sync:
-                sync_to_db(BASE_DIR, lesson_id)
             
             # PDF 归档
             try:

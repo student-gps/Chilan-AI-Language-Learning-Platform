@@ -32,6 +32,8 @@ LANG_META = {
     "es": {"name": "Spanish",  "native": "Español"},
     "ja": {"name": "Japanese", "native": "日本語"},
     "ko": {"name": "Korean",   "native": "한국어"},
+    "vi": {"name": "Vietnamese", "native": "Tiếng Việt"},
+    "ar": {"name": "Arabic", "native": "العربية"},
 }
 
 BATCH_SIZE = 50
@@ -56,6 +58,8 @@ def _build_prompt(lang_name: str, strings_dict: dict, mode: str = "general") -> 
 
 Rules:
 1. Output ONLY valid JSON with the exact same keys. No markdown, no extra text.
+2. Keep the result concise and appropriate for a language-learning app.
+3. Do not use raw ASCII double quotes (") inside translated string values; use natural target-language quotation marks or no quotes.
 
 Input:
 {payload}
@@ -101,6 +105,42 @@ def _build_pos_lookup(llm, lang_name: str, pending: list) -> dict:
     return lookup
 
 
+def _translated_field_missing(target_sense: dict, field: str) -> bool:
+    if field == "example.translation":
+        return not ((target_sense.get("example") or {}).get("translation") or "").strip()
+    return not (target_sense.get(field) or "").strip()
+
+
+def _copy_source_sense(source_sense: dict) -> dict:
+    target_sense = copy.deepcopy(source_sense)
+    target_sense["source_definition"] = source_sense.get("definition", "")
+    target_sense["source_part_of_speech"] = source_sense.get("part_of_speech", "")
+    return target_sense
+
+
+def _ensure_source_fields(en_data: dict, target_data: dict) -> bool:
+    changed = False
+    for word, senses in target_data.items():
+        if not isinstance(senses, list):
+            continue
+        source_senses = en_data.get(word, [])
+        if not isinstance(source_senses, list):
+            continue
+        for idx, sense in enumerate(senses):
+            if not isinstance(sense, dict) or idx >= len(source_senses):
+                continue
+            source_sense = source_senses[idx]
+            source_definition = source_sense.get("definition", "")
+            source_pos = source_sense.get("part_of_speech", "")
+            if sense.get("source_definition") != source_definition:
+                sense["source_definition"] = source_definition
+                changed = True
+            if sense.get("source_part_of_speech") != source_pos:
+                sense["source_part_of_speech"] = source_pos
+                changed = True
+    return changed
+
+
 def _collect_pending(en_data: dict, fr_data: dict) -> list:
     """
     Return list of (flat_key, english_text) for all entries not yet translated.
@@ -109,16 +149,19 @@ def _collect_pending(en_data: dict, fr_data: dict) -> list:
     """
     items = []
     for word, senses in en_data.items():
+        if not isinstance(senses, list):
+            continue
         fr_senses = fr_data.get(word, [])
         for s_idx, sense in enumerate(senses):
-            if s_idx < len(fr_senses):
+            if not isinstance(sense, dict):
                 continue
+            target_sense = fr_senses[s_idx] if isinstance(fr_senses, list) and s_idx < len(fr_senses) and isinstance(fr_senses[s_idx], dict) else {}
             base = f"{word}|||{s_idx}"
-            if sense.get("definition"):
+            if sense.get("definition") and _translated_field_missing(target_sense, "definition"):
                 items.append((f"{base}|||definition", sense["definition"]))
-            if sense.get("part_of_speech"):
+            if sense.get("part_of_speech") and _translated_field_missing(target_sense, "part_of_speech"):
                 items.append((f"{base}|||part_of_speech", sense["part_of_speech"]))
-            if sense.get("example", {}).get("translation"):
+            if sense.get("example", {}).get("translation") and _translated_field_missing(target_sense, "example.translation"):
                 items.append((f"{base}|||example.translation", sense["example"]["translation"]))
     return items
 
@@ -135,10 +178,13 @@ def _apply_translations(en_data: dict, fr_data: dict, translated_map: dict) -> d
 
         # Extend list if needed
         while len(fr_data[word]) <= s_idx:
-            src_sense = copy.deepcopy(en_data[word][len(fr_data[word])])
+            src_sense = _copy_source_sense(en_data[word][len(fr_data[word])])
             fr_data[word].append(src_sense)
 
         sense = fr_data[word][s_idx]
+        source_sense = en_data[word][s_idx]
+        sense["source_definition"] = source_sense.get("definition", "")
+        sense["source_part_of_speech"] = source_sense.get("part_of_speech", "")
         if field == "example.translation":
             sense.setdefault("example", {})["translation"] = value
         else:
@@ -165,6 +211,10 @@ def translate_vocab_memory(lang: str, llm, dry_run: bool = False) -> None:
         with open(dst_path, encoding="utf-8") as f:
             fr_data = json.load(f)
         print(f"📂 Loaded existing {dst_path.name} ({len(fr_data)} words already translated)")
+        if _ensure_source_fields(en_data, fr_data) and not dry_run:
+            with open(dst_path, "w", encoding="utf-8") as f:
+                json.dump(fr_data, f, ensure_ascii=False, indent=2)
+            print("  🔖 Added missing source_definition/source_part_of_speech fields.")
     else:
         print(f"🆕 No existing {lang} file — full translation run")
 
@@ -236,7 +286,7 @@ def translate_vocab_memory(lang: str, llm, dry_run: bool = False) -> None:
 
 def main():
     parser = argparse.ArgumentParser(description="Translate global_vocab_memory.json to a target language")
-    parser.add_argument("--lang", required=True, help="Target language code: fr, de, es, ja, ko")
+    parser.add_argument("--lang", required=True, help="Target language code: fr, de, es, ja, ko, vi, ar")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be translated without writing")
     args = parser.parse_args()
 

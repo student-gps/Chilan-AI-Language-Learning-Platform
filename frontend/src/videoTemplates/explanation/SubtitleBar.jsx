@@ -115,7 +115,9 @@ export function splitSentences(text) {
  *     always showing the first sentence statically.
  */
 export default function SubtitleBar({ text }) {
-    const { sentenceIndex, sentenceTexts } = useSubtitle();
+    const { sentenceIndex, sentenceTexts, showSubtitleBar = true } = useSubtitle();
+    if (!showSubtitleBar) return null;
+
     const sentences = sentenceTexts?.length ? sentenceTexts : splitSentences(text);
     if (!sentences.length) return null;
 

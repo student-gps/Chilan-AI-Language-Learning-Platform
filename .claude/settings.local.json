@@ -6,7 +6,23 @@
       "Bash(python test_zh_voices.py)",
       "Bash(python gen_voice_matrix.py)",
       "Bash(python3 -c ' *)",
-      "Bash(git -C c:/Users/gaope/Desktop/Chilan status --short)"
+      "Bash(git -C c:/Users/gaope/Desktop/Chilan status --short)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\gaope\\\\Desktop\\\\Chilan\" -Force)",
+      "Bash(Select-Object Name, Mode)",
+      "Bash(ls -la \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\")",
+      "Bash(ls -la \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\\\\\\\\backend\")",
+      "Bash(ls -la \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\\\\\\\\frontend\")",
+      "Bash(cd \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\")",
+      "Bash(find \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\\\\\\\\backend\" -maxdepth 2 -type d)",
+      "Bash(find \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\\\\\\\\frontend\\\\\\\\src\" -maxdepth 2 -type d)",
+      "Bash(ls -la \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\\\\\\\\backend\\\\\\\\routers\")",
+      "Bash(ls -la \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\\\\\\\\backend\\\\\\\\services\")",
+      "Bash(ls -la \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\\\\\\\\backend\\\\\\\\services\\\\\\\\study\")",
+      "Bash(find \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\\\\\\\\frontend\\\\\\\\src\\\\\\\\pages\\\\\\\\studyPage\" -type f -name \"*.jsx\")",
+      "Bash(ls -la \"c:\\\\\\\\Users\\\\\\\\gaope\\\\\\\\Desktop\\\\\\\\Chilan\\\\\\\\backend\\\\\\\\content_builder\\\\\\\\core\")",
+      "PowerShell(head -50)",
+      "PowerShell(\\(Get-ChildItem \"C:\\\\Users\\\\gaope\\\\Desktop\\\\Chilan\\\\backend\\\\content_builder\\\\artifacts\" -Force\\).Count)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\gaope\\\\Desktop\\\\Chilan\\\\backend\\\\content_builder\\\\artifacts\\\\integrated_chinese\\\\output_json\" -Force | ForEach-Object { \"$\\($_.Name\\)  [$\\($_.PSIsContainer\\)]\" })"
     ],
     "additionalDirectories": [
       "C:\\Users\\gaope\\Desktop\\Chilan\\backend"

@@ -99,8 +99,14 @@ def _normalize_video_render_plan(payload: Any) -> Dict[str, Any]:
     explanation = payload.get("explanation")
     if not isinstance(explanation, dict):
         explanation = {}
+    teaching_slide_deck = payload.get("teaching_slide_deck")
+    if not isinstance(teaching_slide_deck, dict):
+        teaching_slide_deck = None
 
-    return {"explanation": explanation}
+    normalized = {"explanation": explanation}
+    if teaching_slide_deck:
+        normalized["teaching_slide_deck"] = teaching_slide_deck
+    return normalized
 
 
 def _normalize_explanation_video_urls(payload: Any) -> Dict[str, Any]:

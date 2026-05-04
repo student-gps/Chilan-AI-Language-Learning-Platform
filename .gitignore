@@ -8,6 +8,7 @@ venv/
 .env
 .env.*
 backend/credentials/
+backend/credentials*.zip
 .pytest_cache/
 .mypy_cache/
 
@@ -31,35 +32,8 @@ textbook/
 documents/
 project report/
 
-# content_builder 运行产物（统一在 artifacts/ 下）
-# 默认忽略大文件产物；保留可复现/可迁移的 JSON 数据，使 clone 后可直接 localize/render。
-backend/content_builder/artifacts/*
-
-# Integrated Chinese: track JSON inputs/outputs and vocabulary memory.
-!backend/content_builder/artifacts/integrated_chinese/
-backend/content_builder/artifacts/integrated_chinese/*
-!backend/content_builder/artifacts/integrated_chinese/output_json/
-!backend/content_builder/artifacts/integrated_chinese/output_json/**
-!backend/content_builder/artifacts/integrated_chinese/synced_json/
-!backend/content_builder/artifacts/integrated_chinese/synced_json/**
-!backend/content_builder/artifacts/integrated_chinese/vocab_memory/
-!backend/content_builder/artifacts/integrated_chinese/vocab_memory/**
-
-# New Concept English: track JSON inputs/outputs as lightweight reproducible state.
-!backend/content_builder/artifacts/new_concept_english/
-backend/content_builder/artifacts/new_concept_english/*
-!backend/content_builder/artifacts/new_concept_english/output_json/
-!backend/content_builder/artifacts/new_concept_english/output_json/**
-!backend/content_builder/artifacts/new_concept_english/synced_json/
-!backend/content_builder/artifacts/new_concept_english/synced_json/**
-
-# Always ignore bulky/generated media and source PDFs/materials.
-backend/content_builder/artifacts/**/output_audio/
-backend/content_builder/artifacts/**/output_video/
-backend/content_builder/artifacts/**/raw_materials/
-backend/content_builder/artifacts/**/archive_pdfs/
-backend/content_builder/artifacts/**/_archive/
-backend/content_builder/artifacts/**/test_tts_output/
+# content_builder 运行产物：全部本地生成/上传，不进 Git。
+backend/content_builder/artifacts/
 
 # Remotion 自动生成文件
 frontend/remotion/generated/

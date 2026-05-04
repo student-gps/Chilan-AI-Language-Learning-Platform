@@ -29,6 +29,18 @@ export default function RemotionRoot() {
                 }}
             />
             <Composition
+                id="ExplanationLessonSlide"
+                component={ExplanationLessonVideo}
+                durationInFrames={durationInFrames}
+                fps={FPS}
+                width={WIDTH}
+                height={HEIGHT}
+                defaultProps={{
+                    renderPlan: explanationRenderPlan,
+                    showSubtitleBar: false,
+                }}
+            />
+            <Composition
                 id="PinyinOverviewVideo"
                 component={ExplanationLessonVideo}
                 durationInFrames={pinyinDurationInFrames}

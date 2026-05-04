@@ -4,6 +4,7 @@ import psycopg2
 import shutil
 import argparse
 import re
+from functools import lru_cache
 from psycopg2.extras import Json
 from pathlib import Path
 from dotenv import load_dotenv
@@ -30,6 +31,7 @@ except ImportError:
 
 NEW_CONCEPT_ENGLISH_BOOK1_COURSE_ID = 101
 INTEGRATED_CHINESE_ARTIFACT_NAMESPACE = "integrated_chinese"
+INTEGRATED_CHINESE_DEFAULT_COURSE_ID = 1
 
 # ==========================================
 # 1. 环境与配置初始化
@@ -128,12 +130,31 @@ def ensure_vocabulary_knowledge_table(cur):
         );
     """)
 
+
+def ensure_lessons_course_scoped_key(cur):
+    """Make lessons addressable by course and lesson together."""
+    cur.execute("""
+        SELECT pg_get_constraintdef(oid)
+        FROM pg_constraint
+        WHERE conrelid = 'lessons'::regclass
+          AND contype = 'p'
+    """)
+    row = cur.fetchone()
+    current_pk = row[0] if row else ""
+    if current_pk == "PRIMARY KEY (course_id, lesson_id)":
+        return
+
+    cur.execute("ALTER TABLE lessons ALTER COLUMN course_id SET NOT NULL")
+    if row:
+        cur.execute("ALTER TABLE lessons DROP CONSTRAINT lessons_pkey")
+    cur.execute("ALTER TABLE lessons ADD CONSTRAINT lessons_pkey PRIMARY KEY (course_id, lesson_id)")
+
 # ==========================================
 # 3. R2 上传（入库前统一执行）
 # ==========================================
 def upload_assets_to_r2(data: dict) -> dict:
     """
-    上传 data 中所有本地音频/视频文件到 R2，并将 object_key 和 audio_url/media_url 写回 data。
+    上传 data 中所有本地音频和静态教学幻灯片到 R2，并将 object_key 和 media_url 写回 data。
     如果 R2 未配置或文件不存在，静默跳过。
     返回更新后的 data（原地修改，同时也返回以便链式调用）。
     """
@@ -155,15 +176,21 @@ def upload_assets_to_r2(data: dict) -> dict:
         p = Path(local_path)
         if p.exists():
             return p
-        # Path was generated on a different machine — find 'artifacts' segment and re-root
+        # Path was generated on a different machine or before pipeline namespace was added —
+        # find the 'artifacts' segment, then try with and without pipeline namespace.
         parts = p.parts
         try:
             idx = next(i for i, part in enumerate(parts) if part.lower() == "artifacts")
-            candidate = _artifacts_dir / Path(*parts[idx + 1:])
+        except StopIteration:
+            return p
+        tail = Path(*parts[idx + 1:])
+        for candidate in (
+            _artifacts_dir / tail,
+            _artifacts_dir / "integrated_chinese" / tail,
+            _artifacts_dir / "new_concept_english" / tail,
+        ):
             if candidate.exists():
                 return candidate
-        except StopIteration:
-            pass
         return p  # return original (non-existent) path so caller can report it
 
     def _upload(local_path: str, object_key: str, content_type: str, label: str) -> str:
@@ -182,6 +209,17 @@ def upload_assets_to_r2(data: dict) -> dict:
             print(f"  ⚠️ R2 上传失败 [{label}]: {e}")
             failed += 1
             return object_key
+
+    def _teaching_slide_deck() -> dict:
+        if isinstance(data.get("teaching_slide_deck"), dict):
+            return data["teaching_slide_deck"]
+        video_render_plan = data.get("video_render_plan")
+        if isinstance(video_render_plan, dict) and isinstance(video_render_plan.get("teaching_slide_deck"), dict):
+            return video_render_plan["teaching_slide_deck"]
+        explanation = video_render_plan.get("explanation") if isinstance(video_render_plan, dict) else None
+        if isinstance(explanation, dict) and isinstance(explanation.get("teaching_slide_deck"), dict):
+            return explanation["teaching_slide_deck"]
+        return {}
 
     # ── 1. 课文逐句音频 ──────────────────────────────────────────────────
     lesson_audio = data.get("lesson_audio_assets", {})
@@ -202,14 +240,46 @@ def upload_assets_to_r2(data: dict) -> dict:
             if local and key:
                 full["object_key"] = _upload(local, key, "audio/mpeg", "full_audio")
 
-    # ── 3. 讲解视频 ──────────────────────────────────────────────────────
+    # ── 3. 旧版讲解视频（legacy，仅当 JSON 没有 slide deck 时保留上传） ───────
     video_urls = data.get("explanation_video_urls", {})
-    if isinstance(video_urls, dict):
+    has_slide_deck = bool(_teaching_slide_deck().get("slides"))
+    if isinstance(video_urls, dict) and not has_slide_deck:
         local = (video_urls.get("local_path") or "").strip()
         key   = (video_urls.get("object_key") or "").strip()
         if local and key:
             video_urls["object_key"] = _upload(local, key, "video/mp4", "explanation_video")
             video_urls["media_url"]  = ""   # 由 study router 在请求时生成签名 URL
+    elif isinstance(video_urls, dict) and has_slide_deck:
+        video_urls["media_url"] = ""
+
+    # ── 4. 静态教学幻灯片与旁白音频 ───────────────────────────────────────
+    deck = _teaching_slide_deck()
+    if isinstance(deck, dict):
+        uploaded_audio_keys = set()
+        for slide in deck.get("slides", []):
+            if not isinstance(slide, dict):
+                continue
+            image = slide.get("image") if isinstance(slide.get("image"), dict) else {}
+            image_local = (image.get("local_path") or "").strip()
+            image_key = (image.get("object_key") or "").strip()
+            if image_local and image_key:
+                suffix = Path(image_local).suffix.lower()
+                content_type = "image/svg+xml" if suffix == ".svg" else None
+                image["object_key"] = _upload(image_local, image_key, content_type, f"slide {slide.get('id', '?')}")
+                image["media_url"] = ""
+
+            audio = slide.get("audio") if isinstance(slide.get("audio"), dict) else {}
+            audio_local = (audio.get("local_path") or "").strip()
+            audio_key = (audio.get("object_key") or "").strip()
+            if audio_local and audio_key and audio_key not in uploaded_audio_keys:
+                audio["object_key"] = _upload(audio_local, audio_key, "audio/mpeg", "slide_deck_narration")
+                audio["media_url"] = ""
+                uploaded_audio_keys.add(audio_key)
+
+        data["teaching_slide_deck"] = deck
+        if not isinstance(data.get("video_render_plan"), dict):
+            data["video_render_plan"] = {}
+        data["video_render_plan"]["teaching_slide_deck"] = deck
 
     print(f"  📊 R2 上传完成：成功 {uploaded} 个，失败 {failed} 个。")
     return data
@@ -227,10 +297,83 @@ def _int_from_digits(value) -> int | None:
     return int(match.group(0)) if match else None
 
 
-def _normalize_db_ids(data: dict, lesson_metadata: dict) -> tuple[int, int, dict]:
+def _is_integrated_chinese_pipeline(value: str | None) -> bool:
+    return str(value or "").strip().lower() in {
+        "integrated_chinese",
+        "integrated-chinese",
+        "zh",
+        INTEGRATED_CHINESE_ARTIFACT_NAMESPACE,
+    }
+
+
+@lru_cache(maxsize=32)
+def _resolve_integrated_chinese_course_id(target_lang: str) -> int:
+    """Resolve the destination course from the courses table.
+
+    The generated localized JSON keeps the source lesson metadata for traceability,
+    so the database target must come from the sync context/language, not from the
+    stale source course_id embedded in each JSON file.
+    """
+    lang = str(target_lang or "").strip().lower()
+    if not lang or lang == "en":
+        return INTEGRATED_CHINESE_DEFAULT_COURSE_ID
+
+    expected_category = f"{lang.upper()}_TO_CN"
+    conn = get_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute(
+            """
+            SELECT course_id, name
+            FROM courses
+            WHERE category = %s
+              AND lower(target_language) = 'chinese'
+            ORDER BY course_id
+            """,
+            (expected_category,),
+        )
+        rows = cur.fetchall()
+    finally:
+        cur.close()
+        conn.close()
+
+    if len(rows) == 1:
+        return int(rows[0][0])
+    if not rows:
+        raise ValueError(
+            f"Integrated Chinese lang={lang!r} has no course row "
+            f"(expected courses.category={expected_category!r}). "
+            "Create the course before syncing this language."
+        )
+    raise ValueError(
+        f"Integrated Chinese lang={lang!r} matched multiple course rows for "
+        f"category={expected_category!r}: {rows}"
+    )
+
+
+def _normalize_db_ids(
+    data: dict,
+    lesson_metadata: dict,
+    sync_context: dict | None = None,
+) -> tuple[int, int, dict]:
     metadata = dict(lesson_metadata or {})
     pipeline_id = str(data.get("pipeline_id") or "").strip().lower()
+    sync_context = sync_context or {}
+    sync_pipeline = str(sync_context.get("pipeline") or "").strip().lower()
+    sync_lang = str(sync_context.get("lang") or "").strip().lower()
+    localization = data.get("localization", {}) if isinstance(data.get("localization"), dict) else {}
+    target_lang = str(localization.get("target_lang") or sync_lang or "").strip().lower()
     course_slug = str(metadata.get("course_slug") or metadata.get("course_id") or "").strip()
+    is_integrated_chinese = _is_integrated_chinese_pipeline(pipeline_id) or _is_integrated_chinese_pipeline(sync_pipeline)
+    is_localized_integrated_chinese = (
+        target_lang
+        and target_lang != "en"
+        and (
+            is_integrated_chinese
+            or course_slug == str(INTEGRATED_CHINESE_DEFAULT_COURSE_ID)
+            or _int_from_digits(metadata.get("course_id")) == INTEGRATED_CHINESE_DEFAULT_COURSE_ID
+        )
+    )
 
     if (
         pipeline_id == "new_concept_english"
@@ -238,6 +381,15 @@ def _normalize_db_ids(data: dict, lesson_metadata: dict) -> tuple[int, int, dict
     ):
         course_id = NEW_CONCEPT_ENGLISH_BOOK1_COURSE_ID
         metadata.setdefault("course_slug", "new_concept_english_1")
+    elif is_localized_integrated_chinese:
+        course_id = _resolve_integrated_chinese_course_id(target_lang)
+        metadata["source_course_id"] = metadata.get("course_id")
+        metadata["target_lang"] = target_lang
+        metadata["target_lang_name"] = localization.get("target_lang_name")
+        metadata["target_lang_native"] = localization.get("target_lang_native")
+        metadata.setdefault("course_slug", f"integrated_chinese_{target_lang}")
+    elif is_integrated_chinese:
+        course_id = _int_from_digits(metadata.get("course_id")) or INTEGRATED_CHINESE_DEFAULT_COURSE_ID
     else:
         course_id = _int_from_digits(metadata.get("course_id"))
     if course_id is None:
@@ -260,7 +412,11 @@ def _normalize_db_ids(data: dict, lesson_metadata: dict) -> tuple[int, int, dict
 # ==========================================
 # 4. 核心入库逻辑
 # ==========================================
-def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bool:
+def sync_lesson_data(
+    json_file_path: str,
+    provider: BaseEmbeddingProvider,
+    sync_context: dict | None = None,
+) -> bool:
     with open(json_file_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
@@ -275,7 +431,7 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
     explanation_video_urls = data.get("explanation_video_urls", {}) if isinstance(data.get("explanation_video_urls"), dict) else {}
     vocabulary_items = course_content.get("vocabulary", []) if isinstance(course_content, dict) else []
 
-    course_id, lesson_id, lesson_metadata = _normalize_db_ids(data, lesson_metadata)
+    course_id, lesson_id, lesson_metadata = _normalize_db_ids(data, lesson_metadata, sync_context)
     title = lesson_metadata.get("title")
 
     conn = None
@@ -284,6 +440,7 @@ def sync_lesson_data(json_file_path: str, provider: BaseEmbeddingProvider) -> bo
     try:
         conn = get_connection()
         cur = conn.cursor()
+        ensure_lessons_course_scoped_key(cur)
         ensure_vocabulary_knowledge_table(cur)
 
         vocab_lookup = {}
@@ -472,10 +629,14 @@ if __name__ == "__main__":
     synced_dir = artifact_root / "synced_json" / lang
     synced_dir.mkdir(parents=True, exist_ok=True)
 
-    json_files = [Path(item) for item in args.files] if args.files else list(output_dir.glob("*_data.json"))
+    json_files = [Path(item) for item in args.files] if args.files else list(output_dir.glob("*_data*.json"))
+    if not args.files and not json_files and synced_dir.exists():
+        json_files = list(synced_dir.glob("*_data*.json"))
+        if json_files:
+            print(f"ℹ️ 未在 {output_dir} 找到 JSON，改用已同步目录重刷: {synced_dir}")
     if not json_files and args.pipeline in {"integrated_chinese", "integrated-chinese", "zh"}:
         legacy_output_dir = artifacts_dir / "output_json" / lang
-        json_files = list(legacy_output_dir.glob("*_data.json"))
+        json_files = list(legacy_output_dir.glob("*_data*.json"))
         if json_files:
             print(f"ℹ️ 未在 {output_dir} 找到 JSON，改用旧中文目录: {legacy_output_dir}")
     if not json_files:
@@ -494,5 +655,8 @@ if __name__ == "__main__":
             with open(target_json, "w", encoding="utf-8") as _f:
                 json.dump(lesson_data, _f, ensure_ascii=False, indent=2)
 
-            if sync_lesson_data(str(target_json), embed_provider):
-                shutil.move(str(target_json), str(synced_dir / target_json.name))
+            sync_context = {"pipeline": args.pipeline, "lang": lang}
+            if sync_lesson_data(str(target_json), embed_provider, sync_context=sync_context):
+                destination = synced_dir / target_json.name
+                if target_json.resolve() != destination.resolve():
+                    shutil.move(str(target_json), str(destination))
