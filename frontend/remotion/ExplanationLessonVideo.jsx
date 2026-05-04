@@ -5,7 +5,7 @@ import { SubtitleContext } from '../src/videoTemplates/explanation/SubtitleConte
 
 const FPS = 30;
 
-function SegmentScene({ segment }) {
+function SegmentScene({ segment, showSubtitleBar = true }) {
     const frame = useCurrentFrame();
     const { fps } = useVideoConfig();
 
@@ -51,7 +51,7 @@ function SegmentScene({ segment }) {
     }
 
     return (
-        <SubtitleContext.Provider value={{ sentenceIndex, sentenceTexts }}>
+        <SubtitleContext.Provider value={{ sentenceIndex, sentenceTexts, showSubtitleBar }}>
             <AbsoluteFill
                 style={{
                     background: 'linear-gradient(180deg, #f8fafc 0%, #eef2ff 48%, #f8fafc 100%)',
@@ -73,7 +73,7 @@ function SegmentScene({ segment }) {
     );
 }
 
-export default function ExplanationLessonVideo({ renderPlan }) {
+export default function ExplanationLessonVideo({ renderPlan, showSubtitleBar = true }) {
     const segments = renderPlan?.segments || [];
 
     return (
@@ -87,7 +87,7 @@ export default function ExplanationLessonVideo({ renderPlan }) {
                         from={from}
                         durationInFrames={durationInFrames}
                     >
-                        <SegmentScene segment={segment} />
+                        <SegmentScene segment={segment} showSubtitleBar={showSubtitleBar} />
                     </Sequence>
                 );
             })}

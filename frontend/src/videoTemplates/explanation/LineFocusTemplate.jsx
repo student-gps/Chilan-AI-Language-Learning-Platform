@@ -90,15 +90,24 @@ export default function LineFocusTemplate({ segment }) {
     // Adaptive font size based on Chinese character count
     const cnCount = [...(focusText || '')].filter(c => /[一-鿿]/.test(c)).length;
     const hasBottom = highlightWords.length > 0 || !!quickTake;
+    const glossLength = String(gloss || '').length;
+    const quickTakeLength = String(quickTake || '').length;
+    const roomyLongLine = cnCount > 25 && cnCount <= 55;
     let charSize, pinyinSize;
-    if (cnCount <= 12)       { charSize = 116; pinyinSize = 28; }
-    else if (cnCount <= 25)  { charSize = 88;  pinyinSize = 22; }
-    else if (cnCount <= 50)  { charSize = 64;  pinyinSize = 18; }
+    if (cnCount <= 12)       { charSize = 126; pinyinSize = 30; }
+    else if (cnCount <= 25)  { charSize = 96;  pinyinSize = 24; }
+    else if (cnCount <= 50)  { charSize = 74;  pinyinSize = 20; }
     else                     { charSize = 46;  pinyinSize = 14; }
-    if (hasBottom && cnCount > 20) {
-        charSize   = Math.max(40, Math.round(charSize   * 0.85));
-        pinyinSize = Math.max(12, Math.round(pinyinSize * 0.85));
+    if (hasBottom && cnCount > 55) {
+        charSize   = Math.max(40, Math.round(charSize   * 0.88));
+        pinyinSize = Math.max(12, Math.round(pinyinSize * 0.88));
     }
+    const glossSize = glossLength > 130 ? 38 : glossLength > 90 ? 44 : roomyLongLine ? 52 : 46;
+    const bottomCharSize = highlightWords.length > 3 ? 74 : roomyLongLine ? 88 : 78;
+    const bottomPinyinSize = highlightWords.length > 3 ? 21 : roomyLongLine ? 25 : 22;
+    const bottomTranslationSize = highlightWords.length > 3 ? 24 : roomyLongLine ? 29 : 25;
+    const noteFontSize = quickTakeLength > 140 ? 29 : quickTakeLength > 90 ? 33 : roomyLongLine ? 36 : 31;
+    const noteLineHeight = quickTakeLength > 120 ? 1.45 : 1.55;
 
     return (
         <BlackboardShell subtitleText={narrationText}>
@@ -127,21 +136,28 @@ export default function LineFocusTemplate({ segment }) {
             {/* ── Blackboard content (full width) ── */}
             <div style={{
                 flex: 1,
-                padding: '26px 56px 22px 56px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
+                padding: '24px 56px 24px 56px',
+                display: 'grid',
+                gridTemplateRows: roomyLongLine ? '1.35fr 0.85fr' : '1fr auto',
+                gap: roomyLongLine ? 30 : 22,
                 position: 'relative', zIndex: 2,
                 overflow: 'hidden',
             }}>
                 {/* Top: Ruby line + gloss */}
-                <div>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    minHeight: 0,
+                }}>
                     <RubyLine text={focusText} pinyin={pinyin} charSize={charSize} pinyinSize={pinyinSize} />
                     {gloss && (
                         <div style={{
-                            marginTop: 22, marginLeft: 4,
+                            marginTop: roomyLongLine ? 28 : 22, marginLeft: 4,
                             display: 'inline-flex', alignItems: 'center',
-                            fontSize: 42, fontWeight: 700,
+                            maxWidth: '100%',
+                            fontSize: glossSize, fontWeight: 800,
+                            lineHeight: 1.35,
                             color: chalk.yellow,
                             borderBottom: '2px solid rgba(245,215,110,0.45)',
                             paddingBottom: 2,
@@ -152,9 +168,14 @@ export default function LineFocusTemplate({ segment }) {
                 </div>
 
                 {/* Bottom: highlight words + quick note */}
-                <div>
+                <div style={{ alignSelf: 'end', width: '100%' }}>
                     {highlightWords.length > 0 && (
-                        <div style={{ display: 'flex', gap: 56, marginBottom: 24, flexWrap: 'wrap' }}>
+                        <div style={{
+                            display: 'flex',
+                            gap: roomyLongLine ? 72 : 56,
+                            marginBottom: roomyLongLine ? 28 : 24,
+                            flexWrap: 'wrap',
+                        }}>
                             {highlightWords.slice(0, 4).map((item, index) => {
                                 const color = [chalk.blue, chalk.pink, chalk.yellow, chalk.green][index % 4];
                                 return (
@@ -167,12 +188,12 @@ export default function LineFocusTemplate({ segment }) {
                                         <RubyWord
                                             text={item?.word}
                                             pinyin={item?.pinyin}
-                                            charSize={74}
-                                            pinyinSize={21}
+                                            charSize={bottomCharSize}
+                                            pinyinSize={bottomPinyinSize}
                                             color={color}
                                         />
                                         {item?.translation && (
-                                            <span style={{ marginTop: 7, fontSize: 24, fontWeight: 700, color: chalk.dim }}>
+                                            <span style={{ marginTop: 8, fontSize: bottomTranslationSize, fontWeight: 750, color: chalk.dim }}>
                                                 {item.translation}
                                             </span>
                                         )}
@@ -189,17 +210,17 @@ export default function LineFocusTemplate({ segment }) {
                             borderRadius: 7,
                             border: '1px solid rgba(244,240,230,0.08)',
                             borderLeft: `3px solid ${chalk.blue}`,
-                            padding: '14px 22px',
+                            padding: roomyLongLine ? '18px 24px' : '14px 22px',
                         }}>
                             <span style={{
-                                fontSize: 18, fontWeight: 900, letterSpacing: '0.14em',
+                                fontSize: roomyLongLine ? 20 : 18, fontWeight: 900, letterSpacing: '0.14em',
                                 color: chalk.blue, opacity: 0.75, textTransform: 'uppercase',
                                 paddingTop: 4, flexShrink: 0,
                             }}>
                                 Note
                             </span>
                             <p style={{
-                                margin: 0, fontSize: 30, lineHeight: 1.7,
+                                margin: 0, fontSize: noteFontSize, lineHeight: noteLineHeight,
                                 color: chalk.white, opacity: 0.65,
                                 fontStyle: 'italic', fontWeight: 400,
                             }}>

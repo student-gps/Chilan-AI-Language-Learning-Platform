@@ -81,9 +81,25 @@ app.include_router(study.router)
 # --- 🔊 拼音音频代理（本地文件优先，R2 presigned URL 兜底）---
 from fastapi.responses import FileResponse
 from services.storage.media_storage import get_media_storage as _get_media_storage
+from content_builder.core.paths import default_paths as _content_builder_paths
+from content_builder.core.pipeline import get_pipeline as _get_content_pipeline
 _pinyin_storage = _get_media_storage(optional=True)
 _PINYIN_LOCAL_DIR = Path(__file__).resolve().parent / "pinyin_audio"
 _INTRO_LOCAL_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "audio" / "intro"
+_CONTENT_BUILDER_PATHS = _content_builder_paths()
+
+def _safe_asset_filename(filename: str, allowed_suffixes: set[str]) -> str:
+    name = Path(filename).name
+    suffix = Path(name).suffix.lower()
+    if not name or name != filename or suffix not in allowed_suffixes:
+        raise HTTPException(status_code=400, detail="Invalid asset filename")
+    return name
+
+def _safe_lesson_digits(lesson_id: str) -> str:
+    digits = "".join(ch for ch in str(lesson_id or "") if ch.isdigit())
+    if not digits:
+        raise HTTPException(status_code=400, detail="Invalid lesson id")
+    return str(int(digits))
 
 @app.get("/media/pinyin/{filename}")
 async def get_pinyin_audio(filename: str):
@@ -109,6 +125,46 @@ async def get_intro_audio(filename: str):
     if not _pinyin_storage:
         raise HTTPException(status_code=404, detail=f"{filename} not found locally and storage not configured")
     object_key = f"zh/audio/intro/{filename}"
+    try:
+        url = _pinyin_storage.resolve_url(object_key)
+        return RedirectResponse(url=url, status_code=302)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/media/teaching-slide/{pipeline_id}/{lang}/{lesson_id}/{filename}")
+async def get_teaching_slide(pipeline_id: str, lang: str, lesson_id: str, filename: str):
+    """Serve static teaching slide images: local file first, then R2."""
+    safe_filename = _safe_asset_filename(filename, {".svg", ".webp", ".png", ".jpg", ".jpeg"})
+    safe_lesson_id = _safe_lesson_digits(lesson_id)
+    pipeline = _get_content_pipeline(pipeline_id)
+    artifact_root = pipeline.artifact_root(_CONTENT_BUILDER_PATHS)
+    local_file = artifact_root / "output_slides" / lang / f"lesson{safe_lesson_id}" / safe_filename
+    if local_file.exists():
+        media_type = "image/svg+xml" if local_file.suffix.lower() == ".svg" else None
+        return FileResponse(str(local_file), media_type=media_type)
+    if not _pinyin_storage:
+        raise HTTPException(status_code=404, detail=f"{safe_filename} not found locally and storage not configured")
+    object_key = f"{pipeline.target_language}/slides/{lang}/lesson{safe_lesson_id}/{safe_filename}"
+    try:
+        url = _pinyin_storage.resolve_url(object_key)
+        return RedirectResponse(url=url, status_code=302)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/media/teaching-audio/{pipeline_id}/{lang}/{lesson_id}/{filename}")
+async def get_teaching_audio(pipeline_id: str, lang: str, lesson_id: str, filename: str):
+    """Serve teaching narration audio used by static slide decks."""
+    safe_filename = _safe_asset_filename(filename, {".mp3", ".wav", ".m4a"})
+    safe_lesson_id = _safe_lesson_digits(lesson_id)
+    pipeline = _get_content_pipeline(pipeline_id)
+    artifact_root = pipeline.artifact_root(_CONTENT_BUILDER_PATHS)
+    suffix = f"_{lang}" if lang != "en" else ""
+    local_file = artifact_root / "output_audio" / f"lesson{safe_lesson_id}_narration{suffix}" / safe_filename
+    if local_file.exists():
+        return FileResponse(str(local_file), media_type="audio/mpeg")
+    if not _pinyin_storage:
+        raise HTTPException(status_code=404, detail=f"{safe_filename} not found locally and storage not configured")
+    object_key = f"{pipeline.target_language}/audio/narration/{lang}/lesson{safe_lesson_id}/{safe_filename}"
     try:
         url = _pinyin_storage.resolve_url(object_key)
         return RedirectResponse(url=url, status_code=302)

@@ -13,8 +13,14 @@ def _normalize_video_render_plan(payload: Any) -> Dict[str, Any]:
     explanation = payload.get("explanation")
     if not isinstance(explanation, dict):
         explanation = {}
+    teaching_slide_deck = payload.get("teaching_slide_deck")
+    if not isinstance(teaching_slide_deck, dict):
+        teaching_slide_deck = None
 
-    return {"explanation": explanation}
+    normalized = {"explanation": explanation}
+    if teaching_slide_deck:
+        normalized["teaching_slide_deck"] = teaching_slide_deck
+    return normalized
 
 
 def _normalize_teaching_video(payload: Any) -> Dict[str, Any]:
@@ -263,6 +269,7 @@ def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None, le
                     "course_content": course_content,
                     "teaching_video": teaching_video,
                     "video_render_plan": video_render_plan,
+                    "teaching_slide_deck": video_render_plan.get("teaching_slide_deck"),
                     "lesson_audio_assets": lesson_audio_assets,
                     "explanation_video_urls": explanation_video_urls,
                     "aigc_visual_prompt": "A thematic visual for the current lesson...",

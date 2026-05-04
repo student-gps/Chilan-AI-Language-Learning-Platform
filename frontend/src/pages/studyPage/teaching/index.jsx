@@ -13,6 +13,7 @@ import {
     Volume2
 } from 'lucide-react';
 import DialogueSection from './components/DialogueSection';
+import LessonSlideDeckPlayer from './components/LessonSlideDeckPlayer';
 import useTeachingAudio, { buildLessonAudioUrl } from './hooks/useTeachingAudio';
 import VocabularySection from './components/VocabularySection';
 
@@ -146,6 +147,11 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
     const aigc_visual_prompt = data?.aigc_visual_prompt || '';
     const lesson_audio_assets = data?.lesson_audio_assets || null;
     const explanation_video_urls = data?.explanation_video_urls || {};
+    const teaching_slide_deck =
+        data?.teaching_slide_deck ||
+        data?.video_render_plan?.teaching_slide_deck ||
+        data?.video_render_plan?.explanation?.teaching_slide_deck ||
+        null;
     const { dialogues, vocabulary } = course_content || {};
     const contentType = lesson_metadata?.content_type || 'dialogue';
     const isReadingMode = ['diary', 'article', 'passage'].includes(contentType);
@@ -236,12 +242,18 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                     </p>
                 )}
 
-                <ExplanationVideoPlayer
-                    videoUrls={explanation_video_urls}
-                    title={lesson_metadata.title}
-                    apiBase={API_BASE}
-                    t={t}
-                />
+                {teaching_slide_deck?.slides?.length ? (
+                    <motion.div variants={fadeInUp} initial="hidden" animate="show">
+                        <LessonSlideDeckPlayer deck={teaching_slide_deck} apiBase={API_BASE} />
+                    </motion.div>
+                ) : (
+                    <ExplanationVideoPlayer
+                        videoUrls={explanation_video_urls}
+                        title={lesson_metadata.title}
+                        apiBase={API_BASE}
+                        t={t}
+                    />
+                )}
 
                 {lessonFullAudioUrl && (
                     <motion.section ref={lessonAudioSectionRef} variants={fadeInUp} initial="hidden" animate="show" className="mb-10">
