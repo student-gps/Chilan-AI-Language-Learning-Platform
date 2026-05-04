@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
 import { ChevronDown, ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play, Scan } from 'lucide-react';
 
 const SLIDE_AUDIO_RATES = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3];
@@ -71,12 +70,22 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     const [rate, setRate] = useState(1.0);
     const [expanded, setExpanded] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
+
     const sectionRef = useRef(null);
     const panelRef = useRef(null);
     const audioRef = useRef(null);
     const rafRef = useRef(null);
-    const pendingPlayRef = useRef(false);
-    const playRef = useRef(null);
+
+    // --- Data refs: tick reads from these so it never needs to be recreated ---
+    const indexRef = useRef(0);
+    const startMsRef = useRef(0);
+    const endMsRef = useRef(1);
+    const durationMsRef = useRef(1);
+    const rateRef = useRef(1.0);
+    const slidesRef = useRef(slides);
+    const apiBaseRef = useRef(apiBase);
+    // playSlide ref so tick can call it without a closure dep
+    const playSlideRef = useRef(null);
 
     const slide = slides[index] || null;
     const imageUrl = resolveAssetUrl(slide?.image, apiBase);
@@ -87,6 +96,17 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     const progress = Math.max(0, Math.min(1, localMs / durationMs));
     const cue = useMemo(() => currentCueFor(slide, localMs), [slide, localMs]);
     const cueKey = cue ? `${cue.start_ms}-${cue.end_ms}` : 'empty';
+
+    // Sync all data refs every render so tick always reads fresh values
+    useLayoutEffect(() => {
+        indexRef.current = index;
+        startMsRef.current = startMs;
+        endMsRef.current = endMs;
+        durationMsRef.current = durationMs;
+        rateRef.current = rate;
+        slidesRef.current = slides;
+        apiBaseRef.current = apiBase;
+    });
 
     const stopTicker = useCallback(() => {
         if (rafRef.current) {
@@ -104,6 +124,65 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
             audioRef.current = null;
         }
     }, [stopTicker]);
+
+    // Stable tick: reads everything from refs, never needs to be recreated
+    const tick = useCallback(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        const absoluteMs = audio.currentTime * 1000;
+        const nextLocalMs = Math.max(0, absoluteMs - startMsRef.current);
+        setLocalMs(Math.min(durationMsRef.current, nextLocalMs));
+        if (absoluteMs >= endMsRef.current || nextLocalMs >= durationMsRef.current) {
+            stopAudio();
+            setPlaying(false);
+            const nextIdx = indexRef.current + 1;
+            if (nextIdx < slidesRef.current.length) {
+                setTimeout(() => playSlideRef.current?.(nextIdx), 300);
+            }
+            return;
+        }
+        rafRef.current = requestAnimationFrame(tick);
+    }, [stopAudio]); // only stopAudio needed — everything else comes from refs
+
+    // playSlide: imperatively starts playing the slide at idx.
+    // Updates refs first so the stable tick immediately reads correct data.
+    const playSlide = useCallback((idx) => {
+        const allSlides = slidesRef.current;
+        const targetSlide = allSlides[idx];
+        if (!targetSlide) return;
+        const audioAsset = targetSlide.audio;
+        const targetAudioUrl = resolveAssetUrl(audioAsset, apiBaseRef.current);
+        if (!targetAudioUrl) return;
+
+        const nStartMs = Number(audioAsset?.start_ms || 0);
+        const nEndMs = Number(audioAsset?.end_ms || nStartMs + (targetSlide?.duration_ms || 0));
+        const nDurationMs = Math.max(1, Number(targetSlide?.duration_ms || nEndMs - nStartMs || 1));
+
+        // Update refs BEFORE starting RAF so tick reads correct slide data
+        indexRef.current = idx;
+        startMsRef.current = nStartMs;
+        endMsRef.current = nEndMs;
+        durationMsRef.current = nDurationMs;
+
+        stopAudio();
+        setLocalMs(0);
+        setIndex(idx);
+
+        const audio = new Audio(targetAudioUrl);
+        audioRef.current = audio;
+        audio.preload = 'auto';
+        audio.playbackRate = rateRef.current;
+        audio.preservesPitch = true;
+        audio.currentTime = nStartMs / 1000;
+        audio.onended = () => { stopTicker(); setPlaying(false); };
+        audio.onerror = () => { stopAudio(); setPlaying(false); };
+        audio.play()
+            .then(() => { setPlaying(true); rafRef.current = requestAnimationFrame(tick); })
+            .catch(() => { stopAudio(); setPlaying(false); });
+    }, [stopAudio, stopTicker, tick]);
+
+    // Keep playSlideRef current so tick's setTimeout always calls the latest version
+    useLayoutEffect(() => { playSlideRef.current = playSlide; });
 
     const goTo = useCallback((nextIndex) => {
         const clamped = Math.max(0, Math.min(slides.length - 1, nextIndex));
@@ -125,65 +204,28 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         const rect = event.currentTarget.getBoundingClientRect();
         const ratio = rect.width > 0 ? (event.clientX - rect.left) / rect.width : 0;
         if (targetIndex !== index) {
-            goTo(targetIndex);
+            if (playing) playSlide(targetIndex); else goTo(targetIndex);
             return;
         }
         seekTo(durationMs * Math.max(0, Math.min(1, ratio)));
-    }, [durationMs, goTo, index, seekTo]);
+    }, [durationMs, goTo, index, playSlide, playing, seekTo]);
 
-    const tick = useCallback(() => {
-        const audio = audioRef.current;
-        if (!audio) return;
-        const absoluteMs = audio.currentTime * 1000;
-        const nextLocalMs = Math.max(0, absoluteMs - startMs);
-        setLocalMs(Math.min(durationMs, nextLocalMs));
-        if (absoluteMs >= endMs || nextLocalMs >= durationMs) {
-            stopAudio();
-            setPlaying(false);
-            if (index < slides.length - 1) {
-                const nextIdx = index + 1;
-                setTimeout(() => {
-                    // flushSync forces React to update synchronously so useLayoutEffect
-                    // updates playRef.current before we call it
-                    flushSync(() => {
-                        setLocalMs(0);
-                        setIndex(nextIdx);
-                    });
-                    playRef.current?.();
-                }, 300);
-            }
-            return;
-        }
-        rafRef.current = requestAnimationFrame(tick);
-    }, [durationMs, endMs, goTo, index, slides.length, startMs, stopAudio]);
-
+    // play: resume/start current slide from localMs (used by toggle button)
     const play = useCallback(() => {
         if (!slide || !audioUrl) return;
         stopAudio();
         const audio = new Audio(audioUrl);
         audioRef.current = audio;
         audio.preload = 'auto';
-        audio.playbackRate = rate;
+        audio.playbackRate = rateRef.current;
         audio.preservesPitch = true;
         audio.currentTime = (startMs + localMs) / 1000;
-        audio.onended = () => {
-            stopTicker();
-            setPlaying(false);
-        };
-        audio.onerror = () => {
-            stopAudio();
-            setPlaying(false);
-        };
+        audio.onended = () => { stopTicker(); setPlaying(false); };
+        audio.onerror = () => { stopAudio(); setPlaying(false); };
         audio.play()
-            .then(() => {
-                setPlaying(true);
-                rafRef.current = requestAnimationFrame(tick);
-            })
-            .catch(() => {
-                stopAudio();
-                setPlaying(false);
-            });
-    }, [audioUrl, localMs, rate, slide, startMs, stopAudio, stopTicker, tick]);
+            .then(() => { setPlaying(true); rafRef.current = requestAnimationFrame(tick); })
+            .catch(() => { stopAudio(); setPlaying(false); });
+    }, [audioUrl, localMs, slide, startMs, stopAudio, stopTicker, tick]);
 
     const toggle = useCallback(() => {
         if (playing) {
@@ -197,16 +239,6 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
             play();
         }
     }, [durationMs, play, playing, startMs, stopAudio]);
-
-    // useLayoutEffect runs synchronously after DOM update — needed so flushSync can see updated playRef
-    useLayoutEffect(() => { playRef.current = play; });
-
-    // Button-nav auto-play: pendingPlayRef set by prev/next buttons when audio is playing
-    useEffect(() => {
-        if (!pendingPlayRef.current) return;
-        pendingPlayRef.current = false;
-        playRef.current?.();
-    }, [index]);
 
     useEffect(() => () => stopAudio(), [stopAudio]);
 
@@ -234,10 +266,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     const toggleFullscreen = useCallback(() => {
         const panel = panelRef.current;
         if (!panel) return;
-        if (document.fullscreenElement === panel) {
-            document.exitFullscreen?.();
-            return;
-        }
+        if (document.fullscreenElement === panel) { document.exitFullscreen?.(); return; }
         panel.requestFullscreen?.().catch(() => {});
     }, []);
 
@@ -307,7 +336,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                         <div className="flex min-h-[4.75rem] items-center gap-3">
                             <button
                                 type="button"
-                                onClick={() => { pendingPlayRef.current = playing; goTo(index - 1); }}
+                                onClick={() => playing ? playSlide(index - 1) : goTo(index - 1)}
                                 disabled={index === 0}
                                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 disabled:opacity-30"
                                 aria-label="Previous slide"
@@ -343,7 +372,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
 
                             <button
                                 type="button"
-                                onClick={() => { pendingPlayRef.current = playing; goTo(index + 1); }}
+                                onClick={() => playing ? playSlide(index + 1) : goTo(index + 1)}
                                 disabled={index === slides.length - 1}
                                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 disabled:opacity-30"
                                 aria-label="Next slide"
