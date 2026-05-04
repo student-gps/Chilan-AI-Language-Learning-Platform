@@ -1,5 +1,46 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play, Scan } from 'lucide-react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
+import { ChevronDown, ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play, Scan } from 'lucide-react';
+
+const SLIDE_AUDIO_RATES = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3];
+
+function RateSelector({ rate, setRate }) {
+    const [open, setOpen] = useState(false);
+    const ref = useRef(null);
+
+    useEffect(() => {
+        if (!open) return;
+        const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+        document.addEventListener('mousedown', handler);
+        return () => document.removeEventListener('mousedown', handler);
+    }, [open]);
+
+    return (
+        <div ref={ref} className="relative shrink-0">
+            <button
+                type="button"
+                onClick={() => setOpen((v) => !v)}
+                className="flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-white/20"
+            >
+                {rate.toFixed(1)}x <ChevronDown size={12} />
+            </button>
+            {open && (
+                <div className="absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 z-50 overflow-hidden rounded-2xl border border-white/15 bg-slate-900 shadow-2xl py-1.5 min-w-[72px]">
+                    {SLIDE_AUDIO_RATES.map((r) => (
+                        <button
+                            key={r}
+                            type="button"
+                            onClick={() => { setRate(r); setOpen(false); }}
+                            className={`w-full px-4 py-1.5 text-xs font-bold text-center transition hover:bg-white/10 ${r === rate ? 'text-white bg-white/15' : 'text-white/60'}`}
+                        >
+                            {r.toFixed(1)}x
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
 
 const resolveAssetUrl = (asset = {}, apiBase = '') => {
     const raw = asset.media_url || asset.image_url || asset.audio_url || asset.url || asset.media_path || '';
@@ -27,11 +68,15 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     const [index, setIndex] = useState(0);
     const [playing, setPlaying] = useState(false);
     const [localMs, setLocalMs] = useState(0);
+    const [rate, setRate] = useState(1.0);
     const [expanded, setExpanded] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
+    const sectionRef = useRef(null);
     const panelRef = useRef(null);
     const audioRef = useRef(null);
     const rafRef = useRef(null);
+    const pendingPlayRef = useRef(false);
+    const playRef = useRef(null);
 
     const slide = slides[index] || null;
     const imageUrl = resolveAssetUrl(slide?.image, apiBase);
@@ -96,7 +141,16 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
             stopAudio();
             setPlaying(false);
             if (index < slides.length - 1) {
-                setTimeout(() => goTo(index + 1), 250);
+                const nextIdx = index + 1;
+                setTimeout(() => {
+                    // flushSync forces React to update synchronously so useLayoutEffect
+                    // updates playRef.current before we call it
+                    flushSync(() => {
+                        setLocalMs(0);
+                        setIndex(nextIdx);
+                    });
+                    playRef.current?.();
+                }, 300);
             }
             return;
         }
@@ -109,6 +163,8 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         const audio = new Audio(audioUrl);
         audioRef.current = audio;
         audio.preload = 'auto';
+        audio.playbackRate = rate;
+        audio.preservesPitch = true;
         audio.currentTime = (startMs + localMs) / 1000;
         audio.onended = () => {
             stopTicker();
@@ -127,18 +183,47 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                 stopAudio();
                 setPlaying(false);
             });
-    }, [audioUrl, localMs, slide, startMs, stopAudio, stopTicker, tick]);
+    }, [audioUrl, localMs, rate, slide, startMs, stopAudio, stopTicker, tick]);
 
     const toggle = useCallback(() => {
         if (playing) {
+            if (audioRef.current) {
+                const syncedMs = Math.max(0, Math.min(durationMs, audioRef.current.currentTime * 1000 - startMs));
+                setLocalMs(syncedMs);
+            }
             stopAudio();
             setPlaying(false);
         } else {
             play();
         }
-    }, [play, playing, stopAudio]);
+    }, [durationMs, play, playing, startMs, stopAudio]);
+
+    // useLayoutEffect runs synchronously after DOM update — needed so flushSync can see updated playRef
+    useLayoutEffect(() => { playRef.current = play; });
+
+    // Button-nav auto-play: pendingPlayRef set by prev/next buttons when audio is playing
+    useEffect(() => {
+        if (!pendingPlayRef.current) return;
+        pendingPlayRef.current = false;
+        playRef.current?.();
+    }, [index]);
 
     useEffect(() => () => stopAudio(), [stopAudio]);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.playbackRate = rate;
+            audioRef.current.preservesPitch = true;
+        }
+    }, [rate]);
+
+    useEffect(() => {
+        if (!expanded || !sectionRef.current) return;
+        const navEl = document.querySelector('nav');
+        const navH = navEl ? navEl.getBoundingClientRect().height : 64;
+        const top = sectionRef.current.getBoundingClientRect().top + window.scrollY - navH - 12;
+        window.scrollTo({ top, behavior: 'smooth' });
+    }, [expanded]);
 
     useEffect(() => {
         const onFullscreenChange = () => setFullscreen(document.fullscreenElement === panelRef.current);
@@ -160,6 +245,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
 
     return (
         <section
+            ref={sectionRef}
             className={`mb-16 ${expanded ? 'relative left-1/2 -translate-x-1/2' : ''}`}
             style={expanded ? { width: 'min(96vw, 128vh, 1600px)' } : undefined}
         >
@@ -211,7 +297,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                                     title={item?.title || `Slide ${i + 1}`}
                                 >
                                     <div
-                                        className="h-full rounded-full bg-white/85 transition-[width]"
+                                        className="h-full rounded-full bg-white/85"
                                         style={{ width: `${i < index ? 100 : i === index ? progress * 100 : 0}%` }}
                                     />
                                 </button>
@@ -221,7 +307,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                         <div className="flex min-h-[4.75rem] items-center gap-3">
                             <button
                                 type="button"
-                                onClick={() => goTo(index - 1)}
+                                onClick={() => { pendingPlayRef.current = playing; goTo(index - 1); }}
                                 disabled={index === 0}
                                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 disabled:opacity-30"
                                 aria-label="Previous slide"
@@ -257,13 +343,15 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
 
                             <button
                                 type="button"
-                                onClick={() => goTo(index + 1)}
+                                onClick={() => { pendingPlayRef.current = playing; goTo(index + 1); }}
                                 disabled={index === slides.length - 1}
                                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 disabled:opacity-30"
                                 aria-label="Next slide"
                             >
                                 <ChevronRight size={20} />
                             </button>
+
+                            <RateSelector rate={rate} setRate={setRate} />
 
                             <button
                                 type="button"
