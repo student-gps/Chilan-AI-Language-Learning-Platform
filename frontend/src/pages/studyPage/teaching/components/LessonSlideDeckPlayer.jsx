@@ -125,6 +125,23 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         }
     }, [stopTicker]);
 
+    // Advance to the next slide (or stop at the end). Called from both tick and
+    // onended so that whichever fires first handles the transition. The mutual-
+    // exclusion guarantee: the first caller runs stopAudio() which sets
+    // audioRef.current = null and audio.onended = null, so the second path
+    // either exits via `if (!audio) return` (tick) or finds a null handler
+    // (onended) — no double-advance possible.
+    const advanceRef = useRef(null);
+    const advance = useCallback(() => {
+        stopAudio();
+        setPlaying(false);
+        const nextIdx = indexRef.current + 1;
+        if (nextIdx < slidesRef.current.length) {
+            setTimeout(() => playSlideRef.current?.(nextIdx), 300);
+        }
+    }, [stopAudio]);
+    useLayoutEffect(() => { advanceRef.current = advance; });
+
     // Stable tick: reads everything from refs, never needs to be recreated
     const tick = useCallback(() => {
         const audio = audioRef.current;
@@ -133,16 +150,11 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         const nextLocalMs = Math.max(0, absoluteMs - startMsRef.current);
         setLocalMs(Math.min(durationMsRef.current, nextLocalMs));
         if (absoluteMs >= endMsRef.current || nextLocalMs >= durationMsRef.current) {
-            stopAudio();
-            setPlaying(false);
-            const nextIdx = indexRef.current + 1;
-            if (nextIdx < slidesRef.current.length) {
-                setTimeout(() => playSlideRef.current?.(nextIdx), 300);
-            }
+            advanceRef.current?.();
             return;
         }
         rafRef.current = requestAnimationFrame(tick);
-    }, [stopAudio]); // only stopAudio needed — everything else comes from refs
+    }, []); // reads everything via refs
 
     // playSlide: imperatively starts playing the slide at idx.
     // Updates refs first so the stable tick immediately reads correct data.
@@ -174,7 +186,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         audio.playbackRate = rateRef.current;
         audio.preservesPitch = true;
         audio.currentTime = nStartMs / 1000;
-        audio.onended = () => { stopTicker(); setPlaying(false); };
+        audio.onended = () => advanceRef.current?.();
         audio.onerror = () => { stopAudio(); setPlaying(false); };
         audio.play()
             .then(() => { setPlaying(true); rafRef.current = requestAnimationFrame(tick); })
@@ -220,7 +232,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         audio.playbackRate = rateRef.current;
         audio.preservesPitch = true;
         audio.currentTime = (startMs + localMs) / 1000;
-        audio.onended = () => { stopTicker(); setPlaying(false); };
+        audio.onended = () => advanceRef.current?.();
         audio.onerror = () => { stopAudio(); setPlaying(false); };
         audio.play()
             .then(() => { setPlaying(true); rafRef.current = requestAnimationFrame(tick); })
