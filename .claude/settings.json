@@ -8,7 +8,10 @@
       "Bash(python3 -c \"import sys; sys.path.insert\\(0, 'c:/Users/gaope/Desktop/Chilan/backend/content_builder'\\); from tasks.task2_quiz import Task2QuizGenerator; print\\('OK'\\)\")",
       "Bash(grep -n \"BlackboardShell subtitleText\" c:/Users/gaope/Desktop/Chilan/frontend/src/videoTemplates/explanation/*.jsx)",
       "Bash(grep -n \"durationInSeconds\" c:/Users/gaope/Desktop/Chilan/frontend/src/videoTemplates/explanation/*.jsx)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "PowerShell(Get-Process python -ErrorAction SilentlyContinue)",
+      "Bash(python _tmp_fix_courses.py)",
+      "Bash(Remove-Item \"c:\\\\Users\\\\gaope\\\\Desktop\\\\Chilan\\\\backend\\\\_tmp_fix_courses.py\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\gaope\\Desktop"

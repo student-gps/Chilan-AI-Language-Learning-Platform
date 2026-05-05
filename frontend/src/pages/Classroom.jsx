@@ -58,36 +58,151 @@ function FlagFrance({ className = '' }) {
     );
 }
 
+function FlagKorea({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#FFFFFF" />
+            <circle cx="32" cy="24" r="11" fill="#CD2E3A" />
+            <path d="M21 24 a11 11 0 0 0 22 0z" fill="#003478" />
+            <circle cx="32" cy="18.5" r="5.5" fill="#CD2E3A" />
+            <circle cx="32" cy="29.5" r="5.5" fill="#003478" />
+        </svg>
+    );
+}
+
+function FlagSpain({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#AA151B" />
+            <rect y="12" width="64" height="24" fill="#F1BF00" />
+        </svg>
+    );
+}
+
+function FlagGermany({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#000000" />
+            <rect y="16" width="64" height="16" fill="#DD0000" />
+            <rect y="32" width="64" height="16" fill="#FFCE00" />
+        </svg>
+    );
+}
+
+function FlagVietnam({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#DA251D" />
+            <polygon points="32,10 35.5,21 47,21 37.5,27.5 41,38.5 32,32 23,38.5 26.5,27.5 17,21 28.5,21" fill="#FFFF00" />
+        </svg>
+    );
+}
+
+function FlagPortuguese({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#009C3B" />
+            <polygon points="32,5 57,24 32,43 7,24" fill="#FFDF00" />
+            <circle cx="32" cy="24" r="9" fill="#002776" />
+        </svg>
+    );
+}
+
+function FlagArabic({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#CE1126" />
+            <rect y="16" width="64" height="16" fill="#FFFFFF" />
+            <rect y="32" width="64" height="16" fill="#000000" />
+        </svg>
+    );
+}
+
+function FlagThailand({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#A51931" />
+            <rect y="9.6" width="64" height="9.6" fill="#F4F5F8" />
+            <rect y="19.2" width="64" height="9.6" fill="#2D2A4A" />
+            <rect y="28.8" width="64" height="9.6" fill="#F4F5F8" />
+        </svg>
+    );
+}
+
+function FlagRussia({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#FFFFFF" />
+            <rect y="16" width="64" height="16" fill="#0039A6" />
+            <rect y="32" width="64" height="16" fill="#D52B1E" />
+        </svg>
+    );
+}
+
+function FlagIndonesia({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#CE1126" />
+            <rect y="24" width="64" height="24" fill="#FFFFFF" />
+        </svg>
+    );
+}
+
+function FlagMalaysia({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#CC0001" />
+            <rect y="6.86" width="64" height="6.86" fill="#FFFFFF" />
+            <rect y="20.57" width="64" height="6.86" fill="#FFFFFF" />
+            <rect y="34.29" width="64" height="6.86" fill="#FFFFFF" />
+            <rect width="32" height="24" fill="#010066" />
+            <circle cx="14" cy="12" r="6" fill="#FFCC00" />
+            <circle cx="16.5" cy="10" r="4.5" fill="#010066" />
+            <polygon points="24,8 25,11 28,11 25.5,13 26.5,16 24,14.5 21.5,16 22.5,13 20,11 23,11" fill="#FFCC00" />
+        </svg>
+    );
+}
+
+function FlagItaly({ className = '' }) {
+    return (
+        <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
+            <rect width="64" height="48" rx="6" fill="#FFFFFF" />
+            <rect width="21.33" height="48" rx="6" fill="#009246" />
+            <rect x="42.67" width="21.33" height="48" rx="6" fill="#CE2B37" />
+        </svg>
+    );
+}
+
 const LANGUAGE_LABEL_MAP = {
     zh: {
-        chinese: '中文',
-        english: '英语',
-        japanese: '日语',
-        french: '法语',
+        chinese: '中文', english: '英语', japanese: '日语', french: '法语',
+        korean: '韩语', spanish: '西班牙语', german: '德语', vietnamese: '越南语',
+        portuguese: '葡萄牙语', arabic: '阿拉伯语', thai: '泰语', russian: '俄语',
+        indonesian: '印尼语', malay: '马来语', italian: '意大利语',
     },
     en: {
-        chinese: 'Chinese',
-        english: 'English',
-        japanese: 'Japanese',
-        french: 'French',
+        chinese: 'Chinese', english: 'English', japanese: 'Japanese', french: 'French',
+        korean: 'Korean', spanish: 'Spanish', german: 'German', vietnamese: 'Vietnamese',
+        portuguese: 'Portuguese', arabic: 'Arabic', thai: 'Thai', russian: 'Russian',
+        indonesian: 'Indonesian', malay: 'Malay', italian: 'Italian',
     },
     jp: {
-        chinese: '中国語',
-        english: '英語',
-        japanese: '日本語',
-        french: 'フランス語',
+        chinese: '中国語', english: '英語', japanese: '日本語', french: 'フランス語',
+        korean: '韓国語', spanish: 'スペイン語', german: 'ドイツ語', vietnamese: 'ベトナム語',
+        portuguese: 'ポルトガル語', arabic: 'アラビア語', thai: 'タイ語', russian: 'ロシア語',
+        indonesian: 'インドネシア語', malay: 'マレー語', italian: 'イタリア語',
     },
     fr: {
-        chinese: 'Chinois',
-        english: 'Anglais',
-        japanese: 'Japonais',
-        french: 'Français',
+        chinese: 'Chinois', english: 'Anglais', japanese: 'Japonais', french: 'Français',
+        korean: 'Coréen', spanish: 'Espagnol', german: 'Allemand', vietnamese: 'Vietnamien',
+        portuguese: 'Portugais', arabic: 'Arabe', thai: 'Thaï', russian: 'Russe',
+        indonesian: 'Indonésien', malay: 'Malais', italian: 'Italien',
     },
     de: {
-        chinese: 'Chinesisch',
-        english: 'Englisch',
-        japanese: 'Japanisch',
-        french: 'Französisch',
+        chinese: 'Chinesisch', english: 'Englisch', japanese: 'Japanisch', french: 'Französisch',
+        korean: 'Koreanisch', spanish: 'Spanisch', german: 'Deutsch', vietnamese: 'Vietnamesisch',
+        portuguese: 'Portugiesisch', arabic: 'Arabisch', thai: 'Thailändisch', russian: 'Russisch',
+        indonesian: 'Indonesisch', malay: 'Malaiisch', italian: 'Italienisch',
     },
 };
 
@@ -96,45 +211,45 @@ const FLAG_COMPONENT_MAP = {
     english: FlagUK,
     japanese: FlagJapan,
     french: FlagFrance,
+    korean: FlagKorea,
+    spanish: FlagSpain,
+    german: FlagGermany,
+    vietnamese: FlagVietnam,
+    portuguese: FlagPortuguese,
+    arabic: FlagArabic,
+    thai: FlagThailand,
+    russian: FlagRussia,
+    indonesian: FlagIndonesia,
+    malay: FlagMalaysia,
+    italian: FlagItaly,
+};
+
+const _DEFAULT_STYLE = {
+    headerBg: 'bg-blue-50',
+    textColor: 'text-slate-800',
+    subtitleColor: 'text-slate-400',
+    arrowColor: 'text-slate-300',
+    barBg: 'bg-slate-300',
+    shadow: 'shadow-slate-200/60',
+    ring: 'ring-slate-200/60',
 };
 
 const LANGUAGE_STYLE_MAP = {
-    chinese: {
-        headerBg: 'bg-blue-50',
-        textColor: 'text-slate-800',
-        subtitleColor: 'text-slate-400',
-        arrowColor: 'text-slate-300',
-        barBg: 'bg-slate-300',
-        shadow: 'shadow-slate-200/60',
-        ring: 'ring-slate-200/60',
-    },
-    english: {
-        headerBg: 'bg-blue-50',
-        textColor: 'text-slate-800',
-        subtitleColor: 'text-slate-400',
-        arrowColor: 'text-slate-300',
-        barBg: 'bg-slate-300',
-        shadow: 'shadow-slate-200/60',
-        ring: 'ring-slate-200/60',
-    },
-    japanese: {
-        headerBg: 'bg-blue-50',
-        textColor: 'text-slate-800',
-        subtitleColor: 'text-slate-400',
-        arrowColor: 'text-slate-300',
-        barBg: 'bg-slate-300',
-        shadow: 'shadow-slate-200/60',
-        ring: 'ring-slate-200/60',
-    },
-    french: {
-        headerBg: 'bg-blue-50',
-        textColor: 'text-slate-800',
-        subtitleColor: 'text-slate-400',
-        arrowColor: 'text-slate-300',
-        barBg: 'bg-slate-300',
-        shadow: 'shadow-slate-200/60',
-        ring: 'ring-slate-200/60',
-    },
+    chinese: _DEFAULT_STYLE,
+    english: _DEFAULT_STYLE,
+    japanese: _DEFAULT_STYLE,
+    french: _DEFAULT_STYLE,
+    korean: _DEFAULT_STYLE,
+    spanish: _DEFAULT_STYLE,
+    german: _DEFAULT_STYLE,
+    vietnamese: _DEFAULT_STYLE,
+    portuguese: _DEFAULT_STYLE,
+    arabic: _DEFAULT_STYLE,
+    thai: _DEFAULT_STYLE,
+    russian: _DEFAULT_STYLE,
+    indonesian: _DEFAULT_STYLE,
+    malay: _DEFAULT_STYLE,
+    italian: _DEFAULT_STYLE,
 };
 
 const parseCourseLanguagePair = (courseName = '') => {
@@ -165,11 +280,19 @@ const normalizeLanguage = (value = '') => {
     const lower = String(value).trim().toLowerCase();
     if (lower.includes('chinese') || lower.includes('中文') || lower.includes('chinois') || lower.includes('chinesisch')) return 'chinese';
     if (lower.includes('english') || lower.includes('英语') || lower.includes('anglais') || lower.includes('englisch')) return 'english';
-    if (lower.includes('japanese') || lower.includes('日语') || lower.includes('japonais') || lower.includes('japanisch')) return 'japanese';
+    if (lower.includes('japanese') || lower.includes('日语') || lower.includes('日本') || lower.includes('japonais') || lower.includes('japanisch')) return 'japanese';
     if (lower.includes('french') || lower.includes('fran') || lower.includes('法语') || lower.includes('französisch')) return 'french';
-    if (lower.includes('korean') || lower.includes('韩语')) return 'korean';
+    if (lower.includes('korean') || lower.includes('한국') || lower.includes('韩语')) return 'korean';
     if (lower.includes('spanish') || lower.includes('español') || lower.includes('espagnol') || lower.includes('西班牙语')) return 'spanish';
     if (lower.includes('german') || lower.includes('deutsch') || lower.includes('allemand') || lower.includes('德语')) return 'german';
+    if (lower.includes('viet') || lower.includes('vietnamese') || lower.includes('越南')) return 'vietnamese';
+    if (lower.includes('portugu') || lower.includes('葡萄牙')) return 'portuguese';
+    if (lower.includes('عرب') || lower.includes('arabic') || lower.includes('阿拉伯')) return 'arabic';
+    if (lower.includes('ไทย') || lower.includes('thai') || lower.includes('泰语')) return 'thai';
+    if (lower.includes('русс') || lower.includes('russian') || lower.includes('俄语')) return 'russian';
+    if (lower.includes('indonesia') || lower.includes('印尼')) return 'indonesian';
+    if (lower.includes('melayu') || lower.includes('malay') || lower.includes('马来')) return 'malay';
+    if (lower.includes('italian') || lower.includes('意大利')) return 'italian';
     return lower;
 };
 

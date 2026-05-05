@@ -34,6 +34,12 @@ LANG_META = {
     "ko": {"name": "Korean", "native": "한국어"},
     "vi": {"name": "Vietnamese", "native": "Tiếng Việt"},
     "ar": {"name": "Arabic", "native": "العربية"},
+    "th": {"name": "Thai", "native": "ภาษาไทย"},
+    "pt": {"name": "Portuguese", "native": "Português"},
+    "ru": {"name": "Russian", "native": "Русский"},
+    "id": {"name": "Indonesian", "native": "Bahasa Indonesia"},
+    "ms": {"name": "Malay", "native": "Bahasa Melayu"},
+    "it": {"name": "Italian", "native": "Italiano"},
 }
 
 SHORT_BATCH_SIZE = 30   # strings per call for short fields
@@ -48,6 +54,12 @@ _TYPE_REMAP: dict[str, dict[str, str]] = {
     "ko": {"CN_TO_EN": "CN_TO_KO", "EN_TO_CN": "KO_TO_CN", "EN_TO_CN_SPEAK": "KO_TO_CN_SPEAK"},
     "vi": {"CN_TO_EN": "CN_TO_VI", "EN_TO_CN": "VI_TO_CN", "EN_TO_CN_SPEAK": "VI_TO_CN_SPEAK"},
     "ar": {"CN_TO_EN": "CN_TO_AR", "EN_TO_CN": "AR_TO_CN", "EN_TO_CN_SPEAK": "AR_TO_CN_SPEAK"},
+    "th": {"CN_TO_EN": "CN_TO_TH", "EN_TO_CN": "TH_TO_CN", "EN_TO_CN_SPEAK": "TH_TO_CN_SPEAK"},
+    "pt": {"CN_TO_EN": "CN_TO_PT", "EN_TO_CN": "PT_TO_CN", "EN_TO_CN_SPEAK": "PT_TO_CN_SPEAK"},
+    "ru": {"CN_TO_EN": "CN_TO_RU", "EN_TO_CN": "RU_TO_CN", "EN_TO_CN_SPEAK": "RU_TO_CN_SPEAK"},
+    "id": {"CN_TO_EN": "CN_TO_ID", "EN_TO_CN": "ID_TO_CN", "EN_TO_CN_SPEAK": "ID_TO_CN_SPEAK"},
+    "ms": {"CN_TO_EN": "CN_TO_MS", "EN_TO_CN": "MS_TO_CN", "EN_TO_CN_SPEAK": "MS_TO_CN_SPEAK"},
+    "it": {"CN_TO_EN": "CN_TO_IT", "EN_TO_CN": "IT_TO_CN", "EN_TO_CN_SPEAK": "IT_TO_CN_SPEAK"},
 }
 
 
