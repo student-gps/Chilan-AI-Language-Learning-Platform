@@ -6,6 +6,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+try:
+    from PIL import Image as _PilImage
+    _PILLOW_AVAILABLE = True
+except ImportError:
+    _PILLOW_AVAILABLE = False
+
+_WEBP_QUALITY = 85
+
 from dotenv import load_dotenv
 
 CONTENT_BUILDER_DIR = Path(__file__).resolve().parents[1]
@@ -408,6 +416,21 @@ def _svg_for_segment(segment: dict, lesson_title: str, slide_index: int, total: 
 </svg>'''
 
 
+def _convert_pngs_to_webp(slide_dir: Path, count: int) -> None:
+    """Convert slide_001.png … slide_NNN.png to WebP q85 and delete originals."""
+    if not _PILLOW_AVAILABLE:
+        print("⚠️ Pillow 未安装，跳过 WebP 转换（pip install Pillow）")
+        return
+    for index in range(1, count + 1):
+        png = slide_dir / f"slide_{index:03d}.png"
+        if not png.exists():
+            continue
+        webp = png.with_suffix(".webp")
+        _PilImage.open(png).save(webp, "WEBP", quality=_WEBP_QUALITY, method=6)
+        png.unlink()
+    print(f"  🗜️ 已转换 {count} 张 PNG → WebP q{_WEBP_QUALITY}")
+
+
 def _render_remotion_slides(
     *,
     json_path: Path,
@@ -478,17 +501,30 @@ def build_deck(
 
     image_suffix = ".svg"
     if renderer == "remotion":
-        try:
-            slide_dir, image_suffix = _render_remotion_slides(
-                json_path=json_path,
-                lesson_digits=lesson_digits,
-                pipeline_id=pipeline_id,
-                lang=lang,
-                expected_count=len(segments),
-            )
-        except Exception as exc:
-            print(f"⚠️ Remotion 静态幻灯片导出失败，回退到简易 SVG: {exc}")
-            image_suffix = ".svg"
+        n = len(segments)
+        expected_webps = [slide_dir / f"slide_{i:03d}.webp" for i in range(1, n + 1)]
+        expected_pngs  = [slide_dir / f"slide_{i:03d}.png"  for i in range(1, n + 1)]
+        if not force and all(p.exists() for p in expected_webps):
+            print(f"  ⏭️ 复用已有幻灯片 WebP，跳过 Remotion 渲染（共 {n} 张）")
+            image_suffix = ".webp"
+        elif not force and all(p.exists() for p in expected_pngs):
+            print(f"  🗜️ 发现已有 PNG，直接转 WebP，跳过 Remotion 渲染（共 {n} 张）")
+            _convert_pngs_to_webp(slide_dir, n)
+            image_suffix = ".webp"
+        else:
+            try:
+                slide_dir, image_suffix = _render_remotion_slides(
+                    json_path=json_path,
+                    lesson_digits=lesson_digits,
+                    pipeline_id=pipeline_id,
+                    lang=lang,
+                    expected_count=len(segments),
+                )
+                _convert_pngs_to_webp(slide_dir, len(segments))
+                image_suffix = ".webp"
+            except Exception as exc:
+                print(f"⚠️ Remotion 静态幻灯片导出失败，回退到简易 SVG: {exc}")
+                image_suffix = ".svg"
     elif renderer != "svg":
         raise ValueError(f"Unsupported slide renderer: {renderer}")
 

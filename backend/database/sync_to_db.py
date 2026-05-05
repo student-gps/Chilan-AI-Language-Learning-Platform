@@ -1,3 +1,33 @@
+"""
+sync_to_db.py — 将本地 lesson JSON 上传到 R2 并同步至 PostgreSQL 数据库。
+
+用法（在 backend/ 目录下运行）：
+
+  ── 中文听说读写（integrated_chinese） ──────────────────────────────────────
+
+    # 英语版（默认）：扫描 output_json/en/，上传幻灯片+音频到 R2，写入数据库
+    python database/sync_to_db.py --pipeline integrated_chinese --lang en
+
+    # 法语版
+    python database/sync_to_db.py --pipeline integrated_chinese --lang fr
+
+    # 其他语言版（de / es / ja / ko / vi / ar / th / pt / ru / id / ms / it）
+    python database/sync_to_db.py --pipeline integrated_chinese --lang <lang>
+
+    # 只同步某一课（英语）
+    python database/sync_to_db.py --pipeline integrated_chinese --lang en \\
+        content_builder/artifacts/integrated_chinese/output_json/en/lesson101_data.json
+
+  ── 新概念英语（new_concept_english） ───────────────────────────────────────
+
+    python database/sync_to_db.py --pipeline new_concept_english
+
+  ── 通用说明 ────────────────────────────────────────────────────────────────
+
+    - 需要 backend/.env 配置好 DATABASE_URL 和 R2 相关变量（STORAGE_R2_*）
+    - 上传完成后 JSON 从 output_json/<lang>/ 移至 synced_json/<lang>/
+    - 已在 synced_json/ 的文件也可以重刷（重新上传到 R2 并更新数据库）
+"""
 import os
 import json
 import psycopg2
@@ -264,7 +294,13 @@ def upload_assets_to_r2(data: dict) -> dict:
             image_key = (image.get("object_key") or "").strip()
             if image_local and image_key:
                 suffix = Path(image_local).suffix.lower()
-                content_type = "image/svg+xml" if suffix == ".svg" else None
+                content_type = {
+                    ".svg": "image/svg+xml",
+                    ".webp": "image/webp",
+                    ".png": "image/png",
+                    ".jpg": "image/jpeg",
+                    ".jpeg": "image/jpeg",
+                }.get(suffix, "image/png")
                 image["object_key"] = _upload(image_local, image_key, content_type, f"slide {slide.get('id', '?')}")
                 image["media_url"] = ""
 
