@@ -27,13 +27,19 @@ load_dotenv(dotenv_path=BACKEND_DIR / ".env")
 from llm_providers import LLMFactory
 
 LANG_META = {
-    "fr": {"name": "French",   "native": "Français"},
-    "de": {"name": "German",   "native": "Deutsch"},
-    "es": {"name": "Spanish",  "native": "Español"},
-    "ja": {"name": "Japanese", "native": "日本語"},
-    "ko": {"name": "Korean",   "native": "한국어"},
-    "vi": {"name": "Vietnamese", "native": "Tiếng Việt"},
-    "ar": {"name": "Arabic", "native": "العربية"},
+    "fr": {"name": "French",      "native": "Français"},
+    "de": {"name": "German",      "native": "Deutsch"},
+    "es": {"name": "Spanish",     "native": "Español"},
+    "ja": {"name": "Japanese",    "native": "日本語"},
+    "ko": {"name": "Korean",      "native": "한국어"},
+    "vi": {"name": "Vietnamese",  "native": "Tiếng Việt"},
+    "ar": {"name": "Arabic",      "native": "العربية"},
+    "ru": {"name": "Russian",     "native": "Русский"},
+    "th": {"name": "Thai",        "native": "ภาษาไทย"},
+    "pt": {"name": "Portuguese",  "native": "Português"},
+    "it": {"name": "Italian",     "native": "Italiano"},
+    "id": {"name": "Indonesian",  "native": "Bahasa Indonesia"},
+    "ms": {"name": "Malay",       "native": "Bahasa Melayu"},
 }
 
 BATCH_SIZE = 50
@@ -286,7 +292,7 @@ def translate_vocab_memory(lang: str, llm, dry_run: bool = False) -> None:
 
 def main():
     parser = argparse.ArgumentParser(description="Translate global_vocab_memory.json to a target language")
-    parser.add_argument("--lang", required=True, help="Target language code: fr, de, es, ja, ko, vi, ar")
+    parser.add_argument("--lang", required=True, help="Target language code: fr, de, es, ja, ko, vi, ar, ru, th, pt, it, id, ms")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be translated without writing")
     args = parser.parse_args()
 

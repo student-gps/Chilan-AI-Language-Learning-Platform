@@ -34,9 +34,7 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
         if (!ex) return;
         // normalise: some older lessons store the translation as "en" instead of "translation"
         const normalized = ex.translation ? ex : { ...ex, translation: ex.en || '' };
-        const exists = combinedExamples.some((item) =>
-            item?.cn === normalized?.cn && item?.translation === normalized?.translation
-        );
+        const exists = combinedExamples.some((item) => item?.cn === normalized?.cn);
         if (!exists) combinedExamples.push(normalized);
     });
 

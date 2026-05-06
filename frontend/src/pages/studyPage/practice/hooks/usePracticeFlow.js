@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { evaluateStudyAnswer } from '../../../../api/apiClient';
+import { isWrongLanguage } from '../utils/langDetect';
 
 const getErrorMessage = (error, fallback) => {
     const message = error?.response?.data?.detail || error?.message;
@@ -25,6 +26,7 @@ export default function usePracticeFlow({
     setSpeechError,
     cleanupMedia,
     resetSpeechState,
+    answerLanguage,
 }) {
     const [userAnswer, setUserAnswer] = useState('');
     const [lastSubmittedAnswer, setLastSubmittedAnswer] = useState('');
@@ -32,6 +34,7 @@ export default function usePracticeFlow({
     const [feedback, setFeedback] = useState(null);
     const [knowledgeDetails, setKnowledgeDetails] = useState(null);
     const [typedFeedbackMessage, setTypedFeedbackMessage] = useState('');
+    const [langWarning, setLangWarning] = useState(false);
 
     const activeAnswer = speechMode ? speechTranscript : userAnswer;
     const speechShouldRetry = speechMode && Boolean(feedback?.shouldRetry);
@@ -51,6 +54,7 @@ export default function usePracticeFlow({
         setFeedback(null);
         setKnowledgeDetails(null);
         setTypedFeedbackMessage('');
+        setLangWarning(false);
         resetSpeechState();
         cleanupMedia();
     }, [cleanupMedia, resetSpeechState]);
@@ -89,6 +93,11 @@ export default function usePracticeFlow({
                 return;
             }
         } else if (!userAnswer.trim()) {
+            return;
+        }
+
+        if (!speechMode && answerLanguage && isWrongLanguage(userAnswer, answerLanguage)) {
+            setLangWarning(true);
             return;
         }
 
@@ -139,6 +148,10 @@ export default function usePracticeFlow({
     useEffect(() => {
         resetQuestionUiState();
     }, [currentQuestion, resetQuestionUiState]);
+
+    useEffect(() => {
+        if (langWarning) setLangWarning(false);
+    }, [userAnswer]);
 
     useEffect(() => {
         const fullMessage = feedback?.message || '';
@@ -199,6 +212,7 @@ export default function usePracticeFlow({
         isTypingFeedback,
         isResubmitDisabled,
         feedbackTone,
+        langWarning,
         resetQuestionUiState,
         handleSubmit,
         handleForfeit,

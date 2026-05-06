@@ -517,6 +517,11 @@ def main():
         action="store_true",
         help="Overwrite existing localized JSON files instead of skipping them.",
     )
+    parser.add_argument(
+        "--skip-vocab",
+        action="store_true",
+        help="Skip global_vocab_memory localization (default: auto-run after lesson translation).",
+    )
     parser.add_argument("files", nargs="*", help="JSON file name(s) in output_json/ (default: all)")
     args = parser.parse_args()
 
@@ -578,6 +583,18 @@ def main():
         with open(out_path, "w", encoding="utf-8") as f:
             json.dump(result, f, ensure_ascii=False, indent=2)
         print(f"  💾 Saved → {out_path}\n")
+
+    # Auto-run vocab memory localization (incremental, safe to re-run)
+    if not args.skip_vocab and args.pipeline in {"integrated_chinese", "integrated-chinese", "zh"}:
+        print(f"\n{'─'*50}")
+        print(f"📚 Running global_vocab_memory localization [{lang}]...")
+        try:
+            from localize_vocab_memory import translate_vocab_memory
+            translate_vocab_memory(lang, llm)
+        except Exception as e:
+            print(f"⚠️  global_vocab_memory localization failed (lesson JSONs are fine): {e}")
+    elif args.skip_vocab:
+        print("\nℹ️  --skip-vocab: global_vocab_memory localization skipped.")
 
     print("✨ Done.")
 

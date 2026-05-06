@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import time  # 🌟 引入 time 用于手动记录 Tier 1 耗时
 from pathlib import Path
@@ -575,7 +576,7 @@ async def get_knowledge_details(item_id: int):
         question_type = item.get("question_type")
         standard_answers = item.get("standard_answers") or []
 
-        if question_type == "CN_TO_EN":
+        if re.match(r"^CN_TO_\w+$", question_type or ""):
             word = (item.get("original_text") or "").strip()
         else:
             word = (standard_answers[0] if standard_answers else "").strip()

@@ -536,9 +536,9 @@ def sync_lesson_data(
             q_type = item.get('question_type')
 
             vocab_word = ""
-            if q_type == "CN_TO_EN":
+            if re.match(r"^CN_TO_\w+$", q_type or ""):
                 vocab_word = (item.get('original_text') or '').strip()
-            elif q_type == "EN_TO_CN":
+            elif re.match(r"^\w+_TO_CN", q_type or ""):
                 standard_answers = item.get('standard_answers') or []
                 vocab_word = (standard_answers[0] if standard_answers else '').strip()
 

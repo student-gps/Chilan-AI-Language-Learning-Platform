@@ -1,3 +1,59 @@
+import i18n from '../../../i18n';
+
+// Short abbreviations for badge display (e.g. "翻译 · 中→日")
+const LANG_ABBREV = {
+    CN: { zh: '中', jp: '中', default: 'ZH' },
+    EN: { zh: '英', jp: '英', default: 'EN' },
+    JA: { zh: '日', jp: '日', default: 'JA' },
+    FR: { zh: '法', jp: '仏', default: 'FR' },
+    DE: { zh: '德', jp: '独', default: 'DE' },
+    KO: { zh: '韩', jp: '韓', default: 'KO' },
+    RU: { zh: '俄', jp: '露', default: 'RU' },
+    ES: { zh: '西', jp: '西', default: 'ES' },
+    PT: { zh: '葡', jp: '葡', default: 'PT' },
+    VI: { zh: '越', jp: '越', default: 'VI' },
+    TH: { zh: '泰', jp: '泰', default: 'TH' },
+    AR: { zh: '阿', jp: 'ア', default: 'AR' },
+    IT: { zh: '意', jp: '伊', default: 'IT' },
+    ID: { zh: '印', jp: 'イ', default: 'ID' },
+    MS: { zh: '马', jp: 'マ', default: 'MS' },
+};
+
+// Full language names for prompt label (e.g. "翻译成日文")
+const LANG_NAME = {
+    CN: { zh: '中文', jp: '中国語', fr: 'chinois', de: 'Chinesisch', en: 'Chinese' },
+    EN: { zh: '英文', jp: '英語', fr: 'anglais', de: 'Englisch', en: 'English' },
+    JA: { zh: '日文', jp: '日本語', fr: 'japonais', de: 'Japanisch', en: 'Japanese' },
+    FR: { zh: '法文', jp: 'フランス語', fr: 'français', de: 'Französisch', en: 'French' },
+    DE: { zh: '德文', jp: 'ドイツ語', fr: 'allemand', de: 'Deutsch', en: 'German' },
+    KO: { zh: '韩文', jp: '韓国語', fr: 'coréen', de: 'Koreanisch', en: 'Korean' },
+    RU: { zh: '俄文', jp: 'ロシア語', fr: 'russe', de: 'Russisch', en: 'Russian' },
+    ES: { zh: '西班牙文', jp: 'スペイン語', fr: 'espagnol', de: 'Spanisch', en: 'Spanish' },
+    PT: { zh: '葡萄牙文', jp: 'ポルトガル語', fr: 'portugais', de: 'Portugiesisch', en: 'Portuguese' },
+    VI: { zh: '越南文', jp: 'ベトナム語', fr: 'vietnamien', de: 'Vietnamesisch', en: 'Vietnamese' },
+    TH: { zh: '泰文', jp: 'タイ語', fr: 'thaïlandais', de: 'Thaïlandais', en: 'Thai' },
+    AR: { zh: '阿拉伯文', jp: 'アラビア語', fr: 'arabe', de: 'Arabisch', en: 'Arabic' },
+    IT: { zh: '意大利文', jp: 'イタリア語', fr: 'italien', de: 'Italienisch', en: 'Italian' },
+    ID: { zh: '印尼文', jp: 'インドネシア語', fr: 'indonésien', de: 'Indonesisch', en: 'Indonesian' },
+    MS: { zh: '马来文', jp: 'マレー語', fr: 'malais', de: 'Malaiisch', en: 'Malay' },
+};
+
+const TRANSLATE_VERB = { zh: '翻译', en: 'Translate', jp: '翻訳', fr: 'Traduire', de: 'Übersetzen' };
+const SPEAK_VERB = { zh: '口语', en: 'Speak', jp: 'スピーキング', fr: 'Expression orale', de: 'Sprechen' };
+const TRANSLATE_INTO_FN = {
+    zh: (tgt) => `翻译成${LANG_NAME[tgt]?.zh || tgt}`,
+    en: (tgt) => `Translate into ${LANG_NAME[tgt]?.en || tgt}`,
+    jp: (tgt) => `${LANG_NAME[tgt]?.jp || tgt}に翻訳してください`,
+    fr: (tgt) => `Traduire en ${LANG_NAME[tgt]?.fr || tgt}`,
+    de: (tgt) => `Ins ${LANG_NAME[tgt]?.de || tgt}ische übersetzen`,
+};
+
+const _uiLang = () => (i18n.language || 'en').split('-')[0].toLowerCase();
+const _abbrev = (code, lang) => { const e = LANG_ABBREV[code?.toUpperCase()] || {}; return e[lang] || e.default || code?.toUpperCase() || '?'; };
+const _buildTranslateBadge = (src, tgt) => { const l = _uiLang(); return `${TRANSLATE_VERB[l] || TRANSLATE_VERB.en} · ${_abbrev(src, l)}→${_abbrev(tgt, l)}`; };
+const _buildSpeakBadge = (tgt) => { const l = _uiLang(); return `${SPEAK_VERB[l] || SPEAK_VERB.en} · ${LANG_NAME[tgt?.toUpperCase()]?.[l] || tgt}`; };
+const _buildPromptLabel = (tgt) => { const l = _uiLang(); return (TRANSLATE_INTO_FN[l] || TRANSLATE_INTO_FN.en)(tgt?.toUpperCase()); };
+
 const THEMES = {
     blue: {
         sparkle: 'text-blue-500',
@@ -162,12 +218,61 @@ const FALLBACK_CONFIG = {
 
 export const getQuestionTypeConfig = (question) => {
     const type = question?.question_type;
-    const base = CONFIGS[type] || FALLBACK_CONFIG;
     const metadata = question?.metadata || {};
+
+    const exact = CONFIGS[type];
+    if (exact) {
+        return {
+            ...exact,
+            speechLanguage: metadata.speech_language || exact.speechLanguage || exact.answerLanguage || 'zh',
+            audioLanguage: metadata.audio_language || exact.audioLanguage || exact.ttsLanguage || 'zh',
+        };
+    }
+
+    // Dynamic resolution for localized variants: CN_TO_JA, FR_TO_CN, JA_TO_CN_SPEAK, etc.
+    let m;
+    if ((m = type?.match(/^CN_TO_(\w+)$/))) {
+        const tgt = m[1];
+        return {
+            ...CONFIGS.CN_TO_EN,
+            badgeLabel: _buildTranslateBadge('CN', tgt),
+            badgeKey: null,
+            promptLabel: _buildPromptLabel(tgt),
+            promptLabelKey: null,
+            answerLanguage: tgt.toLowerCase(),
+            speechLanguage: metadata.speech_language || tgt.toLowerCase(),
+            audioLanguage: metadata.audio_language || 'zh',
+        };
+    }
+    if ((m = type?.match(/^(\w+)_TO_CN_SPEAK$/))) {
+        return {
+            ...CONFIGS.EN_TO_CN_SPEAK,
+            badgeLabel: _buildSpeakBadge('CN'),
+            badgeKey: null,
+            speechLanguage: metadata.speech_language || CONFIGS.EN_TO_CN_SPEAK.speechLanguage || 'zh',
+            audioLanguage: metadata.audio_language || m[1].toLowerCase(),
+        };
+    }
+    if ((m = type?.match(/^(\w+)_TO_CN$/))) {
+        const src = m[1];
+        const srcLang = src.toLowerCase();
+        return {
+            ...CONFIGS.EN_TO_CN,
+            badgeLabel: _buildTranslateBadge(src, 'CN'),
+            badgeKey: null,
+            promptLabel: _buildPromptLabel('CN'),
+            promptLabelKey: null,
+            ttsLanguage: srcLang,
+            speechLanguage: metadata.speech_language || 'zh',
+            audioLanguage: metadata.audio_language || srcLang,
+        };
+    }
+
+    const base = FALLBACK_CONFIG;
     return {
         ...base,
-        speechLanguage: metadata.speech_language || base.speechLanguage || base.answerLanguage || 'zh',
-        audioLanguage: metadata.audio_language || base.audioLanguage || base.ttsLanguage || 'zh',
+        speechLanguage: metadata.speech_language || base.answerLanguage || 'zh',
+        audioLanguage: metadata.audio_language || base.ttsLanguage || 'zh',
     };
 };
 

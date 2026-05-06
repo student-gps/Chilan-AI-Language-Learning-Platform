@@ -1,4 +1,26 @@
-EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH = {
+import re
+
+# Language metadata: code → display name + second-person pronoun
+_LANG_META = {
+    "EN": {"name": "English",    "you": "you"},
+    "FR": {"name": "French",     "you": "vous"},
+    "JA": {"name": "Japanese",   "you": "あなた"},
+    "DE": {"name": "German",     "you": "Sie"},
+    "KO": {"name": "Korean",     "you": "당신"},
+    "RU": {"name": "Russian",    "you": "вы"},
+    "ES": {"name": "Spanish",    "you": "usted"},
+    "PT": {"name": "Portuguese", "you": "você"},
+    "VI": {"name": "Vietnamese", "you": "bạn"},
+    "TH": {"name": "Thai",       "you": "คุณ"},
+    "AR": {"name": "Arabic",     "you": "أنت"},
+    "IT": {"name": "Italian",    "you": "lei"},
+    "ID": {"name": "Indonesian", "you": "Anda"},
+    "MS": {"name": "Malay",      "you": "anda"},
+}
+
+# ── Exact prompts (kept for highest-quality coverage) ────────────────────────
+
+_EXACT_PROMPTS = {
     "CN_TO_EN": """
         # Role: Expert Language Coach for English Native Speakers
         # Task: Evaluate a translation from Chinese to English by MEANING equivalence, not surface wording.
@@ -210,111 +232,163 @@ EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH = {
         # Output Format:
         JSON only: {{"level": int, "is_correct": bool, "explanation": string}}
     """,
-
-    "CN_TO_FR": """
-        # Rôle : Coach linguistique expert pour les francophones
-        # Tâche : Évaluer une traduction du chinois vers le français par équivalence de SENS, pas de formulation exacte.
-
-        # Contexte :
-        - Source chinoise : "{question}"
-        - Réponses françaises de référence (exemples, non exhaustifs) : {standards}
-        - Réponse française de l'étudiant : "{user_answer}"
-
-        # Politique principale :
-        1. Traiter les réponses de référence comme des exemples seulement. Accepter les paraphrases sémantiquement équivalentes.
-        2. Ne PAS pénaliser les variations de formulation ou d'ordre des mots si le sens est préservé.
-        3. Pénaliser uniquement les vraies erreurs de sens (sujet/objet incorrect, polarité incorrecte, information clé manquante).
-
-        # Étapes d'évaluation :
-        A. Déterminer l'intention de la source.
-        B. Comparer les éléments sémantiques clés (acteur, action, objet, contrainte).
-        C. Évaluer la naturalité séparément de la correction.
-
-        # Échelle de notation :
-        - 4 : Sens entièrement correct et naturel.
-        - 3 : Sens correct avec des problèmes mineurs de grammaire ou de style.
-        - 2 : Partiellement correct ; information clé manquante ou formulation maladroite.
-        - 1 : Sens incorrect ou mauvaise langue utilisée.
-
-        # Règle de décision :
-        - Si le sens est préservé, is_correct DOIT être true (niveau 3 ou 4).
-        - Ne jamais mettre is_correct=false uniquement parce que l'expression diffère des références.
-
-        # Exigences :
-        - L'"explanation" DOIT être en français.
-        - Utilisez "Vous" pour vous adresser directement à l'étudiant (ex. : "Vous avez dit...", "Vous avez utilisé...").
-        - Exactement 2 courtes phrases séparées par un caractère de nouvelle ligne (\\n).
-        - Phrase 1 : résumez ce que signifie la réponse de l'étudiant.
-        - Phrase 2 : expliquez si le sens est correct et ce qu'il faut améliorer.
-
-        # Format de sortie :
-        JSON uniquement : {{"level": int, "is_correct": bool, "explanation": string}}
-    """,
-
-    "FR_TO_CN": """
-        # Rôle : Professeur de chinois expert pour les francophones
-        # Tâche : Évaluer une traduction du français vers le chinois par équivalence de SENS, pas de formulation exacte.
-
-        # Contexte :
-        - Source française : "{question}"
-        - Réponses chinoises de référence (exemples, non exhaustifs) : {standards}
-        - Réponse chinoise de l'étudiant : "{user_answer}"
-
-        # Politique principale :
-        1. Traiter les réponses de référence comme des exemples seulement. Accepter les paraphrases sémantiquement équivalentes.
-        2. Ne PAS pénaliser les variations de formulation si le sens est préservé.
-        3. Exemples équivalents qui doivent être acceptés :
-           - 你叫什么？
-           - 你叫什么名字？
-           - 你的名字是什么？
-        4. Pénaliser uniquement les vraies erreurs de sens (sujet/objet incorrect, polarité incorrecte, information clé manquante).
-
-        # Étapes d'évaluation :
-        A. Déterminer l'intention de la source.
-        B. Comparer les éléments sémantiques clés (acteur, action, objet, contrainte).
-        C. Évaluer la naturalité séparément de la correction.
-
-        # Échelle de notation :
-        - 4 : Sens entièrement correct et naturel.
-        - 3 : Sens correct avec des problèmes mineurs de grammaire ou de style.
-        - 2 : Partiellement correct ; information clé manquante ou formulation maladroite.
-        - 1 : Sens incorrect ou mauvaise langue utilisée.
-
-        # Règle de décision :
-        - Si le sens est préservé, is_correct DOIT être true (niveau 3 ou 4).
-        - Ne jamais mettre is_correct=false uniquement parce que l'expression diffère des références.
-
-        # Exigences :
-        - L'"explanation" DOIT être en français.
-        - Utilisez "Vous" pour vous adresser directement à l'étudiant (ex. : "Vous avez écrit...", "Vous avez utilisé...").
-        - Exactement 2 courtes phrases séparées par un caractère de nouvelle ligne (\\n).
-        - Phrase 1 : résumez ce que signifie la réponse de l'étudiant.
-        - Phrase 2 : expliquez si le sens est correct et ce qu'il faut améliorer.
-
-        # Format de sortie :
-        JSON uniquement : {{"level": int, "is_correct": bool, "explanation": string}}
-    """,
 }
 
-# Fallback: map language-specific types to their base template when no dedicated prompt exists
-_TYPE_FALLBACK = {
-    "FR_TO_CN_SPEAK": "FR_TO_CN",
-    "CN_LISTEN_WRITE": "EN_TO_CN",
-    "SUPPORT_TO_TARGET": "PATTERN_DRILL",
-    "TARGET_SPEAK": "TARGET_SPEAK",
-    "TARGET_LISTEN_WRITE": "TARGET_LISTEN_WRITE",
-}
+# ── Dynamic templates ─────────────────────────────────────────────────────────
+
+_CN_TO_X_TPL = """
+    # Role: Expert Language Coach for {lang_name} speakers learning Chinese
+    # Task: Evaluate a translation from Chinese to {lang_name} by MEANING equivalence, not surface wording.
+
+    # Context:
+    - Source Chinese: "{{question}}"
+    - Reference {lang_name} Answers (examples, NOT exhaustive): {{standards}}
+    - Student's {lang_name} Answer: "{{user_answer}}"
+
+    # Core Policy:
+    1. Treat reference answers as examples only. Accept semantically equivalent paraphrases.
+    2. Do NOT penalize wording or word-order variation if meaning is preserved.
+    3. Penalize only true meaning errors (wrong subject/object, wrong polarity, missing key information, major tense/aspect meaning shift).
+    4. If the student's answer is NOT written in {lang_name} (e.g., they answered in a different language), immediately set level=1, is_correct=false — do not evaluate content.
+
+    # Evaluation Steps:
+    A. Determine source intent.
+    B. Compare core semantic slots (actor, action, object, constraint).
+    C. Evaluate naturalness separately from correctness.
+
+    # Grading Scale:
+    - 4: Meaning fully correct and natural.
+    - 3: Meaning correct with minor grammar/style issues.
+    - 2: Partially correct; key information missing or awkward.
+    - 1: Wrong meaning or wrong language (must be {lang_name}).
+
+    # Decision Rule:
+    - If meaning is preserved, is_correct MUST be true (level 3 or 4).
+    - Never set is_correct=false only because expression differs from references.
+
+    # Requirements:
+    - The "explanation" MUST be in {lang_name}.
+    - Address the student with "{you}" (e.g., "{you} said...", "{you} used...").
+    - Keep exactly 2 short sentences separated by a newline character (\\n).
+    - Sentence 1: summarize what the student's answer means.
+    - Sentence 2: explain whether the meaning is correct and what to improve.
+
+    # Output Format:
+    JSON only: {{{{"level": int, "is_correct": bool, "explanation": string}}}}
+"""
+
+_X_TO_CN_TPL = """
+    # Role: Expert Chinese Tutor for {lang_name} speakers
+    # Task: Evaluate a translation from {lang_name} to Chinese by MEANING equivalence, not surface wording.
+
+    # Context:
+    - Source {lang_name}: "{{question}}"
+    - Reference Chinese Answers (examples, NOT exhaustive): {{standards}}
+    - Student's Chinese Answer: "{{user_answer}}"
+
+    # Core Policy:
+    1. Treat reference answers as examples only. Accept semantically equivalent paraphrases.
+    2. Do NOT penalize wording or word-order variation if meaning is preserved.
+    3. Equivalent examples that should be accepted: 你叫什么？/ 你叫什么名字？/ 你的名字是什么？
+    4. Penalize only true meaning errors (wrong subject/object, wrong polarity, missing key information, major tense/aspect meaning shift).
+    5. If the student's answer is NOT written in Chinese (e.g., they answered in {lang_name} or another language), immediately set level=1, is_correct=false — do not evaluate content.
+
+    # Evaluation Steps:
+    A. Determine source intent.
+    B. Compare core semantic slots (actor, action, object, constraint).
+    C. Evaluate naturalness separately from correctness.
+
+    # Grading Scale:
+    - 4: Meaning fully correct and natural Chinese.
+    - 3: Meaning correct with minor grammar/style issues.
+    - 2: Partially correct; key information missing or awkward.
+    - 1: Wrong meaning or wrong language (must be Chinese).
+
+    # Decision Rule:
+    - If meaning is preserved, is_correct MUST be true (level 3 or 4).
+    - Never set is_correct=false only because expression differs from references.
+
+    # Requirements:
+    - The "explanation" MUST be in {lang_name}.
+    - Address the student with "{you}" (e.g., "{you} wrote...", "{you} used...").
+    - Keep exactly 2 short sentences separated by a newline character (\\n).
+    - Sentence 1: summarize what the student's answer means.
+    - Sentence 2: explain whether the meaning is correct and what to improve.
+
+    # Output Format:
+    JSON only: {{"level": int, "is_correct": bool, "explanation": string}}
+"""
+
+_X_TO_CN_SPEAK_TPL = """
+    # Role: Expert Chinese Speaking Coach for {lang_name} speakers
+    # Task: Evaluate a spoken Chinese answer from ASR transcript.
+
+    # Context:
+    - Speaking prompt ({lang_name}): "{{question}}"
+    - Reference Chinese Answers (examples, NOT exhaustive): {{standards}}
+    - ASR transcript of student's spoken Chinese: "{{user_answer}}"
+
+    # Core Policy:
+    1. The transcript should be Chinese.
+    2. Accept minor ASR punctuation/capitalization issues.
+    3. Accept natural equivalent wording when meaning is preserved.
+    4. Penalize missing key words, wrong grammar pattern, or wrong meaning.
+
+    # Grading Scale:
+    - 4: Fully correct and natural Chinese.
+    - 3: Correct meaning with minor grammar or ASR wording issues.
+    - 2: Partially correct; key words or grammar are missing.
+    - 1: Wrong meaning, wrong language, or too far from the target.
+
+    # Requirements:
+    - The "explanation" MUST be in {lang_name}.
+    - Address the student with "{you}".
+    - Keep exactly 2 short sentences separated by a newline character (\\n).
+    - Sentence 1: summarize what the ASR transcript says.
+    - Sentence 2: explain whether it matches the target and what to improve.
+
+    # Output Format:
+    JSON only: {{"level": int, "is_correct": bool, "explanation": string}}
+"""
+
+
+def _lang_meta(code: str) -> dict:
+    return _LANG_META.get(code.upper(), {"name": code.capitalize(), "you": "you"})
+
+
+def _render_cn_to_x(target_code: str) -> str:
+    m = _lang_meta(target_code)
+    return _CN_TO_X_TPL.format(lang_name=m["name"], you=m["you"])
+
+
+def _render_x_to_cn(source_code: str) -> str:
+    m = _lang_meta(source_code)
+    return _X_TO_CN_TPL.format(lang_name=m["name"], you=m["you"])
+
+
+def _render_x_to_cn_speak(source_code: str) -> str:
+    m = _lang_meta(source_code)
+    return _X_TO_CN_SPEAK_TPL.format(lang_name=m["name"], you=m["you"])
+
 
 def get_eval_prompt(q_type: str) -> str:
-    """Return the evaluation prompt for a given question type, with fallback."""
-    if q_type in EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH:
-        return EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH[q_type]
-    resolved = _TYPE_FALLBACK.get(q_type)
-    if resolved:
-        return EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH[resolved]
-    # Generic fallback: infer from suffix
-    if q_type.endswith("_TO_CN") or q_type.endswith("_TO_CN_SPEAK"):
-        return EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH["EN_TO_CN"]
-    if q_type.startswith("CN_TO_"):
-        return EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH["CN_TO_EN"]
-    return EVALUATE_PROMPT_TEMPLATE_LEARN_CHINESE_BY_ENGLISH["EN_TO_CN"]
+    """Return the evaluation prompt for a given question type."""
+    if q_type in _EXACT_PROMPTS:
+        return _EXACT_PROMPTS[q_type]
+
+    if m := re.match(r"^CN_TO_(\w+)$", q_type or ""):
+        return _render_cn_to_x(m.group(1))
+
+    if m := re.match(r"^(\w+)_TO_CN_SPEAK$", q_type or ""):
+        return _render_x_to_cn_speak(m.group(1))
+
+    if m := re.match(r"^(\w+)_TO_CN$", q_type or ""):
+        return _render_x_to_cn(m.group(1))
+
+    # Legacy / New Concept English types
+    if q_type in ("SUPPORT_TO_TARGET",):
+        return _EXACT_PROMPTS["PATTERN_DRILL"]
+    if q_type in ("CN_LISTEN_WRITE",):
+        return _EXACT_PROMPTS["EN_TO_CN"]
+
+    return _EXACT_PROMPTS["CN_TO_EN"]
