@@ -13,6 +13,7 @@ import usePracticeKnowledgeDetails from './hooks/usePracticeKnowledgeDetails';
 import usePracticeFlow from './hooks/usePracticeFlow';
 import useSpeechPractice from './hooks/useSpeechPractice';
 import { getQuestionTypeConfig, isListenWriteQuestion } from './questionTypeConfig';
+import { getLangName } from './utils/langDetect';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 15 },
@@ -116,6 +117,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         isTypingFeedback,
         isResubmitDisabled,
         feedbackTone,
+        langWarning,
         handleSubmit,
         handleForfeit,
     } = usePracticeFlow({
@@ -131,6 +133,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         setSpeechError,
         cleanupMedia,
         resetSpeechState,
+        answerLanguage: questionConfig.answerLanguage,
     });
 
     useEffect(() => {
@@ -156,6 +159,16 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
             }
             : null;
     const config = feedbackTone;
+
+    const langWarningText = (() => {
+        if (!langWarning || !questionConfig.answerLanguage) return null;
+        const name = getLangName(questionConfig.answerLanguage, i18n.language);
+        const ui = (i18n.language || 'zh').split('-')[0].toLowerCase();
+        if (ui === 'ja') return `${name}で回答してください`;
+        if (ui === 'fr') return `Veuillez répondre en ${name}`;
+        if (ui === 'en') return `Please answer in ${name}`;
+        return `请用${name}回答`;
+    })();
 
     const playAudio = (text, language = 'zh') => {
         if (!text) return;
@@ -380,6 +393,19 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
                         {!feedback && !isEvaluating ? (
                             !speechMode && (
                                 <motion.div key="text-actions" className="flex flex-col gap-3">
+                                    <AnimatePresence>
+                                        {langWarningText && (
+                                            <motion.div
+                                                key="lang-warning"
+                                                initial={{ opacity: 0, y: -6 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -6 }}
+                                                className="px-5 py-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-700 text-sm font-bold text-center"
+                                            >
+                                                ⚠️ {langWarningText}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                     <motion.button
                                         whileTap={{ scale: 0.98 }}
                                         onClick={handleSubmit}
