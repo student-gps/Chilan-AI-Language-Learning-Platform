@@ -111,17 +111,13 @@ Stage 2 使用静态 slide deck 替代旧 mp4 讲解视频。Stage 3 由 `databa
 
 - `scripts/backfill_vocab_example_pinyin.py`
   回填 vocabulary 例句拼音与 tokens。
+- `scripts/build_teaching_slide_deck.py`
+  Stage 2 内部使用的静态教学幻灯片生成器，通常不需要手动运行。
+- `scripts/check_localized_zh_markers.py`
+  检查本地化 JSON 中是否还残留不该出现的中文标记。
+- `scripts/export_lessons_from_db.py`
+  从数据库导出 lesson 数据，用于排查或迁移。
+- `scripts/merge_vocab_memory.py`
+  合并词汇记忆库 JSON。
 - `scripts/reset_pipeline.py`
   清空内容产物、可选清理数据库与 COS。
-- `scripts/set_video_urls.py`
-  维护讲解视频 URL / COS key。
-- `scripts/render_luma_test.py`
-  测试 Luma 情景演绎渲染。
-- `scripts/check_luma_render.py`
-  查询已有 Luma 渲染任务状态。
-- `scripts/render_tencent_tts_test.py`
-  测试腾讯云逐句课文音频生成。
-- `scripts/check_tencent_tts_render.py`
-  检查腾讯云逐句音频产物。
-- `scripts/test_cosyvoice.py`
-  验证 CosyVoice TTS 发音效果。

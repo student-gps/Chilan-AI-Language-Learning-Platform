@@ -487,12 +487,19 @@ def _reset_render_outputs(data: dict) -> None:
     Localization starts from the English source JSON, which may already contain
     English narration timings, sentence text lists, audio paths, or video paths.
     Target-language JSON should keep only the translated render plan; Stage 2
-    writes target-language sentence_texts, timings, durations, and artifact paths.
+    writes target-language sentence_texts, timings, durations, slide decks, and
+    artifact paths.
     """
     data.pop("explanation_narration_audio", None)
     data.pop("explanation_video_urls", None)
+    data.pop("teaching_slide_deck", None)
 
-    explanation = data.get("video_render_plan", {}).get("explanation", {})
+    video_render_plan = data.get("video_render_plan", {})
+    if isinstance(video_render_plan, dict):
+        video_render_plan.pop("teaching_slide_deck", None)
+    explanation = video_render_plan.get("explanation", {}) if isinstance(video_render_plan, dict) else {}
+    if isinstance(explanation, dict):
+        explanation.pop("teaching_slide_deck", None)
     segments = explanation.get("segments", []) if isinstance(explanation, dict) else []
     for seg in segments if isinstance(segments, list) else []:
         if not isinstance(seg, dict):

@@ -155,6 +155,8 @@ def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None, le
                 """
                 SELECT
                     q.item_id,
+                    q.course_id,
+                    q.lesson_id,
                     q.question_id,
                     q.question_type,
                     q.original_text,
@@ -245,6 +247,7 @@ def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None, le
             """
             SELECT
                 item_id,
+                course_id,
                 question_id,
                 question_type,
                 original_text,

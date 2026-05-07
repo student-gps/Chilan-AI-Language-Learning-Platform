@@ -10,7 +10,6 @@ import {
     Languages,
     Loader2,
     MessageCircle,
-    Play,
     Repeat2,
     Volume2,
 } from 'lucide-react';
@@ -37,12 +36,6 @@ const toApiLessonId = (lessonId = '') => {
     return digits ? Number(digits) : lessonId;
 };
 
-const extractYouTubeId = (url) => {
-    if (!url) return null;
-    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([\w-]{11})/);
-    return match ? match[1] : null;
-};
-
 const normalizeText = (value) => String(value || '').trim();
 
 const normalizeVocabularyItem = (item = {}) => ({
@@ -61,48 +54,6 @@ const normalizeVocabularyItem = (item = {}) => ({
         }
         : null,
 });
-
-function ExplanationVideoPlayer({ videoUrls = {}, title = '', apiBase = '' }) {
-    const youtubeId = extractYouTubeId(videoUrls.youtube_url);
-    const mediaRaw = normalizeText(videoUrls.media_url);
-    const mediaUrl = mediaRaw
-        ? (mediaRaw.startsWith('http') ? mediaRaw : `${apiBase}/media/video/${mediaRaw}`)
-        : '';
-    const localFilename = normalizeText(videoUrls.local_path).replace(/\\/g, '/').split('/').pop();
-    const localUrl = !mediaUrl && localFilename ? `${apiBase}/media/video/${localFilename}` : '';
-    const videoSrc = mediaUrl || localUrl;
-
-    return (
-        <motion.section variants={fadeInUp} className="mb-10">
-            <div className="overflow-hidden rounded-lg border border-slate-200 bg-slate-950 shadow-sm" style={{ aspectRatio: '16/9' }}>
-                {youtubeId ? (
-                    <iframe
-                        src={`https://www.youtube.com/embed/${youtubeId}`}
-                        className="h-full w-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                        title={title}
-                        style={{ border: 'none' }}
-                    />
-                ) : videoSrc ? (
-                    <video
-                        src={videoSrc}
-                        controls
-                        preload="metadata"
-                        className="h-full w-full"
-                        style={{ background: '#020617' }}
-                    />
-                ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_50%_40%,rgba(20,184,166,0.22),transparent_34%),linear-gradient(135deg,#020617,#1e293b)]">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-lg">
-                            <Play size={28} className="ml-1" />
-                        </div>
-                    </div>
-                )}
-            </div>
-        </motion.section>
-    );
-}
 
 function EnglishTokenLine({ tokens = [], text = '' }) {
     const normalizedTokens = Array.isArray(tokens) && tokens.length
@@ -507,12 +458,6 @@ export default function NewConceptTeachingSection({
                     </p>
                 )}
             </motion.header>
-
-            <ExplanationVideoPlayer
-                videoUrls={data.explanation_video_urls || {}}
-                title={metadata.title}
-                apiBase={API_BASE}
-            />
 
             <AnchorTextSection anchor={anchor} onPlayText={playTts} />
 
