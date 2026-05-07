@@ -207,11 +207,11 @@ async def get_my_courses(user_id: str, db=Depends(get_db)):
     query = """
         SELECT c.course_id, c.name, c.category,
                c.target_language, c.source_language,
-               COUNT(p.question_id) FILTER (WHERE p.is_mastered = TRUE) as mastered_count
+               COUNT(p.item_id) FILTER (WHERE p.is_mastered = TRUE) as mastered_count
         FROM courses c
         JOIN user_courses uc ON c.course_id = uc.course_id
         LEFT JOIN language_items li ON c.course_id = li.course_id
-        LEFT JOIN user_progress_of_language_items p ON li.question_id = p.question_id AND p.user_id::text = %s
+        LEFT JOIN user_progress_of_language_items p ON li.item_id = p.item_id AND p.user_id::text = %s
         WHERE uc.user_id::text = %s
         GROUP BY c.course_id;
     """
@@ -265,7 +265,7 @@ async def get_classroom_stats(user_id: str, db=Depends(get_db)):
         cur.execute("SELECT COUNT(*) FROM user_progress_of_language_items WHERE user_id::text = %s AND next_review <= CURRENT_TIMESTAMP", (user_id,))
         rem = cur.fetchone()[0]
         # 2. 查询今日已复习数量
-        cur.execute("SELECT COUNT(DISTINCT question_id) FROM review_logs WHERE user_id::text = %s AND review_time >= CURRENT_DATE", (user_id,))
+        cur.execute("SELECT COUNT(DISTINCT item_id) FROM review_logs WHERE user_id::text = %s AND review_time >= CURRENT_DATE", (user_id,))
         rev = cur.fetchone()[0]
         # 3. 查询今日新学题目数量
         cur.execute("SELECT COUNT(*) FROM review_logs WHERE user_id::text = %s AND state = 0 AND review_time >= CURRENT_DATE", (user_id,))
@@ -279,8 +279,8 @@ async def get_daily_tasks(user_id: str, db=Depends(get_db)):
     cur = db.cursor()
     try:
         query = """
-            SELECT q.question_id, q.question_type, q.original_text FROM language_items q
-            JOIN user_progress_of_language_items p ON q.question_id = p.question_id
+            SELECT q.item_id, q.question_type, q.original_text FROM language_items q
+            JOIN user_progress_of_language_items p ON q.item_id = p.item_id
             WHERE p.user_id::text = %s AND p.next_review <= CURRENT_TIMESTAMP 
             ORDER BY p.next_review ASC LIMIT 20;
         """

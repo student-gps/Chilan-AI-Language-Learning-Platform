@@ -23,6 +23,8 @@ class StudyEvaluateSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         fake_db = FakeConnection(handler)
         payload = {
             "user_id": "33333333-3333-3333-3333-333333333333",
+            "item_id": 77,
+            "course_id": 1,
             "lesson_id": 101,
             "question_id": 1001,
             "question_type": "CN_TO_EN",
@@ -45,6 +47,8 @@ class StudyEvaluateSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual(body["data"]["vectorScore"], 1.0)
         self.assertEqual(body["data"]["inputMode"], "text")
         self.assertGreaterEqual(fake_db.commit_calls, 1)
+        self.assertTrue(any("WHERE q.item_id = %s" in query for query, _ in fake_db.executed_queries))
+        self.assertTrue(any("ON CONFLICT (user_id, item_id)" in query for query, _ in fake_db.executed_queries))
 
 
 if __name__ == "__main__":

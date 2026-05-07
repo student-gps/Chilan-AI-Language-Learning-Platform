@@ -46,6 +46,8 @@ cos_media_storage = get_media_storage(optional=True)
 # --- 📦 数据模型 ---
 class EvaluateRequest(BaseModel):
     user_id: str
+    item_id: Optional[int] = None
+    course_id: Optional[int] = None
     lesson_id: int
     question_id: int
     question_type: str
@@ -252,6 +254,48 @@ def ensure_vocabulary_knowledge_table(cur):
         );
     """)
 
+
+def ensure_language_item_progress_item_key(cur):
+    cur.execute("""
+        DO $$
+        DECLARE
+            constraint_record record;
+        BEGIN
+            FOR constraint_record IN
+                SELECT conname
+                FROM pg_constraint
+                WHERE conrelid = 'user_progress_of_language_items'::regclass
+                  AND contype IN ('p', 'u')
+                  AND pg_get_constraintdef(oid) LIKE '%(user_id, question_id)%'
+            LOOP
+                EXECUTE format(
+                    'ALTER TABLE user_progress_of_language_items DROP CONSTRAINT %I',
+                    constraint_record.conname
+                );
+            END LOOP;
+        END $$;
+    """)
+    cur.execute("""
+        DO $$
+        DECLARE
+            index_record record;
+        BEGIN
+            FOR index_record IN
+                SELECT indexname
+                FROM pg_indexes
+                WHERE schemaname = current_schema()
+                  AND tablename = 'user_progress_of_language_items'
+                  AND indexdef LIKE '%(user_id, question_id)%'
+            LOOP
+                EXECUTE format('DROP INDEX IF EXISTS %I', index_record.indexname);
+            END LOOP;
+        END $$;
+    """)
+    cur.execute("""
+        CREATE UNIQUE INDEX IF NOT EXISTS user_progress_language_items_user_item_uidx
+        ON user_progress_of_language_items (user_id, item_id);
+    """)
+
 # ==========================================
 # 接口 1: 初始化学习流
 # ==========================================
@@ -348,19 +392,45 @@ async def evaluate_answer(req: EvaluateRequest):
         audio_duration_ms = _to_optional_int(audio_meta.get("duration_ms")) if input_mode == "speech" else None
         vector_score = None
 
-        cur.execute("""
-            SELECT q.item_id as item_pk, q.metadata as item_metadata, p.stability, p.difficulty, p.recent_history, p.state
-            FROM language_items q 
-            LEFT JOIN user_progress_of_language_items p 
-                   ON q.question_id = p.question_id AND p.user_id::text = %s 
-            WHERE q.question_id = %s;
-        """, (req.user_id, req.question_id))
+        ensure_language_item_progress_item_key(cur)
+
+        if req.item_id:
+            cur.execute("""
+                SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
+                       q.metadata as item_metadata, p.stability, p.difficulty,
+                       p.recent_history, p.state
+                FROM language_items q
+                LEFT JOIN user_progress_of_language_items p
+                       ON q.item_id = p.item_id AND p.user_id::text = %s
+                WHERE q.item_id = %s;
+            """, (req.user_id, req.item_id))
+        elif req.course_id:
+            cur.execute("""
+                SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
+                       q.metadata as item_metadata, p.stability, p.difficulty,
+                       p.recent_history, p.state
+                FROM language_items q
+                LEFT JOIN user_progress_of_language_items p
+                       ON q.item_id = p.item_id AND p.user_id::text = %s
+                WHERE q.course_id = %s AND q.lesson_id = %s AND q.question_id = %s;
+            """, (req.user_id, req.course_id, req.lesson_id, req.question_id))
+        else:
+            cur.execute("""
+                SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
+                       q.metadata as item_metadata, p.stability, p.difficulty,
+                       p.recent_history, p.state
+                FROM language_items q
+                LEFT JOIN user_progress_of_language_items p
+                       ON q.item_id = p.item_id AND p.user_id::text = %s
+                WHERE q.lesson_id = %s AND q.question_id = %s;
+            """, (req.user_id, req.lesson_id, req.question_id))
         
         base_info = cur.fetchone()
         if not base_info:
             raise HTTPException(status_code=404, detail="题目不存在")
 
         item_pk = base_info['item_pk']
+        resolved_question_id = base_info.get("question_id") or req.question_id
         item_metadata = base_info.get('item_metadata') if isinstance(base_info.get('item_metadata'), dict) else {}
         stability = base_info['stability']
         difficulty = base_info['difficulty']
@@ -379,20 +449,20 @@ async def evaluate_answer(req: EvaluateRequest):
                 INSERT INTO user_progress_of_language_items
                     (user_id, question_id, item_id, stability, difficulty, state, recent_history, is_mastered, last_review, next_review)
                 VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s)
-                ON CONFLICT (user_id, question_id)
+                ON CONFLICT (user_id, item_id)
                 DO UPDATE SET
-                    item_id = EXCLUDED.item_id, stability = EXCLUDED.stability,
+                    question_id = EXCLUDED.question_id, stability = EXCLUDED.stability,
                     difficulty = EXCLUDED.difficulty, state = EXCLUDED.state,
                     recent_history = EXCLUDED.recent_history, is_mastered = EXCLUDED.is_mastered,
                     last_review = CURRENT_TIMESTAMP, next_review = EXCLUDED.next_review;
-            """, (req.user_id, req.question_id, item_pk, new_s, new_d, current_state, new_hist,
+            """, (req.user_id, resolved_question_id, item_pk, new_s, new_d, current_state, new_hist,
                   scheduler.check_mastery(new_hist), next_r))
             cur.execute("""
                 INSERT INTO review_logs
                     (user_id, question_id, item_id, rating, state, review_time, stability, difficulty,
                      input_mode, asr_text, asr_confidence, vector_score, audio_duration_ms)
                 VALUES (%s::uuid, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
-            """, (req.user_id, req.question_id, item_pk, 1, current_state, new_s, new_d,
+            """, (req.user_id, resolved_question_id, item_pk, 1, current_state, new_s, new_d,
                   "forfeit", None, None, None, None))
             conn.commit()
             return {"status": "success", "data": {**res, "inputMode": "forfeit", "recognizedText": None, "vectorScore": None}}
@@ -474,9 +544,9 @@ async def evaluate_answer(req: EvaluateRequest):
             INSERT INTO user_progress_of_language_items 
                 (user_id, question_id, item_id, stability, difficulty, state, recent_history, is_mastered, last_review, next_review) 
             VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s) 
-            ON CONFLICT (user_id, question_id) 
+            ON CONFLICT (user_id, item_id) 
             DO UPDATE SET 
-                item_id = EXCLUDED.item_id,
+                question_id = EXCLUDED.question_id,
                 stability = EXCLUDED.stability, 
                 difficulty = EXCLUDED.difficulty, 
                 state = EXCLUDED.state,
@@ -485,7 +555,7 @@ async def evaluate_answer(req: EvaluateRequest):
                 last_review = CURRENT_TIMESTAMP, 
                 next_review = EXCLUDED.next_review;
         """, (
-            req.user_id, req.question_id, item_pk, 
+            req.user_id, resolved_question_id, item_pk,
             new_s, new_d, current_state, new_hist, 
             scheduler.check_mastery(new_hist), next_r
         ))
@@ -499,7 +569,7 @@ async def evaluate_answer(req: EvaluateRequest):
                 )
             VALUES (%s::uuid, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
         """, (
-            req.user_id, req.question_id, item_pk, 
+            req.user_id, resolved_question_id, item_pk,
             res["level"], current_state, new_s, new_d,
             input_mode, asr_text_for_log, asr_confidence, vector_score, audio_duration_ms
         ))

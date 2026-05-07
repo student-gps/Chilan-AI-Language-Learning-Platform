@@ -65,6 +65,8 @@ export default function usePracticeFlow({
         try {
             const res = await evaluateStudyAnswer({
                 user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
+                item_id: currentQuestion.item_id,
+                course_id: currentQuestion.course_id,
                 lesson_id: toApiLessonId(currentQuestion.lesson_id),
                 question_id: currentQuestion.question_id,
                 question_type: currentQuestion.question_type,
@@ -105,6 +107,8 @@ export default function usePracticeFlow({
         try {
             const res = await evaluateStudyAnswer({
                 user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
+                item_id: currentQuestion.item_id,
+                course_id: currentQuestion.course_id,
                 lesson_id: toApiLessonId(currentQuestion.lesson_id),
                 question_id: currentQuestion.question_id,
                 question_type: currentQuestion.question_type,
