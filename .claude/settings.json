@@ -11,7 +11,11 @@
       "Bash(xargs grep:*)",
       "PowerShell(Get-Process python -ErrorAction SilentlyContinue)",
       "Bash(python _tmp_fix_courses.py)",
-      "Bash(Remove-Item \"c:\\\\Users\\\\gaope\\\\Desktop\\\\Chilan\\\\backend\\\\_tmp_fix_courses.py\")"
+      "Bash(Remove-Item \"c:\\\\Users\\\\gaope\\\\Desktop\\\\Chilan\\\\backend\\\\_tmp_fix_courses.py\")",
+      "WebSearch",
+      "WebFetch(domain:xata.io)",
+      "WebFetch(domain:lite.xata.io)",
+      "WebFetch(domain:github.com)"
     ],
     "additionalDirectories": [
       "c:\\Users\\gaope\\Desktop"
