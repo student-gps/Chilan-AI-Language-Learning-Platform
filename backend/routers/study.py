@@ -296,6 +296,38 @@ def ensure_language_item_progress_item_key(cur):
         ON user_progress_of_language_items (user_id, item_id);
     """)
 
+
+def ensure_review_logs_item_columns(cur):
+    cur.execute("""
+        ALTER TABLE review_logs
+        ADD COLUMN IF NOT EXISTS item_id INTEGER;
+    """)
+    cur.execute("""
+        ALTER TABLE review_logs
+        ADD COLUMN IF NOT EXISTS course_id INTEGER;
+    """)
+    cur.execute("""
+        ALTER TABLE review_logs
+        ADD COLUMN IF NOT EXISTS lesson_id INTEGER;
+    """)
+    cur.execute("""
+        UPDATE review_logs rl
+        SET
+            course_id = COALESCE(rl.course_id, li.course_id),
+            lesson_id = COALESCE(rl.lesson_id, li.lesson_id),
+            item_id = COALESCE(rl.item_id, li.item_id)
+        FROM language_items li
+        WHERE rl.item_id = li.item_id
+    """)
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS review_logs_user_item_time_idx
+        ON review_logs (user_id, item_id, review_time DESC);
+    """)
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS review_logs_user_course_lesson_time_idx
+        ON review_logs (user_id, course_id, lesson_id, review_time DESC);
+    """)
+
 # ==========================================
 # 接口 1: 初始化学习流
 # ==========================================
@@ -371,10 +403,6 @@ async def evaluate_answer(req: EvaluateRequest):
         if input_mode not in {"text", "speech"}:
             raise HTTPException(status_code=400, detail="Invalid input_mode. Use 'text' or 'speech'.")
 
-        normalized_answers = [str(ans).strip() for ans in (req.standard_answers or []) if str(ans).strip()]
-        if not normalized_answers:
-            raise HTTPException(status_code=400, detail="standard_answers is empty.")
-
         if req.forfeit:
             effective_answer = ""
         elif input_mode == "speech":
@@ -393,10 +421,12 @@ async def evaluate_answer(req: EvaluateRequest):
         vector_score = None
 
         ensure_language_item_progress_item_key(cur)
+        ensure_review_logs_item_columns(cur)
 
         if req.item_id:
             cur.execute("""
                 SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
+                       q.question_type, q.original_text, q.standard_answers,
                        q.metadata as item_metadata, p.stability, p.difficulty,
                        p.recent_history, p.state
                 FROM language_items q
@@ -407,6 +437,7 @@ async def evaluate_answer(req: EvaluateRequest):
         elif req.course_id:
             cur.execute("""
                 SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
+                       q.question_type, q.original_text, q.standard_answers,
                        q.metadata as item_metadata, p.stability, p.difficulty,
                        p.recent_history, p.state
                 FROM language_items q
@@ -417,6 +448,7 @@ async def evaluate_answer(req: EvaluateRequest):
         else:
             cur.execute("""
                 SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
+                       q.question_type, q.original_text, q.standard_answers,
                        q.metadata as item_metadata, p.stability, p.difficulty,
                        p.recent_history, p.state
                 FROM language_items q
@@ -431,6 +463,15 @@ async def evaluate_answer(req: EvaluateRequest):
 
         item_pk = base_info['item_pk']
         resolved_question_id = base_info.get("question_id") or req.question_id
+        resolved_course_id = base_info.get("course_id") or req.course_id
+        resolved_lesson_id = base_info.get("lesson_id") or req.lesson_id
+        resolved_question_type = base_info.get("question_type") or req.question_type
+        resolved_original_text = base_info.get("original_text") or req.original_text
+        resolved_answers = base_info.get("standard_answers") or req.standard_answers or []
+        normalized_answers = [str(ans).strip() for ans in resolved_answers if str(ans).strip()]
+        if not normalized_answers:
+            raise HTTPException(status_code=400, detail="standard_answers is empty.")
+
         item_metadata = base_info.get('item_metadata') if isinstance(base_info.get('item_metadata'), dict) else {}
         stability = base_info['stability']
         difficulty = base_info['difficulty']
@@ -459,10 +500,10 @@ async def evaluate_answer(req: EvaluateRequest):
                   scheduler.check_mastery(new_hist), next_r))
             cur.execute("""
                 INSERT INTO review_logs
-                    (user_id, question_id, item_id, rating, state, review_time, stability, difficulty,
+                    (user_id, question_id, item_id, course_id, lesson_id, rating, state, review_time, stability, difficulty,
                      input_mode, asr_text, asr_confidence, vector_score, audio_duration_ms)
-                VALUES (%s::uuid, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
-            """, (req.user_id, resolved_question_id, item_pk, 1, current_state, new_s, new_d,
+                VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
+            """, (req.user_id, resolved_question_id, item_pk, resolved_course_id, resolved_lesson_id, 1, current_state, new_s, new_d,
                   "forfeit", None, None, None, None))
             conn.commit()
             return {"status": "success", "data": {**res, "inputMode": "forfeit", "recognizedText": None, "vectorScore": None}}
@@ -509,9 +550,9 @@ async def evaluate_answer(req: EvaluateRequest):
                 vector_score = sim_score
 
                 res = await evaluator_service.process_judge(
-                    q_type=req.question_type,
+                    q_type=resolved_question_type,
                     user_ans=effective_answer,
-                    origin=req.original_text,
+                    origin=resolved_original_text,
                     std_answers=normalized_answers,
                     vector_score=sim_score,
                     pm=pm,
@@ -564,13 +605,13 @@ async def evaluate_answer(req: EvaluateRequest):
         cur.execute("""
             INSERT INTO review_logs 
                 (
-                    user_id, question_id, item_id, rating, state, review_time, stability, difficulty,
+                    user_id, question_id, item_id, course_id, lesson_id, rating, state, review_time, stability, difficulty,
                     input_mode, asr_text, asr_confidence, vector_score, audio_duration_ms
                 )
-            VALUES (%s::uuid, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
         """, (
             req.user_id, resolved_question_id, item_pk,
-            res["level"], current_state, new_s, new_d,
+            resolved_course_id, resolved_lesson_id, res["level"], current_state, new_s, new_d,
             input_mode, asr_text_for_log, asr_confidence, vector_score, audio_duration_ms
         ))
         

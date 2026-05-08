@@ -86,12 +86,27 @@ pipelines/another_textbook_family/
 
 1. 把教材 PDF 放入 `artifacts/integrated_chinese/raw_materials/`
 2. `python content_builder/generate.py --pipeline integrated_chinese`（Stage 1：生成 lesson JSON + 对话音频，仅本地）
-3. `python content_builder/render_narration.py --pipeline integrated_chinese --lang en`（Stage 2：渲染旁白音轨 + 生成静态教学幻灯片，仅本地）
-   - 加 `--lang fr` 生成法语学习者版本
-   - 加 `--force-narration` 重新生成旁白音轨
-   - 加 `--force-slides` 重新生成静态幻灯片
-4. 确认 `artifacts/integrated_chinese/output_json/<lang>/` 中的数据无误
-5. `python database/sync_to_db.py --pipeline integrated_chinese --lang <lang>`（Stage 3：上传 R2 + 入库，JSON 移至 `synced_json/`）
+3. 英语版直接跑 Stage 2 + 入库：
+   - `python content_builder/render_narration.py --pipeline integrated_chinese --lang en`
+   - `python database/sync_to_db.py --pipeline integrated_chinese --lang en`
+
+新增学习者语言时，优先用一条龙入口：
+
+```bash
+python content_builder/run_language_pipeline.py --lang th
+```
+
+它会依次执行本地化、强制重渲染旁白和静态教学幻灯片、入库前校验、上传 R2 并入库。默认会覆盖已有本地化 JSON、旁白和 slides，避免复用旧英文 slide deck 或旧音频。需要只试跑到校验为止时：
+
+```bash
+python content_builder/run_language_pipeline.py --lang th --skip-sync
+```
+
+只处理单课：
+
+```bash
+python content_builder/run_language_pipeline.py --lang th --lesson 101
+```
 
 ### New Concept English
 
@@ -121,3 +136,8 @@ Stage 2 使用静态 slide deck 替代旧 mp4 讲解视频。Stage 3 由 `databa
   合并词汇记忆库 JSON。
 - `scripts/reset_pipeline.py`
   清空内容产物、可选清理数据库与 COS。
+
+## 一条龙入口
+
+- `run_language_pipeline.py`
+  Integrated Chinese 新学习者语言发布入口：翻译 lesson JSON、渲染旁白和 slide deck、校验本地资产、上传并同步数据库。

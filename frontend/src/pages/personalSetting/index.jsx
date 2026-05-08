@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
     Bell,
@@ -22,6 +23,7 @@ import {
 } from 'lucide-react';
 import apiClient from '../../api/apiClient';
 import { clearAuthStorage } from '../../utils/authStorage';
+import { COURSE_LANGUAGE_OPTIONS, getUiLanguageOption, UI_LANGUAGE_OPTIONS } from '../../utils/languageOptions';
 import {
     BookOpenGlyph,
     ChoicePillGroup,
@@ -52,6 +54,7 @@ const blockMotion = {
 
 export default function Personal_Setting() {
     const navigate = useNavigate();
+    const { i18n } = useTranslation();
     const userId = localStorage.getItem('chilan_user_id');
     const [profile, setProfile] = useState({
         username: 'Chilan Learner',
@@ -110,6 +113,10 @@ export default function Personal_Setting() {
         toggleCurrentPassword,
         toggleNewPassword,
     } = usePasswordSettings(userId);
+
+    useEffect(() => {
+        setInterfaceLang(getUiLanguageOption(i18n.language).code);
+    }, [i18n.language]);
 
     useEffect(() => {
         let active = true;
@@ -374,27 +381,21 @@ export default function Personal_Setting() {
                                     label="界面语言"
                                     icon={<Globe size={16} />}
                                     value={interfaceLang}
-                                    onChange={setInterfaceLang}
-                                    options={[
-                                        { value: 'auto', label: '自动跟随系统' },
-                                        { value: 'zh', label: '简体中文' },
-                                        { value: 'en', label: '英语' },
-                                        { value: 'jp', label: '日语' },
-                                        { value: 'fr', label: '法语' },
-                                    ]}
+                                    onChange={(value) => {
+                                        setInterfaceLang(value);
+                                        i18n.changeLanguage(value);
+                                    }}
+                                    options={UI_LANGUAGE_OPTIONS.map((item) => ({
+                                        value: item.code,
+                                        label: `${item.flag} ${item.nativeName}`,
+                                    }))}
                                 />
                                 <SelectRow
                                     label="母语"
                                     icon={<Languages size={16} />}
                                     value={nativeLang}
                                     onChange={setNativeLang}
-                                    options={[
-                                        { value: 'zh', label: '中文' },
-                                        { value: 'en', label: '英语' },
-                                        { value: 'jp', label: '日语' },
-                                        { value: 'fr', label: '法语' },
-                                        { value: 'de', label: '德语' },
-                                    ]}
+                                    options={COURSE_LANGUAGE_OPTIONS}
                                 />
                             </div>
                         </SettingsCard>

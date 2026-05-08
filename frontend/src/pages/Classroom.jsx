@@ -267,6 +267,7 @@ const parseCourseLanguagePair = (courseName = '') => {
         if (lower.includes('korean')) return 'korean';
         if (lower.includes('spanish')) return 'spanish';
         if (lower.includes('german')) return 'german';
+        if (lower.includes('vietnamese') || lower.includes('vietnam') || lower.includes('viet')) return 'vietnamese';
         return lower;
     };
 
@@ -278,21 +279,21 @@ const parseCourseLanguagePair = (courseName = '') => {
 
 const normalizeLanguage = (value = '') => {
     const lower = String(value).trim().toLowerCase();
-    if (lower.includes('chinese') || lower.includes('中文') || lower.includes('chinois') || lower.includes('chinesisch')) return 'chinese';
-    if (lower.includes('english') || lower.includes('英语') || lower.includes('anglais') || lower.includes('englisch')) return 'english';
-    if (lower.includes('japanese') || lower.includes('日语') || lower.includes('日本') || lower.includes('japonais') || lower.includes('japanisch')) return 'japanese';
-    if (lower.includes('french') || lower.includes('fran') || lower.includes('法语') || lower.includes('französisch')) return 'french';
-    if (lower.includes('korean') || lower.includes('한국') || lower.includes('韩语')) return 'korean';
-    if (lower.includes('spanish') || lower.includes('español') || lower.includes('espagnol') || lower.includes('西班牙语')) return 'spanish';
-    if (lower.includes('german') || lower.includes('deutsch') || lower.includes('allemand') || lower.includes('德语')) return 'german';
-    if (lower.includes('viet') || lower.includes('vietnamese') || lower.includes('越南')) return 'vietnamese';
+    if (['zh', 'zh-cn', 'cn'].includes(lower) || lower.includes('chinese') || lower.includes('中文') || lower.includes('chinois') || lower.includes('chinesisch')) return 'chinese';
+    if (['en', 'en-us', 'en-gb'].includes(lower) || lower.includes('english') || lower.includes('英语') || lower.includes('anglais') || lower.includes('englisch')) return 'english';
+    if (['ja', 'jp'].includes(lower) || lower.includes('japanese') || lower.includes('日语') || lower.includes('日本') || lower.includes('japonais') || lower.includes('japanisch')) return 'japanese';
+    if (lower === 'fr' || lower.includes('french') || lower.includes('fran') || lower.includes('法语') || lower.includes('französisch')) return 'french';
+    if (['ko', 'kr'].includes(lower) || lower.includes('korean') || lower.includes('한국') || lower.includes('韩语')) return 'korean';
+    if (['es', 'sp'].includes(lower) || lower.includes('spanish') || lower.includes('español') || lower.includes('espagnol') || lower.includes('西班牙语')) return 'spanish';
+    if (lower === 'de' || lower.includes('german') || lower.includes('deutsch') || lower.includes('allemand') || lower.includes('德语')) return 'german';
+    if (['vi', 'vn'].includes(lower) || lower.includes('viet') || lower.includes('việt') || lower.includes('vietnamese') || lower.includes('越南')) return 'vietnamese';
     if (lower.includes('portugu') || lower.includes('葡萄牙')) return 'portuguese';
     if (lower.includes('عرب') || lower.includes('arabic') || lower.includes('阿拉伯')) return 'arabic';
     if (lower.includes('ไทย') || lower.includes('thai') || lower.includes('泰语')) return 'thai';
     if (lower.includes('русс') || lower.includes('russian') || lower.includes('俄语')) return 'russian';
     if (lower.includes('indonesia') || lower.includes('印尼')) return 'indonesian';
     if (lower.includes('melayu') || lower.includes('malay') || lower.includes('马来')) return 'malay';
-    if (lower.includes('italian') || lower.includes('意大利')) return 'italian';
+    if (lower.includes('italian') || lower.includes('italiano') || lower.includes('意大利')) return 'italian';
     return lower;
 };
 

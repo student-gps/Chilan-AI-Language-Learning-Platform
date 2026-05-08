@@ -7,6 +7,7 @@ import {
     LogOut, Settings, LayoutDashboard
 } from 'lucide-react';
 import { clearAuthStorage, getAuthState } from '../utils/authStorage';
+import { getUiLanguageOption, UI_LANGUAGE_OPTIONS } from '../utils/languageOptions';
 
 export default function Navbar() {
     const { t, i18n } = useTranslation();
@@ -70,14 +71,8 @@ export default function Navbar() {
         navigate('/');
     };
 
-    const languages = [
-        { code: 'zh', name: '简体中文', flag: '🇨🇳' },
-        { code: 'en', name: 'English', flag: '🇺🇸' },
-        { code: 'jp', name: '日本語', flag: '🇯🇵' },
-        { code: 'fr', name: 'Français', flag: '🇫🇷' },
-        { code: 'de', name: 'Deutsch', flag: '🇩🇪' }
-    ];
-    const currentLang = languages.find(l => i18n.language.startsWith(l.code)) || languages[0];
+    const languages = UI_LANGUAGE_OPTIONS;
+    const currentLang = getUiLanguageOption(i18n.language);
 
     // 🌟 核心：引入统一的动画变体配置
     const staggerContainer = {
@@ -132,7 +127,11 @@ export default function Navbar() {
                                         onClick={() => { i18n.changeLanguage(item.code); setIsLangOpen(false); }} 
                                         className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors hover:bg-blue-50 ${i18n.language.startsWith(item.code) ? 'text-blue-600 bg-blue-50/50' : 'text-slate-600'}`}
                                     >
-                                        <span className="text-xl">{item.flag}</span> {item.name}
+                                        <span className="text-xl">{item.flag}</span>
+                                        <span className="flex flex-col items-start leading-tight">
+                                            <span>{item.nativeName}</span>
+                                            <span className="text-[10px] font-semibold text-slate-400">{item.name}</span>
+                                        </span>
                                         {i18n.language.startsWith(item.code) && <CheckCircle2 size={14} className="ml-auto" />}
                                     </button>
                                 ))}

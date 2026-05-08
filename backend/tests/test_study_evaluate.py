@@ -11,6 +11,12 @@ class StudyEvaluateSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                 return {
                     "fetchone": {
                         "item_pk": 77,
+                        "question_id": 1001,
+                        "course_id": 2,
+                        "lesson_id": 101,
+                        "question_type": "CN_TO_FR",
+                        "original_text": "你好",
+                        "standard_answers": ["bonjour"],
                         "item_metadata": {},
                         "stability": 0.6,
                         "difficulty": 4.0,
@@ -30,7 +36,7 @@ class StudyEvaluateSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
             "question_type": "CN_TO_EN",
             "original_text": "你好",
             "standard_answers": ["hello"],
-            "user_answer": "hello",
+            "user_answer": "bonjour",
             "input_mode": "text",
         }
 
@@ -49,6 +55,7 @@ class StudyEvaluateSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertGreaterEqual(fake_db.commit_calls, 1)
         self.assertTrue(any("WHERE q.item_id = %s" in query for query, _ in fake_db.executed_queries))
         self.assertTrue(any("ON CONFLICT (user_id, item_id)" in query for query, _ in fake_db.executed_queries))
+        self.assertTrue(any("course_id, lesson_id" in query and "INSERT INTO review_logs" in query for query, _ in fake_db.executed_queries))
 
 
 if __name__ == "__main__":

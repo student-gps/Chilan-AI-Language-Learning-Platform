@@ -82,10 +82,10 @@ export default function CoursePage() {
                     <h2 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">{t('course_foundations')}</h2>
                     <div className="flex gap-3 flex-wrap">
                         {[
-                            { label: '课程介绍', sub: '理念 · 学习方式 · 路径', icon: '✨', path: '/learn/intro', hover: 'hover:border-amber-200 group-hover:text-amber-600' },
-                            { label: '汉字入门', sub: '笔画 · 部首 · 结构', icon: '字', path: '/learn/hanzi', hover: 'hover:border-indigo-200 group-hover:text-indigo-600' },
-                            { label: '拼音入门', sub: '声母 · 韵母 · 声调', icon: 'abc', path: '/learn/pinyin', hover: 'hover:border-blue-200 group-hover:text-blue-600' },
-                            { label: '电脑打字', sub: '输入法 · 拼音打字 · 练习', icon: '⌨', path: '/learn/typing', hover: 'hover:border-green-200 group-hover:text-green-600' },
+                            { label: t('course_intro_card_title'), sub: t('course_intro_card_sub'), icon: '✨', path: '/learn/intro', hover: 'hover:border-amber-200 group-hover:text-amber-600' },
+                            { label: t('course_hanzi_card_title'), sub: t('course_hanzi_card_sub'), icon: '字', path: '/learn/hanzi', hover: 'hover:border-indigo-200 group-hover:text-indigo-600' },
+                            { label: t('course_pinyin_card_title'), sub: t('course_pinyin_card_sub'), icon: 'abc', path: '/learn/pinyin', hover: 'hover:border-blue-200 group-hover:text-blue-600' },
+                            { label: t('course_typing_card_title'), sub: t('course_typing_card_sub'), icon: '⌨', path: '/learn/typing', hover: 'hover:border-green-200 group-hover:text-green-600' },
                         ].map(item => (
                             <motion.button
                                 key={item.path}
