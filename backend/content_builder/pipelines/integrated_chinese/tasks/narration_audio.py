@@ -478,12 +478,14 @@ class Task4DExplanationNarrator:
             )
             return _request_ssml(ssml)
 
-        if '[zh:' not in text:
+        has_zh_marker = '[zh:' in text
+        has_cjk = bool(re.search(r'[\u3400-\u9fff]', text))
+        if not has_zh_marker and not has_cjk:
             output_path.write_bytes(_call(self.voice, text))
             return
 
         zh_voice = get_env("TTS_AZURE_ZH_VOICE") or get_env("TTS_CHINESE_VOICE", default="zh-CN-XiaoxiaoNeural")
-        chunks = re.split(r'(\[zh:[^\]]+\])', text)
+        chunks = re.split(r'(\[zh:[^\]]+\]|[\u3400-\u9fff]+)', text)
 
         tmp_dir = output_path.parent / f"_tmp_azure_{output_path.stem}"
         tmp_dir.mkdir(exist_ok=True)
@@ -493,6 +495,8 @@ class Task4DExplanationNarrator:
                 m = re.match(r'\[zh:([^\]]+)\]', chunk)
                 if m:
                     content, voice = m.group(1).strip(), zh_voice
+                elif re.fullmatch(r'[\u3400-\u9fff]+', chunk.strip()):
+                    content, voice = chunk.strip(), zh_voice
                 else:
                     content = chunk.strip()
                     if not content or not any(c.isalpha() or '一' <= c <= '鿿' for c in content):

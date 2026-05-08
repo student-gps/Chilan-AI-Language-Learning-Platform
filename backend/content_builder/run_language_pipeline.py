@@ -71,22 +71,37 @@ def _expected_outputs(args: argparse.Namespace) -> list[Path]:
     paths = default_paths()
     pipeline = get_pipeline(args.pipeline)
     out_dir = pipeline.output_json_dir(paths, args.lang)
+    synced_dir = pipeline.synced_json_dir(paths, args.lang)
+
+    def resolve_existing(filename: str) -> Path:
+        output_candidate = out_dir / filename
+        synced_candidate = synced_dir / filename
+        if output_candidate.exists():
+            return output_candidate
+        if args.reuse_localized_json and synced_candidate.exists():
+            return synced_candidate
+        return output_candidate
 
     if args.lesson:
-        return [out_dir / f"lesson{args.lesson}_data_{args.lang}.json"]
+        return [resolve_existing(f"lesson{args.lesson}_data_{args.lang}.json")]
 
     if args.files:
         outputs = []
         for raw in args.files:
             source = Path(raw)
+            if source.exists() and source.name.endswith(".json"):
+                outputs.append(source)
+                continue
             stem = source.stem
             if stem.endswith(f"_{args.lang}"):
-                outputs.append(out_dir / f"{stem}.json")
+                outputs.append(resolve_existing(f"{stem}.json"))
             else:
-                outputs.append(out_dir / f"{stem}_{args.lang}.json")
+                outputs.append(resolve_existing(f"{stem}_{args.lang}.json"))
         return outputs
 
-    return sorted(out_dir.glob(f"lesson*_data_{args.lang}.json"), key=_lesson_id_from_path)
+    by_name = {path.name: path for path in sorted(synced_dir.glob(f"lesson*_data_{args.lang}.json"), key=_lesson_id_from_path)}
+    by_name.update({path.name: path for path in sorted(out_dir.glob(f"lesson*_data_{args.lang}.json"), key=_lesson_id_from_path)})
+    return sorted(by_name.values(), key=_lesson_id_from_path)
 
 
 def _local_path_exists(value: str) -> bool:
@@ -265,7 +280,12 @@ def main() -> None:
         localize_cmd.append("--skip-vocab")
     localize_cmd.extend(args.files)
 
-    _run_step("Stage 1: localize lesson JSON", localize_cmd, dry_run=args.dry_run)
+    if args.reuse_localized_json:
+        print("\n========================================================================")
+        print("▶ Stage 1: reuse localized lesson JSON")
+        print("  Skipping localize.py; using existing output_json/synced_json files.")
+    else:
+        _run_step("Stage 1: localize lesson JSON", localize_cmd, dry_run=args.dry_run)
 
     targets = _expected_outputs(args)
     if args.dry_run:

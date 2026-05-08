@@ -165,11 +165,13 @@ def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None, le
                     q.metadata
                 FROM language_items q
                 JOIN user_progress_of_language_items p ON q.item_id = p.item_id
-                WHERE p.user_id::text = %s AND p.next_review <= CURRENT_TIMESTAMP
+                WHERE p.user_id::text = %s
+                  AND q.course_id = %s
+                  AND p.next_review <= CURRENT_TIMESTAMP
                 ORDER BY p.next_review ASC
                 LIMIT 20;
                 """,
-                (user_id,),
+                (user_id, course_id),
             )
             due_questions = cur.fetchall()
             if due_questions:

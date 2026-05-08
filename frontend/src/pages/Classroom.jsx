@@ -293,7 +293,7 @@ const normalizeLanguage = (value = '') => {
     if (lower.includes('русс') || lower.includes('russian') || lower.includes('俄语')) return 'russian';
     if (lower.includes('indonesia') || lower.includes('印尼')) return 'indonesian';
     if (lower.includes('melayu') || lower.includes('malay') || lower.includes('马来')) return 'malay';
-    if (lower.includes('italian') || lower.includes('意大利')) return 'italian';
+    if (lower.includes('italian') || lower.includes('italiano') || lower.includes('意大利')) return 'italian';
     return lower;
 };
 

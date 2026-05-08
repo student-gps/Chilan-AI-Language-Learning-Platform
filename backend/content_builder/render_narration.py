@@ -227,6 +227,11 @@ def process_file(
         json.dump(lesson_data, f, ensure_ascii=False, indent=2)
     print(f"📄 已更新: {json_path.name}")
 
+    narration_info = lesson_data.get("explanation_narration_audio", {})
+    if not isinstance(narration_info, dict) or narration_info.get("status") != "ok":
+        print(f"❌ 旁白音轨未生成成功，跳过静态幻灯片: {narration_info.get('reason', '') if isinstance(narration_info, dict) else ''}")
+        return False
+
     # Stage 2b: 静态教学幻灯片（替代旧 mp4 渲染）
     print(f"🖼️ 生成静态教学幻灯片 [lang={lang}]...")
     deck = build_deck(json_path, pipeline_id=pipeline_id, lang=lang, force=force_slides)
