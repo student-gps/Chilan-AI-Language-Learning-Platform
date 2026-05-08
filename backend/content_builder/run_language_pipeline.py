@@ -30,7 +30,25 @@ if str(BACKEND_DIR) not in sys.path:
 
 from core.paths import default_paths
 from core.pipeline import get_pipeline
+from config.env import get_env
 from localize import LANG_META
+
+
+DEFAULT_AZURE_EXPLANATION_VOICES = {
+    "ar": "ar-SA-HamedNeural",
+    "de": "de-DE-ConradNeural",
+    "es": "es-ES-AlvaroNeural",
+    "fr": "fr-FR-ClaudeNeural",
+    "id": "id-ID-ArdiNeural",
+    "it": "it-IT-DiegoNeural",
+    "ja": "ja-JP-KeitaNeural",
+    "ko": "ko-KR-BongJinNeural",
+    "ms": "ms-MY-OsmanNeural",
+    "pt": "pt-BR-AntonioNeural",
+    "ru": "ru-RU-DmitryNeural",
+    "th": "th-TH-NiwatNeural",
+    "vi": "vi-VN-NamMinhNeural",
+}
 
 
 def _run_step(label: str, command: list[str], dry_run: bool = False) -> None:
@@ -172,6 +190,32 @@ def _validate_outputs(json_files: list[Path], lang: str) -> None:
     print(f"✅ Validation passed for {len(json_files)} lesson file(s).")
 
 
+def _ensure_tts_env(args: argparse.Namespace) -> None:
+    lang_up = args.lang.upper()
+    provider_key = f"TTS_EXPLANATION_PROVIDER_{lang_up}"
+    voice_key = f"TTS_EXPLANATION_VOICE_{lang_up}"
+    provider = (get_env(provider_key) or get_env("TTS_EXPLANATION_PROVIDER") or "").strip().lower()
+    voice = (get_env(voice_key) or get_env("TTS_EXPLANATION_VOICE") or "").strip()
+
+    if provider == "ali" and args.lang != "zh":
+        default_voice = DEFAULT_AZURE_EXPLANATION_VOICES.get(args.lang)
+        if default_voice:
+            print(f"ℹ️ {provider_key} 未配置，当前会回落到 ali/{voice or 'default'}，不适合 {args.lang} 旁白。")
+            print(f"   本次自动使用 Azure: {voice_key}={default_voice}")
+            if not args.dry_run:
+                import os
+                os.environ[provider_key] = "azure"
+                os.environ[voice_key] = default_voice
+            provider = "azure"
+            voice = default_voice
+
+    if provider == "azure":
+        if not get_env("TTS_AZURE_KEY"):
+            raise SystemExit("❌ TTS_AZURE_KEY is required for Azure narration rendering.")
+        if not voice:
+            raise SystemExit(f"❌ {voice_key} is required for Azure narration rendering.")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Translate, render, validate, and sync a localized Integrated Chinese language."
@@ -202,6 +246,8 @@ def main() -> None:
 
     if args.lang not in LANG_META:
         raise SystemExit(f"❌ Unknown language '{args.lang}'. Supported: {', '.join(sorted(LANG_META))}")
+
+    _ensure_tts_env(args)
 
     localize_cmd = [
         sys.executable,

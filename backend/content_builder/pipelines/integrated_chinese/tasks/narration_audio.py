@@ -207,6 +207,21 @@ class Task4DExplanationNarrator:
     _ALI_DEFAULT_VOICE    = "longanyang"
     _ALI_DEFAULT_MODEL    = "cosyvoice-v3-plus"
     _ALI_ENDPOINT         = "https://dashscope.aliyuncs.com/api/v1/services/audio/tts/SpeechSynthesizer"
+    _AZURE_DEFAULT_VOICES = {
+        "ar": "ar-SA-HamedNeural",
+        "de": "de-DE-ConradNeural",
+        "es": "es-ES-AlvaroNeural",
+        "fr": "fr-FR-ClaudeNeural",
+        "id": "id-ID-ArdiNeural",
+        "it": "it-IT-DiegoNeural",
+        "ja": "ja-JP-KeitaNeural",
+        "ko": "ko-KR-BongJinNeural",
+        "ms": "ms-MY-OsmanNeural",
+        "pt": "pt-BR-AntonioNeural",
+        "ru": "ru-RU-DmitryNeural",
+        "th": "th-TH-NiwatNeural",
+        "vi": "vi-VN-NamMinhNeural",
+    }
 
     def __init__(self):
         self.rate = get_env("TTS_EDGE_RATE", default="+0%")
@@ -220,8 +235,10 @@ class Task4DExplanationNarrator:
         take precedence over the global TTS_EXPLANATION_PROVIDER / TTS_EXPLANATION_VOICE.
         """
         lang_up = lang.upper()
+        default_azure_voice = self._AZURE_DEFAULT_VOICES.get(lang.lower())
         self.provider = (
             get_env(f"TTS_EXPLANATION_PROVIDER_{lang_up}") or
+            ("azure" if default_azure_voice else None) or
             get_env("TTS_EXPLANATION_PROVIDER") or
             "openai"
         ).strip().lower()
@@ -233,6 +250,7 @@ class Task4DExplanationNarrator:
         }
         self.voice = (
             get_env(f"TTS_EXPLANATION_VOICE_{lang_up}") or
+            default_azure_voice or
             get_env("TTS_EXPLANATION_VOICE") or
             _provider_default_voices.get(self.provider, self._OPENAI_DEFAULT_VOICE)
         ).strip()
