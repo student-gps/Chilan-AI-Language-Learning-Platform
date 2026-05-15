@@ -3,6 +3,7 @@ from typing import Any, Dict
 from psycopg2.extras import RealDictCursor
 
 from database.connection import get_connection
+from services.course_enrollment_service import ACTIVE_COURSE_STATUS
 from services.study.lesson_progress_service import ensure_lesson_progress_columns
 
 
@@ -148,6 +149,23 @@ def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None, le
         cur = conn.cursor(cursor_factory=RealDictCursor)
         ensure_lesson_progress_columns(cur)
         conn.commit()
+
+        if lesson_id is None:
+            cur.execute(
+                """
+                SELECT 1
+                FROM user_courses
+                WHERE user_id::text = %s
+                  AND course_id = %s
+                  AND status = %s
+                """,
+                (user_id, course_id, ACTIVE_COURSE_STATUS),
+            )
+            if not cur.fetchone():
+                return {
+                    "mode": "not_enrolled",
+                    "message": "请先将课程添加到学习列表。",
+                }
 
         # 指定 lesson_id 时跳过 FSRS 复习队列，直接加载该课
         if lesson_id is None:

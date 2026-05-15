@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import apiClient from '../../../api/apiClient';
 
 export default function usePasswordSettings(userId) {
+    const { t } = useTranslation();
     const [isEditingPassword, setIsEditingPassword] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -47,12 +49,12 @@ export default function usePasswordSettings(userId) {
 
     const handleSavePassword = async () => {
         if (!userId) {
-            setPasswordError('未找到当前用户');
+            setPasswordError(t('settings_user_missing'));
             return;
         }
 
         if (!Object.values(passwordChecks).every(Boolean)) {
-            setPasswordError('请先满足全部密码要求');
+            setPasswordError(t('settings_password_requirements_first'));
             return;
         }
 
@@ -65,11 +67,11 @@ export default function usePasswordSettings(userId) {
                 current_password: currentPassword,
                 new_password: newPassword,
             });
-            setPasswordSuccess('密码已更新');
+            setPasswordSuccess(t('settings_password_updated'));
             resetPasswordForm();
             setIsEditingPassword(false);
         } catch (error) {
-            setPasswordError(error.response?.data?.detail || '密码修改失败');
+            setPasswordError(error.response?.data?.detail || t('settings_password_update_failed'));
         } finally {
             setIsSavingPassword(false);
         }

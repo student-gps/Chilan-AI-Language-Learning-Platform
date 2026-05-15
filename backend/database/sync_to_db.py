@@ -46,7 +46,7 @@ CURRENT_DIR = Path(__file__).resolve().parent
 BACKEND_DIR = CURRENT_DIR.parent
 sys.path.append(str(BACKEND_DIR))
 
-from config.env import get_env
+from config.env import get_env, get_env_int
 
 # 🌟 引入数据库连接池
 try:
@@ -72,6 +72,10 @@ load_dotenv(BACKEND_DIR / ".env")
 # 2. Embedding 抽象基类与具体实现
 # ==========================================
 class BaseEmbeddingProvider(ABC):
+    provider_name = "unknown"
+    model_id = "unknown"
+    output_dimensionality = None
+
     @abstractmethod
     def get_embedding(self, text: str) -> list[float]:
         pass
@@ -93,6 +97,8 @@ class GeminiEmbeddingProvider(BaseEmbeddingProvider):
             api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
             self.client = genai.Client(api_key=api_key)
         self.model_id = model_id
+        self.provider_name = "gemini"
+        self.output_dimensionality = get_env_int("LLM_EMBED_GEMINI_OUTPUT_DIMENSIONALITY", default=768)
 
     def get_embedding(self, text: str) -> list[float]:
         import time
@@ -103,6 +109,10 @@ class GeminiEmbeddingProvider(BaseEmbeddingProvider):
                 response = self.client.models.embed_content(
                     model=self.model_id,
                     contents=text,
+                    config={
+                        "task_type": "SEMANTIC_SIMILARITY",
+                        "output_dimensionality": self.output_dimensionality,
+                    },
                 )
                 return response.embeddings[0].values
             except Exception as e:
@@ -115,6 +125,10 @@ class GeminiEmbeddingProvider(BaseEmbeddingProvider):
         response = self.client.models.embed_content(
             model=self.model_id,
             contents=text,
+            config={
+                "task_type": "SEMANTIC_SIMILARITY",
+                "output_dimensionality": self.output_dimensionality,
+            },
         )
         return response.embeddings[0].values
 
@@ -123,6 +137,8 @@ class DoubaoEmbeddingProvider(BaseEmbeddingProvider):
         from volcenginesdkarkruntime import Ark
         self.client = Ark(api_key=api_key)
         self.model_id = model_id
+        self.provider_name = "doubao"
+        self.output_dimensionality = get_env_int("LLM_EMBED_DOUBAO_OUTPUT_DIMENSIONALITY", default=0) or None
 
     def get_embedding(self, text: str) -> list[float]:
         print(f"🧠 [Doubao] 正在生成向量: '{text[:15]}...'")
@@ -159,6 +175,92 @@ def ensure_vocabulary_knowledge_table(cur):
             PRIMARY KEY (course_id, lesson_id, word, definition)
         );
     """)
+
+
+def ensure_answer_embeddings_table(cur):
+    cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS answer_embeddings (
+            embedding_id BIGSERIAL PRIMARY KEY,
+            answer_text TEXT NOT NULL,
+            embedding_provider TEXT NOT NULL,
+            embedding_model TEXT NOT NULL,
+            embedding_dims INTEGER NOT NULL,
+            primary_embedding vector(768) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE (embedding_provider, embedding_model, embedding_dims, answer_text)
+        );
+    """)
+
+
+def ensure_language_items_answer_embedding_id(cur):
+    cur.execute("""
+        ALTER TABLE language_items
+        ADD COLUMN IF NOT EXISTS answer_embedding_id BIGINT;
+    """)
+    # Old databases still have primary_embedding as NOT NULL. New writes use
+    # answer_embedding_id, so relax the old column until it can be dropped.
+    cur.execute("""
+        DO $$
+        BEGIN
+            IF EXISTS (
+                SELECT 1
+                FROM information_schema.columns
+                WHERE table_schema = 'public'
+                  AND table_name = 'language_items'
+                  AND column_name = 'primary_embedding'
+                  AND is_nullable = 'NO'
+            ) THEN
+                ALTER TABLE language_items ALTER COLUMN primary_embedding DROP NOT NULL;
+            END IF;
+        END $$;
+    """)
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS idx_language_items_answer_embedding_id
+        ON language_items (answer_embedding_id);
+    """)
+
+
+def get_or_create_answer_embedding(cur, provider: BaseEmbeddingProvider, answer_text: str) -> int:
+    answer = str(answer_text or "").strip()
+    if not answer:
+        raise ValueError("standard answer is empty; cannot create embedding")
+
+    provider_name = provider.provider_name
+    model_id = provider.model_id
+    dims = provider.output_dimensionality
+    if not dims:
+        raise ValueError(f"Embedding provider {provider_name!r} did not expose output_dimensionality")
+
+    cur.execute("""
+        SELECT embedding_id
+        FROM answer_embeddings
+        WHERE embedding_provider = %s
+          AND embedding_model = %s
+          AND embedding_dims = %s
+          AND answer_text = %s
+    """, (provider_name, model_id, dims, answer))
+    row = cur.fetchone()
+    if row:
+        return int(row[0])
+
+    embedding = provider.get_embedding(answer)
+    if len(embedding) != dims:
+        raise ValueError(
+            f"Embedding dimension mismatch for {provider_name}/{model_id}: "
+            f"expected {dims}, got {len(embedding)}"
+        )
+
+    cur.execute("""
+        INSERT INTO answer_embeddings
+            (answer_text, embedding_provider, embedding_model, embedding_dims, primary_embedding)
+        VALUES (%s, %s, %s, %s, %s::vector)
+        ON CONFLICT (embedding_provider, embedding_model, embedding_dims, answer_text)
+        DO UPDATE SET updated_at = CURRENT_TIMESTAMP
+        RETURNING embedding_id
+    """, (answer, provider_name, model_id, dims, str(embedding)))
+    return int(cur.fetchone()[0])
 
 
 def ensure_lessons_course_scoped_key(cur):
@@ -478,6 +580,8 @@ def sync_lesson_data(
         cur = conn.cursor()
         ensure_lessons_course_scoped_key(cur)
         ensure_vocabulary_knowledge_table(cur)
+        ensure_answer_embeddings_table(cur)
+        ensure_language_items_answer_embedding_id(cur)
 
         vocab_lookup = {}
         for vocab in vocabulary_items:
@@ -599,9 +703,12 @@ def sync_lesson_data(
                     Json(vocab_entry.get("example_sentence", {}))
                 ))
 
-            # 生成向量 (取第一个答案作为基准)
-            embedding = provider.get_embedding(item['standard_answers'][0])
-            embedding_str = str(embedding)
+            # 题目共享同一个标准答案向量，避免每道题重复存储 768 维 embedding。
+            answer_embedding_id = get_or_create_answer_embedding(
+                cur,
+                provider,
+                item['standard_answers'][0],
+            )
 
             cur.execute("""
                 SELECT 1 FROM language_items 
@@ -612,20 +719,20 @@ def sync_lesson_data(
                 cur.execute("""
                     UPDATE language_items 
                     SET question_type = %s, original_text = %s, original_pinyin = %s, 
-                        standard_answers = %s, primary_embedding = %s, metadata = %s
+                        standard_answers = %s, answer_embedding_id = %s, metadata = %s
                     WHERE course_id = %s AND lesson_id = %s AND question_id = %s
                 """, (item['question_type'], item['original_text'], q_pinyin, 
-                      item['standard_answers'], embedding_str, Json(q_metadata), 
+                      item['standard_answers'], answer_embedding_id, Json(q_metadata),
                       course_id, lesson_id, q_id))
             else:
                 cur.execute("""
                     INSERT INTO language_items 
                     (course_id, lesson_id, question_id, question_type, original_text, 
-                     original_pinyin, standard_answers, primary_embedding, metadata)
+                     original_pinyin, standard_answers, answer_embedding_id, metadata)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (course_id, lesson_id, q_id, item['question_type'], 
                       item['original_text'], q_pinyin, item['standard_answers'], 
-                      embedding_str, Json(q_metadata)))
+                      answer_embedding_id, Json(q_metadata)))
             
         conn.commit()
         print(f"✅ 入库成功！包含题目拼音与例句上下文。")
@@ -665,10 +772,16 @@ if __name__ == "__main__":
     synced_dir = artifact_root / "synced_json" / lang
     synced_dir.mkdir(parents=True, exist_ok=True)
 
-    json_files = [Path(item) for item in args.files] if args.files else list(output_dir.glob("*_data*.json"))
-    if not args.files and not json_files and synced_dir.exists():
-        json_files = list(synced_dir.glob("*_data*.json"))
-        if json_files:
+    if args.files:
+        json_files = [Path(item) for item in args.files]
+    else:
+        # Re-sync from both queues. output_json contains not-yet-moved files;
+        # synced_json contains previously synced files that need to be replayed
+        # when rebuilding a fresh database.
+        by_name = {path.name: path for path in synced_dir.glob("*_data*.json")}
+        by_name.update({path.name: path for path in output_dir.glob("*_data*.json")})
+        json_files = list(by_name.values())
+        if json_files and not list(output_dir.glob("*_data*.json")) and synced_dir.exists():
             print(f"ℹ️ 未在 {output_dir} 找到 JSON，改用已同步目录重刷: {synced_dir}")
     if not json_files and args.pipeline in {"integrated_chinese", "integrated-chinese", "zh"}:
         legacy_output_dir = artifacts_dir / "output_json" / lang

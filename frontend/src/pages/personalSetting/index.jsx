@@ -54,7 +54,7 @@ const blockMotion = {
 
 export default function Personal_Setting() {
     const navigate = useNavigate();
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const userId = localStorage.getItem('chilan_user_id');
     const [profile, setProfile] = useState({
         username: 'Chilan Learner',
@@ -162,10 +162,10 @@ export default function Personal_Setting() {
     const validateNickname = (value) => {
         const trimmed = value.trim();
         if (trimmed.length < 2 || trimmed.length > 24) {
-            return '昵称需为 2 到 24 个字符';
+            return t('settings_nickname_length_error');
         }
         if (!/^[A-Za-z0-9_\-.\u4e00-\u9fff ]+$/.test(trimmed)) {
-            return '昵称仅支持中英文、数字、空格和 _-.';
+            return t('settings_nickname_format_error');
         }
         return '';
     };
@@ -189,7 +189,7 @@ export default function Personal_Setting() {
             return;
         }
         if (!userId) {
-            setNicknameError('未找到当前用户');
+            setNicknameError(t('settings_user_missing'));
             return;
         }
 
@@ -207,7 +207,7 @@ export default function Personal_Setting() {
             setNicknameDraft(res.data.username || nicknameDraft.trim());
             setIsEditingNickname(false);
         } catch (error) {
-            setNicknameError(error.response?.data?.detail || '昵称保存失败');
+            setNicknameError(error.response?.data?.detail || t('settings_nickname_save_failed'));
         } finally {
             setIsSavingNickname(false);
         }
@@ -215,7 +215,7 @@ export default function Personal_Setting() {
 
     const loadSecurityLogs = async () => {
         if (!userId) {
-            setSecurityError('未找到当前用户');
+            setSecurityError(t('settings_user_missing'));
             return;
         }
         setIsSecurityLoading(true);
@@ -224,7 +224,7 @@ export default function Personal_Setting() {
             const res = await apiClient.get(`/auth/login-history/${userId}`);
             setSecurityLogs(res.data.logs || []);
         } catch (error) {
-            setSecurityError(error.response?.data?.detail || '登录记录加载失败');
+            setSecurityError(error.response?.data?.detail || t('settings_login_history_failed'));
         } finally {
             setIsSecurityLoading(false);
         }
@@ -252,7 +252,7 @@ export default function Personal_Setting() {
 
     const handleDeleteAccount = async () => {
         if (!userId) {
-            setDeleteError('未找到当前用户');
+            setDeleteError(t('settings_user_missing'));
             return;
         }
 
@@ -266,11 +266,11 @@ export default function Personal_Setting() {
                     current_password: profile.loginProvider === 'password' ? deletePassword : null,
                 },
             });
-            setDeleteSuccess('账号已注销，正在返回首页');
+            setDeleteSuccess(t('settings_delete_success'));
             clearAuthStorage();
             setTimeout(() => navigate('/'), 1000);
         } catch (error) {
-            setDeleteError(error.response?.data?.detail || '账号注销失败');
+            setDeleteError(error.response?.data?.detail || t('settings_delete_failed'));
         } finally {
             setIsDeletingAccount(false);
         }
@@ -294,14 +294,14 @@ export default function Personal_Setting() {
                     <motion.div variants={blockMotion}>
                         <SettingsCard
                             eyebrow=""
-                            title="账户与安全"
+                            title={t('settings_account_security')}
                             description=""
                             icon={<Shield size={18} />}
                         >
                             <ProfilePanel username={profile.username} email={profile.email} isLoading={isProfileLoading} />
                             <div className="mt-5 space-y-4">
                                 <EditableInputRow
-                                    label="昵称"
+                                    label={t('settings_nickname')}
                                     value={profile.username}
                                     draft={nicknameDraft}
                                     isEditing={isEditingNickname}
@@ -313,7 +313,7 @@ export default function Personal_Setting() {
                                     onCancel={handleCancelEditingNickname}
                                     onSave={handleSaveNickname}
                                 />
-                                <InputRow label="邮箱" value={profile.email} icon={<Mail size={16} />} />
+                                <InputRow label={t('settings_email')} value={profile.email} icon={<Mail size={16} />} />
                                 {profile.loginProvider === 'password' ? (
                                     <PasswordSection
                                         icon={<LockKeyhole size={18} />}
@@ -371,14 +371,14 @@ export default function Personal_Setting() {
 
                     <motion.div variants={blockMotion}>
                         <SettingsCard
-                            eyebrow="语言"
-                            title="界面语言 / 母语"
-                            description="统一管理界面显示语言和学习母语。"
+                            eyebrow={t('settings_language_eyebrow')}
+                            title={t('settings_language_title')}
+                            description={t('settings_language_desc')}
                             icon={<Languages size={18} />}
                         >
                             <div className="space-y-4">
                                 <SelectRow
-                                    label="界面语言"
+                                    label={t('settings_interface_language')}
                                     icon={<Globe size={16} />}
                                     value={interfaceLang}
                                     onChange={(value) => {
@@ -391,7 +391,7 @@ export default function Personal_Setting() {
                                     }))}
                                 />
                                 <SelectRow
-                                    label="母语"
+                                    label={t('settings_native_language')}
                                     icon={<Languages size={16} />}
                                     value={nativeLang}
                                     onChange={setNativeLang}
@@ -403,42 +403,42 @@ export default function Personal_Setting() {
 
                     <motion.div variants={blockMotion}>
                         <SettingsCard
-                            eyebrow="答题反馈"
-                            title="答题与反馈设置"
-                            description="控制判题标准、提示信息和语音播放方式。"
+                            eyebrow={t('settings_feedback_eyebrow')}
+                            title={t('settings_feedback_title')}
+                            description={t('settings_feedback_desc')}
                             icon={<NotebookPen size={18} />}
                         >
                             <div className="space-y-5">
                                 <ChoicePillGroup
-                                    label="判题严格度偏好"
+                                    label={t('settings_strictness_label')}
                                     icon={<SlidersHorizontal size={16} />}
                                     value={strictness}
                                     onChange={setStrictness}
                                     options={[
-                                        { value: 'strict', label: '严格' },
-                                        { value: 'balanced', label: '平衡' },
-                                        { value: 'friendly', label: '宽松' },
+                                        { value: 'strict', label: t('settings_strictness_strict') },
+                                        { value: 'balanced', label: t('settings_strictness_balanced') },
+                                        { value: 'friendly', label: t('settings_strictness_friendly') },
                                     ]}
                                 />
 
                                 <div className="rounded-[2rem] border border-slate-200 bg-slate-50/80 p-5">
-                                    <p className="mb-4 text-xs font-black tracking-[0.12em] text-slate-400">默认提示</p>
+                                    <p className="mb-4 text-xs font-black tracking-[0.12em] text-slate-400">{t('settings_default_hints')}</p>
                                     <div className="space-y-3">
                                         <ToggleRow
                                             icon={<Languages size={16} />}
-                                            title="默认显示拼音"
+                                            title={t('settings_show_pinyin')}
                                             enabled={showPinyin}
                                             onChange={setShowPinyin}
                                         />
                                         <ToggleRow
                                             icon={<BookOpenGlyph />}
-                                            title="默认显示释义"
+                                            title={t('settings_show_meaning')}
                                             enabled={showMeaning}
                                             onChange={setShowMeaning}
                                         />
                                         <ToggleRow
                                             icon={<CircleHelp size={16} />}
-                                            title="默认显示语法提示"
+                                            title={t('settings_show_grammar')}
                                             enabled={showGrammar}
                                             onChange={setShowGrammar}
                                         />
@@ -447,27 +447,27 @@ export default function Personal_Setting() {
 
                                 <ToggleRow
                                     icon={<Sparkles size={16} />}
-                                    title="答错后立即显示 AI 解释"
-                                    description="在用户答错后马上给出解释、错误分析和更自然的替代表达。"
+                                    title={t('settings_ai_explanation')}
+                                    description={t('settings_ai_explanation_desc')}
                                     enabled={showAiExplanation}
                                     onChange={setShowAiExplanation}
                                 />
                                 <ToggleRow
                                     icon={<Mic2 size={16} />}
-                                    title="音频自动播放"
-                                    description="进入题目或讲解内容时自动播报音频。"
+                                    title={t('settings_auto_play_audio')}
+                                    description={t('settings_auto_play_audio_desc')}
                                     enabled={autoPlayAudio}
                                     onChange={setAutoPlayAudio}
                                 />
                                 <SelectRow
-                                    label="发音语速"
+                                    label={t('settings_playback_speed')}
                                     icon={<Clock3 size={16} />}
                                     value={playbackSpeed}
                                     onChange={setPlaybackSpeed}
                                     options={[
-                                        { value: '0.8x', label: '0.8x 慢速' },
-                                        { value: '1.0x', label: '1.0x 标准' },
-                                        { value: '1.2x', label: '1.2x 稍快' },
+                                        { value: '0.8x', label: t('settings_speed_slow') },
+                                        { value: '1.0x', label: t('settings_speed_normal') },
+                                        { value: '1.2x', label: t('settings_speed_fast') },
                                     ]}
                                 />
                             </div>
@@ -476,42 +476,42 @@ export default function Personal_Setting() {
 
                     <motion.div variants={blockMotion}>
                         <SettingsCard
-                            eyebrow="通知提醒"
-                            title="通知与提醒"
-                            description="统一管理学习提醒、课程更新和账号通知。"
+                            eyebrow={t('settings_notifications_eyebrow')}
+                            title={t('settings_notifications_title')}
+                            description={t('settings_notifications_desc')}
                             icon={<Bell size={18} />}
                         >
                             <div className="space-y-4">
                                 <ToggleRow
                                     icon={<Mail size={16} />}
-                                    title="邮件通知开关"
-                                    description="统一控制所有邮件类通知。"
+                                    title={t('settings_email_notifications')}
+                                    description={t('settings_email_notifications_desc')}
                                     enabled={mailNotifications}
                                     onChange={setMailNotifications}
                                 />
                                 <ToggleRow
                                     icon={<Bell size={16} />}
-                                    title="每日学习提醒"
-                                    description="在每天固定时间提醒用户开始学习。"
+                                    title={t('settings_daily_reminder')}
+                                    description={t('settings_daily_reminder_desc')}
                                     enabled={dailyReminder}
                                     onChange={setDailyReminder}
                                 />
                                 <TimeRow
-                                    label="复习提醒时间"
+                                    label={t('settings_review_time')}
                                     value={reviewReminderTime}
                                     onChange={setReviewReminderTime}
                                 />
                                 <ToggleRow
                                     icon={<NotebookPen size={16} />}
-                                    title="课程更新提醒"
-                                    description="新课上线、课程内容变更时发送提醒。"
+                                    title={t('settings_course_updates')}
+                                    description={t('settings_course_updates_desc')}
                                     enabled={courseUpdates}
                                     onChange={setCourseUpdates}
                                 />
                                 <ToggleRow
                                     icon={<Siren size={16} />}
-                                    title="账号安全通知"
-                                    description="密码更新、异常登录等安全事件即时提醒。"
+                                    title={t('settings_security_alerts')}
+                                    description={t('settings_security_alerts_desc')}
                                     enabled={securityAlerts}
                                     onChange={setSecurityAlerts}
                                 />
@@ -521,31 +521,31 @@ export default function Personal_Setting() {
 
                     <motion.div variants={blockMotion}>
                         <SettingsCard
-                            eyebrow="帮助支持"
-                            title="帮助与支持"
-                            description="查看帮助入口、反馈渠道和版本信息。"
+                            eyebrow={t('settings_support_eyebrow')}
+                            title={t('settings_support_title')}
+                            description={t('settings_support_desc')}
                             icon={<MessageSquareMore size={18} />}
                         >
                             <div className="space-y-3">
                                 <SupportLink
                                     icon={<CircleHelp size={17} />}
-                                    title="常见问题"
-                                    description="账号、学习流、AI 判题和提醒相关说明。"
+                                    title={t('settings_faq')}
+                                    description={t('settings_faq_desc')}
                                 />
                                 <SupportLink
                                     icon={<MessageSquareMore size={17} />}
-                                    title="问题反馈"
-                                    description="提交 bug、体验建议和课程内容修正意见。"
+                                    title={t('settings_feedback_link')}
+                                    description={t('settings_feedback_link_desc')}
                                 />
                                 <SupportLink
                                     icon={<Mail size={17} />}
-                                    title="联系方式"
-                                    description="支持邮箱、合作联系和课程沟通入口。"
+                                    title={t('settings_contact')}
+                                    description={t('settings_contact_desc')}
                                 />
                                 <SupportLink
                                     icon={<MonitorCog size={17} />}
-                                    title="版本号与更新说明"
-                                    description="展示当前版本和最近更新内容。"
+                                    title={t('settings_version')}
+                                    description={t('settings_version_desc')}
                                 />
                             </div>
                         </SettingsCard>

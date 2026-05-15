@@ -2,9 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Home, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function FinishCard({ isAllCompleted, onContinue }) {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-white p-6 text-center">
@@ -22,12 +24,12 @@ export default function FinishCard({ isAllCompleted, onContinue }) {
             >
                 {/* 🌟 动态标题与文案 */}
                 <h2 className="text-4xl font-black text-slate-800 mb-3">
-                    {isAllCompleted ? "全部通关！" : "干得漂亮！"}
+                    {isAllCompleted ? t('finish_all_title') : t('finish_lesson_title')}
                 </h2>
                 <p className="text-slate-500 mb-10 max-w-xs mx-auto text-lg font-medium">
                     {isAllCompleted 
-                        ? "你已经扫清了所有到期的复习题，并且完成了所有的课程。给自己鼓个掌吧！"
-                        : "你已成功完成当前学习任务！要一鼓作气继续挑战下一关吗？"
+                        ? t('finish_all_desc')
+                        : t('finish_lesson_desc')
                     }
                 </p>
                 
@@ -37,7 +39,7 @@ export default function FinishCard({ isAllCompleted, onContinue }) {
                         onClick={() => navigate('/classroom')} 
                         className="px-8 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold text-lg hover:bg-slate-200 transition flex items-center gap-3"
                     >
-                        <Home size={20} /> 回到教室
+                        <Home size={20} /> {t('finish_back_classroom')}
                     </button>
                     
                     {!isAllCompleted && (
@@ -45,7 +47,7 @@ export default function FinishCard({ isAllCompleted, onContinue }) {
                             onClick={onContinue} 
                             className="group px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-lg hover:bg-slate-800 transition shadow-lg flex items-center gap-3"
                         >
-                            继续下一课 <ArrowRight size={20} className="group-hover:translate-x-1 transition" />
+                            {t('finish_continue_next')} <ArrowRight size={20} className="group-hover:translate-x-1 transition" />
                         </button>
                     )}
                 </div>

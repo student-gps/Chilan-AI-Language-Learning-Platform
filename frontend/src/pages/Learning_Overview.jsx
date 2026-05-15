@@ -41,17 +41,17 @@ export default function Learning_Overview() {
 
                 <header className="mb-12">
                     <h1 className="text-4xl font-black text-slate-900 tracking-tight">{t('overview_title')}</h1>
-                    <p className="text-slate-500 font-medium mt-2">基于 FSRS 算法为您定制的今日学习计划</p>
+                    <p className="text-slate-500 font-medium mt-2">{t('overview_subtitle')}</p>
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <StatCard icon={<Flame className="text-orange-500" />} label="待复习" value={tasks.length} sub="Tasks" />
-                    <StatCard icon={<GraduationCap className="text-blue-500" />} label="稳定性" value="88%" sub="Stability" />
-                    <StatCard icon={<Brain className="text-purple-500" />} label="学习阶段" value="L3" sub="Level" />
+                    <StatCard icon={<Flame className="text-orange-500" />} label={t('overview_due_review')} value={tasks.length} sub={t('overview_tasks_unit')} />
+                    <StatCard icon={<GraduationCap className="text-blue-500" />} label={t('overview_stability')} value="88%" sub={t('overview_stability_unit')} />
+                    <StatCard icon={<Brain className="text-purple-500" />} label={t('overview_learning_stage')} value="L3" sub={t('overview_level_unit')} />
                 </div>
 
                 <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/40 p-8 border border-slate-100">
-                    <h2 className="text-xl font-black mb-8 flex items-center gap-3"><Calendar className="text-blue-600" size={20}/> 今日清单</h2>
+                    <h2 className="text-xl font-black mb-8 flex items-center gap-3"><Calendar className="text-blue-600" size={20}/> {t('overview_today_list')}</h2>
                     {loading ? <Loader2 className="animate-spin mx-auto text-blue-500 my-10" /> : (
                         <div className="space-y-4">
                             {tasks.length > 0 ? (
@@ -63,7 +63,7 @@ export default function Learning_Overview() {
                                 ))
                             ) : (
                                 <div className="py-10 text-center text-slate-400 font-bold">
-                                    今日任务已全部完成！☕️
+                                    {t('overview_all_done')}
                                 </div>
                             )}
                         </div>

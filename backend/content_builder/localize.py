@@ -33,7 +33,7 @@ LANG_META = {
     "ja": {"name": "Japanese", "native": "日本語"},
     "ko": {"name": "Korean", "native": "한국어"},
     "vi": {"name": "Vietnamese", "native": "Tiếng Việt"},
-    "ar": {"name": "Arabic", "native": "العربية"},
+    "ar": {"name": "Modern Standard Arabic", "native": "العربية الفصحى"},
     "th": {"name": "Thai", "native": "ภาษาไทย"},
     "pt": {"name": "Portuguese", "native": "Português"},
     "ru": {"name": "Russian", "native": "Русский"},
@@ -108,6 +108,7 @@ Rules:
 7. Keep narration text conversational and spoken-friendly — it will be read aloud by a TTS voice.
 8. Because your answer must be machine-parsed as JSON, do not use raw ASCII double quotes (") inside translated string values. Use the target language quotation marks instead, such as « … », “ … ”, 「…」, or no quotes.
 9. Before returning, verify that every opaque marker token in each value is identical to the corresponding input token. If any token changed, fix it before output.
+10. If the target language is Modern Standard Arabic, use formal MSA suitable for education and written/spoken course narration. Do not use Egyptian, Levantine, Gulf, Maghrebi, or other regional colloquial dialects.
 {field_rules}
 
 Marker glossary for understanding only. Do not output glossary lines. Keep tokens in the translated strings exactly as tokens:

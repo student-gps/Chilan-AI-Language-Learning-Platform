@@ -96,6 +96,7 @@ const resources = {
       "classroom_join_course": "加入课程",
       "classroom_in_learning": "已在学习",
       "classroom_added": "已添加",
+      "classroom_active_limit": "进行中 {{count}}/{{max}} 门，最多同时学习 {{max}} 门",
       "classroom_no_courses": "暂无符合筛选条件的课程",
       "btn_add": "添加",
       "course_en_zh": "中文学英文",
@@ -145,6 +146,9 @@ const resources = {
       "knowledge_show": "显示",
       "knowledge_hide": "收起",
       "study_error_load": "无法获取课程数据，请确认后端已同步课程内容",
+      "study_not_enrolled_title": "这门课不在你的学习列表中",
+      "study_not_enrolled_desc": "你可以先浏览课程内容；需要继续学习、练习和记录进度时，请先加入课程。",
+      "study_not_enrolled_action": "查看课程详情",
       "study_retry": "重试",
       "teaching_new_unit": "新单元",
       "teaching_video_label": "视觉语境引擎",
@@ -167,6 +171,12 @@ const resources = {
       "course_all_lessons": "全部课时",
       "course_no_lessons": "暂无课时数据",
       "course_start_learning": "开始学习",
+      "course_adding_learning": "正在添加...",
+      "course_remove_learning": "暂停学习",
+      "course_remove_failed": "暂停课程失败，请稍后重试。",
+      "course_limit_reached": "你当前最多可学习 2 门课程，请先完成或暂停一门。",
+      "course_enroll_failed": "添加课程失败，请稍后重试。",
+      "course_preview_before_join": "你可以先浏览课程结构和课时内容。添加到学习后会记录练习与学习进度。",
       "course_intro_card_title": "课程介绍",
       "course_intro_card_sub": "理念 · 学习方式 · 路径",
       "course_hanzi_card_title": "汉字入门",
@@ -388,6 +398,7 @@ const resources = {
       "classroom_join_course": "Join Course",
       "classroom_in_learning": "In Progress",
       "classroom_added": "Added",
+      "classroom_active_limit": "In progress {{count}}/{{max}}. You can study up to {{max}} courses at once.",
       "classroom_no_courses": "No courses match the current filters",
       "btn_add": "Add",
       "course_en_zh": "English (CN)",
@@ -437,6 +448,9 @@ const resources = {
       "knowledge_show": "Show",
       "knowledge_hide": "Hide",
       "study_error_load": "Unable to load course data. Please make sure the backend has synced the lesson.",
+      "study_not_enrolled_title": "This course is not in your learning list",
+      "study_not_enrolled_desc": "You can still preview the course. Join it first when you want learning, practice, and progress tracking.",
+      "study_not_enrolled_action": "View Course",
       "study_retry": "Retry",
       "teaching_new_unit": "New Unit",
       "teaching_video_label": "Visual Context Engine",
@@ -469,6 +483,12 @@ const resources = {
       "course_all_lessons": "All Lessons",
       "course_no_lessons": "No lessons available",
       "course_start_learning": "Start Learning",
+      "course_adding_learning": "Adding...",
+      "course_remove_learning": "Pause",
+      "course_remove_failed": "Failed to pause the course. Please try again.",
+      "course_limit_reached": "You can study up to 2 courses at once. Please complete or pause one first.",
+      "course_enroll_failed": "Failed to add the course. Please try again.",
+      "course_preview_before_join": "You can preview the course structure and lessons first. Add it to your learning list when you want practice and progress tracking.",
       "course_intro_card_title": "Course Intro",
       "course_intro_card_sub": "Concepts · workflow · path",
       "course_hanzi_card_title": "Hanzi Basics",
@@ -690,6 +710,7 @@ const resources = {
       "classroom_join_course": "コースに参加",
       "classroom_in_learning": "学習中",
       "classroom_added": "追加済み",
+      "classroom_active_limit": "学習中 {{count}}/{{max}}。同時に学習できるコースは最大 {{max}} 件です。",
       "classroom_no_courses": "条件に合うコースはありません",
       "btn_add": "追加",
       "course_en_zh": "英語 (中国語経由)",
@@ -739,6 +760,9 @@ const resources = {
       "knowledge_show": "表示",
       "knowledge_hide": "非表示",
       "study_error_load": "コースデータを取得できません。バックエンドがレッスンを同期しているか確認してください。",
+      "study_not_enrolled_title": "このコースは学習リストにありません",
+      "study_not_enrolled_desc": "コース内容のプレビューは可能です。学習・練習・進捗記録を使うには、先にコースを追加してください。",
+      "study_not_enrolled_action": "コース詳細を見る",
       "study_retry": "再試行",
       "teaching_new_unit": "新しいユニット",
       "teaching_video_label": "ビジュアルコンテキストエンジン",
@@ -771,6 +795,12 @@ const resources = {
       "course_all_lessons": "全レッスン",
       "course_no_lessons": "レッスンがありません",
       "course_start_learning": "学習開始",
+      "course_adding_learning": "追加中...",
+      "course_remove_learning": "学習を一時停止",
+      "course_remove_failed": "コースを一時停止できませんでした。もう一度お試しください。",
+      "course_limit_reached": "同時に学習できるコースは最大2件です。先に1件を完了するか一時停止してください。",
+      "course_enroll_failed": "コースを追加できませんでした。もう一度お試しください。",
+      "course_preview_before_join": "先にコース構成とレッスン内容を確認できます。学習に追加すると練習と進捗が記録されます。",
       "course_intro_card_title": "コース紹介",
       "course_intro_card_sub": "理念 · 学習方法 · 道筋",
       "course_hanzi_card_title": "漢字入門",
@@ -855,6 +885,7 @@ const resources = {
       "classroom_join_course": "Rejoindre",
       "classroom_in_learning": "En cours",
       "classroom_added": "Ajouté",
+      "classroom_active_limit": "En cours {{count}}/{{max}}. Vous pouvez suivre jusqu'à {{max}} cours à la fois.",
       "classroom_no_courses": "Aucun cours ne correspond aux filtres",
       "btn_add": "Ajouter",
       "course_en_zh": "Anglais (via CN)",
@@ -904,6 +935,9 @@ const resources = {
       "knowledge_show": "Afficher",
       "knowledge_hide": "Masquer",
       "study_error_load": "Impossible de charger le cours. Veuillez vérifier que le backend a bien synchronisé la leçon.",
+      "study_not_enrolled_title": "Ce cours n'est pas dans votre liste",
+      "study_not_enrolled_desc": "Vous pouvez toujours le prévisualiser. Rejoignez-le d'abord pour apprendre, vous entraîner et enregistrer la progression.",
+      "study_not_enrolled_action": "Voir le cours",
       "study_retry": "Réessayer",
       "teaching_new_unit": "Nouvelle unité",
       "teaching_video_label": "Moteur de contexte visuel",
@@ -936,6 +970,12 @@ const resources = {
       "course_all_lessons": "Tous les cours",
       "course_no_lessons": "Aucun cours disponible",
       "course_start_learning": "Commencer",
+      "course_adding_learning": "Ajout en cours...",
+      "course_remove_learning": "Mettre en pause",
+      "course_remove_failed": "Impossible de mettre ce cours en pause. Veuillez réessayer.",
+      "course_limit_reached": "Vous pouvez suivre jusqu'à 2 cours à la fois. Veuillez d'abord en terminer ou en mettre un en pause.",
+      "course_enroll_failed": "Impossible d'ajouter ce cours. Veuillez réessayer.",
+      "course_preview_before_join": "Vous pouvez d'abord parcourir la structure du cours et les leçons. Ajoutez-le à votre apprentissage pour enregistrer la pratique et la progression.",
       "course_intro_card_title": "Présentation du cours",
       "course_intro_card_sub": "Concepts · méthode · parcours",
       "course_hanzi_card_title": "Bases des caractères",
@@ -1157,6 +1197,7 @@ const resources = {
       "classroom_join_course": "Kurs beitreten",
       "classroom_in_learning": "Im Lernen",
       "classroom_added": "Hinzugefügt",
+      "classroom_active_limit": "Aktiv {{count}}/{{max}}. Du kannst höchstens {{max}} Kurse gleichzeitig lernen.",
       "classroom_no_courses": "Keine Kurse passen zu den Filtern",
       "btn_add": "Hinzufügen",
       "course_en_zh": "Englisch (via CN)",
@@ -1206,6 +1247,9 @@ const resources = {
       "knowledge_show": "Anzeigen",
       "knowledge_hide": "Ausblenden",
       "study_error_load": "Kursdaten konnten nicht geladen werden. Bitte prüfe, ob das Backend die Lektion synchronisiert hat.",
+      "study_not_enrolled_title": "Dieser Kurs ist nicht in deiner Lernliste",
+      "study_not_enrolled_desc": "Du kannst den Kurs weiterhin ansehen. Füge ihn zuerst hinzu, wenn du lernen, üben und Fortschritt speichern möchtest.",
+      "study_not_enrolled_action": "Kurs ansehen",
       "study_retry": "Erneut versuchen",
       "teaching_new_unit": "Neue Einheit",
       "teaching_video_label": "Visuelle Kontext-Engine",
@@ -1238,6 +1282,12 @@ const resources = {
       "course_all_lessons": "Alle Lektionen",
       "course_no_lessons": "Keine Lektionen verfügbar",
       "course_start_learning": "Starten",
+      "course_adding_learning": "Wird hinzugefügt...",
+      "course_remove_learning": "Pausieren",
+      "course_remove_failed": "Der Kurs konnte nicht pausiert werden. Bitte versuche es erneut.",
+      "course_limit_reached": "Du kannst höchstens 2 Kurse gleichzeitig lernen. Bitte schließe zuerst einen Kurs ab oder pausiere ihn.",
+      "course_enroll_failed": "Der Kurs konnte nicht hinzugefügt werden. Bitte versuche es erneut.",
+      "course_preview_before_join": "Sie können zuerst Kursstruktur und Lektionen ansehen. Fügen Sie den Kurs hinzu, wenn Übungen und Fortschritt gespeichert werden sollen.",
       "course_intro_card_title": "Kurseinführung",
       "course_intro_card_sub": "Konzept · Lernweise · Pfad",
       "course_hanzi_card_title": "Hanzi-Grundlagen",
@@ -1390,16 +1440,102 @@ const NEW_LOCALE_EXTRA_OVERRIDES = {
   }
 };
 
+const PAGE_TRANSLATIONS = {
+  zh: {
+    common_back: "返回", common_cancel: "取消", common_save: "保存", common_edit: "修改",
+    typing_intro_title: "电脑打字教程", typing_intro_subtitle: "输入法 · 拼音打字 · 练习", typing_intro_coming_soon: "内容即将上线", typing_intro_body: "这里将包含中文输入法安装、拼音打字方法和打字练习等内容。",
+    overview_subtitle: "基于 FSRS 算法为您定制的今日学习计划", overview_due_review: "待复习", overview_tasks_unit: "任务", overview_stability: "稳定性", overview_stability_unit: "稳定度", overview_learning_stage: "学习阶段", overview_level_unit: "等级", overview_today_list: "今日清单", overview_all_done: "今日任务已全部完成！",
+    finish_all_title: "全部通关！", finish_lesson_title: "干得漂亮！", finish_all_desc: "你已经扫清了所有到期的复习题，并且完成了所有的课程。给自己鼓个掌吧！", finish_lesson_desc: "你已成功完成当前学习任务！要一鼓作气继续挑战下一关吗？", finish_back_classroom: "回到教室", finish_continue_next: "继续下一课",
+    speech_panel_label: "语音练习", speech_panel_title: "先录音，再确认后提交", speech_panel_attempts: "已录 {{count}} 次", speech_panel_max_seconds: "最长 {{count}} 秒", speech_status_recording: "录音中", speech_status_transcribing: "转写中", speech_status_idle: "待开始", speech_submit_answer: "提交本次回答", speech_preview_recording: "正在聆听，请开始说话。", speech_preview_transcribing: "录音已结束，正在生成识别结果。", speech_preview_idle: "还没有识别结果，点击下方按钮开始录音。", speech_hint_transcribing: "已经收到录音，正在转换成文字。", speech_start_recording: "开始录音", speech_stop_recording: "结束录音", practice_answer_language_warning: "请用{{language}}回答", speech_error_no_valid_input: "未检测到有效语音输入，请重新录音。", speech_error_low_confidence: "语音识别置信度较低（{{confidence}}），建议重新录音。", speech_error_transcribe_failed: "语音转写失败，请重试。", speech_error_unsupported_browser: "当前浏览器不支持录音，请更换现代浏览器后再试。", speech_error_no_audio: "没有录到有效音频，请重新录音。", speech_error_max_duration: "已达到最长录音时长，系统已自动停止并开始转写。", speech_error_mic_unavailable: "麦克风权限不可用，或当前设备无法录音。", speech_error_unstable_result: "语音识别结果不够稳定，请重新录音后再提交。", practice_prompt_pattern_replace: "句型替换", practice_prompt_understand_english: "理解英文", practice_prompt_en_listen_write: "听写英文", practice_prompt_speak_english: "开口说英语", practice_badge_pattern_drill: "句型替换", practice_badge_english_dictation: "英文听写", practice_badge_speak_english: "口语 · 英文", practice_pattern_label: "句型", practice_play_prompt_audio: "播放题目音频",
+    teaching_full_lesson_audio: "本课完整对话音频", teaching_play_lesson_audio: "播放整课音频", teaching_pause_lesson_audio: "暂停播放整课音频", teaching_adjust_volume: "调节音量", teaching_set_playback_speed: "设置播放倍速", teaching_lesson_audio: "课文音频", teaching_set_floating_speed: "设置悬浮课文音频倍速", teaching_speed_value: "倍速 {{rate}}x", teaching_collapse_audio_bar: "收起悬浮课文音频条", teaching_expand_audio_bar: "展开悬浮课文音频条", teaching_play_line_audio: "播放音频",
+    settings_loading: "加载中...", settings_loading_profile: "正在读取资料...", settings_no_email: "暂无邮箱", settings_change_avatar: "修改头像", settings_nickname_hint: "2-24 个字符，支持中英文、数字、空格和 `_ - .`，且昵称不能重复。", settings_password_title: "修改密码", settings_password_desc: "使用当前密码验证身份，再设置一个新的登录密码。", settings_current_password: "当前密码", settings_new_password: "新密码", settings_confirm_new_password: "确认新密码", settings_pw_req_length: "8 到 32 位", settings_pw_req_letter: "至少一个字母", settings_pw_req_number: "至少一个数字", settings_pw_req_special: "至少一个特殊字符", settings_pw_req_no_space: "不能有空格", settings_pw_req_match: "确认密码一致", settings_pw_req_different: "新旧密码不能相同", settings_save_new_password: "保存新密码", settings_provider_password_desc: "当前账号通过 {{provider}} 登录，密码由 {{provider}} 账户管理。", settings_provider_password: "邮箱密码", settings_unknown_time: "未知时间", settings_status_success: "成功", settings_device_label: "设备", settings_unknown_device: "未知设备", settings_unknown_ip: "未知 IP", settings_security_log_title: "账号安全记录", settings_view: "查看", settings_refresh_logs: "刷新记录", settings_no_login_logs: "暂无登录记录", settings_delete_account_title: "注销账号", settings_delete: "删除", settings_delete_confirm_desc_prefix: "请输入", settings_delete_confirm_desc_suffix: "确认注销账号。账号删除后，当前学习数据和登录记录将无法恢复。", settings_confirm_text: "确认文本", settings_confirm_delete: "确认注销",
+    settings_user_missing: "未找到当前用户", settings_password_requirements_first: "请先满足全部密码要求", settings_password_updated: "密码已更新", settings_password_update_failed: "密码修改失败", settings_nickname_length_error: "昵称需为 2 到 24 个字符", settings_nickname_format_error: "昵称仅支持中英文、数字、空格和 _-.", settings_nickname_save_failed: "昵称保存失败", settings_login_history_failed: "登录记录加载失败", settings_delete_success: "账号已注销，正在返回首页", settings_delete_failed: "账号注销失败",
+    settings_account_security: "账户与安全", settings_nickname: "昵称", settings_email: "邮箱", settings_language_eyebrow: "语言", settings_language_title: "界面语言 / 母语", settings_language_desc: "统一管理界面显示语言和学习母语。", settings_interface_language: "界面语言", settings_native_language: "母语", settings_feedback_eyebrow: "答题反馈", settings_feedback_title: "答题与反馈设置", settings_feedback_desc: "控制判题标准、提示信息和语音播放方式。", settings_strictness_label: "判题严格度偏好", settings_strictness_strict: "严格", settings_strictness_balanced: "平衡", settings_strictness_friendly: "宽松", settings_default_hints: "默认提示", settings_show_pinyin: "默认显示拼音", settings_show_meaning: "默认显示释义", settings_show_grammar: "默认显示语法提示", settings_ai_explanation: "答错后立即显示 AI 解释", settings_ai_explanation_desc: "在用户答错后马上给出解释、错误分析和更自然的替代表达。", settings_auto_play_audio: "音频自动播放", settings_auto_play_audio_desc: "进入题目或讲解内容时自动播报音频。", settings_playback_speed: "发音语速", settings_speed_slow: "0.8x 慢速", settings_speed_normal: "1.0x 标准", settings_speed_fast: "1.2x 稍快", settings_notifications_eyebrow: "通知提醒", settings_notifications_title: "通知与提醒", settings_notifications_desc: "统一管理学习提醒、课程更新和账号通知。", settings_email_notifications: "邮件通知开关", settings_email_notifications_desc: "统一控制所有邮件类通知。", settings_daily_reminder: "每日学习提醒", settings_daily_reminder_desc: "在每天固定时间提醒用户开始学习。", settings_review_time: "复习提醒时间", settings_course_updates: "课程更新提醒", settings_course_updates_desc: "新课上线、课程内容变更时发送提醒。", settings_security_alerts: "账号安全通知", settings_security_alerts_desc: "密码更新、异常登录等安全事件即时提醒。", settings_support_eyebrow: "帮助支持", settings_support_title: "帮助与支持", settings_support_desc: "查看帮助入口、反馈渠道和版本信息。", settings_faq: "常见问题", settings_faq_desc: "账号、学习流、AI 判题和提醒相关说明。", settings_feedback_link: "问题反馈", settings_feedback_link_desc: "提交 bug、体验建议和课程内容修正意见。", settings_contact: "联系方式", settings_contact_desc: "支持邮箱、合作联系和课程沟通入口。", settings_version: "版本号与更新说明", settings_version_desc: "展示当前版本和最近更新内容。"
+  },
+  en: {
+    common_back: "Back", common_cancel: "Cancel", common_save: "Save", common_edit: "Edit",
+    typing_intro_title: "Typing Tutorial", typing_intro_subtitle: "Input methods · pinyin typing · practice", typing_intro_coming_soon: "Coming soon", typing_intro_body: "This section will cover Chinese input method setup, pinyin typing, and typing drills.",
+    overview_subtitle: "Your FSRS-powered learning plan for today", overview_due_review: "Due Review", overview_tasks_unit: "Tasks", overview_stability: "Stability", overview_stability_unit: "Stability", overview_learning_stage: "Learning Stage", overview_level_unit: "Level", overview_today_list: "Today's List", overview_all_done: "All tasks are done for today!",
+    finish_all_title: "All Clear!", finish_lesson_title: "Nice work!", finish_all_desc: "You cleared every due review and completed all course content. Take a well-earned moment.", finish_lesson_desc: "You finished the current learning task. Ready to keep the momentum going?", finish_back_classroom: "Back to Classroom", finish_continue_next: "Continue",
+    speech_panel_label: "Speech Practice", speech_panel_title: "Record first, then confirm and submit", speech_panel_attempts: "{{count}} recording(s)", speech_panel_max_seconds: "Up to {{count}} seconds", speech_status_recording: "Recording", speech_status_transcribing: "Transcribing", speech_status_idle: "Ready", speech_submit_answer: "Submit answer", speech_preview_recording: "Listening. Start speaking when ready.", speech_preview_transcribing: "Recording ended. Generating the transcript.", speech_preview_idle: "No transcript yet. Start recording below.", speech_hint_transcribing: "Audio received. Converting it to text.", speech_start_recording: "Start recording", speech_stop_recording: "Stop recording", practice_answer_language_warning: "Please answer in {{language}}", speech_error_no_valid_input: "No valid speech was detected. Please record again.", speech_error_low_confidence: "Speech recognition confidence is low ({{confidence}}). Recording again is recommended.", speech_error_transcribe_failed: "Speech transcription failed. Please try again.", speech_error_unsupported_browser: "This browser does not support recording. Please try a modern browser.", speech_error_no_audio: "No usable audio was recorded. Please record again.", speech_error_max_duration: "Maximum recording time reached. Recording stopped and transcription has started.", speech_error_mic_unavailable: "Microphone permission is unavailable, or this device cannot record audio.", speech_error_unstable_result: "The speech recognition result is not stable enough. Please record again before submitting.", practice_prompt_pattern_replace: "Pattern replacement", practice_prompt_understand_english: "Understand English", practice_prompt_en_listen_write: "English dictation", practice_prompt_speak_english: "Speak English", practice_badge_pattern_drill: "Pattern Drill", practice_badge_english_dictation: "English Dictation", practice_badge_speak_english: "Speak English", practice_pattern_label: "Pattern", practice_play_prompt_audio: "Play prompt audio",
+    teaching_full_lesson_audio: "Full lesson audio", teaching_play_lesson_audio: "Play lesson audio", teaching_pause_lesson_audio: "Pause lesson audio", teaching_adjust_volume: "Adjust volume", teaching_set_playback_speed: "Set playback speed", teaching_lesson_audio: "Lesson audio", teaching_set_floating_speed: "Set floating audio speed", teaching_speed_value: "Speed {{rate}}x", teaching_collapse_audio_bar: "Collapse audio bar", teaching_expand_audio_bar: "Expand audio bar", teaching_play_line_audio: "Play audio",
+    settings_loading: "Loading...", settings_loading_profile: "Reading profile...", settings_no_email: "No email", settings_change_avatar: "Change Avatar", settings_nickname_hint: "2-24 characters. Letters, numbers, spaces, and `_ - .` are supported. Nicknames must be unique.", settings_password_title: "Change Password", settings_password_desc: "Verify with your current password, then set a new login password.", settings_current_password: "Current Password", settings_new_password: "New Password", settings_confirm_new_password: "Confirm New Password", settings_pw_req_length: "8 to 32 characters", settings_pw_req_letter: "At least one letter", settings_pw_req_number: "At least one number", settings_pw_req_special: "At least one special character", settings_pw_req_no_space: "No spaces", settings_pw_req_match: "Passwords match", settings_pw_req_different: "New password differs from current", settings_save_new_password: "Save New Password", settings_provider_password_desc: "This account signs in with {{provider}}. Passwords are managed by {{provider}}.", settings_provider_password: "Email password", settings_unknown_time: "Unknown time", settings_status_success: "Success", settings_device_label: "Device", settings_unknown_device: "Unknown device", settings_unknown_ip: "Unknown IP", settings_security_log_title: "Account Security Log", settings_view: "View", settings_refresh_logs: "Refresh", settings_no_login_logs: "No login records yet", settings_delete_account_title: "Delete Account", settings_delete: "Delete", settings_delete_confirm_desc_prefix: "Type", settings_delete_confirm_desc_suffix: "to confirm deletion. Your learning data and login history cannot be recovered.", settings_confirm_text: "Confirmation Text", settings_confirm_delete: "Confirm Delete",
+    settings_user_missing: "Current user not found", settings_password_requirements_first: "Please satisfy all password requirements first", settings_password_updated: "Password updated", settings_password_update_failed: "Password update failed", settings_nickname_length_error: "Nickname must be 2 to 24 characters", settings_nickname_format_error: "Nickname only supports letters, numbers, spaces, and _-.", settings_nickname_save_failed: "Failed to save nickname", settings_login_history_failed: "Failed to load login history", settings_delete_success: "Account deleted. Returning home...", settings_delete_failed: "Account deletion failed",
+    settings_account_security: "Account & Security", settings_nickname: "Nickname", settings_email: "Email", settings_language_eyebrow: "Language", settings_language_title: "Interface Language / Native Language", settings_language_desc: "Manage the app language and your learning native language.", settings_interface_language: "Interface Language", settings_native_language: "Native Language", settings_feedback_eyebrow: "Feedback", settings_feedback_title: "Answer & Feedback Settings", settings_feedback_desc: "Control grading strictness, hints, and audio behavior.", settings_strictness_label: "Grading strictness", settings_strictness_strict: "Strict", settings_strictness_balanced: "Balanced", settings_strictness_friendly: "Friendly", settings_default_hints: "Default Hints", settings_show_pinyin: "Show pinyin by default", settings_show_meaning: "Show meanings by default", settings_show_grammar: "Show grammar hints by default", settings_ai_explanation: "Show AI explanation after mistakes", settings_ai_explanation_desc: "When an answer is wrong, immediately show explanation, error analysis, and more natural alternatives.", settings_auto_play_audio: "Auto-play audio", settings_auto_play_audio_desc: "Automatically play audio when entering questions or lesson content.", settings_playback_speed: "Pronunciation Speed", settings_speed_slow: "0.8x Slow", settings_speed_normal: "1.0x Standard", settings_speed_fast: "1.2x Faster", settings_notifications_eyebrow: "Notifications", settings_notifications_title: "Notifications & Reminders", settings_notifications_desc: "Manage study reminders, course updates, and account notifications.", settings_email_notifications: "Email notifications", settings_email_notifications_desc: "Control all email notifications.", settings_daily_reminder: "Daily study reminder", settings_daily_reminder_desc: "Remind you to study at a fixed time each day.", settings_review_time: "Review Reminder Time", settings_course_updates: "Course update reminders", settings_course_updates_desc: "Send reminders when new lessons or course changes are available.", settings_security_alerts: "Account security alerts", settings_security_alerts_desc: "Notify you about password changes, unusual logins, and security events.", settings_support_eyebrow: "Support", settings_support_title: "Help & Support", settings_support_desc: "Find help, feedback channels, and version information.", settings_faq: "FAQ", settings_faq_desc: "Help for accounts, learning flow, AI grading, and reminders.", settings_feedback_link: "Feedback", settings_feedback_link_desc: "Submit bugs, experience suggestions, and course content corrections.", settings_contact: "Contact", settings_contact_desc: "Support email, collaboration, and course communication.", settings_version: "Version & Release Notes", settings_version_desc: "View the current version and recent updates."
+  }
+};
+
+PAGE_TRANSLATIONS.jp = { ...PAGE_TRANSLATIONS.en, common_back: "戻る", common_cancel: "キャンセル", common_save: "保存", common_edit: "編集", typing_intro_title: "タイピング教程", overview_today_list: "今日のリスト", overview_all_done: "今日のタスクはすべて完了しました！", finish_lesson_title: "よくできました！", finish_back_classroom: "教室に戻る", finish_continue_next: "次へ進む", speech_panel_label: "音声練習", speech_status_recording: "録音中", speech_status_transcribing: "文字起こし中", speech_status_idle: "待機中", speech_start_recording: "録音開始", speech_stop_recording: "録音終了", speech_submit_answer: "回答を送信", settings_account_security: "アカウントとセキュリティ", settings_nickname: "ニックネーム", settings_email: "メール", settings_password_title: "パスワード変更", settings_language_title: "表示言語 / 母語", settings_interface_language: "表示言語", settings_native_language: "母語", settings_notifications_title: "通知とリマインダー", settings_support_title: "ヘルプとサポート" };
+PAGE_TRANSLATIONS.fr = { ...PAGE_TRANSLATIONS.en, common_back: "Retour", common_cancel: "Annuler", common_save: "Enregistrer", common_edit: "Modifier", typing_intro_title: "Tutoriel de saisie", overview_today_list: "Liste du jour", overview_all_done: "Toutes les tâches du jour sont terminées !", finish_lesson_title: "Beau travail !", finish_back_classroom: "Retour à la classe", finish_continue_next: "Continuer", speech_panel_label: "Pratique orale", speech_status_recording: "Enregistrement", speech_status_transcribing: "Transcription", speech_status_idle: "Prêt", speech_start_recording: "Commencer l'enregistrement", speech_stop_recording: "Arrêter l'enregistrement", speech_submit_answer: "Envoyer la réponse", settings_account_security: "Compte et sécurité", settings_nickname: "Pseudo", settings_email: "E-mail", settings_password_title: "Changer le mot de passe", settings_language_title: "Langue de l'interface / langue maternelle", settings_interface_language: "Langue de l'interface", settings_native_language: "Langue maternelle", settings_notifications_title: "Notifications et rappels", settings_support_title: "Aide et support" };
+PAGE_TRANSLATIONS.de = { ...PAGE_TRANSLATIONS.en, common_back: "Zurück", common_cancel: "Abbrechen", common_save: "Speichern", common_edit: "Bearbeiten", typing_intro_title: "Tippkurs", overview_today_list: "Heutige Liste", overview_all_done: "Alle Aufgaben für heute sind erledigt!", finish_lesson_title: "Gut gemacht!", finish_back_classroom: "Zurück zum Klassenzimmer", finish_continue_next: "Weiter", speech_panel_label: "Sprechübung", speech_status_recording: "Aufnahme", speech_status_transcribing: "Transkription", speech_status_idle: "Bereit", speech_start_recording: "Aufnahme starten", speech_stop_recording: "Aufnahme beenden", speech_submit_answer: "Antwort senden", settings_account_security: "Konto und Sicherheit", settings_nickname: "Nickname", settings_email: "E-Mail", settings_password_title: "Passwort ändern", settings_language_title: "Oberflächensprache / Muttersprache", settings_interface_language: "Oberflächensprache", settings_native_language: "Muttersprache", settings_notifications_title: "Benachrichtigungen und Erinnerungen", settings_support_title: "Hilfe und Support" };
+["ko", "es", "vi", "pt", "ar", "th", "ru", "id", "ms", "it"].forEach((locale) => {
+  PAGE_TRANSLATIONS[locale] = {
+    ...PAGE_TRANSLATIONS.en,
+    ...(NEW_LOCALE_EXTRA_OVERRIDES[locale] || {}),
+  };
+});
+
+const PAGE_TRANSLATION_PATCHES = {
+  jp: {
+    typing_intro_subtitle: "入力方式・ピンイン入力・練習", typing_intro_coming_soon: "近日公開", typing_intro_body: "中国語入力方式の設定、ピンイン入力、タイピング練習を扱います。",
+    overview_subtitle: "FSRS に基づく今日の学習プラン", overview_due_review: "復習待ち", overview_tasks_unit: "タスク", overview_stability: "安定度", overview_learning_stage: "学習段階", overview_level_unit: "レベル",
+    speech_panel_title: "録音してから確認し、送信します", speech_panel_attempts: "{{count}} 回録音", speech_panel_max_seconds: "最大 {{count}} 秒", speech_preview_recording: "聞き取り中です。話し始めてください。", speech_preview_transcribing: "録音が終了しました。文字起こし中です。", speech_preview_idle: "まだ認識結果がありません。下のボタンで録音を開始してください。", speech_hint_transcribing: "音声を受信しました。テキストに変換中です。", speech_error_no_valid_input: "有効な音声が検出されませんでした。録音し直してください。", speech_error_low_confidence: "音声認識の信頼度が低いです（{{confidence}}）。録音し直すことをおすすめします。", speech_error_transcribe_failed: "文字起こしに失敗しました。もう一度お試しください。", speech_error_unsupported_browser: "このブラウザーは録音に対応していません。新しいブラウザーでお試しください。", speech_error_no_audio: "有効な音声が録音されませんでした。録音し直してください。", speech_error_max_duration: "録音上限に達したため、自動停止して文字起こしを開始しました。", speech_error_mic_unavailable: "マイク権限がないか、この端末では録音できません。", speech_error_unstable_result: "音声認識結果が十分安定していません。送信前に録音し直してください。",
+    practice_prompt_pattern_replace: "文型置換", practice_prompt_understand_english: "英語を理解", practice_prompt_en_listen_write: "英語ディクテーション", practice_prompt_speak_english: "英語を話す", practice_badge_pattern_drill: "文型練習", practice_badge_english_dictation: "英語ディクテーション", practice_badge_speak_english: "英語を話す", practice_pattern_label: "文型", practice_play_prompt_audio: "問題音声を再生",
+    teaching_full_lesson_audio: "レッスン全体の音声", teaching_play_lesson_audio: "レッスン音声を再生", teaching_pause_lesson_audio: "レッスン音声を一時停止", teaching_adjust_volume: "音量を調整", teaching_set_playback_speed: "再生速度を設定", teaching_lesson_audio: "本文音声", teaching_set_floating_speed: "フローティング音声の速度を設定", teaching_speed_value: "速度 {{rate}}x", teaching_collapse_audio_bar: "音声バーを折りたたむ", teaching_expand_audio_bar: "音声バーを展開", teaching_play_line_audio: "音声を再生"
+  },
+  fr: {
+    typing_intro_subtitle: "Méthodes de saisie · pinyin · pratique", typing_intro_coming_soon: "Bientôt disponible", typing_intro_body: "Cette section couvrira l'installation des méthodes de saisie chinoises, la frappe en pinyin et les exercices.",
+    overview_subtitle: "Votre plan d'apprentissage du jour avec FSRS", overview_due_review: "Révisions dues", overview_tasks_unit: "Tâches", overview_stability: "Stabilité", overview_learning_stage: "Étape", overview_level_unit: "Niveau",
+    speech_panel_title: "Enregistrez, vérifiez, puis envoyez", speech_panel_attempts: "{{count}} enregistrement(s)", speech_panel_max_seconds: "Jusqu'à {{count}} s", speech_error_no_valid_input: "Aucune voix valide détectée. Réenregistrez.", speech_error_low_confidence: "La confiance de reconnaissance est faible ({{confidence}}). Réenregistrer est conseillé.", speech_error_transcribe_failed: "Échec de la transcription. Réessayez.", speech_error_unsupported_browser: "Ce navigateur ne prend pas en charge l'enregistrement.", speech_error_no_audio: "Aucun audio exploitable enregistré. Réenregistrez.", speech_error_max_duration: "Durée maximale atteinte. L'enregistrement est arrêté et la transcription commence.", speech_error_mic_unavailable: "Micro indisponible ou permission refusée.", speech_error_unstable_result: "Le résultat vocal n'est pas assez stable. Réenregistrez avant d'envoyer.",
+    practice_prompt_pattern_replace: "Substitution de modèle", practice_prompt_understand_english: "Comprendre l'anglais", practice_prompt_en_listen_write: "Dictée anglaise", practice_prompt_speak_english: "Parler anglais", practice_badge_pattern_drill: "Exercice de modèle", practice_badge_english_dictation: "Dictée anglaise", practice_badge_speak_english: "Parler anglais", practice_pattern_label: "Modèle", practice_play_prompt_audio: "Lire l'audio de la question",
+    teaching_full_lesson_audio: "Audio complet de la leçon", teaching_play_lesson_audio: "Lire l'audio", teaching_pause_lesson_audio: "Mettre l'audio en pause", teaching_adjust_volume: "Régler le volume", teaching_set_playback_speed: "Régler la vitesse", teaching_lesson_audio: "Audio du texte", teaching_set_floating_speed: "Régler la vitesse flottante", teaching_speed_value: "Vitesse {{rate}}x", teaching_collapse_audio_bar: "Réduire la barre audio", teaching_expand_audio_bar: "Déployer la barre audio", teaching_play_line_audio: "Lire l'audio"
+  },
+  de: {
+    typing_intro_subtitle: "Eingabemethoden · Pinyin-Tippen · Übung", typing_intro_coming_soon: "Bald verfügbar", typing_intro_body: "Dieser Bereich behandelt chinesische Eingabemethoden, Pinyin-Tippen und Tippübungen.",
+    overview_subtitle: "Dein heutiger FSRS-Lernplan", overview_due_review: "Fällige Wiederholungen", overview_tasks_unit: "Aufgaben", overview_stability: "Stabilität", overview_learning_stage: "Lernphase", overview_level_unit: "Stufe",
+    speech_panel_title: "Erst aufnehmen, dann prüfen und senden", speech_panel_attempts: "{{count}} Aufnahme(n)", speech_panel_max_seconds: "Bis zu {{count}} s", speech_error_no_valid_input: "Keine gültige Sprache erkannt. Bitte erneut aufnehmen.", speech_error_low_confidence: "Die Erkennungssicherheit ist niedrig ({{confidence}}). Eine neue Aufnahme wird empfohlen.", speech_error_transcribe_failed: "Transkription fehlgeschlagen. Bitte erneut versuchen.", speech_error_unsupported_browser: "Dieser Browser unterstützt keine Aufnahme.", speech_error_no_audio: "Keine nutzbare Audiodatei aufgenommen. Bitte erneut aufnehmen.", speech_error_max_duration: "Maximale Aufnahmedauer erreicht. Die Transkription wurde gestartet.", speech_error_mic_unavailable: "Mikrofonberechtigung fehlt oder das Gerät kann nicht aufnehmen.", speech_error_unstable_result: "Das Sprachergebnis ist nicht stabil genug. Bitte vor dem Senden neu aufnehmen.",
+    practice_prompt_pattern_replace: "Satzmuster ersetzen", practice_prompt_understand_english: "Englisch verstehen", practice_prompt_en_listen_write: "Englisches Diktat", practice_prompt_speak_english: "Englisch sprechen", practice_badge_pattern_drill: "Satzmusterübung", practice_badge_english_dictation: "Englisches Diktat", practice_badge_speak_english: "Englisch sprechen", practice_pattern_label: "Muster", practice_play_prompt_audio: "Aufgabenaudio abspielen",
+    teaching_full_lesson_audio: "Gesamte Lektionsaudio", teaching_play_lesson_audio: "Lektionsaudio abspielen", teaching_pause_lesson_audio: "Lektionsaudio pausieren", teaching_adjust_volume: "Lautstärke anpassen", teaching_set_playback_speed: "Wiedergabegeschwindigkeit einstellen", teaching_lesson_audio: "Textaudio", teaching_set_floating_speed: "Schwebende Audiogeschwindigkeit einstellen", teaching_speed_value: "Tempo {{rate}}x", teaching_collapse_audio_bar: "Audioleiste einklappen", teaching_expand_audio_bar: "Audioleiste ausklappen", teaching_play_line_audio: "Audio abspielen"
+  },
+  ko: { typing_intro_title: "타이핑 튜토리얼", typing_intro_subtitle: "입력기 · 병음 타이핑 · 연습", overview_subtitle: "FSRS 기반 오늘 학습 계획", finish_lesson_title: "잘했어요!", speech_panel_title: "먼저 녹음하고 확인 후 제출하세요", speech_error_no_valid_input: "유효한 음성이 감지되지 않았습니다. 다시 녹음하세요.", speech_error_transcribe_failed: "음성 전사에 실패했습니다. 다시 시도하세요.", speech_error_unstable_result: "음성 인식 결과가 충분히 안정적이지 않습니다. 다시 녹음하세요.", practice_prompt_pattern_replace: "문형 바꾸기", practice_prompt_understand_english: "영어 이해", practice_prompt_en_listen_write: "영어 받아쓰기", practice_prompt_speak_english: "영어 말하기", practice_badge_pattern_drill: "문형 연습", practice_badge_english_dictation: "영어 받아쓰기", practice_badge_speak_english: "영어 말하기", teaching_full_lesson_audio: "전체 수업 오디오", teaching_lesson_audio: "본문 오디오", teaching_speed_value: "속도 {{rate}}x", teaching_play_line_audio: "오디오 재생" },
+  es: { typing_intro_title: "Tutorial de escritura", typing_intro_subtitle: "IME · pinyin · práctica", overview_subtitle: "Tu plan de hoy con FSRS", finish_lesson_title: "¡Buen trabajo!", speech_panel_title: "Graba, confirma y envía", speech_error_no_valid_input: "No se detectó voz válida. Graba de nuevo.", speech_error_transcribe_failed: "Falló la transcripción. Inténtalo de nuevo.", speech_error_unstable_result: "El reconocimiento no es lo bastante estable. Graba de nuevo.", practice_prompt_pattern_replace: "Sustitución de patrón", practice_prompt_understand_english: "Comprender inglés", practice_prompt_en_listen_write: "Dictado en inglés", practice_prompt_speak_english: "Hablar inglés", practice_badge_pattern_drill: "Práctica de patrón", practice_badge_english_dictation: "Dictado inglés", practice_badge_speak_english: "Hablar inglés", teaching_full_lesson_audio: "Audio completo de la lección", teaching_lesson_audio: "Audio del texto", teaching_speed_value: "Velocidad {{rate}}x", teaching_play_line_audio: "Reproducir audio" },
+  vi: { typing_intro_title: "Hướng dẫn gõ", typing_intro_subtitle: "Bộ gõ · gõ pinyin · luyện tập", overview_subtitle: "Kế hoạch học hôm nay theo FSRS", finish_lesson_title: "Làm tốt lắm!", speech_panel_title: "Ghi âm, kiểm tra rồi gửi", speech_error_no_valid_input: "Không phát hiện giọng nói hợp lệ. Hãy ghi âm lại.", speech_error_transcribe_failed: "Không chuyển giọng nói thành văn bản được. Thử lại nhé.", speech_error_unstable_result: "Kết quả nhận dạng chưa đủ ổn định. Hãy ghi âm lại.", practice_prompt_pattern_replace: "Thay mẫu câu", practice_prompt_understand_english: "Hiểu tiếng Anh", practice_prompt_en_listen_write: "Chính tả tiếng Anh", practice_prompt_speak_english: "Nói tiếng Anh", practice_badge_pattern_drill: "Luyện mẫu câu", practice_badge_english_dictation: "Chính tả tiếng Anh", practice_badge_speak_english: "Nói tiếng Anh", teaching_full_lesson_audio: "Âm thanh toàn bài", teaching_lesson_audio: "Âm thanh bài đọc", teaching_speed_value: "Tốc độ {{rate}}x", teaching_play_line_audio: "Phát âm thanh" },
+  pt: { typing_intro_title: "Tutorial de digitação", typing_intro_subtitle: "IME · pinyin · prática", overview_subtitle: "Seu plano de hoje com FSRS", finish_lesson_title: "Bom trabalho!", speech_panel_title: "Grave, confirme e envie", speech_error_no_valid_input: "Nenhuma fala válida detectada. Grave novamente.", speech_error_transcribe_failed: "Falha na transcrição. Tente novamente.", speech_error_unstable_result: "O reconhecimento ainda não está estável. Grave novamente.", practice_prompt_pattern_replace: "Substituição de padrão", practice_prompt_understand_english: "Entender inglês", practice_prompt_en_listen_write: "Ditado em inglês", practice_prompt_speak_english: "Falar inglês", practice_badge_pattern_drill: "Prática de padrão", practice_badge_english_dictation: "Ditado em inglês", practice_badge_speak_english: "Falar inglês", teaching_full_lesson_audio: "Áudio completo da aula", teaching_lesson_audio: "Áudio do texto", teaching_speed_value: "Velocidade {{rate}}x", teaching_play_line_audio: "Tocar áudio" },
+  ar: { typing_intro_title: "درس الكتابة", typing_intro_subtitle: "طرق الإدخال · بينيين · تدريب", overview_subtitle: "خطة اليوم وفق FSRS", finish_lesson_title: "عمل رائع!", speech_panel_title: "سجّل أولاً ثم راجع وأرسل", speech_error_no_valid_input: "لم يتم اكتشاف صوت صالح. سجّل مرة أخرى.", speech_error_transcribe_failed: "فشل تحويل الصوت إلى نص. حاول مرة أخرى.", speech_error_unstable_result: "نتيجة التعرف الصوتي غير مستقرة بما يكفي. سجّل مرة أخرى.", practice_prompt_pattern_replace: "استبدال النمط", practice_prompt_understand_english: "فهم الإنجليزية", practice_prompt_en_listen_write: "إملاء إنجليزي", practice_prompt_speak_english: "تحدث الإنجليزية", practice_badge_pattern_drill: "تدريب النمط", practice_badge_english_dictation: "إملاء إنجليزي", practice_badge_speak_english: "تحدث الإنجليزية", teaching_full_lesson_audio: "صوت الدرس الكامل", teaching_lesson_audio: "صوت النص", teaching_speed_value: "السرعة {{rate}}x", teaching_play_line_audio: "تشغيل الصوت" },
+  th: { typing_intro_title: "บทเรียนพิมพ์", typing_intro_subtitle: "IME · พิมพ์พินอิน · ฝึก", overview_subtitle: "แผนเรียนวันนี้ด้วย FSRS", finish_lesson_title: "ทำได้ดีมาก!", speech_panel_title: "อัดเสียง ตรวจสอบ แล้วส่ง", speech_error_no_valid_input: "ไม่พบเสียงที่ใช้ได้ กรุณาอัดใหม่", speech_error_transcribe_failed: "ถอดเสียงไม่สำเร็จ ลองอีกครั้ง", speech_error_unstable_result: "ผลรู้จำเสียงยังไม่เสถียรพอ กรุณาอัดใหม่", practice_prompt_pattern_replace: "แทนรูปประโยค", practice_prompt_understand_english: "เข้าใจอังกฤษ", practice_prompt_en_listen_write: "เขียนตามคำบอกอังกฤษ", practice_prompt_speak_english: "พูดอังกฤษ", practice_badge_pattern_drill: "ฝึกรูปประโยค", practice_badge_english_dictation: "เขียนตามคำบอกอังกฤษ", practice_badge_speak_english: "พูดอังกฤษ", teaching_full_lesson_audio: "เสียงทั้งบทเรียน", teaching_lesson_audio: "เสียงบทอ่าน", teaching_speed_value: "ความเร็ว {{rate}}x", teaching_play_line_audio: "เล่นเสียง" },
+  ru: { typing_intro_title: "Урок набора", typing_intro_subtitle: "IME · пиньинь · практика", overview_subtitle: "Ваш план на сегодня по FSRS", finish_lesson_title: "Отличная работа!", speech_panel_title: "Запишите, проверьте и отправьте", speech_error_no_valid_input: "Речь не распознана. Запишите снова.", speech_error_transcribe_failed: "Не удалось расшифровать речь. Повторите попытку.", speech_error_unstable_result: "Результат распознавания недостаточно стабилен. Запишите снова.", practice_prompt_pattern_replace: "Замена шаблона", practice_prompt_understand_english: "Понять английский", practice_prompt_en_listen_write: "Английский диктант", practice_prompt_speak_english: "Говорить по-английски", practice_badge_pattern_drill: "Тренировка шаблона", practice_badge_english_dictation: "Английский диктант", practice_badge_speak_english: "Говорить по-английски", teaching_full_lesson_audio: "Аудио всего урока", teaching_lesson_audio: "Аудио текста", teaching_speed_value: "Скорость {{rate}}x", teaching_play_line_audio: "Воспроизвести аудио" },
+  id: { typing_intro_title: "Tutorial mengetik", typing_intro_subtitle: "IME · pinyin · latihan", overview_subtitle: "Rencana belajar hari ini dengan FSRS", finish_lesson_title: "Kerja bagus!", speech_panel_title: "Rekam, periksa, lalu kirim", speech_error_no_valid_input: "Tidak ada suara valid terdeteksi. Rekam lagi.", speech_error_transcribe_failed: "Transkripsi gagal. Coba lagi.", speech_error_unstable_result: "Hasil pengenalan suara belum stabil. Rekam lagi.", practice_prompt_pattern_replace: "Ganti pola kalimat", practice_prompt_understand_english: "Pahami bahasa Inggris", practice_prompt_en_listen_write: "Dikte bahasa Inggris", practice_prompt_speak_english: "Bicara bahasa Inggris", practice_badge_pattern_drill: "Latihan pola", practice_badge_english_dictation: "Dikte Inggris", practice_badge_speak_english: "Bicara Inggris", teaching_full_lesson_audio: "Audio pelajaran penuh", teaching_lesson_audio: "Audio teks", teaching_speed_value: "Kecepatan {{rate}}x", teaching_play_line_audio: "Putar audio" },
+  ms: { typing_intro_title: "Tutorial menaip", typing_intro_subtitle: "IME · pinyin · latihan", overview_subtitle: "Pelan belajar hari ini dengan FSRS", finish_lesson_title: "Bagus!", speech_panel_title: "Rakam, semak, kemudian hantar", speech_error_no_valid_input: "Tiada suara sah dikesan. Rakam semula.", speech_error_transcribe_failed: "Transkripsi gagal. Cuba lagi.", speech_error_unstable_result: "Keputusan pengecaman suara belum cukup stabil. Rakam semula.", practice_prompt_pattern_replace: "Ganti pola ayat", practice_prompt_understand_english: "Fahami bahasa Inggeris", practice_prompt_en_listen_write: "Dikte Inggeris", practice_prompt_speak_english: "Bertutur Inggeris", practice_badge_pattern_drill: "Latihan pola", practice_badge_english_dictation: "Dikte Inggeris", practice_badge_speak_english: "Bertutur Inggeris", teaching_full_lesson_audio: "Audio penuh pelajaran", teaching_lesson_audio: "Audio teks", teaching_speed_value: "Kelajuan {{rate}}x", teaching_play_line_audio: "Main audio" },
+  it: { typing_intro_title: "Tutorial di digitazione", typing_intro_subtitle: "IME · pinyin · pratica", overview_subtitle: "Il tuo piano di oggi con FSRS", finish_lesson_title: "Ottimo lavoro!", speech_panel_title: "Registra, controlla e invia", speech_error_no_valid_input: "Nessuna voce valida rilevata. Registra di nuovo.", speech_error_transcribe_failed: "Trascrizione fallita. Riprova.", speech_error_unstable_result: "Il riconoscimento non è abbastanza stabile. Registra di nuovo.", practice_prompt_pattern_replace: "Sostituzione del modello", practice_prompt_understand_english: "Comprendere l'inglese", practice_prompt_en_listen_write: "Dettato inglese", practice_prompt_speak_english: "Parlare inglese", practice_badge_pattern_drill: "Esercizio modello", practice_badge_english_dictation: "Dettato inglese", practice_badge_speak_english: "Parlare inglese", teaching_full_lesson_audio: "Audio completo della lezione", teaching_lesson_audio: "Audio del testo", teaching_speed_value: "Velocità {{rate}}x", teaching_play_line_audio: "Riproduci audio" }
+};
+
+Object.entries(PAGE_TRANSLATION_PATCHES).forEach(([locale, overrides]) => {
+  PAGE_TRANSLATIONS[locale] = {
+    ...(PAGE_TRANSLATIONS[locale] || PAGE_TRANSLATIONS.en),
+    ...overrides,
+  };
+});
+
 Object.entries(NEW_LOCALE_OVERRIDES).forEach(([locale, overrides]) => {
   resources[locale] = {
     translation: {
       ...resources.en.translation,
+      ...(PAGE_TRANSLATIONS.en || {}),
       ...overrides,
       ...(NEW_LOCALE_EXTRA_OVERRIDES[locale] || {}),
+      ...(PAGE_TRANSLATIONS[locale] || {}),
     },
   };
 });
 resources.ja = resources.jp;
+
+Object.entries(PAGE_TRANSLATIONS).forEach(([locale, overrides]) => {
+  if (!resources[locale]) return;
+  resources[locale].translation = {
+    ...resources[locale].translation,
+    ...overrides,
+  };
+});
 
 i18n
   .use(initReactI18next)

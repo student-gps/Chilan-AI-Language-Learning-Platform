@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { ChevronRight, BookOpen, Play, ArrowLeft, Loader2 } from 'lucide-react';
+import { ChevronRight, BookOpen, Play, ArrowLeft, Loader2, PlusCircle } from 'lucide-react';
 import apiClient from '../api/apiClient';
+
+const MAX_ACTIVE_COURSES = 2;
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -21,24 +23,61 @@ export default function CoursePage() {
     const { t } = useTranslation();
     const [lessons, setLessons] = useState([]);
     const [course, setCourse] = useState(null);
+    const [isEnrolled, setIsEnrolled] = useState(false);
+    const [isEnrolling, setIsEnrolling] = useState(false);
+    const [enrolledCount, setEnrolledCount] = useState(0);
+    const [enrollError, setEnrollError] = useState('');
     const [loading, setLoading] = useState(true);
+    const userId = localStorage.getItem('chilan_user_id');
 
     useEffect(() => {
         const load = async () => {
             setLoading(true);
-            const [lessonsRes, coursesRes] = await Promise.allSettled([
+            const [lessonsRes, coursesRes, myCoursesRes] = await Promise.allSettled([
                 apiClient.get(`/courses/${courseId}/lessons`),
                 apiClient.get('/courses'),
+                userId ? apiClient.get(`/my-courses/${userId}`) : Promise.resolve({ data: [] }),
             ]);
             if (lessonsRes.status === 'fulfilled') setLessons(lessonsRes.value.data);
             if (coursesRes.status === 'fulfilled') {
                 const found = (coursesRes.value.data || []).find(c => String(c.id) === String(courseId));
                 setCourse(found || null);
             }
+            if (myCoursesRes.status === 'fulfilled') {
+                const myCourses = myCoursesRes.value.data || [];
+                setEnrolledCount(myCourses.length);
+                setIsEnrolled(myCourses.some(c => String(c.id) === String(courseId)));
+            }
             setLoading(false);
         };
         load();
-    }, [courseId]);
+    }, [courseId, userId]);
+
+    const handleEnroll = async () => {
+        if (!userId || isEnrolling || isEnrolled) return;
+        if (enrolledCount >= MAX_ACTIVE_COURSES) {
+            setEnrollError(t('course_limit_reached'));
+            return;
+        }
+        setIsEnrolling(true);
+        setEnrollError('');
+        try {
+            await apiClient.post('/courses/enroll', {
+                user_id: userId,
+                course_id: Number(courseId),
+            });
+            setIsEnrolled(true);
+            setEnrolledCount((count) => Math.min(count + 1, MAX_ACTIVE_COURSES));
+        } catch (err) {
+            if (err.response?.status === 409) {
+                setEnrollError(t('course_limit_reached'));
+            } else {
+                setEnrollError(t('course_enroll_failed'));
+            }
+        } finally {
+            setIsEnrolling(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -67,15 +106,38 @@ export default function CoursePage() {
                     </h1>
                 </motion.div>
 
-                {/* 开始学习 CTA */}
+                {/* Course CTA */}
                 <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-10 flex justify-center">
-                    <button
-                        onClick={() => navigate(`/study/${courseId}`)}
-                        className="flex items-center gap-3 px-12 py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-blue-600 active:scale-95 transition-all shadow-lg shadow-slate-300/40"
-                    >
-                        <Play size={22} fill="white" /> {t('course_start_learning')}
-                    </button>
+                    {isEnrolled ? (
+                        <button
+                            onClick={() => navigate(`/study/${courseId}`)}
+                            className="flex items-center gap-3 px-12 py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-blue-600 active:scale-95 transition-all shadow-lg shadow-slate-300/40"
+                        >
+                            <Play size={22} fill="white" /> {t('course_start_learning')}
+                        </button>
+                    ) : (
+                        <button
+                            onClick={handleEnroll}
+                            disabled={isEnrolling || enrolledCount >= MAX_ACTIVE_COURSES}
+                            className="flex items-center gap-3 px-12 py-5 bg-blue-600 text-white rounded-2xl font-black text-xl hover:bg-slate-900 active:scale-95 disabled:opacity-70 disabled:cursor-wait transition-all shadow-lg shadow-blue-200/70"
+                        >
+                            {isEnrolling ? <Loader2 size={22} className="animate-spin" /> : <PlusCircle size={22} />}
+                            {isEnrolling ? t('course_adding_learning') : t('classroom_join_course')}
+                        </button>
+                    )}
                 </motion.div>
+
+                {!isEnrolled && (enrollError || enrolledCount >= MAX_ACTIVE_COURSES) && (
+                    <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-5 rounded-2xl border border-amber-100 bg-amber-50 px-5 py-4 text-center text-sm font-bold text-amber-700">
+                        {enrollError || t('course_limit_reached')}
+                    </motion.div>
+                )}
+
+                {!isEnrolled && (
+                    <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-10 rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-center text-sm font-semibold text-blue-700">
+                        {t('course_preview_before_join')}
+                    </motion.div>
+                )}
 
                 {/* 入门基础 */}
                 <motion.section variants={stagger} initial="hidden" animate="show" className="mb-10">
@@ -112,7 +174,7 @@ export default function CoursePage() {
                             <motion.button
                                 key={lesson.lesson_id}
                                 variants={fadeInUp}
-                                onClick={() => navigate(`/study/${courseId}?lesson_id=${lesson.lesson_id}`)}
+                                onClick={() => navigate(`/study/${courseId}?lesson_id=${lesson.lesson_id}&browse=1`)}
                                 className="flex items-center gap-5 px-6 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group text-left"
                             >
                                 <div className="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-blue-50 flex items-center justify-center shrink-0 transition-colors">

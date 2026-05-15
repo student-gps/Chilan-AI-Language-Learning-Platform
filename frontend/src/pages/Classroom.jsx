@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
     Layers, ChevronRight,
-    CheckCircle2, Zap, Loader2, GraduationCap, ChevronDown, Check
+    CheckCircle2, Zap, Loader2, GraduationCap, ChevronDown, Check, MinusCircle
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 // 🚀 引入统一的 API 客户端，不再直接使用原始 axios
@@ -11,6 +11,7 @@ import apiClient from '../api/apiClient';
 
 // 通用底纹
 const SUBTLE_PATTERN = `data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23ffffff' stroke-width='1' opacity='0.05'%3E%3Cpath d='M30 0L0 30M60 30L30 60M30 0l30 30M0 30l30 30' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E`;
+const MAX_ACTIVE_COURSES = 2;
 
 function FlagChina({ className = '' }) {
     return (
@@ -252,10 +253,67 @@ const LANGUAGE_STYLE_MAP = {
     italian: _DEFAULT_STYLE,
 };
 
+const LANGUAGE_CODE_MAP = {
+    CN: 'chinese',
+    ZH: 'chinese',
+    EN: 'english',
+    JA: 'japanese',
+    JP: 'japanese',
+    FR: 'french',
+    KO: 'korean',
+    KR: 'korean',
+    ES: 'spanish',
+    DE: 'german',
+    VI: 'vietnamese',
+    VN: 'vietnamese',
+    PT: 'portuguese',
+    AR: 'arabic',
+    TH: 'thai',
+    RU: 'russian',
+    ID: 'indonesian',
+    MS: 'malay',
+    IT: 'italian',
+};
+
+const LANGUAGE_BY_COURSE_SLOT = {
+    1: 'english',
+    2: 'french',
+    4: 'japanese',
+    5: 'korean',
+    6: 'spanish',
+    7: 'vietnamese',
+    8: 'portuguese',
+    9: 'german',
+    10: 'arabic',
+    11: 'thai',
+    12: 'russian',
+    13: 'indonesian',
+    14: 'malay',
+    15: 'italian',
+};
+
+const parseCourseIdPair = (courseId) => {
+    const numericId = Number(courseId);
+    if (!Number.isInteger(numericId)) return null;
+
+    if (LANGUAGE_BY_COURSE_SLOT[numericId]) {
+        return { learning: 'chinese', native: LANGUAGE_BY_COURSE_SLOT[numericId] };
+    }
+
+    const sourceSlot = numericId - 100;
+    if (LANGUAGE_BY_COURSE_SLOT[sourceSlot]) {
+        return { learning: 'english', native: LANGUAGE_BY_COURSE_SLOT[sourceSlot] };
+    }
+
+    return null;
+};
+
+const isKnownLanguage = (language) => Boolean(LANGUAGE_LABEL_MAP.en[language]);
+
 const parseCourseLanguagePair = (courseName = '') => {
     const match = courseName.match(/learn\s+(.+?)\s+in\s+(.+)/i);
     if (!match) {
-        return { learning: 'chinese', native: 'english' };
+        return null;
     }
 
     const normalize = (value) => {
@@ -271,10 +329,22 @@ const parseCourseLanguagePair = (courseName = '') => {
         return lower;
     };
 
-    return {
+    const pair = {
         learning: normalize(match[1]),
         native: normalize(match[2]),
     };
+    return isKnownLanguage(pair.learning) && isKnownLanguage(pair.native) ? pair : null;
+};
+
+const parseCourseCategoryPair = (category = '') => {
+    const match = String(category || '').trim().toUpperCase().match(/^([A-Z]{2})_TO_([A-Z]{2})$/);
+    if (!match) return null;
+
+    const native = LANGUAGE_CODE_MAP[match[1]];
+    const learning = LANGUAGE_CODE_MAP[match[2]];
+    if (!native || !learning) return null;
+
+    return { learning, native };
 };
 
 const normalizeLanguage = (value = '') => {
@@ -298,13 +368,32 @@ const normalizeLanguage = (value = '') => {
 };
 
 const getCourseLanguagePair = (course = {}) => {
+    const courseIdPair = parseCourseIdPair(course.id ?? course.course_id);
+    if (courseIdPair) {
+        return courseIdPair;
+    }
+
+    const categoryPair = parseCourseCategoryPair(course.category);
+    if (categoryPair) {
+        return categoryPair;
+    }
+
     const target = normalizeLanguage(course.target_language);
     const source = normalizeLanguage(course.source_language);
-    if (target && source) {
+    if (isKnownLanguage(target) && isKnownLanguage(source)) {
         return { learning: target, native: source };
     }
-    return parseCourseLanguagePair(course.name || '');
+
+    return parseCourseLanguagePair(course.name || '') || { learning: 'chinese', native: 'english' };
 };
+
+const hasCourseForFilters = (courses, learning, native) =>
+    courses.some((course) => {
+        const pair = getCourseLanguagePair(course);
+        const learningMatch = learning === 'all' || pair.learning === learning;
+        const nativeMatch = native === 'all' || pair.native === native;
+        return learningMatch && nativeMatch;
+    });
 
 const getCourseVisual = (course = {}) => {
     const { learning, native } = getCourseLanguagePair(course);
@@ -374,6 +463,7 @@ export default function Classroom() {
     const [allCourses, setAllCourses] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isCoursesLoading, setIsCoursesLoading] = useState(false);
+    const [removingCourseId, setRemovingCourseId] = useState(null);
     const [learningFilter, setLearningFilter] = useState('all');
     const [nativeFilter, setNativeFilter] = useState('all');
 
@@ -418,11 +508,14 @@ export default function Classroom() {
             learning.add(pair.learning);
             native.add(pair.native);
         });
+        const sortLanguages = (items) => Array.from(items).sort((a, b) => (
+            formatLanguageLabel(a, i18n.language).localeCompare(formatLanguageLabel(b, i18n.language), i18n.language)
+        ));
         return {
-            learning: ['all', ...Array.from(learning)],
-            native: ['all', ...Array.from(native)],
+            learning: ['all', ...sortLanguages(learning)],
+            native: ['all', ...sortLanguages(native)],
         };
-    }, [allCourses]);
+    }, [allCourses, i18n.language]);
 
     const filteredCourses = React.useMemo(() => {
         return allCourses.filter((course) => {
@@ -433,22 +526,47 @@ export default function Classroom() {
         });
     }, [allCourses, learningFilter, nativeFilter]);
 
+    useEffect(() => {
+        if (!allCourses.length || hasCourseForFilters(allCourses, learningFilter, nativeFilter)) return;
+        if (learningFilter !== 'all') {
+            setLearningFilter('all');
+            return;
+        }
+        if (nativeFilter !== 'all') {
+            setNativeFilter('all');
+        }
+    }, [allCourses, learningFilter, nativeFilter]);
+
+    const handleLearningFilterChange = React.useCallback((nextLearning) => {
+        setLearningFilter(nextLearning);
+        setNativeFilter('all');
+    }, []);
+
+    const handleNativeFilterChange = React.useCallback((nextNative) => {
+        setNativeFilter(nextNative);
+        setLearningFilter('all');
+    }, []);
+
     const enrolledCourseIds = React.useMemo(
         () => new Set(myCourses.map((course) => course.id)),
         [myCourses]
     );
 
-    const handleEnroll = async (courseId) => {
+    const handleRemoveCourse = async (courseId) => {
+        if (!userId || removingCourseId) return;
+        setRemovingCourseId(courseId);
         try {
-            await apiClient.post(`/courses/enroll`, {
-                user_id: userId,
-                course_id: courseId
+            await apiClient.delete('/courses/enroll', {
+                data: {
+                    user_id: userId,
+                    course_id: Number(courseId),
+                },
             });
-            // 只刷新"我的课程"，不需要重新拉全部课程
-            const res = await apiClient.get(`/my-courses/${userId}`);
-            setMyCourses(res.data);
+            setMyCourses((courses) => courses.filter((course) => String(course.id) !== String(courseId)));
         } catch (err) {
-            alert("订阅失败");
+            alert(t('course_remove_failed'));
+        } finally {
+            setRemovingCourseId(null);
         }
     };
 
@@ -508,10 +626,13 @@ export default function Classroom() {
 
                     {/* 2. 课程列表 */}
                     <section>
-                        <motion.div variants={fadeInUp} className="flex items-center justify-between mb-8 px-2">
+                        <motion.div variants={fadeInUp} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-8 px-2">
                             <h2 className="text-2xl font-black flex items-center gap-3">
                                 <GraduationCap className="text-blue-600" size={28} /> {t('classroom_my_courses')}
                             </h2>
+                            <p className="text-sm font-bold text-slate-400">
+                                {t('classroom_active_limit', { count: myCourses.length, max: MAX_ACTIVE_COURSES })}
+                            </p>
                         </motion.div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -523,6 +644,24 @@ export default function Classroom() {
                                     variants={fadeInUp}
                                     titleAction={t('classroom_start')}
                                     progressValue={course.mastered}
+                                    actionButton={
+                                        <button
+                                            type="button"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleRemoveCourse(course.id);
+                                            }}
+                                            disabled={removingCourseId === course.id}
+                                            className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl text-xs font-black bg-rose-50 text-rose-600 hover:bg-rose-100 disabled:opacity-60 disabled:cursor-wait transition"
+                                        >
+                                            {removingCourseId === course.id ? (
+                                                <Loader2 size={14} className="animate-spin" />
+                                            ) : (
+                                                <MinusCircle size={14} />
+                                            )}
+                                            {t('course_remove_learning')}
+                                        </button>
+                                    }
                                     onClick={() => navigate(`/course/${course.id}`)}
                                     isInteractive
                                 />
@@ -541,13 +680,13 @@ export default function Classroom() {
                                     label={t('classroom_filter_learning')}
                                     value={learningFilter}
                                     options={languageOptions.learning}
-                                    onChange={setLearningFilter}
+                                    onChange={handleLearningFilterChange}
                                 />
                                 <FilterSelect
                                     label={t('classroom_filter_native')}
                                     value={nativeFilter}
                                     options={languageOptions.native}
-                                    onChange={setNativeFilter}
+                                    onChange={handleNativeFilterChange}
                                 />
                             </div>
                         </motion.div>
@@ -565,26 +704,15 @@ export default function Classroom() {
                                             key={course.id}
                                             course={course}
                                             variants={fadeInUp}
-                                            titleAction={isEnrolled ? t('classroom_in_learning') : t('classroom_join_course')}
+                                            titleAction={isEnrolled ? t('classroom_in_learning') : t('classroom_start')}
                                             progressValue={null}
-                                            actionButton={
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        if (!isEnrolled) handleEnroll(course.id);
-                                                    }}
-                                                    disabled={isEnrolled}
-                                                    className={`shrink-0 px-5 py-2.5 rounded-2xl text-sm font-black transition-all ${
-                                                        isEnrolled
-                                                            ? 'bg-emerald-50 text-emerald-600 cursor-default'
-                                                            : 'bg-slate-900 text-white hover:bg-blue-600 active:scale-95'
-                                                    }`}
-                                                >
-                                                    {isEnrolled ? t('classroom_added') : t('btn_add')}
-                                                </button>
-                                            }
-                                            onClick={isEnrolled ? () => navigate(`/course/${course.id}`) : undefined}
-                                            isInteractive={isEnrolled}
+                                            actionButton={isEnrolled ? (
+                                                <span className="shrink-0 px-5 py-2.5 rounded-2xl text-sm font-black bg-emerald-50 text-emerald-600">
+                                                    {t('classroom_added')}
+                                                </span>
+                                            ) : null}
+                                            onClick={() => navigate(`/course/${course.id}`)}
+                                            isInteractive
                                         />
                                     );
                                 })}

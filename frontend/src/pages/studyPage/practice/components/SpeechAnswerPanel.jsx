@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Loader2, Mic, Send, Square } from 'lucide-react';
 
 export default function SpeechAnswerPanel({
@@ -25,6 +26,7 @@ export default function SpeechAnswerPanel({
     primaryButtonClass,
     secondaryButtonClass,
 }) {
+    const { t } = useTranslation();
     const defaultAction = !isRecording && !isTranscribing && showSubmit && !submitDisabled ? 'submit' : 'primary';
     const [activeAction, setActiveAction] = React.useState(defaultAction);
 
@@ -53,15 +55,15 @@ export default function SpeechAnswerPanel({
                     </div>
                     <div>
                         <p className="text-xs font-black uppercase tracking-[0.24em] text-slate-400">
-                            语音练习
+                            {t('speech_panel_label')}
                         </p>
                         <h3 className="mt-1 text-[28px] font-black tracking-tight text-slate-900">
-                            先录音，再确认后提交
+                            {t('speech_panel_title')}
                         </h3>
                         <p className="mt-2 text-sm font-semibold text-slate-400">
-                            已录 {recordAttempts} 次
+                            {t('speech_panel_attempts', { count: recordAttempts })}
                             <span className="mx-2 text-slate-300">/</span>
-                            最长 {maxDurationSec} 秒
+                            {t('speech_panel_max_seconds', { count: maxDurationSec })}
                         </p>
                     </div>
                 </div>
@@ -74,7 +76,7 @@ export default function SpeechAnswerPanel({
                                 ? 'bg-blue-100 text-blue-600'
                                 : 'bg-slate-200/70 text-slate-500'
                     }`}>
-                        {isRecording ? '录音中' : isTranscribing ? '转写中' : '待开始'}
+                        {isRecording ? t('speech_status_recording') : isTranscribing ? t('speech_status_transcribing') : t('speech_status_idle')}
                     </span>
                 </div>
             </div>
@@ -156,7 +158,7 @@ export default function SpeechAnswerPanel({
                         className={`w-full py-5 rounded-[1.35rem] font-black text-xl disabled:bg-slate-200 disabled:text-slate-400 transition-all flex items-center justify-center gap-3 shadow-lg ${resolveButtonClass('submit')}`}
                     >
                         {isEvaluating ? <Loader2 className="animate-spin" /> : <Send size={22} />}
-                        {isEvaluating ? '正在判题...' : '提交本次回答'}
+                        {isEvaluating ? t('practice_evaluating') : t('speech_submit_answer')}
                         <span className={`ml-2 font-normal text-xs uppercase tracking-widest opacity-70 ${enterHintClass('submit')}`}>
                             Enter
                         </span>

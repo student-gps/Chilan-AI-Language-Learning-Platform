@@ -91,7 +91,7 @@ export default function usePracticeFlow({
             if (isRecording || isTranscribing) return;
             if (!activeAnswer.trim()) return;
             if (lowConfidence) {
-                setSpeechError('语音识别结果不够稳定，请重新录音后再提交。');
+                setSpeechError(t('speech_error_unstable_result'));
                 return;
             }
         } else if (!userAnswer.trim()) {

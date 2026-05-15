@@ -22,6 +22,12 @@ if str(CONTENT_BUILDER_DIR) not in sys.path:
 
 from core.paths import default_paths
 from core.pipeline import get_pipeline
+from config.env import get_env, get_env_int
+
+
+_SLIDE_AUDIO_BITRATE = get_env("SLIDE_AUDIO_MP3_BITRATE", default="40k")
+_SLIDE_AUDIO_SAMPLE_RATE = get_env_int("SLIDE_AUDIO_SAMPLE_RATE", default=24000)
+_SLIDE_AUDIO_CHANNELS = get_env_int("SLIDE_AUDIO_CHANNELS", default=1)
 
 
 def _lesson_digits(value) -> str:
@@ -316,8 +322,14 @@ def _split_narration_audio(
             "-vn",
             "-codec:a",
             "libmp3lame",
-            "-q:a",
-            "4",
+            "-ac",
+            str(_SLIDE_AUDIO_CHANNELS),
+            "-ar",
+            str(_SLIDE_AUDIO_SAMPLE_RATE),
+            "-b:a",
+            _SLIDE_AUDIO_BITRATE,
+            "-f",
+            "mp3",
             str(output_file),
         ],
         check=True,

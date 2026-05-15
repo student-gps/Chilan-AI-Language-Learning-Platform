@@ -1,4 +1,5 @@
 from database.connection import get_connection
+from services.course_enrollment_service import COMPLETED_COURSE_STATUS
 
 
 def ensure_lesson_progress_columns(cur):
@@ -85,6 +86,25 @@ def complete_lesson(user_id: str, course_id: int, lesson_id: int):
             """,
             (user_id, course_id, lesson_id),
         )
+        cur.execute(
+            """
+            SELECT 1
+            FROM lessons
+            WHERE course_id = %s AND lesson_id > %s
+            LIMIT 1
+            """,
+            (course_id, lesson_id),
+        )
+        has_next_lesson = cur.fetchone() is not None
+        if not has_next_lesson:
+            cur.execute(
+                """
+                UPDATE user_courses
+                SET status = %s
+                WHERE user_id::text = %s AND course_id = %s
+                """,
+                (COMPLETED_COURSE_STATUS, user_id, course_id),
+            )
         conn.commit()
         return {"status": "success", "message": f"Lesson {lesson_id} marked as completed."}
     except Exception:

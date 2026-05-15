@@ -93,7 +93,7 @@ export default function PracticePromptCard({
 
             {config.promptMode === 'pattern' && context?.pattern && (
                 <div className="mx-auto mb-5 max-w-2xl rounded-[1.5rem] border border-amber-100 bg-amber-50 px-5 py-4 text-left">
-                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-amber-700">Pattern</p>
+                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-amber-700">{t('practice_pattern_label')}</p>
                     <p className="mt-1 text-2xl font-black text-amber-950">
                         {context.pattern.replace('{item}', context.slot || 'item')}
                     </p>
@@ -109,7 +109,7 @@ export default function PracticePromptCard({
                         type="button"
                         onClick={handlePlay}
                         className="mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-slate-500 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-900 hover:text-white"
-                        aria-label="Play prompt audio"
+                        aria-label={t('practice_play_prompt_audio')}
                     >
                         <Volume2 size={22} />
                     </button>
