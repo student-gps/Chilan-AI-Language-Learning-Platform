@@ -44,6 +44,7 @@ export default function StudyPage() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const lessonId = searchParams.get('lesson_id');
+    const isBrowseEntry = searchParams.get('browse') === '1';
     const userId = localStorage.getItem('chilan_user_id') || 'test-user-id';
 
     const [mode, setMode] = useState('loading'); // loading, teaching, practice, review, completed, lesson_finished
@@ -71,8 +72,11 @@ export default function StudyPage() {
             setCourseInfo(course || null);
             setShowPinyinBtn(isChinese(course?.target_language) && !isNewConceptContent(data?.lesson_content, course));
 
-            // 如果后端说这节课已经看过了，直接跳到练习
-            if (responseMode === 'teaching' && data.skip_content) {
+            // Course catalog browsing should always open the selected lesson normally,
+            // independent of resume/progress state.
+            if (isBrowseEntry && lessonId && data?.lesson_content) {
+                setMode('teaching');
+            } else if (responseMode === 'teaching' && data.skip_content) {
                 setMode('practice');
             } else {
                 setMode(responseMode);
@@ -83,7 +87,7 @@ export default function StudyPage() {
         }
     };
 
-    useEffect(() => { initFlow(); }, [courseId]);
+    useEffect(() => { initFlow(); }, [courseId, lessonId, isBrowseEntry]);
 
     // 🌟 处理一课结束后的逻辑
     const handleLessonComplete = async () => {
@@ -148,6 +152,20 @@ export default function StudyPage() {
                     {/* 完成状态 */}
                     {mode === 'completed' && <FinishCard isAllCompleted={true} />}
                     {mode === 'lesson_finished' && <FinishCard isAllCompleted={false} onContinue={initFlow} />}
+                    {mode === 'not_enrolled' && (
+                        <div className="flex min-h-[70vh] flex-col items-center justify-center gap-5 px-6 text-center">
+                            <div className="rounded-3xl border border-blue-100 bg-white px-8 py-7 shadow-sm">
+                                <p className="text-lg font-black text-slate-900">{t('study_not_enrolled_title')}</p>
+                                <p className="mt-2 max-w-md text-sm font-semibold text-slate-500">{t('study_not_enrolled_desc')}</p>
+                                <button
+                                    onClick={() => navigate(`/course/${courseId}`)}
+                                    className="mt-6 rounded-2xl bg-blue-600 px-6 py-3 text-sm font-black text-white transition hover:bg-slate-900 active:scale-95"
+                                >
+                                    {t('study_not_enrolled_action')}
+                                </button>
+                            </div>
+                        </div>
+                    )}
 
                     {/* 模式 1：教学讲解模式 */}
                     {mode === 'teaching' && (
@@ -169,7 +187,7 @@ export default function StudyPage() {
                             courseId={courseId}
                             lessonId={studyData?.lesson_content?.lesson_metadata?.lesson_id}
                             lessonAudioAssets={studyData?.lesson_content?.lesson_audio_assets}
-                            initialIndex={studyData?.practice_resume_index || 0}
+                            initialIndex={isBrowseEntry ? 0 : (studyData?.practice_resume_index || 0)}
                             onAllDone={handleLessonComplete}
                         />
                     )}

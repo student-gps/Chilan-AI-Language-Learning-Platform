@@ -542,7 +542,13 @@ async def evaluate_answer(req: EvaluateRequest):
                 user_vec = await llm_tools.get_embedding(effective_answer, pm=pm)
 
                 cur.execute(
-                    "SELECT 1 - (primary_embedding <=> %s::vector) AS sim_score FROM language_items WHERE item_id = %s",
+                    """
+                    SELECT 1 - (ae.primary_embedding <=> %s::vector) AS sim_score
+                    FROM language_items q
+                    JOIN answer_embeddings ae
+                      ON ae.embedding_id = q.answer_embedding_id
+                    WHERE q.item_id = %s
+                    """,
                     (user_vec, item_pk)
                 )
                 sim_row = cur.fetchone()

@@ -55,7 +55,7 @@ const getErrorMessage = (error, fallback) => {
 
 const createEmptyWaveform = () => Array.from({ length: 18 }, () => 0);
 
-export default function useSpeechPractice({ currentQuestion, onTranscriptReady, onResetFeedback }) {
+export default function useSpeechPractice({ currentQuestion, onTranscriptReady, onResetFeedback, t }) {
     const [isRecording, setIsRecording] = useState(false);
     const [isTranscribing, setIsTranscribing] = useState(false);
     const [speechTranscript, setSpeechTranscript] = useState('');
@@ -198,32 +198,32 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
             onTranscriptReady?.(transcript);
 
             if (!transcript) {
-                setSpeechError('未检测到有效语音输入，请重新录音。');
+                setSpeechError(t('speech_error_no_valid_input'));
                 return;
             }
 
             const conf = Number(result?.confidence);
             if (Number.isFinite(conf) && conf < speechConfig.min_asr_confidence) {
-                setSpeechError(`语音识别置信度较低（${conf.toFixed(2)}），建议重新录音。`);
+                setSpeechError(t('speech_error_low_confidence', { confidence: conf.toFixed(2) }));
             }
         } catch (error) {
-            const detail = getErrorMessage(error, '语音转写失败，请重试。');
+            const detail = getErrorMessage(error, t('speech_error_transcribe_failed'));
             if (String(detail || '').toLowerCase().includes('asr transcript is empty')) {
                 setSpeechTranscript('');
                 onTranscriptReady?.('');
-                setSpeechError('未检测到有效语音输入，请重新录音。');
+                setSpeechError(t('speech_error_no_valid_input'));
             } else {
                 setSpeechError(detail);
             }
         } finally {
             setIsTranscribing(false);
         }
-    }, [onTranscriptReady, questionConfig.speechLanguage, speechConfig.min_asr_confidence]);
+    }, [onTranscriptReady, questionConfig.speechLanguage, speechConfig.min_asr_confidence, t]);
 
     const handleStartRecording = useCallback(async () => {
         if (!speechMode || isRecording || isTranscribing) return;
         if (!navigator.mediaDevices?.getUserMedia || typeof window.MediaRecorder === 'undefined') {
-            setSpeechError('当前浏览器不支持录音，请更换现代浏览器后再试。');
+            setSpeechError(t('speech_error_unsupported_browser'));
             return;
         }
 
@@ -264,7 +264,7 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
                 }
 
                 if (!chunksRef.current.length) {
-                    setSpeechError('没有录到有效音频，请重新录音。');
+                    setSpeechError(t('speech_error_no_audio'));
                     return;
                 }
 
@@ -282,7 +282,7 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
 
             stopTimerRef.current = setTimeout(() => {
                 if (recorder.state === 'recording') {
-                    setSpeechError('已达到最长录音时长，系统已自动停止并开始转写。');
+                    setSpeechError(t('speech_error_max_duration'));
                     recorder.stop();
                 }
             }, speechConfig.max_duration_sec * 1000);
@@ -290,7 +290,7 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
             cleanupMedia();
             setIsRecording(false);
             setRecordingSeconds(0);
-            setSpeechError(getErrorMessage(error, '麦克风权限不可用，或当前设备无法录音。'));
+            setSpeechError(getErrorMessage(error, t('speech_error_mic_unavailable')));
         }
     }, [
         cleanupMedia,
@@ -303,7 +303,8 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
         onTranscriptReady,
         speechConfig.max_duration_sec,
         speechMode,
-        startLiveWaveform
+        startLiveWaveform,
+        t
     ]);
 
     const handleStopRecording = useCallback(() => {

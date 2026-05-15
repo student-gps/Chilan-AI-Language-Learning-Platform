@@ -9,6 +9,8 @@ class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         def handler(query, params):
             if "ALTER TABLE user_progress_of_lessons" in query:
                 return {}
+            if "FROM user_courses" in query:
+                return {"fetchone": [1]}
             if "JOIN user_progress_of_language_items p" in query:
                 return {"fetchall": []}
             if "SELECT last_completed_lesson_id, viewed_lesson_id, practice_question_index" in query:

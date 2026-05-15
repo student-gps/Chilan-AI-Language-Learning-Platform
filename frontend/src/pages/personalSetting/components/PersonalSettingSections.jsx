@@ -1,5 +1,6 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
     Check,
     ChevronRight,
@@ -38,6 +39,7 @@ export function SettingsCard({ eyebrow, title, description, icon, children }) {
 }
 
 export function ProfilePanel({ username, email, isLoading }) {
+    const { t } = useTranslation();
     return (
         <div className="rounded-[1.8rem] border border-slate-200 bg-white px-5 py-5 shadow-sm">
             <div className="flex items-center justify-between gap-4">
@@ -47,15 +49,15 @@ export function ProfilePanel({ username, email, isLoading }) {
                     </div>
                     <div className="min-w-0">
                         <h3 className="text-xl font-black tracking-tight text-slate-900">
-                            {isLoading ? '加载中...' : (username || 'Chilan Learner')}
+                            {isLoading ? t('settings_loading') : (username || 'Chilan Learner')}
                         </h3>
                         <p className="mt-1 text-sm font-medium text-slate-500 truncate">
-                            {isLoading ? '正在读取资料...' : (email || '暂无邮箱')}
+                            {isLoading ? t('settings_loading_profile') : (email || t('settings_no_email'))}
                         </p>
                     </div>
                 </div>
                 <button className="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-black text-slate-700 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 transition-colors">
-                    修改头像
+                    {t('settings_change_avatar')}
                 </button>
             </div>
         </div>
@@ -100,6 +102,7 @@ export function EditableInputRow({
     onCancel,
     onSave,
 }) {
+    const { t } = useTranslation();
     return (
         <div className="rounded-[1.8rem] border border-slate-200 bg-white px-5 py-4 shadow-sm">
             <div className="flex items-start gap-4">
@@ -124,7 +127,7 @@ export function EditableInputRow({
                                     onClick={onCancel}
                                     className="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-black text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors"
                                 >
-                                    取消
+                                    {t('common_cancel')}
                                 </button>
                                 <button
                                     type="button"
@@ -132,7 +135,7 @@ export function EditableInputRow({
                                     disabled={isSaving}
                                     className="rounded-full bg-slate-900 px-3 py-1.5 text-xs font-black text-white hover:bg-blue-600 transition-colors disabled:bg-slate-300"
                                 >
-                                    {isSaving ? <Loader2 size={14} className="animate-spin" /> : <span className="inline-flex items-center gap-1"><Check size={14} />保存</span>}
+                                    {isSaving ? <Loader2 size={14} className="animate-spin" /> : <span className="inline-flex items-center gap-1"><Check size={14} />{t('common_save')}</span>}
                                 </button>
                             </div>
                         ) : (
@@ -143,14 +146,14 @@ export function EditableInputRow({
                             >
                                 <span className="inline-flex items-center gap-1">
                                     <Edit3 size={13} />
-                                    修改
+                                    {t('common_edit')}
                                 </span>
                             </button>
                         )}
                     </div>
                     {isEditing ? (
                         <p className="mt-3 text-xs font-medium text-slate-400">
-                            2-24 个字符，支持中英文、数字、空格和 `_ - .`，且昵称不能重复。
+                            {t('settings_nickname_hint')}
                         </p>
                     ) : null}
                     {error ? <p className="mt-2 text-xs font-bold text-red-500">{error}</p> : null}
@@ -217,6 +220,7 @@ export function PasswordSection({
     onToggleNewPassword,
     onToggleConfirmPassword,
 }) {
+    const { t } = useTranslation();
     return (
         <div className="rounded-[1.8rem] border border-slate-200 bg-white px-5 py-4 shadow-sm">
             <div className="flex items-start gap-4">
@@ -226,9 +230,9 @@ export function PasswordSection({
                 <div className="flex-1">
                     <div className="flex items-center justify-between gap-4">
                         <div>
-                            <h3 className="text-sm font-black text-slate-900">修改密码</h3>
+                            <h3 className="text-sm font-black text-slate-900">{t('settings_password_title')}</h3>
                             <p className="mt-1 text-sm leading-relaxed text-slate-500">
-                                使用当前密码验证身份，再设置一个新的登录密码。
+                                {t('settings_password_desc')}
                             </p>
                         </div>
                         {!isEditing ? (
@@ -237,7 +241,7 @@ export function PasswordSection({
                                 onClick={onStartEdit}
                                 className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-black text-slate-600 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                             >
-                                修改
+                                {t('common_edit')}
                             </button>
                         ) : null}
                     </div>
@@ -247,21 +251,21 @@ export function PasswordSection({
                             <motion.div {...expandMotion} className="overflow-hidden">
                                 <div className="mt-4 space-y-4">
                                     <PasswordInput
-                                        label="当前密码"
+                                        label={t('settings_current_password')}
                                         value={currentPassword}
                                         onChange={onCurrentPasswordChange}
                                         visible={showCurrentPassword}
                                         onToggleVisible={onToggleCurrentPassword}
                                     />
                                     <PasswordInput
-                                        label="新密码"
+                                        label={t('settings_new_password')}
                                         value={newPassword}
                                         onChange={onNewPasswordChange}
                                         visible={showNewPassword}
                                         onToggleVisible={onToggleNewPassword}
                                     />
                                     <PasswordInput
-                                        label="确认新密码"
+                                        label={t('settings_confirm_new_password')}
                                         value={confirmPassword}
                                         onChange={onConfirmPasswordChange}
                                         visible={showConfirmPassword}
@@ -270,13 +274,13 @@ export function PasswordSection({
 
                                     <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">
                                         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-                                            <Requirement met={passwordChecks.length} text="8 到 32 位" />
-                                            <Requirement met={passwordChecks.letter} text="至少一个字母" />
-                                            <Requirement met={passwordChecks.number} text="至少一个数字" />
-                                            <Requirement met={passwordChecks.special} text="至少一个特殊字符" />
-                                            <Requirement met={passwordChecks.noSpace} text="不能有空格" />
-                                            <Requirement met={passwordChecks.match} text="确认密码一致" />
-                                            <Requirement met={passwordChecks.different} text="新旧密码不能相同" />
+                                            <Requirement met={passwordChecks.length} text={t('settings_pw_req_length')} />
+                                            <Requirement met={passwordChecks.letter} text={t('settings_pw_req_letter')} />
+                                            <Requirement met={passwordChecks.number} text={t('settings_pw_req_number')} />
+                                            <Requirement met={passwordChecks.special} text={t('settings_pw_req_special')} />
+                                            <Requirement met={passwordChecks.noSpace} text={t('settings_pw_req_no_space')} />
+                                            <Requirement met={passwordChecks.match} text={t('settings_pw_req_match')} />
+                                            <Requirement met={passwordChecks.different} text={t('settings_pw_req_different')} />
                                         </div>
                                     </div>
 
@@ -289,7 +293,7 @@ export function PasswordSection({
                                             onClick={onCancel}
                                             className="rounded-full border border-slate-200 px-4 py-2 text-xs font-black text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors"
                                         >
-                                            取消
+                                            {t('common_cancel')}
                                         </button>
                                         <button
                                             type="button"
@@ -297,7 +301,7 @@ export function PasswordSection({
                                             disabled={isSaving}
                                             className="rounded-full bg-slate-900 px-4 py-2 text-xs font-black text-white hover:bg-blue-600 transition-colors disabled:bg-slate-300"
                                         >
-                                            {isSaving ? <Loader2 size={14} className="animate-spin" /> : '保存新密码'}
+                                            {isSaving ? <Loader2 size={14} className="animate-spin" /> : t('settings_save_new_password')}
                                         </button>
                                     </div>
                                 </div>
@@ -311,6 +315,7 @@ export function PasswordSection({
 }
 
 export function ProviderPasswordNotice({ provider }) {
+    const { t } = useTranslation();
     const providerName = provider === 'google' ? 'Google' : 'Apple';
 
     return (
@@ -320,9 +325,9 @@ export function ProviderPasswordNotice({ provider }) {
                     <LockKeyhole size={18} />
                 </span>
                 <div className="flex-1">
-                    <h3 className="text-sm font-black text-slate-900">修改密码</h3>
+                    <h3 className="text-sm font-black text-slate-900">{t('settings_password_title')}</h3>
                     <p className="mt-1 text-sm leading-relaxed text-slate-500">
-                        当前账号通过 {providerName} 登录，密码由 {providerName} 账户管理。
+                        {t('settings_provider_password_desc', { provider: providerName })}
                     </p>
                 </div>
             </div>
@@ -331,23 +336,24 @@ export function ProviderPasswordNotice({ provider }) {
 }
 
 function SecurityLogItem({ log }) {
+    const { t, i18n } = useTranslation();
     const providerMap = {
-        password: '邮箱密码',
+        password: t('settings_provider_password'),
         google: 'Google',
         apple: 'Apple',
     };
 
     const timeLabel = log.login_time
-        ? new Date(log.login_time).toLocaleString('zh-CN', {
+        ? new Date(log.login_time).toLocaleString(i18n.language || undefined, {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit',
             hour: '2-digit',
             minute: '2-digit',
         })
-        : '未知时间';
+        : t('settings_unknown_time');
 
-    const statusLabel = log.status === 'success' ? '成功' : log.status || '成功';
+    const statusLabel = log.status === 'success' ? t('settings_status_success') : log.status || t('settings_status_success');
 
     return (
         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">
@@ -361,14 +367,15 @@ function SecurityLogItem({ log }) {
                 </span>
             </div>
             <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-medium text-slate-500">
-                <p>设备：{log.device_info || '未知设备'}</p>
-                <p>IP：{log.ip_address || '未知 IP'}</p>
+                <p>{t('settings_device_label')}: {log.device_info || t('settings_unknown_device')}</p>
+                <p>IP: {log.ip_address || t('settings_unknown_ip')}</p>
             </div>
         </div>
     );
 }
 
 export function SecurityLogSection({ icon, isOpen, isLoading, logs, error, onToggle, onRefresh }) {
+    const { t } = useTranslation();
     return (
         <div className="rounded-[1.8rem] border border-slate-200 bg-white px-5 py-4 shadow-sm">
             <div className="flex items-start gap-4">
@@ -377,14 +384,14 @@ export function SecurityLogSection({ icon, isOpen, isLoading, logs, error, onTog
                 </span>
                 <div className="flex-1">
                     <div className="flex items-center justify-between gap-4">
-                        <h3 className="text-sm font-black text-slate-900">账号安全记录</h3>
+                        <h3 className="text-sm font-black text-slate-900">{t('settings_security_log_title')}</h3>
                         <button
                             type="button"
                             onClick={onToggle}
                             className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-black text-slate-600 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                         >
                             <span className="inline-flex items-center gap-1">
-                                {isOpen ? '收起' : '查看'}
+                                {isOpen ? t('knowledge_hide') : t('settings_view')}
                                 <ChevronRight size={14} className={`transition-transform ${isOpen ? 'rotate-90' : ''}`} />
                             </span>
                         </button>
@@ -399,13 +406,13 @@ export function SecurityLogSection({ icon, isOpen, isLoading, logs, error, onTog
                                             onClick={onRefresh}
                                             className="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-black text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors"
                                         >
-                                            刷新记录
+                                            {t('settings_refresh_logs')}
                                         </button>
                                     </div>
                                     {isLoading ? (
                                         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-6 text-sm font-bold text-slate-400 flex items-center justify-center gap-2">
                                             <Loader2 size={16} className="animate-spin" />
-                                            加载中
+                                            {t('settings_loading')}
                                         </div>
                                     ) : null}
                                     {error ? (
@@ -415,7 +422,7 @@ export function SecurityLogSection({ icon, isOpen, isLoading, logs, error, onTog
                                     ) : null}
                                     {!isLoading && !error && logs.length === 0 ? (
                                         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-6 text-sm font-bold text-slate-400">
-                                            暂无登录记录
+                                            {t('settings_no_login_logs')}
                                         </div>
                                     ) : null}
                                     {!isLoading && !error && logs.length > 0 ? (
@@ -450,6 +457,7 @@ export function DeleteAccountSection({
     onTogglePassword,
     onDelete,
 }) {
+    const { t } = useTranslation();
     return (
         <div className="rounded-[1.8rem] border border-red-200 bg-red-50/70 px-5 py-4 shadow-sm">
             <div className="flex items-start gap-4">
@@ -458,13 +466,13 @@ export function DeleteAccountSection({
                 </span>
                 <div className="flex-1">
                     <div className="flex items-center justify-between gap-4">
-                        <h3 className="text-sm font-black text-slate-900">注销账号</h3>
+                        <h3 className="text-sm font-black text-slate-900">{t('settings_delete_account_title')}</h3>
                         <button
                             type="button"
                             onClick={onToggle}
                             className="rounded-full bg-red-500 px-4 py-2 text-xs font-black tracking-[0.08em] text-white hover:bg-red-600 transition-colors"
                         >
-                            {isOpen ? '收起' : '删除'}
+                            {isOpen ? t('knowledge_hide') : t('settings_delete')}
                         </button>
                     </div>
                     <AnimatePresence initial={false}>
@@ -472,11 +480,11 @@ export function DeleteAccountSection({
                             <motion.div {...expandMotion} className="overflow-hidden">
                                 <div className="mt-4 space-y-4">
                                     <p className="text-sm leading-relaxed text-slate-500">
-                                        请输入 <span className="font-black text-slate-700">DELETE</span> 确认注销账号。账号删除后，当前学习数据和登录记录将无法恢复。
+                                        {t('settings_delete_confirm_desc_prefix')} <span className="font-black text-slate-700">DELETE</span> {t('settings_delete_confirm_desc_suffix')}
                                     </p>
                                     <label className="block">
                                         <span className="mb-2 block text-xs font-black tracking-[0.12em] text-red-400">
-                                            确认文本
+                                            {t('settings_confirm_text')}
                                         </span>
                                         <input
                                             value={confirmText}
@@ -488,7 +496,7 @@ export function DeleteAccountSection({
                                     {provider === 'password' ? (
                                         <label className="block">
                                             <span className="mb-2 block text-xs font-black tracking-[0.12em] text-red-400">
-                                                当前密码
+                                                {t('settings_current_password')}
                                             </span>
                                             <div className="relative">
                                                 <input
@@ -516,7 +524,7 @@ export function DeleteAccountSection({
                                             disabled={isDeleting}
                                             className="rounded-full bg-red-500 px-4 py-2 text-xs font-black tracking-[0.08em] text-white hover:bg-red-600 transition-colors disabled:bg-red-300"
                                         >
-                                            {isDeleting ? <Loader2 size={14} className="animate-spin" /> : '确认注销'}
+                                            {isDeleting ? <Loader2 size={14} className="animate-spin" /> : t('settings_confirm_delete')}
                                         </button>
                                     </div>
                                 </div>

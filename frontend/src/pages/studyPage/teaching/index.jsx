@@ -151,7 +151,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                     <motion.section ref={lessonAudioSectionRef} variants={fadeInUp} initial="hidden" animate="show" className="mb-10">
                         <div className="rounded-[2.5rem] border border-slate-200 bg-white px-6 py-6 shadow-sm">
                             <h2 className="text-2xl font-black text-slate-900">
-                                本课完整对话音频
+                                {t('teaching_full_lesson_audio')}
                             </h2>
 
                             <div className="mt-5 rounded-full bg-slate-100/90 px-4 py-3">
@@ -159,7 +159,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                     <button
                                         onClick={handleLessonAudioToggle}
                                         className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-slate-900 shadow-sm transition-all hover:bg-slate-50"
-                                        aria-label={isLessonAudioPlaying ? '暂停播放整课音频' : '播放整课音频'}
+                                        aria-label={isLessonAudioPlaying ? t('teaching_pause_lesson_audio') : t('teaching_play_lesson_audio')}
                                     >
                                         {isLessonAudioPlaying ? <Pause size={22} /> : <Play size={22} className="ml-0.5" />}
                                     </button>
@@ -183,7 +183,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                             type="button"
                                             onClick={() => setShowLessonVolumeControl((prev) => !prev)}
                                             className="flex h-11 w-11 items-center justify-center rounded-full text-slate-800 transition-colors hover:bg-white"
-                                            aria-label="调节音量"
+                                            aria-label={t('teaching_adjust_volume')}
                                         >
                                             {lessonAudioVolume <= 0.01 ? <VolumeX size={22} /> : <Volume2 size={22} />}
                                         </button>
@@ -213,7 +213,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                             value={lessonAudioRate}
                                             onChange={handleLessonAudioRateChange}
                                             className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 outline-none transition-colors hover:border-slate-300"
-                                            aria-label="设置播放倍速"
+                                            aria-label={t('teaching_set_playback_speed')}
                                         >
                                             {LESSON_AUDIO_RATES.map((rate) => (
                                                 <option key={rate} value={rate}>
@@ -243,7 +243,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                         <button
                                             onClick={handleLessonAudioToggle}
                                             className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white shadow-sm transition-colors hover:bg-blue-600"
-                                            aria-label={isLessonAudioPlaying ? '暂停播放整课音频' : '播放整课音频'}
+                                            aria-label={isLessonAudioPlaying ? t('teaching_pause_lesson_audio') : t('teaching_play_lesson_audio')}
                                         >
                                             {isLessonAudioPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
                                         </button>
@@ -251,13 +251,13 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                                         <div className="min-w-0 flex-1">
                                             <div className="flex items-center justify-between gap-3">
                                                 <p className="truncate text-sm font-black tracking-[0.16em] text-slate-700">
-                                                    课文音频
+                                                    {t('teaching_lesson_audio')}
                                                 </p>
                                                 <select
                                                     value={lessonAudioRate}
                                                     onChange={handleLessonAudioRateChange}
                                                     className="shrink-0 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-bold text-slate-600 outline-none transition-colors hover:border-slate-300"
-                                                    aria-label="设置悬浮课文音频倍速"
+                                                    aria-label={t('teaching_set_floating_speed')}
                                                 >
                                                     {LESSON_AUDIO_RATES.map((rate) => (
                                                         <option key={rate} value={rate}>
@@ -279,7 +279,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
 
                                             <div className="mt-2 flex items-center justify-between text-xs font-semibold text-slate-500">
                                                 <span>{formatAudioTime(lessonAudioCurrentTime)} / {formatAudioTime(lessonAudioDuration)}</span>
-                                                <span>倍速 {lessonAudioRate}x</span>
+                                                <span>{t('teaching_speed_value', { rate: lessonAudioRate })}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -290,7 +290,7 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                         <button
                             onClick={() => setIsFloatingLessonAudioOpen((prev) => !prev)}
                             className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-900 text-white shadow-2xl transition-all hover:-translate-y-0.5 hover:bg-blue-600"
-                            aria-label={isFloatingLessonAudioOpen ? '收起悬浮课文音频条' : '展开悬浮课文音频条'}
+                            aria-label={isFloatingLessonAudioOpen ? t('teaching_collapse_audio_bar') : t('teaching_expand_audio_bar')}
                         >
                             <Volume2 size={22} />
                         </button>

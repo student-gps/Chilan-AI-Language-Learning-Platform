@@ -233,13 +233,13 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                                     onClick={() => togglePinyin(`history-${i}`)}
                                                     className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${showPinyin[`history-${i}`] ? 'bg-orange-100 text-orange-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
                                                 >
-                                                    拼音
+                                                    {t('word_pinyin_btn')}
                                                 </button>
                                                 <button
                                                     onClick={() => toggleTranslation(`history-${i}`)}
                                                     className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${showTranslation[`history-${i}`] ? 'bg-blue-100 text-blue-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
                                                 >
-                                                    译
+                                                    {t('word_translation_btn')}
                                                 </button>
                                             </div>
                                         </div>

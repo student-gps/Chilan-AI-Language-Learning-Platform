@@ -97,7 +97,8 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     } = useSpeechPractice({
         currentQuestion,
         onTranscriptReady: null,
-        onResetFeedback: null
+        onResetFeedback: null,
+        t
     });
 
     const {
@@ -145,12 +146,12 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     const textPromptLabel = questionConfig.promptLabel || t(questionConfig.promptLabelKey);
     const speechPreviewText = speechTranscript
         || (isRecording
-            ? '正在聆听，请开始说话。'
+            ? t('speech_preview_recording')
             : isTranscribing
-                ? '录音已结束，正在生成识别结果。'
-                : '还没有识别结果，点击下方按钮开始录音。');
+                ? t('speech_preview_transcribing')
+                : t('speech_preview_idle'));
     const speechInlineHint = isTranscribing
-        ? { tone: 'bg-sky-50 text-sky-700 border-sky-100', text: '已经收到录音，正在转换成文字。', emphasis: 'info' }
+        ? { tone: 'bg-sky-50 text-sky-700 border-sky-100', text: t('speech_hint_transcribing'), emphasis: 'info' }
         : speechError
             ? {
                 tone: lowConfidence ? 'bg-amber-50 text-amber-700 border-amber-100' : 'bg-rose-50 text-rose-700 border-rose-100',
@@ -164,10 +165,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         if (!langWarning || !questionConfig.answerLanguage) return null;
         const name = getLangName(questionConfig.answerLanguage, i18n.language);
         const ui = (i18n.language || 'zh').split('-')[0].toLowerCase();
-        if (ui === 'ja') return `${name}で回答してください`;
-        if (ui === 'fr') return `Veuillez répondre en ${name}`;
-        if (ui === 'en') return `Please answer in ${name}`;
-        return `请用${name}回答`;
+        return t('practice_answer_language_warning', { language: name });
     })();
 
     const playAudio = (text, language = 'zh') => {
@@ -313,7 +311,11 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
 
     if (!currentQuestion) return null;
 
-    const speechPrimaryLabel = isRecording ? '结束录音' : hasSpeechTranscript ? '重新录音' : '开始录音';
+    const speechPrimaryLabel = isRecording
+        ? t('speech_stop_recording')
+        : hasSpeechTranscript
+            ? t('practice_retry_speech')
+            : t('speech_start_recording');
     const speechPrimaryTone = isRecording || !hasSpeechTranscript || lowConfidence || speechShouldRetry
         ? primaryButtonClass
         : secondaryButtonClass;

@@ -12,6 +12,12 @@ from typing import List
 from routers import auth, study
 from database.connection import get_connection
 from config.env import get_env
+from services.course_enrollment_service import (
+    ACTIVE_COURSE_STATUS,
+    COMPLETED_COURSE_STATUS,
+    MAX_ACTIVE_COURSES,
+    PAUSED_COURSE_STATUS,
+)
 
 # ── Vertex AI Service Account：支持部署环境通过 JSON 内容写临时文件 ──────────
 _sa_json = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON", "").strip()
@@ -213,9 +219,10 @@ async def get_my_courses(user_id: str, db=Depends(get_db)):
         LEFT JOIN language_items li ON c.course_id = li.course_id
         LEFT JOIN user_progress_of_language_items p ON li.item_id = p.item_id AND p.user_id::text = %s
         WHERE uc.user_id::text = %s
+          AND uc.status = %s
         GROUP BY c.course_id;
     """
-    cur.execute(query, (user_id, user_id))
+    cur.execute(query, (user_id, user_id, ACTIVE_COURSE_STATUS))
     return [{
         "id": r[0],
         "name": r[1],
@@ -229,8 +236,41 @@ async def get_my_courses(user_id: str, db=Depends(get_db)):
 async def enroll_course(req: EnrollReq, db=Depends(get_db)):
     cur = db.cursor()
     try:
-        # 记录用户选课
-        cur.execute("INSERT INTO user_courses (user_id, course_id) VALUES (%s, %s) ON CONFLICT DO NOTHING", (req.user_id, req.course_id))
+        cur.execute(
+            "SELECT status FROM user_courses WHERE user_id::text = %s AND course_id = %s",
+            (req.user_id, req.course_id)
+        )
+        existing = cur.fetchone()
+        if existing and existing[0] == ACTIVE_COURSE_STATUS:
+            db.commit()
+            return {"status": "success", "already_enrolled": True}
+
+        cur.execute(
+            "SELECT COUNT(*) FROM user_courses WHERE user_id::text = %s AND status = %s",
+            (req.user_id, ACTIVE_COURSE_STATUS)
+        )
+        active_course_count = cur.fetchone()[0]
+        if active_course_count >= MAX_ACTIVE_COURSES:
+            raise HTTPException(
+                status_code=409,
+                detail=f"你当前最多可学习 {MAX_ACTIVE_COURSES} 门课程，请先完成或暂停一门。"
+            )
+
+        # 记录用户选课；已暂停/已完成的课程重新加入时恢复为 active，保留历史进度
+        if existing:
+            cur.execute(
+                """
+                UPDATE user_courses
+                SET status = %s
+                WHERE user_id::text = %s AND course_id = %s
+                """,
+                (ACTIVE_COURSE_STATUS, req.user_id, req.course_id)
+            )
+        else:
+            cur.execute(
+                "INSERT INTO user_courses (user_id, course_id, status) VALUES (%s, %s, %s)",
+                (req.user_id, req.course_id, ACTIVE_COURSE_STATUS)
+            )
         
         # 🌟 关键：初始化该课程的“课时进度”记录，从 100 开始（即下一课是 101）
         cur.execute("""
@@ -238,6 +278,28 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
             VALUES (%s, %s, 100) ON CONFLICT DO NOTHING
         """, (req.user_id, req.course_id))
         
+        db.commit()
+        return {"status": "success"}
+    except Exception as e:
+        db.rollback()
+        if isinstance(e, HTTPException):
+            raise e
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.delete("/courses/enroll")
+async def unenroll_course(req: EnrollReq, db=Depends(get_db)):
+    cur = db.cursor()
+    try:
+        cur.execute(
+            """
+            UPDATE user_courses
+            SET status = %s
+            WHERE user_id::text = %s
+              AND course_id = %s
+              AND status <> %s
+            """,
+            (PAUSED_COURSE_STATUS, req.user_id, req.course_id, COMPLETED_COURSE_STATUS)
+        )
         db.commit()
         return {"status": "success"}
     except Exception as e:
@@ -262,13 +324,42 @@ async def get_classroom_stats(user_id: str, db=Depends(get_db)):
     cur = db.cursor()
     try:
         # 1. 查询待复习数 (Based on FSRS next_review)
-        cur.execute("SELECT COUNT(*) FROM user_progress_of_language_items WHERE user_id::text = %s AND next_review <= CURRENT_TIMESTAMP", (user_id,))
+        cur.execute("""
+            SELECT COUNT(*)
+            FROM user_progress_of_language_items p
+            JOIN language_items q ON q.item_id = p.item_id
+            JOIN user_courses uc
+              ON uc.course_id = q.course_id
+             AND uc.user_id::text = p.user_id::text
+             AND uc.status = %s
+            WHERE p.user_id::text = %s
+              AND p.next_review <= CURRENT_TIMESTAMP
+        """, (ACTIVE_COURSE_STATUS, user_id,))
         rem = cur.fetchone()[0]
         # 2. 查询今日已复习数量
-        cur.execute("SELECT COUNT(DISTINCT item_id) FROM review_logs WHERE user_id::text = %s AND review_time >= CURRENT_DATE", (user_id,))
+        cur.execute("""
+            SELECT COUNT(DISTINCT rl.item_id)
+            FROM review_logs rl
+            JOIN user_courses uc
+              ON uc.course_id = rl.course_id
+             AND uc.user_id::text = rl.user_id::text
+             AND uc.status = %s
+            WHERE rl.user_id::text = %s
+              AND rl.review_time >= CURRENT_DATE
+        """, (ACTIVE_COURSE_STATUS, user_id,))
         rev = cur.fetchone()[0]
         # 3. 查询今日新学题目数量
-        cur.execute("SELECT COUNT(*) FROM review_logs WHERE user_id::text = %s AND state = 0 AND review_time >= CURRENT_DATE", (user_id,))
+        cur.execute("""
+            SELECT COUNT(*)
+            FROM review_logs rl
+            JOIN user_courses uc
+              ON uc.course_id = rl.course_id
+             AND uc.user_id::text = rl.user_id::text
+             AND uc.status = %s
+            WHERE rl.user_id::text = %s
+              AND rl.state = 0
+              AND rl.review_time >= CURRENT_DATE
+        """, (ACTIVE_COURSE_STATUS, user_id,))
         new_l = cur.fetchone()[0]
         return {"totalRemaining": rem, "totalReviewed": rev, "totalNewLearned": new_l}
     finally:
@@ -281,10 +372,14 @@ async def get_daily_tasks(user_id: str, db=Depends(get_db)):
         query = """
             SELECT q.item_id, q.question_type, q.original_text FROM language_items q
             JOIN user_progress_of_language_items p ON q.item_id = p.item_id
-            WHERE p.user_id::text = %s AND p.next_review <= CURRENT_TIMESTAMP 
+            JOIN user_courses uc
+              ON uc.course_id = q.course_id
+             AND uc.user_id::text = p.user_id::text
+             AND uc.status = %s
+            WHERE p.user_id::text = %s AND p.next_review <= CURRENT_TIMESTAMP
             ORDER BY p.next_review ASC LIMIT 20;
         """
-        cur.execute(query, (user_id,))
+        cur.execute(query, (ACTIVE_COURSE_STATUS, user_id))
         return [{"id": r[0], "type": r[1], "text": r[2]} for r in cur.fetchall()]
     finally:
         cur.close()

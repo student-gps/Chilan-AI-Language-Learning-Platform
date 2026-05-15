@@ -73,7 +73,7 @@ function ControlCapsule({ pinyin, setPinyin, trans, setTrans, t }) {
     );
 }
 
-const renderAudioButton = ({ onClick, active, accent = 'slate', size = 20 }) => {
+const renderAudioButton = ({ onClick, active, accent = 'slate', size = 20, label }) => {
     const baseClass = active
         ? 'bg-blue-600 text-white shadow-lg'
         : accent === 'blue'
@@ -81,7 +81,7 @@ const renderAudioButton = ({ onClick, active, accent = 'slate', size = 20 }) => 
             : 'text-slate-400 hover:text-blue-500';
 
     return (
-        <button onClick={onClick} className={`rounded-2xl p-2 transition-all ${baseClass}`} title="播放音频">
+        <button onClick={onClick} className={`rounded-2xl p-2 transition-all ${baseClass}`} title={label} aria-label={label}>
             <Volume2 size={size} />
         </button>
     );
@@ -171,6 +171,7 @@ export default function DialogueSection({
                                                 onClick: () => playDialogueAudio({ lineRef, text: cnText }),
                                                 active: isActive,
                                                 accent: 'slate',
+                                                label: t('teaching_play_line_audio'),
                                             })}
                                         </div>
 
@@ -228,7 +229,8 @@ export default function DialogueSection({
                                                 {renderAudioButton({
                                                     onClick: () => playDialogueAudio({ lineRef, text: cnText }),
                                                     active: isActive,
-                                                    accent: isLeft ? 'slate' : 'blue'
+                                                    accent: isLeft ? 'slate' : 'blue',
+                                                    label: t('teaching_play_line_audio'),
                                                 })}
                                             </div>
 

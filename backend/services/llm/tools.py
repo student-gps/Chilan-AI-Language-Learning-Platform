@@ -5,7 +5,7 @@ from google import genai
 
 from .base_engine import LLMEngine
 from .prompts import get_eval_prompt
-from config.env import get_env
+from config.env import get_env, get_env_int
 
 
 class LanguageTools:
@@ -13,6 +13,7 @@ class LanguageTools:
         self.engine = engine
         self.embed_provider = get_env("LLM_EMBED_PROVIDER", default="doubao").lower()
         self.gemini_model_id = get_env("LLM_EMBED_GEMINI_MODEL_ID", default="gemini-embedding-001")
+        self.gemini_output_dimensionality = get_env_int("LLM_EMBED_GEMINI_OUTPUT_DIMENSIONALITY", default=768)
         self.doubao_model_id = get_env("LLM_EMBED_DOUBAO_MODEL_ID")
         self._doubao_client = None
         self._gemini_client = None
@@ -46,6 +47,10 @@ class LanguageTools:
                 result = client.models.embed_content(
                     model=self._normalize_gemini_model_id(self.gemini_model_id),
                     contents=text,
+                    config={
+                        "task_type": "SEMANTIC_SIMILARITY",
+                        "output_dimensionality": self.gemini_output_dimensionality,
+                    },
                 )
                 embedding = result.embeddings[0].values
             elif self.embed_provider == "doubao":

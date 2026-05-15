@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
     ArrowLeft,
@@ -380,6 +381,7 @@ export default function NewConceptTeachingSection({
     onStartPractice,
     isDirectLesson,
 }) {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [isSaving, setIsSaving] = useState(false);
     const activeAudioRef = useRef(null);
@@ -478,12 +480,12 @@ export default function NewConceptTeachingSection({
                         {isSaving ? (
                             <>
                                 <Loader2 className="animate-spin" size={22} />
-                                生成练习
+                                {t('teaching_generating_quiz')}
                             </>
                         ) : (
                             <>
                                 <CheckCircle2 size={22} />
-                                开始练习
+                                {t('teaching_start_quiz')}
                                 <ArrowRight size={20} />
                             </>
                         )}
@@ -497,7 +499,7 @@ export default function NewConceptTeachingSection({
                     onClick={() => navigate(`/course/${courseId}`)}
                     className="fixed left-6 top-24 z-50 flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 font-semibold text-slate-600 shadow-sm transition hover:bg-slate-50 hover:text-slate-950"
                 >
-                    <ArrowLeft size={16} /> 返回课程
+                    <ArrowLeft size={16} /> {t('teaching_back_to_course')}
                 </button>
             )}
         </motion.div>
