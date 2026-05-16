@@ -4,9 +4,9 @@ import re
 import time
 from pathlib import Path
 try:
-    from content_builder.core.llm_providers import BaseLLMProvider
+    from content_builder_core.llm_providers import BaseLLMProvider
 except ImportError:
-    from core.llm_providers import BaseLLMProvider
+    from content_builder_core.llm_providers import BaseLLMProvider
 import sys
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]

@@ -14,21 +14,21 @@ if str(BACKEND_DIR) not in sys.path:
     sys.path.append(str(BACKEND_DIR))
 
 try:
-    from content_builder.core.paths import default_paths
-    from content_builder.core.llm_providers import LLMFactory
-    from content_builder.pipelines.new_concept_english.agent import NewConceptEnglishAgent
-    from content_builder.pipelines.new_concept_english.book_profiles import book1
-    from content_builder.pipelines.new_concept_english.tasks.source_pdf import (
+    from content_builder_core.paths import default_paths
+    from content_builder_core.llm_providers import LLMFactory
+    from content_builder_en.new_concept_english.agent import NewConceptEnglishAgent
+    from content_builder_en.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.tasks.source_pdf import (
         export_book1_app_lesson_pdf,
         export_book1_all_app_lesson_pdfs,
         find_book_pdf,
     )
 except ImportError:
-    from core.paths import default_paths
-    from core.llm_providers import LLMFactory
-    from pipelines.new_concept_english.agent import NewConceptEnglishAgent
-    from pipelines.new_concept_english.book_profiles import book1
-    from pipelines.new_concept_english.tasks.source_pdf import (
+    from content_builder_core.paths import default_paths
+    from content_builder_core.llm_providers import LLMFactory
+    from content_builder_en.new_concept_english.agent import NewConceptEnglishAgent
+    from content_builder_en.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.tasks.source_pdf import (
         export_book1_all_app_lesson_pdfs,
         export_book1_app_lesson_pdf,
         find_book_pdf,

@@ -1,2 +1,2 @@
-"""Shared infrastructure for content-builder pipelines."""
+"""Compatibility wrapper for shared content-builder core services."""
 

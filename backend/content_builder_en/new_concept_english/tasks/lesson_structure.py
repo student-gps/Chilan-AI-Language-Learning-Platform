@@ -3,13 +3,13 @@ from __future__ import annotations
 import json
 
 try:
-    from content_builder.core.llm_providers import BaseLLMProvider
-    from content_builder.pipelines.new_concept_english.book_profiles import book1
-    from content_builder.pipelines.new_concept_english.tasks.content_extractor import _normalize_tokens
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_en.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.tasks.content_extractor import _normalize_tokens
 except ImportError:
-    from core.llm_providers import BaseLLMProvider
-    from pipelines.new_concept_english.book_profiles import book1
-    from pipelines.new_concept_english.tasks.content_extractor import _normalize_tokens
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_en.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.tasks.content_extractor import _normalize_tokens
 
 
 class Task1AnchorTextExtractor:

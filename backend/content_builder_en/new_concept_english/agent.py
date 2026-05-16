@@ -5,50 +5,50 @@ import traceback
 from pathlib import Path
 
 try:
-    from content_builder.core.llm_providers import BaseLLMProvider
-    from content_builder.pipelines.integrated_chinese.tasks.narration_audio import Task4DExplanationNarrator
-    from content_builder.pipelines.new_concept_english.book_profiles import book1
-    from content_builder.pipelines.new_concept_english.tasks.content_extractor import (
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_zh.integrated_chinese.tasks.narration_audio import Task4DExplanationNarrator
+    from content_builder_en.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.tasks.content_extractor import (
         _normalize_pattern_drills,
         _normalize_tokens,
         build_lesson001_data,
         normalize_lesson_data,
     )
-    from content_builder.pipelines.new_concept_english.tasks.even_lesson import Task2EvenLessonDrillExtractor
-    from content_builder.pipelines.new_concept_english.tasks.grammar_extractor import Task4GrammarPatternExtractor
-    from content_builder.pipelines.new_concept_english.tasks.lesson_structure import Task1AnchorTextExtractor
-    from content_builder.pipelines.new_concept_english.tasks.practice_generator import Task5PracticeGenerator
-    from content_builder.pipelines.new_concept_english.tasks.schema_validator import NewConceptEnglishSchemaValidator
-    from content_builder.pipelines.new_concept_english.tasks.source_pdf import find_book_pdf
-    from content_builder.pipelines.new_concept_english.tasks.video_plan import (
+    from content_builder_en.new_concept_english.tasks.even_lesson import Task2EvenLessonDrillExtractor
+    from content_builder_en.new_concept_english.tasks.grammar_extractor import Task4GrammarPatternExtractor
+    from content_builder_en.new_concept_english.tasks.lesson_structure import Task1AnchorTextExtractor
+    from content_builder_en.new_concept_english.tasks.practice_generator import Task5PracticeGenerator
+    from content_builder_en.new_concept_english.tasks.schema_validator import NewConceptEnglishSchemaValidator
+    from content_builder_en.new_concept_english.tasks.source_pdf import find_book_pdf
+    from content_builder_en.new_concept_english.tasks.video_plan import (
         Task6LessonVideoPlanner,
         Task7RenderPlanComposer,
     )
-    from content_builder.pipelines.new_concept_english.tasks.vocabulary import (
+    from content_builder_en.new_concept_english.tasks.vocabulary import (
         Task3BExampleBackfiller,
         Task3VocabularyExtractor,
     )
 except ImportError:
-    from core.llm_providers import BaseLLMProvider
-    from pipelines.integrated_chinese.tasks.narration_audio import Task4DExplanationNarrator
-    from pipelines.new_concept_english.book_profiles import book1
-    from pipelines.new_concept_english.tasks.content_extractor import (
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_zh.integrated_chinese.tasks.narration_audio import Task4DExplanationNarrator
+    from content_builder_en.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.tasks.content_extractor import (
         _normalize_pattern_drills,
         _normalize_tokens,
         build_lesson001_data,
         normalize_lesson_data,
     )
-    from pipelines.new_concept_english.tasks.even_lesson import Task2EvenLessonDrillExtractor
-    from pipelines.new_concept_english.tasks.grammar_extractor import Task4GrammarPatternExtractor
-    from pipelines.new_concept_english.tasks.lesson_structure import Task1AnchorTextExtractor
-    from pipelines.new_concept_english.tasks.practice_generator import Task5PracticeGenerator
-    from pipelines.new_concept_english.tasks.schema_validator import NewConceptEnglishSchemaValidator
-    from pipelines.new_concept_english.tasks.source_pdf import find_book_pdf
-    from pipelines.new_concept_english.tasks.video_plan import (
+    from content_builder_en.new_concept_english.tasks.even_lesson import Task2EvenLessonDrillExtractor
+    from content_builder_en.new_concept_english.tasks.grammar_extractor import Task4GrammarPatternExtractor
+    from content_builder_en.new_concept_english.tasks.lesson_structure import Task1AnchorTextExtractor
+    from content_builder_en.new_concept_english.tasks.practice_generator import Task5PracticeGenerator
+    from content_builder_en.new_concept_english.tasks.schema_validator import NewConceptEnglishSchemaValidator
+    from content_builder_en.new_concept_english.tasks.source_pdf import find_book_pdf
+    from content_builder_en.new_concept_english.tasks.video_plan import (
         Task6LessonVideoPlanner,
         Task7RenderPlanComposer,
     )
-    from pipelines.new_concept_english.tasks.vocabulary import (
+    from content_builder_en.new_concept_english.tasks.vocabulary import (
         Task3BExampleBackfiller,
         Task3VocabularyExtractor,
     )

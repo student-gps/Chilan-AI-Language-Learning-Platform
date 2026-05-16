@@ -1,26 +1,29 @@
 # Content Builder
 
-`content_builder` 现在只负责内容生成，不直接承担数据库发布职责。
+`content_builder` 现在保留命令入口、旧导入兼容层和共享 artifacts，不直接承担数据库发布职责。
 
 ## 架构边界
 
-当前目录已经拆成两层：
+当前内容生成代码拆成三层：
 
-- `core/`
-  放公共基础能力：路径约定、pipeline registry、后续可继续承接 LLM/TTS/ffmpeg/R2 等跨教材复用能力。
-- `pipelines/`
-  放具体教材流水线。当前已注册两个正式 pipeline：
-  - `integrated_chinese`：Integrated Chinese 风格中文教材，包含 prompt、拼音、中文题型、中文课文音频和视频规划逻辑。
-  - `new_concept_english`：New Concept English Book 1 英语教材，包含原书页码切课、英文课文抽取、中文辅助讲解、练习题和视频规划逻辑。
+- `content_builder_core/`
+  放公共基础能力：路径约定、pipeline registry、LLM provider、PDF 上传、JSON repair 与 usage/cost 统计。
+- `content_builder_zh/`
+  放中文学习流水线。当前包含 `integrated_chinese`：Integrated Chinese 风格中文教材、拼音、中文题型、中文课文音频和视频规划逻辑。
+- `content_builder_en/`
+  放英文学习流水线。当前包含 `new_concept_english`：New Concept English Book 1、英文课文抽取、中文辅助讲解、练习题和视频规划逻辑。
+- `content_builder/`
+  保留旧脚本入口、旧导入路径 shim 和 `artifacts/` 根目录。
 
 后续新增教材时，优先新增类似：
 
 ```text
-pipelines/cambridge_english/
-pipelines/another_textbook_family/
+content_builder_ja/minna_no_nihongo/
+content_builder_en/cambridge_english/
+content_builder_fr/<textbook_family>/
 ```
 
-不要按语言直接复制出 `content_builder_en`；教材结构、题型和教学策略才是 pipeline 的主要边界。
+原则：共享工程底座放 `content_builder_core`；语言教学逻辑放对应 `content_builder_<lang>`。
 
 ## 目录约定
 
@@ -29,19 +32,19 @@ pipelines/another_textbook_family/
 - `render_narration.py`
   **Stage 2** 主入口。读取当前 pipeline 的 `output_json/<lang>/` 中的 lesson JSON，渲染母语旁白音轨、写回字幕时间轴，并生成静态教学幻灯片 `teaching_slide_deck`。
 - `content_agent.py`
-  旧导入路径兼容层；真实实现已迁移到 `pipelines/integrated_chinese/agent.py`。
-- `core/pipeline.py`
-  Pipeline 注册表与统一路径入口；`generate.py`、`render_narration.py`、`localize.py` 都通过它选择流水线。
-- `core/llm_providers.py`
-  共享 LLM provider、PDF 上传、JSON repair 与 usage/cost 统计。根目录 `llm_providers.py` 仅保留旧导入兼容。
-- `pipelines/integrated_chinese/`
-  当前中文学习教材流水线定义、agent 和 task 实现；中文听说读写产物归档在 `artifacts/integrated_chinese/`。
-- `pipelines/new_concept_english/`
-  New Concept English Book 1 流水线定义、agent、book profile、切课脚本和 task 实现；产物归档在 `artifacts/new_concept_english/`。
+  旧导入路径兼容层；真实实现已迁移到 `content_builder_zh/integrated_chinese/agent.py`。
+- `core/`
+  旧 `content_builder.core.*` 导入路径兼容层；真实实现位于 `content_builder_core/`。
+- `pipelines/`
+  旧 `content_builder.pipelines.*` 导入路径兼容层；真实实现位于 `content_builder_zh/` 与 `content_builder_en/`。
+- `content_builder_zh/integrated_chinese/`
+  当前中文学习教材流水线定义、agent 和 task 实现；中文听说读写产物归档在 `content_builder/artifacts/integrated_chinese/`。
+- `content_builder_en/new_concept_english/`
+  New Concept English Book 1 流水线定义、agent、book profile、切课脚本和 task 实现；产物归档在 `content_builder/artifacts/new_concept_english/`。
 - `tasks/`
-  旧 `tasks.*` 导入路径兼容层；新教材不要在这里新增实现，应放在自己的 `pipelines/<pipeline_id>/tasks/`。
+  旧 `tasks.*` 导入路径兼容层；新教材不要在这里新增实现，应放在自己的 `content_builder_<lang>/<pipeline_id>/tasks/`。
 - `llm_providers.py`
-  旧导入路径兼容层；共享 LLM provider 实现在 `core/llm_providers.py`。
+  旧导入路径兼容层；共享 LLM provider 实现在 `content_builder_core/llm_providers.py`。
 - `scripts/`
   维护脚本、诊断脚本、一次性修复脚本。
 - `artifacts/`
@@ -111,7 +114,7 @@ python content_builder/run_language_pipeline.py --lang th --lesson 101
 ### New Concept English
 
 1. 把 New Concept English Book 1 整书 PDF 放入 `artifacts/new_concept_english/raw_materials/`
-2. `python content_builder/pipelines/new_concept_english/build_lesson.py --book 1 --lesson lesson002 --support-lang zh`
+2. `python content_builder_en/new_concept_english/build_lesson.py --book 1 --lesson lesson002 --support-lang zh`
    - 加 `--all` 可批量生成 Book 1 app lessons。
    - 加 `--split-only` 只切出单课 PDF，不生成 JSON。
 3. `python content_builder/render_narration.py --pipeline new_concept_english --lang zh`

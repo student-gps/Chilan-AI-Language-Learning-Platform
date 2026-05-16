@@ -87,8 +87,8 @@ app.include_router(study.router)
 # --- 🔊 拼音音频代理（本地文件优先，R2 presigned URL 兜底）---
 from fastapi.responses import FileResponse
 from services.storage.media_storage import get_media_storage as _get_media_storage
-from content_builder.core.paths import default_paths as _content_builder_paths
-from content_builder.core.pipeline import get_pipeline as _get_content_pipeline
+from content_builder_core.paths import default_paths as _content_builder_paths
+from content_builder_core.pipeline import get_pipeline as _get_content_pipeline
 _pinyin_storage = _get_media_storage(optional=True)
 _PINYIN_LOCAL_DIR = Path(__file__).resolve().parent / "pinyin_audio"
 _INTRO_LOCAL_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "audio" / "intro"

@@ -7,13 +7,13 @@ if str(CONTENT_BUILDER_DIR) not in sys.path:
     sys.path.append(str(CONTENT_BUILDER_DIR))
 
 try:
-    from content_builder.core.llm_providers import LLMFactory
-    from content_builder.core.pipeline import ContentPipeline
-    from content_builder.pipelines.new_concept_english.agent import NewConceptEnglishAgent
+    from content_builder_core.llm_providers import LLMFactory
+    from content_builder_core.pipeline import ContentPipeline
+    from content_builder_en.new_concept_english.agent import NewConceptEnglishAgent
 except ImportError:
-    from core.llm_providers import LLMFactory
-    from core.pipeline import ContentPipeline
-    from pipelines.new_concept_english.agent import NewConceptEnglishAgent
+    from content_builder_core.llm_providers import LLMFactory
+    from content_builder_core.pipeline import ContentPipeline
+    from content_builder_en.new_concept_english.agent import NewConceptEnglishAgent
 
 
 PIPELINE = ContentPipeline(

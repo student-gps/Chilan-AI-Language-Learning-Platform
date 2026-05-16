@@ -4,23 +4,23 @@ import traceback
 from pathlib import Path
 
 try:
-    from content_builder.core.llm_providers import BaseLLMProvider
-    from content_builder.pipelines.integrated_chinese.tasks.content_extractor import Task1Extractor
-    from content_builder.pipelines.integrated_chinese.tasks.notes_extractor import Task1BTextbookNotesExtractor
-    from content_builder.pipelines.integrated_chinese.tasks.quiz_generator import Task2QuizGenerator
-    from content_builder.pipelines.integrated_chinese.tasks.video_director import Task3LessonVideoPlanner
-    from content_builder.pipelines.integrated_chinese.tasks.dialogue_audio import Task4BLessonAudioRenderer
-    from content_builder.pipelines.integrated_chinese.tasks.render_planner import Task4CExplanationComposer
-    from content_builder.pipelines.integrated_chinese.tasks.narration_audio import Task4DExplanationNarrator
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_zh.integrated_chinese.tasks.content_extractor import Task1Extractor
+    from content_builder_zh.integrated_chinese.tasks.notes_extractor import Task1BTextbookNotesExtractor
+    from content_builder_zh.integrated_chinese.tasks.quiz_generator import Task2QuizGenerator
+    from content_builder_zh.integrated_chinese.tasks.video_director import Task3LessonVideoPlanner
+    from content_builder_zh.integrated_chinese.tasks.dialogue_audio import Task4BLessonAudioRenderer
+    from content_builder_zh.integrated_chinese.tasks.render_planner import Task4CExplanationComposer
+    from content_builder_zh.integrated_chinese.tasks.narration_audio import Task4DExplanationNarrator
 except ImportError:
-    from core.llm_providers import BaseLLMProvider
-    from pipelines.integrated_chinese.tasks.content_extractor import Task1Extractor
-    from pipelines.integrated_chinese.tasks.notes_extractor import Task1BTextbookNotesExtractor
-    from pipelines.integrated_chinese.tasks.quiz_generator import Task2QuizGenerator
-    from pipelines.integrated_chinese.tasks.video_director import Task3LessonVideoPlanner
-    from pipelines.integrated_chinese.tasks.dialogue_audio import Task4BLessonAudioRenderer
-    from pipelines.integrated_chinese.tasks.render_planner import Task4CExplanationComposer
-    from pipelines.integrated_chinese.tasks.narration_audio import Task4DExplanationNarrator
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_zh.integrated_chinese.tasks.content_extractor import Task1Extractor
+    from content_builder_zh.integrated_chinese.tasks.notes_extractor import Task1BTextbookNotesExtractor
+    from content_builder_zh.integrated_chinese.tasks.quiz_generator import Task2QuizGenerator
+    from content_builder_zh.integrated_chinese.tasks.video_director import Task3LessonVideoPlanner
+    from content_builder_zh.integrated_chinese.tasks.dialogue_audio import Task4BLessonAudioRenderer
+    from content_builder_zh.integrated_chinese.tasks.render_planner import Task4CExplanationComposer
+    from content_builder_zh.integrated_chinese.tasks.narration_audio import Task4DExplanationNarrator
 
 
 def _normalize_dialogues(dialogues: list) -> list:

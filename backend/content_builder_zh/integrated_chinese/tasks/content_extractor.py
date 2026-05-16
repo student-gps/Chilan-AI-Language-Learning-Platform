@@ -1,9 +1,9 @@
 import json
 import os
 try:
-    from content_builder.core.llm_providers import BaseLLMProvider
+    from content_builder_core.llm_providers import BaseLLMProvider
 except ImportError:
-    from core.llm_providers import BaseLLMProvider
+    from content_builder_core.llm_providers import BaseLLMProvider
 import sys
 from pathlib import Path
 

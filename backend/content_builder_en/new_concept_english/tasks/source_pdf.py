@@ -1,9 +1,9 @@
 from pathlib import Path
 
 try:
-    from content_builder.pipelines.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.book_profiles import book1
 except ImportError:
-    from pipelines.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.book_profiles import book1
 
 
 def find_book_pdf(raw_materials_dir: Path, book_number: int) -> Path:

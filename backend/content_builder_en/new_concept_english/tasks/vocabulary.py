@@ -4,13 +4,13 @@ import json
 import re
 
 try:
-    from content_builder.core.llm_providers import BaseLLMProvider
-    from content_builder.pipelines.new_concept_english.book_profiles import book1
-    from content_builder.pipelines.new_concept_english.tasks.content_extractor import _normalize_vocabulary
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_en.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.tasks.content_extractor import _normalize_vocabulary
 except ImportError:
-    from core.llm_providers import BaseLLMProvider
-    from pipelines.new_concept_english.book_profiles import book1
-    from pipelines.new_concept_english.tasks.content_extractor import _normalize_vocabulary
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_en.new_concept_english.book_profiles import book1
+    from content_builder_en.new_concept_english.tasks.content_extractor import _normalize_vocabulary
 
 
 class Task3VocabularyExtractor:

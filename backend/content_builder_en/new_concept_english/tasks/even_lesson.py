@@ -3,11 +3,11 @@ from __future__ import annotations
 import json
 
 try:
-    from content_builder.core.llm_providers import BaseLLMProvider
-    from content_builder.pipelines.new_concept_english.book_profiles import book1
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_en.new_concept_english.book_profiles import book1
 except ImportError:
-    from core.llm_providers import BaseLLMProvider
-    from pipelines.new_concept_english.book_profiles import book1
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_en.new_concept_english.book_profiles import book1
 
 
 class Task2EvenLessonDrillExtractor:

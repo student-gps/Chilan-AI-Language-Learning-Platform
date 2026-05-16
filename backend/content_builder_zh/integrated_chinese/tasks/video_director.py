@@ -1,11 +1,11 @@
 try:
-    from content_builder.core.llm_providers import BaseLLMProvider
-    from content_builder.pipelines.integrated_chinese.tasks._dramatization_writer import Task3DramatizationGenerator
-    from content_builder.pipelines.integrated_chinese.tasks._explanation_writer import Task3ExplanationGenerator
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_zh.integrated_chinese.tasks._dramatization_writer import Task3DramatizationGenerator
+    from content_builder_zh.integrated_chinese.tasks._explanation_writer import Task3ExplanationGenerator
 except ImportError:
-    from core.llm_providers import BaseLLMProvider
-    from pipelines.integrated_chinese.tasks._dramatization_writer import Task3DramatizationGenerator
-    from pipelines.integrated_chinese.tasks._explanation_writer import Task3ExplanationGenerator
+    from content_builder_core.llm_providers import BaseLLMProvider
+    from content_builder_zh.integrated_chinese.tasks._dramatization_writer import Task3DramatizationGenerator
+    from content_builder_zh.integrated_chinese.tasks._explanation_writer import Task3ExplanationGenerator
 
 
 class Task3LessonVideoPlanner:
