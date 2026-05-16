@@ -16,7 +16,6 @@ export default function usePracticeKeyboardShortcuts({
     speechShouldRetry,
     handleStartRecording,
     handleStopRecording,
-    isListenWrite,
     onPlayAudio,
 }) {
     // ↑ to replay audio for question types that have audio (CN_LISTEN_WRITE, CN_TO_EN)

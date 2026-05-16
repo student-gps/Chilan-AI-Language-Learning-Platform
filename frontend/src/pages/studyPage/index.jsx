@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -54,7 +54,7 @@ export default function StudyPage() {
     const [pinyinPopoverOpen, setPinyinPopoverOpen] = useState(false);
 
     // 🌟 核心逻辑：初始化学习流
-    const initFlow = async () => {
+    const initFlow = useCallback(async () => {
         setMode('loading');
         try {
             const initParams = { course_id: courseId, user_id: userId };
@@ -85,9 +85,9 @@ export default function StudyPage() {
             console.error("加载学习流失败:", e);
             setMode('error');
         }
-    };
+    }, [courseId, isBrowseEntry, lessonId, userId]);
 
-    useEffect(() => { initFlow(); }, [courseId, lessonId, isBrowseEntry]);
+    useEffect(() => { initFlow(); }, [initFlow]);
 
     // 🌟 处理一课结束后的逻辑
     const handleLessonComplete = async () => {

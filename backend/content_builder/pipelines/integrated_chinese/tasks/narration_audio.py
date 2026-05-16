@@ -57,6 +57,15 @@ from config.env import get_env
 
 
 _PINYIN_TONE_CHARS = set('āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙǕǗǙǛ')
+_TRUE_ENV_VALUES = {"1", "true", "yes", "on"}
+
+
+def _truthy_env(name: str) -> bool:
+    return str(get_env(name, default="")).strip().lower() in _TRUE_ENV_VALUES
+
+
+def _strip_zh_markers(text: str) -> str:
+    return re.sub(r'\[zh:([^\]]+)\]', lambda m: m.group(1).strip(), text)
 
 def _process_zh_markers(text: str) -> str:
     """
@@ -439,6 +448,7 @@ class Task4DExplanationNarrator:
         If [zh:text] markers are present, splits the text into chunks and synthesizes
         each with the appropriate voice (learner-language voice vs. TTS_AZURE_ZH_VOICE),
         then concatenates. If no markers, synthesizes with the learner-language voice only.
+        Set TTS_EXPLANATION_SINGLE_VOICE=1 to keep the whole clip in self.voice.
         """
         import requests as _requests
 
@@ -477,6 +487,10 @@ class Task4DExplanationNarrator:
                 f'</speak>'
             )
             return _request_ssml(ssml)
+
+        if _truthy_env("TTS_EXPLANATION_SINGLE_VOICE"):
+            output_path.write_bytes(_call(self.voice, _strip_zh_markers(text)))
+            return
 
         has_zh_marker = '[zh:' in text
         has_cjk = bool(re.search(r'[\u3400-\u9fff]', text))

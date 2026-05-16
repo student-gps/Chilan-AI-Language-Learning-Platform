@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Loader2 } from 'lucide-react';
 
-export default function AuthSuccessState({ isLogin, title, subtitle }) {
+export default function AuthSuccessState({ title, subtitle }) {
     return (
         <motion.div key="success" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center">
             <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -14,4 +14,3 @@ export default function AuthSuccessState({ isLogin, title, subtitle }) {
         </motion.div>
     );
 }
-

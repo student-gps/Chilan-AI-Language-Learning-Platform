@@ -13,6 +13,7 @@ Examples:
   python generate_intro_narration.py
   python generate_intro_narration.py --lang fr
   python generate_intro_narration.py --lang all
+  python generate_intro_narration.py --lang jp --overwrite
 """
 
 import argparse
@@ -208,7 +209,15 @@ def configure_intro_tts_defaults(tts_lang: str) -> None:
         os.environ[voice_key] = default_voice
 
 
-def generate_language(ui_lang: str, *, overwrite: bool, delay: float) -> tuple[int, int]:
+def generate_language(
+    ui_lang: str,
+    *,
+    overwrite: bool,
+    delay: float,
+    max_retries: int,
+    progress_start: int,
+    progress_total: int,
+) -> tuple[int, int]:
     tts_lang = TTS_LANG_BY_UI_LANG.get(ui_lang, ui_lang)
     slides = build_slides(ui_lang)
 
@@ -219,34 +228,47 @@ def generate_language(ui_lang: str, *, overwrite: bool, delay: float) -> tuple[i
     tts._lang = tts_lang
     print(f"Language:     {ui_lang} (tts: {tts_lang})")
     print(f"TTS provider: {tts.provider}  voice: {tts.voice}")
+    print(f"Single voice: {os.environ.get('TTS_EXPLANATION_SINGLE_VOICE', '0')}")
+    print(f"Retries:      {max_retries}")
     print(f"Output dir:   {OUTPUT_DIR}\n")
 
     suffix = output_suffix(ui_lang)
     ok, fail = 0, 0
-    for slide in slides:
+    language_started = time.monotonic()
+    for local_index, slide in enumerate(slides, start=1):
         slide_id = slide["id"]
         text = slide["narration"]
         out_path = OUTPUT_DIR / f"slide_{slide_id}{suffix}.mp3"
+        progress_index = progress_start + local_index
+        progress_label = f"{progress_index}/{progress_total}" if progress_total else f"{local_index}/{len(slides)}"
 
         if out_path.exists() and out_path.stat().st_size > 100 and not overwrite:
             size_kb = out_path.stat().st_size // 1024
-            print(f"  [{slide_id}] SKIP existing -> {out_path.name} ({size_kb} KB)\n")
+            print(f"  [{progress_label}] {ui_lang}:{slide_id} SKIP -> {out_path.name} ({size_kb} KB)", flush=True)
             ok += 1
             continue
 
-        print(f"  [{slide_id}] {text[:70]}...")
+        print(
+            f"  [{progress_label}] {ui_lang}:{slide_id} START -> {out_path.name} "
+            f"| voice={tts.voice} | chars={len(text)}",
+            flush=True,
+        )
+        started = time.monotonic()
         try:
-            tts._synthesize(text, out_path)
+            tts._synthesize(text, out_path, max_retries=max_retries)
             size_kb = out_path.stat().st_size // 1024
-            print(f"    OK  saved -> {out_path.name} ({size_kb} KB)\n")
+            elapsed = time.monotonic() - started
+            print(f"      OK   {elapsed:5.1f}s -> {out_path.name} ({size_kb} KB)", flush=True)
             ok += 1
             if delay > 0:
                 time.sleep(delay)
         except Exception as exc:
-            print(f"    FAIL {exc}\n")
+            elapsed = time.monotonic() - started
+            print(f"      FAIL {elapsed:5.1f}s -> {exc}", flush=True)
             fail += 1
 
-    print(f"Language {ui_lang} done: {ok} ok, {fail} failed.\n")
+    language_elapsed = time.monotonic() - language_started
+    print(f"Language {ui_lang} done: {ok} ok, {fail} failed in {language_elapsed:.1f}s.\n", flush=True)
     return ok, fail
 
 
@@ -270,12 +292,36 @@ def main():
         default=2.0,
         help="Seconds to wait after each successful TTS call (default: 2.0).",
     )
+    parser.add_argument(
+        "--max-retries",
+        type=int,
+        default=3,
+        help="Maximum TTS retry attempts per slide (default: 3).",
+    )
+    parser.add_argument(
+        "--code-switch",
+        action="store_true",
+        help="Allow CJK chunks to switch to the configured Chinese voice. Intro narration defaults to single-voice output.",
+    )
     args = parser.parse_args()
 
+    if not args.code_switch:
+        os.environ["TTS_EXPLANATION_SINGLE_VOICE"] = "1"
+
     langs = SUPPORTED_UI_LANGS if args.lang == "all" else [args.lang]
+    progress_total = len(langs) * len(SLIDE_IDS)
+    progress_offset = 0
     total_ok, total_fail = 0, 0
     for ui_lang in langs:
-        ok, fail = generate_language(ui_lang, overwrite=args.overwrite, delay=args.delay)
+        ok, fail = generate_language(
+            ui_lang,
+            overwrite=args.overwrite,
+            delay=args.delay,
+            max_retries=args.max_retries,
+            progress_start=progress_offset,
+            progress_total=progress_total,
+        )
+        progress_offset += len(SLIDE_IDS)
         total_ok += ok
         total_fail += fail
 

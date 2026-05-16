@@ -78,7 +78,7 @@ export default function usePracticeFlow({
                 forfeit: true,
             });
             setFeedback(res.data.data);
-        } catch (e) {
+        } catch (_e) {
             setFeedback({ level: 1, isCorrect: false, message: '', forfeited: true });
         } finally {
             setIsEvaluating(false);
@@ -135,6 +135,7 @@ export default function usePracticeFlow({
         }
     }, [
         activeAnswer,
+        answerLanguage,
         currentQuestion,
         isEvaluating,
         isRecording,
@@ -155,7 +156,7 @@ export default function usePracticeFlow({
 
     useEffect(() => {
         if (langWarning) setLangWarning(false);
-    }, [userAnswer]);
+    }, [langWarning, userAnswer]);
 
     useEffect(() => {
         const fullMessage = feedback?.message || '';
