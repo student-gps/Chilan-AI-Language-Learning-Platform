@@ -125,7 +125,7 @@ const copyIntroLocale = (locale, patch) => {
         civ_narration_start: patch.narration.start,
       }
     : {};
-  const { narration, ...flatPatch } = patch;
+  const { narration: _narration, ...flatPatch } = patch;
   INTRO_VIDEO_TRANSLATIONS[locale] = {
     ...INTRO_VIDEO_TRANSLATIONS.de,
     ...flatPatch,
@@ -190,7 +190,82 @@ Object.assign(INTRO_VIDEO_TRANSLATIONS, {
 });
 
 const emptyNarration = { welcome: "", sounds: "", skills: "", ai: "", fsrs: "", start: "" };
-const makeVisualOnlyIntro = (x) => makeCompactIntro({
+const INTRO_VIDEO_NARRATIONS = {
+  ko: {
+    welcome: "Chilan에 오신 것을 환영합니다. Chilan은 AI 기반 중국어 학습 플랫폼입니다. 이 과정은 듣기, 말하기, 타이핑이라는 실제 의사소통 능력을 길러 줍니다. 우리는 가장 기본 원리부터, 먼저 소리 체계부터 시작합니다.",
+    sounds: "중국어의 모든 음절에는 성조가 있고, 성조가 바뀌면 의미도 완전히 달라질 수 있습니다. 네 가지 성조는 높고 평평한 소리, 올라가는 소리, 내려갔다 올라가는 소리, 내려가는 소리입니다. 성조를 익히는 것은 중국어 학습의 가장 중요한 기초입니다.",
+    skills: "이 과정은 세 가지 핵심 능력을 훈련합니다. 듣기, 말하기, 그리고 병음 입력기로 타이핑하기입니다. 손글씨가 아니라, 디지털 일상에서 중국어가 실제로 쓰이는 방식에 집중합니다. 곧 읽고, 듣고, 말하고, 입력할 수 있게 됩니다.",
+    ai: "여러분이 제출하는 모든 답변은 세 단계 시스템으로 평가됩니다. 즉시 패턴 매칭은 명확한 경우를 처리합니다. 의미 비교는 표현이 달라도 뜻이 같은 답변을 찾아냅니다. 그리고 대형 언어 모델은 정말 애매한 경우를 자세한 설명과 함께 판단합니다.",
+    fsrs: "복습 일정은 FSRS, 즉 자유 간격 반복 스케줄러가 관리합니다. 잘 아는 항목은 덜 자주 돌아오고, 어려운 항목은 더 빨리 다시 나타납니다. 그래서 학습 시간을 가장 필요한 곳에 쓸 수 있습니다.",
+    start: "이제 시작할 준비가 되었습니다. 먼저 기초 모듈부터 시작하세요. 병음은 소리 체계를 배우기 위한 것이고, 한자는 구조를 이해하기 위한 것입니다. 이 과정의 모든 수업은 이 기초 위에 쌓입니다.",
+  },
+  vi: {
+    welcome: "Chào mừng bạn đến với Chilan, nền tảng học tiếng Trung được hỗ trợ bởi AI. Khóa học này xây dựng năng lực giao tiếp thật: nghe, nói và gõ. Chúng ta bắt đầu từ những nguyên lý cơ bản nhất, trước hết là hệ thống âm thanh.",
+    sounds: "Mỗi âm tiết tiếng Trung đều có thanh điệu, và khi đổi thanh điệu, nghĩa có thể thay đổi hoàn toàn. Bốn thanh là thanh cao ngang, thanh đi lên, thanh xuống rồi lên, và thanh đi xuống. Nắm vững thanh điệu là nền tảng quan trọng nhất khi học tiếng Trung.",
+    skills: "Khóa học này rèn ba kỹ năng chính: nghe, nói và gõ bằng bộ gõ pinyin. Chúng ta tập trung vào cách tiếng Trung thật sự được dùng trong đời sống số hằng ngày, không phải chữ viết tay. Không lâu nữa, bạn sẽ có thể đọc, nghe, nói và gõ tiếng Trung.",
+    ai: "Mỗi câu trả lời bạn gửi đều được đánh giá qua hệ thống ba tầng. So khớp mẫu tức thì xử lý những trường hợp rõ ràng. So sánh ngữ nghĩa nhận ra các câu trả lời khác cách diễn đạt nhưng cùng ý nghĩa. Và mô hình ngôn ngữ lớn xử lý những trường hợp thật sự tinh tế với phần giải thích chi tiết.",
+    fsrs: "Lịch ôn tập của bạn được điều khiển bởi FSRS, bộ lập lịch lặp lại ngắt quãng miễn phí. Những nội dung bạn đã nắm chắc sẽ xuất hiện ít hơn. Những phần khó sẽ quay lại sớm hơn. Nhờ vậy, thời gian học của bạn được dùng đúng vào nơi cần nhất.",
+    start: "Bạn đã sẵn sàng bắt đầu. Hãy bắt đầu với các mô-đun nền tảng: pinyin cho hệ thống âm thanh, rồi chữ Hán cho cấu trúc. Mỗi bài học trong khóa đều được xây dựng trên những nền tảng này.",
+  },
+  pt: {
+    welcome: "Bem-vindo ao Chilan, uma plataforma de aprendizado de chinês com IA. Este curso desenvolve habilidades reais de comunicação: ouvir, falar e digitar. Começamos pelos princípios fundamentais, primeiro pelo sistema de sons.",
+    sounds: "Cada sílaba chinesa tem um tom, e mudar o tom pode mudar completamente o significado. Os quatro tons são alto e nivelado, ascendente, descendente-ascendente e descendente. Dominar os tons é a base mais importante do chinês.",
+    skills: "Este curso treina três habilidades centrais: ouvir, falar e digitar com um método de entrada pinyin. Focamos em como o chinês é realmente usado na vida digital diária, não na escrita à mão. Em pouco tempo, você poderá ler, ouvir, falar e digitar.",
+    ai: "Cada resposta que você envia é avaliada por um sistema de três níveis. A correspondência instantânea de padrões trata os casos óbvios. A comparação semântica reconhece respostas com o mesmo significado, mesmo com palavras diferentes. E um grande modelo de linguagem lida com casos realmente limítrofes com uma explicação detalhada.",
+    fsrs: "Seu calendário de revisão é alimentado pelo FSRS, o Free Spaced Repetition Scheduler. Itens que você conhece bem voltam com menos frequência. Itens difíceis reaparecem mais cedo. Isso garante que seu tempo de estudo seja usado exatamente onde é necessário.",
+    start: "Você está pronto para começar. Comece pelos módulos de base: pinyin para o sistema de sons e depois caracteres chineses para a estrutura. Cada lição do curso se constrói sobre essas fundações.",
+  },
+  ar: {
+    welcome: "مرحبًا بك في Chilan، منصة لتعلّم الصينية مدعومة بالذكاء الاصطناعي. يبني هذا المساق مهارات تواصل حقيقية: الاستماع، والتحدث، والكتابة بلوحة المفاتيح. نبدأ من المبادئ الأساسية، بدءًا من نظام الأصوات.",
+    sounds: "لكل مقطع صوتي في الصينية نغمة، وتغيير النغمة قد يغيّر المعنى بالكامل. النغمات الأربع هي: عالية ومستوية، صاعدة، هابطة ثم صاعدة، وهابطة. إتقان النغمات هو أهم أساس في تعلّم الصينية.",
+    skills: "يدرّب هذا المساق ثلاث مهارات أساسية: الاستماع، والتحدث، والكتابة باستخدام طريقة إدخال بينيين. نركّز على الطريقة التي تُستخدم بها الصينية فعليًا في الحياة الرقمية اليومية، لا على الكتابة اليدوية. قريبًا ستتمكن من القراءة والاستماع والتحدث والكتابة.",
+    ai: "كل إجابة ترسلها تُقيّم عبر نظام من ثلاث طبقات. مطابقة الأنماط الفورية تتعامل مع الحالات الواضحة. المقارنة الدلالية تلتقط الإجابات التي تحمل المعنى نفسه بكلمات مختلفة. أما نموذج اللغة الكبير فيتعامل مع الحالات الدقيقة فعلًا ويقدّم شرحًا مفصلًا.",
+    fsrs: "يعتمد جدول المراجعة لديك على FSRS، وهو نظام مجاني لجدولة التكرار المتباعد. العناصر التي تعرفها جيدًا تعود بوتيرة أقل. والعناصر الصعبة تظهر مرة أخرى في وقت أقرب. هكذا تستخدم وقت الدراسة في المكان الذي يحتاج إليه فعلًا.",
+    start: "أنت جاهز للبدء. ابدأ بوحدات الأساس: البينيين لفهم نظام الأصوات، ثم الحروف الصينية لفهم البنية. كل درس في هذا المساق يُبنى على هذه الأسس.",
+  },
+  th: {
+    welcome: "ยินดีต้อนรับสู่ Chilan แพลตฟอร์มเรียนภาษาจีนที่ขับเคลื่อนด้วย AI คอร์สนี้สร้างทักษะการสื่อสารจริง ได้แก่ การฟัง การพูด และการพิมพ์ เราเริ่มจากหลักพื้นฐาน โดยเริ่มที่ระบบเสียงก่อน",
+    sounds: "พยางค์ภาษาจีนทุกพยางค์มีวรรณยุกต์ และเมื่อเปลี่ยนวรรณยุกต์ ความหมายก็อาจเปลี่ยนไปทั้งหมด วรรณยุกต์ทั้งสี่คือ เสียงสูงเรียบ เสียงขึ้น เสียงตกแล้วขึ้น และเสียงตก การเข้าใจวรรณยุกต์คือพื้นฐานที่สำคัญที่สุดของภาษาจีน",
+    skills: "คอร์สนี้ฝึกทักษะหลักสามอย่าง คือ การฟัง การพูด และการพิมพ์ด้วยระบบป้อนพินอิน เราเน้นวิธีใช้ภาษาจีนจริงในชีวิตดิจิทัลประจำวัน ไม่ใช่การเขียนด้วยมือ อีกไม่นานคุณจะอ่าน ฟัง พูด และพิมพ์ภาษาจีนได้",
+    ai: "ทุกคำตอบที่คุณส่งจะถูกประเมินด้วยระบบสามชั้น การจับคู่รูปแบบทันทีจัดการกรณีที่ชัดเจน การเปรียบเทียบเชิงความหมายจับคำตอบที่ใช้คำต่างกันแต่มีความหมายเดียวกัน และโมเดลภาษาขนาดใหญ่จะจัดการกรณีที่ซับซ้อนจริง พร้อมคำอธิบายละเอียด",
+    fsrs: "ตารางทบทวนของคุณขับเคลื่อนด้วย FSRS หรือระบบจัดตารางทบทวนแบบเว้นระยะฟรี สิ่งที่คุณจำได้ดีจะกลับมาน้อยลง สิ่งที่ยากจะกลับมาเร็วขึ้น วิธีนี้ช่วยให้คุณใช้เวลาเรียนกับส่วนที่จำเป็นที่สุด",
+    start: "คุณพร้อมเริ่มแล้ว เริ่มจากโมดูลพื้นฐานก่อน พินอินสำหรับระบบเสียง จากนั้นตัวอักษรจีนสำหรับโครงสร้าง ทุกบทเรียนในคอร์สนี้จะต่อยอดจากพื้นฐานเหล่านี้",
+  },
+  ru: {
+    welcome: "Добро пожаловать в Chilan, платформу для изучения китайского языка с поддержкой ИИ. Этот курс развивает реальные навыки общения: аудирование, говорение и набор текста. Мы начинаем с базовых принципов, прежде всего со звуковой системы.",
+    sounds: "У каждого китайского слога есть тон, и изменение тона может полностью изменить значение. Четыре тона: высокий ровный, восходящий, нисходяще-восходящий и нисходящий. Овладение тонами — самая важная основа китайского языка.",
+    skills: "Этот курс тренирует три ключевых навыка: слушать, говорить и печатать с помощью ввода пиньинь. Мы сосредоточены на том, как китайский реально используется в повседневной цифровой жизни, а не на письме от руки. Скоро вы сможете читать, слушать, говорить и печатать.",
+    ai: "Каждый ваш ответ оценивается трехуровневой системой. Мгновенное сопоставление шаблонов обрабатывает очевидные случаи. Семантическое сравнение находит ответы с тем же смыслом, даже если они сформулированы иначе. А большая языковая модель разбирает настоящие пограничные случаи и дает подробное объяснение.",
+    fsrs: "Ваш график повторения работает на FSRS, Free Spaced Repetition Scheduler. То, что вы хорошо знаете, возвращается реже. Сложные элементы появляются раньше. Так вы тратите учебное время именно там, где оно нужнее всего.",
+    start: "Вы готовы начать. Начните с базовых модулей: пиньинь для звуковой системы, затем китайские иероглифы для структуры. Каждый урок курса строится на этих основах.",
+  },
+  id: {
+    welcome: "Selamat datang di Chilan, platform belajar bahasa Mandarin yang didukung AI. Kursus ini membangun keterampilan komunikasi nyata: mendengar, berbicara, dan mengetik. Kita mulai dari prinsip dasar, dimulai dengan sistem bunyi.",
+    sounds: "Setiap suku kata Mandarin memiliki nada, dan perubahan nada dapat mengubah makna sepenuhnya. Empat nada itu adalah tinggi dan datar, naik, turun lalu naik, dan turun. Menguasai nada adalah fondasi terpenting dalam bahasa Mandarin.",
+    skills: "Kursus ini melatih tiga keterampilan inti: mendengar, berbicara, dan mengetik dengan metode input pinyin. Kita berfokus pada bagaimana bahasa Mandarin benar-benar digunakan dalam kehidupan digital sehari-hari, bukan tulisan tangan. Tidak lama lagi, kamu akan bisa membaca, mendengar, berbicara, dan mengetik.",
+    ai: "Setiap jawaban yang kamu kirim dinilai oleh sistem tiga tingkat. Pencocokan pola instan menangani kasus yang jelas. Perbandingan semantik menangkap jawaban yang bermakna sama meski memakai kata berbeda. Dan model bahasa besar menangani kasus tepi yang benar-benar rumit dengan penjelasan rinci.",
+    fsrs: "Jadwal ulasanmu didukung oleh FSRS, Free Spaced Repetition Scheduler. Item yang sudah kamu kuasai muncul lebih jarang. Item yang sulit muncul kembali lebih cepat. Ini memastikan waktu belajarmu digunakan tepat di tempat yang paling dibutuhkan.",
+    start: "Kamu siap memulai. Mulailah dengan modul dasar: pinyin untuk sistem bunyi, lalu karakter Mandarin untuk struktur. Setiap pelajaran dalam kursus ini dibangun di atas fondasi tersebut.",
+  },
+  ms: {
+    welcome: "Selamat datang ke Chilan, platform pembelajaran bahasa Cina yang dikuasakan oleh AI. Kursus ini membina kemahiran komunikasi sebenar: mendengar, bertutur dan menaip. Kita bermula daripada prinsip asas, iaitu sistem bunyi.",
+    sounds: "Setiap suku kata bahasa Cina mempunyai nada, dan perubahan nada boleh mengubah makna sepenuhnya. Empat nada itu ialah tinggi dan rata, menaik, turun kemudian naik, dan menurun. Menguasai nada ialah asas paling penting dalam bahasa Cina.",
+    skills: "Kursus ini melatih tiga kemahiran utama: mendengar, bertutur dan menaip menggunakan kaedah input pinyin. Kita menumpukan pada cara bahasa Cina benar-benar digunakan dalam kehidupan digital harian, bukan tulisan tangan. Tidak lama lagi, anda akan dapat membaca, mendengar, bertutur dan menaip.",
+    ai: "Setiap jawapan yang anda hantar dinilai oleh sistem tiga peringkat. Padanan corak segera mengendalikan kes yang jelas. Perbandingan semantik menangkap jawapan yang membawa makna sama walaupun dengan kata yang berbeza. Dan model bahasa besar mengendalikan kes pinggir yang benar-benar rumit dengan penjelasan terperinci.",
+    fsrs: "Jadual ulang kaji anda dikuasakan oleh FSRS, Free Spaced Repetition Scheduler. Item yang anda kuasai akan muncul dengan kurang kerap. Item yang sukar akan muncul semula lebih awal. Ini memastikan masa belajar anda digunakan tepat pada bahagian yang paling diperlukan.",
+    start: "Anda sudah bersedia untuk bermula. Mulakan dengan modul asas: pinyin untuk sistem bunyi, kemudian aksara Cina untuk struktur. Setiap pelajaran dalam kursus ini dibina di atas asas tersebut.",
+  },
+  it: {
+    welcome: "Benvenuto su Chilan, una piattaforma per imparare il cinese potenziata dall'IA. Questo corso sviluppa vere abilità comunicative: ascoltare, parlare e digitare. Partiamo dai principi fondamentali, iniziando dal sistema dei suoni.",
+    sounds: "Ogni sillaba cinese ha un tono, e cambiare tono può cambiare completamente il significato. I quattro toni sono alto e piano, ascendente, discendente-ascendente e discendente. Padroneggiare i toni è la base più importante del cinese.",
+    skills: "Questo corso allena tre competenze centrali: ascoltare, parlare e digitare con un metodo di input pinyin. Ci concentriamo su come il cinese viene usato davvero nella vita digitale quotidiana, non sulla scrittura a mano. Presto sarai in grado di leggere, ascoltare, parlare e digitare.",
+    ai: "Ogni risposta che invii viene valutata da un sistema a tre livelli. Il riconoscimento immediato dei pattern gestisce i casi evidenti. Il confronto semantico coglie risposte con lo stesso significato espresse con parole diverse. E un grande modello linguistico gestisce i veri casi limite con una spiegazione dettagliata.",
+    fsrs: "Il tuo programma di ripasso è gestito da FSRS, il Free Spaced Repetition Scheduler. Gli elementi che conosci bene tornano meno spesso. Quelli difficili ricompaiono prima. Così usi il tuo tempo di studio esattamente dove serve.",
+    start: "Sei pronto per iniziare. Parti dai moduli fondamentali: pinyin per il sistema dei suoni, poi caratteri cinesi per la struttura. Ogni lezione del corso si costruisce su queste basi.",
+  },
+};
+
+const makeVisualOnlyIntro = (locale, x) => makeCompactIntro({
   ...x,
   foundation: x.foundation || x.base,
   startWith: x.startWith,
@@ -224,11 +299,11 @@ const makeVisualOnlyIntro = (x) => makeCompactIntro({
   readySub: x.readySub,
   steps: x.steps,
   startNote: x.startNote,
-  narration: x.narration || emptyNarration,
+  narration: x.narration || INTRO_VIDEO_NARRATIONS[locale] || emptyNarration,
 });
 
 Object.assign(INTRO_VIDEO_TRANSLATIONS, {
-  ko: makeVisualOnlyIntro({
+  ko: makeVisualOnlyIntro("ko", {
     title: "중국어 배우기", accent: "실제로 쓰이는 방식으로", sub: "AI 기반 · 의사소통 중심 · 디지털 시대를 위해",
     base: "기초 — 1단계", startWith: "먼저 ", soundsWord: "소리", soundsSub: "단어와 문법 전에, 의미를 바꾸는 4개 성조부터 익힙니다.", toneLabels: ["1성", "2성", "3성", "4성"], toneNames: ["높고 평평", "올라감", "내려갔다 올라감", "내려감"], example: "妈 · 麻 · 马 · 骂 — 같은 음절, 네 가지 뜻",
     practiceLabel: "연습할 것", skillsPre: "세 가지 능력, ", skillsAccent: "하나의 코스", skills: [{ label: "듣기", sub: "모든 단어와 문장에 오디오가 있습니다." }, { label: "말하기", sub: "목소리를 녹음하면 AI가 의미를 확인합니다." }, { label: "타이핑", sub: "병음 IME로 실제 입력 방식을 배웁니다." }], noHw: "손글씨는 별도 기술입니다. 이 코스는 읽기, 듣기, 말하기, 타이핑에 집중합니다.",
@@ -236,7 +311,7 @@ Object.assign(INTRO_VIDEO_TRANSLATIONS, {
     fsrsLabel: "기억 과학", fsrsPre: "빠지는 내용은 ", fsrsAccent: "없습니다", fsrsSub: "FSRS가 각 단어의 복습 시점을 계산합니다.", chartLabel: "단어 복습 일정 예시", legend: ["초기 빈번한 복습", "간격 증가", "장기 기억"],
     pathLabel: "학습 경로", readyPre: "시작할 ", readyAccent: "준비가 됐나요?", readySub: "기초부터 시작하세요.", steps: commonSteps(["소리와 성조", "한자", "구조와 부수", "어휘", "문맥 속 단어", "문장", "문법 패턴"]), startNote: "교실의 기초 모듈에서 시작하세요.",
   }),
-  vi: makeVisualOnlyIntro({
+  vi: makeVisualOnlyIntro("vi", {
     title: "Học tiếng Trung", accent: "như cách nó thật sự được dùng", sub: "AI hỗ trợ · ưu tiên giao tiếp · dành cho thời đại số",
     base: "Nền tảng — bước 1", startWith: "Bắt đầu với ", soundsWord: "âm thanh", soundsSub: "Trước từ vựng và ngữ pháp: 4 thanh điệu thay đổi mọi thứ.", toneLabels: ["Thanh 1", "Thanh 2", "Thanh 3", "Thanh 4"], toneNames: ["cao ngang", "đi lên", "xuống rồi lên", "đi xuống"], example: "妈 · 麻 · 马 · 骂 — cùng âm tiết, bốn nghĩa",
     practiceLabel: "Bạn sẽ luyện gì", skillsPre: "Ba kỹ năng, ", skillsAccent: "một khóa học", skills: [{ label: "Nghe", sub: "Âm thanh cho từng từ và câu. Chính tả luyện tai nghe." }, { label: "Nói", sub: "Ghi âm giọng nói. AI kiểm tra ý nghĩa, không chỉ phát âm." }, { label: "Gõ", sub: "IME pinyin, cách người bản xứ gõ hằng ngày." }], noHw: "Viết tay là kỹ năng riêng. Khóa này tập trung vào đọc, nghe, nói và gõ.",
@@ -244,7 +319,7 @@ Object.assign(INTRO_VIDEO_TRANSLATIONS, {
     fsrsLabel: "Khoa học ghi nhớ", fsrsPre: "Không bỏ sót ", fsrsAccent: "nội dung nào", fsrsSub: "FSRS tính thời điểm ôn từng từ.", chartLabel: "ví dụ lịch ôn một từ", legend: ["ôn sớm thường xuyên", "khoảng cách tăng", "ghi nhớ lâu dài"],
     pathLabel: "Lộ trình", readyPre: "Sẵn sàng ", readyAccent: "bắt đầu?", readySub: "Bắt đầu từ nền tảng. Mọi thứ xây trên đó.", steps: commonSteps(["âm và thanh", "Chữ Hán", "cấu trúc và bộ thủ", "Từ vựng", "từ trong ngữ cảnh", "Câu", "mẫu ngữ pháp"]), startNote: "Bắt đầu bằng các mô-đun nền tảng trong lớp học.",
   }),
-  pt: makeVisualOnlyIntro({
+  pt: makeVisualOnlyIntro("pt", {
     title: "Aprender chinês", accent: "como ele é realmente usado", sub: "Com IA · foco em comunicação · feito para a era digital",
     base: "Base — passo 1", startWith: "Começamos pelos ", soundsWord: "sons", soundsSub: "Antes de palavras e gramática: os 4 tons que mudam tudo.", toneLabels: ["1º tom", "2º tom", "3º tom", "4º tom"], toneNames: ["alto plano", "ascendente", "desce e sobe", "descendente"], example: "妈 · 麻 · 马 · 骂 — mesma sílaba, quatro sentidos",
     practiceLabel: "O que você pratica", skillsPre: "Três habilidades, ", skillsAccent: "um curso", skills: [{ label: "Ouvir", sub: "Áudio para cada palavra e frase." }, { label: "Falar", sub: "Grave sua voz. A IA verifica o sentido." }, { label: "Digitar", sub: "IME pinyin, como se escreve no dia a dia." }], noHw: "Escrita à mão é uma habilidade separada. Aqui focamos em ler, ouvir, falar e digitar.",
@@ -252,7 +327,7 @@ Object.assign(INTRO_VIDEO_TRANSLATIONS, {
     fsrsLabel: "Ciência da memória", fsrsPre: "Nada fica ", fsrsAccent: "para trás", fsrsSub: "FSRS calcula quando revisar cada palavra.", chartLabel: "exemplo de revisão", legend: ["revisões iniciais", "intervalos maiores", "retenção longa"],
     pathLabel: "Seu caminho", readyPre: "Pronto para ", readyAccent: "começar?", readySub: "Comece pela base.", steps: commonSteps(["sons e tons", "Caracteres", "estrutura e radicais", "Vocabulário", "palavras em contexto", "Frases", "padrões gramaticais"]), startNote: "Use os módulos básicos na sala de aula.",
   }),
-  ar: makeVisualOnlyIntro({
+  ar: makeVisualOnlyIntro("ar", {
     title: "تعلّم الصينية", accent: "كما تُستخدم فعلًا", sub: "مدعوم بالذكاء الاصطناعي · التواصل أولًا · للعصر الرقمي",
     base: "الأساس — الخطوة 1", startWith: "نبدأ بـ ", soundsWord: "الأصوات", soundsSub: "قبل الكلمات والقواعد: أربع نغمات تغيّر المعنى.", toneLabels: ["النغمة 1", "النغمة 2", "النغمة 3", "النغمة 4"], toneNames: ["عالٍ مستوٍ", "صاعد", "هابط ثم صاعد", "هابط"], example: "妈 · 麻 · 马 · 骂 — مقطع واحد، أربعة معانٍ",
     practiceLabel: "ما ستتدرّب عليه", skillsPre: "ثلاث مهارات، ", skillsAccent: "دورة واحدة", skills: [{ label: "الاستماع", sub: "صوت لكل كلمة وجملة." }, { label: "التحدث", sub: "سجّل صوتك، والذكاء الاصطناعي يراجع المعنى." }, { label: "الكتابة", sub: "إدخال بينيين كما يكتب الناطقون يوميًا." }], noHw: "الكتابة اليدوية مهارة منفصلة. نركّز هنا على القراءة والاستماع والتحدث والكتابة.",
@@ -260,7 +335,7 @@ Object.assign(INTRO_VIDEO_TRANSLATIONS, {
     fsrsLabel: "علم الذاكرة", fsrsPre: "لا يضيع ", fsrsAccent: "أي شيء", fsrsSub: "FSRS يحسب موعد مراجعة كل كلمة.", chartLabel: "مثال جدول مراجعة", legend: ["مراجعات مبكرة", "تباعد أكبر", "حفظ طويل"],
     pathLabel: "مسارك", readyPre: "هل أنت جاهز ", readyAccent: "للبدء؟", readySub: "ابدأ من الأساس.", steps: commonSteps(["الأصوات والنغمات", "الحروف", "البنية والجذور", "المفردات", "كلمات في سياق", "الجمل", "أنماط نحوية"]), startNote: "ابدأ من وحدات الأساس في الصف.",
   }),
-  th: makeVisualOnlyIntro({
+  th: makeVisualOnlyIntro("th", {
     title: "เรียนภาษาจีน", accent: "แบบที่ใช้จริง", sub: "ขับเคลื่อนด้วย AI · เน้นการสื่อสาร · สำหรับยุคดิจิทัล",
     base: "พื้นฐาน — ขั้นที่ 1", startWith: "เริ่มจาก", soundsWord: "เสียง", soundsSub: "ก่อนคำศัพท์และไวยากรณ์: 4 วรรณยุกต์ที่เปลี่ยนความหมาย", toneLabels: ["เสียง 1", "เสียง 2", "เสียง 3", "เสียง 4"], toneNames: ["สูงเรียบ", "ขึ้น", "ตกแล้วขึ้น", "ตก"], example: "妈 · 麻 · 马 · 骂 — พยางค์เดียว สี่ความหมาย",
     practiceLabel: "สิ่งที่จะฝึก", skillsPre: "สามทักษะ ", skillsAccent: "ในคอร์สเดียว", skills: [{ label: "ฟัง", sub: "เสียงทุกคำและประโยค" }, { label: "พูด", sub: "อัดเสียง แล้ว AI ตรวจความหมาย" }, { label: "พิมพ์", sub: "IME พินอินแบบที่ใช้จริงทุกวัน" }], noHw: "การเขียนมือเป็นอีกทักษะหนึ่ง คอร์สนี้เน้นอ่าน ฟัง พูด และพิมพ์",
@@ -268,7 +343,7 @@ Object.assign(INTRO_VIDEO_TRANSLATIONS, {
     fsrsLabel: "วิทยาศาสตร์ความจำ", fsrsPre: "ไม่มีสิ่งใด", fsrsAccent: "หล่นหาย", fsrsSub: "FSRS คำนวณเวลาทบทวนแต่ละคำ", chartLabel: "ตัวอย่างตารางทบทวน", legend: ["ทบทวนถี่ช่วงแรก", "ระยะห่างเพิ่ม", "จำระยะยาว"],
     pathLabel: "เส้นทางของคุณ", readyPre: "พร้อม", readyAccent: "เริ่มไหม?", readySub: "เริ่มจากพื้นฐาน", steps: commonSteps(["เสียงและวรรณยุกต์", "ตัวอักษร", "โครงสร้าง", "คำศัพท์", "คำในบริบท", "ประโยค", "รูปแบบไวยากรณ์"]), startNote: "เริ่มจากโมดูลพื้นฐานในห้องเรียน",
   }),
-  ru: makeVisualOnlyIntro({
+  ru: makeVisualOnlyIntro("ru", {
     title: "Изучайте китайский", accent: "так, как он реально используется", sub: "С ИИ · сначала общение · для цифровой эпохи",
     base: "Основа — шаг 1", startWith: "Начинаем со ", soundsWord: "звуков", soundsSub: "До слов и грамматики: 4 тона, меняющие смысл.", toneLabels: ["1-й тон", "2-й тон", "3-й тон", "4-й тон"], toneNames: ["высокий ровный", "восходящий", "нисходяще-восходящий", "нисходящий"], example: "妈 · 麻 · 马 · 骂 — один слог, четыре значения",
     practiceLabel: "Что вы тренируете", skillsPre: "Три навыка, ", skillsAccent: "один курс", skills: [{ label: "Слушать", sub: "Аудио для каждого слова и предложения." }, { label: "Говорить", sub: "Запишите голос, ИИ проверит смысл." }, { label: "Печатать", sub: "Pinyin IME, как пишут каждый день." }], noHw: "Письмо от руки — отдельный навык. Здесь мы учимся читать, слушать, говорить и печатать.",
@@ -276,7 +351,7 @@ Object.assign(INTRO_VIDEO_TRANSLATIONS, {
     fsrsLabel: "Наука памяти", fsrsPre: "Ничего не ", fsrsAccent: "теряется", fsrsSub: "FSRS рассчитывает, когда повторять каждое слово.", chartLabel: "пример графика повторения", legend: ["часто в начале", "интервалы растут", "долгая память"],
     pathLabel: "Ваш путь", readyPre: "Готовы ", readyAccent: "начать?", readySub: "Начните с основы.", steps: commonSteps(["звуки и тоны", "Иероглифы", "структура и радикалы", "Лексика", "слова в контексте", "Предложения", "грамматические модели"]), startNote: "Начните с базовых модулей в классе.",
   }),
-  id: makeVisualOnlyIntro({
+  id: makeVisualOnlyIntro("id", {
     title: "Belajar Mandarin", accent: "seperti benar-benar digunakan", sub: "Didukung AI · komunikasi dulu · untuk era digital",
     base: "Dasar — langkah 1", startWith: "Mulai dari ", soundsWord: "bunyi", soundsSub: "Sebelum kata dan tata bahasa: 4 nada yang mengubah makna.", toneLabels: ["Nada 1", "Nada 2", "Nada 3", "Nada 4"], toneNames: ["tinggi datar", "naik", "turun-naik", "turun"], example: "妈 · 麻 · 马 · 骂 — suku kata sama, empat makna",
     practiceLabel: "Yang dilatih", skillsPre: "Tiga keterampilan, ", skillsAccent: "satu kursus", skills: [{ label: "Mendengar", sub: "Audio untuk setiap kata dan kalimat." }, { label: "Berbicara", sub: "Rekam suara, AI memeriksa makna." }, { label: "Mengetik", sub: "IME pinyin untuk penggunaan sehari-hari." }], noHw: "Tulisan tangan adalah keterampilan terpisah. Fokus kursus ini membaca, mendengar, berbicara, dan mengetik.",
@@ -284,7 +359,7 @@ Object.assign(INTRO_VIDEO_TRANSLATIONS, {
     fsrsLabel: "Ilmu memori", fsrsPre: "Tidak ada yang ", fsrsAccent: "terlewat", fsrsSub: "FSRS menghitung waktu ulasan tiap kata.", chartLabel: "contoh jadwal ulasan", legend: ["sering di awal", "jarak bertambah", "ingatan jangka panjang"],
     pathLabel: "Jalurmu", readyPre: "Siap ", readyAccent: "mulai?", readySub: "Mulai dari dasar.", steps: commonSteps(["bunyi dan nada", "Karakter", "struktur dan radikal", "Kosakata", "kata dalam konteks", "Kalimat", "pola tata bahasa"]), startNote: "Mulai dari modul dasar di kelas.",
   }),
-  ms: makeVisualOnlyIntro({
+  ms: makeVisualOnlyIntro("ms", {
     title: "Belajar bahasa Cina", accent: "seperti yang benar-benar digunakan", sub: "Dikuasakan AI · komunikasi dahulu · untuk era digital",
     base: "Asas — langkah 1", startWith: "Bermula dengan ", soundsWord: "bunyi", soundsSub: "Sebelum perkataan dan tatabahasa: 4 nada yang mengubah makna.", toneLabels: ["Nada 1", "Nada 2", "Nada 3", "Nada 4"], toneNames: ["tinggi rata", "menaik", "turun-naik", "menurun"], example: "妈 · 麻 · 马 · 骂 — suku kata sama, empat makna",
     practiceLabel: "Apa yang dilatih", skillsPre: "Tiga kemahiran, ", skillsAccent: "satu kursus", skills: [{ label: "Mendengar", sub: "Audio untuk setiap perkataan dan ayat." }, { label: "Bertutur", sub: "Rakam suara, AI menyemak makna." }, { label: "Menaip", sub: "IME pinyin untuk penggunaan harian." }], noHw: "Tulisan tangan ialah kemahiran berasingan. Kursus ini fokus pada membaca, mendengar, bertutur dan menaip.",
@@ -292,7 +367,7 @@ Object.assign(INTRO_VIDEO_TRANSLATIONS, {
     fsrsLabel: "Sains memori", fsrsPre: "Tiada yang ", fsrsAccent: "terlepas", fsrsSub: "FSRS mengira masa ulang kaji setiap perkataan.", chartLabel: "contoh jadual ulang kaji", legend: ["kerap pada awal", "jarak bertambah", "ingatan jangka panjang"],
     pathLabel: "Laluan anda", readyPre: "Sedia untuk ", readyAccent: "bermula?", readySub: "Mulakan dengan asas.", steps: commonSteps(["bunyi dan nada", "Aksara", "struktur dan radikal", "Kosa kata", "perkataan dalam konteks", "Ayat", "pola tatabahasa"]), startNote: "Mulakan dengan modul asas di kelas.",
   }),
-  it: makeVisualOnlyIntro({
+  it: makeVisualOnlyIntro("it", {
     title: "Imparare il cinese", accent: "come viene usato davvero", sub: "Con IA · prima la comunicazione · per l'era digitale",
     base: "Fondamenti — passo 1", startWith: "Iniziamo dai ", soundsWord: "suoni", soundsSub: "Prima di parole e grammatica: i 4 toni che cambiano tutto.", toneLabels: ["1º tono", "2º tono", "3º tono", "4º tono"], toneNames: ["alto piano", "ascendente", "discendente-ascendente", "discendente"], example: "妈 · 麻 · 马 · 骂 — stessa sillaba, quattro significati",
     practiceLabel: "Cosa praticherai", skillsPre: "Tre abilità, ", skillsAccent: "un corso", skills: [{ label: "Ascoltare", sub: "Audio per ogni parola e frase." }, { label: "Parlare", sub: "Registra la voce, l'IA verifica il senso." }, { label: "Digitare", sub: "IME pinyin per l'uso quotidiano." }], noHw: "La scrittura a mano è separata. Qui ci concentriamo su lettura, ascolto, parlato e digitazione.",

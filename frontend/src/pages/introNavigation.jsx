@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const FOUNDATION_PATHS = new Set(['/learn/intro', '/learn/hanzi', '/learn/pinyin', '/learn/typing']);
+const DEFAULT_COURSE_OVERVIEW_PATH = '/course/1';
 
 const INTRO_STEPS = [
     { path: '/learn/intro', label: (t) => t('ci_h1_line1') },
@@ -18,11 +19,11 @@ const getIntroEntryState = (state) => {
         cursor = cursor.fromState;
     }
 
-    if (cursor?.from) {
+    if (cursor?.from && String(cursor.from).startsWith('/course/')) {
         return cursor.fromState ? { from: cursor.from, fromState: cursor.fromState } : { from: cursor.from };
     }
 
-    return { from: '/classroom' };
+    return { from: DEFAULT_COURSE_OVERVIEW_PATH };
 };
 
 const getIntroExitTarget = (state) => {
@@ -45,18 +46,11 @@ export default function IntroFloatingNav({ currentPath, locationState, navigate,
     const nextStep = currentIndex >= 0 && currentIndex < INTRO_STEPS.length - 1
         ? INTRO_STEPS[currentIndex + 1]
         : null;
-    const isIntroHome = currentPath === '/learn/intro';
 
     return (
         <>
             <button
-                onClick={() => {
-                    if (isIntroHome) {
-                        navigateWithState(navigate, exitTarget.path, exitTarget.state);
-                        return;
-                    }
-                    navigateWithState(navigate, '/learn/intro', introState);
-                }}
+                onClick={() => navigateWithState(navigate, exitTarget.path, exitTarget.state)}
                 className="fixed left-6 top-24 z-50 flex items-center gap-2 rounded-full bg-white px-5 py-3 text-base font-semibold text-slate-700 shadow-lg ring-1 ring-slate-200 transition hover:bg-slate-50 hover:shadow-xl hover:ring-blue-300 active:scale-95"
             >
                 <ChevronLeft size={18} />

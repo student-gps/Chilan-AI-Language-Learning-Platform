@@ -435,6 +435,14 @@ export default function CourseIntroVideo() {
 
     const currentSlide = SLIDES[index];
     const SlideContent = SLIDE_COMPONENTS[currentSlide.id];
+    const getNarrationText = useCallback((slideId) => {
+        const key = `civ_narration_${slideId}`;
+        const localized = t(key);
+        if (typeof localized === 'string' && localized.trim() && localized !== key) return localized;
+        const fallback = t(key, { lng: 'en' });
+        return typeof fallback === 'string' && fallback !== key ? fallback : '';
+    }, [t]);
+    const subtitle = playing || progress > 0 ? getNarrationText(currentSlide.id) : '';
 
     // ── Stop whatever is currently playing ──────────────────────────────────
     const stopAudio = useCallback(() => {
@@ -572,7 +580,7 @@ export default function CourseIntroVideo() {
                 onPrev={() => goTo(index - 1)}
                 onToggle={toggle}
                 onNext={() => goTo(index + 1)}
-                subtitle={playing || progress > 0 ? t(`civ_narration_${currentSlide.id}`) : ''}
+                subtitle={subtitle}
             />
         </div>
     );
