@@ -75,6 +75,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     const panelRef = useRef(null);
     const audioRef = useRef(null);
     const rafRef = useRef(null);
+    const tickRef = useRef(null);
 
     // --- Data refs: tick reads from these so it never needs to be recreated ---
     const indexRef = useRef(0);
@@ -153,8 +154,9 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
             advanceRef.current?.();
             return;
         }
-        rafRef.current = requestAnimationFrame(tick);
+        rafRef.current = requestAnimationFrame(() => tickRef.current?.());
     }, []); // reads everything via refs
+    useLayoutEffect(() => { tickRef.current = tick; });
 
     // playSlide: imperatively starts playing the slide at idx.
     // Updates refs first so the stable tick immediately reads correct data.
@@ -191,7 +193,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         audio.play()
             .then(() => { setPlaying(true); rafRef.current = requestAnimationFrame(tick); })
             .catch(() => { stopAudio(); setPlaying(false); });
-    }, [stopAudio, stopTicker, tick]);
+    }, [stopAudio, tick]);
 
     // Keep playSlideRef current so tick's setTimeout always calls the latest version
     useLayoutEffect(() => { playSlideRef.current = playSlide; });
@@ -237,7 +239,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         audio.play()
             .then(() => { setPlaying(true); rafRef.current = requestAnimationFrame(tick); })
             .catch(() => { stopAudio(); setPlaying(false); });
-    }, [audioUrl, localMs, slide, startMs, stopAudio, stopTicker, tick]);
+    }, [audioUrl, localMs, slide, startMs, stopAudio, tick]);
 
     const toggle = useCallback(() => {
         if (playing) {

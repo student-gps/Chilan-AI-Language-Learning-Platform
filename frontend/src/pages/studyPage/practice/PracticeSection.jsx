@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Loader2, Send, Sparkles } from 'lucide-react';
@@ -66,7 +66,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         );
     }, [lessonAudioAssets]);
 
-    const playLineAudio = (lineRef) => {
+    const playLineAudio = useCallback((lineRef) => {
         const url = lineRefAudioMap[lineRef];
         if (!url) return;
         const audio = new Audio(url);
@@ -75,7 +75,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         audio.onended = () => releaseGlobalAudio(audio);
         audio.onerror = () => releaseGlobalAudio(audio);
         audio.play().catch(() => releaseGlobalAudio(audio));
-    };
+    }, [lineRefAudioMap]);
 
     const {
         speechMode,
@@ -107,7 +107,6 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         lastSubmittedAnswer,
         isEvaluating,
         feedback,
-        setFeedback,
         knowledgeDetails,
         setKnowledgeDetails,
         typedFeedbackMessage,
@@ -164,11 +163,10 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     const langWarningText = (() => {
         if (!langWarning || !questionConfig.answerLanguage) return null;
         const name = getLangName(questionConfig.answerLanguage, i18n.language);
-        const ui = (i18n.language || 'zh').split('-')[0].toLowerCase();
         return t('practice_answer_language_warning', { language: name });
     })();
 
-    const playAudio = (text, language = 'zh') => {
+    const playAudio = useCallback((text, language = 'zh') => {
         if (!text) return;
         const API_BASE = import.meta.env.VITE_APP_API_BASE_URL;
         const params = new URLSearchParams({ text, language });
@@ -178,9 +176,9 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         audio.onended = () => releaseGlobalAudio(audio);
         audio.onerror = () => releaseGlobalAudio(audio);
         audio.play().catch(() => releaseGlobalAudio(audio));
-    };
+    }, []);
 
-    const playQuestionAudio = () => {
+    const playQuestionAudio = useCallback(() => {
         if (!currentQuestion) return;
         const lineRef = currentQuestion.metadata?.line_ref || currentQuestion.metadata?.context?.line_ref;
         if (lineRef && lineRefAudioMap[lineRef]) {
@@ -191,15 +189,15 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
             ? (currentQuestion.standard_answers || [])[0]
             : currentQuestion.original_text;
         playAudio(fallbackText, questionConfig.audioLanguage || questionConfig.ttsLanguage || 'zh');
-    };
+    }, [currentQuestion, isListenWrite, lineRefAudioMap, playAudio, playLineAudio, questionConfig.audioLanguage, questionConfig.ttsLanguage]);
 
-    const focusAndMoveCursorToEnd = () => {
+    const focusAndMoveCursorToEnd = useCallback(() => {
         if (inputRef.current) {
             const len = userAnswer.length;
             inputRef.current.focus();
             inputRef.current.setSelectionRange(len, len);
         }
-    };
+    }, [userAnswer]);
 
     const handleNext = () => {
         if (currentIndex < questions.length - 1) {
@@ -221,7 +219,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         }, 250);
 
         return () => clearTimeout(timer);
-    }, [currentQuestion, currentIndex, speechMode, questionConfig.autoPlayPrompt, questionConfig.ttsLanguage]);
+    }, [currentQuestion, currentIndex, playAudio, speechMode, questionConfig.autoPlayPrompt, questionConfig.ttsLanguage]);
 
     // Auto-play dialogue/audio prompt when arriving at a listen-write question.
     useEffect(() => {
@@ -233,7 +231,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
 
         const timer = setTimeout(() => playQuestionAudio(), 350);
         return () => clearTimeout(timer);
-    }, [currentQuestion, currentIndex, isListenWrite, lineRefAudioMap, questionConfig.audioLanguage]);
+    }, [currentQuestion, currentIndex, isListenWrite, playQuestionAudio]);
 
     useEffect(() => {
         if (!questions?.length || !userId || !courseId || !lessonId || isReview) return;
@@ -263,7 +261,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         if (feedback && feedback.level === 1) {
             focusAndMoveCursorToEnd();
         }
-    }, [currentIndex, feedback, speechMode, userAnswer]);
+    }, [currentIndex, feedback, focusAndMoveCursorToEnd, speechMode, userAnswer]);
 
     usePracticeKnowledgeDetails({
         feedback,

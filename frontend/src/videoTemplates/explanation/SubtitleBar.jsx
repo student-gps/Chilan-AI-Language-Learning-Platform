@@ -15,7 +15,7 @@ const _ABBREV_RE = /\b(Mr|Mrs|Ms|Dr|Prof|Sr|Jr|St|vs|etc|e\.g|i\.e|approx|dept|f
 const _PLACEHOLDER = '\x00';
 
 function restoreProtected(text) {
-    return text.replace(/\x00/g, '.').replace(/\x01/g, '...').trim();
+    return text.split('\x00').join('.').split('\x01').join('...').trim();
 }
 
 /**

@@ -7,7 +7,7 @@ export function PatternFormula({ text, color = chalk.yellow, size = 24, pinyin }
     if (!text) return null;
     // Split into tokens: [Placeholder], Chinese chars, other chars
     const tokens = [];
-    const re = /(\[[^\]]+\])|([^\[]+)/g;
+    const re = /(\[[^\]]+\])|([^[]+)/g;
     let m;
     while ((m = re.exec(text)) !== null) {
         if (m[1]) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { blackboard, chalk, fontStack } from './templateUtils';
+import { blackboard, chalk } from './templateUtils';
 import ChalkTexture from './ChalkTexture';
 import { RubyWord } from './chalkUtils';
 import BlackboardShell from './BlackboardShell';

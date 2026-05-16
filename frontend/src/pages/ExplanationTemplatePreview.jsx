@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import apiClient from '../api/apiClient';
@@ -163,8 +163,9 @@ export default function ExplanationTemplatePreview() {
     const [renderPlan, setRenderPlan] = useState(null);
     const [lessonTitle, setLessonTitle] = useState('');
     const [inputLessonId, setInputLessonId] = useState('101');
+    const initialLessonIdRef = useRef(inputLessonId);
 
-    const loadLesson = async (lessonId) => {
+    const loadLesson = useCallback(async (lessonId) => {
         setLoading(true);
         setError('');
         try {
@@ -182,11 +183,11 @@ export default function ExplanationTemplatePreview() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [courseId]);
 
     useEffect(() => {
-        loadLesson(inputLessonId);
-    }, []);
+        loadLesson(initialLessonIdRef.current);
+    }, [loadLesson]);
 
     if (loading) {
         return (

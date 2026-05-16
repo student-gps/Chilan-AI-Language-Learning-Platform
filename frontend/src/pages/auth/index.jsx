@@ -59,7 +59,6 @@ export default function Auth() {
                     <AnimatePresence mode="wait">
                         {step === 'success' ? (
                             <AuthSuccessState
-                                isLogin={mode === 'login'}
                                 title={mode === 'login' ? t('auth_login_success_title') : t('auth_success_title')}
                                 subtitle={mode === 'login' ? t('auth_login_success_subtitle') : t('auth_success_subtitle')}
                             />

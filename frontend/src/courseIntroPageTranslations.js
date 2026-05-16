@@ -48,26 +48,6 @@ const makeCourseIntroPage = ({
   ci_cta_pinyin: pinyin,
 });
 
-const baseFeatures = {
-  en: [
-    ["AI-powered feedback", "Three-tier evaluation: pattern check, semantic similarity, then LLM analysis. Honest feedback on every answer."],
-    ["Listening first", "Audio for every word and sentence. Dictation trains your ear for tones and sounds."],
-    ["Speaking practice", "Speak your answers aloud. Speech recognition and AI check your meaning, not only pronunciation."],
-    ["Keyboard input focus", "Type Chinese with a standard pinyin IME, the everyday digital writing method."],
-    ["Spaced repetition", "FSRS schedules every question. Easy items return less often; hard ones return sooner."],
-    ["Visible progress", "The classroom tracks reviewed, remaining, and mastered items after each session."],
-  ],
-};
-
-const commonSteps = {
-  en: [
-    ["Teaching phase", "New words with pinyin, translation, audio, and optional video explanation. No timer."],
-    ["Practice phase", "Translate, speak aloud, or write from audio dictation."],
-    ["AI evaluation", "Exact match, semantic similarity, then full LLM judgment for edge cases."],
-    ["FSRS scheduling", "Your result decides when the item returns: hours, days, or weeks."],
-  ],
-};
-
 const pack = (items) => items.map(([title, desc]) => ({ title, desc }));
 
 export const COURSE_INTRO_PAGE_TRANSLATIONS = {
@@ -170,4 +150,3 @@ export const COURSE_INTRO_PAGE_TRANSLATIONS = {
     cta: "Pronto? Inizia dai moduli base.", hanzi: "Caratteri cinesi →", pinyin: "Pinyin",
   }),
 };
-

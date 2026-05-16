@@ -568,7 +568,7 @@ export default function Classroom() {
                 },
             });
             setMyCourses((courses) => courses.filter((course) => String(course.id) !== String(courseId)));
-        } catch (err) {
+        } catch (_err) {
             alert(t('course_remove_failed'));
         } finally {
             setRemovingCourseId(null);
