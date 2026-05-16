@@ -1,7 +1,8 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ChevronLeft, ChevronRight, Sparkles, Keyboard, Headphones, MessageSquare, BookOpen, BrainCircuit, BarChart3 } from 'lucide-react';
+import { Sparkles, Keyboard, Headphones, MessageSquare, BrainCircuit, BarChart3 } from 'lucide-react';
 import CourseIntroVideo from '../videoTemplates/courseIntro/CourseIntroVideo';
+import IntroFloatingNav from './introNavigation';
 
 const FEAT_ICONS = [
     { icon: <Sparkles size={22} className="text-blue-500" />,   bg: 'bg-blue-50' },
@@ -18,7 +19,6 @@ export default function CourseIntroPage() {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
-    const fromPath = location.state?.from || '/classroom';
 
     const FEATURES = FEAT_ICONS.map((f, i) => ({
         ...f,
@@ -35,13 +35,12 @@ export default function CourseIntroPage() {
 
     return (
         <div className="min-h-screen bg-slate-50 pt-16">
-            <button
-                onClick={() => navigate(fromPath)}
-                className="fixed bottom-6 left-6 z-50 flex items-center gap-2 rounded-full bg-white px-5 py-3 text-base font-semibold text-slate-700 shadow-lg ring-1 ring-slate-200 transition hover:bg-slate-50 hover:shadow-xl hover:ring-blue-300 active:scale-95"
-            >
-                <ChevronLeft size={18} />
-                <span>{t('ci_back')}</span>
-            </button>
+            <IntroFloatingNav
+                currentPath="/learn/intro"
+                locationState={location.state}
+                navigate={navigate}
+                t={t}
+            />
 
             {/* Hero + Video */}
             <div className="bg-slate-900 pb-16 pt-12">
@@ -114,24 +113,6 @@ export default function CourseIntroPage() {
                     </div>
                 </section>
 
-                {/* CTA */}
-                <section className="text-center pb-8">
-                    <p className="text-slate-500 text-sm mb-5">{t('ci_cta_text')}</p>
-                    <div className="flex flex-wrap gap-3 justify-center">
-                        <button
-                            onClick={() => navigate('/learn/hanzi', { state: { from: '/learn/intro' } })}
-                            className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl transition-all shadow-sm"
-                        >
-                            <BookOpen size={18} /> {t('ci_cta_hanzi')}
-                        </button>
-                        <button
-                            onClick={() => navigate('/learn/pinyin', { state: { from: '/learn/intro' } })}
-                            className="flex items-center gap-2 px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-black rounded-2xl border border-slate-200 transition-all shadow-sm"
-                        >
-                            {t('ci_cta_pinyin')} <ChevronRight size={16} />
-                        </button>
-                    </div>
-                </section>
             </div>
         </div>
     );

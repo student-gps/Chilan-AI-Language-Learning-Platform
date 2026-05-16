@@ -1,7 +1,9 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight, Volume2 } from 'lucide-react';
 import { claimGlobalAudio, releaseGlobalAudio } from '../utils/audioPlayback';
+import IntroFloatingNav from './introNavigation';
 
 const API_BASE = import.meta.env.VITE_APP_API_BASE_URL;
 
@@ -96,6 +98,466 @@ const TONES = [
     { number: 4, nameEn: 'falling',        mark: '`', pinyin: 'mà', hanzi: '骂', meaning: 'to scold',         audioFile: 'ma4.wav' },
     { number: 5, nameEn: 'neutral',        mark: '·', pinyin: 'ma', hanzi: '吗', meaning: 'question particle', audioFile: 'ma5.wav' },
 ];
+
+const normalizeUiLang = (language) => {
+    const code = (language || 'en').split('-')[0].toLowerCase();
+    return code === 'ja' ? 'jp' : code;
+};
+
+const ARTICULATION_EN = {
+    b: 'Close both lips, build pressure, then release gently. This sound is unaspirated, so there should be almost no puff of air.',
+    p: 'Close both lips, build pressure, then release with a strong puff of air.',
+    m: 'Close both lips and let the voice pass through the nose.',
+    f: 'Lightly touch the upper teeth to the lower lip and let air pass through the narrow gap.',
+    d: 'Touch the tongue tip to the ridge behind the upper teeth, then release gently. This sound is unaspirated.',
+    t: 'Touch the tongue tip to the ridge behind the upper teeth, then release with a clear puff of air.',
+    n: 'Touch the tongue tip to the ridge behind the upper teeth and let air flow through the nose.',
+    l: 'Touch the tongue tip to the ridge behind the upper teeth and let air flow around the sides of the tongue.',
+    g: 'Raise the back of the tongue to the soft palate, build pressure, then release gently. This sound is unaspirated.',
+    k: 'Raise the back of the tongue to the soft palate, then release with a strong puff of air.',
+    h: 'Raise the back of the tongue close to the soft palate and let air pass through with friction.',
+    j: 'Place the tongue tip behind the lower teeth and raise the front of the tongue toward the hard palate. This sound is unaspirated.',
+    q: 'Place the tongue tip behind the lower teeth and raise the front of the tongue toward the hard palate, then release with aspiration.',
+    x: 'Place the tongue tip behind the lower teeth and let air pass over the front of the tongue with friction.',
+    zh: 'Curl the tongue tip back toward the hard palate, build pressure, then release gently. This sound is unaspirated.',
+    ch: 'Curl the tongue tip back toward the hard palate, then release with a clear puff of air.',
+    sh: 'Curl the tongue tip back and let air pass through with friction.',
+    r: 'Curl the tongue tip back and add voice with a light buzzing friction.',
+    z: 'Keep the tongue tip near the back of the lower teeth, build pressure, then release gently. This sound is unaspirated.',
+    c: 'Keep the tongue tip near the back of the lower teeth, then release with a strong puff of air.',
+    s: 'Keep the tongue tip near the back of the lower teeth and let air pass through with friction.',
+    a: 'Open the mouth wide. Keep the tongue low and flat.',
+    ai: 'Start with an open a sound, then glide toward i.',
+    an: 'Start with a, then end with the tongue tip touching the ridge behind the upper teeth while air flows through the nose.',
+    ang: 'Start with a, then finish with the back of the tongue raised for a back nasal ending.',
+    ao: 'Start with a, then glide toward a rounded o sound.',
+    o: 'Round the lips and keep the mouth slightly open.',
+    ou: 'Start with rounded o, then glide toward u.',
+    ong: 'Round the lips and finish with a back nasal ending.',
+    e: 'Use a mid-back vowel: pull the tongue slightly back and keep the mouth half open.',
+    ei: 'Start with e, then glide toward i.',
+    en: 'Start with e, then end with the tongue tip touching the ridge behind the upper teeth while air flows through the nose.',
+    eng: 'Start with e, then finish with a back nasal ending.',
+    er: 'Start with e and curl the tongue slightly back.',
+    i: 'Keep the tongue high and the lips spread.',
+    ie: 'Start with i, then glide toward e.',
+    in: 'Start with i, then end with a front nasal n.',
+    ing: 'Start with i, then finish with a back nasal ng.',
+    iu: 'Start with i, then glide toward ou.',
+    u: 'Round the lips and push them forward; keep the tongue high and back.',
+    ui: 'Start with u, then glide toward ei.',
+    un: 'Start with u, then glide into en.',
+    uo: 'Start with u, then glide toward o.',
+    'ü': 'Round the lips as for u, but keep the tongue high and forward as for i.',
+    'üe': 'Start with ü, then glide toward e.',
+    'ün': 'Start with ü, then end with a front nasal n.',
+    'üan': 'Start with ü, then glide into an.',
+    ia: 'Start with i, then glide toward a.',
+    ian: 'Start with i, then glide into an.',
+    iang: 'Start with i, then glide into ang.',
+    iao: 'Start with i, then glide into ao.',
+    ua: 'Start with u, then glide toward a.',
+    uai: 'Start with u, then glide into ai.',
+    uan: 'Start with u, then glide into an.',
+    uang: 'Start with u, then glide into ang.',
+};
+
+const GUIDE_TRANSLATIONS = {
+    zh: (s) => `发 ${s} 时，请按上方发音动作练习：注意舌位、嘴唇形状、鼻音收尾，以及是否送气。`,
+    jp: (s) => `${s} は、舌の位置・唇の形・鼻音の終わり方・息の強さに注意して発音します。`,
+    fr: (s) => `Pour ${s}, concentrez-vous sur la position de la langue, la forme des lèvres, la finale nasale et l'aspiration.`,
+    de: (s) => `Achte bei ${s} auf Zungenposition, Lippenform, nasalen Ausklang und Behauchung.`,
+    ko: (s) => `${s}는 혀 위치, 입술 모양, 비음 끝소리, 그리고 숨의 세기를 기준으로 연습하세요.`,
+    es: (s) => `Para ${s}, fíjate en la posición de la lengua, la forma de los labios, el final nasal y la aspiración.`,
+    vi: (s) => `Với ${s}, hãy chú ý vị trí lưỡi, hình dạng môi, âm mũi ở cuối và luồng hơi bật ra.`,
+    pt: (s) => `Para ${s}, observe a posição da língua, o formato dos lábios, o final nasal e a aspiração.`,
+    ar: (s) => `عند نطق ${s}، ركّز على موضع اللسان، شكل الشفتين، النهاية الأنفية، وقوة الهواء.`,
+    th: (s) => `สำหรับ ${s} ให้สังเกตตำแหน่งลิ้น รูปปาก เสียงนาสิกท้ายเสียง และแรงลม`,
+    ru: (s) => `Для ${s} следите за положением языка, формой губ, носовым окончанием и придыханием.`,
+    id: (s) => `Untuk ${s}, perhatikan posisi lidah, bentuk bibir, akhir nasal, dan hembusan udara.`,
+    ms: (s) => `Untuk ${s}, perhatikan kedudukan lidah, bentuk bibir, akhiran nasal dan hembusan udara.`,
+    it: (s) => `Per ${s}, osserva posizione della lingua, forma delle labbra, finale nasale e aspirazione.`,
+};
+
+const NATIVE_HINTS = {
+    b: {
+        en: 'Similar to "b" in "boy", but with almost no puff of air.',
+        fr: 'Plus proche du p français de "papa" que du b français : les lèvres se ferment, sans souffle net.',
+        de: 'Eher wie ein unbehauchtes p als ein deutsches b: Lippen schließen, kaum Luftstoß.',
+        es: 'Más cercano a una p española suave que a b/v: cierra los labios y suelta sin soplo fuerte.',
+        pt: 'Mais próximo de um p sem sopro forte do que de b/v: feche os lábios e solte suavemente.',
+        it: 'Più vicino a una p italiana senza soffio forte che a b: labbra chiuse, rilascio morbido.',
+        ru: 'Ближе к русскому п без сильного выдоха, а не к звонкому б.',
+    },
+    p: {
+        en: 'Similar to "p" in "poke", with strong aspiration.',
+        fr: 'Comme p dans "papa", mais avec un souffle beaucoup plus net après le p.',
+        de: 'Wie p in "Park", aber der Luftstoß muss deutlich spürbar sein.',
+        es: 'Como p, pero con una bocanada de aire mucho más clara que en español.',
+        pt: 'Como p, mas com uma saída de ar bem mais forte que em português.',
+        it: 'Come p, ma con un soffio d’aria più forte che in italiano.',
+        ru: 'Как п, но с заметным придыханием после смычки.',
+    },
+    m: {
+        en: 'Same basic sound as "m" in "mother".',
+        jp: '日本語の「ま」の m にかなり近い音です。',
+        fr: 'Comme m dans "maman".',
+        de: 'Wie m in "Mama".',
+        ko: '한국어 ㅁ과 거의 같습니다.',
+        es: 'Como m en "mamá".',
+        vi: 'Gần như m trong tiếng Việt.',
+        pt: 'Como m em "mamãe".',
+        ar: 'قريب من صوت م العربي.',
+        th: 'ใกล้กับเสียง ม ในภาษาไทย',
+        ru: 'Как м в русском.',
+        id: 'Seperti m dalam bahasa Indonesia.',
+        ms: 'Seperti m dalam bahasa Melayu.',
+        it: 'Come m in "mamma".',
+    },
+    f: {
+        en: 'Same basic sound as "f" in "father".',
+        fr: 'Comme f dans "famille".',
+        de: 'Wie f in "Familie".',
+        ko: '한국어에는 완전히 같은 기본 자음은 드뭅니다. 윗니와 아랫입술 사이로 바람을 내세요.',
+        es: 'Como f en "familia".',
+        vi: 'Gần với f/ph trong các cách đọc có ma sát môi-răng.',
+        pt: 'Como f em "família".',
+        ar: 'قريب من صوت ف العربي.',
+        th: 'ใกล้กับเสียง ฟ',
+        ru: 'Как ф в русском.',
+        id: 'Seperti f dalam bahasa Indonesia.',
+        ms: 'Seperti f dalam bahasa Melayu.',
+        it: 'Come f in "famiglia".',
+    },
+    d: {
+        en: 'Similar to "d" in "dog", but with almost no puff of air.',
+        fr: 'Plus proche du t français de "tout" sans souffle que du d français.',
+        de: 'Eher wie ein unbehauchtes t als ein deutsches d: Zungenspitze vorne, kaum Luftstoß.',
+        es: 'Más cercano a una t española suave que a d: sin soplo fuerte.',
+        pt: 'Mais próximo de t sem sopro forte do que de d.',
+        it: 'Più vicino a una t italiana senza soffio forte che a d.',
+        ru: 'Ближе к русскому т без сильного выдоха, а не к звонкому д.',
+    },
+    t: {
+        en: 'Similar to "t" in "top", with clear aspiration.',
+        fr: 'Comme t, mais avec un souffle beaucoup plus clair qu’en français.',
+        de: 'Wie t in "Tag", mit deutlich spürbarem Luftstoß.',
+        es: 'Como t, pero con mucho más aire que en español.',
+        pt: 'Como t, mas com uma saída de ar mais forte que em português.',
+        it: 'Come t, ma con un soffio più evidente che in italiano.',
+        ru: 'Как т, но с заметным придыханием.',
+    },
+    n: {
+        en: 'Same basic sound as "n" in "name".',
+        jp: '日本語の「な」の n に近いですが、舌先を前にしっかり置きます。',
+        fr: 'Comme n dans "non".',
+        de: 'Wie n in "Name".',
+        ko: '한국어 ㄴ과 거의 같습니다.',
+        es: 'Como n en "no".',
+        vi: 'Gần như n trong tiếng Việt.',
+        pt: 'Como n em "não", mas sem nasalizar a vogal inteira.',
+        ar: 'قريب من صوت ن العربي.',
+        th: 'ใกล้กับเสียง น',
+        ru: 'Как н в русском.',
+        id: 'Seperti n dalam bahasa Indonesia.',
+        ms: 'Seperti n dalam bahasa Melayu.',
+        it: 'Come n in "no".',
+    },
+    l: {
+        en: 'Same basic sound as "l" in "love".',
+        jp: '日本語のラ行より舌先を前に置き、英語の l に近く出します。',
+        fr: 'Comme l dans "lire".',
+        de: 'Wie l in "Liebe".',
+        ko: '한국어 ㄹ보다 더 분명한 l 소리에 가깝습니다.',
+        es: 'Como l en "luna".',
+        vi: 'Gần như l trong tiếng Việt.',
+        pt: 'Como l em "lua".',
+        ar: 'قريب من صوت ل العربي.',
+        th: 'ใกล้กับเสียง ล',
+        ru: 'Как л, но обычно светлее и переднее.',
+        id: 'Seperti l dalam bahasa Indonesia.',
+        ms: 'Seperti l dalam bahasa Melayu.',
+        it: 'Come l in "luna".',
+    },
+    g: {
+        en: 'Similar to "g" in "go", but unaspirated.',
+        fr: 'Plus proche du k français de "kiwi" sans souffle que du g français.',
+        de: 'Eher wie ein unbehauchtes k als ein deutsches g: hinten am Gaumen, kaum Luftstoß.',
+        es: 'Más cercano a una k española suave que a g: sin soplo fuerte.',
+        pt: 'Mais próximo de k sem sopro forte do que de g.',
+        it: 'Più vicino a una c/k italiana senza soffio forte che a g.',
+        ru: 'Ближе к русскому к без сильного выдоха, а не к звонкому г.',
+    },
+    k: {
+        en: 'Similar to "k" in "key", with strong aspiration.',
+        fr: 'Comme k dans "kilo", mais avec un souffle plus net.',
+        de: 'Ähnlich wie k in "Kilo", mit deutlicher Behauchung.',
+        es: 'Como k/c fuerte, pero con más aire que en español.',
+        pt: 'Como c/k forte, mas com mais ar que em português.',
+        it: 'Come c/k duro, ma con un soffio più chiaro che in italiano.',
+        ru: 'Как к, но с заметным придыханием.',
+    },
+    h: {
+        en: 'Similar to "h" in "hot", but rougher.',
+        jp: '日本語の「は」より喉の奥でこすれる音です。',
+        fr: 'Pas le h muet français : faites une friction au fond de la bouche, proche d’un j espagnol léger.',
+        de: 'Etwas wie ch in "Bach", aber leichter.',
+        es: 'Parecido a j en "jamón", pero más ligero.',
+        pt: 'Lembra o r forte de alguns sotaques do português, mas mais leve.',
+        ru: 'Похоже на х, но мягче и менее напряжённо.',
+    },
+    j: {
+        en: 'A bit like "j" in "jeep", but keep the tongue tip behind the lower teeth.',
+        jp: '日本語の「じ」に少し近いですが、舌先は下の歯の裏に置きます。',
+        ko: '한국어 ㅈ과 비슷하지만 혀끝은 아랫니 뒤에 두고 더 앞쪽에서 냅니다.',
+        ru: 'Отдалённо похоже на мягкое дзь/джь, но язык держите за нижними зубами.',
+    },
+    q: {
+        en: 'A bit like "ch" in "cheap", but more fronted and aspirated.',
+        jp: '日本語の「ち」に少し近いですが、もっと前で、息を強く出します。',
+        ko: '한국어 ㅊ과 비슷하지만 혀끝은 아랫니 뒤에 두고 더 앞쪽에서 냅니다.',
+        ru: 'Отдалённо похоже на мягкое ч, но с более передним положением языка и придыханием.',
+    },
+    x: {
+        en: 'A bit like "sh" in "sheep", but more fronted.',
+        jp: '日本語の「し」に近いですが、舌先は下の歯の裏、音はさらに前寄りです。',
+        ko: '한국어 ㅅ/시와 비슷하게 들릴 수 있지만 혀끝은 아랫니 뒤에 둡니다.',
+        ru: 'Отдалённо похоже на мягкое сь/щ, но язык должен быть за нижними зубами.',
+    },
+    zh: {
+        en: 'A bit like "j" in "jar", but with the tongue curled back.',
+        ru: 'Похоже на твёрдое дж/чж, но кончик языка загнут назад.',
+    },
+    ch: {
+        en: 'A bit like "ch" in "chair", but with the tongue curled back and a clear puff of air.',
+        ru: 'Похоже на ч, но кончик языка загнут назад и есть придыхание.',
+    },
+    sh: {
+        en: 'Similar to "sh" in "shoe", but curl the tongue tip farther back.',
+        fr: 'Proche de ch dans "chat", mais avec la pointe de la langue plus recourbée vers l’arrière.',
+        de: 'Ähnlich wie sch in "Schule", aber die Zungenspitze ist weiter zurückgebogen.',
+        es: 'Parecido a sh, pero con la punta de la lengua más hacia atrás.',
+        pt: 'Parecido com x/ch de alguns sotaques, mas com a ponta da língua mais para trás.',
+        ru: 'Очень близко к русскому ш: широкий, твёрдый звук с языком назад.',
+    },
+    r: {
+        en: 'No direct English equivalent. Curl the tongue back and add a light buzz.',
+        fr: 'Ce n’est pas le r français : la pointe de la langue se recourbe vers l’arrière avec une légère vibration/friction.',
+        de: 'Nicht wie deutsches r: Zungenspitze zurückrollen und leicht stimmhaft reiben.',
+        es: 'No es la r española: curva la punta de la lengua hacia atrás y añade una fricción sonora ligera.',
+        ru: 'Не русский р: язык загнут назад, без дрожания, с лёгкой звонкой фрикцией.',
+    },
+    z: {
+        en: 'Similar to "ds" in "beds", but unaspirated.',
+        de: 'Etwa wie deutsches z in "Zeit", aber ohne starken Luftstoß.',
+        ru: 'Похоже на ц, но без заметного придыхания.',
+    },
+    c: {
+        en: 'Similar to "ts" in "cats", with strong aspiration.',
+        de: 'Wie deutsches z in "Zeit", aber mit stärkerem Luftstoß.',
+        ru: 'Похоже на ц, но с заметным придыханием.',
+    },
+    s: {
+        en: 'Same basic sound as "s" in "sun".',
+        jp: '日本語の「す」の s に近いですが、舌先は下の歯の近くです。',
+        fr: 'Comme s dans "soleil".',
+        de: 'Wie stimmloses s/ß, zum Beispiel in "Straße".',
+        ko: '한국어 ㅅ과 비슷하지만 혀끝은 아랫니 가까이에 둡니다.',
+        es: 'Como s en "sol".',
+        vi: 'Gần với s trong tiếng Việt chuẩn, đặt đầu lưỡi gần răng dưới.',
+        pt: 'Como s em "sol".',
+        ar: 'قريب من صوت س العربي.',
+        th: 'ใกล้กับเสียง ส/ซ',
+        ru: 'Как с в русском.',
+        id: 'Seperti s dalam bahasa Indonesia.',
+        ms: 'Seperti s dalam bahasa Melayu.',
+        it: 'Come s sorda in "sole".',
+    },
+    a: {
+        en: 'Similar to "a" in "father".',
+        jp: '日本語の「あ」に近く、口をしっかり開けます。',
+        fr: 'Proche du a dans "papa".',
+        de: 'Ähnlich wie a in "Vater".',
+        ko: '한국어 ㅏ와 가깝습니다.',
+        es: 'Como a en "casa".',
+        vi: 'Gần với a trong tiếng Việt.',
+        pt: 'Como a aberto em "casa".',
+        ru: 'Как а в русском.',
+        id: 'Seperti a dalam bahasa Indonesia.',
+        ms: 'Seperti a dalam bahasa Melayu.',
+        it: 'Come a in "casa".',
+    },
+    ai: {
+        en: 'Similar to "eye": start with a, then glide to i.',
+        de: 'Ähnlich wie ei in "mein".',
+        es: 'Parecido a ai/ay, con deslizamiento claro de a a i.',
+        pt: 'Parecido com ai, deslizando de a para i.',
+        it: 'Come ai, passando da a a i.',
+    },
+    an: {
+        en: 'Similar to "an" in "ban", with a clear final n.',
+        fr: 'Contrairement au français "an", gardez un vrai n final avec la langue.',
+        pt: 'Não nasalize apenas a vogal: termine com n claro.',
+    },
+    ang: {
+        en: 'Similar to "ong" in "gong", but start from a.',
+        de: 'Wie ein a mit ng-Auslaut, ähnlich dem Ende von "lang".',
+        ru: 'Начинается с а и заканчивается задним носовым нг.',
+    },
+    o: {
+        en: 'Round the lips, somewhat like British "or" without r.',
+        fr: 'Proche de o ouvert/arrondi, mais sans r final.',
+        de: 'Gerundete Lippen, ähnlich offenem o.',
+        es: 'Como o, con labios redondeados.',
+        pt: 'Como o, com lábios arredondados.',
+        it: 'Come o, con labbra arrotondate.',
+    },
+    ou: {
+        en: 'Similar to "oh": start with o, then glide to u.',
+        fr: 'Commencez par o, puis glissez vers ou.',
+        de: 'Beginne mit o und gleite zu u.',
+        es: 'Empieza con o y desliza hacia u.',
+        pt: 'Comece com o e deslize para u.',
+        it: 'Inizia con o e scivola verso u.',
+    },
+    e: {
+        en: 'No exact English equivalent: a mid-back vowel, deeper than schwa.',
+        fr: 'Pas exactement le e français : reculez un peu la langue et ouvrez à moitié la bouche.',
+        de: 'Nicht wie deutsches e: die Zunge liegt weiter hinten, der Mund ist halb offen.',
+        es: 'No es la e española: la lengua va más atrás y la boca queda medio abierta.',
+        ru: 'Не совсем русское э: язык немного оттянут назад, рот полуоткрыт.',
+    },
+    ei: {
+        en: 'Similar to "ay" in "say".',
+        de: 'Ähnlich wie ey/ay, aber mit chinesischem e als Start.',
+        es: 'Empieza con e y desliza hacia i.',
+        pt: 'Comece com e e deslize para i.',
+        it: 'Inizia con e e scivola verso i.',
+    },
+    en: {
+        en: 'Similar to "un" in "fun", with a clear final n.',
+        fr: 'Gardez un vrai n final ; ne nasalisez pas seulement la voyelle comme en français.',
+        pt: 'Termine com n claro; não deixe só a vogal nasal.',
+    },
+    eng: {
+        en: 'Similar to the ending of "length", with a back nasal ng.',
+        de: 'Mit ng-Auslaut wie am Ende von "lang".',
+        ru: 'Заканчивается задним носовым нг, не обычным н.',
+    },
+    er: {
+        en: 'Somewhat like British "er", but with a clearer curled tongue.',
+        fr: 'Pas comme le r français : commencez par e, puis recourbez légèrement la langue.',
+        de: 'Nicht wie deutsches er: beginne mit e und rolle die Zunge leicht zurück.',
+        ru: 'Начните с э и слегка загните язык назад; это не раскатистое р.',
+    },
+    i: {
+        en: 'Similar to "ee" in "see".',
+        jp: '日本語の「い」に近いですが、口は横に保ちます。',
+        fr: 'Comme i dans "si".',
+        de: 'Wie i in "Liebe".',
+        ko: '한국어 ㅣ와 가깝습니다.',
+        es: 'Como i en "sí".',
+        vi: 'Gần với i/y trong tiếng Việt.',
+        pt: 'Como i em "sim".',
+        ru: 'Как и, но губы не округляйте.',
+        id: 'Seperti i dalam bahasa Indonesia.',
+        ms: 'Seperti i dalam bahasa Melayu.',
+        it: 'Come i in "sì".',
+    },
+    ie: {
+        en: 'Similar to "yeah": start with i, then open to e.',
+        fr: 'Commencez par i, puis ouvrez vers é/è.',
+        de: 'Beginne mit i und öffne zu e.',
+        es: 'Parecido a ie: empieza con i y abre hacia e.',
+        it: 'Simile a ie: inizia con i e apri verso e.',
+    },
+    in: {
+        en: 'Start with i, then end with a clear n.',
+        fr: 'Ne le nasalisez pas comme le français "in" : gardez un vrai n final.',
+        pt: 'Termine com n claro; não nasalize apenas a vogal.',
+    },
+    ing: {
+        en: 'Similar to "ing" in "sing".',
+        de: 'Mit ng-Auslaut wie in "Ding".',
+        ru: 'Заканчивается задним носовым нг, не обычным н.',
+    },
+    u: {
+        en: 'Similar to "oo" in "food".',
+        jp: '日本語の「う」より唇をもっと丸めて前に出します。',
+        fr: 'Proche de ou dans "vous".',
+        de: 'Wie u in "gut", mit gerundeten Lippen.',
+        ko: '한국어 ㅜ와 가깝습니다.',
+        es: 'Como u en "tú", con labios redondeados.',
+        vi: 'Gần với u trong tiếng Việt, môi tròn rõ.',
+        pt: 'Como u em "tu", com lábios arredondados.',
+        ru: 'Как у, с округлёнными губами.',
+        id: 'Seperti u dalam bahasa Indonesia, dengan bibir bulat.',
+        ms: 'Seperti u dalam bahasa Melayu, dengan bibir bulat.',
+        it: 'Come u in "tu", con labbra arrotondate.',
+    },
+    ui: {
+        en: 'Start with u, then glide toward ei; it often sounds like "way".',
+        de: 'Beginne mit u und gleite zu ei.',
+        es: 'Empieza con u y desliza hacia ei.',
+        pt: 'Comece com u e deslize para ei.',
+        it: 'Inizia con u e scivola verso ei.',
+    },
+    uo: {
+        en: 'Start with u, then glide toward o.',
+        fr: 'Commencez par ou, puis ouvrez vers o.',
+        de: 'Beginne mit u und gleite zu o.',
+        es: 'Empieza con u y desliza hacia o.',
+        pt: 'Comece com u e deslize para o.',
+        it: 'Inizia con u e scivola verso o.',
+    },
+    'ü': {
+        en: 'No exact English equivalent: round your lips for "oo" while saying "ee".',
+        fr: 'Très proche du u français dans "lune".',
+        de: 'Sehr nah am deutschen ü in "Tür".',
+        ko: '한국어 ㅟ와 비슷하지만 한 음절 안에서 더 안정적으로 유지하세요.',
+        ru: 'Сделайте губы как для у, но язык держите как для и.',
+    },
+    'üe': {
+        en: 'Start with ü, then open toward e.',
+        fr: 'Commencez par le u de "lune", puis ouvrez vers é.',
+        de: 'Beginne mit deutschem ü, dann öffne zu e.',
+        ko: 'ㅟ에서 시작해 ㅔ 쪽으로 여는 느낌입니다.',
+    },
+    'ün': {
+        en: 'Start with ü, then end with n.',
+        fr: 'Commencez par u comme dans "lune", puis terminez par n.',
+        de: 'Beginne mit ü und ende mit n.',
+        ko: 'ㅟ에 가깝게 시작한 뒤 ㄴ 받침처럼 마무리합니다.',
+    },
+    'üan': {
+        en: 'Start with ü, then glide into an.',
+        fr: 'Commencez par u comme dans "lune", puis glissez vers an avec un vrai n final.',
+        de: 'Beginne mit ü und gleite zu an mit klarem n.',
+    },
+};
+
+const MEANING_TRANSLATIONS = {
+    tall: { zh: '高的', jp: '高い', fr: 'grand', de: 'groß', ko: '키가 큰', es: 'alto', vi: 'cao', pt: 'alto', ar: 'طويل', th: 'สูง', ru: 'высокий', id: 'tinggi', ms: 'tinggi', it: 'alto' },
+    'older brother': { zh: '哥哥', jp: '兄', fr: 'grand frère', de: 'älterer Bruder', ko: '형/오빠', es: 'hermano mayor', vi: 'anh trai', pt: 'irmão mais velho', ar: 'الأخ الأكبر', th: 'พี่ชาย', ru: 'старший брат', id: 'kakak laki-laki', ms: 'abang', it: 'fratello maggiore' },
+    good: { zh: '好', jp: '良い', fr: 'bon', de: 'gut', ko: '좋은', es: 'bueno', vi: 'tốt', pt: 'bom', ar: 'جيد', th: 'ดี', ru: 'хороший', id: 'baik', ms: 'baik', it: 'buono' },
+    'to drink': { zh: '喝', jp: '飲む', fr: 'boire', de: 'trinken', ko: '마시다', es: 'beber', vi: 'uống', pt: 'beber', ar: 'يشرب', th: 'ดื่ม', ru: 'пить', id: 'minum', ms: 'minum', it: 'bere' },
+    'to see': { zh: '看', jp: '見る', fr: 'voir', de: 'sehen', ko: '보다', es: 'ver', vi: 'xem', pt: 'ver', ar: 'يرى', th: 'ดู', ru: 'видеть', id: 'melihat', ms: 'melihat', it: 'vedere' },
+    'can / may': { zh: '可以', jp: 'できる', fr: 'pouvoir', de: 'können', ko: '할 수 있다', es: 'poder', vi: 'có thể', pt: 'poder', ar: 'يمكن', th: 'สามารถ', ru: 'мочь', id: 'bisa', ms: 'boleh', it: 'potere' },
+    mom: { zh: '妈妈', jp: '母', fr: 'maman', de: 'Mama', ko: '엄마', es: 'mamá', vi: 'mẹ', pt: 'mãe', ar: 'أم', th: 'แม่', ru: 'мама', id: 'ibu', ms: 'ibu', it: 'mamma' },
+    dad: { zh: '爸爸', jp: '父', fr: 'papa', de: 'Papa', ko: '아빠', es: 'papá', vi: 'bố', pt: 'pai', ar: 'أب', th: 'พ่อ', ru: 'папа', id: 'ayah', ms: 'ayah', it: 'papà' },
+    pen: { zh: '笔', jp: 'ペン', fr: 'stylo', de: 'Stift', ko: '펜', es: 'bolígrafo', vi: 'bút', pt: 'caneta', ar: 'قلم', th: 'ปากกา', ru: 'ручка', id: 'pena', ms: 'pen', it: 'penna' },
+    'to climb': { zh: '爬', jp: '登る', fr: 'grimper', de: 'klettern', ko: '오르다', es: 'trepar', vi: 'leo', pt: 'subir', ar: 'يتسلق', th: 'ปีน', ru: 'лезть', id: 'memanjat', ms: 'memanjat', it: 'arrampicarsi' },
+    'to criticise': { zh: '批评', jp: '批判する', fr: 'critiquer', de: 'kritisieren', ko: '비판하다', es: 'criticar', vi: 'phê bình', pt: 'criticar', ar: 'ينتقد', th: 'วิจารณ์', ru: 'критиковать', id: 'mengkritik', ms: 'mengkritik', it: 'criticare' },
+};
+
+const getArticulationText = (symbol, lang) => {
+    if (lang === 'en') return ARTICULATION_EN[symbol] || '';
+    return GUIDE_TRANSLATIONS[lang]?.(symbol) || ARTICULATION_EN[symbol] || '';
+};
+
+const getNativeHint = (symbol, lang) => NATIVE_HINTS[symbol]?.[lang] || '';
+
+const localizedMeaning = (meaning, lang) => MEANING_TRANSLATIONS[meaning]?.[lang] || meaning;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DETAIL PAGES — one per initial group
@@ -507,9 +969,9 @@ function SoundButton({ label, audioFile }) {
     return (
         <button
             onClick={() => playPinyinAudio(audioFile)}
-            className="px-4 py-2.5 border border-slate-200 rounded-xl text-base font-mono font-semibold text-slate-700
+            className="px-4 py-2.5 border border-slate-200 rounded-xl text-lg font-mono font-semibold text-slate-700
                        hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 active:scale-95
-                       transition-all min-w-[52px] text-center"
+                       transition-all min-w-[56px] text-center"
         >
             {label}
         </button>
@@ -519,28 +981,30 @@ function SoundButton({ label, audioFile }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // INTRO PAGE
 // ─────────────────────────────────────────────────────────────────────────────
-function IntroPage({ onGroupClick }) {
+function IntroPage({ onGroupClick, ui }) {
+    const tableHeaders = ['', ui.initial, ui.final, ui.tone, ui.syllable, ''];
+
     return (
         <div className="space-y-10">
             {/* Character breakdown examples */}
             <section>
-                <h2 className="text-3xl font-black text-slate-900 mb-2">Introduction</h2>
-                <p className="text-slate-500 text-base mb-6">
-                    Chinese syllables have three parts: an <strong>initial</strong>, a <strong>final</strong>, and a <strong>tone</strong>.
+                <h2 className="text-3xl font-black text-slate-900 mb-2">{ui.introTitle}</h2>
+                <p className="text-slate-500 text-lg mb-6 leading-relaxed">
+                    {ui.introDesc}
                 </p>
                 <div className="rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
                     <div className="grid grid-cols-[3rem_1fr_1fr_1fr_1fr_2.5rem] gap-x-4 px-6 py-3 bg-slate-50 border-b border-slate-100">
-                        {['', 'Initial', 'Final', 'Tone', 'Syllable', ''].map((h, i) => (
-                            <span key={i} className="text-xs font-bold text-slate-400 uppercase tracking-wide">{h}</span>
+                        {tableHeaders.map((h, i) => (
+                            <span key={i} className="text-sm font-bold text-slate-400 uppercase tracking-wide">{h}</span>
                         ))}
                     </div>
                     {INTRO_EXAMPLES.map((ex) => (
                         <div key={ex.hanzi} className="grid grid-cols-[3rem_1fr_1fr_1fr_1fr_2.5rem] gap-x-4 items-center px-6 py-4 border-b last:border-0 border-slate-50 hover:bg-slate-50/50">
                             <span className="text-3xl font-bold text-slate-800">{ex.hanzi}</span>
-                            <span className="font-mono text-lg text-slate-600">{ex.initial}</span>
-                            <span className="font-mono text-lg text-slate-600">{ex.final}</span>
+                            <span className="font-mono text-xl text-slate-600">{ex.initial}</span>
+                            <span className="font-mono text-xl text-slate-600">{ex.final}</span>
                             <span className="font-mono text-slate-500 text-3xl">{ex.toneMark}</span>
-                            <span className="font-mono text-lg font-semibold text-blue-600">{ex.syllable}</span>
+                            <span className="font-mono text-xl font-semibold text-blue-600">{ex.syllable}</span>
                             <AudioButton audioFile={ex.audioFile} />
                         </div>
                     ))}
@@ -550,8 +1014,8 @@ function IntroPage({ onGroupClick }) {
             {/* Initials + Finals side by side */}
             <div className="grid grid-cols-2 gap-x-10">
                 <section>
-                    <h2 className="text-2xl font-black text-slate-900 mb-2">Initials</h2>
-                    <p className="text-sm text-slate-400 mb-4 flex items-center gap-1"><Volume2 size={14} /> Tap to listen · click group to explore</p>
+                    <h2 className="text-2xl font-black text-slate-900 mb-2">{ui.initials}</h2>
+                    <p className="text-base text-slate-400 mb-4 flex items-center gap-1.5"><Volume2 size={16} /> {ui.exploreHint}</p>
                     <div className="space-y-2">
                         {INITIALS_GROUPS.map((row, ri) => {
                             const pageId = ALL_PAGES.find(p => p.sounds.some(s => s.symbol === row[0]))?.id;
@@ -561,8 +1025,8 @@ function IntroPage({ onGroupClick }) {
                                         {row.map(sym => <SoundButton key={sym} label={sym} audioFile={INITIAL_AUDIO[sym]} />)}
                                     </div>
                                     {pageId && (
-                                        <button onClick={() => onGroupClick(pageId)} className="shrink-0 flex items-center gap-0.5 text-xs font-semibold text-slate-400 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-200 transition-all">
-                                            Detail <ChevronRight size={12} />
+                                        <button onClick={() => onGroupClick(pageId)} className="shrink-0 flex items-center gap-0.5 text-sm font-semibold text-slate-400 hover:text-blue-600 hover:bg-blue-50 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-blue-200 transition-all">
+                                            {ui.detail} <ChevronRight size={14} />
                                         </button>
                                     )}
                                 </div>
@@ -572,8 +1036,8 @@ function IntroPage({ onGroupClick }) {
                 </section>
 
                 <section>
-                    <h2 className="text-2xl font-black text-slate-900 mb-2">Finals</h2>
-                    <p className="text-sm text-slate-400 mb-4 flex items-center gap-1"><Volume2 size={14} /> Tap to listen · click group to explore</p>
+                    <h2 className="text-2xl font-black text-slate-900 mb-2">{ui.finals}</h2>
+                    <p className="text-base text-slate-400 mb-4 flex items-center gap-1.5"><Volume2 size={16} /> {ui.exploreHint}</p>
                     <div className="space-y-2">
                         {FINALS_GROUPS.map((row, ri) => {
                             const pageId = ALL_PAGES.find(p => p.sounds.some(s => s.symbol === row[0]))?.id;
@@ -583,8 +1047,8 @@ function IntroPage({ onGroupClick }) {
                                         {row.map(sym => <SoundButton key={sym} label={sym} audioFile={FINAL_AUDIO[sym]} />)}
                                     </div>
                                     {pageId && (
-                                        <button onClick={() => onGroupClick(pageId)} className="shrink-0 flex items-center gap-0.5 text-xs font-semibold text-slate-400 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-200 transition-all">
-                                            Detail <ChevronRight size={12} />
+                                        <button onClick={() => onGroupClick(pageId)} className="shrink-0 flex items-center gap-0.5 text-sm font-semibold text-slate-400 hover:text-blue-600 hover:bg-blue-50 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-blue-200 transition-all">
+                                            {ui.detail} <ChevronRight size={14} />
                                         </button>
                                     )}
                                 </div>
@@ -596,32 +1060,32 @@ function IntroPage({ onGroupClick }) {
 
             {/* Tones */}
             <section>
-                <h2 className="text-2xl font-black text-slate-900 mb-2">Tones</h2>
-                <p className="text-slate-500 text-sm mb-4">
-                    Chinese is a tonal language — the same syllable in different tones means completely different things.
+                <h2 className="text-2xl font-black text-slate-900 mb-2">{ui.tonesTitle}</h2>
+                <p className="text-slate-500 text-base mb-4 leading-relaxed">
+                    {ui.tonesDesc}
                 </p>
                 <div className="space-y-3">
-                    {TONES.map((t) => (
+                    {TONES.map((t, index) => (
                         <div key={t.number} className="flex items-center gap-5 bg-white rounded-2xl border border-slate-100 shadow-sm px-5 py-4 hover:border-blue-100 transition-colors">
                             <div className="w-10 shrink-0 text-center">
                                 <span className="text-5xl font-bold text-blue-500 leading-none select-none">{t.mark}</span>
                             </div>
                             <div className="flex items-center gap-3 w-28 shrink-0">
                                 <span className="text-4xl font-bold text-slate-800 leading-none">{t.hanzi}</span>
-                                <span className="font-mono text-lg font-semibold text-blue-600">{t.pinyin}</span>
+                                <span className="font-mono text-xl font-semibold text-blue-600">{t.pinyin}</span>
                             </div>
                             <AudioButton audioFile={t.audioFile} />
                             <div className="flex-1 min-w-0">
-                                <div className="text-sm font-semibold text-slate-600">{t.nameEn}</div>
-                                <div className="text-sm text-slate-400">{t.meaning}</div>
+                                <div className="text-base font-semibold text-slate-600">{ui.toneNames[index] || t.nameEn}</div>
+                                <div className="text-base text-slate-400">{ui.toneMeanings[index] || t.meaning}</div>
                             </div>
                             <div className="shrink-0 w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center">
-                                <span className="text-xs font-bold text-slate-400">{t.number}</span>
+                                <span className="text-sm font-bold text-slate-400">{t.number}</span>
                             </div>
                         </div>
                     ))}
                 </div>
-                <p className="text-xs text-slate-400 mt-3">The neutral tone (5) is short and unstressed — the tone mark is usually omitted in writing.</p>
+                <p className="text-sm text-slate-400 mt-3">{ui.neutralNote}</p>
             </section>
         </div>
     );
@@ -630,28 +1094,31 @@ function IntroPage({ onGroupClick }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // DETAIL PAGE (one per initial group)
 // ─────────────────────────────────────────────────────────────────────────────
-function DetailSection({ page, onBackToTop }) {
+function DetailSection({ page, onBackToTop, lang, ui }) {
     return (
         <div className="space-y-6">
             <div className="flex items-start justify-between">
                 <div>
                     <h2 className="text-3xl font-black text-slate-900 font-mono tracking-widest mb-1">{page.title}</h2>
-                    <p className="text-slate-500">{page.subtitle}</p>
+                    <p className="text-lg text-slate-500">{page.subtitle}</p>
                 </div>
-                <button onClick={onBackToTop} className="mt-1 shrink-0 text-xs text-slate-400 hover:text-blue-500 flex items-center gap-1 transition-colors">
-                    <ChevronLeft size={12} /> Overview
+                <button onClick={onBackToTop} className="mt-1 shrink-0 text-sm text-slate-400 hover:text-blue-500 flex items-center gap-1 transition-colors">
+                    <ChevronLeft size={14} /> {ui.overview}
                 </button>
             </div>
 
             {page.note && (
                 <div className="flex gap-3 bg-blue-50 border border-blue-100 rounded-2xl px-5 py-4">
                     <span className="text-blue-400 text-lg leading-snug shrink-0">ℹ</span>
-                    <p className="text-sm text-blue-700 leading-relaxed">{page.note}</p>
+                    <p className="text-base text-blue-700 leading-relaxed">{page.note}</p>
                 </div>
             )}
 
             <div className="space-y-6">
-                {page.sounds.map((sound) => (
+                {page.sounds.map((sound) => {
+                    const articulation = getArticulationText(sound.symbol, lang) || sound.description;
+                    const nativeHint = getNativeHint(sound.symbol, lang) || (lang === 'en' ? sound.description : '');
+                    return (
                     <div key={sound.symbol} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
                         <div className="flex items-center gap-4 mb-3">
                             <button
@@ -662,10 +1129,17 @@ function DetailSection({ page, onBackToTop }) {
                             </button>
                             <div>
                                 <div className="flex items-center gap-2">
-                                    <span className="font-mono text-lg font-bold text-slate-700">{sound.audioFile.replace('.wav', '')}</span>
+                                    <span className="font-mono text-xl font-bold text-slate-700">{sound.audioFile.replace('.wav', '')}</span>
                                     <AudioButton audioFile={sound.audioFile} size="sm" />
                                 </div>
-                                <p className="text-sm text-slate-500 mt-0.5">{sound.description}</p>
+                                <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-slate-300">{ui.articulation}</p>
+                                <p className="text-base text-slate-500 mt-1.5 leading-relaxed">{articulation}</p>
+                                {nativeHint && (
+                                    <div className="mt-3 inline-flex max-w-3xl rounded-xl bg-blue-50 px-3.5 py-2.5 text-sm font-semibold leading-relaxed text-blue-700 ring-1 ring-blue-100">
+                                        <span className="mr-2 text-blue-400">{ui.nativeHint}:</span>
+                                        <span>{nativeHint}</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
                         {sound.examples?.length > 0 && (
@@ -674,20 +1148,20 @@ function DetailSection({ page, onBackToTop }) {
                                     <button
                                         key={ex.hanzi}
                                         onClick={() => ex.audioFile ? playPinyinAudio(ex.audioFile) : playTTS(ex.hanzi)}
-                                        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-100 hover:border-blue-200 transition-all group"
+                                        className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-100 hover:border-blue-200 transition-all group"
                                     >
-                                        <span className="text-xl font-bold text-slate-800">{ex.hanzi}</span>
+                                        <span className="text-2xl font-bold text-slate-800">{ex.hanzi}</span>
                                         <div className="text-left">
-                                            <div className="font-mono text-xs text-blue-500">{ex.pinyin}</div>
-                                            <div className="text-xs text-slate-400">{ex.meaning}</div>
+                                            <div className="font-mono text-sm text-blue-500">{ex.pinyin}</div>
+                                            <div className="text-sm text-slate-400">{localizedMeaning(ex.meaning, lang)}</div>
                                         </div>
-                                        <Volume2 size={12} className="text-slate-300 group-hover:text-blue-400 ml-1" />
+                                        <Volume2 size={14} className="text-slate-300 group-hover:text-blue-400 ml-1" />
                                     </button>
                                 ))}
                             </div>
                         )}
                     </div>
-                ))}
+                )})}
             </div>
         </div>
     );
@@ -700,10 +1174,9 @@ function DetailSection({ page, onBackToTop }) {
 // MAIN COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 export default function PinyinPage() {
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
-    const fromPath = location.state?.from || null;
-    const [activeSection, setActiveSection] = useState('intro');
     const introRef = useRef(null);
 
     // Scroll to a section, offset for sticky bars (navbar 64px + sticky bar ~52px)
@@ -714,41 +1187,23 @@ export default function PinyinPage() {
         window.scrollTo({ top, behavior: 'smooth' });
     }, []);
 
-    // Track active section via IntersectionObserver
-    useEffect(() => {
-        const sections = document.querySelectorAll('[data-section-id]');
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) setActiveSection(entry.target.dataset.sectionId);
-                });
-            },
-            { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
-        );
-        sections.forEach(s => observer.observe(s));
-        return () => observer.disconnect();
-    }, []);
-
-    const activePage = ALL_PAGES.find(p => p.id === activeSection);
+    const lang = normalizeUiLang(i18n.language);
+    const ui = t('pinyin_intro', { returnObjects: true });
 
     return (
         <div className="min-h-screen bg-slate-50 pt-16">
-            {/* Back to Lesson floating capsule */}
-            {fromPath && (
-                <button
-                    onClick={() => navigate(fromPath)}
-                    className="fixed bottom-6 left-6 z-50 flex items-center gap-2 rounded-full bg-white px-5 py-3 text-base font-semibold text-slate-700 shadow-lg ring-1 ring-slate-200 transition hover:bg-slate-50 hover:shadow-xl hover:ring-blue-300 active:scale-95"
-                >
-                    <ChevronLeft size={18} />
-                    <span>Back to Lesson</span>
-                </button>
-            )}
+            <IntroFloatingNav
+                currentPath="/learn/pinyin"
+                locationState={location.state}
+                navigate={navigate}
+                t={t}
+            />
 
             {/* Single scroll content */}
             <div className="max-w-4xl mx-auto px-5 py-8 space-y-20">
                 {/* Overview */}
                 <div ref={introRef} data-section-id="intro">
-                    <IntroPage onGroupClick={scrollToSection} />
+                    <IntroPage onGroupClick={scrollToSection} ui={ui} />
                 </div>
 
                 {/* All detail sections */}
@@ -759,7 +1214,7 @@ export default function PinyinPage() {
                         data-section-id={page.id}
                         className="scroll-mt-32 border-t border-slate-100 pt-12"
                     >
-                        <DetailSection page={page} onBackToTop={() => scrollToSection('intro')} />
+                        <DetailSection page={page} onBackToTop={() => scrollToSection('intro')} lang={lang} ui={ui} />
                     </div>
                 ))}
             </div>

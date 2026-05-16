@@ -7,7 +7,7 @@ R2 路径约定：zh/audio/intro/{filename}
     python upload_intro_audio_to_r2.py
 
 生成音频请先运行：
-    python generate_intro_narration.py
+    python generate_intro_narration.py --lang all
 """
 
 import sys
