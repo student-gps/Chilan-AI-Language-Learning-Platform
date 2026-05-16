@@ -1,4 +1,4 @@
-"""Estimate current slide-audio bitrate and compressed size targets."""
+﻿"""Estimate current slide-audio bitrate and compressed size targets."""
 
 import argparse
 import json
@@ -32,7 +32,7 @@ def probe(path: Path) -> dict | None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root", default="backend/content_builder/artifacts/integrated_chinese/output_audio")
+    parser.add_argument("--root", default="backend/content_builder/zh/integrated_chinese/artifacts/output_audio")
     parser.add_argument("--sample", type=int, default=300)
     args = parser.parse_args()
 
@@ -78,3 +78,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

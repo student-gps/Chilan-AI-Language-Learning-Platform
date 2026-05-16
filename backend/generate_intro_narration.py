@@ -1,4 +1,4 @@
-"""
+﻿"""
 Generate static TTS narration audio for the course intro video.
 
 Output directory:
@@ -28,7 +28,7 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parent / ".env")
 
-from content_builder.tasks.narration_audio import Task4DExplanationNarrator
+from content_builder.zh.integrated_chinese.tasks.narration_audio import Task4DExplanationNarrator
 
 
 SUPPORTED_UI_LANGS = [
@@ -333,3 +333,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

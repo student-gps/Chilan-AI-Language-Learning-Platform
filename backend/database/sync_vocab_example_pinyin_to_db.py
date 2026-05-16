@@ -1,4 +1,4 @@
-import argparse
+﻿import argparse
 import json
 import sys
 from pathlib import Path
@@ -182,8 +182,15 @@ def main():
     parser.add_argument(
         "target",
         nargs="?",
-        default=str(Path(__file__).resolve().parents[1] / "content_builder" / "artifacts" / "synced_json"),
-        help="Lesson JSON file or directory. Defaults to backend/content_builder/artifacts/synced_json.",
+        default=str(
+            Path(__file__).resolve().parents[1]
+            / "content_builder"
+            / "zh"
+            / "integrated_chinese"
+            / "artifacts"
+            / "synced_json"
+        ),
+        help="Lesson JSON file or directory. Defaults to content_builder/zh/integrated_chinese/artifacts/synced_json.",
     )
     parser.add_argument(
         "--apply",
@@ -218,3 +225,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

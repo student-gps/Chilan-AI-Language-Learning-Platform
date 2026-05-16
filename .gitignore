@@ -32,8 +32,8 @@ textbook/
 documents/
 project report/
 
-# content_builder 运行产物：全部本地生成/上传，不进 Git。
-backend/content_builder/artifacts/
+# content_builder 本地生成/迁移工作区，不进 Git。
+backend/content_builder/
 
 # Remotion 自动生成文件
 frontend/remotion/generated/

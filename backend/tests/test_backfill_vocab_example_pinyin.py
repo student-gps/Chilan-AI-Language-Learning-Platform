@@ -1,9 +1,9 @@
-import json
+﻿import json
 import tempfile
 import unittest
 from pathlib import Path
 
-from backend.content_builder.scripts.backfill_vocab_example_pinyin import backfill_file
+from backend.content_builder.zh.integrated_chinese.scripts.backfill_vocab_example_pinyin import backfill_file
 
 
 class BackfillVocabularyExamplePinyinTests(unittest.TestCase):
@@ -65,3 +65,4 @@ class BackfillVocabularyExamplePinyinTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

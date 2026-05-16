@@ -1,4 +1,4 @@
-"""
+﻿"""
 add_title_translations.py — 为课程 JSON 补填 title_localized 字段
 
 用法（在 backend/ 目录下运行）：
@@ -60,7 +60,7 @@ def _build_translate_prompt(lang_name: str, titles: list[dict]) -> str:
 
 
 def _get_llm():
-    from content_builder.llm_providers import LLMFactory
+    from content_builder.core.llm_providers import LLMFactory
     return LLMFactory.create_provider()
 
 
@@ -176,3 +176,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

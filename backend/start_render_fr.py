@@ -1,4 +1,4 @@
-import time, subprocess, sys
+﻿import time, subprocess, sys
 from datetime import datetime, timedelta
 
 DELAY_HOURS = 3
@@ -14,7 +14,13 @@ except KeyboardInterrupt:
 
 print(f"\n🚀 [{datetime.now().strftime('%H:%M:%S')}] 开始渲染法语视频...")
 result = subprocess.run(
-    [sys.executable, "content_builder/render_narration.py", "--render-video", "--lang", "fr"],
+    [
+        sys.executable,
+        "content_builder/zh/integrated_chinese/scripts/render_narration.py",
+        "--lang",
+        "fr",
+    ],
     cwd=".",
 )
 sys.exit(result.returncode)
+

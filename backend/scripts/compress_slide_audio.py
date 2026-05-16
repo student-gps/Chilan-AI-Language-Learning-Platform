@@ -1,4 +1,4 @@
-"""Compress slide-deck MP3 audio in place.
+﻿"""Compress slide-deck MP3 audio in place.
 
 Default mode is a dry run. With --apply, each referenced slide audio file is
 transcoded to a temporary file, then atomically replaces the original path so
@@ -14,10 +14,9 @@ from pathlib import Path
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND_DIR))
-sys.path.insert(0, str(BACKEND_DIR / "content_builder"))
 
-from core.paths import default_paths
-from core.pipeline import get_pipeline
+from content_builder.core.paths import default_paths
+from content_builder.core.pipeline import get_pipeline
 
 
 def human_size(value: int) -> str:
@@ -242,3 +241,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
