@@ -1,5 +1,3185 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { COURSE_INTRO_PAGE_TRANSLATIONS } from './courseIntroPageTranslations';
+import { INTRO_VIDEO_TRANSLATIONS } from './introVideoTranslations';
+
+const HANZI_RADICAL_BASE = [
+  { no: 1, radical: "人/亻", pinyin: "rén", examples: "今 · 他" },
+  { no: 2, radical: "刀/刂", pinyin: "dāo", examples: "分 · 到" },
+  { no: 3, radical: "力", pinyin: "lì", examples: "加 · 助" },
+  { no: 4, radical: "又", pinyin: "yòu", examples: "友 · 取" },
+  { no: 5, radical: "口", pinyin: "kǒu", examples: "叫 · 可" },
+  { no: 6, radical: "囗", pinyin: "wéi", examples: "回 · 因" },
+  { no: 7, radical: "土", pinyin: "tǔ", examples: "在 · 坐" },
+  { no: 8, radical: "夕", pinyin: "xī", examples: "外 · 多" },
+  { no: 9, radical: "大", pinyin: "dà", examples: "天 · 太" },
+  { no: 10, radical: "女", pinyin: "nǚ", examples: "婆 · 好" },
+  { no: 11, radical: "子", pinyin: "zǐ", examples: "字 · 孩" },
+  { no: 12, radical: "寸", pinyin: "cùn", examples: "寺 · 封" },
+  { no: 13, radical: "小", pinyin: "xiǎo", examples: "少 · 尖" },
+  { no: 14, radical: "工", pinyin: "gōng", examples: "左 · 差" },
+  { no: 15, radical: "幺", pinyin: "yāo", examples: "幻 · 幼" },
+  { no: 16, radical: "弓", pinyin: "gōng", examples: "引 · 弟" },
+  { no: 17, radical: "心/忄", pinyin: "xīn", examples: "想 · 忙" },
+  { no: 18, radical: "戈", pinyin: "gē", examples: "我 · 或" },
+  { no: 19, radical: "手/扌", pinyin: "shǒu", examples: "拿 · 打" },
+  { no: 20, radical: "日", pinyin: "rì", examples: "早 · 明" },
+  { no: 21, radical: "月", pinyin: "yuè", examples: "期 · 朗" },
+  { no: 22, radical: "木", pinyin: "mù", examples: "李 · 杯" },
+  { no: 23, radical: "水/氵", pinyin: "shuǐ", examples: "河 · 洗" },
+  { no: 24, radical: "火/灬", pinyin: "huǒ", examples: "烧 · 热" },
+  { no: 25, radical: "田", pinyin: "tián", examples: "男 · 留" },
+  { no: 26, radical: "目", pinyin: "mù", examples: "看 · 睡" },
+  { no: 27, radical: "示/礻", pinyin: "shì", examples: "票 · 社" },
+  { no: 28, radical: "糸/纟", pinyin: "mì", examples: "素 · 红" },
+  { no: 29, radical: "耳", pinyin: "ěr", examples: "聋 · 聊" },
+  { no: 30, radical: "衣/衤", pinyin: "yī", examples: "袋 · 衫" },
+  { no: 31, radical: "言/讠", pinyin: "yán", examples: "誓 · 话" },
+  { no: 32, radical: "贝", pinyin: "bèi", examples: "贵 · 财" },
+  { no: 33, radical: "走", pinyin: "zǒu", examples: "趣 · 起" },
+  { no: 34, radical: "足", pinyin: "zú", examples: "跳 · 跑" },
+  { no: 35, radical: "金/钅", pinyin: "jīn", examples: "鉴 · 银" },
+  { no: 36, radical: "门", pinyin: "mén", examples: "间 · 闷" },
+  { no: 37, radical: "隹", pinyin: "zhuī", examples: "难 · 集" },
+  { no: 38, radical: "雨", pinyin: "yǔ", examples: "雪 · 雷" },
+  { no: 39, radical: "食/饣", pinyin: "shí", examples: "餐 · 饭" },
+  { no: 40, radical: "马", pinyin: "mǎ", examples: "骑 · 驾" }
+];
+
+const HANZI_RADICAL_COPY = {
+  zh: [
+    ["人", "人、身份、动作主体"], ["刀", "切割或工具"], ["力量", "动作、力量"], ["又", "手、动作或重复"], ["口", "说话、入口、口形"], ["围", "包围起来的外框"], ["土", "土地、位置"], ["夕", "夜晚、时间"], ["大", "大小、人体姿态"], ["女", "人物或身份"], ["孩子", "孩子或下部件"], ["寸", "手寸、尺度"], ["小", "小或细小形态"], ["工", "工作、工具、形状"], ["细小", "细小、丝线相关"], ["弓", "弓形或拉开"], ["心", "心理、情感"], ["戈", "古兵器或动作"], ["手", "手部动作"], ["日", "太阳、时间、明亮"], ["月", "月亮、身体也常见"], ["木", "树木、木制物"], ["水", "水、液体"], ["火", "火、热"], ["田", "田地、区域"], ["目", "眼睛、观看"], ["示", "祭祀、礼仪、显示"], ["丝", "丝线、纤维"], ["耳", "耳朵、听觉"], ["衣", "衣服、布料"], ["言语", "说话、语言"], ["贝", "钱财、价值"], ["走", "行走、移动"], ["足", "脚、动作"], ["金", "金属、钱"], ["门", "门、空间入口"], ["隹", "鸟类相关"], ["雨", "雨、天气"], ["食", "吃、食物"], ["马", "马或骑乘"]
+  ],
+  en: [
+    ["person", "people, roles, actions"], ["knife", "cutting or tools"], ["power", "action or strength"], ["right hand / again", "hand action or repetition"], ["mouth", "speech, opening, mouth shape"], ["enclosure", "outer box around a character"], ["earth", "place or ground"], ["sunset", "evening or time"], ["big", "size or body posture"], ["woman", "people or identity"], ["child", "child or lower component"], ["inch", "measure or hand span"], ["small", "small or fine forms"], ["work", "work, tools, shape"], ["tiny", "smallness or silk-like forms"], ["bow", "bow shape or pulling"], ["heart", "mind, feeling"], ["dagger-axe", "old weapon or action"], ["hand", "hand actions"], ["sun", "time or brightness"], ["moon / flesh", "moon, time, or body"], ["wood", "trees or wooden things"], ["water", "water or liquid"], ["fire", "fire or heat"], ["field", "field or area"], ["eye", "eyes or seeing"], ["show", "ritual, sign, display"], ["fine silk", "thread or fiber"], ["ear", "ear or hearing"], ["clothing", "clothes or fabric"], ["speech", "speech and language"], ["cowrie shell", "money or value"], ["walk", "walking or movement"], ["foot", "feet and movement"], ["gold", "metal or money"], ["door", "door or entrance"], ["short-tailed bird", "bird-related forms"], ["rain", "rain or weather"], ["food", "eating or food"], ["horse", "horse or riding"]
+  ],
+  de: [
+    ["Person", "Menschen, Rollen, Handlungen"], ["Messer", "Schneiden oder Werkzeuge"], ["Kraft", "Handlung oder Stärke"], ["rechte Hand / wieder", "Handlung oder Wiederholung"], ["Mund", "Sprechen, Öffnung, Mundform"], ["Einfassung", "äußerer Rahmen"], ["Erde", "Ort oder Boden"], ["Abend", "Abend oder Zeit"], ["groß", "Größe oder Körperhaltung"], ["Frau", "Personen oder Identität"], ["Kind", "Kind oder unterer Bestandteil"], ["Zoll", "Maß oder Handspanne"], ["klein", "kleine oder feine Formen"], ["Arbeit", "Arbeit, Werkzeug, Form"], ["winzig", "klein oder fadenartig"], ["Bogen", "Bogenform oder Ziehen"], ["Herz", "Geist, Gefühl"], ["Hellebarde", "alte Waffe oder Handlung"], ["Hand", "Handlungen mit der Hand"], ["Sonne", "Zeit oder Helligkeit"], ["Mond / Fleisch", "Mond, Zeit oder Körper"], ["Holz", "Bäume oder Holzobjekte"], ["Wasser", "Wasser oder Flüssigkeit"], ["Feuer", "Feuer oder Hitze"], ["Feld", "Feld oder Bereich"], ["Auge", "Augen oder Sehen"], ["zeigen", "Ritual, Zeichen, Anzeige"], ["feine Seide", "Faden oder Faser"], ["Ohr", "Ohr oder Hören"], ["Kleidung", "Kleidung oder Stoff"], ["Sprache", "Sprechen und Sprache"], ["Muschel", "Geld oder Wert"], ["gehen", "Gehen oder Bewegung"], ["Fuß", "Fuß und Bewegung"], ["Gold", "Metall oder Geld"], ["Tür", "Tür oder Eingang"], ["Kurzschwanzvogel", "vogelbezogene Formen"], ["Regen", "Regen oder Wetter"], ["Essen", "Essen oder Nahrung"], ["Pferd", "Pferd oder Reiten"]
+  ],
+  fr: [
+    ["personne", "personnes, rôles, actions"], ["couteau", "couper ou outils"], ["force", "action ou puissance"], ["main droite / encore", "action de la main ou répétition"], ["bouche", "parole, ouverture, forme de bouche"], ["enceinte", "cadre extérieur"], ["terre", "lieu ou sol"], ["soir", "soir ou temps"], ["grand", "taille ou posture"], ["femme", "personnes ou identité"], ["enfant", "enfant ou composant bas"], ["pouce", "mesure ou empan"], ["petit", "formes petites ou fines"], ["travail", "travail, outil, forme"], ["minuscule", "petit ou filiforme"], ["arc", "forme d'arc ou traction"], ["coeur", "esprit, émotion"], ["hallebarde", "ancienne arme ou action"], ["main", "actions de la main"], ["soleil", "temps ou lumière"], ["lune / chair", "lune, temps ou corps"], ["bois", "arbres ou objets en bois"], ["eau", "eau ou liquide"], ["feu", "feu ou chaleur"], ["champ", "champ ou zone"], ["oeil", "yeux ou vision"], ["montrer", "rite, signe, affichage"], ["soie fine", "fil ou fibre"], ["oreille", "oreille ou audition"], ["vêtement", "vêtements ou tissu"], ["parole", "parole et langage"], ["coquillage", "argent ou valeur"], ["marcher", "marche ou mouvement"], ["pied", "pied et mouvement"], ["or", "métal ou argent"], ["porte", "porte ou entrée"], ["oiseau à queue courte", "formes liées aux oiseaux"], ["pluie", "pluie ou météo"], ["nourriture", "manger ou aliment"], ["cheval", "cheval ou équitation"]
+  ]
+};
+
+function buildHanziRadicals(locale) {
+  const copy = HANZI_RADICAL_COPY[locale] || HANZI_RADICAL_COPY.en;
+  return HANZI_RADICAL_BASE.map((item, index) => ({
+    ...item,
+    meaning: copy[index][0],
+    hint: copy[index][1]
+  }));
+}
+
+const HANZI_FORMATION_BLUEPRINT = [
+  { key: "pictograph", pinyin: "xiàngxíng", glyph: "山", exampleKeys: ["person", "mountain", "sun", "moon", "tree"] },
+  { key: "ideogram", pinyin: "zhǐshì", glyph: "上", exampleKeys: ["above", "below"] },
+  { key: "compound", pinyin: "huìyì", glyph: "明", exampleKeys: ["bright", "rest"] },
+  { key: "semanticPhonetic", pinyin: "xíngshēng", glyph: "河", exampleKeys: ["riverJiang", "riverHe", "meal", "aunt"] },
+  { key: "mutual", pinyin: "zhuǎnzhù", glyph: "老", exampleKeys: ["old", "test"] },
+  { key: "loan", pinyin: "jiǎjiè", glyph: "来", exampleKeys: ["come", "me"] }
+];
+
+const HANZI_FORMATION_EXAMPLES = {
+  person: { char: "人", pinyin: "rén" },
+  mountain: { char: "山", pinyin: "shān" },
+  sun: { char: "日", pinyin: "rì" },
+  moon: { char: "月", pinyin: "yuè" },
+  tree: { char: "木", pinyin: "mù" },
+  above: { char: "上", pinyin: "shàng" },
+  below: { char: "下", pinyin: "xià" },
+  bright: { char: "明", pinyin: "míng" },
+  rest: { char: "休", pinyin: "xiū" },
+  riverJiang: { char: "江", pinyin: "jiāng" },
+  riverHe: { char: "河", pinyin: "hé" },
+  meal: { char: "饭", pinyin: "fàn" },
+  aunt: { char: "姑", pinyin: "gū" },
+  old: { char: "老", pinyin: "lǎo" },
+  test: { char: "考", pinyin: "kǎo" },
+  come: { char: "来", pinyin: "lái" },
+  me: { char: "我", pinyin: "wǒ" }
+};
+
+function buildHanziFormationTypes(copy) {
+  return HANZI_FORMATION_BLUEPRINT.map((item) => ({
+    ...item,
+    title: copy.formationTypes[item.key].title,
+    description: copy.formationTypes[item.key].description,
+    glyphMeaning: copy.formationTypes[item.key].glyphMeaning,
+    examples: item.exampleKeys.map((key) => ({
+      ...HANZI_FORMATION_EXAMPLES[key],
+      meaning: copy.exampleMeanings[key],
+    })),
+    breakdowns: item.key === "compound" ? [
+      {
+        parts: [
+          { ...HANZI_FORMATION_EXAMPLES.sun, meaning: copy.exampleMeanings.sun },
+          { ...HANZI_FORMATION_EXAMPLES.moon, meaning: copy.exampleMeanings.moon },
+        ],
+        result: { ...HANZI_FORMATION_EXAMPLES.bright, meaning: copy.exampleMeanings.bright },
+      },
+      {
+        parts: [
+          { ...HANZI_FORMATION_EXAMPLES.person, meaning: copy.exampleMeanings.person },
+          { ...HANZI_FORMATION_EXAMPLES.tree, meaning: copy.exampleMeanings.tree },
+        ],
+        result: { ...HANZI_FORMATION_EXAMPLES.rest, meaning: copy.exampleMeanings.rest },
+      },
+    ] : [],
+  }));
+}
+
+const HANZI_INTRO_TRANSLATIONS = {
+  zh: {
+    badge: "基础 · 汉字",
+    title: "汉字如何组成",
+    subtitle: "这页把教材 Basic 13-17 页整理成一个更适合外语学习者浏览的汉字地图：先学会看结构，再认识部首、笔画和笔顺。",
+    readingOnly: "先建立识别模型 - 不要求一次背完",
+    studyModel: {
+      eyebrow: "How to look",
+      title: "遇到新字，先问三个问题",
+      body: "外语学习者最容易被笔画数量吓到。这里把观察顺序固定下来：先看整体，再看部件，最后再处理读音。",
+      steps: [
+        { title: "看外形", body: "这个字是左右、上下、包围，还是独体？先把大块切出来。" },
+        { title: "找部首", body: "哪个部件最像意义提示？水、口、手、言这类部首特别常见。" },
+        { title: "听读音", body: "很多字有声音线索，但现代读音不一定完全相同；最后交给拼音确认。" }
+      ]
+    },
+    formation: {
+      eyebrow: "Writing system",
+      title: "先理解：汉字不是一张张小画",
+      body: "汉字以方块为单位。一个字通常对应一个音节，也承载一个意义单位。少数汉字来自图像，更多汉字则由表示意义和提示读音的部件组合而成。",
+      note: "关键模型：看到新字时，先找它的部件、部首和空间结构，再把读音交给拼音和输入法。",
+      priority: {
+        title: "最值得优先理解：形声字",
+        body: "教材特别提醒：只有少量汉字真正来自图画，绝大多数常用字更像“意义部件 + 声音线索”。所以不要把六类平均背诵，先学会看形声结构更有用。",
+        examples: [
+          { char: "河", parts: ["氵 = 水/液体", "可 = 历史读音线索"], note: "意义和水有关，读音靠拼音确认 hé" },
+          { char: "饭", parts: ["饣 = 食物", "反 = 历史读音线索"], note: "意义和吃有关，读音是 fàn" },
+          { char: "妈", parts: ["女 = 人物/身份", "马 = 历史读音线索"], note: "声音线索接近，但声调会变" }
+        ]
+      },
+      types: [
+        { title: "象形", pinyin: "xiàngxíng", glyph: "山", glyphMeaning: "山", description: "从具体物体的轮廓演变而来，是最直观的一类。", examples: [{ char: "人", pinyin: "rén", meaning: "人" }, { char: "山", pinyin: "shān", meaning: "山" }, { char: "日", pinyin: "rì", meaning: "太阳/日" }, { char: "月", pinyin: "yuè", meaning: "月亮/月" }, { char: "木", pinyin: "mù", meaning: "树木" }] },
+        { title: "指事", pinyin: "zhǐshì", glyph: "上", glyphMeaning: "上方", description: "用简单符号标出抽象关系或位置。", examples: [{ char: "上", pinyin: "shàng", meaning: "上方" }, { char: "下", pinyin: "xià", meaning: "下方" }] },
+        { title: "会意", pinyin: "huìyì", glyph: "明", glyphMeaning: "明亮", description: "把两个意义部件放在一起，让合成意义显现出来。", examples: [{ char: "明", pinyin: "míng", meaning: "明亮" }, { char: "休", pinyin: "xiū", meaning: "休息" }], breakdowns: [{ parts: [{ char: "日", pinyin: "rì", meaning: "太阳/日" }, { char: "月", pinyin: "yuè", meaning: "月亮/月" }], result: { char: "明", pinyin: "míng", meaning: "明亮" } }, { parts: [{ char: "人", pinyin: "rén", meaning: "人" }, { char: "木", pinyin: "mù", meaning: "树木" }], result: { char: "休", pinyin: "xiū", meaning: "休息" } }] },
+        { title: "形声", pinyin: "xíngshēng", glyph: "河", glyphMeaning: "河流", description: "一个部件提示意义类别，另一个部件提示读音来源；现代汉字中非常常见。", examples: [{ char: "江", pinyin: "jiāng", meaning: "江河" }, { char: "河", pinyin: "hé", meaning: "河流" }, { char: "饭", pinyin: "fàn", meaning: "饭/餐" }, { char: "姑", pinyin: "gū", meaning: "姑母" }] },
+        { title: "转注", pinyin: "zhuǎnzhù", glyph: "老", glyphMeaning: "年老", description: "意义相近的字彼此解释或延伸，学习时只需要知道它存在。", examples: [{ char: "老", pinyin: "lǎo", meaning: "年老" }, { char: "考", pinyin: "kǎo", meaning: "考试/考察" }] },
+        { title: "假借", pinyin: "jiǎjiè", glyph: "来", glyphMeaning: "来", description: "借用已有字来记录相同或相近的读音。", examples: [{ char: "来", pinyin: "lái", meaning: "来" }, { char: "我", pinyin: "wǒ", meaning: "我" }] }
+      ]
+    },
+    radicals: {
+      eyebrow: "Radicals",
+      title: "部首是查字和记字的抓手",
+      body: "传统字典按部首组织汉字。教材列出四十个入门部首；这里完整保留，但改成可快速扫读的小卡片。",
+      tip: "先认“意义范围”，不要把每个英文/中文释义当作唯一答案。部首常常只是方向提示。",
+      items: buildHanziRadicals('zh')
+    },
+    structures: {
+      eyebrow: "Character structures",
+      title: "汉字像积木：先看空间结构",
+      body: "教材把常见结构整理成九类。结构不是为了背术语，而是帮助你快速看出一个字由几块组成。",
+      items: [
+        { type: "独体", label: "Unitary", sketch: "unitary", examples: "上 · 水 · 人 · 女 · 山" },
+        { type: "左右", label: "Left-right", sketch: "leftRight", examples: "忙 · 唱 · 便 · 汉 · 都" },
+        { type: "上下", label: "Top-bottom", sketch: "topBottom", examples: "李 · 字 · 念 · 想 · 笔" },
+        { type: "半包围", label: "Semi-enclosing", sketch: "semiEnclosing", examples: "同 · 周 · 问 · 间 · 风" },
+        { type: "全包围", label: "Enclosing", sketch: "enclosing", examples: "回 · 因 · 国 · 图 · 圆" },
+        { type: "左中右", label: "Horizontal trisection", sketch: "horizontalTrisection", examples: "班 · 街 · 辩 · 粥" },
+        { type: "上中下", label: "Vertical trisection", sketch: "verticalTrisection", examples: "鼻 · 幕 · 曼" },
+        { type: "左下包围", label: "Left-bottom enclosing", sketch: "leftBottomEnclosing", examples: "这 · 起 · 过 · 道 · 造" },
+        { type: "左上包围", label: "Left-top enclosing", sketch: "leftTopEnclosing", examples: "床 · 麻 · 病 · 历 · 屋" }
+      ]
+    },
+    strokes: {
+      eyebrow: "Basic strokes",
+      title: "基本笔画：写字的最小动作",
+      body: "笔画从上到下、从左到右居多。这里按教材列出常见基本笔画，作为识字和查字的准备。",
+      note: "例外需要特别记：提通常向右上，撇通常向左下。",
+      items: [
+        { mark: "丶", name: "点 diǎn", description: "点", examples: "小 · 六" },
+        { mark: "一", name: "横 héng", description: "从左到右", examples: "一 · 六" },
+        { mark: "丨", name: "竖 shù", description: "从上到下", examples: "十 · 中" },
+        { mark: "丿", name: "撇 piě", description: "向左下", examples: "人 · 大" },
+        { mark: "㇏", name: "捺 nà", description: "向右下", examples: "八 · 人" },
+        { mark: "㇀", name: "提 tí", description: "向右上", examples: "我 · 江" },
+        { mark: "乛", name: "横钩 hénggōu", description: "横后带钩", examples: "你 · 字" },
+        { mark: "亅", name: "竖钩 shùgōu", description: "竖后带钩", examples: "小 · 你" },
+        { mark: "㇂", name: "斜钩 xiégōu", description: "斜向带钩", examples: "我 · 戈" },
+        { mark: "𠃍", name: "横折 héngzhé", description: "横后转折", examples: "五 · 口" },
+        { mark: "㇄", name: "竖折 shùzhé", description: "竖后转折", examples: "七 · 亡" }
+      ]
+    },
+    strokeOrder: {
+      eyebrow: "Stroke order",
+      title: "笔顺规则：让字形稳定下来",
+      body: "这不是手写训练课，但理解笔顺会帮你数笔画、查字典，也能让汉字看起来更像汉字。",
+      note: "课程仍然优先训练阅读、听说和拼音输入；笔顺在这里作为识字背景知识出现。",
+      rules: [
+        { title: "从左到右", example: "例：川、人", steps: ["左", "中", "右"] },
+        { title: "从上到下", example: "例：三", steps: ["一", "二", "三"] },
+        { title: "先横后竖", example: "例：十", steps: ["一", "十"] },
+        { title: "先外后内", example: "例：月", steps: ["外框", "里面"] },
+        { title: "先中间后两边", example: "例：小", steps: ["亅", "丿", "丶"] },
+        { title: "先里后封口", example: "例：日、回", steps: ["冂", "里面", "封口"] }
+      ]
+    },
+    typing: {
+      title: "最后连接到本课程的目标：会认、会读、会打",
+      p1: "手写和笔顺很重要，但本课程的主要路径是<strong>阅读、听力、口语和拼音输入法打字</strong>。",
+      p2: "你先用这些结构建立汉字的视觉模型，再用拼音页面掌握读音，最后用输入法把声音转成汉字。"
+    }
+  },
+  en: {
+    badge: "Foundation · Characters",
+    title: "How Chinese characters are built",
+    subtitle: "This page turns the textbook's Basic pages 13-17 into a learner-friendly map: structure first, then radicals, strokes, and stroke order.",
+    readingOnly: "Build a recognition model first - no need to memorize it all",
+    studyModel: {
+      eyebrow: "How to look",
+      title: "When you meet a character, ask three questions",
+      body: "New learners often see only a dense pile of strokes. Use the same viewing order every time: whole shape, components, then pronunciation.",
+      steps: [
+        { title: "Read the shape", body: "Is it left-right, top-bottom, enclosing, or unitary? Split the large blocks first." },
+        { title: "Find the radical", body: "Which part may hint at meaning? Water, mouth, hand, and speech are especially common." },
+        { title: "Check the sound", body: "Many characters contain a sound clue, but modern pronunciation may have shifted. Confirm with pinyin." }
+      ]
+    },
+    formation: {
+      eyebrow: "Writing system",
+      title: "Start here: characters are not just little pictures",
+      body: "Chinese is written in square characters. A character usually maps to one syllable and carries a unit of meaning. A few characters began as pictures; many more combine meaning components with sound clues.",
+      note: "Working model: when you meet a new character, first look for its components, radical, and spatial structure. Let pinyin and the IME handle pronunciation and typing.",
+      priority: {
+        title: "Most useful first: semantic-phonetic characters",
+        body: "The textbook points out a common myth: only a small share of characters are pictographs. Most useful beginner characters are better understood as meaning part + sound clue, so do not give the six historical categories equal study time.",
+        examples: [
+          { char: "河", parts: ["氵 = water/liquid", "可 = historical sound clue"], note: "Meaning relates to water; pinyin confirms hé." },
+          { char: "饭", parts: ["饣 = food", "反 = historical sound clue"], note: "Meaning relates to eating; pronunciation is fàn." },
+          { char: "妈", parts: ["女 = person/identity", "马 = historical sound clue"], note: "The sound clue is close, but the tone changes." }
+        ]
+      },
+      types: [
+        { title: "Pictographs", pinyin: "xiàngxíng", glyph: "山", glyphMeaning: "mountain", description: "Characters that developed from the outline of concrete things.", examples: [{ char: "人", pinyin: "rén", meaning: "person" }, { char: "山", pinyin: "shān", meaning: "mountain" }, { char: "日", pinyin: "rì", meaning: "sun" }, { char: "月", pinyin: "yuè", meaning: "moon" }, { char: "木", pinyin: "mù", meaning: "tree" }] },
+        { title: "Simple ideograms", pinyin: "zhǐshì", glyph: "上", glyphMeaning: "above", description: "Simple marks that point to an abstract relation or position.", examples: [{ char: "上", pinyin: "shàng", meaning: "above" }, { char: "下", pinyin: "xià", meaning: "below" }] },
+        { title: "Compound ideograms", pinyin: "huìyì", glyph: "明", glyphMeaning: "bright", description: "Meaning components placed together so the combined meaning becomes visible.", examples: [{ char: "明", pinyin: "míng", meaning: "bright" }, { char: "休", pinyin: "xiū", meaning: "rest" }], breakdowns: [{ parts: [{ char: "日", pinyin: "rì", meaning: "sun" }, { char: "月", pinyin: "yuè", meaning: "moon" }], result: { char: "明", pinyin: "míng", meaning: "bright" } }, { parts: [{ char: "人", pinyin: "rén", meaning: "person" }, { char: "木", pinyin: "mù", meaning: "tree" }], result: { char: "休", pinyin: "xiū", meaning: "rest" } }] },
+        { title: "Semantic-phonetic", pinyin: "xíngshēng", glyph: "河", glyphMeaning: "river", description: "One part hints at meaning, another at historical sound. This is the most useful pattern for beginners.", examples: [{ char: "江", pinyin: "jiāng", meaning: "river" }, { char: "河", pinyin: "hé", meaning: "river" }, { char: "饭", pinyin: "fàn", meaning: "meal" }, { char: "姑", pinyin: "gū", meaning: "aunt" }] },
+        { title: "Mutual explanation", pinyin: "zhuǎnzhù", glyph: "老", glyphMeaning: "old", description: "A historical category where related characters explain or extend each other.", examples: [{ char: "老", pinyin: "lǎo", meaning: "old" }, { char: "考", pinyin: "kǎo", meaning: "test" }] },
+        { title: "Phonetic loans", pinyin: "jiǎjiè", glyph: "来", glyphMeaning: "come", description: "Existing characters borrowed to write a same or similar sound.", examples: [{ char: "来", pinyin: "lái", meaning: "come" }, { char: "我", pinyin: "wǒ", meaning: "I / me" }] }
+      ]
+    },
+    radicals: {
+      eyebrow: "Radicals",
+      title: "Radicals are handles for lookup and memory",
+      body: "Traditional dictionaries organize characters by radicals. The textbook gives forty starter radicals; this version keeps all forty in a compact scan-friendly grid.",
+      tip: "Learn the meaning range first. A radical is usually a clue, not a strict definition.",
+      items: buildHanziRadicals('en')
+    },
+    structures: {
+      eyebrow: "Character structures",
+      title: "Characters are blocks: read the layout first",
+      body: "The textbook presents nine common layouts. The goal is not terminology; it is learning to see how a character is assembled.",
+      items: [
+        { type: "Unitary", label: "独体", sketch: "unitary", examples: "上 · 水 · 人 · 女 · 山" },
+        { type: "Left-right", label: "左右", sketch: "leftRight", examples: "忙 · 唱 · 便 · 汉 · 都" },
+        { type: "Top-bottom", label: "上下", sketch: "topBottom", examples: "李 · 字 · 念 · 想 · 笔" },
+        { type: "Semi-enclosing", label: "半包围", sketch: "semiEnclosing", examples: "同 · 周 · 问 · 间 · 风" },
+        { type: "Enclosing", label: "全包围", sketch: "enclosing", examples: "回 · 因 · 国 · 图 · 圆" },
+        { type: "Horizontal trisection", label: "左中右", sketch: "horizontalTrisection", examples: "班 · 街 · 辩 · 粥" },
+        { type: "Vertical trisection", label: "上中下", sketch: "verticalTrisection", examples: "鼻 · 幕 · 曼" },
+        { type: "Left-bottom enclosing", label: "左下包围", sketch: "leftBottomEnclosing", examples: "这 · 起 · 过 · 道 · 造" },
+        { type: "Left-top enclosing", label: "左上包围", sketch: "leftTopEnclosing", examples: "床 · 麻 · 病 · 历 · 屋" }
+      ]
+    },
+    strokes: {
+      eyebrow: "Basic strokes",
+      title: "Basic strokes: the smallest writing moves",
+      body: "Most strokes move top-to-bottom or left-to-right. This chart gives you the main names used for recognizing and looking up characters.",
+      note: "Two exceptions are worth noticing: tí moves up to the right, and piě falls down to the left.",
+      items: [
+        { mark: "丶", name: "点 diǎn", description: "dot", examples: "小 · 六" },
+        { mark: "一", name: "横 héng", description: "horizontal", examples: "一 · 六" },
+        { mark: "丨", name: "竖 shù", description: "vertical", examples: "十 · 中" },
+        { mark: "丿", name: "撇 piě", description: "downward left", examples: "人 · 大" },
+        { mark: "㇏", name: "捺 nà", description: "downward right", examples: "八 · 人" },
+        { mark: "㇀", name: "提 tí", description: "upward", examples: "我 · 江" },
+        { mark: "乛", name: "横钩 hénggōu", description: "horizontal hook", examples: "你 · 字" },
+        { mark: "亅", name: "竖钩 shùgōu", description: "vertical hook", examples: "小 · 你" },
+        { mark: "㇂", name: "斜钩 xiégōu", description: "slanted hook", examples: "我 · 戈" },
+        { mark: "𠃍", name: "横折 héngzhé", description: "horizontal bend", examples: "五 · 口" },
+        { mark: "㇄", name: "竖折 shùzhé", description: "vertical bend", examples: "七 · 亡" }
+      ]
+    },
+    strokeOrder: {
+      eyebrow: "Stroke order",
+      title: "Stroke order keeps the shape stable",
+      body: "This is not a handwriting course, but stroke order helps you count strokes, use radical dictionaries, and understand why characters look balanced.",
+      note: "The course still prioritizes reading, listening, speaking, and pinyin typing. Stroke order appears here as background knowledge for recognizing characters.",
+      rules: [
+        { title: "Left to right", example: "Examples: 川, 人", steps: ["left", "middle", "right"] },
+        { title: "Top to bottom", example: "Example: 三", steps: ["一", "二", "三"] },
+        { title: "Horizontal before vertical", example: "Example: 十", steps: ["一", "十"] },
+        { title: "Outside before inside", example: "Example: 月", steps: ["outside", "inside"] },
+        { title: "Middle before two sides", example: "Example: 小", steps: ["亅", "丿", "丶"] },
+        { title: "Inside before closing", example: "Examples: 日, 回", steps: ["frame", "inside", "close"] }
+      ]
+    },
+    typing: {
+      title: "The course goal: recognize, read, and type",
+      p1: "Handwriting and stroke order matter, but this course focuses on <strong>reading, listening, speaking, and typing with a pinyin IME</strong>.",
+      p2: "Use this page to build a visual model, use the pinyin page for pronunciation, then let your input method turn sounds into characters."
+    }
+  },
+  de: {
+    badge: "Grundlagen · Zeichen",
+    title: "Wie chinesische Zeichen aufgebaut sind",
+    subtitle: "Diese Seite macht aus den Basic-Seiten 13-17 des Lehrbuchs eine lernfreundliche Karte: zuerst Struktur, dann Radikale, Striche und Strichfolge.",
+    readingOnly: "Zuerst ein Erkennungsmodell aufbauen - nicht alles sofort auswendig lernen",
+    studyModel: {
+      eyebrow: "Blickfolge",
+      title: "Bei einem neuen Zeichen drei Fragen stellen",
+      body: "Am Anfang sieht man oft nur viele Striche. Nutze immer dieselbe Reihenfolge: Gesamtform, Bestandteile, dann Aussprache.",
+      steps: [
+        { title: "Form lesen", body: "Ist es links-rechts, oben-unten, umschließend oder einteilig? Zuerst die großen Blöcke trennen." },
+        { title: "Radikal finden", body: "Welcher Teil kann Bedeutung anzeigen? Wasser, Mund, Hand und Sprache kommen besonders oft vor." },
+        { title: "Laut prüfen", body: "Viele Zeichen enthalten einen Laut-Hinweis, aber die heutige Aussprache kann abweichen. Mit Pinyin bestätigen." }
+      ]
+    },
+    formation: {
+      eyebrow: "Schriftsystem",
+      title: "Zuerst verstehen: Zeichen sind nicht einfach kleine Bilder",
+      body: "Chinesisch wird in quadratischen Zeichen geschrieben. Ein Zeichen entspricht meist einer Silbe und trägt zugleich eine Bedeutungseinheit. Einige Zeichen entstanden aus Bildern; viele kombinieren Bedeutungsteile mit Laut-Hinweisen.",
+      note: "Arbeitsmodell: Suche bei einem neuen Zeichen zuerst Komponenten, Radikal und räumliche Struktur. Aussprache und Tippen laufen dann über Pinyin und die Eingabemethode.",
+      priority: {
+        title: "Am wichtigsten zuerst: Bedeutung + Laut",
+        body: "Das Lehrbuch korrigiert einen verbreiteten Mythos: Nur wenige Zeichen sind echte Bilder. Für Lernende ist meist das Muster Bedeutungsteil + Laut-Hinweis wichtiger als die gleichmäßige Einprägung aller sechs historischen Kategorien.",
+        examples: [
+          { char: "河", parts: ["氵 = Wasser/Flüssigkeit", "可 = historischer Laut-Hinweis"], note: "Die Bedeutung hat mit Wasser zu tun; Pinyin bestätigt hé." },
+          { char: "饭", parts: ["饣 = Essen", "反 = historischer Laut-Hinweis"], note: "Die Bedeutung hat mit Essen zu tun; die Aussprache ist fàn." },
+          { char: "妈", parts: ["女 = Person/Identität", "马 = historischer Laut-Hinweis"], note: "Der Laut ist ähnlich, aber der Ton ändert sich." }
+        ]
+      },
+      types: [
+        { title: "Piktogramme", pinyin: "xiàngxíng", glyph: "山", glyphMeaning: "Berg", description: "Zeichen, die aus Umrissen konkreter Dinge entstanden sind.", examples: [{ char: "人", pinyin: "rén", meaning: "Person" }, { char: "山", pinyin: "shān", meaning: "Berg" }, { char: "日", pinyin: "rì", meaning: "Sonne" }, { char: "月", pinyin: "yuè", meaning: "Mond" }, { char: "木", pinyin: "mù", meaning: "Baum" }] },
+        { title: "Einfache Ideogramme", pinyin: "zhǐshì", glyph: "上", glyphMeaning: "oben", description: "Einfache Zeichen, die abstrakte Beziehungen oder Positionen markieren.", examples: [{ char: "上", pinyin: "shàng", meaning: "oben" }, { char: "下", pinyin: "xià", meaning: "unten" }] },
+        { title: "Zusammengesetzte Ideogramme", pinyin: "huìyì", glyph: "明", glyphMeaning: "hell", description: "Bedeutungsteile werden kombiniert, sodass eine neue Bedeutung sichtbar wird.", examples: [{ char: "明", pinyin: "míng", meaning: "hell" }, { char: "休", pinyin: "xiū", meaning: "ruhen" }], breakdowns: [{ parts: [{ char: "日", pinyin: "rì", meaning: "Sonne" }, { char: "月", pinyin: "yuè", meaning: "Mond" }], result: { char: "明", pinyin: "míng", meaning: "hell" } }, { parts: [{ char: "人", pinyin: "rén", meaning: "Person" }, { char: "木", pinyin: "mù", meaning: "Baum" }], result: { char: "休", pinyin: "xiū", meaning: "ruhen" } }] },
+        { title: "Bedeutung + Laut", pinyin: "xíngshēng", glyph: "河", glyphMeaning: "Fluss", description: "Ein Teil deutet die Bedeutung an, ein anderer den historischen Klang. Für Lernende ist das besonders nützlich.", examples: [{ char: "江", pinyin: "jiāng", meaning: "Fluss" }, { char: "河", pinyin: "hé", meaning: "Fluss" }, { char: "饭", pinyin: "fàn", meaning: "Mahlzeit" }, { char: "姑", pinyin: "gū", meaning: "Tante" }] },
+        { title: "Gegenseitige Erklärung", pinyin: "zhuǎnzhù", glyph: "老", glyphMeaning: "alt", description: "Eine historische Kategorie verwandter Zeichen, die einander erklären oder erweitern.", examples: [{ char: "老", pinyin: "lǎo", meaning: "alt" }, { char: "考", pinyin: "kǎo", meaning: "Prüfung" }] },
+        { title: "Lautentlehnung", pinyin: "jiǎjiè", glyph: "来", glyphMeaning: "kommen", description: "Vorhandene Zeichen wurden für gleiche oder ähnliche Laute ausgeliehen.", examples: [{ char: "来", pinyin: "lái", meaning: "kommen" }, { char: "我", pinyin: "wǒ", meaning: "ich" }] }
+      ]
+    },
+    radicals: {
+      eyebrow: "Radikale",
+      title: "Radikale helfen beim Nachschlagen und Merken",
+      body: "Traditionelle Wörterbücher ordnen Zeichen nach Radikalen. Das Lehrbuch zeigt vierzig Starter-Radikale; hier bleiben alle vierzig erhalten, aber als kompakte Übersicht.",
+      tip: "Lerne zuerst den Bedeutungsbereich. Ein Radikal ist meist ein Hinweis, keine strenge Definition.",
+      items: buildHanziRadicals('de')
+    },
+    structures: {
+      eyebrow: "Zeichenstrukturen",
+      title: "Zeichen sind Bausteine: zuerst das Layout lesen",
+      body: "Das Lehrbuch zeigt neun häufige Layouts. Wichtig ist nicht der Fachbegriff, sondern zu sehen, wie ein Zeichen zusammengesetzt ist.",
+      items: [
+        { type: "Einheitlich", label: "独体", sketch: "unitary", examples: "上 · 水 · 人 · 女 · 山" },
+        { type: "Links-rechts", label: "左右", sketch: "leftRight", examples: "忙 · 唱 · 便 · 汉 · 都" },
+        { type: "Oben-unten", label: "上下", sketch: "topBottom", examples: "李 · 字 · 念 · 想 · 笔" },
+        { type: "Teilweise umschlossen", label: "半包围", sketch: "semiEnclosing", examples: "同 · 周 · 问 · 间 · 风" },
+        { type: "Umschlossen", label: "全包围", sketch: "enclosing", examples: "回 · 因 · 国 · 图 · 圆" },
+        { type: "Links-mitte-rechts", label: "左中右", sketch: "horizontalTrisection", examples: "班 · 街 · 辩 · 粥" },
+        { type: "Oben-mitte-unten", label: "上中下", sketch: "verticalTrisection", examples: "鼻 · 幕 · 曼" },
+        { type: "Links-unten umschlossen", label: "左下包围", sketch: "leftBottomEnclosing", examples: "这 · 起 · 过 · 道 · 造" },
+        { type: "Links-oben umschlossen", label: "左上包围", sketch: "leftTopEnclosing", examples: "床 · 麻 · 病 · 历 · 屋" }
+      ]
+    },
+    strokes: {
+      eyebrow: "Grundstriche",
+      title: "Grundstriche: die kleinsten Schreibbewegungen",
+      body: "Die meisten Striche laufen von oben nach unten oder von links nach rechts. Diese Liste hilft beim Erkennen und Nachschlagen.",
+      note: "Zwei Ausnahmen fallen auf: tí steigt nach rechts oben, piě fällt nach links unten.",
+      items: [
+        { mark: "丶", name: "点 diǎn", description: "Punkt", examples: "小 · 六" },
+        { mark: "一", name: "横 héng", description: "horizontal", examples: "一 · 六" },
+        { mark: "丨", name: "竖 shù", description: "vertikal", examples: "十 · 中" },
+        { mark: "丿", name: "撇 piě", description: "fallend nach links", examples: "人 · 大" },
+        { mark: "㇏", name: "捺 nà", description: "fallend nach rechts", examples: "八 · 人" },
+        { mark: "㇀", name: "提 tí", description: "steigend", examples: "我 · 江" },
+        { mark: "乛", name: "横钩 hénggōu", description: "Horizontalhaken", examples: "你 · 字" },
+        { mark: "亅", name: "竖钩 shùgōu", description: "Vertikalhaken", examples: "小 · 你" },
+        { mark: "㇂", name: "斜钩 xiégōu", description: "Schräghaken", examples: "我 · 戈" },
+        { mark: "𠃍", name: "横折 héngzhé", description: "horizontaler Knick", examples: "五 · 口" },
+        { mark: "㇄", name: "竖折 shùzhé", description: "vertikaler Knick", examples: "七 · 亡" }
+      ]
+    },
+    strokeOrder: {
+      eyebrow: "Strichfolge",
+      title: "Strichfolge stabilisiert die Form",
+      body: "Dies ist kein Handschriftkurs, aber Strichfolge hilft beim Zählen, Nachschlagen und beim Verständnis der Balance eines Zeichens.",
+      note: "Der Kurs priorisiert weiterhin Lesen, Hören, Sprechen und Pinyin-Tippen. Strichfolge bleibt hier Hintergrundwissen.",
+      rules: [
+        { title: "Von links nach rechts", example: "Beispiele: 川, 人", steps: ["links", "mitte", "rechts"] },
+        { title: "Von oben nach unten", example: "Beispiel: 三", steps: ["一", "二", "三"] },
+        { title: "Horizontal vor vertikal", example: "Beispiel: 十", steps: ["一", "十"] },
+        { title: "Außen vor innen", example: "Beispiel: 月", steps: ["außen", "innen"] },
+        { title: "Mitte vor beiden Seiten", example: "Beispiel: 小", steps: ["亅", "丿", "丶"] },
+        { title: "Innen vor Schließen", example: "Beispiele: 日, 回", steps: ["Rahmen", "innen", "schließen"] }
+      ]
+    },
+    typing: {
+      title: "Kursziel: erkennen, lesen und tippen",
+      p1: "Handschrift und Strichfolge sind wichtig, aber dieser Kurs konzentriert sich auf <strong>Lesen, Hören, Sprechen und Tippen mit einer Pinyin-Eingabemethode</strong>.",
+      p2: "Nutze diese Seite für das visuelle Modell, die Pinyin-Seite für Aussprache, und dann wandelt die Eingabemethode Laute in Zeichen um."
+    }
+  },
+  fr: {
+    badge: "Fondations · Caractères",
+    title: "Comment les caractères chinois sont construits",
+    subtitle: "Cette page transforme les pages Basic 13-17 du manuel en carte plus lisible : structure d'abord, puis radicaux, traits et ordre des traits.",
+    readingOnly: "Construire d'abord un modèle de reconnaissance - pas besoin de tout mémoriser",
+    studyModel: {
+      eyebrow: "Comment regarder",
+      title: "Devant un nouveau caractère, posez trois questions",
+      body: "Au début, on voit surtout beaucoup de traits. Gardez toujours le même ordre : forme globale, composants, puis prononciation.",
+      steps: [
+        { title: "Lire la forme", body: "Est-il gauche-droite, haut-bas, encerclant ou unitaire ? Séparez d'abord les grands blocs." },
+        { title: "Trouver le radical", body: "Quelle partie peut donner le sens ? Eau, bouche, main et parole sont très fréquents." },
+        { title: "Vérifier le son", body: "Beaucoup de caractères ont un indice sonore, mais la prononciation moderne peut avoir changé. Confirmez avec le pinyin." }
+      ]
+    },
+    formation: {
+      eyebrow: "Système d'écriture",
+      title: "Commencer ici : les caractères ne sont pas seulement de petites images",
+      body: "Le chinois s'écrit en caractères carrés. Un caractère correspond souvent à une syllabe et porte une unité de sens. Quelques caractères viennent d'images ; beaucoup combinent des indices de sens et de son.",
+      note: "Modèle pratique : devant un nouveau caractère, repérez ses composants, son radical et sa structure spatiale. Le pinyin et l'IME aideront pour la prononciation et la saisie.",
+      priority: {
+        title: "Priorité utile : sens + indice sonore",
+        body: "Le manuel corrige un mythe courant : peu de caractères sont de vrais pictogrammes. Pour apprendre, le modèle composant de sens + indice sonore est souvent plus utile que mémoriser également les six catégories historiques.",
+        examples: [
+          { char: "河", parts: ["氵 = eau/liquide", "可 = indice sonore historique"], note: "Le sens est lié à l'eau ; le pinyin confirme hé." },
+          { char: "饭", parts: ["饣 = nourriture", "反 = indice sonore historique"], note: "Le sens est lié à manger ; la prononciation est fàn." },
+          { char: "妈", parts: ["女 = personne/identité", "马 = indice sonore historique"], note: "L'indice sonore est proche, mais le ton change." }
+        ]
+      },
+      types: [
+        { title: "Pictogrammes", pinyin: "xiàngxíng", glyph: "山", glyphMeaning: "montagne", description: "Caractères issus du contour de choses concrètes.", examples: [{ char: "人", pinyin: "rén", meaning: "personne" }, { char: "山", pinyin: "shān", meaning: "montagne" }, { char: "日", pinyin: "rì", meaning: "soleil" }, { char: "月", pinyin: "yuè", meaning: "lune" }, { char: "木", pinyin: "mù", meaning: "arbre" }] },
+        { title: "Idéogrammes simples", pinyin: "zhǐshì", glyph: "上", glyphMeaning: "au-dessus", description: "Marques simples indiquant une relation ou une position abstraite.", examples: [{ char: "上", pinyin: "shàng", meaning: "au-dessus" }, { char: "下", pinyin: "xià", meaning: "au-dessous" }] },
+        { title: "Idéogrammes composés", pinyin: "huìyì", glyph: "明", glyphMeaning: "clair", description: "Des composants de sens sont réunis pour faire apparaître un sens combiné.", examples: [{ char: "明", pinyin: "míng", meaning: "clair" }, { char: "休", pinyin: "xiū", meaning: "se reposer" }], breakdowns: [{ parts: [{ char: "日", pinyin: "rì", meaning: "soleil" }, { char: "月", pinyin: "yuè", meaning: "lune" }], result: { char: "明", pinyin: "míng", meaning: "clair" } }, { parts: [{ char: "人", pinyin: "rén", meaning: "personne" }, { char: "木", pinyin: "mù", meaning: "arbre" }], result: { char: "休", pinyin: "xiū", meaning: "se reposer" } }] },
+        { title: "Sémantico-phonétiques", pinyin: "xíngshēng", glyph: "河", glyphMeaning: "rivière", description: "Une partie indique le sens, l'autre donne un indice sonore historique.", examples: [{ char: "江", pinyin: "jiāng", meaning: "fleuve" }, { char: "河", pinyin: "hé", meaning: "rivière" }, { char: "饭", pinyin: "fàn", meaning: "repas" }, { char: "姑", pinyin: "gū", meaning: "tante" }] },
+        { title: "Explication mutuelle", pinyin: "zhuǎnzhù", glyph: "老", glyphMeaning: "vieux", description: "Catégorie historique où des caractères apparentés s'expliquent ou s'étendent.", examples: [{ char: "老", pinyin: "lǎo", meaning: "vieux" }, { char: "考", pinyin: "kǎo", meaning: "examen" }] },
+        { title: "Emprunts phonétiques", pinyin: "jiǎjiè", glyph: "来", glyphMeaning: "venir", description: "Des caractères existants sont empruntés pour noter un son identique ou proche.", examples: [{ char: "来", pinyin: "lái", meaning: "venir" }, { char: "我", pinyin: "wǒ", meaning: "je / moi" }] }
+      ]
+    },
+    radicals: {
+      eyebrow: "Radicaux",
+      title: "Les radicaux servent à chercher et mémoriser",
+      body: "Les dictionnaires traditionnels organisent les caractères par radicaux. Le manuel en présente quarante ; cette version les garde tous dans une grille compacte.",
+      tip: "Apprenez d'abord la zone de sens. Un radical est souvent un indice, pas une définition stricte.",
+      items: buildHanziRadicals('fr')
+    },
+    structures: {
+      eyebrow: "Structures",
+      title: "Les caractères sont des blocs : lire d'abord la disposition",
+      body: "Le manuel présente neuf dispositions fréquentes. Le but n'est pas le vocabulaire technique, mais de voir comment le caractère est assemblé.",
+      items: [
+        { type: "Unitaire", label: "独体", sketch: "unitary", examples: "上 · 水 · 人 · 女 · 山" },
+        { type: "Gauche-droite", label: "左右", sketch: "leftRight", examples: "忙 · 唱 · 便 · 汉 · 都" },
+        { type: "Haut-bas", label: "上下", sketch: "topBottom", examples: "李 · 字 · 念 · 想 · 笔" },
+        { type: "Semi-encerclant", label: "半包围", sketch: "semiEnclosing", examples: "同 · 周 · 问 · 间 · 风" },
+        { type: "Encerclant", label: "全包围", sketch: "enclosing", examples: "回 · 因 · 国 · 图 · 圆" },
+        { type: "Gauche-centre-droite", label: "左中右", sketch: "horizontalTrisection", examples: "班 · 街 · 辩 · 粥" },
+        { type: "Haut-centre-bas", label: "上中下", sketch: "verticalTrisection", examples: "鼻 · 幕 · 曼" },
+        { type: "Encerclant gauche-bas", label: "左下包围", sketch: "leftBottomEnclosing", examples: "这 · 起 · 过 · 道 · 造" },
+        { type: "Encerclant gauche-haut", label: "左上包围", sketch: "leftTopEnclosing", examples: "床 · 麻 · 病 · 历 · 屋" }
+      ]
+    },
+    strokes: {
+      eyebrow: "Traits de base",
+      title: "Traits de base : les plus petits gestes d'écriture",
+      body: "La plupart des traits vont de haut en bas ou de gauche à droite. Cette liste aide à reconnaître et chercher les caractères.",
+      note: "Deux exceptions utiles : tí monte vers la droite, piě descend vers la gauche.",
+      items: [
+        { mark: "丶", name: "点 diǎn", description: "point", examples: "小 · 六" },
+        { mark: "一", name: "横 héng", description: "horizontal", examples: "一 · 六" },
+        { mark: "丨", name: "竖 shù", description: "vertical", examples: "十 · 中" },
+        { mark: "丿", name: "撇 piě", description: "descendant gauche", examples: "人 · 大" },
+        { mark: "㇏", name: "捺 nà", description: "descendant droit", examples: "八 · 人" },
+        { mark: "㇀", name: "提 tí", description: "montant", examples: "我 · 江" },
+        { mark: "乛", name: "横钩 hénggōu", description: "crochet horizontal", examples: "你 · 字" },
+        { mark: "亅", name: "竖钩 shùgōu", description: "crochet vertical", examples: "小 · 你" },
+        { mark: "㇂", name: "斜钩 xiégōu", description: "crochet oblique", examples: "我 · 戈" },
+        { mark: "𠃍", name: "横折 héngzhé", description: "pli horizontal", examples: "五 · 口" },
+        { mark: "㇄", name: "竖折 shùzhé", description: "pli vertical", examples: "七 · 亡" }
+      ]
+    },
+    strokeOrder: {
+      eyebrow: "Ordre des traits",
+      title: "L'ordre des traits stabilise la forme",
+      body: "Ce n'est pas un cours d'écriture manuscrite, mais l'ordre des traits aide à compter, chercher et comprendre l'équilibre des caractères.",
+      note: "Le cours reste centré sur lecture, écoute, parole et saisie pinyin. L'ordre des traits sert ici de contexte pour reconnaître les caractères.",
+      rules: [
+        { title: "De gauche à droite", example: "Exemples : 川, 人", steps: ["gauche", "centre", "droite"] },
+        { title: "De haut en bas", example: "Exemple : 三", steps: ["一", "二", "三"] },
+        { title: "Horizontal avant vertical", example: "Exemple : 十", steps: ["一", "十"] },
+        { title: "Extérieur avant intérieur", example: "Exemple : 月", steps: ["extérieur", "intérieur"] },
+        { title: "Milieu avant les côtés", example: "Exemple : 小", steps: ["亅", "丿", "丶"] },
+        { title: "Intérieur avant fermeture", example: "Exemples : 日, 回", steps: ["cadre", "intérieur", "fermer"] }
+      ]
+    },
+    typing: {
+      title: "Objectif du cours : reconnaître, lire et saisir",
+      p1: "L'écriture manuscrite et l'ordre des traits comptent, mais ce cours se concentre sur <strong>la lecture, l'écoute, l'oral et la saisie avec un IME pinyin</strong>.",
+      p2: "Utilisez cette page pour construire le modèle visuel, la page pinyin pour la prononciation, puis l'IME transforme les sons en caractères."
+    }
+  }
+};
+
+const HANZI_STRUCTURE_BLUEPRINT = HANZI_INTRO_TRANSLATIONS.en.structures.items.map(({ label, sketch, examples }) => ({
+  label,
+  sketch,
+  examples,
+}));
+
+const HANZI_STROKE_BLUEPRINT = HANZI_INTRO_TRANSLATIONS.en.strokes.items.map(({ mark, name, examples }) => ({
+  mark,
+  name,
+  examples,
+}));
+
+const HANZI_STRUCTURE_TYPES = {
+  ru: ["Цельный", "Слева-справа", "Сверху-снизу", "Полуокружение", "Полное окружение", "Лево-центр-право", "Верх-середина-низ", "Окружение слева снизу", "Окружение слева сверху"],
+  es: ["Unitario", "Izquierda-derecha", "Arriba-abajo", "Semienvolvente", "Envolvente", "Izquierda-centro-derecha", "Arriba-centro-abajo", "Envolvente izquierda-abajo", "Envolvente izquierda-arriba"],
+  jp: ["独体", "左右", "上下", "半包囲", "全包囲", "左中右", "上中下", "左下包囲", "左上包囲"],
+  ko: ["단일 구조", "좌우 구조", "상하 구조", "반포위 구조", "완전 포위 구조", "좌중우 구조", "상중하 구조", "왼쪽-아래 포위", "왼쪽-위 포위"],
+  vi: ["Độc thể", "Trái-phải", "Trên-dưới", "Nửa bao quanh", "Bao quanh", "Trái-giữa-phải", "Trên-giữa-dưới", "Bao trái-dưới", "Bao trái-trên"],
+  pt: ["Unitário", "Esquerda-direita", "Cima-baixo", "Semienvolvente", "Envolvente", "Esquerda-centro-direita", "Cima-centro-baixo", "Envolvente esquerda-baixo", "Envolvente esquerda-cima"],
+  it: ["Unitario", "Sinistra-destra", "Alto-basso", "Semiavvolgente", "Avvolgente", "Sinistra-centro-destra", "Alto-centro-basso", "Avvolgente sinistra-basso", "Avvolgente sinistra-alto"],
+  id: ["Tunggal", "Kiri-kanan", "Atas-bawah", "Setengah mengurung", "Mengurung penuh", "Kiri-tengah-kanan", "Atas-tengah-bawah", "Mengurung kiri-bawah", "Mengurung kiri-atas"],
+  ms: ["Tunggal", "Kiri-kanan", "Atas-bawah", "Separuh mengepung", "Mengepung penuh", "Kiri-tengah-kanan", "Atas-tengah-bawah", "Mengepung kiri-bawah", "Mengepung kiri-atas"],
+  ar: ["مفرد", "يسار-يمين", "أعلى-أسفل", "شبه محيط", "محيط كامل", "يسار-وسط-يمين", "أعلى-وسط-أسفل", "إحاطة يسار-أسفل", "إحاطة يسار-أعلى"],
+  th: ["เดี่ยว", "ซ้าย-ขวา", "บน-ล่าง", "ล้อมบางส่วน", "ล้อมรอบ", "ซ้าย-กลาง-ขวา", "บน-กลาง-ล่าง", "ล้อมซ้ายล่าง", "ล้อมซ้ายบน"],
+};
+
+const HANZI_STROKE_DESCRIPTIONS = {
+  ru: ["точка", "горизонтальная", "вертикальная", "вниз влево", "вниз вправо", "вверх вправо", "горизонтальный крюк", "вертикальный крюк", "наклонный крюк", "горизонтальный излом", "вертикальный излом"],
+  es: ["punto", "horizontal", "vertical", "baja a la izquierda", "baja a la derecha", "sube a la derecha", "gancho horizontal", "gancho vertical", "gancho oblicuo", "giro horizontal", "giro vertical"],
+  jp: ["点", "横", "縦", "左下へ払う", "右下へ払う", "右上へ上げる", "横のあと鉤", "縦のあと鉤", "斜めの鉤", "横のあと折れる", "縦のあと折れる"],
+  ko: ["점", "가로", "세로", "왼쪽 아래로", "오른쪽 아래로", "오른쪽 위로", "가로 갈고리", "세로 갈고리", "비스듬한 갈고리", "가로 꺾임", "세로 꺾임"],
+  vi: ["chấm", "ngang", "dọc", "xuống trái", "xuống phải", "hất lên phải", "móc ngang", "móc dọc", "móc xiên", "ngang rồi gập", "dọc rồi gập"],
+  pt: ["ponto", "horizontal", "vertical", "desce à esquerda", "desce à direita", "sobe à direita", "gancho horizontal", "gancho vertical", "gancho inclinado", "dobra horizontal", "dobra vertical"],
+  it: ["punto", "orizzontale", "verticale", "scende a sinistra", "scende a destra", "sale a destra", "gancio orizzontale", "gancio verticale", "gancio obliquo", "piega orizzontale", "piega verticale"],
+  id: ["titik", "horizontal", "vertikal", "turun ke kiri", "turun ke kanan", "naik ke kanan", "kait horizontal", "kait vertikal", "kait miring", "belok horizontal", "belok vertikal"],
+  ms: ["titik", "melintang", "menegak", "turun ke kiri", "turun ke kanan", "naik ke kanan", "cangkuk melintang", "cangkuk menegak", "cangkuk serong", "lipatan melintang", "lipatan menegak"],
+  ar: ["نقطة", "أفقي", "عمودي", "نزول إلى اليسار", "نزول إلى اليمين", "صعود إلى اليمين", "خط أفقي بخطاف", "خط عمودي بخطاف", "خطاف مائل", "انثناء أفقي", "انثناء عمودي"],
+  th: ["จุด", "แนวนอน", "แนวตั้ง", "ลงซ้าย", "ลงขวา", "ยกขึ้นขวา", "ขีดนอนมีตะขอ", "ขีดตั้งมีตะขอ", "ตะขอเฉียง", "ขีดนอนแล้วหัก", "ขีดตั้งแล้วหัก"],
+};
+
+const HANZI_STROKE_ORDER_RULES = {
+  ru: ["Слева направо", "Сверху вниз", "Горизонталь перед вертикалью", "Снаружи перед внутренним", "Середина перед сторонами", "Внутреннее перед закрытием"],
+  es: ["De izquierda a derecha", "De arriba abajo", "Horizontal antes que vertical", "Exterior antes que interior", "Centro antes que lados", "Interior antes de cerrar"],
+  jp: ["左から右へ", "上から下へ", "横画を先に、縦画を後に", "外側を先に、内側を後に", "中央を先に、両側を後に", "内側を先に、最後に閉じる"],
+  ko: ["왼쪽에서 오른쪽으로", "위에서 아래로", "가로획 먼저, 세로획 나중", "바깥쪽 먼저, 안쪽 나중", "가운데 먼저, 양쪽 나중", "안쪽 먼저, 닫기는 마지막"],
+  vi: ["Từ trái sang phải", "Từ trên xuống dưới", "Ngang trước dọc", "Ngoài trước trong", "Giữa trước hai bên", "Trong trước khi đóng"],
+  pt: ["Da esquerda para a direita", "De cima para baixo", "Horizontal antes do vertical", "Fora antes de dentro", "Meio antes dos lados", "Dentro antes de fechar"],
+  it: ["Da sinistra a destra", "Dall'alto in basso", "Orizzontale prima del verticale", "Esterno prima dell'interno", "Centro prima dei lati", "Interno prima della chiusura"],
+  id: ["Kiri ke kanan", "Atas ke bawah", "Horizontal sebelum vertikal", "Luar sebelum dalam", "Tengah sebelum dua sisi", "Dalam sebelum menutup"],
+  ms: ["Kiri ke kanan", "Atas ke bawah", "Melintang sebelum menegak", "Luar sebelum dalam", "Tengah sebelum dua sisi", "Dalam sebelum menutup"],
+  ar: ["من اليسار إلى اليمين", "من الأعلى إلى الأسفل", "الأفقي قبل العمودي", "الخارج قبل الداخل", "الوسط قبل الجانبين", "الداخل قبل الإغلاق"],
+  th: ["ซ้ายไปขวา", "บนลงล่าง", "แนวนอนก่อนแนวตั้ง", "ด้านนอกก่อนด้านใน", "กลางก่อนสองข้าง", "ด้านในก่อนปิด"],
+};
+
+function buildLocalizedStructures(locale) {
+  const types = HANZI_STRUCTURE_TYPES[locale] || HANZI_INTRO_TRANSLATIONS.en.structures.items.map(({ type }) => type);
+  return HANZI_STRUCTURE_BLUEPRINT.map((item, index) => ({
+    ...item,
+    type: types[index] || HANZI_INTRO_TRANSLATIONS.en.structures.items[index].type,
+  }));
+}
+
+function buildLocalizedStrokes(locale) {
+  const descriptions = HANZI_STROKE_DESCRIPTIONS[locale] || HANZI_INTRO_TRANSLATIONS.en.strokes.items.map(({ description }) => description);
+  return HANZI_STROKE_BLUEPRINT.map((item, index) => ({
+    ...item,
+    description: descriptions[index] || HANZI_INTRO_TRANSLATIONS.en.strokes.items[index].description,
+  }));
+}
+
+function buildLocalizedStrokeOrderRules(locale) {
+  const titles = HANZI_STROKE_ORDER_RULES[locale] || HANZI_INTRO_TRANSLATIONS.en.strokeOrder.rules.map(({ title }) => title);
+  return HANZI_INTRO_TRANSLATIONS.en.strokeOrder.rules.map((item, index) => ({
+    ...item,
+    title: titles[index] || item.title,
+  }));
+}
+
+function buildHanziIntroFromCopy(copy, locale = 'en') {
+  const radicalItems = buildHanziRadicals(copy.radicalLocale || 'en').map((item, index) => ({
+    ...item,
+    meaning: copy.radicalMeanings?.[index] || item.meaning,
+    hint: "",
+  }));
+  const formationPriority = copy.formation?.priority
+    ? { ...copy.formation.priority, examples: copy.formation.priority.examples || [] }
+    : HANZI_INTRO_TRANSLATIONS.en.formation.priority;
+  const structures = {
+    ...HANZI_INTRO_TRANSLATIONS.en.structures,
+    ...copy.structures,
+    items: copy.structures?.items || buildLocalizedStructures(locale),
+  };
+  const strokes = {
+    ...HANZI_INTRO_TRANSLATIONS.en.strokes,
+    ...copy.strokes,
+    items: copy.strokes?.items || buildLocalizedStrokes(locale),
+  };
+  const strokeOrder = {
+    ...HANZI_INTRO_TRANSLATIONS.en.strokeOrder,
+    ...copy.strokeOrder,
+    rules: copy.strokeOrder?.rules || buildLocalizedStrokeOrderRules(locale),
+  };
+
+  return {
+    ...HANZI_INTRO_TRANSLATIONS.en,
+    badge: copy.badge,
+    title: copy.title,
+    subtitle: copy.subtitle,
+    readingOnly: copy.readingOnly,
+    studyModel: copy.studyModel,
+    formation: {
+      ...HANZI_INTRO_TRANSLATIONS.en.formation,
+      ...copy.formation,
+      priority: formationPriority,
+      types: buildHanziFormationTypes(copy),
+    },
+    radicals: {
+      ...HANZI_INTRO_TRANSLATIONS.en.radicals,
+      ...copy.radicals,
+      items: radicalItems,
+    },
+    structures,
+    strokes,
+    strokeOrder,
+    typing: copy.typing,
+  };
+}
+
+const HANZI_EXTRA_LOCALE_COPY = {
+  ru: {
+    badge: "Основа · Иероглифы",
+    title: "Как устроены китайские иероглифы",
+    subtitle: "Карта по страницам Basic 13-17: сначала форма, затем ключи, черты и порядок письма.",
+    readingOnly: "Сначала узнавание формы - не нужно сразу все запоминать",
+    studyModel: { eyebrow: "Как смотреть", title: "У нового иероглифа задайте три вопроса", body: "Сначала иероглифы выглядят как набор черт. Смотрите в одном порядке: форма, части, произношение.", steps: [{ title: "Форма", body: "Это слева-направо, сверху-вниз, окружение или цельный знак?" }, { title: "Ключ", body: "Какая часть может намекать на смысл? Вода, рот, рука и речь встречаются часто." }, { title: "Звук", body: "Звуковая часть помогает не всегда точно. Проверьте чтение по пиньиню." }] },
+    formation: { eyebrow: "Система письма", title: "Иероглифы - не просто маленькие картинки", body: "Один иероглиф обычно соответствует одному слогу и несет единицу смысла. Немногие знаки произошли от рисунков; многие состоят из смысловой части и звуковой подсказки.", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "Самое полезное: смысл + звук", body: "Для начинающих важнее всего видеть модель: одна часть подсказывает область значения, другая - историческое звучание." } },
+    radicals: { eyebrow: "Ключи", title: "Ключи помогают искать и запоминать", body: "В учебнике дано сорок базовых ключей. Здесь они собраны в компактную сетку.", tip: "" },
+    structures: { eyebrow: "Структуры", title: "Сначала читайте расположение частей", body: "Цель не в терминах, а в умении видеть, из каких блоков собран знак." },
+    strokes: { eyebrow: "Базовые черты", title: "Черты: минимальные движения письма", body: "Эти названия помогают распознавать и искать иероглифы.", note: "" },
+    strokeOrder: { eyebrow: "Порядок черт", title: "Порядок черт стабилизирует форму", body: "Он помогает считать черты, искать в словаре и понимать баланс знака.", note: "" },
+    typing: { title: "Цель курса: узнавать, читать и печатать", p1: "Письмо от руки важно, но курс делает упор на <strong>чтение, аудирование, говорение и ввод через пиньинь</strong>.", p2: "Сначала постройте визуальную модель, затем используйте пиньинь для произношения и ввода." },
+    formationTypes: {
+      pictograph: { title: "Пиктограммы", glyphMeaning: "гора", description: "Знаки, возникшие из очертаний конкретных предметов." },
+      ideogram: { title: "Простые идеограммы", glyphMeaning: "сверху", description: "Простые отметки для отношения или положения." },
+      compound: { title: "Составные идеограммы", glyphMeaning: "яркий", description: "Части со значением соединяются и дают новый смысл." },
+      semanticPhonetic: { title: "Смысл + звук", glyphMeaning: "река", description: "Одна часть намекает на смысл, другая на историческое звучание." },
+      mutual: { title: "Взаимное объяснение", glyphMeaning: "старый", description: "Историческая категория родственных знаков." },
+      loan: { title: "Фонетические заимствования", glyphMeaning: "приходить", description: "Существующие знаки использовались для похожего звучания." }
+    },
+    exampleMeanings: { person: "человек", mountain: "гора", sun: "солнце", moon: "луна", tree: "дерево", above: "сверху", below: "снизу", bright: "яркий", rest: "отдых", riverJiang: "река", riverHe: "река", meal: "еда", aunt: "тетя", old: "старый", test: "экзамен", come: "приходить", me: "я" }
+  },
+  es: {
+    badge: "Base · Caracteres", title: "Cómo se construyen los caracteres chinos", subtitle: "Una guía de las páginas Basic 13-17: primero la forma, luego radicales, trazos y orden.", readingOnly: "Primero reconoce patrones - no memorices todo de golpe",
+    studyModel: { eyebrow: "Cómo mirar", title: "Ante un carácter nuevo, haz tres preguntas", body: "Usa siempre el mismo orden: forma completa, componentes y pronunciación.", steps: [{ title: "Forma", body: "¿Es izquierda-derecha, arriba-abajo, envolvente o unitario?" }, { title: "Radical", body: "¿Qué parte puede indicar el campo de significado?" }, { title: "Sonido", body: "La pista sonora puede haber cambiado; confirma con pinyin." }] },
+    formation: { eyebrow: "Sistema de escritura", title: "Los caracteres no son solo dibujos pequeños", body: "Un carácter suele representar una sílaba y una unidad de significado. Muchos combinan una parte semántica con una pista sonora.", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "Lo más útil: significado + sonido", body: "Para principiantes, este patrón es más útil que memorizar por igual las seis categorías históricas." } },
+    radicals: { eyebrow: "Radicales", title: "Los radicales ayudan a buscar y recordar", body: "El libro presenta cuarenta radicales básicos; aquí están en una cuadrícula compacta.", tip: "" },
+    structures: { eyebrow: "Estructuras", title: "Lee primero la disposición", body: "La meta es ver cómo se arma el carácter, no memorizar términos." },
+    strokes: { eyebrow: "Trazos básicos", title: "Trazos: los movimientos mínimos", body: "Estos nombres ayudan a reconocer y buscar caracteres.", note: "" },
+    strokeOrder: { eyebrow: "Orden de trazos", title: "El orden estabiliza la forma", body: "Ayuda a contar trazos, usar diccionarios y escribir con mejor equilibrio.", note: "" },
+    typing: { title: "Meta del curso: reconocer, leer y escribir con teclado", p1: "La escritura a mano importa, pero el curso prioriza <strong>lectura, escucha, habla y entrada con pinyin</strong>.", p2: "Construye el modelo visual y luego usa pinyin para pronunciación y escritura." },
+    formationTypes: { pictograph: { title: "Pictogramas", glyphMeaning: "montaña", description: "Caracteres que vienen del contorno de cosas concretas." }, ideogram: { title: "Ideogramas simples", glyphMeaning: "arriba", description: "Marcas simples para relación o posición." }, compound: { title: "Ideogramas compuestos", glyphMeaning: "brillante", description: "Componentes de significado se combinan." }, semanticPhonetic: { title: "Semántico-fonético", glyphMeaning: "río", description: "Una parte sugiere significado y otra sonido histórico." }, mutual: { title: "Explicación mutua", glyphMeaning: "viejo", description: "Categoría histórica de caracteres relacionados." }, loan: { title: "Préstamos fonéticos", glyphMeaning: "venir", description: "Caracteres usados por sonido parecido." } },
+    exampleMeanings: { person: "persona", mountain: "montaña", sun: "sol", moon: "luna", tree: "árbol", above: "arriba", below: "abajo", bright: "brillante", rest: "descansar", riverJiang: "río", riverHe: "río", meal: "comida", aunt: "tía", old: "viejo", test: "examen", come: "venir", me: "yo" }
+  },
+  jp: {
+    badge: "基礎 · 漢字", title: "漢字はどう組み立てられるか", subtitle: "Basic 13-17ページを、形・部首・筆画・筆順の順で見やすく整理しました。", readingOnly: "まず認識モデルを作る - 一度に暗記しなくて大丈夫",
+    studyModel: { eyebrow: "見方", title: "新しい字では三つ質問する", body: "全体の形、部品、発音の順で見ます。", steps: [{ title: "形を見る", body: "左右、上下、囲み、独体のどれかを見ます。" }, { title: "部首を探す", body: "意味のヒントになりそうな部分を探します。" }, { title: "音を確認", body: "音のヒントはずれることもあるので、ピンインで確認します。" }] },
+    formation: { eyebrow: "文字体系", title: "漢字はただの小さな絵ではない", body: "漢字は多くの場合、一つの音節と意味単位を表します。絵から来た字は一部で、多くは意味部品と音の手がかりから成ります。", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "まず大事なのは意味 + 音", body: "初心者には、意味部品と歴史的な音の手がかりを見ることが特に役立ちます。" } },
+    radicals: { eyebrow: "部首", title: "部首は検索と記憶の手がかり", body: "教材の40個の入門部首をコンパクトに表示します。", tip: "" },
+    structures: { eyebrow: "構造", title: "まず配置を見る", body: "用語よりも、字がどのブロックでできているかを見ることが大切です。" },
+    strokes: { eyebrow: "基本筆画", title: "筆画は最小の書く動き", body: "名前を知ると字を認識しやすくなります。", note: "" },
+    strokeOrder: { eyebrow: "筆順", title: "筆順は形を安定させる", body: "筆画数、辞書検索、字形のバランスに役立ちます。", note: "" },
+    typing: { title: "目標：認識・読解・入力", p1: "手書きも大切ですが、このコースは<strong>読む・聞く・話す・ピンイン入力</strong>を中心にします。", p2: "まず視覚モデルを作り、ピンインで発音と入力につなげます。" },
+    formationTypes: { pictograph: { title: "象形", glyphMeaning: "山", description: "具体物の輪郭から発展した字。" }, ideogram: { title: "指事", glyphMeaning: "上", description: "位置や関係を示す簡単な記号。" }, compound: { title: "会意", glyphMeaning: "明るい", description: "意味部品を合わせて新しい意味を表します。" }, semanticPhonetic: { title: "形声", glyphMeaning: "川/河", description: "一部が意味、一部が歴史的な音を示します。" }, mutual: { title: "転注", glyphMeaning: "老い", description: "関連する字が互いに説明する歴史的分類。" }, loan: { title: "仮借", glyphMeaning: "来る", description: "似た音を書くために既存の字を借ります。" } },
+    exampleMeanings: { person: "人", mountain: "山", sun: "太陽", moon: "月", tree: "木", above: "上", below: "下", bright: "明るい", rest: "休む", riverJiang: "川", riverHe: "河", meal: "ご飯", aunt: "おば", old: "古い/老い", test: "試験", come: "来る", me: "私" }
+  },
+  ko: {
+    badge: "기초 · 한자", title: "한자는 어떻게 구성될까", subtitle: "Basic 13-17쪽 내용을 구조, 부수, 획, 필순 순서로 정리했습니다.", readingOnly: "먼저 인식 모델 만들기 - 한 번에 외울 필요 없음",
+    studyModel: { eyebrow: "보는 순서", title: "새 글자를 보면 세 가지를 묻기", body: "전체 모양, 구성 요소, 발음 순서로 봅니다.", steps: [{ title: "모양", body: "좌우, 상하, 둘러쌈, 독체인지 봅니다." }, { title: "부수", body: "의미를 암시하는 부분을 찾습니다." }, { title: "소리", body: "소리 힌트는 달라졌을 수 있으니 병음으로 확인합니다." }] },
+    formation: { eyebrow: "문자 체계", title: "한자는 작은 그림만이 아닙니다", body: "한 글자는 보통 한 음절과 의미 단위를 나타냅니다. 많은 글자는 의미 부분과 소리 힌트가 결합됩니다.", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "가장 유용한 것: 의미 + 소리", body: "초보자에게는 여섯 분류를 똑같이 외우기보다 이 구조를 보는 것이 더 유용합니다." } },
+    radicals: { eyebrow: "부수", title: "부수는 검색과 기억의 손잡이", body: "교재의 40개 입문 부수를 작은 카드로 정리했습니다.", tip: "" },
+    structures: { eyebrow: "구조", title: "먼저 배치를 읽기", body: "용어보다 글자가 어떤 블록으로 이루어졌는지 보는 것이 중요합니다." },
+    strokes: { eyebrow: "기본 획", title: "획은 가장 작은 쓰기 동작", body: "이 이름들은 글자 인식과 검색에 도움이 됩니다.", note: "" },
+    strokeOrder: { eyebrow: "필순", title: "필순은 모양을 안정시킵니다", body: "획수 세기, 사전 검색, 균형 이해에 도움이 됩니다.", note: "" },
+    typing: { title: "목표: 알아보기, 읽기, 입력하기", p1: "손글씨도 중요하지만 이 과정은 <strong>읽기, 듣기, 말하기, 병음 입력</strong>에 중점을 둡니다.", p2: "시각 모델을 만들고 병음으로 발음과 입력을 연결하세요." },
+    formationTypes: { pictograph: { title: "상형", glyphMeaning: "산", description: "구체적인 사물의 윤곽에서 온 글자." }, ideogram: { title: "지사", glyphMeaning: "위", description: "관계나 위치를 표시하는 간단한 기호." }, compound: { title: "회의", glyphMeaning: "밝음", description: "의미 요소가 결합되어 새 의미를 만듭니다." }, semanticPhonetic: { title: "형성", glyphMeaning: "강", description: "한 부분은 의미, 다른 부분은 역사적 소리를 암시합니다." }, mutual: { title: "전주", glyphMeaning: "늙음", description: "관련 글자가 서로 설명하는 역사적 분류." }, loan: { title: "가차", glyphMeaning: "오다", description: "비슷한 소리를 적기 위해 글자를 빌립니다." } },
+    exampleMeanings: { person: "사람", mountain: "산", sun: "해", moon: "달", tree: "나무", above: "위", below: "아래", bright: "밝다", rest: "쉬다", riverJiang: "강", riverHe: "강", meal: "밥", aunt: "고모/이모", old: "늙다", test: "시험", come: "오다", me: "나" }
+  }
+};
+
+Object.assign(HANZI_EXTRA_LOCALE_COPY, {
+  vi: {
+    badge: "Nền tảng · Chữ Hán", title: "Chữ Hán được cấu tạo như thế nào", subtitle: "Bản đồ từ Basic trang 13-17: xem cấu trúc trước, rồi bộ thủ, nét và thứ tự nét.", readingOnly: "Xây mô hình nhận diện trước - không cần nhớ hết ngay",
+    studyModel: { eyebrow: "Cách nhìn", title: "Gặp chữ mới, hỏi ba câu", body: "Nhìn theo thứ tự cố định: hình tổng thể, bộ phận, rồi phát âm.", steps: [{ title: "Hình dạng", body: "Chữ thuộc kiểu trái-phải, trên-dưới, bao quanh hay độc thể?" }, { title: "Bộ thủ", body: "Phần nào có thể gợi nghĩa?" }, { title: "Âm đọc", body: "Gợi ý âm có thể lệch; hãy xác nhận bằng pinyin." }] },
+    formation: { eyebrow: "Hệ chữ viết", title: "Chữ Hán không chỉ là những hình vẽ nhỏ", body: "Một chữ thường tương ứng một âm tiết và một đơn vị nghĩa. Nhiều chữ kết hợp phần gợi nghĩa với gợi ý âm lịch sử.", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "Hữu ích nhất: nghĩa + âm", body: "Với người mới học, nhận ra mô hình này quan trọng hơn học đều cả sáu loại lịch sử." } },
+    radicals: { eyebrow: "Bộ thủ", title: "Bộ thủ giúp tra cứu và ghi nhớ", body: "Bốn mươi bộ thủ nhập môn của sách được trình bày thành lưới nhỏ gọn.", tip: "" },
+    structures: { eyebrow: "Cấu trúc", title: "Đọc bố cục trước", body: "Mục tiêu là thấy chữ được ghép từ các khối nào." },
+    strokes: { eyebrow: "Nét cơ bản", title: "Nét là động tác viết nhỏ nhất", body: "Tên nét giúp nhận diện và tra chữ.", note: "" },
+    strokeOrder: { eyebrow: "Thứ tự nét", title: "Thứ tự nét giữ hình chữ ổn định", body: "Nó giúp đếm nét, tra từ điển và hiểu cân bằng chữ.", note: "" },
+    typing: { title: "Mục tiêu: nhận ra, đọc và gõ", p1: "Viết tay quan trọng, nhưng khóa học ưu tiên <strong>đọc, nghe, nói và gõ bằng pinyin</strong>.", p2: "Xây mô hình thị giác trước, rồi dùng pinyin cho phát âm và nhập liệu." },
+    formationTypes: { pictograph: { title: "Tượng hình", glyphMeaning: "núi", description: "Chữ phát triển từ đường nét của vật cụ thể." }, ideogram: { title: "Chỉ sự", glyphMeaning: "trên", description: "Dấu đơn giản chỉ quan hệ hoặc vị trí." }, compound: { title: "Hội ý", glyphMeaning: "sáng", description: "Các phần nghĩa kết hợp để tạo nghĩa mới." }, semanticPhonetic: { title: "Hình thanh", glyphMeaning: "sông", description: "Một phần gợi nghĩa, phần kia gợi âm lịch sử." }, mutual: { title: "Chuyển chú", glyphMeaning: "già", description: "Nhóm lịch sử của các chữ liên quan." }, loan: { title: "Giả tá", glyphMeaning: "đến", description: "Mượn chữ có âm gần giống." } },
+    exampleMeanings: { person: "người", mountain: "núi", sun: "mặt trời", moon: "mặt trăng", tree: "cây", above: "trên", below: "dưới", bright: "sáng", rest: "nghỉ", riverJiang: "sông", riverHe: "sông", meal: "cơm", aunt: "cô/dì", old: "già", test: "thi", come: "đến", me: "tôi" }
+  },
+  pt: {
+    badge: "Base · Caracteres", title: "Como os caracteres chineses são formados", subtitle: "Um mapa das páginas Basic 13-17: forma primeiro, depois radicais, traços e ordem.", readingOnly: "Construa o reconhecimento primeiro - não memorize tudo agora",
+    studyModel: { eyebrow: "Como olhar", title: "Ao ver um caractere novo, faça três perguntas", body: "Use sempre a mesma ordem: forma geral, partes e pronúncia.", steps: [{ title: "Forma", body: "É esquerda-direita, cima-baixo, envolvente ou unitário?" }, { title: "Radical", body: "Que parte pode sugerir significado?" }, { title: "Som", body: "A pista sonora pode ter mudado; confirme com pinyin." }] },
+    formation: { eyebrow: "Sistema de escrita", title: "Caracteres não são só pequenos desenhos", body: "Um caractere geralmente representa uma sílaba e uma unidade de significado. Muitos combinam parte semântica e pista sonora.", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "Mais útil: significado + som", body: "Para iniciantes, reconhecer esse padrão é mais útil do que memorizar igualmente as seis categorias históricas." } },
+    radicals: { eyebrow: "Radicais", title: "Radicais ajudam a procurar e lembrar", body: "Os quarenta radicais iniciais do livro aparecem aqui em cartões compactos.", tip: "" },
+    structures: { eyebrow: "Estruturas", title: "Leia primeiro o layout", body: "O objetivo é ver de quais blocos o caractere é feito." },
+    strokes: { eyebrow: "Traços básicos", title: "Traços são os menores movimentos", body: "Esses nomes ajudam a reconhecer e procurar caracteres.", note: "" },
+    strokeOrder: { eyebrow: "Ordem dos traços", title: "A ordem estabiliza a forma", body: "Ajuda a contar traços, usar dicionários e entender o equilíbrio.", note: "" },
+    typing: { title: "Meta: reconhecer, ler e digitar", p1: "A escrita à mão importa, mas o curso prioriza <strong>leitura, escuta, fala e digitação com pinyin</strong>.", p2: "Crie o modelo visual e use pinyin para pronúncia e entrada." },
+    formationTypes: { pictograph: { title: "Pictogramas", glyphMeaning: "montanha", description: "Caracteres derivados do contorno de coisas concretas." }, ideogram: { title: "Ideogramas simples", glyphMeaning: "acima", description: "Marcas simples para relação ou posição." }, compound: { title: "Ideogramas compostos", glyphMeaning: "brilhante", description: "Partes de significado se combinam." }, semanticPhonetic: { title: "Semântico-fonético", glyphMeaning: "rio", description: "Uma parte sugere significado e outra som histórico." }, mutual: { title: "Explicação mútua", glyphMeaning: "velho", description: "Categoria histórica de caracteres relacionados." }, loan: { title: "Empréstimos fonéticos", glyphMeaning: "vir", description: "Caracteres usados por som parecido." } },
+    exampleMeanings: { person: "pessoa", mountain: "montanha", sun: "sol", moon: "lua", tree: "árvore", above: "acima", below: "abaixo", bright: "brilhante", rest: "descansar", riverJiang: "rio", riverHe: "rio", meal: "refeição", aunt: "tia", old: "velho", test: "prova", come: "vir", me: "eu" }
+  },
+  it: {
+    badge: "Base · Caratteri", title: "Come sono costruiti i caratteri cinesi", subtitle: "Una mappa delle pagine Basic 13-17: prima forma, poi radicali, tratti e ordine.", readingOnly: "Prima costruisci il riconoscimento - non memorizzare tutto subito",
+    studyModel: { eyebrow: "Come guardare", title: "Con un carattere nuovo, fai tre domande", body: "Osserva sempre: forma generale, componenti, pronuncia.", steps: [{ title: "Forma", body: "È sinistra-destra, alto-basso, racchiuso o unitario?" }, { title: "Radicale", body: "Quale parte può suggerire il significato?" }, { title: "Suono", body: "L'indizio sonoro può essere cambiato; conferma col pinyin." }] },
+    formation: { eyebrow: "Sistema di scrittura", title: "I caratteri non sono solo piccoli disegni", body: "Un carattere di solito rappresenta una sillaba e un'unità di significato. Molti combinano parte semantica e indizio sonoro.", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "Più utile: significato + suono", body: "Per chi inizia, questo modello conta più che memorizzare allo stesso modo le sei categorie storiche." } },
+    radicals: { eyebrow: "Radicali", title: "I radicali aiutano ricerca e memoria", body: "I quaranta radicali iniziali del libro sono mostrati in schede compatte.", tip: "" },
+    structures: { eyebrow: "Strutture", title: "Leggi prima il layout", body: "L'obiettivo è vedere da quali blocchi è composto il carattere." },
+    strokes: { eyebrow: "Tratti di base", title: "I tratti sono i movimenti minimi", body: "Questi nomi aiutano a riconoscere e cercare i caratteri.", note: "" },
+    strokeOrder: { eyebrow: "Ordine dei tratti", title: "L'ordine stabilizza la forma", body: "Aiuta a contare i tratti e capire l'equilibrio.", note: "" },
+    typing: { title: "Obiettivo: riconoscere, leggere e digitare", p1: "La scrittura a mano conta, ma il corso privilegia <strong>lettura, ascolto, parlato e input pinyin</strong>.", p2: "Costruisci il modello visivo e usa il pinyin per pronuncia e input." },
+    formationTypes: { pictograph: { title: "Pittogrammi", glyphMeaning: "montagna", description: "Caratteri derivati dal contorno di oggetti concreti." }, ideogram: { title: "Ideogrammi semplici", glyphMeaning: "sopra", description: "Segni semplici per relazione o posizione." }, compound: { title: "Ideogrammi composti", glyphMeaning: "luminoso", description: "Componenti di significato si combinano." }, semanticPhonetic: { title: "Semantico-fonetici", glyphMeaning: "fiume", description: "Una parte suggerisce il significato, l'altra il suono storico." }, mutual: { title: "Spiegazione reciproca", glyphMeaning: "vecchio", description: "Categoria storica di caratteri collegati." }, loan: { title: "Prestiti fonetici", glyphMeaning: "venire", description: "Caratteri usati per suoni simili." } },
+    exampleMeanings: { person: "persona", mountain: "montagna", sun: "sole", moon: "luna", tree: "albero", above: "sopra", below: "sotto", bright: "luminoso", rest: "riposare", riverJiang: "fiume", riverHe: "fiume", meal: "pasto", aunt: "zia", old: "vecchio", test: "esame", come: "venire", me: "io" }
+  },
+  id: {
+    badge: "Dasar · Karakter", title: "Bagaimana aksara Tionghoa dibentuk", subtitle: "Peta Basic halaman 13-17: bentuk dulu, lalu radikal, goresan, dan urutan.", readingOnly: "Bangun pola pengenalan dulu - tidak perlu hafal semua",
+    studyModel: { eyebrow: "Cara melihat", title: "Saat melihat karakter baru, ajukan tiga pertanyaan", body: "Lihat bentuk utuh, bagian-bagian, lalu bunyi.", steps: [{ title: "Bentuk", body: "Kiri-kanan, atas-bawah, mengurung, atau tunggal?" }, { title: "Radikal", body: "Bagian mana yang memberi petunjuk makna?" }, { title: "Bunyi", body: "Petunjuk bunyi bisa berubah; cek dengan pinyin." }] },
+    formation: { eyebrow: "Sistem tulisan", title: "Karakter bukan sekadar gambar kecil", body: "Satu karakter biasanya mewakili satu suku kata dan satu unit makna. Banyak karakter menggabungkan bagian makna dan petunjuk bunyi.", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "Paling berguna: makna + bunyi", body: "Untuk pemula, pola ini lebih berguna daripada menghafal enam kategori sejarah secara merata." } },
+    radicals: { eyebrow: "Radikal", title: "Radikal membantu mencari dan mengingat", body: "Empat puluh radikal dasar dari buku disusun sebagai kartu ringkas.", tip: "" },
+    structures: { eyebrow: "Struktur", title: "Baca tata letaknya dulu", body: "Tujuannya melihat karakter tersusun dari blok apa saja." },
+    strokes: { eyebrow: "Goresan dasar", title: "Goresan adalah gerakan terkecil", body: "Nama-nama ini membantu mengenali dan mencari karakter.", note: "" },
+    strokeOrder: { eyebrow: "Urutan goresan", title: "Urutan menstabilkan bentuk", body: "Membantu menghitung goresan, kamus, dan keseimbangan bentuk.", note: "" },
+    typing: { title: "Tujuan: mengenali, membaca, mengetik", p1: "Tulisan tangan penting, tetapi kursus ini fokus pada <strong>membaca, mendengar, berbicara, dan mengetik pinyin</strong>.", p2: "Bangun model visual, lalu gunakan pinyin untuk bunyi dan input." },
+    formationTypes: { pictograph: { title: "Piktograf", glyphMeaning: "gunung", description: "Karakter dari garis bentuk benda nyata." }, ideogram: { title: "Ideogram sederhana", glyphMeaning: "atas", description: "Tanda sederhana untuk relasi atau posisi." }, compound: { title: "Ideogram gabungan", glyphMeaning: "terang", description: "Komponen makna digabungkan." }, semanticPhonetic: { title: "Semantik-fonetik", glyphMeaning: "sungai", description: "Satu bagian makna, satu bagian bunyi historis." }, mutual: { title: "Penjelasan timbal balik", glyphMeaning: "tua", description: "Kategori historis karakter terkait." }, loan: { title: "Pinjaman fonetik", glyphMeaning: "datang", description: "Karakter dipakai karena bunyi mirip." } },
+    exampleMeanings: { person: "orang", mountain: "gunung", sun: "matahari", moon: "bulan", tree: "pohon", above: "atas", below: "bawah", bright: "terang", rest: "istirahat", riverJiang: "sungai", riverHe: "sungai", meal: "makanan", aunt: "bibi", old: "tua", test: "ujian", come: "datang", me: "saya" }
+  },
+  ms: {
+    badge: "Asas · Aksara", title: "Bagaimana aksara Cina dibina", subtitle: "Peta Basic halaman 13-17: bentuk dahulu, kemudian radikal, strok dan urutan.", readingOnly: "Bina pengecaman dahulu - tidak perlu hafal semuanya",
+    studyModel: { eyebrow: "Cara melihat", title: "Apabila melihat aksara baharu, tanya tiga soalan", body: "Lihat bentuk keseluruhan, komponen, kemudian bunyi.", steps: [{ title: "Bentuk", body: "Kiri-kanan, atas-bawah, mengepung atau tunggal?" }, { title: "Radikal", body: "Bahagian mana memberi petunjuk makna?" }, { title: "Bunyi", body: "Petunjuk bunyi boleh berubah; sahkan dengan pinyin." }] },
+    formation: { eyebrow: "Sistem tulisan", title: "Aksara bukan sekadar gambar kecil", body: "Satu aksara biasanya mewakili satu suku kata dan satu unit makna. Banyak aksara menggabungkan bahagian makna dan petunjuk bunyi.", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "Paling berguna: makna + bunyi", body: "Untuk pemula, corak ini lebih berguna daripada menghafal semua kategori sejarah secara sama rata." } },
+    radicals: { eyebrow: "Radikal", title: "Radikal membantu mencari dan mengingat", body: "Empat puluh radikal asas buku dipaparkan sebagai kad ringkas.", tip: "" },
+    structures: { eyebrow: "Struktur", title: "Baca susun atur dahulu", body: "Matlamatnya melihat aksara dibina daripada blok apa." },
+    strokes: { eyebrow: "Strok asas", title: "Strok ialah gerakan terkecil", body: "Nama ini membantu mengenali dan mencari aksara.", note: "" },
+    strokeOrder: { eyebrow: "Urutan strok", title: "Urutan menstabilkan bentuk", body: "Membantu mengira strok, menggunakan kamus dan memahami imbangan.", note: "" },
+    typing: { title: "Matlamat: kenal, baca dan taip", p1: "Tulisan tangan penting, tetapi kursus ini fokus pada <strong>membaca, mendengar, bertutur dan menaip pinyin</strong>.", p2: "Bina model visual dahulu, kemudian gunakan pinyin untuk bunyi dan input." },
+    formationTypes: { pictograph: { title: "Piktograf", glyphMeaning: "gunung", description: "Aksara daripada garis bentuk benda nyata." }, ideogram: { title: "Ideogram mudah", glyphMeaning: "atas", description: "Tanda mudah untuk hubungan atau kedudukan." }, compound: { title: "Ideogram gabungan", glyphMeaning: "terang", description: "Komponen makna digabungkan." }, semanticPhonetic: { title: "Semantik-fonetik", glyphMeaning: "sungai", description: "Satu bahagian makna, satu bahagian bunyi sejarah." }, mutual: { title: "Penjelasan bersama", glyphMeaning: "tua", description: "Kategori sejarah aksara berkaitan." }, loan: { title: "Pinjaman fonetik", glyphMeaning: "datang", description: "Aksara digunakan kerana bunyi serupa." } },
+    exampleMeanings: { person: "orang", mountain: "gunung", sun: "matahari", moon: "bulan", tree: "pokok", above: "atas", below: "bawah", bright: "terang", rest: "rehat", riverJiang: "sungai", riverHe: "sungai", meal: "makanan", aunt: "mak cik", old: "tua", test: "ujian", come: "datang", me: "saya" }
+  },
+  ar: {
+    badge: "أساس · الأحرف", title: "كيف تُبنى الأحرف الصينية", subtitle: "خريطة لصفحات Basic 13-17: الشكل أولاً، ثم الجذور، فالخطوط وترتيبها.", readingOnly: "ابنِ نموذج التعرّف أولاً - لا تحفظ كل شيء الآن",
+    studyModel: { eyebrow: "طريقة النظر", title: "عند رؤية حرف جديد اسأل ثلاثة أسئلة", body: "انظر إلى الشكل العام، ثم الأجزاء، ثم النطق.", steps: [{ title: "الشكل", body: "هل هو يسار-يمين، أعلى-أسفل، محيط، أم مفرد؟" }, { title: "الجذر", body: "أي جزء قد يلمّح إلى المعنى؟" }, { title: "الصوت", body: "قد يتغير الدليل الصوتي؛ تأكد بالبينيين." }] },
+    formation: { eyebrow: "نظام الكتابة", title: "الأحرف ليست مجرد صور صغيرة", body: "يمثل الحرف غالباً مقطعاً صوتياً ووحدة معنى. كثير من الأحرف تجمع جزءاً دلالياً ودليلاً صوتياً تاريخياً.", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "الأهم: المعنى + الصوت", body: "للمبتدئين، هذا النمط أنفع من حفظ الفئات التاريخية الست بالتساوي." } },
+    radicals: { eyebrow: "الجذور", title: "الجذور تساعد في البحث والتذكر", body: "أربعون جذراً أساسياً من الكتاب معروضة كبطاقات مختصرة.", tip: "" },
+    structures: { eyebrow: "البنية", title: "اقرأ الترتيب أولاً", body: "المهم أن ترى من أي كتل يتكوّن الحرف." },
+    strokes: { eyebrow: "الخطوط الأساسية", title: "الخط هو أصغر حركة كتابة", body: "هذه الأسماء تساعد على التعرف والبحث.", note: "" },
+    strokeOrder: { eyebrow: "ترتيب الخطوط", title: "الترتيب يثبت الشكل", body: "يساعد على عدّ الخطوط واستخدام القاموس وفهم التوازن.", note: "" },
+    typing: { title: "الهدف: التعرّف والقراءة والكتابة بلوحة المفاتيح", p1: "الكتابة اليدوية مهمة، لكن الدورة تركز على <strong>القراءة والاستماع والكلام والإدخال بالبينيين</strong>.", p2: "ابنِ النموذج البصري أولاً، ثم استخدم البينيين للنطق والإدخال." },
+    formationTypes: { pictograph: { title: "تصويرية", glyphMeaning: "جبل", description: "أحرف تطورت من ملامح أشياء ملموسة." }, ideogram: { title: "رمزية بسيطة", glyphMeaning: "فوق", description: "علامات بسيطة للعلاقة أو الموضع." }, compound: { title: "رمزية مركبة", glyphMeaning: "مشرق", description: "تتحد أجزاء المعنى لتكوين معنى جديد." }, semanticPhonetic: { title: "دلالية-صوتية", glyphMeaning: "نهر", description: "جزء للمعنى وجزء للصوت التاريخي." }, mutual: { title: "شرح متبادل", glyphMeaning: "قديم", description: "فئة تاريخية لأحرف مرتبطة." }, loan: { title: "استعارة صوتية", glyphMeaning: "يأتي", description: "استعمال حرف لصوت مشابه." } },
+    exampleMeanings: { person: "شخص", mountain: "جبل", sun: "شمس", moon: "قمر", tree: "شجرة", above: "فوق", below: "تحت", bright: "مشرق", rest: "راحة", riverJiang: "نهر", riverHe: "نهر", meal: "وجبة", aunt: "عمة/خالة", old: "قديم", test: "اختبار", come: "يأتي", me: "أنا" }
+  },
+  th: {
+    badge: "พื้นฐาน · ตัวอักษร", title: "อักษรจีนประกอบขึ้นอย่างไร", subtitle: "แผนที่จาก Basic หน้า 13-17: ดูรูปก่อน แล้วค่อยดูหมวดนำ นับเส้น และลำดับเส้น", readingOnly: "สร้างแบบจำการจำก่อน - ยังไม่ต้องท่องทั้งหมด",
+    studyModel: { eyebrow: "วิธีมอง", title: "เจอตัวใหม่ ให้ถามสามข้อ", body: "มองตามลำดับ: รูปรวม ส่วนประกอบ แล้วเสียงอ่าน", steps: [{ title: "รูปร่าง", body: "ซ้าย-ขวา บน-ล่าง ล้อมรอบ หรือเดี่ยว?" }, { title: "หมวดนำ", body: "ส่วนไหนอาจบอกความหมาย?" }, { title: "เสียง", body: "เบาะแสเสียงอาจเปลี่ยนไป ตรวจด้วยพินอิน" }] },
+    formation: { eyebrow: "ระบบตัวเขียน", title: "อักษรจีนไม่ใช่แค่รูปภาพเล็กๆ", body: "ตัวอักษรมักแทนหนึ่งพยางค์และหนึ่งหน่วยความหมาย หลายตัวรวมส่วนบอกความหมายกับเบาะแสเสียง", note: "", priority: { ...HANZI_INTRO_TRANSLATIONS.en.formation.priority, title: "สำคัญที่สุด: ความหมาย + เสียง", body: "สำหรับผู้เริ่มต้น แบบนี้มีประโยชน์กว่าการท่องหกหมวดเท่าๆ กัน" } },
+    radicals: { eyebrow: "หมวดนำ", title: "หมวดนำช่วยค้นและจำ", body: "หมวดนำพื้นฐาน 40 ตัวจากหนังสือจัดเป็นการ์ดสั้นๆ", tip: "" },
+    structures: { eyebrow: "โครงสร้าง", title: "อ่านผังตัวก่อน", body: "เป้าหมายคือเห็นว่าตัวอักษรมาจากบล็อกใดบ้าง" },
+    strokes: { eyebrow: "เส้นพื้นฐาน", title: "เส้นคือการเคลื่อนไหวเล็กที่สุด", body: "ชื่อเส้นช่วยจำแนกและค้นตัวอักษร", note: "" },
+    strokeOrder: { eyebrow: "ลำดับเส้น", title: "ลำดับเส้นทำให้รูปมั่นคง", body: "ช่วยนับเส้น ค้นพจนานุกรม และเข้าใจสมดุล", note: "" },
+    typing: { title: "เป้าหมาย: จำ อ่าน และพิมพ์", p1: "การเขียนมือสำคัญ แต่คอร์สนี้เน้น <strong>อ่าน ฟัง พูด และพิมพ์ด้วยพินอิน</strong>", p2: "สร้างภาพจำก่อน แล้วใช้พินอินกับเสียงอ่านและการพิมพ์" },
+    formationTypes: { pictograph: { title: "รูปภาพ", glyphMeaning: "ภูเขา", description: "ตัวที่พัฒนาจากรูปสิ่งของจริง" }, ideogram: { title: "สัญลักษณ์ง่าย", glyphMeaning: "บน", description: "เครื่องหมายง่ายๆ บอกตำแหน่งหรือความสัมพันธ์" }, compound: { title: "รวมความหมาย", glyphMeaning: "สว่าง", description: "ส่วนที่มีความหมายรวมกันเป็นความหมายใหม่" }, semanticPhonetic: { title: "ความหมาย-เสียง", glyphMeaning: "แม่น้ำ", description: "ส่วนหนึ่งบอกความหมาย อีกส่วนบอกเสียงเก่า" }, mutual: { title: "อธิบายร่วม", glyphMeaning: "แก่", description: "หมวดประวัติศาสตร์ของตัวที่เกี่ยวข้องกัน" }, loan: { title: "ยืมเสียง", glyphMeaning: "มา", description: "ยืมตัวที่เสียงคล้ายกันมาใช้" } },
+    exampleMeanings: { person: "คน", mountain: "ภูเขา", sun: "ดวงอาทิตย์", moon: "ดวงจันทร์", tree: "ต้นไม้", above: "บน", below: "ล่าง", bright: "สว่าง", rest: "พัก", riverJiang: "แม่น้ำ", riverHe: "แม่น้ำ", meal: "อาหาร", aunt: "ป้า/น้า", old: "แก่", test: "สอบ", come: "มา", me: "ฉัน" }
+  }
+});
+
+const HANZI_EXTRA_RADICAL_MEANINGS = {
+  ru: ["человек", "нож", "сила", "рука/снова", "рот", "ограда", "земля", "закат", "большой", "женщина", "ребенок", "мера", "маленький", "работа", "крошечный", "лук", "сердце", "оружие", "рука", "солнце", "луна/тело", "дерево", "вода", "огонь", "поле", "глаз", "знак", "шелк", "ухо", "одежда", "речь", "ценность", "идти", "стопа", "металл", "дверь", "птица", "дождь", "еда", "лошадь"],
+  es: ["persona", "cuchillo", "fuerza", "mano/otra vez", "boca", "recinto", "tierra", "atardecer", "grande", "mujer", "niño", "medida", "pequeño", "trabajo", "diminuto", "arco", "corazón", "arma antigua", "mano", "sol", "luna/cuerpo", "madera", "agua", "fuego", "campo", "ojo", "mostrar", "seda", "oreja", "ropa", "habla", "valor", "caminar", "pie", "metal", "puerta", "ave", "lluvia", "comida", "caballo"],
+  jp: ["人", "刀", "力", "手/また", "口", "囲み", "土", "夕方", "大きい", "女", "子ども", "寸法", "小さい", "仕事", "小さい", "弓", "心", "武器", "手", "太陽", "月/体", "木", "水", "火", "田", "目", "示す", "糸", "耳", "衣服", "言葉", "価値", "歩く", "足", "金属", "門", "鳥", "雨", "食べ物", "馬"],
+  ko: ["사람", "칼", "힘", "손/다시", "입", "둘러쌈", "흙", "저녁", "크다", "여자", "아이", "치수", "작다", "일", "작음", "활", "마음", "무기", "손", "해", "달/몸", "나무", "물", "불", "밭", "눈", "보이다", "실", "귀", "옷", "말", "가치", "걷다", "발", "금속", "문", "새", "비", "음식", "말"],
+  vi: ["người", "dao", "sức mạnh", "tay/lại", "miệng", "bao quanh", "đất", "hoàng hôn", "lớn", "phụ nữ", "trẻ em", "tấc", "nhỏ", "công việc", "nhỏ xíu", "cung", "tim", "vũ khí", "tay", "mặt trời", "trăng/thân thể", "gỗ", "nước", "lửa", "ruộng", "mắt", "chỉ ra", "tơ", "tai", "áo", "lời nói", "giá trị", "đi", "chân", "kim loại", "cửa", "chim", "mưa", "thức ăn", "ngựa"],
+  pt: ["pessoa", "faca", "força", "mão/de novo", "boca", "cercado", "terra", "pôr do sol", "grande", "mulher", "criança", "medida", "pequeno", "trabalho", "minúsculo", "arco", "coração", "arma antiga", "mão", "sol", "lua/corpo", "madeira", "água", "fogo", "campo", "olho", "mostrar", "seda", "orelha", "roupa", "fala", "valor", "andar", "pé", "metal", "porta", "ave", "chuva", "comida", "cavalo"],
+  it: ["persona", "coltello", "forza", "mano/di nuovo", "bocca", "recinto", "terra", "tramonto", "grande", "donna", "bambino", "misura", "piccolo", "lavoro", "minuscolo", "arco", "cuore", "arma antica", "mano", "sole", "luna/corpo", "legno", "acqua", "fuoco", "campo", "occhio", "mostrare", "seta", "orecchio", "vestito", "parola", "valore", "camminare", "piede", "metallo", "porta", "uccello", "pioggia", "cibo", "cavallo"],
+  id: ["orang", "pisau", "kekuatan", "tangan/lagi", "mulut", "kurungan", "tanah", "senja", "besar", "perempuan", "anak", "ukuran", "kecil", "kerja", "mungil", "busur", "hati", "senjata", "tangan", "matahari", "bulan/tubuh", "kayu", "air", "api", "ladang", "mata", "menunjukkan", "sutra", "telinga", "pakaian", "ucapan", "nilai", "berjalan", "kaki", "logam", "pintu", "burung", "hujan", "makanan", "kuda"],
+  ms: ["orang", "pisau", "kuasa", "tangan/lagi", "mulut", "kepungan", "tanah", "senja", "besar", "wanita", "kanak-kanak", "ukuran", "kecil", "kerja", "halus", "busur", "hati", "senjata", "tangan", "matahari", "bulan/tubuh", "kayu", "air", "api", "sawah", "mata", "menunjukkan", "sutera", "telinga", "pakaian", "pertuturan", "nilai", "berjalan", "kaki", "logam", "pintu", "burung", "hujan", "makanan", "kuda"],
+  ar: ["شخص", "سكين", "قوة", "يد/مرة أخرى", "فم", "إحاطة", "أرض", "غروب", "كبير", "امرأة", "طفل", "مقياس", "صغير", "عمل", "دقيق", "قوس", "قلب", "سلاح", "يد", "شمس", "قمر/جسم", "خشب", "ماء", "نار", "حقل", "عين", "إظهار", "حرير", "أذن", "ملابس", "كلام", "قيمة", "مشي", "قدم", "معدن", "باب", "طائر", "مطر", "طعام", "حصان"],
+  th: ["คน", "มีด", "แรง", "มือ/อีกครั้ง", "ปาก", "ล้อม", "ดิน", "ยามเย็น", "ใหญ่", "ผู้หญิง", "เด็ก", "หน่วยวัด", "เล็ก", "งาน", "เล็กมาก", "ธนู", "ใจ", "อาวุธ", "มือ", "ดวงอาทิตย์", "ดวงจันทร์/ร่างกาย", "ไม้", "น้ำ", "ไฟ", "นา", "ตา", "แสดง", "ไหม", "หู", "เสื้อผ้า", "คำพูด", "มูลค่า", "เดิน", "เท้า", "โลหะ", "ประตู", "นก", "ฝน", "อาหาร", "ม้า"]
+};
+
+Object.entries(HANZI_EXTRA_RADICAL_MEANINGS).forEach(([locale, meanings]) => {
+  HANZI_EXTRA_LOCALE_COPY[locale].radicalMeanings = meanings;
+});
+
+["ru", "es", "jp", "ko", "vi", "pt", "it", "id", "ms", "ar", "th"].forEach((locale) => {
+  HANZI_INTRO_TRANSLATIONS[locale] = buildHanziIntroFromCopy(HANZI_EXTRA_LOCALE_COPY[locale], locale);
+});
+
+const TYPING_INTRO_TRANSLATIONS = {
+  "en": {
+    "back": "Back",
+    "finish": "Finish",
+    "badge": "Foundation · Typing",
+    "title": "Typing Chinese with pinyin",
+    "subtitle": "Set up an input method, type pronunciation, choose the right characters, and handle the small traps that beginners meet first.",
+    "setupTitle": "Set up the Chinese keyboard once",
+    "setupLead": "You do not need a special physical keyboard. Add a Simplified Chinese Pinyin input method to your operating system, then switch to it when you want to type Chinese.",
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Open Settings.",
+          "Go to Time & language.",
+          "Open Language & region.",
+          "Add Chinese (Simplified).",
+          "In keyboard options, choose Microsoft Pinyin.",
+          "Switch to the Chinese keyboard from the taskbar language button.",
+          "Inside Microsoft Pinyin, press Shift to switch Chinese/English mode."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Open System Settings.",
+          "Go to Keyboard.",
+          "Open Input Sources.",
+          "Click + and add Chinese, Simplified Pinyin.",
+          "Use the menu-bar input icon or Control + Space to switch input sources.",
+          "Type pinyin in any text field; the candidate window appears automatically."
+        ]
+      ],
+      [
+        "Phones",
+        [
+          "Open your system keyboard settings.",
+          "Add a Chinese keyboard.",
+          "Choose Pinyin or Simplified Chinese Pinyin.",
+          "Open any app with a text box.",
+          "Long-press the globe key or keyboard switch key.",
+          "Select the Chinese Pinyin keyboard and start typing."
+        ]
+      ]
+    ],
+    "flowTitle": "The everyday typing flow",
+    "flow": [
+      [
+        "Type pinyin",
+        "Type the sound without tone marks: nihao, xiexie, zhongwen. Modern IMEs understand full syllables and whole phrases."
+      ],
+      [
+        "Read candidates",
+        "A candidate window appears. The first option is often right, but always check similar words."
+      ],
+      [
+        "Choose",
+        "Press Space for the highlighted candidate, press a number for a specific candidate, or use arrow keys to move."
+      ],
+      [
+        "Confirm or keep English",
+        "Enter usually keeps the raw letters instead of converting them, which is useful for names, URLs, and English words."
+      ]
+    ],
+    "demoTitle": "Try these keystrokes",
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Type the whole greeting, then Space."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "Whole-sentence input is usually easier than one character at a time."
+      ],
+      [
+        "nv",
+        "女",
+        "Use v when pinyin needs ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "In most IMEs, lv gives lü. After j/q/x, type u: ju, qu, xu."
+      ]
+    ],
+    "specialTitle": "The v = ü rule",
+    "specialBody": "Standard keyboards do not have a convenient ü key, and Mandarin pinyin does not use the letter v. That is why most pinyin input methods use v as the typing code for ü.",
+    "specialExamples": [
+      "nǚ → nv → 女",
+      "lǜ → lv → 绿",
+      "lüè → lve → 略"
+    ],
+    "skillsTitle": "Important habits",
+    "skills": [
+      [
+        "Type phrases, not isolated characters",
+        "“wo yao he shui” gives the IME more context than “wo / yao / he / shui”."
+      ],
+      [
+        "Ignore tones while typing",
+        "For normal Chinese IME input, type pinyin letters without tone marks. Use candidates and context to choose the word."
+      ],
+      [
+        "Use apostrophes for ambiguity",
+        "If syllables can be split wrongly, add an apostrophe: xi'an for 西安."
+      ],
+      [
+        "Learn punctuation switching",
+        "Chinese mode usually gives Chinese punctuation. Windows also supports Ctrl + . for Chinese/English punctuation."
+      ],
+      [
+        "Watch full-width mode",
+        "If letters or punctuation suddenly look too wide, switch back to half-width mode."
+      ],
+      [
+        "Let the IME learn",
+        "Frequently used words move upward over time, so your candidate list becomes more personal."
+      ]
+    ],
+    "pitfallsTitle": "When something feels wrong",
+    "pitfalls": [
+      [
+        "You type letters only",
+        "You may be in English mode. Switch to Chinese mode or change the active keyboard."
+      ],
+      [
+        "The wrong character appears",
+        "Use the number keys or arrows to choose a different candidate. Type a longer phrase for more context."
+      ],
+      [
+        "ü words fail",
+        "Use v: nv, lv, lve. For j/q/x, type u: ju, qu, xu."
+      ],
+      [
+        "Punctuation looks strange",
+        "You may be using Chinese punctuation or full-width mode. Toggle punctuation or width settings."
+      ]
+    ]
+  },
+  "zh": {
+    "back": "返回",
+    "finish": "完成",
+    "badge": "基础 · 打字",
+    "title": "用拼音输入中文",
+    "subtitle": "先设置输入法，再用拼音打出读音、选择正确汉字，并处理初学者最容易卡住的几个小问题。",
+    "setupTitle": "先把中文键盘设置好",
+    "setupLead": "不需要特殊键盘。只要在系统里添加“简体中文拼音输入法”，需要打中文时切换过去就可以。",
+    "platforms": [
+      [
+        "Windows",
+        [
+          "打开系统“设置”。",
+          "进入“时间和语言”。",
+          "进入“语言和区域”。",
+          "添加“中文（简体）”。",
+          "在键盘选项里选择 Microsoft Pinyin。",
+          "从任务栏语言按钮切换到中文键盘。",
+          "在 Microsoft Pinyin 内部，可以按 Shift 切换中英文模式。"
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "打开“系统设置”。",
+          "进入“键盘”。",
+          "打开“输入法 / Input Sources”。",
+          "点击 +，添加中文“简体拼音”。",
+          "用菜单栏输入法图标或 Control + Space 切换输入法。",
+          "在任意文本框输入拼音，候选窗口会自动出现。"
+        ]
+      ],
+      [
+        "手机",
+        [
+          "打开系统键盘设置。",
+          "添加中文键盘。",
+          "选择“拼音”或“简体中文拼音”。",
+          "打开任意可以输入文字的 App。",
+          "长按地球键或输入法切换键。",
+          "选择中文拼音键盘，然后开始输入。"
+        ]
+      ]
+    ],
+    "flowTitle": "日常输入流程",
+    "flow": [
+      [
+        "输入拼音",
+        "不输入声调，直接打 nihao、xiexie、zhongwen。现代输入法可以理解完整音节和整句。"
+      ],
+      [
+        "查看候选",
+        "候选窗口会显示可能的汉字。第一个常常是对的，但相近词一定要看清。"
+      ],
+      [
+        "选择汉字",
+        "空格选择当前高亮候选，数字键选择指定候选，方向键移动候选。"
+      ],
+      [
+        "确认或保留英文",
+        "Enter 通常会保留你输入的英文字母，适合人名、网址和英文词。"
+      ]
+    ],
+    "demoTitle": "可以先练这几组",
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "整句打完再按空格。"
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "整句输入通常比一个字一个字选更容易。"
+      ],
+      [
+        "nv",
+        "女",
+        "拼音里需要 ü 时，用 v 来输入。"
+      ],
+      [
+        "lv",
+        "绿",
+        "多数输入法里 lv 就是 lü。j/q/x 后面写 u：ju、qu、xu。"
+      ]
+    ],
+    "specialTitle": "v = ü 这条规则",
+    "specialBody": "普通键盘没有方便的 ü 键，而且汉语拼音不用字母 v，所以大多数拼音输入法都用 v 代表 ü。",
+    "specialExamples": [
+      "nǚ → nv → 女",
+      "lǜ → lv → 绿",
+      "lüè → lve → 略"
+    ],
+    "skillsTitle": "重要习惯",
+    "skills": [
+      [
+        "尽量输入词组/整句",
+        "“wo yao he shui” 比 “wo / yao / he / shui” 给输入法更多上下文。"
+      ],
+      [
+        "打字时不用输声调",
+        "正常中文输入法里只打拼音字母，不打声调；靠候选词和上下文选字。"
+      ],
+      [
+        "歧义处用 apostrophe",
+        "音节容易切错时加 apostrophe，比如 xi'an 表示 西安。"
+      ],
+      [
+        "熟悉标点切换",
+        "中文模式常会输出中文标点。Windows 还可以用 Ctrl + . 切换中英文标点。"
+      ],
+      [
+        "注意全角/半角",
+        "如果字母或标点突然变宽，可能进入了全角模式，要切回半角。"
+      ],
+      [
+        "让输入法学习你",
+        "常用词会逐渐排到前面，候选列表会越来越符合你的习惯。"
+      ]
+    ],
+    "pitfallsTitle": "常见问题",
+    "pitfalls": [
+      [
+        "只出现英文字母",
+        "可能还在英文模式，切换到中文模式或切换当前键盘。"
+      ],
+      [
+        "出来的字不对",
+        "用数字键或方向键选其他候选；输入更长词组会更准。"
+      ],
+      [
+        "ü 相关词打不出来",
+        "用 v：nv、lv、lve。j/q/x 后面直接用 u：ju、qu、xu。"
+      ],
+      [
+        "标点看起来不对",
+        "可能是中文标点或全角模式，切换标点/宽度设置。"
+      ]
+    ]
+  },
+  "fr": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Ouvrez Paramètres.",
+          "Allez dans Heure et langue.",
+          "Ouvrez Langue et région.",
+          "Ajoutez Chinois (simplifié).",
+          "Dans les options du clavier, choisissez Microsoft Pinyin.",
+          "Basculez vers le clavier chinois depuis la barre des tâches.",
+          "Dans Microsoft Pinyin, appuyez sur Shift pour passer entre chinois et anglais."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Ouvrez Réglages Système.",
+          "Allez dans Clavier.",
+          "Ouvrez Sources d’entrée.",
+          "Cliquez sur + et ajoutez Chinois, Pinyin simplifié.",
+          "Utilisez l’icône de saisie dans la barre de menu ou Control + Espace.",
+          "Tapez du pinyin dans un champ de texte ; la fenêtre de candidats apparaît."
+        ]
+      ],
+      [
+        "Téléphones",
+        [
+          "Ouvrez les réglages du clavier.",
+          "Ajoutez un clavier chinois.",
+          "Choisissez Pinyin ou Chinois simplifié Pinyin.",
+          "Ouvrez une app avec un champ de texte.",
+          "Maintenez la touche globe ou changement de clavier.",
+          "Sélectionnez le clavier pinyin chinois et commencez à taper."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "Taper le pinyin",
+        "Tapez le son sans tons : nihao, xiexie, zhongwen. Les IME modernes comprennent les syllabes et les phrases entières."
+      ],
+      [
+        "Lire les candidats",
+        "Une fenêtre propose des caractères. Le premier est souvent correct, mais vérifiez les mots similaires."
+      ],
+      [
+        "Choisir",
+        "Appuyez sur Espace pour le candidat surligné, sur un chiffre pour un candidat précis, ou utilisez les flèches."
+      ],
+      [
+        "Confirmer ou garder l’anglais",
+        "Entrée garde souvent les lettres brutes, utile pour les noms, URL et mots anglais."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Tapez toute la salutation, puis Espace."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "La phrase entière est souvent plus facile que caractère par caractère."
+      ],
+      [
+        "nv",
+        "女",
+        "Utilisez v quand le pinyin demande ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "Dans la plupart des IME, lv donne lü. Après j/q/x, tapez u : ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "Tapez des groupes de mots",
+        "“wo yao he shui” donne plus de contexte que “wo / yao / he / shui”."
+      ],
+      [
+        "Ignorez les tons",
+        "Dans un IME chinois normal, tapez les lettres du pinyin sans marques de ton."
+      ],
+      [
+        "Utilisez l’apostrophe en cas d’ambiguïté",
+        "Si les syllabes peuvent être mal coupées, ajoutez une apostrophe : xi'an pour 西安."
+      ],
+      [
+        "Apprenez les signes de ponctuation",
+        "Le mode chinois produit souvent une ponctuation chinoise. Windows prend aussi Ctrl + . en charge."
+      ],
+      [
+        "Surveillez le mode pleine largeur",
+        "Si les lettres deviennent trop larges, repassez en demi-largeur."
+      ],
+      [
+        "Laissez l’IME apprendre",
+        "Les mots fréquents montent dans la liste avec le temps."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "Vous ne tapez que des lettres",
+        "Vous êtes peut-être en mode anglais. Passez en mode chinois ou changez de clavier actif."
+      ],
+      [
+        "Le mauvais caractère apparaît",
+        "Utilisez les chiffres ou les flèches pour choisir un autre candidat. Tapez une phrase plus longue."
+      ],
+      [
+        "Les mots avec ü échouent",
+        "Utilisez v : nv, lv, lve. Après j/q/x, tapez u : ju, qu, xu."
+      ],
+      [
+        "La ponctuation semble étrange",
+        "Vous utilisez peut-être la ponctuation chinoise ou le mode pleine largeur."
+      ]
+    ]
+  },
+  "de": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Öffne die Einstellungen.",
+          "Gehe zu Zeit und Sprache.",
+          "Öffne Sprache und Region.",
+          "Füge Chinesisch (vereinfacht) hinzu.",
+          "Wähle in den Tastaturoptionen Microsoft Pinyin.",
+          "Wechsle über die Sprachschaltfläche in der Taskleiste.",
+          "In Microsoft Pinyin schaltet Shift zwischen Chinesisch und Englisch um."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Öffne Systemeinstellungen.",
+          "Gehe zu Tastatur.",
+          "Öffne Eingabequellen.",
+          "Klicke auf + und füge Chinesisch, vereinfachtes Pinyin hinzu.",
+          "Wechsle über das Eingabesymbol oder Control + Leertaste.",
+          "Tippe Pinyin in ein Textfeld; das Kandidatenfenster erscheint automatisch."
+        ]
+      ],
+      [
+        "Telefone",
+        [
+          "Öffne die Tastatureinstellungen.",
+          "Füge eine chinesische Tastatur hinzu.",
+          "Wähle Pinyin oder vereinfachtes Chinesisch Pinyin.",
+          "Öffne eine App mit Textfeld.",
+          "Halte die Globus- oder Tastaturwechseltaste gedrückt.",
+          "Wähle die chinesische Pinyin-Tastatur und tippe los."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "Pinyin tippen",
+        "Tippe ohne Tonzeichen: nihao, xiexie, zhongwen. Moderne IMEs verstehen Silben und ganze Phrasen."
+      ],
+      [
+        "Kandidaten lesen",
+        "Ein Kandidatenfenster erscheint. Der erste Vorschlag ist oft richtig, aber prüfe ähnliche Wörter."
+      ],
+      [
+        "Auswählen",
+        "Leertaste übernimmt den markierten Kandidaten, Zahlen wählen gezielt, Pfeiltasten bewegen die Auswahl."
+      ],
+      [
+        "Bestätigen oder Englisch behalten",
+        "Enter behält oft die Rohbuchstaben, praktisch für Namen, URLs und englische Wörter."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Tippe die ganze Begrüßung und dann Leertaste."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "Ganze Sätze sind meist leichter als einzelne Zeichen."
+      ],
+      [
+        "nv",
+        "女",
+        "Nutze v, wenn Pinyin ü braucht."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "In den meisten IMEs ergibt lv lü. Nach j/q/x tippst du u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "Phrasen statt Einzelzeichen tippen",
+        "“wo yao he shui” gibt dem IME mehr Kontext."
+      ],
+      [
+        "Töne beim Tippen ignorieren",
+        "Für normale IME-Eingabe tippst du Pinyin ohne Tonzeichen."
+      ],
+      [
+        "Apostroph bei Mehrdeutigkeit nutzen",
+        "Wenn Silben falsch getrennt werden könnten: xi'an für 西安."
+      ],
+      [
+        "Interpunktion kennen",
+        "Der chinesische Modus nutzt oft chinesische Satzzeichen. Windows unterstützt auch Ctrl + ."
+      ],
+      [
+        "Vollbreite beachten",
+        "Wenn Zeichen plötzlich breit wirken, zurück in den Halbbreitenmodus wechseln."
+      ],
+      [
+        "Das IME lernen lassen",
+        "Häufige Wörter wandern mit der Zeit nach oben."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "Es erscheinen nur Buchstaben",
+        "Du bist vielleicht im Englischmodus. Wechsle in den Chinesischmodus oder zur aktiven Tastatur."
+      ],
+      [
+        "Das falsche Zeichen erscheint",
+        "Wähle mit Zahlen oder Pfeilen einen anderen Kandidaten. Mehr Kontext hilft."
+      ],
+      [
+        "ü-Wörter funktionieren nicht",
+        "Nutze v: nv, lv, lve. Nach j/q/x: ju, qu, xu."
+      ],
+      [
+        "Satzzeichen sehen seltsam aus",
+        "Vielleicht ist chinesische Interpunktion oder Vollbreite aktiv."
+      ]
+    ]
+  },
+  "jp": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "設定を開きます。",
+          "時刻と言語へ進みます。",
+          "言語と地域を開きます。",
+          "中国語（簡体字）を追加します。",
+          "キーボード オプションで Microsoft Pinyin を選びます。",
+          "タスクバーの言語ボタンから中国語キーボードに切り替えます。",
+          "Microsoft Pinyin 内では Shift で中国語/英語モードを切り替えます。"
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "システム設定を開きます。",
+          "キーボードへ進みます。",
+          "入力ソースを開きます。",
+          "+ をクリックして中国語・簡体字 Pinyin を追加します。",
+          "メニューバーの入力アイコン、または Control + Space で切り替えます。",
+          "テキスト欄にピンインを入力すると候補ウィンドウが出ます。"
+        ]
+      ],
+      [
+        "スマホ",
+        [
+          "キーボード設定を開きます。",
+          "中国語キーボードを追加します。",
+          "Pinyin または簡体字中国語 Pinyin を選びます。",
+          "テキスト入力できるアプリを開きます。",
+          "地球キーまたはキーボード切替キーを長押しします。",
+          "中国語 Pinyin キーボードを選んで入力します。"
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "ピンインを入力",
+        "声調記号なしで nihao, xiexie, zhongwen と入力します。最近の IME は音節や文全体を理解します。"
+      ],
+      [
+        "候補を見る",
+        "候補ウィンドウが出ます。最初の候補が正しいことも多いですが、似た語は確認します。"
+      ],
+      [
+        "選ぶ",
+        "Space で選択中の候補、数字で特定候補、矢印キーで移動します。"
+      ],
+      [
+        "確定または英字のまま",
+        "Enter は変換せず英字を残すことが多く、名前や URL に便利です。"
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "あいさつ全体を打ってから Space。"
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "一文字ずつより文全体で打つ方が簡単です。"
+      ],
+      [
+        "nv",
+        "女",
+        "ü が必要な時は v を使います。"
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "多くの IME では lv が lü になります。j/q/x の後は u: ju, qu, xu。"
+      ]
+    ],
+    "skills": [
+      [
+        "単字ではなく語句で入力",
+        "“wo yao he shui” は “wo / yao / he / shui” より文脈が多いです。"
+      ],
+      [
+        "声調は入力しない",
+        "通常の中国語 IME では声調記号なしでピンイン文字だけ入力します。"
+      ],
+      [
+        "曖昧な所はアポストロフィ",
+        "音節の切れ目が曖昧なら xi'an のようにします。"
+      ],
+      [
+        "句読点切替に慣れる",
+        "中国語モードでは中国語の句読点になります。Windows では Ctrl + . も使えます。"
+      ],
+      [
+        "全角モードに注意",
+        "文字が急に広く見えたら半角に戻します。"
+      ],
+      [
+        "IME に学習させる",
+        "よく使う語は徐々に上位に出ます。"
+      ]
+    ],
+    "pitfalls": [
+      [
+        "英字だけ出る",
+        "英語モードかもしれません。中国語モードまたは入力ソースを切り替えます。"
+      ],
+      [
+        "違う漢字が出る",
+        "数字や矢印で別候補を選び、長めの語句で入力します。"
+      ],
+      [
+        "ü の語が出ない",
+        "v を使います: nv, lv, lve。j/q/x の後は u。"
+      ],
+      [
+        "句読点が変に見える",
+        "中国語句読点または全角モードかもしれません。"
+      ]
+    ]
+  },
+  "ko": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "설정을 엽니다.",
+          "시간 및 언어로 이동합니다.",
+          "언어 및 지역을 엽니다.",
+          "중국어(간체)를 추가합니다.",
+          "키보드 옵션에서 Microsoft Pinyin을 선택합니다.",
+          "작업 표시줄의 언어 버튼으로 중국어 키보드로 전환합니다.",
+          "Microsoft Pinyin 안에서는 Shift로 중국어/영어 모드를 바꿉니다."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "시스템 설정을 엽니다.",
+          "키보드로 이동합니다.",
+          "입력 소스를 엽니다.",
+          "+를 눌러 중국어 간체 Pinyin을 추가합니다.",
+          "메뉴 막대 입력 아이콘이나 Control + Space로 전환합니다.",
+          "텍스트 칸에 병음을 입력하면 후보 창이 나타납니다."
+        ]
+      ],
+      [
+        "휴대폰",
+        [
+          "키보드 설정을 엽니다.",
+          "중국어 키보드를 추가합니다.",
+          "Pinyin 또는 중국어 간체 Pinyin을 선택합니다.",
+          "텍스트 입력 앱을 엽니다.",
+          "지구본 키나 키보드 전환 키를 길게 누릅니다.",
+          "중국어 Pinyin 키보드를 선택하고 입력합니다."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "병음 입력",
+        "성조 표시 없이 nihao, xiexie, zhongwen처럼 입력합니다. 최신 IME는 음절과 문장을 이해합니다."
+      ],
+      [
+        "후보 확인",
+        "후보 창이 나타납니다. 첫 후보가 맞을 때가 많지만 비슷한 단어는 확인하세요."
+      ],
+      [
+        "선택",
+        "스페이스는 강조된 후보, 숫자는 특정 후보, 화살표는 이동입니다."
+      ],
+      [
+        "확정 또는 영어 유지",
+        "Enter는 보통 원래 알파벳을 유지하므로 이름, URL, 영어 단어에 유용합니다."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "인사말 전체를 입력한 뒤 Space."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "한 글자씩보다 문장 전체 입력이 보통 쉽습니다."
+      ],
+      [
+        "nv",
+        "女",
+        "ü가 필요할 때 v를 씁니다."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "대부분 IME에서 lv는 lü입니다. j/q/x 뒤에는 u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "낱글자보다 구절 입력",
+        "“wo yao he shui”가 더 많은 문맥을 줍니다."
+      ],
+      [
+        "입력할 때 성조는 무시",
+        "일반 중국어 IME에서는 성조 없이 병음 글자만 입력합니다."
+      ],
+      [
+        "모호하면 apostrophe 사용",
+        "음절이 잘못 나뉠 수 있으면 xi'an처럼 씁니다."
+      ],
+      [
+        "문장부호 전환 익히기",
+        "중국어 모드는 보통 중국어 문장부호를 냅니다. Windows는 Ctrl + . 도 지원합니다."
+      ],
+      [
+        "전각 모드 주의",
+        "글자나 문장부호가 갑자기 넓으면 반각으로 전환하세요."
+      ],
+      [
+        "IME가 배우게 두기",
+        "자주 쓰는 단어는 시간이 지나며 위로 올라갑니다."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "알파벳만 입력됨",
+        "영어 모드일 수 있습니다. 중국어 모드나 활성 키보드를 바꾸세요."
+      ],
+      [
+        "틀린 한자가 나옴",
+        "숫자나 화살표로 다른 후보를 고르고 더 긴 구절을 입력하세요."
+      ],
+      [
+        "ü 단어가 안 됨",
+        "v를 쓰세요: nv, lv, lve. j/q/x 뒤에는 u."
+      ],
+      [
+        "문장부호가 이상함",
+        "중국어 문장부호나 전각 모드일 수 있습니다."
+      ]
+    ]
+  },
+  "es": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Abre Configuración.",
+          "Ve a Hora e idioma.",
+          "Abre Idioma y región.",
+          "Añade Chino (simplificado).",
+          "En opciones de teclado, elige Microsoft Pinyin.",
+          "Cambia al teclado chino desde la barra de tareas.",
+          "Dentro de Microsoft Pinyin, pulsa Shift para alternar chino/inglés."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Abre Ajustes del Sistema.",
+          "Ve a Teclado.",
+          "Abre Fuentes de entrada.",
+          "Pulsa + y añade Chino, Pinyin simplificado.",
+          "Usa el icono de entrada o Control + Espacio.",
+          "Escribe pinyin en un campo de texto; aparecerán candidatos."
+        ]
+      ],
+      [
+        "Teléfonos",
+        [
+          "Abre los ajustes del teclado.",
+          "Añade un teclado chino.",
+          "Elige Pinyin o Chino simplificado Pinyin.",
+          "Abre una app con campo de texto.",
+          "Mantén pulsada la tecla globo o cambio de teclado.",
+          "Selecciona el teclado chino Pinyin y empieza."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "Escribe pinyin",
+        "Escribe el sonido sin tonos: nihao, xiexie, zhongwen. Los IME modernos entienden sílabas y frases."
+      ],
+      [
+        "Lee candidatos",
+        "Aparece una ventana de candidatos. El primero suele ser correcto, pero revisa palabras similares."
+      ],
+      [
+        "Elige",
+        "Espacio acepta el candidato resaltado, un número elige uno específico y las flechas mueven la selección."
+      ],
+      [
+        "Confirma o conserva inglés",
+        "Enter suele mantener las letras sin convertir, útil para nombres, URL y palabras inglesas."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Escribe todo el saludo y luego Espacio."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "Escribir la frase completa suele ser más fácil que carácter por carácter."
+      ],
+      [
+        "nv",
+        "女",
+        "Usa v cuando el pinyin necesita ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "En la mayoría de IME, lv produce lü. Después de j/q/x, escribe u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "Escribe frases, no caracteres aislados",
+        "“wo yao he shui” da más contexto al IME."
+      ],
+      [
+        "Ignora los tonos al escribir",
+        "En un IME normal se escribe pinyin sin marcas de tono."
+      ],
+      [
+        "Usa apóstrofos si hay ambigüedad",
+        "Si las sílabas pueden dividirse mal, usa xi'an para 西安."
+      ],
+      [
+        "Aprende el cambio de puntuación",
+        "El modo chino suele producir puntuación china. Windows también tiene Ctrl + ."
+      ],
+      [
+        "Vigila el modo ancho completo",
+        "Si letras o signos se ven demasiado anchos, vuelve a medio ancho."
+      ],
+      [
+        "Deja que el IME aprenda",
+        "Las palabras frecuentes suben con el tiempo."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "Solo salen letras",
+        "Quizá estás en modo inglés. Cambia al modo chino o al teclado activo correcto."
+      ],
+      [
+        "Aparece el carácter equivocado",
+        "Usa números o flechas para elegir otro candidato. Una frase más larga ayuda."
+      ],
+      [
+        "Fallan palabras con ü",
+        "Usa v: nv, lv, lve. Después de j/q/x, usa u."
+      ],
+      [
+        "La puntuación se ve rara",
+        "Puede ser puntuación china o modo ancho completo."
+      ]
+    ]
+  },
+  "vi": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Mở Settings.",
+          "Vào Time & language.",
+          "Mở Language & region.",
+          "Thêm Chinese (Simplified).",
+          "Trong tùy chọn bàn phím, chọn Microsoft Pinyin.",
+          "Chuyển sang bàn phím tiếng Trung từ nút ngôn ngữ trên thanh tác vụ.",
+          "Trong Microsoft Pinyin, nhấn Shift để đổi chế độ Trung/Anh."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Mở System Settings.",
+          "Vào Keyboard.",
+          "Mở Input Sources.",
+          "Bấm + và thêm Chinese, Simplified Pinyin.",
+          "Dùng biểu tượng bộ gõ trên thanh menu hoặc Control + Space.",
+          "Gõ pinyin trong ô văn bản; cửa sổ ứng viên sẽ hiện ra."
+        ]
+      ],
+      [
+        "Điện thoại",
+        [
+          "Mở cài đặt bàn phím.",
+          "Thêm bàn phím tiếng Trung.",
+          "Chọn Pinyin hoặc Chinese Simplified Pinyin.",
+          "Mở app có ô nhập chữ.",
+          "Nhấn giữ phím quả địa cầu hoặc phím đổi bàn phím.",
+          "Chọn bàn phím Chinese Pinyin và bắt đầu gõ."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "Gõ pinyin",
+        "Gõ âm không dấu thanh: nihao, xiexie, zhongwen. Bộ gõ hiện đại hiểu âm tiết và cả cụm câu."
+      ],
+      [
+        "Đọc ứng viên",
+        "Cửa sổ ứng viên xuất hiện. Mục đầu thường đúng, nhưng hãy kiểm tra từ gần giống."
+      ],
+      [
+        "Chọn",
+        "Space chọn ứng viên đang tô sáng, số chọn mục cụ thể, phím mũi tên để di chuyển."
+      ],
+      [
+        "Xác nhận hoặc giữ tiếng Anh",
+        "Enter thường giữ nguyên chữ cái, hữu ích cho tên, URL và từ tiếng Anh."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Gõ cả lời chào rồi nhấn Space."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "Gõ cả câu thường dễ hơn chọn từng chữ."
+      ],
+      [
+        "nv",
+        "女",
+        "Dùng v khi pinyin cần ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "Hầu hết bộ gõ hiểu lv là lü. Sau j/q/x, gõ u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "Gõ cụm từ, không gõ từng chữ rời",
+        "“wo yao he shui” cho bộ gõ nhiều ngữ cảnh hơn."
+      ],
+      [
+        "Bỏ qua dấu thanh khi gõ",
+        "Bộ gõ tiếng Trung bình thường chỉ cần chữ pinyin không dấu thanh."
+      ],
+      [
+        "Dùng apostrophe khi mơ hồ",
+        "Nếu âm tiết dễ bị tách sai, thêm apostrophe: xi'an cho 西安."
+      ],
+      [
+        "Học cách đổi dấu câu",
+        "Chế độ tiếng Trung thường tạo dấu câu tiếng Trung. Windows hỗ trợ Ctrl + ."
+      ],
+      [
+        "Chú ý chế độ full-width",
+        "Nếu chữ hoặc dấu câu bỗng rộng hơn, đổi về half-width."
+      ],
+      [
+        "Để bộ gõ học thói quen",
+        "Từ hay dùng sẽ dần lên cao trong danh sách."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "Chỉ ra chữ cái",
+        "Có thể bạn đang ở chế độ tiếng Anh. Hãy đổi sang chế độ tiếng Trung hoặc bàn phím đang dùng."
+      ],
+      [
+        "Ra sai chữ Hán",
+        "Dùng số hoặc mũi tên để chọn ứng viên khác. Gõ cụm dài hơn sẽ chính xác hơn."
+      ],
+      [
+        "Từ có ü không ra",
+        "Dùng v: nv, lv, lve. Sau j/q/x, gõ u."
+      ],
+      [
+        "Dấu câu trông lạ",
+        "Có thể đang dùng dấu câu tiếng Trung hoặc chế độ full-width."
+      ]
+    ]
+  },
+  "pt": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Abra as Configurações.",
+          "Vá para Hora e idioma.",
+          "Abra Idioma e região.",
+          "Adicione Chinês (simplificado).",
+          "Nas opções de teclado, escolha Microsoft Pinyin.",
+          "Troque para o teclado chinês pelo botão de idioma da barra de tarefas.",
+          "No Microsoft Pinyin, pressione Shift para alternar chinês/inglês."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Abra Ajustes do Sistema.",
+          "Vá para Teclado.",
+          "Abra Fontes de entrada.",
+          "Clique em + e adicione Chinês, Pinyin simplificado.",
+          "Use o ícone de entrada na barra de menu ou Control + Espaço.",
+          "Digite pinyin em qualquer campo; a janela de candidatos aparece."
+        ]
+      ],
+      [
+        "Telefones",
+        [
+          "Abra as configurações do teclado.",
+          "Adicione um teclado chinês.",
+          "Escolha Pinyin ou Chinês simplificado Pinyin.",
+          "Abra um app com caixa de texto.",
+          "Mantenha pressionada a tecla globo ou troca de teclado.",
+          "Selecione o teclado chinês Pinyin e comece."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "Digite pinyin",
+        "Digite o som sem tons: nihao, xiexie, zhongwen. IMEs modernos entendem sílabas e frases inteiras."
+      ],
+      [
+        "Leia candidatos",
+        "Uma janela de candidatos aparece. A primeira opção costuma estar certa, mas confira palavras parecidas."
+      ],
+      [
+        "Escolha",
+        "Espaço aceita o candidato destacado, números escolhem candidatos específicos e setas movem a seleção."
+      ],
+      [
+        "Confirme ou mantenha inglês",
+        "Enter geralmente mantém as letras cruas, útil para nomes, URLs e palavras em inglês."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Digite a saudação inteira e depois Espaço."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "Digitar a frase inteira costuma ser mais fácil que caractere por caractere."
+      ],
+      [
+        "nv",
+        "女",
+        "Use v quando o pinyin precisa de ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "Na maioria dos IMEs, lv gera lü. Depois de j/q/x, digite u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "Digite frases, não caracteres isolados",
+        "“wo yao he shui” dá mais contexto ao IME."
+      ],
+      [
+        "Ignore tons ao digitar",
+        "No IME chinês normal, digite pinyin sem marcas de tom."
+      ],
+      [
+        "Use apóstrofo para ambiguidade",
+        "Se as sílabas podem ser separadas errado, use xi'an para 西安."
+      ],
+      [
+        "Aprenda a alternar pontuação",
+        "O modo chinês geralmente produz pontuação chinesa. Windows também aceita Ctrl + ."
+      ],
+      [
+        "Observe o modo largura total",
+        "Se letras ou pontuação ficarem largas, volte para meia largura."
+      ],
+      [
+        "Deixe o IME aprender",
+        "Palavras frequentes sobem na lista com o tempo."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "Só aparecem letras",
+        "Talvez você esteja no modo inglês. Troque para chinês ou para o teclado ativo correto."
+      ],
+      [
+        "Aparece o caractere errado",
+        "Use números ou setas para outro candidato. Digite uma frase mais longa."
+      ],
+      [
+        "Palavras com ü falham",
+        "Use v: nv, lv, lve. Depois de j/q/x, use u."
+      ],
+      [
+        "A pontuação parece estranha",
+        "Pode ser pontuação chinesa ou modo largura total."
+      ]
+    ]
+  },
+  "ru": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Откройте Параметры.",
+          "Перейдите в Время и язык.",
+          "Откройте Язык и регион.",
+          "Добавьте Китайский (упрощённый).",
+          "В параметрах клавиатуры выберите Microsoft Pinyin.",
+          "Переключитесь на китайскую клавиатуру через кнопку языка на панели задач.",
+          "В Microsoft Pinyin нажмите Shift для режима китайский/английский."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Откройте Системные настройки.",
+          "Перейдите в Клавиатура.",
+          "Откройте Источники ввода.",
+          "Нажмите + и добавьте Китайский, упрощённый Pinyin.",
+          "Используйте значок ввода в меню или Control + Space.",
+          "Введите пиньинь в поле текста; появится окно кандидатов."
+        ]
+      ],
+      [
+        "Телефоны",
+        [
+          "Откройте настройки клавиатуры.",
+          "Добавьте китайскую клавиатуру.",
+          "Выберите Pinyin или Chinese Simplified Pinyin.",
+          "Откройте приложение с полем ввода.",
+          "Удерживайте клавишу глобуса или смены клавиатуры.",
+          "Выберите китайскую Pinyin-клавиатуру и начните ввод."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "Введите пиньинь",
+        "Пишите звук без тонов: nihao, xiexie, zhongwen. Современные IME понимают слоги и целые фразы."
+      ],
+      [
+        "Читайте кандидаты",
+        "Появится окно вариантов. Первый часто верный, но похожие слова нужно проверять."
+      ],
+      [
+        "Выберите",
+        "Пробел выбирает выделенный вариант, цифра — конкретный вариант, стрелки двигают выбор."
+      ],
+      [
+        "Подтвердите или оставьте английский",
+        "Enter часто оставляет исходные буквы, что удобно для имён, URL и английских слов."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Введите всё приветствие, затем Пробел."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "Целую фразу обычно вводить легче, чем по одному иероглифу."
+      ],
+      [
+        "nv",
+        "女",
+        "Используйте v, когда нужен ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "В большинстве IME lv даёт lü. После j/q/x вводите u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "Вводите фразы, а не отдельные знаки",
+        "“wo yao he shui” даёт IME больше контекста."
+      ],
+      [
+        "Игнорируйте тоны при вводе",
+        "В обычном китайском IME вводят пиньинь без тоновых знаков."
+      ],
+      [
+        "Используйте апостроф при неоднозначности",
+        "Если слоги могут разделиться неверно, пишите xi'an для 西安."
+      ],
+      [
+        "Освойте переключение пунктуации",
+        "Китайский режим часто даёт китайскую пунктуацию. В Windows есть Ctrl + ."
+      ],
+      [
+        "Следите за полноширинным режимом",
+        "Если буквы или знаки стали широкими, вернитесь в полуширинный режим."
+      ],
+      [
+        "Дайте IME учиться",
+        "Частые слова со временем поднимаются выше."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "Появляются только буквы",
+        "Возможно, включён английский режим. Переключитесь на китайский или нужную клавиатуру."
+      ],
+      [
+        "Появился неправильный иероглиф",
+        "Выберите другой вариант цифрами или стрелками. Более длинная фраза поможет."
+      ],
+      [
+        "Не работают слова с ü",
+        "Используйте v: nv, lv, lve. После j/q/x — u."
+      ],
+      [
+        "Пунктуация выглядит странно",
+        "Возможно, включена китайская пунктуация или полноширинный режим."
+      ]
+    ]
+  },
+  "id": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Buka Settings.",
+          "Masuk ke Time & language.",
+          "Buka Language & region.",
+          "Tambahkan Chinese (Simplified).",
+          "Di opsi keyboard, pilih Microsoft Pinyin.",
+          "Pindah ke keyboard Mandarin dari tombol bahasa di taskbar.",
+          "Di Microsoft Pinyin, tekan Shift untuk berganti mode Mandarin/Inggris."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Buka System Settings.",
+          "Masuk ke Keyboard.",
+          "Buka Input Sources.",
+          "Klik + dan tambahkan Chinese, Simplified Pinyin.",
+          "Gunakan ikon input di menu bar atau Control + Space.",
+          "Ketik pinyin di kotak teks; jendela kandidat muncul otomatis."
+        ]
+      ],
+      [
+        "Ponsel",
+        [
+          "Buka pengaturan keyboard.",
+          "Tambahkan keyboard Mandarin.",
+          "Pilih Pinyin atau Chinese Simplified Pinyin.",
+          "Buka app dengan kotak teks.",
+          "Tekan lama tombol globe atau tombol ganti keyboard.",
+          "Pilih keyboard Chinese Pinyin dan mulai mengetik."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "Ketik pinyin",
+        "Ketik bunyi tanpa tanda nada: nihao, xiexie, zhongwen. IME modern memahami suku kata dan frasa penuh."
+      ],
+      [
+        "Baca kandidat",
+        "Jendela kandidat muncul. Opsi pertama sering benar, tetapi periksa kata yang mirip."
+      ],
+      [
+        "Pilih",
+        "Space memilih kandidat yang disorot, angka memilih kandidat tertentu, panah memindahkan pilihan."
+      ],
+      [
+        "Konfirmasi atau biarkan Inggris",
+        "Enter biasanya mempertahankan huruf mentah, berguna untuk nama, URL, dan kata Inggris."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Ketik seluruh sapaan, lalu Space."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "Mengetik kalimat penuh biasanya lebih mudah daripada satu karakter."
+      ],
+      [
+        "nv",
+        "女",
+        "Gunakan v saat pinyin membutuhkan ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "Di kebanyakan IME, lv menghasilkan lü. Setelah j/q/x, ketik u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "Ketik frasa, bukan karakter terpisah",
+        "“wo yao he shui” memberi IME lebih banyak konteks."
+      ],
+      [
+        "Abaikan nada saat mengetik",
+        "Untuk IME Mandarin biasa, ketik huruf pinyin tanpa tanda nada."
+      ],
+      [
+        "Gunakan apostrof untuk ambiguitas",
+        "Jika suku kata bisa terpisah salah, gunakan xi'an untuk 西安."
+      ],
+      [
+        "Pelajari pengalihan tanda baca",
+        "Mode Mandarin biasanya menghasilkan tanda baca Mandarin. Windows juga mendukung Ctrl + ."
+      ],
+      [
+        "Perhatikan mode full-width",
+        "Jika huruf atau tanda baca tiba-tiba lebar, kembali ke half-width."
+      ],
+      [
+        "Biarkan IME belajar",
+        "Kata yang sering dipakai akan naik dari waktu ke waktu."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "Hanya huruf yang muncul",
+        "Anda mungkin berada di mode Inggris. Pindah ke mode Mandarin atau keyboard aktif yang benar."
+      ],
+      [
+        "Karakter salah muncul",
+        "Gunakan angka atau panah untuk kandidat lain. Ketik frasa lebih panjang."
+      ],
+      [
+        "Kata ü gagal",
+        "Gunakan v: nv, lv, lve. Setelah j/q/x, gunakan u."
+      ],
+      [
+        "Tanda baca terlihat aneh",
+        "Mungkin tanda baca Mandarin atau mode full-width sedang aktif."
+      ]
+    ]
+  },
+  "ms": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Buka Settings.",
+          "Pergi ke Time & language.",
+          "Buka Language & region.",
+          "Tambah Chinese (Simplified).",
+          "Dalam pilihan papan kekunci, pilih Microsoft Pinyin.",
+          "Tukar ke papan kekunci Cina melalui butang bahasa di taskbar.",
+          "Dalam Microsoft Pinyin, tekan Shift untuk tukar mod Cina/Inggeris."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Buka System Settings.",
+          "Pergi ke Keyboard.",
+          "Buka Input Sources.",
+          "Klik + dan tambah Chinese, Simplified Pinyin.",
+          "Guna ikon input pada menu bar atau Control + Space.",
+          "Taip pinyin dalam kotak teks; tetingkap calon akan muncul."
+        ]
+      ],
+      [
+        "Telefon",
+        [
+          "Buka tetapan papan kekunci.",
+          "Tambah papan kekunci Cina.",
+          "Pilih Pinyin atau Chinese Simplified Pinyin.",
+          "Buka app yang ada kotak teks.",
+          "Tekan lama kekunci globe atau tukar papan kekunci.",
+          "Pilih papan kekunci Chinese Pinyin dan mula menaip."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "Taip pinyin",
+        "Taip bunyi tanpa tanda nada: nihao, xiexie, zhongwen. IME moden faham suku kata dan frasa penuh."
+      ],
+      [
+        "Baca calon",
+        "Tetingkap calon muncul. Pilihan pertama kerap betul, tetapi semak perkataan yang hampir sama."
+      ],
+      [
+        "Pilih",
+        "Space memilih calon yang disorot, nombor memilih calon tertentu, anak panah menggerakkan pilihan."
+      ],
+      [
+        "Sahkan atau kekalkan Inggeris",
+        "Enter biasanya mengekalkan huruf asal, berguna untuk nama, URL dan perkataan Inggeris."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Taip seluruh sapaan, kemudian Space."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "Menaip ayat penuh biasanya lebih mudah daripada satu aksara."
+      ],
+      [
+        "nv",
+        "女",
+        "Guna v apabila pinyin memerlukan ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "Dalam kebanyakan IME, lv menjadi lü. Selepas j/q/x, taip u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "Taip frasa, bukan aksara terpencil",
+        "“wo yao he shui” memberi IME lebih banyak konteks."
+      ],
+      [
+        "Abaikan nada semasa menaip",
+        "Untuk IME Cina biasa, taip huruf pinyin tanpa tanda nada."
+      ],
+      [
+        "Guna apostrophe untuk kekaburan",
+        "Jika suku kata boleh dipisah salah, guna xi'an untuk 西安."
+      ],
+      [
+        "Belajar tukar tanda baca",
+        "Mod Cina biasanya menghasilkan tanda baca Cina. Windows juga menyokong Ctrl + ."
+      ],
+      [
+        "Perhatikan mod lebar penuh",
+        "Jika huruf atau tanda baca tiba-tiba lebar, tukar semula ke separuh lebar."
+      ],
+      [
+        "Biarkan IME belajar",
+        "Perkataan yang kerap digunakan akan naik dalam senarai."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "Hanya huruf muncul",
+        "Anda mungkin dalam mod Inggeris. Tukar ke mod Cina atau papan kekunci aktif yang betul."
+      ],
+      [
+        "Aksara salah muncul",
+        "Guna nombor atau anak panah untuk calon lain. Taip frasa lebih panjang."
+      ],
+      [
+        "Perkataan ü gagal",
+        "Guna v: nv, lv, lve. Selepas j/q/x, guna u."
+      ],
+      [
+        "Tanda baca kelihatan pelik",
+        "Mungkin tanda baca Cina atau mod lebar penuh sedang aktif."
+      ]
+    ]
+  },
+  "it": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "Apri Impostazioni.",
+          "Vai a Ora e lingua.",
+          "Apri Lingua e area geografica.",
+          "Aggiungi Cinese (semplificato).",
+          "Nelle opzioni tastiera scegli Microsoft Pinyin.",
+          "Passa alla tastiera cinese dal pulsante lingua nella barra delle applicazioni.",
+          "In Microsoft Pinyin, premi Shift per alternare cinese/inglese."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "Apri Impostazioni di Sistema.",
+          "Vai a Tastiera.",
+          "Apri Sorgenti di input.",
+          "Clicca + e aggiungi Cinese, Pinyin semplificato.",
+          "Usa l’icona input nella barra menu o Control + Spazio.",
+          "Digita pinyin in un campo di testo; appare la finestra dei candidati."
+        ]
+      ],
+      [
+        "Telefoni",
+        [
+          "Apri le impostazioni della tastiera.",
+          "Aggiungi una tastiera cinese.",
+          "Scegli Pinyin o Cinese semplificato Pinyin.",
+          "Apri un’app con campo di testo.",
+          "Tieni premuto il tasto globo o cambio tastiera.",
+          "Seleziona la tastiera cinese Pinyin e inizia."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "Digita pinyin",
+        "Digita il suono senza toni: nihao, xiexie, zhongwen. Gli IME moderni capiscono sillabe e frasi intere."
+      ],
+      [
+        "Leggi i candidati",
+        "Compare una finestra di candidati. Il primo è spesso giusto, ma controlla parole simili."
+      ],
+      [
+        "Scegli",
+        "Spazio accetta il candidato evidenziato, un numero sceglie un candidato specifico, le frecce spostano la selezione."
+      ],
+      [
+        "Conferma o lascia inglese",
+        "Invio spesso mantiene le lettere grezze, utile per nomi, URL e parole inglesi."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "Digita tutto il saluto, poi Spazio."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "Digitare una frase intera è spesso più facile che un carattere alla volta."
+      ],
+      [
+        "nv",
+        "女",
+        "Usa v quando il pinyin richiede ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "Nella maggior parte degli IME, lv dà lü. Dopo j/q/x, digita u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "Digita frasi, non caratteri isolati",
+        "“wo yao he shui” dà più contesto all’IME."
+      ],
+      [
+        "Ignora i toni mentre digiti",
+        "Nel normale IME cinese si digitano lettere pinyin senza segni di tono."
+      ],
+      [
+        "Usa apostrofi per ambiguità",
+        "Se le sillabe possono essere divise male, usa xi'an per 西安."
+      ],
+      [
+        "Impara la punteggiatura",
+        "Il modo cinese spesso produce punteggiatura cinese. Windows supporta anche Ctrl + ."
+      ],
+      [
+        "Controlla il modo full-width",
+        "Se lettere o segni diventano larghi, torna a half-width."
+      ],
+      [
+        "Lascia che l’IME impari",
+        "Le parole frequenti salgono nella lista nel tempo."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "Compaiono solo lettere",
+        "Potresti essere in modo inglese. Passa al modo cinese o alla tastiera corretta."
+      ],
+      [
+        "Compare il carattere sbagliato",
+        "Usa numeri o frecce per un altro candidato. Una frase più lunga aiuta."
+      ],
+      [
+        "Le parole con ü falliscono",
+        "Usa v: nv, lv, lve. Dopo j/q/x, usa u."
+      ],
+      [
+        "La punteggiatura sembra strana",
+        "Potrebbe essere punteggiatura cinese o modo full-width."
+      ]
+    ]
+  },
+  "ar": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "افتح الإعدادات.",
+          "انتقل إلى الوقت واللغة.",
+          "افتح اللغة والمنطقة.",
+          "أضف الصينية (المبسطة).",
+          "في خيارات لوحة المفاتيح اختر Microsoft Pinyin.",
+          "بدّل إلى لوحة المفاتيح الصينية من زر اللغة في شريط المهام.",
+          "داخل Microsoft Pinyin اضغط Shift للتبديل بين الصينية والإنجليزية."
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "افتح إعدادات النظام.",
+          "انتقل إلى لوحة المفاتيح.",
+          "افتح مصادر الإدخال.",
+          "اضغط + وأضف الصينية، Pinyin مبسط.",
+          "استخدم أيقونة الإدخال في شريط القائمة أو Control + Space.",
+          "اكتب pinyin في أي حقل نص؛ ستظهر نافذة المرشحات."
+        ]
+      ],
+      [
+        "الهواتف",
+        [
+          "افتح إعدادات لوحة المفاتيح.",
+          "أضف لوحة مفاتيح صينية.",
+          "اختر Pinyin أو Chinese Simplified Pinyin.",
+          "افتح تطبيقًا يحتوي على مربع نص.",
+          "اضغط مطولًا على زر الكرة الأرضية أو زر تبديل اللوحة.",
+          "اختر لوحة Chinese Pinyin وابدأ الكتابة."
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "اكتب pinyin",
+        "اكتب الصوت دون علامات النغمة: nihao, xiexie, zhongwen. طرق الإدخال الحديثة تفهم المقاطع والعبارات الكاملة."
+      ],
+      [
+        "اقرأ المرشحات",
+        "تظهر نافذة مرشحات. الخيار الأول غالبًا صحيح، لكن تحقق من الكلمات المتشابهة."
+      ],
+      [
+        "اختر",
+        "المسافة تختار المرشح المحدد، والأرقام تختار مرشحًا معينًا، والأسهم تنقل الاختيار."
+      ],
+      [
+        "أكد أو أبقِ الإنجليزية",
+        "Enter غالبًا يبقي الحروف كما هي، وهذا مفيد للأسماء والروابط والكلمات الإنجليزية."
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "اكتب التحية كاملة ثم اضغط Space."
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "كتابة الجملة كاملة أسهل غالبًا من اختيار كل حرف وحده."
+      ],
+      [
+        "nv",
+        "女",
+        "استخدم v عندما يحتاج pinyin إلى ü."
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "في معظم طرق الإدخال، lv يعطي lü. بعد j/q/x اكتب u: ju, qu, xu."
+      ]
+    ],
+    "skills": [
+      [
+        "اكتب عبارات لا حروفًا منفردة",
+        "“wo yao he shui” يعطي طريقة الإدخال سياقًا أكثر."
+      ],
+      [
+        "تجاهل النغمات أثناء الكتابة",
+        "في الإدخال الصيني العادي تكتب حروف pinyin دون علامات نغمة."
+      ],
+      [
+        "استخدم الفاصلة العليا عند الالتباس",
+        "إذا قد تُقسّم المقاطع خطأ، اكتب xi'an من أجل 西安."
+      ],
+      [
+        "تعلّم تبديل علامات الترقيم",
+        "الوضع الصيني ينتج غالبًا ترقيمًا صينيًا. Windows يدعم Ctrl + . أيضًا."
+      ],
+      [
+        "انتبه لوضع العرض الكامل",
+        "إذا بدت الحروف أو العلامات عريضة جدًا، عد إلى الوضع نصف العرض."
+      ],
+      [
+        "دع طريقة الإدخال تتعلم",
+        "الكلمات المتكررة ترتفع في القائمة مع الوقت."
+      ]
+    ],
+    "pitfalls": [
+      [
+        "تظهر حروف فقط",
+        "قد تكون في الوضع الإنجليزي. بدّل إلى الوضع الصيني أو لوحة المفاتيح الصحيحة."
+      ],
+      [
+        "ظهر الحرف الخطأ",
+        "استخدم الأرقام أو الأسهم لاختيار مرشح آخر. العبارة الأطول تساعد."
+      ],
+      [
+        "كلمات ü لا تعمل",
+        "استخدم v: nv, lv, lve. بعد j/q/x استخدم u."
+      ],
+      [
+        "الترقيم يبدو غريبًا",
+        "قد يكون ترقيمًا صينيًا أو وضع العرض الكامل."
+      ]
+    ]
+  },
+  "th": {
+    "platforms": [
+      [
+        "Windows",
+        [
+          "เปิด Settings",
+          "ไปที่ Time & language",
+          "เปิด Language & region",
+          "เพิ่ม Chinese (Simplified)",
+          "ในตัวเลือกคีย์บอร์ด เลือก Microsoft Pinyin",
+          "สลับไปคีย์บอร์ดจีนจากปุ่มภาษาบนแถบงาน",
+          "ใน Microsoft Pinyin กด Shift เพื่อสลับโหมดจีน/อังกฤษ"
+        ]
+      ],
+      [
+        "macOS",
+        [
+          "เปิด System Settings",
+          "ไปที่ Keyboard",
+          "เปิด Input Sources",
+          "กด + แล้วเพิ่ม Chinese, Simplified Pinyin",
+          "ใช้ไอคอน input บนแถบเมนูหรือ Control + Space",
+          "พิมพ์ pinyin ในช่องข้อความ แล้วหน้าต่างคำ候補จะปรากฏ"
+        ]
+      ],
+      [
+        "โทรศัพท์",
+        [
+          "เปิดการตั้งค่าแป้นพิมพ์",
+          "เพิ่มแป้นพิมพ์ภาษาจีน",
+          "เลือก Pinyin หรือ Chinese Simplified Pinyin",
+          "เปิดแอปที่มีช่องพิมพ์ข้อความ",
+          "กดค้างปุ่มรูปโลกหรือปุ่มสลับแป้นพิมพ์",
+          "เลือกแป้นพิมพ์ Chinese Pinyin แล้วเริ่มพิมพ์"
+        ]
+      ]
+    ],
+    "flow": [
+      [
+        "พิมพ์ pinyin",
+        "พิมพ์เสียงโดยไม่ใส่วรรณยุกต์: nihao, xiexie, zhongwen. IME สมัยใหม่เข้าใจพยางค์และวลีทั้งชุด"
+      ],
+      [
+        "อ่านตัวเลือก",
+        "หน้าต่างตัวเลือกจะปรากฏ ตัวแรกมักถูก แต่ควรตรวจคำที่คล้ายกัน"
+      ],
+      [
+        "เลือก",
+        "Space เลือกตัวที่ไฮไลต์ ตัวเลขเลือกตัวเฉพาะ ปุ่มลูกศรเลื่อนตัวเลือก"
+      ],
+      [
+        "ยืนยันหรือเก็บอังกฤษไว้",
+        "Enter มักเก็บตัวอักษรเดิม เหมาะกับชื่อ URL และคำอังกฤษ"
+      ]
+    ],
+    "demos": [
+      [
+        "nihao",
+        "你好",
+        "พิมพ์คำทักทายทั้งหมด แล้วกด Space"
+      ],
+      [
+        "wo xiang xue zhongwen",
+        "我想学中文",
+        "พิมพ์ทั้งประโยคมักง่ายกว่าทีละตัวอักษรจีน"
+      ],
+      [
+        "nv",
+        "女",
+        "ใช้ v เมื่อ pinyin ต้องใช้ ü"
+      ],
+      [
+        "lü / lv",
+        "绿",
+        "ใน IME ส่วนใหญ่ lv จะได้ lü หลัง j/q/x ให้พิมพ์ u: ju, qu, xu"
+      ]
+    ],
+    "skills": [
+      [
+        "พิมพ์เป็นวลี ไม่ใช่ตัวเดี่ยว",
+        "“wo yao he shui” ให้บริบทมากกว่า “wo / yao / he / shui”"
+      ],
+      [
+        "ไม่ต้องใส่วรรณยุกต์ตอนพิมพ์",
+        "IME จีนทั่วไปใช้ตัวอักษร pinyin โดยไม่มีเครื่องหมายวรรณยุกต์"
+      ],
+      [
+        "ใช้อะพอสทรอฟีเมื่อกำกวม",
+        "ถ้าแบ่งพยางค์ผิดได้ ให้ใช้ xi'an สำหรับ 西安"
+      ],
+      [
+        "เรียนรู้การสลับเครื่องหมายวรรคตอน",
+        "โหมดจีนมักให้วรรคตอนจีน Windows ยังใช้ Ctrl + . ได้"
+      ],
+      [
+        "ระวังโหมด full-width",
+        "ถ้าตัวอักษรหรือวรรคตอนกว้างผิดปกติ ให้กลับเป็น half-width"
+      ],
+      [
+        "ให้ IME เรียนรู้",
+        "คำที่ใช้บ่อยจะค่อย ๆ ขยับขึ้นในรายการ"
+      ]
+    ],
+    "pitfalls": [
+      [
+        "ขึ้นแต่ตัวอักษร",
+        "อาจอยู่ในโหมดอังกฤษ ให้สลับเป็นโหมดจีนหรือคีย์บอร์ดที่ถูกต้อง"
+      ],
+      [
+        "ตัวอักษรจีนไม่ถูก",
+        "ใช้ตัวเลขหรือลูกศรเลือก候補อื่น พิมพ์วลียาวขึ้นจะช่วยได้"
+      ],
+      [
+        "คำที่มี ü ใช้ไม่ได้",
+        "ใช้ v: nv, lv, lve หลัง j/q/x ใช้ u"
+      ],
+      [
+        "วรรคตอนดูแปลก",
+        "อาจเป็นวรรคตอนจีนหรือโหมด full-width"
+      ]
+    ]
+  }
+};
+
+const PINYIN_INTRO_TRANSLATIONS = {
+  "en": {
+    "overview": "Overview",
+    "nativeHint": "Native-language hint",
+    "articulation": "How to make the sound",
+    "introTitle": "Introduction",
+    "introDesc": "Chinese syllables have three parts: an initial, a final, and a tone.",
+    "initial": "Initial",
+    "final": "Final",
+    "tone": "Tone",
+    "syllable": "Syllable",
+    "initials": "Initials",
+    "finals": "Finals",
+    "exploreHint": "Tap to listen · click group to explore",
+    "detail": "Detail",
+    "tonesTitle": "Tones",
+    "tonesDesc": "Chinese is a tonal language: the same syllable in different tones means completely different things.",
+    "toneNames": [
+      "high & level",
+      "rising",
+      "falling-rising",
+      "falling",
+      "neutral"
+    ],
+    "toneMeanings": [
+      "mom",
+      "hemp",
+      "horse",
+      "to scold",
+      "question particle"
+    ],
+    "neutralNote": "The neutral tone (5) is short and unstressed; the tone mark is usually omitted in writing."
+  },
+  "zh": {
+    "overview": "概览",
+    "nativeHint": "母语提示",
+    "articulation": "发音动作",
+    "introTitle": "拼音介绍",
+    "introDesc": "中文音节由三个部分组成：声母、韵母和声调。",
+    "initial": "声母",
+    "final": "韵母",
+    "tone": "声调",
+    "syllable": "音节",
+    "initials": "声母",
+    "finals": "韵母",
+    "exploreHint": "点击试听 · 点击分组查看细节",
+    "detail": "详情",
+    "tonesTitle": "声调",
+    "tonesDesc": "中文是声调语言：同一个音节，声调不同，意思可能完全不同。",
+    "toneNames": [
+      "第一声：高平",
+      "第二声：上扬",
+      "第三声：先降后升",
+      "第四声：下降",
+      "轻声"
+    ],
+    "toneMeanings": [
+      "妈妈",
+      "麻",
+      "马",
+      "骂",
+      "疑问助词"
+    ],
+    "neutralNote": "轻声（第 5 声）短而轻，书写时通常不标声调。"
+  },
+  "jp": {
+    "overview": "概要",
+    "nativeHint": "母語ヒント",
+    "articulation": "発音の作り方",
+    "introTitle": "ピンイン入門",
+    "introDesc": "中国語の音節は、声母・韻母・声調の3つでできています。",
+    "initial": "声母",
+    "final": "韻母",
+    "tone": "声調",
+    "syllable": "音節",
+    "initials": "声母",
+    "finals": "韻母",
+    "exploreHint": "タップして聞く · グループを開く",
+    "detail": "詳細",
+    "tonesTitle": "声調",
+    "tonesDesc": "中国語は声調言語です。同じ音節でも声調が違うと意味が大きく変わります。",
+    "toneNames": [
+      "高く平ら",
+      "上昇",
+      "下降して上昇",
+      "下降",
+      "軽声"
+    ],
+    "toneMeanings": [
+      "お母さん",
+      "麻",
+      "馬",
+      "叱る",
+      "疑問助詞"
+    ],
+    "neutralNote": "軽声（5）は短く弱く発音され、通常は声調記号を書きません。"
+  },
+  "fr": {
+    "overview": "Aperçu",
+    "nativeHint": "Indice en langue maternelle",
+    "articulation": "Comment produire le son",
+    "introTitle": "Introduction",
+    "introDesc": "Les syllabes chinoises ont trois parties : une initiale, une finale et un ton.",
+    "initial": "Initiale",
+    "final": "Finale",
+    "tone": "Ton",
+    "syllable": "Syllabe",
+    "initials": "Initiales",
+    "finals": "Finales",
+    "exploreHint": "Touchez pour écouter · ouvrez un groupe",
+    "detail": "Détail",
+    "tonesTitle": "Tons",
+    "tonesDesc": "Le chinois est une langue tonale : la même syllabe peut changer complètement de sens selon le ton.",
+    "toneNames": [
+      "haut et plat",
+      "montant",
+      "descendant-montant",
+      "descendant",
+      "neutre"
+    ],
+    "toneMeanings": [
+      "maman",
+      "chanvre",
+      "cheval",
+      "gronder",
+      "particule interrogative"
+    ],
+    "neutralNote": "Le ton neutre (5) est court et non accentué ; on omet généralement la marque de ton à l’écrit."
+  },
+  "de": {
+    "overview": "Übersicht",
+    "nativeHint": "Hinweis in deiner Sprache",
+    "articulation": "So bildest du den Laut",
+    "introTitle": "Einführung",
+    "introDesc": "Chinesische Silben bestehen aus drei Teilen: Anlaut, Auslaut und Ton.",
+    "initial": "Anlaut",
+    "final": "Auslaut",
+    "tone": "Ton",
+    "syllable": "Silbe",
+    "initials": "Anlaute",
+    "finals": "Auslaute",
+    "exploreHint": "Antippen zum Hören · Gruppe öffnen",
+    "detail": "Details",
+    "tonesTitle": "Töne",
+    "tonesDesc": "Chinesisch ist eine Tonsprache: dieselbe Silbe kann mit anderem Ton eine völlig andere Bedeutung haben.",
+    "toneNames": [
+      "hoch und eben",
+      "steigend",
+      "fallend-steigend",
+      "fallend",
+      "neutral"
+    ],
+    "toneMeanings": [
+      "Mama",
+      "Hanf",
+      "Pferd",
+      "schimpfen",
+      "Fragepartikel"
+    ],
+    "neutralNote": "Der neutrale Ton (5) ist kurz und unbetont; das Tonzeichen wird beim Schreiben meist weggelassen."
+  },
+  "ko": {
+    "overview": "개요",
+    "nativeHint": "모국어 힌트",
+    "articulation": "발음 방법",
+    "introTitle": "병음 소개",
+    "introDesc": "중국어 음절은 성모, 운모, 성조 세 부분으로 이루어집니다.",
+    "initial": "성모",
+    "final": "운모",
+    "tone": "성조",
+    "syllable": "음절",
+    "initials": "성모",
+    "finals": "운모",
+    "exploreHint": "눌러 듣기 · 그룹 살펴보기",
+    "detail": "자세히",
+    "tonesTitle": "성조",
+    "tonesDesc": "중국어는 성조 언어입니다. 같은 음절도 성조가 다르면 뜻이 완전히 달라질 수 있습니다.",
+    "toneNames": [
+      "높고 평평함",
+      "올라감",
+      "내려갔다 올라감",
+      "내려감",
+      "경성"
+    ],
+    "toneMeanings": [
+      "엄마",
+      "삼",
+      "말",
+      "꾸짖다",
+      "의문 조사"
+    ],
+    "neutralNote": "경성(5성)은 짧고 약하게 발음되며, 보통 성조 표시를 쓰지 않습니다."
+  },
+  "es": {
+    "overview": "Resumen",
+    "nativeHint": "Pista en tu idioma",
+    "articulation": "Cómo producir el sonido",
+    "introTitle": "Introducción",
+    "introDesc": "Las sílabas chinas tienen tres partes: inicial, final y tono.",
+    "initial": "Inicial",
+    "final": "Final",
+    "tone": "Tono",
+    "syllable": "Sílaba",
+    "initials": "Iniciales",
+    "finals": "Finales",
+    "exploreHint": "Toca para escuchar · explora el grupo",
+    "detail": "Detalle",
+    "tonesTitle": "Tonos",
+    "tonesDesc": "El chino es una lengua tonal: la misma sílaba puede cambiar por completo de significado según el tono.",
+    "toneNames": [
+      "alto y plano",
+      "ascendente",
+      "baja y sube",
+      "descendente",
+      "neutro"
+    ],
+    "toneMeanings": [
+      "mamá",
+      "cáñamo",
+      "caballo",
+      "regañar",
+      "partícula interrogativa"
+    ],
+    "neutralNote": "El tono neutro (5) es corto y átono; normalmente se omite la marca de tono al escribir."
+  },
+  "vi": {
+    "overview": "Tổng quan",
+    "nativeHint": "Gợi ý theo tiếng mẹ đẻ",
+    "articulation": "Cách tạo âm",
+    "introTitle": "Giới thiệu",
+    "introDesc": "Một âm tiết tiếng Trung có ba phần: thanh mẫu, vận mẫu và thanh điệu.",
+    "initial": "Thanh mẫu",
+    "final": "Vận mẫu",
+    "tone": "Thanh điệu",
+    "syllable": "Âm tiết",
+    "initials": "Thanh mẫu",
+    "finals": "Vận mẫu",
+    "exploreHint": "Chạm để nghe · mở nhóm để xem",
+    "detail": "Chi tiết",
+    "tonesTitle": "Thanh điệu",
+    "tonesDesc": "Tiếng Trung là ngôn ngữ thanh điệu: cùng một âm tiết nhưng đổi thanh có thể đổi hẳn nghĩa.",
+    "toneNames": [
+      "cao và ngang",
+      "đi lên",
+      "xuống rồi lên",
+      "đi xuống",
+      "nhẹ"
+    ],
+    "toneMeanings": [
+      "mẹ",
+      "cây gai",
+      "ngựa",
+      "mắng",
+      "trợ từ nghi vấn"
+    ],
+    "neutralNote": "Thanh nhẹ (5) ngắn và không nhấn; khi viết thường không ghi dấu thanh."
+  },
+  "pt": {
+    "overview": "Visão geral",
+    "nativeHint": "Dica no seu idioma",
+    "articulation": "Como produzir o som",
+    "introTitle": "Introdução",
+    "introDesc": "As sílabas chinesas têm três partes: inicial, final e tom.",
+    "initial": "Inicial",
+    "final": "Final",
+    "tone": "Tom",
+    "syllable": "Sílaba",
+    "initials": "Iniciais",
+    "finals": "Finais",
+    "exploreHint": "Toque para ouvir · abra o grupo",
+    "detail": "Detalhe",
+    "tonesTitle": "Tons",
+    "tonesDesc": "O chinês é uma língua tonal: a mesma sílaba pode mudar completamente de sentido conforme o tom.",
+    "toneNames": [
+      "alto e plano",
+      "ascendente",
+      "desce e sobe",
+      "descendente",
+      "neutro"
+    ],
+    "toneMeanings": [
+      "mãe",
+      "cânhamo",
+      "cavalo",
+      "repreender",
+      "partícula interrogativa"
+    ],
+    "neutralNote": "O tom neutro (5) é curto e sem ênfase; normalmente a marca de tom é omitida na escrita."
+  },
+  "ar": {
+    "overview": "نظرة عامة",
+    "nativeHint": "تلميح بلغتك",
+    "articulation": "طريقة نطق الصوت",
+    "introTitle": "مقدمة",
+    "introDesc": "يتكوّن المقطع الصيني من ثلاثة أجزاء: صوت ابتدائي، صوت نهائي، ونغمة.",
+    "initial": "ابتدائي",
+    "final": "نهائي",
+    "tone": "النغمة",
+    "syllable": "المقطع",
+    "initials": "الأصوات الابتدائية",
+    "finals": "الأصوات النهائية",
+    "exploreHint": "اضغط للاستماع · افتح المجموعة",
+    "detail": "تفاصيل",
+    "tonesTitle": "النغمات",
+    "tonesDesc": "الصينية لغة نغمية: المقطع نفسه قد يحمل معنى مختلفًا تمامًا عند تغيير النغمة.",
+    "toneNames": [
+      "عالٍ ومستوى",
+      "صاعد",
+      "هابط ثم صاعد",
+      "هابط",
+      "محايد"
+    ],
+    "toneMeanings": [
+      "أم",
+      "قنب",
+      "حصان",
+      "يوبّخ",
+      "أداة سؤال"
+    ],
+    "neutralNote": "النغمة المحايدة (5) قصيرة وغير مشددة؛ وغالبًا لا تُكتب علامتها."
+  },
+  "th": {
+    "overview": "ภาพรวม",
+    "nativeHint": "คำแนะนำภาษาแม่",
+    "articulation": "วิธีออกเสียง",
+    "introTitle": "บทนำ",
+    "introDesc": "พยางค์ภาษาจีนมี 3 ส่วน: พยัญชนะต้น สระท้าย และวรรณยุกต์",
+    "initial": "พยัญชนะต้น",
+    "final": "สระท้าย",
+    "tone": "วรรณยุกต์",
+    "syllable": "พยางค์",
+    "initials": "พยัญชนะต้น",
+    "finals": "สระท้าย",
+    "exploreHint": "แตะเพื่อฟัง · เปิดกลุ่มเพื่อดู",
+    "detail": "รายละเอียด",
+    "tonesTitle": "วรรณยุกต์",
+    "tonesDesc": "ภาษาจีนเป็นภาษาวรรณยุกต์: พยางค์เดียวกันเมื่อเสียงต่างกัน ความหมายอาจต่างกันโดยสิ้นเชิง",
+    "toneNames": [
+      "สูงและเรียบ",
+      "เสียงขึ้น",
+      "ลงแล้วขึ้น",
+      "เสียงลง",
+      "เสียงเบา"
+    ],
+    "toneMeanings": [
+      "แม่",
+      "ป่าน",
+      "ม้า",
+      "ด่า",
+      "คำช่วยคำถาม"
+    ],
+    "neutralNote": "เสียงเบา (5) สั้นและไม่เน้น ปกติไม่เขียนเครื่องหมายวรรณยุกต์"
+  },
+  "ru": {
+    "overview": "Обзор",
+    "nativeHint": "Подсказка на родном языке",
+    "articulation": "Как произнести звук",
+    "introTitle": "Введение",
+    "introDesc": "Китайский слог состоит из трёх частей: инициали, финали и тона.",
+    "initial": "Инициаль",
+    "final": "Финаль",
+    "tone": "Тон",
+    "syllable": "Слог",
+    "initials": "Инициали",
+    "finals": "Финали",
+    "exploreHint": "Нажмите, чтобы слушать · откройте группу",
+    "detail": "Подробнее",
+    "tonesTitle": "Тоны",
+    "tonesDesc": "Китайский — тональный язык: один и тот же слог с разным тоном может означать совсем разные вещи.",
+    "toneNames": [
+      "высокий ровный",
+      "восходящий",
+      "нисходяще-восходящий",
+      "нисходящий",
+      "нейтральный"
+    ],
+    "toneMeanings": [
+      "мама",
+      "конопля",
+      "лошадь",
+      "ругать",
+      "вопросительная частица"
+    ],
+    "neutralNote": "Нейтральный тон (5) короткий и без ударения; при письме знак тона обычно не ставится."
+  },
+  "id": {
+    "overview": "Ikhtisar",
+    "nativeHint": "Petunjuk bahasa ibu",
+    "articulation": "Cara membuat bunyi",
+    "introTitle": "Pengantar",
+    "introDesc": "Suku kata Mandarin memiliki tiga bagian: initial, final, dan nada.",
+    "initial": "Initial",
+    "final": "Final",
+    "tone": "Nada",
+    "syllable": "Suku kata",
+    "initials": "Initial",
+    "finals": "Final",
+    "exploreHint": "Ketuk untuk dengar · buka grup",
+    "detail": "Detail",
+    "tonesTitle": "Nada",
+    "tonesDesc": "Mandarin adalah bahasa bernada: suku kata yang sama bisa berarti sangat berbeda jika nadanya berubah.",
+    "toneNames": [
+      "tinggi dan datar",
+      "naik",
+      "turun-naik",
+      "turun",
+      "netral"
+    ],
+    "toneMeanings": [
+      "ibu",
+      "rami",
+      "kuda",
+      "memarahi",
+      "partikel tanya"
+    ],
+    "neutralNote": "Nada netral (5) pendek dan tidak ditekankan; tanda nada biasanya tidak ditulis."
+  },
+  "ms": {
+    "overview": "Gambaran",
+    "nativeHint": "Petunjuk bahasa ibunda",
+    "articulation": "Cara menghasilkan bunyi",
+    "introTitle": "Pengenalan",
+    "introDesc": "Suku kata Cina mempunyai tiga bahagian: initial, final dan nada.",
+    "initial": "Initial",
+    "final": "Final",
+    "tone": "Nada",
+    "syllable": "Suku kata",
+    "initials": "Initial",
+    "finals": "Final",
+    "exploreHint": "Ketik untuk dengar · buka kumpulan",
+    "detail": "Butiran",
+    "tonesTitle": "Nada",
+    "tonesDesc": "Bahasa Cina ialah bahasa bernada: suku kata yang sama boleh membawa maksud berbeza apabila nadanya berubah.",
+    "toneNames": [
+      "tinggi dan rata",
+      "menaik",
+      "turun lalu naik",
+      "menurun",
+      "neutral"
+    ],
+    "toneMeanings": [
+      "ibu",
+      "rami",
+      "kuda",
+      "memarahi",
+      "partikel tanya"
+    ],
+    "neutralNote": "Nada neutral (5) pendek dan tidak ditekankan; tanda nada biasanya tidak ditulis."
+  },
+  "it": {
+    "overview": "Panoramica",
+    "nativeHint": "Suggerimento nella tua lingua",
+    "articulation": "Come produrre il suono",
+    "introTitle": "Introduzione",
+    "introDesc": "Le sillabe cinesi hanno tre parti: iniziale, finale e tono.",
+    "initial": "Iniziale",
+    "final": "Finale",
+    "tone": "Tono",
+    "syllable": "Sillaba",
+    "initials": "Iniziali",
+    "finals": "Finali",
+    "exploreHint": "Tocca per ascoltare · apri il gruppo",
+    "detail": "Dettaglio",
+    "tonesTitle": "Toni",
+    "tonesDesc": "Il cinese è una lingua tonale: la stessa sillaba può cambiare completamente significato con un tono diverso.",
+    "toneNames": [
+      "alto e piano",
+      "ascendente",
+      "discendente-ascendente",
+      "discendente",
+      "neutro"
+    ],
+    "toneMeanings": [
+      "mamma",
+      "canapa",
+      "cavallo",
+      "rimproverare",
+      "particella interrogativa"
+    ],
+    "neutralNote": "Il tono neutro (5) è breve e non accentato; di solito il segno tonale non si scrive."
+  }
+};
 
 const resources = {
   zh: {
@@ -174,6 +3354,14 @@ const resources = {
       "course_adding_learning": "正在添加...",
       "course_remove_learning": "暂停学习",
       "course_remove_failed": "暂停课程失败，请稍后重试。",
+      "course_pause_confirm_eyebrow": "暂停确认",
+      "course_pause_confirm_title": "确定暂停这门课吗？",
+      "course_pause_confirm_desc": "暂停后，{{course}} 会从“我的课程”中移除，已有学习进度会保留，之后可以从全部课程重新添加。",
+      "course_pause_confirm_action": "确认暂停",
+      "course_remove_confirm_eyebrow": "课程管理",
+      "course_remove_confirm_title": "要暂停还是清除这门课？",
+      "course_remove_confirm_desc": "暂停会保留 {{course}} 的学习进度；清除会移除这门课的学习记录、复习记录和课时进度，之后重新添加会从头开始。",
+      "course_clear_confirm_action": "清除记录",
       "course_limit_reached": "你当前最多可学习 2 门课程，请先完成或暂停一门。",
       "course_enroll_failed": "添加课程失败，请稍后重试。",
       "course_preview_before_join": "你可以先浏览课程结构和课时内容。添加到学习后会记录练习与学习进度。",
@@ -486,6 +3674,14 @@ const resources = {
       "course_adding_learning": "Adding...",
       "course_remove_learning": "Pause",
       "course_remove_failed": "Failed to pause the course. Please try again.",
+      "course_pause_confirm_eyebrow": "Pause confirmation",
+      "course_pause_confirm_title": "Pause this course?",
+      "course_pause_confirm_desc": "After pausing, {{course}} will be removed from My Courses. Your progress will be kept, and you can add it again from All Courses later.",
+      "course_pause_confirm_action": "Confirm pause",
+      "course_remove_confirm_eyebrow": "Course management",
+      "course_remove_confirm_title": "Pause or clear this course?",
+      "course_remove_confirm_desc": "Pause keeps your progress for {{course}}. Clear removes learning records, review logs, and lesson progress, so adding it again starts from the beginning.",
+      "course_clear_confirm_action": "Clear records",
       "course_limit_reached": "You can study up to 2 courses at once. Please complete or pause one first.",
       "course_enroll_failed": "Failed to add the course. Please try again.",
       "course_preview_before_join": "You can preview the course structure and lessons first. Add it to your learning list when you want practice and progress tracking.",
@@ -798,6 +3994,14 @@ const resources = {
       "course_adding_learning": "追加中...",
       "course_remove_learning": "学習を一時停止",
       "course_remove_failed": "コースを一時停止できませんでした。もう一度お試しください。",
+      "course_pause_confirm_eyebrow": "一時停止の確認",
+      "course_pause_confirm_title": "このコースを一時停止しますか？",
+      "course_pause_confirm_desc": "一時停止すると、{{course}} は「マイコース」から外れます。進捗は保持され、あとで全コースから再追加できます。",
+      "course_pause_confirm_action": "一時停止する",
+      "course_remove_confirm_eyebrow": "コース管理",
+      "course_remove_confirm_title": "一時停止しますか、それとも記録を削除しますか？",
+      "course_remove_confirm_desc": "一時停止すると {{course}} の進捗は保持されます。削除すると学習記録、復習記録、レッスン進捗が消え、再追加時は最初から始まります。",
+      "course_clear_confirm_action": "記録を削除",
       "course_limit_reached": "同時に学習できるコースは最大2件です。先に1件を完了するか一時停止してください。",
       "course_enroll_failed": "コースを追加できませんでした。もう一度お試しください。",
       "course_preview_before_join": "先にコース構成とレッスン内容を確認できます。学習に追加すると練習と進捗が記録されます。",
@@ -973,6 +4177,14 @@ const resources = {
       "course_adding_learning": "Ajout en cours...",
       "course_remove_learning": "Mettre en pause",
       "course_remove_failed": "Impossible de mettre ce cours en pause. Veuillez réessayer.",
+      "course_pause_confirm_eyebrow": "Confirmation",
+      "course_pause_confirm_title": "Mettre ce cours en pause ?",
+      "course_pause_confirm_desc": "Après la pause, {{course}} sera retiré de Mes cours. Votre progression sera conservée et vous pourrez le rajouter depuis Tous les cours.",
+      "course_pause_confirm_action": "Confirmer la pause",
+      "course_remove_confirm_eyebrow": "Gestion du cours",
+      "course_remove_confirm_title": "Mettre en pause ou effacer ce cours ?",
+      "course_remove_confirm_desc": "La pause conserve votre progression pour {{course}}. Effacer supprime les données d'apprentissage, les révisions et la progression de leçon.",
+      "course_clear_confirm_action": "Effacer les données",
       "course_limit_reached": "Vous pouvez suivre jusqu'à 2 cours à la fois. Veuillez d'abord en terminer ou en mettre un en pause.",
       "course_enroll_failed": "Impossible d'ajouter ce cours. Veuillez réessayer.",
       "course_preview_before_join": "Vous pouvez d'abord parcourir la structure du cours et les leçons. Ajoutez-le à votre apprentissage pour enregistrer la pratique et la progression.",
@@ -1285,6 +4497,14 @@ const resources = {
       "course_adding_learning": "Wird hinzugefügt...",
       "course_remove_learning": "Pausieren",
       "course_remove_failed": "Der Kurs konnte nicht pausiert werden. Bitte versuche es erneut.",
+      "course_pause_confirm_eyebrow": "Pause bestätigen",
+      "course_pause_confirm_title": "Diesen Kurs pausieren?",
+      "course_pause_confirm_desc": "{{course}} wird aus „Meine Kurse“ entfernt. Dein Fortschritt bleibt erhalten und du kannst den Kurs später wieder hinzufügen.",
+      "course_pause_confirm_action": "Pause bestätigen",
+      "course_remove_confirm_eyebrow": "Kursverwaltung",
+      "course_remove_confirm_title": "Diesen Kurs pausieren oder löschen?",
+      "course_remove_confirm_desc": "Pausieren behält deinen Fortschritt für {{course}}. Löschen entfernt Lernstand, Wiederholungsprotokolle und Lektionsfortschritt.",
+      "course_clear_confirm_action": "Daten löschen",
       "course_limit_reached": "Du kannst höchstens 2 Kurse gleichzeitig lernen. Bitte schließe zuerst einen Kurs ab oder pausiere ihn.",
       "course_enroll_failed": "Der Kurs konnte nicht hinzugefügt werden. Bitte versuche es erneut.",
       "course_preview_before_join": "Sie können zuerst Kursstruktur und Lektionen ansehen. Fügen Sie den Kurs hinzu, wenn Übungen und Fortschritt gespeichert werden sollen.",
@@ -1536,6 +4756,37 @@ Object.entries(PAGE_TRANSLATIONS).forEach(([locale, overrides]) => {
     ...overrides,
   };
 });
+
+Object.entries(INTRO_VIDEO_TRANSLATIONS).forEach(([locale, overrides]) => {
+  if (!resources[locale]) return;
+  resources[locale].translation = {
+    ...resources[locale].translation,
+    ...overrides,
+  };
+});
+
+Object.entries(COURSE_INTRO_PAGE_TRANSLATIONS).forEach(([locale, overrides]) => {
+  if (!resources[locale]) return;
+  resources[locale].translation = {
+    ...resources[locale].translation,
+    ...overrides,
+  };
+});
+
+Object.entries(TYPING_INTRO_TRANSLATIONS).forEach(([locale, overrides]) => {
+  if (!resources[locale]) return;
+  resources[locale].translation.typing_intro = overrides;
+});
+
+Object.entries(PINYIN_INTRO_TRANSLATIONS).forEach(([locale, overrides]) => {
+  if (!resources[locale]) return;
+  resources[locale].translation.pinyin_intro = overrides;
+});
+
+Object.keys(resources).forEach((locale) => {
+  resources[locale].translation.hanzi_intro = HANZI_INTRO_TRANSLATIONS[locale] || HANZI_INTRO_TRANSLATIONS.en;
+});
+resources.ja = resources.jp;
 
 i18n
   .use(initReactI18next)

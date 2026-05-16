@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ChevronRight, BookOpen, Play, ArrowLeft, Loader2, PlusCircle } from 'lucide-react';
@@ -20,6 +20,7 @@ const stagger = {
 export default function CoursePage() {
     const { courseId } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const { t } = useTranslation();
     const [lessons, setLessons] = useState([]);
     const [course, setCourse] = useState(null);
@@ -29,6 +30,7 @@ export default function CoursePage() {
     const [enrollError, setEnrollError] = useState('');
     const [loading, setLoading] = useState(true);
     const userId = localStorage.getItem('chilan_user_id');
+    const coursePath = `${location.pathname}${location.search || ''}`;
 
     useEffect(() => {
         const load = async () => {
@@ -152,7 +154,7 @@ export default function CoursePage() {
                             <motion.button
                                 key={item.path}
                                 variants={fadeInUp}
-                                onClick={() => navigate(item.path)}
+                                onClick={() => navigate(item.path, { state: { from: coursePath } })}
                                 className={`flex items-center gap-3 px-5 py-3.5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group ${item.hover}`}
                             >
                                 <span className="text-2xl w-8 text-center font-black text-slate-500">{item.icon}</span>

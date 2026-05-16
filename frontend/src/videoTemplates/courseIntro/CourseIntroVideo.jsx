@@ -5,7 +5,7 @@ import ChalkTexture from '../explanation/ChalkTexture';
 
 // Static narration audio — pre-generated with CosyVoice TTS (EN) or Azure TTS (FR/others).
 // Run:  cd backend && python generate_intro_narration.py
-//       cd backend && python generate_intro_narration.py --lang fr
+//       cd backend && python generate_intro_narration.py --lang all
 //       cd backend && python upload_intro_audio_to_r2.py
 // Dev:  served from frontend/public/audio/intro/ via backend /media/intro/
 // Prod: backend /media/intro/ redirects to R2 zh/audio/intro/

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
     Layers, ChevronRight,
-    CheckCircle2, Zap, Loader2, GraduationCap, ChevronDown, Check, MinusCircle
+    CheckCircle2, Zap, Loader2, GraduationCap, ChevronDown, Check, MinusCircle, X
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 // 🚀 引入统一的 API 客户端，不再直接使用原始 axios
@@ -464,10 +464,14 @@ export default function Classroom() {
     const [isLoading, setIsLoading] = useState(true);
     const [isCoursesLoading, setIsCoursesLoading] = useState(false);
     const [removingCourseId, setRemovingCourseId] = useState(null);
+    const [coursePendingPause, setCoursePendingPause] = useState(null);
     const [learningFilter, setLearningFilter] = useState('all');
     const [nativeFilter, setNativeFilter] = useState('all');
 
     const userId = localStorage.getItem('chilan_user_id');
+    const myCoursesGridClass = myCourses.length === 2
+        ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:max-w-[calc(66.666667%-0.666667rem)] lg:mx-auto gap-8'
+        : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
 
     useEffect(() => {
         if (!userId) return;
@@ -552,7 +556,7 @@ export default function Classroom() {
         [myCourses]
     );
 
-    const handleRemoveCourse = async (courseId) => {
+    const handleRemoveCourse = async (courseId, action = 'pause') => {
         if (!userId || removingCourseId) return;
         setRemovingCourseId(courseId);
         try {
@@ -560,6 +564,7 @@ export default function Classroom() {
                 data: {
                     user_id: userId,
                     course_id: Number(courseId),
+                    action,
                 },
             });
             setMyCourses((courses) => courses.filter((course) => String(course.id) !== String(courseId)));
@@ -568,6 +573,13 @@ export default function Classroom() {
         } finally {
             setRemovingCourseId(null);
         }
+    };
+
+    const handleConfirmPauseCourse = async (action = 'pause') => {
+        if (!coursePendingPause) return;
+        const courseId = coursePendingPause.id;
+        await handleRemoveCourse(courseId, action);
+        setCoursePendingPause(null);
     };
 
     // 统一的入场动画配置
@@ -635,36 +647,41 @@ export default function Classroom() {
                             </p>
                         </motion.div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className={myCoursesGridClass}>
                             {myCourses.map((course) => {
+                                const singleCourse = myCourses.length === 1;
                                 return (
-                                <CourseCard
-                                    key={course.id}
-                                    course={course}
-                                    variants={fadeInUp}
-                                    titleAction={t('classroom_start')}
-                                    progressValue={course.mastered}
-                                    actionButton={
-                                        <button
-                                            type="button"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleRemoveCourse(course.id);
+                                    <div
+                                        key={course.id}
+                                        className={`w-full ${singleCourse ? 'md:col-start-1 lg:col-start-2' : ''}`}
+                                    >
+                                        <CourseCard
+                                            course={course}
+                                            variants={fadeInUp}
+                                            titleAction={t('classroom_start')}
+                                            progressValue={course.mastered}
+                                            actionButton={
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                setCoursePendingPause(course);
                                             }}
-                                            disabled={removingCourseId === course.id}
-                                            className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl text-xs font-black bg-rose-50 text-rose-600 hover:bg-rose-100 disabled:opacity-60 disabled:cursor-wait transition"
-                                        >
-                                            {removingCourseId === course.id ? (
-                                                <Loader2 size={14} className="animate-spin" />
-                                            ) : (
-                                                <MinusCircle size={14} />
-                                            )}
-                                            {t('course_remove_learning')}
-                                        </button>
-                                    }
-                                    onClick={() => navigate(`/course/${course.id}`)}
-                                    isInteractive
-                                />
+                                                    disabled={removingCourseId === course.id}
+                                                    className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl text-xs font-black bg-rose-50 text-rose-600 hover:bg-rose-100 disabled:opacity-60 disabled:cursor-wait transition"
+                                                >
+                                                    {removingCourseId === course.id ? (
+                                                        <Loader2 size={14} className="animate-spin" />
+                                                    ) : (
+                                                        <MinusCircle size={14} />
+                                                    )}
+                                                    {t('course_remove_learning')}
+                                                </button>
+                                            }
+                                            onClick={() => navigate(`/course/${course.id}`)}
+                                            isInteractive
+                                        />
+                                    </div>
                                 );
                             })}
                         </div>
@@ -726,6 +743,79 @@ export default function Classroom() {
                         )}
                     </section>
                 </motion.div>
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {coursePendingPause && (
+                    <motion.div
+                        className="fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/40 px-4 backdrop-blur-sm"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <motion.div
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="pause-course-title"
+                            initial={{ opacity: 0, y: 18, scale: 0.96 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.97 }}
+                            transition={{ type: 'spring', stiffness: 180, damping: 22 }}
+                            className="w-full max-w-md rounded-[2rem] border border-white/80 bg-white p-7 shadow-2xl shadow-slate-900/20"
+                        >
+                            <div className="flex items-start justify-between gap-4">
+                                <div>
+                                    <p className="text-xs font-black uppercase tracking-[0.22em] text-rose-500">
+                                        {t('course_remove_confirm_eyebrow')}
+                                    </p>
+                                    <h3 id="pause-course-title" className="mt-2 text-2xl font-black tracking-tight text-slate-900">
+                                        {t('course_remove_confirm_title')}
+                                    </h3>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setCoursePendingPause(null)}
+                                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition hover:bg-slate-200 hover:text-slate-900"
+                                    aria-label={t('common_cancel')}
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
+
+                            <p className="mt-4 text-sm font-semibold leading-6 text-slate-500">
+                                {t('course_remove_confirm_desc', { course: coursePendingPause.name })}
+                            </p>
+
+                            <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                                <button
+                                    type="button"
+                                    onClick={() => setCoursePendingPause(null)}
+                                    className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-600 transition hover:bg-slate-50"
+                                >
+                                    {t('common_cancel')}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => handleConfirmPauseCourse('pause')}
+                                    disabled={removingCourseId === coursePendingPause.id}
+                                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-5 py-3 text-sm font-black text-white shadow-lg shadow-slate-200 transition hover:bg-slate-800 disabled:cursor-wait disabled:bg-slate-300"
+                                >
+                                    {removingCourseId === coursePendingPause.id && <Loader2 size={16} className="animate-spin" />}
+                                    {t('course_pause_confirm_action')}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => handleConfirmPauseCourse('clear')}
+                                    disabled={removingCourseId === coursePendingPause.id}
+                                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-rose-600 px-5 py-3 text-sm font-black text-white shadow-lg shadow-rose-200 transition hover:bg-rose-700 disabled:cursor-wait disabled:bg-rose-300"
+                                >
+                                    {removingCourseId === coursePendingPause.id && <Loader2 size={16} className="animate-spin" />}
+                                    {t('course_clear_confirm_action')}
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
             </AnimatePresence>
         </div>
     );

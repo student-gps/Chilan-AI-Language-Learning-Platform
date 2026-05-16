@@ -189,6 +189,7 @@ def get_db():
 class EnrollReq(BaseModel):
     user_id: str
     course_id: int
+    action: str = "pause"
 
 # ==========================================
 # 2. 课程管理系统 (核心业务：保留)
@@ -290,16 +291,41 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
 async def unenroll_course(req: EnrollReq, db=Depends(get_db)):
     cur = db.cursor()
     try:
-        cur.execute(
-            """
-            UPDATE user_courses
-            SET status = %s
-            WHERE user_id::text = %s
-              AND course_id = %s
-              AND status <> %s
-            """,
-            (PAUSED_COURSE_STATUS, req.user_id, req.course_id, COMPLETED_COURSE_STATUS)
-        )
+        action = (req.action or "pause").strip().lower()
+        if action == "clear":
+            cur.execute(
+                """
+                DELETE FROM user_progress_of_language_items p
+                USING language_items li
+                WHERE p.item_id = li.item_id
+                  AND p.user_id::text = %s
+                  AND li.course_id = %s
+                """,
+                (req.user_id, req.course_id)
+            )
+            cur.execute(
+                "DELETE FROM review_logs WHERE user_id::text = %s AND course_id = %s",
+                (req.user_id, req.course_id)
+            )
+            cur.execute(
+                "DELETE FROM user_progress_of_lessons WHERE user_id::text = %s AND course_id = %s",
+                (req.user_id, req.course_id)
+            )
+            cur.execute(
+                "DELETE FROM user_courses WHERE user_id::text = %s AND course_id = %s",
+                (req.user_id, req.course_id)
+            )
+        else:
+            cur.execute(
+                """
+                UPDATE user_courses
+                SET status = %s
+                WHERE user_id::text = %s
+                  AND course_id = %s
+                  AND status <> %s
+                """,
+                (PAUSED_COURSE_STATUS, req.user_id, req.course_id, COMPLETED_COURSE_STATUS)
+            )
         db.commit()
         return {"status": "success"}
     except Exception as e:
