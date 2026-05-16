@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 import unittest
 from pathlib import Path
 
@@ -11,7 +11,7 @@ for path in (BACKEND_DIR, CONTENT_BUILDER_DIR):
     if path_str not in sys.path:
         sys.path.append(path_str)
 
-from content_builder.pipelines.new_concept_english.tasks.content_extractor import build_lesson001_data
+from content_builder.en.new_concept_english.tasks.content_extractor import build_lesson001_data
 
 
 class NewConceptLesson001DataTests(unittest.TestCase):
@@ -49,3 +49,4 @@ class NewConceptLesson001DataTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

@@ -1,4 +1,4 @@
-"""
+﻿"""
 Check localized lesson JSONs for reusable narration and slide artifacts.
 
 This is a read-only diagnostic for interrupted Stage 2 runs.
@@ -11,10 +11,9 @@ from pathlib import Path
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND_DIR))
-sys.path.insert(0, str(BACKEND_DIR / "content_builder"))
 
-from core.paths import default_paths
-from core.pipeline import get_pipeline
+from content_builder.core.paths import default_paths
+from content_builder.core.pipeline import get_pipeline
 
 
 def _lesson_id(path: Path) -> int:
@@ -136,3 +135,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

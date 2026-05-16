@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 import unittest
 from pathlib import Path
 
@@ -11,7 +11,7 @@ for path in (BACKEND_DIR, CONTENT_BUILDER_DIR):
     if path_str not in sys.path:
         sys.path.append(path_str)
 
-from content_builder.pipelines.new_concept_english.book_profiles.book1 import (
+from content_builder.en.new_concept_english.book_profiles.book1 import (
     APP_LESSON_COUNT,
     app_lesson_index_for_source_lesson,
     app_lesson_slice,
@@ -79,3 +79,4 @@ class NewConceptBook1ProfileTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

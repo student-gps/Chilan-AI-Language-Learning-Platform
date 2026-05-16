@@ -1,4 +1,4 @@
-"""
+﻿"""
 sync_to_db.py — 将本地 lesson JSON 上传到 R2 并同步至 PostgreSQL 数据库。
 
 用法（在 backend/ 目录下运行）：
@@ -16,7 +16,7 @@ sync_to_db.py — 将本地 lesson JSON 上传到 R2 并同步至 PostgreSQL 数
 
     # 只同步某一课（英语）
     python database/sync_to_db.py --pipeline integrated_chinese --lang en \\
-        content_builder/artifacts/integrated_chinese/output_json/en/lesson101_data.json
+        content_builder/zh/integrated_chinese/artifacts/output_json/en/lesson101_data.json
 
   ── 新概念英语（new_concept_english） ───────────────────────────────────────
 
@@ -809,3 +809,4 @@ if __name__ == "__main__":
                 destination = synced_dir / target_json.name
                 if target_json.resolve() != destination.resolve():
                     shutil.move(str(target_json), str(destination))
+

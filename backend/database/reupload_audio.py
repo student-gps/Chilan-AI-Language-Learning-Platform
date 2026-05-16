@@ -185,7 +185,7 @@ def main():
             if lesson not in seen_lessons:
                 print(f"   • {lesson}")
                 seen_lessons.add(lesson)
-        print("\n对这些课重新生成音频，在 backend/content_builder/ 目录下运行：")
+        print("\n对这些课重新生成音频，请使用对应语言 pipeline 的 scripts 入口运行：")
         print("   python generate.py <PDF路径>  # 重新跑 Stage 1（含音频）")
     else:
         print("🎉 所有音频均已找到并上传！")

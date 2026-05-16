@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 import unittest
 from pathlib import Path
 
@@ -12,7 +12,7 @@ for path in (BACKEND_DIR, CONTENT_BUILDER_DIR):
         sys.path.append(path_str)
 
 from content_builder.core.pipeline import get_pipeline
-from content_builder.pipelines.new_concept_english.agent import NewConceptEnglishAgent
+from content_builder.en.new_concept_english.agent import NewConceptEnglishAgent
 
 
 def _find_old_keys(value, path="$"):
@@ -66,3 +66,4 @@ class NewConceptPipelineOrchestrationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

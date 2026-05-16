@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 import unittest
 from pathlib import Path
 
@@ -11,8 +11,8 @@ for path in (BACKEND_DIR, CONTENT_BUILDER_DIR):
     if path_str not in sys.path:
         sys.path.append(path_str)
 
-from content_builder.content_agent import _normalize_dialogues
-from content_builder.tasks.quiz_generator import Task2QuizGenerator
+from content_builder.zh.integrated_chinese.agent import _normalize_dialogues
+from content_builder.zh.integrated_chinese.tasks.quiz_generator import Task2QuizGenerator
 
 
 class DummyLLMProvider:
@@ -161,3 +161,4 @@ class ContentBuilderVocabularyExampleTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
