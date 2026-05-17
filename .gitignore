@@ -32,7 +32,7 @@ textbook/
 documents/
 project report/
 
-# content_builder 本地生成/迁移工作区，不进 Git。
+# content_builder 是本地离线制课工具，生产 API 不依赖该目录。
 backend/content_builder/
 
 # Remotion 自动生成文件
