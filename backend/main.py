@@ -276,6 +276,25 @@ class DevCourseSyncRequest(BaseModel):
     confirm_code: str = ""
     include_synced: bool = True
     upload_assets: bool = True
+    render_lesson_audio: bool = True
+
+
+class DevContentBuilderRequest(BaseModel):
+    pipeline: str = "minna_no_nihongo"
+    lang: str = "zh"
+    lesson_start: int | None = 1
+    lesson_end: int | None = 1
+    run_stage1: bool = True
+    run_stage2: bool = True
+    stage2_mode: str = "full"
+    force_stage1: bool = True
+    force_narration: bool = True
+    force_slides: bool = True
+    refresh_render_plan: bool = False
+    lesson_audio_metadata_only: bool = False
+    only_slide: int | None = None
+    confirm: bool = False
+    confirm_code: str = ""
 
 
 def _dev_reset_request(payload: DevCourseResetRequest, *, dry_run: bool):
@@ -310,6 +329,7 @@ def _dev_sync_request(payload: DevCourseSyncRequest, *, dry_run: bool):
             confirm_code=payload.confirm_code,
             include_synced=payload.include_synced,
             upload_assets=payload.upload_assets,
+            render_lesson_audio=payload.render_lesson_audio,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e)) from e
@@ -342,6 +362,79 @@ def _load_course_sync_tools():
     except ModuleNotFoundError as exc:
         _dev_tool_unavailable(exc)
     return build_sync_request, execute_sync, iter_sync_progress, preview_sync, validate_sync_execute_request
+
+
+def _load_content_builder_tools():
+    try:
+        from services.maintenance.content_builder_runner import (
+            build_content_builder_request,
+            iter_content_builder_progress,
+            preview_content_builder,
+            validate_content_builder_execution,
+        )
+    except ModuleNotFoundError as exc:
+        _dev_tool_unavailable(exc)
+    return (
+        build_content_builder_request,
+        iter_content_builder_progress,
+        preview_content_builder,
+        validate_content_builder_execution,
+    )
+
+
+def _dev_content_builder_request(payload: DevContentBuilderRequest):
+    build_content_builder_request, _, _, _ = _load_content_builder_tools()
+    try:
+        return build_content_builder_request(
+            pipeline=payload.pipeline,
+            lang=payload.lang,
+            lesson_start=payload.lesson_start,
+            lesson_end=payload.lesson_end,
+            run_stage1=payload.run_stage1,
+            run_stage2=payload.run_stage2,
+            stage2_mode=payload.stage2_mode,
+            force_stage1=payload.force_stage1,
+            force_narration=payload.force_narration,
+            force_slides=payload.force_slides,
+            refresh_render_plan=payload.refresh_render_plan,
+            lesson_audio_metadata_only=payload.lesson_audio_metadata_only,
+            only_slide=payload.only_slide,
+            confirm=payload.confirm,
+            confirm_code=payload.confirm_code,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+
+@app.post("/dev/content-builder/preview")
+async def dev_content_builder_preview(payload: DevContentBuilderRequest):
+    """Dev-only: preview the content-builder commands that would run."""
+    req = _dev_content_builder_request(payload)
+    _, _, preview_content_builder, _ = _load_content_builder_tools()
+    try:
+        return preview_content_builder(req)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@app.post("/dev/content-builder/run-stream")
+async def dev_content_builder_run_stream(payload: DevContentBuilderRequest):
+    """Dev-only: run selected content-builder stages and stream logs as NDJSON."""
+    req = _dev_content_builder_request(payload)
+    _, iter_content_builder_progress, _, validate_content_builder_execution = _load_content_builder_tools()
+    try:
+        validate_content_builder_execution(req)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+    def event_stream():
+        try:
+            for event in iter_content_builder_progress(req):
+                yield json.dumps(event, ensure_ascii=False) + "\n"
+        except Exception as e:
+            yield json.dumps({"type": "fatal", "message": str(e)}, ensure_ascii=False) + "\n"
+
+    return StreamingResponse(event_stream(), media_type="application/x-ndjson")
 
 
 @app.post("/dev/course-reset/preview")

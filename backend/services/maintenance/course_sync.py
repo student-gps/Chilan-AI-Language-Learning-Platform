@@ -30,6 +30,7 @@ class SyncRequest:
     confirm_code: str = ""
     include_synced: bool = True
     upload_assets: bool = True
+    render_lesson_audio: bool = True
 
 
 @dataclass
@@ -78,6 +79,7 @@ def build_sync_request(
     confirm_code: str = "",
     include_synced: bool = True,
     upload_assets: bool = True,
+    render_lesson_audio: bool = True,
 ) -> SyncRequest:
     start, end = _normalize_lesson_bounds(lesson_start, lesson_end)
     pipeline = str(pipeline or "").strip()
@@ -97,6 +99,7 @@ def build_sync_request(
         confirm_code=str(confirm_code or "").strip(),
         include_synced=bool(include_synced),
         upload_assets=bool(upload_assets),
+        render_lesson_audio=bool(render_lesson_audio),
     )
 
 
@@ -115,7 +118,7 @@ def _request_dict(req: SyncRequest) -> dict[str, Any]:
         "confirm": req.confirm,
         "include_synced": req.include_synced,
         "upload_assets": req.upload_assets,
-        "required_confirm_code": f"SYNC-{req.course_id}",
+        "render_lesson_audio": req.render_lesson_audio,
     }
 
 
@@ -305,6 +308,34 @@ def _prepare_data_for_pipeline(req: SyncRequest, data: dict) -> tuple[dict, dict
     return data, context
 
 
+def _render_mnn_lesson_audio(req: SyncRequest, data: dict) -> dict:
+    """Render real sentence/full lesson audio for Minna no Nihongo before upload."""
+    if req.pipeline != MNN_PIPELINE_ID:
+        return data
+
+    from content_builder.ja.minna_no_nihongo.tasks.lesson_audio import MinnaNoNihongoLessonAudioRenderer
+
+    metadata = data.get("lesson_metadata") if isinstance(data.get("lesson_metadata"), dict) else {}
+    lesson_id = _lesson_id_from_value(metadata.get("lesson_id"))
+    if lesson_id is None:
+        raise ValueError("Cannot render lesson audio without lesson_metadata.lesson_id")
+
+    artifact_root = _artifact_root(req)
+    output_dir = artifact_root / "output_audio" / f"lesson{lesson_id:03d}"
+    existing_assets = data.get("lesson_audio_assets") if isinstance(data.get("lesson_audio_assets"), dict) else {}
+    renderer = MinnaNoNihongoLessonAudioRenderer()
+    audio_result = renderer.render_sentence_audio_assets(
+        lesson_data=data,
+        output_dir=output_dir,
+        dry_run=False,
+        existing_assets=existing_assets,
+        reuse_existing=True,
+        force=False,
+    )
+    data["lesson_audio_assets"] = audio_result.get("lesson_audio_assets", {})
+    return data
+
+
 def execute_sync(req: SyncRequest) -> dict[str, Any]:
     if req.dry_run:
         return preview_sync(req)
@@ -327,6 +358,8 @@ def execute_sync(req: SyncRequest) -> dict[str, Any]:
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
             data, context = _prepare_data_for_pipeline(req, data)
+            if req.render_lesson_audio:
+                data = _render_mnn_lesson_audio(req, data)
             if req.upload_assets:
                 data = upload_assets_to_r2(data)
             path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -358,9 +391,8 @@ def execute_sync(req: SyncRequest) -> dict[str, Any]:
 
 
 def validate_sync_execute_request(req: SyncRequest) -> None:
-    required_code = f"SYNC-{req.course_id}"
-    if not req.confirm or req.confirm_code != required_code:
-        raise ValueError(f"confirmation required: set confirm=true and confirm_code={required_code}")
+    if not req.confirm:
+        raise ValueError("confirmation required: set confirm=true")
 
 
 def iter_sync_progress(req: SyncRequest) -> Iterator[dict[str, Any]]:
@@ -405,6 +437,16 @@ def iter_sync_progress(req: SyncRequest) -> Iterator[dict[str, Any]]:
             yield {"type": "lesson_step", "message": f"{lesson_label}: 读取并规范化 JSON。", "lesson_id": before.get("lesson_id")}
             data = json.loads(path.read_text(encoding="utf-8"))
             data, context = _prepare_data_for_pipeline(req, data)
+
+            if req.render_lesson_audio:
+                yield {
+                    "type": "lesson_step",
+                    "message": f"{lesson_label}: 生成缺失的课文逐句音频和整课音频。",
+                    "lesson_id": before.get("lesson_id"),
+                }
+                data = _render_mnn_lesson_audio(req, data)
+            else:
+                yield {"type": "lesson_step", "message": f"{lesson_label}: 跳过课文音频生成。", "lesson_id": before.get("lesson_id")}
 
             if req.upload_assets:
                 yield {

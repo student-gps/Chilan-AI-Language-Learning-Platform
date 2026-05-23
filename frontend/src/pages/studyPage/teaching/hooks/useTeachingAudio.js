@@ -6,6 +6,15 @@ const normalizeLineRef = (value) => {
     return Number.isFinite(num) ? num : null;
 };
 
+const audioLineKey = (item) => {
+    const lineRef = normalizeLineRef(item?.line_ref);
+    if (lineRef) return `line:${lineRef}`;
+    const sourceSection = String(item?.source_section || '').trim();
+    const sourceRef = normalizeLineRef(item?.source_ref);
+    if (sourceSection && sourceRef) return `${sourceSection}:${sourceRef}`;
+    return '';
+};
+
 const buildAbsoluteAudioUrl = (url, apiBase) => {
     if (!url) return '';
     if (url.startsWith('http://') || url.startsWith('https://')) return url;
@@ -38,7 +47,9 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
         const map = new Map();
         (lessonAudioAssets?.items || []).forEach((item) => {
             const lineRef = normalizeLineRef(item?.line_ref);
-            if (lineRef) map.set(lineRef, item);
+            if (lineRef) map.set(`line:${lineRef}`, item);
+            const key = audioLineKey(item);
+            if (key) map.set(key, item);
         });
         return map;
     }, [lessonAudioAssets]);
@@ -47,12 +58,12 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
         if (!isLessonAudioPlaying) return null;
         const currentTime = Number(lessonAudioCurrentTime || 0);
         const matchedItem = (lessonAudioAssets?.items || []).find((item) => {
-            const lineRef = normalizeLineRef(item?.line_ref);
+            const lineRef = normalizeLineRef(item?.line_ref) || normalizeLineRef(item?.source_ref);
             const start = Number(item?.start_time_seconds);
             const end = Number(item?.end_time_seconds);
             return lineRef && Number.isFinite(start) && Number.isFinite(end) && currentTime >= start && currentTime < end;
         });
-        return normalizeLineRef(matchedItem?.line_ref);
+        return normalizeLineRef(matchedItem?.line_ref) || normalizeLineRef(matchedItem?.source_ref);
     }, [isLessonAudioPlaying, lessonAudioCurrentTime, lessonAudioAssets]);
 
     const stopCurrentAudio = useCallback(() => {
@@ -213,7 +224,8 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
     }, [apiBase, playFromUrl]);
 
     const playDialogueAudio = useCallback(({ lineRef, text }) => {
-        const item = audioAssetMap.get(normalizeLineRef(lineRef));
+        const normalizedLineRef = normalizeLineRef(lineRef);
+        const item = audioAssetMap.get(`dialogue:${normalizedLineRef}`) || audioAssetMap.get(`line:${normalizedLineRef}`);
         const readyUrl = buildAbsoluteAudioUrl(item?.audio_url, apiBase);
         const playbackKey = `line-${lineRef}`;
 

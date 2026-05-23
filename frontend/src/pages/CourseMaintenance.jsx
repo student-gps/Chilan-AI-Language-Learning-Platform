@@ -64,15 +64,13 @@ export default function CourseMaintenance() {
     const [lessonStart, setLessonStart] = useState('');
     const [lessonEnd, setLessonEnd] = useState('');
     const [actions, setActions] = useState(['db']);
-    const [confirmCode, setConfirmCode] = useState('');
     const [report, setReport] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState('');
     const [courses, setCourses] = useState([]);
     const [coursesLoading, setCoursesLoading] = useState(false);
 
-    const requiredCode = useMemo(() => `RESET-${String(courseId || '').trim() || 'COURSE'}`, [courseId]);
-    const canExecute = report && confirmCode === requiredCode && !loading;
+    const canExecute = report && !loading;
 
     const payload = useMemo(() => ({
         pipeline: pipeline.trim(),
@@ -81,9 +79,9 @@ export default function CourseMaintenance() {
         actions,
         lesson_start: parseIntOrNull(lessonStart),
         lesson_end: parseIntOrNull(lessonEnd),
-        confirm: confirmCode === requiredCode,
-        confirm_code: confirmCode,
-    }), [actions, confirmCode, courseId, lang, lessonEnd, lessonStart, pipeline, requiredCode]);
+        confirm: false,
+        confirm_code: '',
+    }), [actions, courseId, lang, lessonEnd, lessonStart, pipeline]);
 
     const applyCourse = useCallback((course) => {
         if (!course) return;
@@ -92,7 +90,6 @@ export default function CourseMaintenance() {
         if (defaults.pipeline) setPipeline(defaults.pipeline);
         if (defaults.lang) setLang(defaults.lang);
         setReport(null);
-        setConfirmCode('');
     }, []);
 
     useEffect(() => {
@@ -125,17 +122,19 @@ export default function CourseMaintenance() {
             return [...prev, id];
         });
         setReport(null);
-        setConfirmCode('');
     };
 
     const callApi = async (mode) => {
+        if (mode === 'execute') {
+            const ok = window.confirm('确认执行删除 / 回退？这会按当前操作项修改数据库、R2 或本地产物。');
+            if (!ok) return;
+        }
         setLoading(mode);
         setError('');
         try {
             const endpoint = mode === 'preview' ? '/dev/course-reset/preview' : '/dev/course-reset/execute';
-            const res = await apiClient.post(endpoint, payload);
+            const res = await apiClient.post(endpoint, mode === 'execute' ? { ...payload, confirm: true } : payload);
             setReport(res.data || null);
-            if (mode === 'execute') setConfirmCode('');
         } catch (err) {
             console.error('course maintenance failed:', err);
             const detail = err?.response?.data?.detail;
@@ -239,12 +238,6 @@ export default function CourseMaintenance() {
                                     {loading === 'preview' ? <Loader2 className="animate-spin" size={16} /> : <Search size={16} />}
                                     预览影响
                                 </button>
-                                <input
-                                    value={confirmCode}
-                                    onChange={(e) => setConfirmCode(e.target.value)}
-                                    placeholder={requiredCode}
-                                    className="h-11 w-full rounded-xl border border-slate-200 px-3 text-sm font-black outline-none focus:border-slate-500"
-                                />
                                 <button
                                     type="button"
                                     onClick={() => callApi('execute')}

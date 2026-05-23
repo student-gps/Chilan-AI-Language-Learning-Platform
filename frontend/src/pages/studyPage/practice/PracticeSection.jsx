@@ -31,6 +31,27 @@ const toApiLessonId = (value) => {
     return digits ? Number(digits) : value;
 };
 
+const audioLookupKeys = (item) => {
+    const keys = [];
+    if (item?.line_ref != null) keys.push(`line:${item.line_ref}`);
+    if (item?.audio_id) keys.push(`audio:${item.audio_id}`);
+    if (item?.source_section && item?.source_ref != null) keys.push(`${item.source_section}:${item.source_ref}`);
+    return keys;
+};
+
+const questionAudioLookupKeys = (metadata = {}) => {
+    const context = metadata.context || {};
+    const keys = [];
+    const lineRef = metadata.line_ref ?? context.line_ref;
+    const audioId = metadata.audio_id ?? context.audio_id;
+    const sourceSection = metadata.source_section ?? context.source_section;
+    const sourceRef = metadata.source_ref ?? context.source_ref;
+    if (lineRef != null) keys.push(`line:${lineRef}`);
+    if (audioId) keys.push(`audio:${audioId}`);
+    if (sourceSection && sourceRef != null) keys.push(`${sourceSection}:${sourceRef}`);
+    return keys;
+};
+
 export default function PracticeSection({ questions, isReview, onAllDone, userId, courseId, lessonId, lessonAudioAssets, initialIndex = 0 }) {
     const { t, i18n } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,19 +76,20 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     const qType = currentQuestion?.question_type;
     const qTheme = questionConfig.theme;
 
-    // Build line_ref → audio_url lookup from lesson_audio_assets
+    // Build stable audio lookup from lesson_audio_assets.
     const lineRefAudioMap = useMemo(() => {
         const items = lessonAudioAssets?.items;
         if (!Array.isArray(items)) return {};
-        return Object.fromEntries(
-            items
-                .filter(item => item.line_ref != null && item.audio_url)
-                .map(item => [item.line_ref, item.audio_url])
-        );
+        const entries = [];
+        items.forEach((item) => {
+            if (!item?.audio_url) return;
+            audioLookupKeys(item).forEach((key) => entries.push([key, item.audio_url]));
+        });
+        return Object.fromEntries(entries);
     }, [lessonAudioAssets]);
 
-    const playLineAudio = useCallback((lineRef) => {
-        const url = lineRefAudioMap[lineRef];
+    const playLineAudio = useCallback((audioKey) => {
+        const url = lineRefAudioMap[audioKey];
         if (!url) return;
         const audio = new Audio(url);
         claimGlobalAudio(audio);
@@ -180,9 +202,9 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
 
     const playQuestionAudio = useCallback(() => {
         if (!currentQuestion) return;
-        const lineRef = currentQuestion.metadata?.line_ref || currentQuestion.metadata?.context?.line_ref;
-        if (lineRef && lineRefAudioMap[lineRef]) {
-            playLineAudio(lineRef);
+        const audioKey = questionAudioLookupKeys(currentQuestion.metadata).find((key) => lineRefAudioMap[key]);
+        if (audioKey) {
+            playLineAudio(audioKey);
             return;
         }
         const fallbackText = isListenWrite

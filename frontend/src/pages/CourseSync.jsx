@@ -57,14 +57,13 @@ export default function CourseSync() {
     const [lessonEnd, setLessonEnd] = useState('');
     const [includeSynced, setIncludeSynced] = useState(true);
     const [uploadAssets, setUploadAssets] = useState(true);
-    const [confirmCode, setConfirmCode] = useState('');
+    const [renderLessonAudio, setRenderLessonAudio] = useState(true);
     const [report, setReport] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState('');
     const [progressLogs, setProgressLogs] = useState([]);
 
-    const requiredCode = useMemo(() => `SYNC-${String(courseId || '').trim() || 'COURSE'}`, [courseId]);
-    const canExecute = report && confirmCode === requiredCode && !loading;
+    const canExecute = report && !loading;
 
     const payload = useMemo(() => ({
         pipeline: pipeline.trim(),
@@ -74,9 +73,10 @@ export default function CourseSync() {
         lesson_end: parseIntOrNull(lessonEnd),
         include_synced: includeSynced,
         upload_assets: uploadAssets,
-        confirm: confirmCode === requiredCode,
-        confirm_code: confirmCode,
-    }), [confirmCode, courseId, includeSynced, lang, lessonEnd, lessonStart, pipeline, requiredCode, uploadAssets]);
+        render_lesson_audio: renderLessonAudio,
+        confirm: false,
+        confirm_code: '',
+    }), [courseId, includeSynced, lang, lessonEnd, lessonStart, pipeline, renderLessonAudio, uploadAssets]);
 
     const applyCourse = useCallback((course) => {
         if (!course) return;
@@ -85,7 +85,6 @@ export default function CourseSync() {
         if (defaults.pipeline) setPipeline(defaults.pipeline);
         if (defaults.lang) setLang(defaults.lang);
         setReport(null);
-        setConfirmCode('');
     }, []);
 
     useEffect(() => {
@@ -123,6 +122,11 @@ export default function CourseSync() {
     }, []);
 
     const runExecuteStream = async () => {
+        const ok = window.confirm('确认执行入库？这会写入数据库，并按选项上传或确认 R2 媒体。');
+        if (!ok) {
+            addProgressLog({ type: 'cancelled', message: '已取消入库。' });
+            return;
+        }
         setLoading('execute');
         setError('');
         setProgressLogs([]);
@@ -131,7 +135,7 @@ export default function CourseSync() {
             const res = await fetch(`${API_BASE}/dev/course-sync/execute-stream`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                body: JSON.stringify({ ...payload, confirm: true }),
             });
             if (!res.ok) {
                 const text = await res.text();
@@ -159,7 +163,6 @@ export default function CourseSync() {
                 addProgressLog(event);
                 if (event.report) setReport(event.report);
             }
-            setConfirmCode('');
         } catch (err) {
             console.error('course sync stream failed:', err);
             const message = err?.message || '入库失败。';
@@ -181,10 +184,9 @@ export default function CourseSync() {
         addProgressLog({ type: 'preview', message: '正在预览待入库 JSON...' });
         try {
             const endpoint = mode === 'preview' ? '/dev/course-sync/preview' : '/dev/course-sync/execute';
-            const res = await apiClient.post(endpoint, payload);
+            const res = await apiClient.post(endpoint, mode === 'execute' ? { ...payload, confirm: true } : payload);
             setReport(res.data || null);
             addProgressLog({ type: 'report', message: '预览完成。' });
-            if (mode === 'execute') setConfirmCode('');
         } catch (err) {
             console.error('course sync failed:', err);
             const detail = err?.response?.data?.detail;
@@ -265,6 +267,10 @@ export default function CourseSync() {
                                     上传 R2 媒体
                                     <input type="checkbox" checked={uploadAssets} onChange={(e) => setUploadAssets(e.target.checked)} className="h-5 w-5 accent-slate-950" />
                                 </label>
+                                <label className="flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-black text-slate-700">
+                                    生成缺失课文音频
+                                    <input type="checkbox" checked={renderLessonAudio} onChange={(e) => setRenderLessonAudio(e.target.checked)} className="h-5 w-5 accent-slate-950" />
+                                </label>
                             </div>
                         </Section>
 
@@ -279,12 +285,6 @@ export default function CourseSync() {
                                     {loading === 'preview' ? <Loader2 className="animate-spin" size={16} /> : <Search size={16} />}
                                     预览入库
                                 </button>
-                                <input
-                                    value={confirmCode}
-                                    onChange={(e) => setConfirmCode(e.target.value)}
-                                    placeholder={requiredCode}
-                                    className="h-11 w-full rounded-xl border border-slate-200 px-3 text-sm font-black outline-none focus:border-slate-500"
-                                />
                                 <button
                                     type="button"
                                     onClick={() => callApi('execute')}

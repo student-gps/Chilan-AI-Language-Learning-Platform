@@ -127,7 +127,6 @@ def _request_dict(req: ResetRequest) -> dict[str, Any]:
         "lesson_end": req.lesson_end,
         "dry_run": req.dry_run,
         "confirm": req.confirm,
-        "required_confirm_code": f"RESET-{req.course_id}",
     }
 
 
@@ -416,9 +415,8 @@ def preview_reset(req: ResetRequest) -> dict[str, Any]:
 def execute_reset(req: ResetRequest) -> dict[str, Any]:
     if req.dry_run:
         return preview_reset(req)
-    required_code = f"RESET-{req.course_id}"
-    if not req.confirm or req.confirm_code != required_code:
-        raise ValueError(f"confirmation required: set confirm=true and confirm_code={required_code}")
+    if not req.confirm:
+        raise ValueError("confirmation required: set confirm=true")
 
     report = ResetReport(request=_request_dict(req), executed=True)
     if "db" in req.actions and req.lesson_start is not None:
