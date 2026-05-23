@@ -32,6 +32,7 @@ const inferDefaults = (course) => {
 };
 
 const courseLabel = (course) => `${course.course_id ?? course.id} · ${course.name || '未命名课程'} · ${course.category || 'UNKNOWN'}`;
+const API_BASE = import.meta.env.VITE_APP_API_BASE_URL || '';
 
 const Section = ({ title, children }) => (
     <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -60,6 +61,7 @@ export default function CourseSync() {
     const [report, setReport] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState('');
+    const [progressLogs, setProgressLogs] = useState([]);
 
     const requiredCode = useMemo(() => `SYNC-${String(courseId || '').trim() || 'COURSE'}`, [courseId]);
     const canExecute = report && confirmCode === requiredCode && !loading;
@@ -107,18 +109,88 @@ export default function CourseSync() {
         return () => { cancelled = true; };
     }, []);
 
+    const addProgressLog = useCallback((event) => {
+        const now = new Date();
+        setProgressLogs((logs) => [
+            ...logs,
+            {
+                id: `${now.getTime()}-${logs.length}`,
+                time: now.toLocaleTimeString(),
+                type: event.type || 'info',
+                message: event.message || JSON.stringify(event),
+            },
+        ].slice(-160));
+    }, []);
+
+    const runExecuteStream = async () => {
+        setLoading('execute');
+        setError('');
+        setProgressLogs([]);
+        addProgressLog({ type: 'start', message: '正在连接入库进度流...' });
+        try {
+            const res = await fetch(`${API_BASE}/dev/course-sync/execute-stream`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || `HTTP ${res.status}`);
+            }
+            const reader = res.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
+                for (const line of lines) {
+                    if (!line.trim()) continue;
+                    const event = JSON.parse(line);
+                    addProgressLog(event);
+                    if (event.report) setReport(event.report);
+                    if (event.type === 'fatal') setError(event.message || '入库失败。');
+                }
+            }
+            if (buffer.trim()) {
+                const event = JSON.parse(buffer);
+                addProgressLog(event);
+                if (event.report) setReport(event.report);
+            }
+            setConfirmCode('');
+        } catch (err) {
+            console.error('course sync stream failed:', err);
+            const message = err?.message || '入库失败。';
+            setError(message);
+            addProgressLog({ type: 'fatal', message });
+        } finally {
+            setLoading('');
+        }
+    };
+
     const callApi = async (mode) => {
+        if (mode === 'execute') {
+            await runExecuteStream();
+            return;
+        }
         setLoading(mode);
         setError('');
+        setProgressLogs([]);
+        addProgressLog({ type: 'preview', message: '正在预览待入库 JSON...' });
         try {
             const endpoint = mode === 'preview' ? '/dev/course-sync/preview' : '/dev/course-sync/execute';
             const res = await apiClient.post(endpoint, payload);
             setReport(res.data || null);
+            addProgressLog({ type: 'report', message: '预览完成。' });
             if (mode === 'execute') setConfirmCode('');
         } catch (err) {
             console.error('course sync failed:', err);
             const detail = err?.response?.data?.detail;
-            setError(typeof detail === 'string' ? detail : '同步失败。');
+            const message = typeof detail === 'string' ? detail : '同步失败。';
+            setError(message);
+            addProgressLog({ type: 'fatal', message });
         } finally {
             setLoading('');
         }
@@ -231,6 +303,28 @@ export default function CourseSync() {
                             <div className="rounded-2xl border border-red-100 bg-red-50 px-5 py-4 text-sm font-bold text-red-700">
                                 {error}
                             </div>
+                        )}
+                        {!!progressLogs.length && (
+                            <Section title="进度">
+                                <div className="max-h-72 overflow-auto rounded-2xl bg-slate-950 p-4 font-mono text-xs text-slate-200">
+                                    {progressLogs.map((log) => (
+                                        <div key={log.id} className="flex gap-3 border-b border-white/5 py-1.5 last:border-0">
+                                            <span className="shrink-0 text-slate-500">{log.time}</span>
+                                            <span className={
+                                                log.type === 'lesson_failed' || log.type === 'fatal'
+                                                    ? 'text-red-300'
+                                                    : log.type === 'lesson_success' || log.type === 'complete'
+                                                        ? 'text-emerald-300'
+                                                        : log.type === 'lesson_step'
+                                                            ? 'text-blue-200'
+                                                            : 'text-slate-200'
+                                            }>
+                                                {log.message}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </Section>
                         )}
                         {!report && !error && (
                             <div className="flex min-h-[360px] items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white text-sm font-bold text-slate-400">

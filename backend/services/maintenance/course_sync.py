@@ -4,7 +4,7 @@ import json
 import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
 from content_builder.core.paths import default_paths
 from content_builder.core.pipeline import get_pipeline
@@ -308,9 +308,7 @@ def _prepare_data_for_pipeline(req: SyncRequest, data: dict) -> tuple[dict, dict
 def execute_sync(req: SyncRequest) -> dict[str, Any]:
     if req.dry_run:
         return preview_sync(req)
-    required_code = f"SYNC-{req.course_id}"
-    if not req.confirm or req.confirm_code != required_code:
-        raise ValueError(f"confirmation required: set confirm=true and confirm_code={required_code}")
+    validate_sync_execute_request(req)
 
     files = _candidate_json_files(req)
     synced_dir = _artifact_root(req) / "synced_json" / req.lang
@@ -357,3 +355,95 @@ def execute_sync(req: SyncRequest) -> dict[str, Any]:
         executed=True,
     )
     return report.to_dict()
+
+
+def validate_sync_execute_request(req: SyncRequest) -> None:
+    required_code = f"SYNC-{req.course_id}"
+    if not req.confirm or req.confirm_code != required_code:
+        raise ValueError(f"confirmation required: set confirm=true and confirm_code={required_code}")
+
+
+def iter_sync_progress(req: SyncRequest) -> Iterator[dict[str, Any]]:
+    """Yield progress events for dev UI streaming sync execution."""
+    if req.dry_run:
+        yield {"type": "report", "message": "已生成入库预览。", "report": preview_sync(req)}
+        return
+    validate_sync_execute_request(req)
+
+    yield {
+        "type": "start",
+        "message": f"开始入库: pipeline={req.pipeline}, course_id={req.course_id}, lang={req.lang}",
+        "request": _request_dict(req),
+    }
+
+    files = _candidate_json_files(req)
+    yield {"type": "scan", "message": f"扫描到 {len(files)} 个 lesson JSON。", "count": len(files)}
+
+    synced_dir = _artifact_root(req) / "synced_json" / req.lang
+    synced_dir.mkdir(parents=True, exist_ok=True)
+    provider = EmbeddingFactory.create_provider()
+    existing_ids = _existing_lessons(req)
+    lessons = []
+
+    for index, (path, source) in enumerate(files, start=1):
+        before = _summarize_json(path, source, existing_ids, req)
+        item = {**before, "sync_status": "pending"}
+        lesson_label = f"lesson{str(before.get('lesson_id') or index).zfill(3)}"
+        yield {
+            "type": "lesson_start",
+            "message": f"[{index}/{len(files)}] {lesson_label}: 准备入库。",
+            "lesson": item,
+            "index": index,
+            "total": len(files),
+        }
+        if before.get("status") != "ready":
+            item["sync_status"] = "skipped"
+            lessons.append(item)
+            yield {"type": "lesson_skipped", "message": f"{lesson_label}: JSON 不可用，已跳过。", "lesson": item}
+            continue
+        try:
+            yield {"type": "lesson_step", "message": f"{lesson_label}: 读取并规范化 JSON。", "lesson_id": before.get("lesson_id")}
+            data = json.loads(path.read_text(encoding="utf-8"))
+            data, context = _prepare_data_for_pipeline(req, data)
+
+            if req.upload_assets:
+                yield {
+                    "type": "lesson_step",
+                    "message": f"{lesson_label}: 上传/确认 R2 媒体对象。",
+                    "lesson_id": before.get("lesson_id"),
+                }
+                data = upload_assets_to_r2(data)
+            else:
+                yield {"type": "lesson_step", "message": f"{lesson_label}: 跳过 R2 媒体上传。", "lesson_id": before.get("lesson_id")}
+
+            path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+            yield {"type": "lesson_step", "message": f"{lesson_label}: 写入数据库。", "lesson_id": before.get("lesson_id")}
+            ok = sync_lesson_data(str(path), provider, sync_context=context)
+            if not ok:
+                raise RuntimeError("sync_lesson_data returned false")
+
+            destination = synced_dir / path.name
+            if path.resolve() != destination.resolve():
+                yield {"type": "lesson_step", "message": f"{lesson_label}: 归档 JSON 到 synced_json。", "lesson_id": before.get("lesson_id")}
+                shutil.move(str(path), str(destination))
+                item["archived_to"] = str(destination)
+            item["sync_status"] = "success"
+            yield {"type": "lesson_success", "message": f"{lesson_label}: 入库完成。", "lesson": item}
+        except Exception as exc:
+            item["sync_status"] = "failed"
+            item["error"] = str(exc)
+            yield {"type": "lesson_failed", "message": f"{lesson_label}: 入库失败 - {exc}", "lesson": item}
+        lessons.append(item)
+
+    report = SyncReport(
+        request=_request_dict(req),
+        lessons=lessons,
+        summary={
+            "json_count": len(lessons),
+            "success_count": sum(1 for item in lessons if item.get("sync_status") == "success"),
+            "failed_count": sum(1 for item in lessons if item.get("sync_status") == "failed"),
+            "skipped_count": sum(1 for item in lessons if item.get("sync_status") == "skipped"),
+        },
+        executed=True,
+    )
+    yield {"type": "complete", "message": "入库流程结束。", "report": report.to_dict()}
