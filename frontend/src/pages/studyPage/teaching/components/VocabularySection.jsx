@@ -3,7 +3,10 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff, Languages, Volume2, BookOpen } from 'lucide-react';
 import AnnotatedSentence from '../../components/AnnotatedSentence';
 
-function ControlCapsule({ pinyin, setPinyin, trans, setTrans, t }) {
+function ControlCapsule({ pinyin, setPinyin, trans, setTrans, t, readingLabelOn, readingLabelOff }) {
+    const onLabel = readingLabelOn || t('teaching_pinyin_on');
+    const offLabel = readingLabelOff || t('teaching_pinyin_off');
+
     return (
         <div className="flex items-center gap-2 rounded-2xl border border-slate-200/50 bg-slate-100 p-1 shadow-inner">
             <button
@@ -13,7 +16,7 @@ function ControlCapsule({ pinyin, setPinyin, trans, setTrans, t }) {
                 }`}
             >
                 {pinyin ? <Eye size={14} /> : <EyeOff size={14} />}
-                {pinyin ? t('teaching_pinyin_on') : t('teaching_pinyin_off')}
+                {pinyin ? onLabel : offLabel}
             </button>
             <button
                 onClick={() => setTrans(!trans)}
@@ -36,8 +39,16 @@ export default function VocabularySection({
     vocabTrans,
     setVocabTrans,
     playTtsFallback,
+    targetLanguage = '',
+    readingLabelOn,
+    readingLabelOff,
     t,
 }) {
+    const isJapanese = targetLanguage === 'ja';
+    const readingClassName = isJapanese
+        ? 'font-sans font-black text-rose-500 transition-all duration-500'
+        : 'font-mono font-bold text-orange-600 transition-all duration-500';
+
     return (
         <motion.section variants={fadeInUp} initial="hidden" animate="show" className="mb-20">
             <div className="mb-8 flex items-end justify-between">
@@ -47,6 +58,8 @@ export default function VocabularySection({
                     setPinyin={setVocabPinyin}
                     trans={vocabTrans}
                     setTrans={setVocabTrans}
+                    readingLabelOn={readingLabelOn}
+                    readingLabelOff={readingLabelOff}
                     t={t}
                 />
             </div>
@@ -67,7 +80,7 @@ export default function VocabularySection({
                                     <Volume2 size={20} />
                                 </button>
                                 <div className="flex flex-col gap-1">
-                                    <span className={`font-mono font-bold text-orange-600 transition-all duration-500 ${vocabPinyin ? 'opacity-100' : 'opacity-0'}`}>
+                                    <span className={`${readingClassName} ${vocabPinyin ? 'opacity-100' : 'opacity-0'}`}>
                                         {vocab.pinyin}
                                     </span>
                                     <span className="self-start rounded-lg bg-slate-100 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-slate-400">
@@ -94,7 +107,7 @@ export default function VocabularySection({
                                             showPinyin={vocabPinyin}
                                             wrapperClassName="flex flex-wrap items-end gap-x-2 gap-y-3"
                                             tokenClassName="inline-flex flex-col items-center justify-end"
-                                            pinyinClassName="mb-1 min-h-[1.1rem] text-sm font-mono font-bold text-slate-400 normal-case leading-none"
+                                            pinyinClassName={`mb-1 min-h-[1.1rem] text-sm font-bold text-slate-400 normal-case leading-none ${isJapanese ? 'font-sans' : 'font-mono'}`}
                                             textClassName="text-xl font-bold text-slate-800 leading-none"
                                         />
                                         <button

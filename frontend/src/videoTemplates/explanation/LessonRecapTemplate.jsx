@@ -3,6 +3,7 @@ import { blackboard, chalk } from './templateUtils';
 import ChalkTexture from './ChalkTexture';
 import { RubyWord } from './chalkUtils';
 import BlackboardShell from './BlackboardShell';
+import { JapaneseRubySentence } from './JapaneseSentenceTemplate';
 
 function splitQA(text) {
     if (!text) return [{ text: '', color: chalk.green }];
@@ -18,6 +19,10 @@ function splitQA(text) {
 
 const PHRASE_COLORS = [chalk.yellow, chalk.blue, chalk.green, chalk.pink, chalk.yellow, chalk.blue];
 
+function readingFor(item) {
+    return item?.reading || item?.pinyin || '';
+}
+
 export default function LessonRecapTemplate({ segment }) {
     const blocks = segment?.visual_blocks || [];
     const recap = blocks.find((b) => b.block_type === 'recap_summary');
@@ -27,6 +32,14 @@ export default function LessonRecapTemplate({ segment }) {
     const narrationText = segment?.narration_track?.subtitle_en || '';
 
     const hasKeyPhrases = highlightWords.length > 0;
+    const isJapaneseRecap = [...highlightWords, ...grammarPoints].some((item) => (
+        /[\u3040-\u30ff]/.test(`${item?.word || ''}${item?.pinyin || ''}${item?.pattern || ''}`)
+    ));
+    const phraseCharSize = isJapaneseRecap ? 58 : 52;
+    const phraseReadingSize = isJapaneseRecap ? 19 : 17;
+    const grammarPatternSize = isJapaneseRecap ? 37 : 32;
+    const grammarReadingSize = isJapaneseRecap ? 16 : 14;
+    const explanationSize = isJapaneseRecap ? 24 : 20;
 
     return (
         <BlackboardShell subtitleText={narrationText}>
@@ -65,18 +78,37 @@ export default function LessonRecapTemplate({ segment }) {
                                     borderBottom: i < highlightWords.length - 1
                                         ? '1px solid rgba(244,240,230,0.07)' : 'none',
                                 }}>
-                                    <RubyWord
-                                        text={item?.word}
-                                        pinyin={item?.pinyin}
-                                        charSize={52}
-                                        pinyinSize={17}
-                                        color={color}
-                                    />
+                                    {isJapaneseRecap ? (
+                                        <JapaneseRubySentence
+                                            text={item?.word}
+                                            reading={readingFor(item)}
+                                            tokens={item?.tokens}
+                                            charSize={phraseCharSize}
+                                            rubySize={phraseReadingSize}
+                                            color={color}
+                                        />
+                                    ) : (
+                                        <RubyWord
+                                            text={item?.word}
+                                            pinyin={item?.pinyin}
+                                            charSize={phraseCharSize}
+                                            pinyinSize={phraseReadingSize}
+                                            color={color}
+                                        />
+                                    )}
                                     {item?.translation && (
                                         <span style={{
-                                            fontSize: 24, fontStyle: 'italic',
-                                            color: chalk.white, opacity: 0.45,
-                                            flexShrink: 0,
+                                            fontSize: isJapaneseRecap ? 27 : 24,
+                                            lineHeight: isJapaneseRecap ? 1.18 : 1.25,
+                                            fontStyle: isJapaneseRecap ? 'normal' : 'italic',
+                                            color: chalk.white,
+                                            opacity: isJapaneseRecap ? 0.62 : 0.45,
+                                            fontWeight: isJapaneseRecap ? 800 : 400,
+                                            flex: '1 1 160px',
+                                            minWidth: 0,
+                                            maxWidth: isJapaneseRecap ? 190 : 'none',
+                                            overflowWrap: 'anywhere',
+                                            whiteSpace: 'normal',
                                         }}>
                                             {item.translation}
                                         </span>
@@ -114,13 +146,34 @@ export default function LessonRecapTemplate({ segment }) {
                                                     {icon}
                                                 </span>
                                             )}
-                                            <RubyWord text={text} charSize={32} pinyinSize={14} color={color} />
+                                            {isJapaneseRecap ? (
+                                                <JapaneseRubySentence
+                                                    text={text}
+                                                    reading={readingFor(item)}
+                                                    tokens={item?.tokens}
+                                                    charSize={grammarPatternSize}
+                                                    rubySize={grammarReadingSize}
+                                                    color={color}
+                                                />
+                                            ) : (
+                                                <RubyWord
+                                                    text={text}
+                                                    charSize={grammarPatternSize}
+                                                    pinyinSize={grammarReadingSize}
+                                                    color={color}
+                                                />
+                                            )}
                                         </div>
                                     ))}
                                     {item?.explanation_en && (
                                         <p style={{
-                                            margin: '5px 0 0', fontSize: 20, lineHeight: 1.5,
-                                            color: chalk.white, opacity: 0.38, fontStyle: 'italic',
+                                            margin: '6px 0 0',
+                                            fontSize: explanationSize,
+                                            lineHeight: 1.45,
+                                            color: chalk.white,
+                                            opacity: isJapaneseRecap ? 0.58 : 0.38,
+                                            fontStyle: isJapaneseRecap ? 'normal' : 'italic',
+                                            fontWeight: isJapaneseRecap ? 700 : 400,
                                             borderTop: '1px solid rgba(244,240,230,0.06)',
                                             paddingTop: 6,
                                         }}>

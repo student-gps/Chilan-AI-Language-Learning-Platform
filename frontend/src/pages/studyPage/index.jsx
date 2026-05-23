@@ -171,6 +171,7 @@ export default function StudyPage() {
                     {mode === 'teaching' && (
                         <TeachingComponent
                             data={lessonContent}
+                            courseInfo={courseInfo}
                             courseId={courseId}
                             userId={userId}
                             onStartPractice={() => setMode('practice')}

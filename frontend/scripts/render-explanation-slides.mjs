@@ -12,6 +12,8 @@ const lessonId = process.argv[2] || '101';
 const lang = process.argv[3] || 'en';
 const pipeline = (process.argv[4] || 'integrated_chinese').trim();
 const sourceJsonArg = process.argv[5] || '';
+const onlySlideArg = Number.parseInt(process.argv[6] || '', 10);
+const onlySlideIndex = Number.isFinite(onlySlideArg) && onlySlideArg > 0 ? onlySlideArg : null;
 const langSuffix = lang !== 'en' ? `_${lang}` : '';
 
 const artifactsDir = path.join(projectRoot, 'backend', 'content_builder', 'artifacts');
@@ -22,6 +24,10 @@ const artifactRootByPipeline = {
     new_concept_english: path.join(artifactsDir, 'new_concept_english'),
     'new-concept-english': path.join(artifactsDir, 'new_concept_english'),
     nce: path.join(artifactsDir, 'new_concept_english'),
+    minna_no_nihongo: path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
+    'minna-no-nihongo': path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
+    mnn: path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
+    ja: path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
 };
 const preferredArtifactRoot = artifactRootByPipeline[pipeline] || path.join(artifactsDir, pipeline);
 
@@ -29,6 +35,7 @@ const candidateArtifactRoots = [
     preferredArtifactRoot,
     path.join(artifactsDir, 'integrated_chinese'),
     path.join(artifactsDir, 'new_concept_english'),
+    path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
     artifactsDir,
 ].filter((item, index, arr) => arr.indexOf(item) === index);
 
@@ -164,8 +171,16 @@ const runStill = (frame, outputFile) => new Promise((resolve, reject) => {
 
 const FPS = 30;
 const outputs = [];
+const slideIndexes = onlySlideIndex
+    ? [onlySlideIndex - 1].filter((index) => index >= 0 && index < renderPlan.segments.length)
+    : renderPlan.segments.map((_, index) => index);
 
-for (let i = 0; i < renderPlan.segments.length; i += 1) {
+if (onlySlideIndex && slideIndexes.length === 0) {
+    console.error(`slide ${onlySlideIndex} 超出范围，当前共 ${renderPlan.segments.length} 页。`);
+    process.exit(1);
+}
+
+for (const i of slideIndexes) {
     const segment = renderPlan.segments[i];
     const startFrame = Math.round((Number(segment?.start_time_seconds) || 0) * FPS);
     const settleFrames = 18;

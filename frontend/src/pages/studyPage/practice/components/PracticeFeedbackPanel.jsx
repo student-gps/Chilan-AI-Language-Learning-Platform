@@ -10,6 +10,22 @@ const splitFeedbackParagraphs = (message = '') =>
         .map((part) => part.trim())
         .filter(Boolean);
 
+const inferQuestionTargetLanguage = (question = {}) => {
+    const metadata = question.metadata || {};
+    const type = String(question.question_type || '').toUpperCase();
+    const reading = String(question.original_pinyin || '');
+    if (
+        type.startsWith('JA_') ||
+        /_TO_JA$/.test(type) ||
+        metadata.speech_language === 'ja' ||
+        metadata.audio_language === 'ja' ||
+        /[\u3040-\u30ff]/.test(reading)
+    ) {
+        return 'ja';
+    }
+    return 'zh';
+};
+
 export default function PracticeFeedbackPanel({
     feedback,
     isPerfectFeedback,
@@ -152,6 +168,7 @@ export default function PracticeFeedbackPanel({
                     pinyin={currentQuestion.original_pinyin}
                     metadata={currentQuestion.metadata}
                     knowledgeData={knowledgeDetails}
+                    targetLanguage={inferQuestionTargetLanguage(currentQuestion)}
                 />
             )}
         </motion.div>

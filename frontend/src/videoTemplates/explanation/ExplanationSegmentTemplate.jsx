@@ -1,7 +1,11 @@
 import React from 'react';
 import GrammarPatternTemplate from './GrammarPatternTemplate';
 import GrammarTableTemplate from './GrammarTableTemplate';
+import JapaneseGrammarTemplate from './JapaneseGrammarTemplate';
+import JapaneseLineFocusTemplate from './JapaneseLineFocusTemplate';
+import JapaneseVocabTemplate from './JapaneseVocabTemplate';
 import LineFocusTemplate from './LineFocusTemplate';
+import JapaneseSentenceTemplate from './JapaneseSentenceTemplate';
 import LessonRecapTemplate from './LessonRecapTemplate';
 import UsageFocusTemplate from './UsageFocusTemplate';
 import { blackboard, chalk } from './templateUtils';
@@ -24,7 +28,7 @@ const FallbackTemplate = ({ segment }) => (
                 {segment?.segment_title}
             </h3>
             <p style={{ marginTop: 18, fontSize: 20, lineHeight: 1.85, color: chalk.dim }}>
-                {segment?.narration_track?.subtitle_en}
+                {segment?.narration_track?.script || segment?.narration_track?.subtitle_en || segment?.narration_track?.subtitle_zh}
             </p>
         </div>
     </div>
@@ -34,8 +38,16 @@ export default function ExplanationSegmentTemplate({ segment }) {
     switch (segment?.template_name) {
         case 'line_focus':
             return <LineFocusTemplate segment={segment} />;
+        case 'ja_line_focus':
+            return <JapaneseLineFocusTemplate segment={segment} />;
+        case 'ja_sentence_stack':
+            return <JapaneseSentenceTemplate segment={segment} />;
         case 'grammar_pattern':
             return <GrammarPatternTemplate segment={segment} />;
+        case 'ja_grammar_board':
+            return <JapaneseGrammarTemplate segment={segment} />;
+        case 'ja_vocab_board':
+            return <JapaneseVocabTemplate segment={segment} />;
         case 'grammar_table':
             return <GrammarTableTemplate segment={segment} />;
         case 'vocab_spotlight':

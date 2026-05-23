@@ -11,7 +11,13 @@ export default function VocabSpotlightTemplate({ segment }) {
     const gridContent = vocabGrid?.content || {};
     const noteContent = microNote?.content || {};
     const highlightWords = gridContent?.highlight_words || segment?.highlight_words || [];
-    const narrationText = segment?.narration_track?.subtitle_en || '';
+    const layout = gridContent?.layout || segment?.layout || '';
+    const sentenceMode = layout === 'sentence_cards';
+    const narrationText =
+        segment?.narration_track?.script ||
+        segment?.narration_track?.subtitle_en ||
+        segment?.narration_track?.subtitle_zh ||
+        '';
     const teachingNote = noteContent?.notes || segment?.visual_notes;
     const visibleWords = highlightWords.slice(0, 6);
     const wordCount = visibleWords.length;
@@ -22,24 +28,28 @@ export default function VocabSpotlightTemplate({ segment }) {
     const roomy = wordCount <= 2;
     const medium = wordCount <= 4;
     const longRoomyCards = roomy && (longestWord >= 4 || longestTranslation > 24 || longestInsight > 70);
-    const cardGap = roomy ? (longRoomyCards ? 22 : 30) : medium ? 20 : 14;
-    const cardPadding = roomy ? (longRoomyCards ? '30px 32px' : '42px 44px') : medium ? '28px 30px' : '18px 20px';
-    const cardMinHeight = roomy ? (longRoomyCards ? 248 : 268) : medium ? 176 : 0;
-    const charSize = roomy
+    const cardGap = sentenceMode ? 18 : roomy ? (longRoomyCards ? 22 : 30) : medium ? 20 : 14;
+    const cardPadding = sentenceMode ? '22px 28px' : roomy ? (longRoomyCards ? '30px 32px' : '42px 44px') : medium ? '28px 30px' : '18px 20px';
+    const cardMinHeight = sentenceMode ? (wordCount <= 3 ? 168 : 128) : roomy ? (longRoomyCards ? 248 : 268) : medium ? 176 : 0;
+    const charSize = sentenceMode
+        ? (longestWord > 28 ? 34 : longestWord > 22 ? 38 : longestWord > 16 ? 44 : 54)
+        : roomy
         ? (longestWord <= 2 ? 128 : longestWord <= 4 ? (longRoomyCards ? 86 : 104) : 70)
         : medium
             ? (longestWord <= 3 ? 82 : 68)
             : 56;
-    const pinyinSize = roomy ? (longRoomyCards ? 27 : 32) : medium ? 23 : 18;
-    const translationSize = roomy
+    const pinyinSize = sentenceMode ? 20 : roomy ? (longRoomyCards ? 27 : 32) : medium ? 23 : 18;
+    const translationSize = sentenceMode
+        ? (longestTranslation > 32 ? 20 : 24)
+        : roomy
         ? (longestTranslation > 30 ? 22 : longestTranslation > 20 ? 24 : longRoomyCards ? 28 : 34)
         : medium
             ? (longestTranslation > 22 ? 19 : 22)
             : 18;
-    const insightSize = roomy ? (longestInsight > 95 ? 18 : longestInsight > 65 ? 20 : longRoomyCards ? 21 : 24) : medium ? 20 : 17;
+    const insightSize = sentenceMode ? 18 : roomy ? (longestInsight > 95 ? 18 : longestInsight > 65 ? 20 : longRoomyCards ? 21 : 24) : medium ? 20 : 17;
     const noteFontSize = noteLength > 110 ? 27 : noteLength > 70 ? 32 : 38;
     const noteLineHeight = noteLength > 110 ? 1.55 : 1.65;
-    const gridColumns = roomy ? '1fr 1fr' : medium ? '1fr 1fr' : '1fr 1fr';
+    const gridColumns = sentenceMode ? '1fr' : roomy ? '1fr 1fr' : medium ? '1fr 1fr' : '1fr 1fr';
 
     return (
         <BlackboardShell subtitleText={narrationText}>
@@ -60,7 +70,7 @@ export default function VocabSpotlightTemplate({ segment }) {
 
             {/* Body */}
             <div style={{
-                display: 'grid', gridTemplateColumns: '1.15fr 0.85fr',
+                display: 'grid', gridTemplateColumns: sentenceMode ? '1fr' : '1.15fr 0.85fr',
                 gap: 32, padding: '22px 46px 20px',
                 position: 'relative', zIndex: 2,
                 flex: 1, overflow: 'hidden',
@@ -68,10 +78,10 @@ export default function VocabSpotlightTemplate({ segment }) {
                 {/* Left — vocab grid */}
                 <section style={{
                     ...blackboard.panel,
-                    padding: roomy ? (longRoomyCards ? 34 : 44) : medium ? 34 : 28,
+                    padding: sentenceMode ? 30 : roomy ? (longRoomyCards ? 34 : 44) : medium ? 34 : 28,
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: roomy ? 'flex-start' : 'center',
+                    justifyContent: sentenceMode ? 'center' : roomy ? 'flex-start' : 'center',
                     gap: 18,
                     overflow: 'hidden',
                 }}>
@@ -79,7 +89,7 @@ export default function VocabSpotlightTemplate({ segment }) {
                         display: 'grid',
                         gridTemplateColumns: gridColumns,
                         gap: cardGap,
-                        alignContent: 'start',
+                        alignContent: sentenceMode ? 'center' : 'start',
                     }}>
                         {visibleWords.map((item, index) => {
                             const wordColor = index % 2 === 0 ? chalk.yellow : chalk.green;
@@ -126,6 +136,7 @@ export default function VocabSpotlightTemplate({ segment }) {
                 </section>
 
                 {/* Right — teaching note only (narration moves to subtitle bar) */}
+                {!sentenceMode && (
                 <section style={{ display: 'flex', flexDirection: 'column', gap: 20, overflow: 'hidden' }}>
                     {teachingNote && (
                         <div style={{
@@ -164,6 +175,7 @@ export default function VocabSpotlightTemplate({ segment }) {
                         </div>
                     )}
                 </section>
+                )}
             </div>
 
         </BlackboardShell>

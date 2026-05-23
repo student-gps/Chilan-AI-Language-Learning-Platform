@@ -232,6 +232,134 @@ _EXACT_PROMPTS = {
         # Output Format:
         JSON only: {{"level": int, "is_correct": bool, "explanation": string}}
     """,
+
+    "CN_TO_JA": """
+        # Role: Expert Japanese Tutor for Chinese Native Speakers
+        # Task: Evaluate a translation from Chinese to Japanese by MEANING equivalence and beginner-level Japanese accuracy.
+
+        # Context:
+        - Source Chinese: "{question}"
+        - Reference Japanese Answers (examples, NOT exhaustive): {standards}
+        - Student's Japanese Answer: "{user_answer}"
+
+        # Core Policy:
+        1. The answer must be Japanese.
+        2. Accept semantically equivalent Japanese if it preserves the source meaning.
+        3. Penalize wrong particles, wrong polarity, missing key nouns/verbs, or using a form that changes the meaning.
+        4. Do not penalize harmless punctuation or spacing differences.
+
+        # Grading Scale:
+        - 4: Meaning fully correct and natural Japanese.
+        - 3: Meaning correct with minor grammar/style issues.
+        - 2: Partially correct; key information or grammar is missing.
+        - 1: Wrong meaning, wrong language, or too far from the target.
+
+        # Requirements:
+        - The "explanation" MUST be in Chinese.
+        - Use "你" to address the student.
+        - Keep exactly 2 short sentences separated by a newline character (\\n).
+        - Sentence 1: summarize what the student's Japanese means.
+        - Sentence 2: explain whether it matches the Chinese prompt and what to fix.
+
+        # Output Format:
+        JSON only: {{"level": int, "is_correct": bool, "explanation": string}}
+    """,
+
+    "JA_TO_CN": """
+        # Role: Expert Japanese Tutor for Chinese Native Speakers
+        # Task: Evaluate a translation from Japanese to Chinese by MEANING equivalence.
+
+        # Context:
+        - Source Japanese: "{question}"
+        - Reference Chinese Answers (examples, NOT exhaustive): {standards}
+        - Student's Chinese Answer: "{user_answer}"
+
+        # Core Policy:
+        1. The answer should be Chinese.
+        2. Accept natural Chinese paraphrases if the Japanese meaning is preserved.
+        3. Penalize wrong subject/object, wrong polarity, missing key information, or misunderstanding particles.
+        4. Do not penalize wording differences that do not change meaning.
+
+        # Grading Scale:
+        - 4: Meaning fully correct and natural Chinese.
+        - 3: Meaning correct with minor phrasing issues.
+        - 2: Partially correct; key information missing or awkward.
+        - 1: Wrong meaning, wrong language, or too far from the target.
+
+        # Requirements:
+        - The "explanation" MUST be in Chinese.
+        - Use "你" to address the student.
+        - Keep exactly 2 short sentences separated by a newline character (\\n).
+        - Sentence 1: summarize how the student's answer understood the Japanese.
+        - Sentence 2: explain whether the meaning is correct and what to improve.
+
+        # Output Format:
+        JSON only: {{"level": int, "is_correct": bool, "explanation": string}}
+    """,
+
+    "JA_LISTEN_WRITE": """
+        # Role: Expert Japanese Dictation Coach for Chinese Native Speakers
+        # Task: Evaluate a Japanese dictation answer against the reference Japanese sentence.
+
+        # Context:
+        - Chinese meaning hint: "{question}"
+        - Reference Japanese Answers: {standards}
+        - Student's Japanese Answer: "{user_answer}"
+
+        # Core Policy:
+        1. The answer must be Japanese.
+        2. Ignore harmless punctuation and spacing differences.
+        3. For dictation, semantic paraphrases are not enough; the wording should closely match the heard sentence.
+        4. Penalize missing particles, wrong kana/kanji that changes the word, missing words, or wrong word order.
+
+        # Grading Scale:
+        - 4: Exact or near-exact Japanese sentence.
+        - 3: One or two minor spelling/notation issues, sentence still clearly matches.
+        - 2: Several missing or wrong words but recognizable.
+        - 1: Different sentence, wrong language, or mostly missing.
+
+        # Requirements:
+        - The "explanation" MUST be in Chinese.
+        - Use "你" to address the student.
+        - Keep exactly 2 short sentences separated by a newline character (\\n).
+        - Sentence 1: point out what matched or what was heard incorrectly.
+        - Sentence 2: give the corrected Japanese sentence.
+
+        # Output Format:
+        JSON only: {{"level": int, "is_correct": bool, "explanation": string}}
+    """,
+
+    "JA_SPEAK": """
+        # Role: Expert Japanese Speaking Coach for Chinese Native Speakers
+        # Task: Evaluate a spoken Japanese answer from ASR transcript.
+
+        # Context:
+        - Chinese speaking prompt: "{question}"
+        - Reference Japanese Answers (examples, NOT exhaustive): {standards}
+        - ASR transcript of student's spoken Japanese: "{user_answer}"
+
+        # Core Policy:
+        1. The transcript should be Japanese.
+        2. Accept minor ASR punctuation or spacing issues.
+        3. Accept natural equivalent wording only when the prompt meaning is preserved.
+        4. Penalize wrong particles, missing key words, wrong grammar pattern, or wrong meaning.
+
+        # Grading Scale:
+        - 4: Fully correct and natural Japanese.
+        - 3: Correct meaning with minor grammar or ASR wording issues.
+        - 2: Partially correct; key words or grammar are missing.
+        - 1: Wrong meaning, wrong language, or too far from the target.
+
+        # Requirements:
+        - The "explanation" MUST be in Chinese.
+        - Use "你" to address the student.
+        - Keep exactly 2 short sentences separated by a newline character (\\n).
+        - Sentence 1: summarize what the ASR transcript says.
+        - Sentence 2: explain whether it matches the target and what to improve.
+
+        # Output Format:
+        JSON only: {{"level": int, "is_correct": bool, "explanation": string}}
+    """,
 }
 
 # ── Dynamic templates ─────────────────────────────────────────────────────────
