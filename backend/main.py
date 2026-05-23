@@ -4,7 +4,7 @@ import tempfile
 from pathlib import Path
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, StreamingResponse
 from pydantic import BaseModel
 from typing import List
 
@@ -18,8 +18,6 @@ from services.course_enrollment_service import (
     MAX_ACTIVE_COURSES,
     PAUSED_COURSE_STATUS,
 )
-from services.maintenance.course_reset import build_request, execute_reset, preview_reset
-from services.maintenance.course_sync import build_sync_request, execute_sync, preview_sync
 
 # ── Vertex AI Service Account：支持部署环境通过 JSON 内容写临时文件 ──────────
 _sa_json = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON", "").strip()
@@ -281,6 +279,7 @@ class DevCourseSyncRequest(BaseModel):
 
 
 def _dev_reset_request(payload: DevCourseResetRequest, *, dry_run: bool):
+    build_request, _, _ = _load_course_reset_tools()
     try:
         return build_request(
             pipeline=payload.pipeline,
@@ -298,6 +297,7 @@ def _dev_reset_request(payload: DevCourseResetRequest, *, dry_run: bool):
 
 
 def _dev_sync_request(payload: DevCourseSyncRequest, *, dry_run: bool):
+    build_sync_request, _, _, _, _ = _load_course_sync_tools()
     try:
         return build_sync_request(
             pipeline=payload.pipeline,
@@ -315,10 +315,40 @@ def _dev_sync_request(payload: DevCourseSyncRequest, *, dry_run: bool):
         raise HTTPException(status_code=400, detail=str(e)) from e
 
 
+def _dev_tool_unavailable(exc: Exception):
+    raise HTTPException(
+        status_code=503,
+        detail=f"Dev content-builder tooling is not available in this environment: {exc}",
+    ) from exc
+
+
+def _load_course_reset_tools():
+    try:
+        from services.maintenance.course_reset import build_request, execute_reset, preview_reset
+    except ModuleNotFoundError as exc:
+        _dev_tool_unavailable(exc)
+    return build_request, execute_reset, preview_reset
+
+
+def _load_course_sync_tools():
+    try:
+        from services.maintenance.course_sync import (
+            build_sync_request,
+            execute_sync,
+            iter_sync_progress,
+            preview_sync,
+            validate_sync_execute_request,
+        )
+    except ModuleNotFoundError as exc:
+        _dev_tool_unavailable(exc)
+    return build_sync_request, execute_sync, iter_sync_progress, preview_sync, validate_sync_execute_request
+
+
 @app.post("/dev/course-reset/preview")
 async def dev_course_reset_preview(payload: DevCourseResetRequest):
     """Dev-only: preview course-scoped reset impact without mutating DB/R2/local files."""
     req = _dev_reset_request(payload, dry_run=True)
+    _, _, preview_reset = _load_course_reset_tools()
     try:
         return preview_reset(req)
     except Exception as e:
@@ -329,6 +359,7 @@ async def dev_course_reset_preview(payload: DevCourseResetRequest):
 async def dev_course_sync_preview(payload: DevCourseSyncRequest):
     """Dev-only: preview generated lesson JSON sync impact without DB/R2 mutation."""
     req = _dev_sync_request(payload, dry_run=True)
+    _, _, _, preview_sync, _ = _load_course_sync_tools()
     try:
         return preview_sync(req)
     except Exception as e:
@@ -339,6 +370,7 @@ async def dev_course_sync_preview(payload: DevCourseSyncRequest):
 async def dev_course_sync_execute(payload: DevCourseSyncRequest):
     """Dev-only: execute a confirmed course sync."""
     req = _dev_sync_request(payload, dry_run=False)
+    _, execute_sync, _, _, _ = _load_course_sync_tools()
     try:
         return execute_sync(req)
     except ValueError as e:
@@ -347,10 +379,31 @@ async def dev_course_sync_execute(payload: DevCourseSyncRequest):
         raise HTTPException(status_code=500, detail=str(e)) from e
 
 
+@app.post("/dev/course-sync/execute-stream")
+async def dev_course_sync_execute_stream(payload: DevCourseSyncRequest):
+    """Dev-only: execute a confirmed course sync and stream progress events as NDJSON."""
+    req = _dev_sync_request(payload, dry_run=False)
+    _, _, iter_sync_progress, _, validate_sync_execute_request = _load_course_sync_tools()
+    try:
+        validate_sync_execute_request(req)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+    def event_stream():
+        try:
+            for event in iter_sync_progress(req):
+                yield json.dumps(event, ensure_ascii=False) + "\n"
+        except Exception as e:
+            yield json.dumps({"type": "fatal", "message": str(e)}, ensure_ascii=False) + "\n"
+
+    return StreamingResponse(event_stream(), media_type="application/x-ndjson")
+
+
 @app.post("/dev/course-reset/execute")
 async def dev_course_reset_execute(payload: DevCourseResetRequest):
     """Dev-only: execute a confirmed course-scoped reset action."""
     req = _dev_reset_request(payload, dry_run=False)
+    _, execute_reset, _ = _load_course_reset_tools()
     try:
         return execute_reset(req)
     except ValueError as e:
