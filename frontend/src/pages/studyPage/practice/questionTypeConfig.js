@@ -40,6 +40,7 @@ const LANG_NAME = {
 
 const TRANSLATE_VERB = { zh: '翻译', en: 'Translate', jp: '翻訳', fr: 'Traduire', de: 'Übersetzen' };
 const SPEAK_VERB = { zh: '口语', en: 'Speak', jp: 'スピーキング', fr: 'Expression orale', de: 'Sprechen' };
+const DICTATION_VERB = { zh: '听写', en: 'Dictation', jp: 'ディクテーション', fr: 'Dictée', de: 'Diktat' };
 const TRANSLATE_INTO_FN = {
     zh: (tgt) => `翻译成${LANG_NAME[tgt]?.zh || tgt}`,
     en: (tgt) => `Translate into ${LANG_NAME[tgt]?.en || tgt}`,
@@ -47,12 +48,29 @@ const TRANSLATE_INTO_FN = {
     fr: (tgt) => `Traduire en ${LANG_NAME[tgt]?.fr || tgt}`,
     de: (tgt) => `Ins ${LANG_NAME[tgt]?.de || tgt}ische übersetzen`,
 };
+const SPEAK_INTO_FN = {
+    zh: (tgt) => `说出${LANG_NAME[tgt]?.zh || tgt}`,
+    en: (tgt) => `Speak ${LANG_NAME[tgt]?.en || tgt}`,
+    jp: (tgt) => `${LANG_NAME[tgt]?.jp || tgt}で話してください`,
+    fr: (tgt) => `Parler en ${LANG_NAME[tgt]?.fr || tgt}`,
+    de: (tgt) => `${LANG_NAME[tgt]?.de || tgt} sprechen`,
+};
+const DICTATION_INTO_FN = {
+    zh: (tgt) => `${LANG_NAME[tgt]?.zh || tgt}听写`,
+    en: (tgt) => `${LANG_NAME[tgt]?.en || tgt} dictation`,
+    jp: (tgt) => `${LANG_NAME[tgt]?.jp || tgt}ディクテーション`,
+    fr: (tgt) => `Dictée en ${LANG_NAME[tgt]?.fr || tgt}`,
+    de: (tgt) => `${LANG_NAME[tgt]?.de || tgt}-Diktat`,
+};
 
 const _uiLang = () => (i18n.language || 'en').split('-')[0].toLowerCase();
 const _abbrev = (code, lang) => { const e = LANG_ABBREV[code?.toUpperCase()] || {}; return e[lang] || e.default || code?.toUpperCase() || '?'; };
 const _buildTranslateBadge = (src, tgt) => { const l = _uiLang(); return `${TRANSLATE_VERB[l] || TRANSLATE_VERB.en} · ${_abbrev(src, l)}→${_abbrev(tgt, l)}`; };
 const _buildSpeakBadge = (tgt) => { const l = _uiLang(); return `${SPEAK_VERB[l] || SPEAK_VERB.en} · ${LANG_NAME[tgt?.toUpperCase()]?.[l] || tgt}`; };
+const _buildDictationBadge = (tgt) => { const l = _uiLang(); return `${DICTATION_VERB[l] || DICTATION_VERB.en} · ${LANG_NAME[tgt?.toUpperCase()]?.[l] || tgt}`; };
 const _buildPromptLabel = (tgt) => { const l = _uiLang(); return (TRANSLATE_INTO_FN[l] || TRANSLATE_INTO_FN.en)(tgt?.toUpperCase()); };
+const _buildSpeakPromptLabel = (tgt) => { const l = _uiLang(); return (SPEAK_INTO_FN[l] || SPEAK_INTO_FN.en)(tgt?.toUpperCase()); };
+const _buildDictationPromptLabel = (tgt) => { const l = _uiLang(); return (DICTATION_INTO_FN[l] || DICTATION_INTO_FN.en)(tgt?.toUpperCase()); };
 
 const THEMES = {
     blue: {
@@ -265,6 +283,37 @@ export const getQuestionTypeConfig = (question) => {
             ttsLanguage: srcLang,
             speechLanguage: metadata.speech_language || 'zh',
             audioLanguage: metadata.audio_language || srcLang,
+        };
+    }
+    if ((m = type?.match(/^(\w+)_LISTEN_WRITE$/))) {
+        const tgt = m[1];
+        const tgtLang = tgt.toLowerCase();
+        return {
+            ...CONFIGS.TARGET_LISTEN_WRITE,
+            badgeLabel: _buildDictationBadge(tgt),
+            badgeKey: null,
+            promptLabel: _buildDictationPromptLabel(tgt),
+            promptLabelKey: null,
+            answerLanguage: tgtLang,
+            audioLanguage: metadata.audio_language || tgtLang,
+            ttsLanguage: metadata.audio_language || tgtLang,
+            showKnowledgeCard: false,
+        };
+    }
+    if ((m = type?.match(/^(\w+)_SPEAK$/))) {
+        const tgt = m[1];
+        const tgtLang = tgt.toLowerCase();
+        return {
+            ...CONFIGS.TARGET_SPEAK,
+            badgeLabel: _buildSpeakBadge(tgt),
+            badgeKey: null,
+            promptLabel: _buildSpeakPromptLabel(tgt),
+            promptLabelKey: null,
+            answerLanguage: tgtLang,
+            speechLanguage: metadata.speech_language || tgtLang,
+            ttsLanguage: metadata.tts_language || 'zh',
+            audioLanguage: metadata.audio_language || 'zh',
+            showKnowledgeCard: false,
         };
     }
 

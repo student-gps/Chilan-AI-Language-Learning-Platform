@@ -139,49 +139,64 @@ export function RubyWord({ text, pinyin, charSize = 44, pinyinSize = 15, color =
         }).length;
     })();
     const showPinyin = syllables.length === cnCount;
+    const showReadingLine = !!pinyin && !showPinyin;
     let pi = 0;
     const cellHeight = charSize + pinyinSize + 4;
 
     return (
-        <div style={{ display: 'inline-flex', alignItems: 'flex-end', lineHeight: 1 }}>
-            {chars.map((char, i) => {
-                const isChinese = /[\u4e00-\u9fff]/.test(char);
-                const isErhua = char === '\u513f' && i > 0 && /[\u4e00-\u9fff]/.test(chars[i - 1])
-                    && !/^[e\u0113\u00e9\u011b\u00e8\u00ea]/i.test(syllables[pi] || '');
-                const py = isChinese ? (isErhua ? null : (showPinyin ? (syllables[pi++] || '') : '')) : null;
-                return (
-                    <span key={i} style={{
-                        display: 'inline-flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        height: cellHeight,
-                        justifyContent: 'flex-end',
-                        marginRight: isChinese ? 3 : 0,
-                    }}>
-                        {py !== null && (
-                            <span style={{
-                                fontSize: pinyinSize,
-                                color: 'rgba(244,240,230,0.50)',
-                                letterSpacing: '0.01em',
-                                marginBottom: 4,
-                                lineHeight: 1,
-                            }}>
-                                {py}
-                            </span>
-                        )}
-                        <span style={{
-                            fontFamily: fontStack,
-                            fontSize: isChinese ? charSize : charSize * 0.7,
-                            fontWeight: 900,
-                            color,
-                            lineHeight: 1,
-                            textShadow: '1px 1px 0 rgba(9,20,16,0.20)',
+        <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1 }}>
+            {showReadingLine && (
+                <span style={{
+                    fontSize: pinyinSize,
+                    color: 'rgba(244,240,230,0.50)',
+                    letterSpacing: '0.01em',
+                    marginBottom: 6,
+                    lineHeight: 1.15,
+                    whiteSpace: 'nowrap',
+                }}>
+                    {pinyin}
+                </span>
+            )}
+            <div style={{ display: 'inline-flex', alignItems: 'flex-end', lineHeight: 1 }}>
+                {chars.map((char, i) => {
+                    const isChinese = /[\u4e00-\u9fff]/.test(char);
+                    const isErhua = char === '\u513f' && i > 0 && /[\u4e00-\u9fff]/.test(chars[i - 1])
+                        && !/^[e\u0113\u00e9\u011b\u00e8\u00ea]/i.test(syllables[pi] || '');
+                    const py = isChinese ? (isErhua ? null : (showPinyin ? (syllables[pi++] || '') : '')) : null;
+                    return (
+                        <span key={i} style={{
+                            display: 'inline-flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            height: showReadingLine ? undefined : cellHeight,
+                            justifyContent: 'flex-end',
+                            marginRight: isChinese ? 3 : 0,
                         }}>
-                            {char}
+                            {py !== null && (
+                                <span style={{
+                                    fontSize: pinyinSize,
+                                    color: 'rgba(244,240,230,0.50)',
+                                    letterSpacing: '0.01em',
+                                    marginBottom: 4,
+                                    lineHeight: 1,
+                                }}>
+                                    {py}
+                                </span>
+                            )}
+                            <span style={{
+                                fontFamily: fontStack,
+                                fontSize: isChinese ? charSize : charSize * 0.7,
+                                fontWeight: 900,
+                                color,
+                                lineHeight: 1,
+                                textShadow: '1px 1px 0 rgba(9,20,16,0.20)',
+                            }}>
+                                {char}
+                            </span>
                         </span>
-                    </span>
-                );
-            })}
+                    );
+                })}
+            </div>
         </div>
     );
 }

@@ -60,7 +60,7 @@ const currentCueFor = (slide, localMs) => {
     return cues.find((cue) => localMs >= Number(cue.start_ms || 0) && localMs < Number(cue.end_ms || 0)) || null;
 };
 
-const cleanCaptionText = (text = '') => String(text).replace(/\[zh:([^\]]+)\]/g, '$1');
+const cleanCaptionText = (text = '') => String(text).replace(/\[[a-z]{2}:([^\]]+)\]/gi, '$1');
 
 export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     const slides = Array.isArray(deck?.slides) ? deck.slides : [];

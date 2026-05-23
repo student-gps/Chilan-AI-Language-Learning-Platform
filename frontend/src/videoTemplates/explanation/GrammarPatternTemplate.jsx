@@ -84,7 +84,11 @@ export default function GrammarPatternTemplate({ segment }) {
     const heroContent = hero?.content || {};
     const breakdownContent = breakdown?.content || {};
     const grammarPoints = breakdownContent?.grammar_points || segment?.grammar_points || [];
-    const narrationText = segment?.narration_track?.subtitle_en || '';
+    const narrationText =
+        segment?.narration_track?.script ||
+        segment?.narration_track?.subtitle_en ||
+        segment?.narration_track?.subtitle_zh ||
+        '';
     const patternNotes = breakdownContent?.notes || segment?.visual_notes;
 
     const focusText  = heroContent?.focus_text  || segment?.on_screen_text?.focus_text;

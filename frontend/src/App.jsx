@@ -12,6 +12,9 @@ const Personal_Setting = lazy(() => import('./pages/personalSetting'));
 const Classroom = lazy(() => import('./pages/Classroom'));
 const StudyPage = lazy(() => import('./pages/studyPage/index.jsx'));
 const ExplanationTemplatePreview = lazy(() => import('./pages/ExplanationTemplatePreview'));
+const LocalTeachingPreview = lazy(() => import('./pages/LocalTeachingPreview'));
+const CourseMaintenance = lazy(() => import('./pages/CourseMaintenance'));
+const CourseSync = lazy(() => import('./pages/CourseSync'));
 const PinyinPage = lazy(() => import('./pages/PinyinPage'));
 const CourseIntroPage = lazy(() => import('./pages/CourseIntroPage'));
 const HanziIntroPage = lazy(() => import('./pages/HanziIntroPage'));
@@ -54,6 +57,9 @@ function App() {
           <Route path="/course/:courseId" element={<ProtectedRoute><CoursePage /></ProtectedRoute>} />
           <Route path="/study/:courseId" element={<ProtectedRoute><StudyPage /></ProtectedRoute>} />
           <Route path="/video-template-preview/:courseId" element={<ExplanationTemplatePreview />} />
+          <Route path="/dev/teaching-preview" element={<LocalTeachingPreview />} />
+          <Route path="/dev/course-maintenance" element={<CourseMaintenance />} />
+          <Route path="/dev/course-sync" element={<CourseSync />} />
           <Route path="/learn/pinyin" element={<ProtectedRoute><PinyinPage /></ProtectedRoute>} />
           <Route path="/learn/intro" element={<ProtectedRoute><CourseIntroPage /></ProtectedRoute>} />
           <Route path="/learn/hanzi" element={<ProtectedRoute><HanziIntroPage /></ProtectedRoute>} />

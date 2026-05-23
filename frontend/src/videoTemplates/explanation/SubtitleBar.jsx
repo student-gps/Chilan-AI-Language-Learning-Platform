@@ -3,12 +3,12 @@ import { chalk } from './templateUtils';
 import { useSubtitle } from './SubtitleContext';
 
 /**
- * Strip [zh:汉字] markers, replacing them with just the Chinese text.
+ * Strip inline language markers, replacing them with just the target text.
  * Used for subtitle display so learners see 请问 instead of [zh:请问].
  */
-export function stripZhMarkers(text) {
+export function stripLanguageMarkers(text) {
     if (!text) return text;
-    return text.replace(/\[zh:([^\]]+)\]/g, '$1');
+    return text.replace(/\[[a-z]{2}:([^\]]+)\]/gi, '$1');
 }
 
 const _ABBREV_RE = /\b(Mr|Mrs|Ms|Dr|Prof|Sr|Jr|St|vs|etc|e\.g|i\.e|approx|dept|fig|govt|ca|cf|vol|no)\./gi;
@@ -60,7 +60,8 @@ export function splitSentences(text) {
     while (i < protected_.length) {
         const ch = protected_[i];
 
-        if (protected_.startsWith('[zh:', i)) {
+        const marker = protected_.slice(i, i + 4);
+        if (/^\[[a-z]{2}:/i.test(marker)) {
             const end = protected_.indexOf(']', i + 4);
             if (end !== -1) {
                 i = end + 1;
@@ -121,7 +122,7 @@ export default function SubtitleBar({ text }) {
     const sentences = sentenceTexts?.length ? sentenceTexts : splitSentences(text);
     if (!sentences.length) return null;
 
-    const current = stripZhMarkers(sentences[Math.min(sentenceIndex, sentences.length - 1)]);
+    const current = stripLanguageMarkers(sentences[Math.min(sentenceIndex, sentences.length - 1)]);
 
     return (
         <div style={{

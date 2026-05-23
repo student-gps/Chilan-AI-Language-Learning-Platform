@@ -13,6 +13,7 @@ import {
     Volume2
 } from 'lucide-react';
 import DialogueSection from './components/DialogueSection';
+import JapaneseLessonReference from './components/JapaneseLessonReference';
 import LessonSlideDeckPlayer from './components/LessonSlideDeckPlayer';
 import useTeachingAudio, { buildLessonAudioUrl } from './hooks/useTeachingAudio';
 import VocabularySection from './components/VocabularySection';
@@ -35,8 +36,45 @@ const formatLessonId = (id) => {
 
 const LESSON_AUDIO_RATES = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3];
 
+const normalizeTargetLanguage = (value = '') => {
+    const lang = String(value || '').trim().toLowerCase();
+    if (!lang) return '';
+    if (lang === 'ja' || lang === 'jp' || lang.includes('japanese') || lang.includes('日本')) return 'ja';
+    if (lang === 'zh' || lang.startsWith('zh-') || lang.includes('chinese') || lang.includes('中文')) return 'zh';
+    return lang;
+};
 
-export default function TeachingSection({ data, courseId, userId, onStartPractice, isDirectLesson }) {
+const inferTargetLanguageFromLesson = (lessonMetadata = {}, courseId = '') => {
+    const courseSlug = String(lessonMetadata?.course_slug || '').toLowerCase();
+    const source = lessonMetadata?.source || {};
+    const textbook = `${source?.textbook || ''} ${source?.textbook_ja || ''} ${source?.textbook_zh || ''}`.toLowerCase();
+    const id = String(courseId || lessonMetadata?.course_id || '').toLowerCase();
+
+    if (courseSlug.includes('minna') || textbook.includes('minna') || textbook.includes('みんな') || id === '201' || id === '303') return 'ja';
+    if (courseSlug.includes('integrated_chinese') || id === '1') return 'zh';
+    return '';
+};
+
+const languageUiMeta = (targetLanguage) => {
+    if (targetLanguage === 'ja') {
+        return {
+            targetLanguage,
+            badge: '日本語',
+            badgeClass: 'bg-rose-950 text-rose-50',
+            readingOn: 'かな ON',
+            readingOff: 'かな OFF',
+        };
+    }
+    return {
+        targetLanguage,
+        badge: '中文',
+        badgeClass: 'bg-slate-900 text-white',
+        readingOn: null,
+        readingOff: null,
+    };
+};
+
+export default function TeachingSection({ data, courseInfo, courseId, userId, onStartPractice, isDirectLesson }) {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [diagPinyin, setDiagPinyin] = useState(true);
@@ -47,6 +85,14 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
     const API_BASE = import.meta.env.VITE_APP_API_BASE_URL || '';
     const lesson_metadata = data?.lesson_metadata || {};
     const course_content = data?.course_content || {};
+    const targetLanguage = normalizeTargetLanguage(
+        data?.target_language ||
+        lesson_metadata?.target_language ||
+        courseInfo?.target_language ||
+        courseInfo?.language ||
+        inferTargetLanguageFromLesson(lesson_metadata, courseId)
+    );
+    const languageMeta = languageUiMeta(targetLanguage);
     const lesson_audio_assets = data?.lesson_audio_assets || null;
     const teaching_slide_deck =
         data?.teaching_slide_deck ||
@@ -126,9 +172,14 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
             className="mx-auto max-w-5xl px-5 pt-16 md:px-6"
             >
                 <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-4 flex items-center gap-3">
-                    <span className="rounded-full bg-slate-900 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white">
+                    <span className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest ${languageMeta.badgeClass}`}>
                         {t('teaching_new_unit')}
                     </span>
+                    {languageMeta.badge && (
+                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                            {languageMeta.badge}
+                        </span>
+                    )}
                     <span className="font-mono text-sm font-bold text-slate-400">
                         LEVEL {formatLessonId(lesson_metadata.lesson_id)}
                     </span>
@@ -297,33 +348,50 @@ export default function TeachingSection({ data, courseId, userId, onStartPractic
                     </div>
                 )}
 
-                <DialogueSection
-                    fadeInUp={fadeInUp}
-                    lessonHeading={lessonHeading}
-                    contentType={contentType}
-                    isReadingMode={isReadingMode}
-                    lessonMetadata={lesson_metadata}
-                    lineItems={lineItems}
-                    diagPinyin={diagPinyin}
-                    setDiagPinyin={setDiagPinyin}
-                    diagTrans={diagTrans}
-                    setDiagTrans={setDiagTrans}
-                    playingKey={playingKey}
-                    activeLessonLineRef={activeLessonLineRef}
-                    playDialogueAudio={playDialogueAudio}
-                    t={t}
-                />
+                {targetLanguage === 'ja' ? (
+                    <JapaneseLessonReference
+                        courseContent={course_content}
+                        lessonMetadata={lesson_metadata}
+                        fadeInUp={fadeInUp}
+                        playTextAudio={playTtsFallback}
+                    />
+                ) : (
+                    <>
+                        <DialogueSection
+                            fadeInUp={fadeInUp}
+                            lessonHeading={lessonHeading}
+                            contentType={contentType}
+                            isReadingMode={isReadingMode}
+                            lessonMetadata={lesson_metadata}
+                            lineItems={lineItems}
+                            diagPinyin={diagPinyin}
+                            setDiagPinyin={setDiagPinyin}
+                            diagTrans={diagTrans}
+                            setDiagTrans={setDiagTrans}
+                            playingKey={playingKey}
+                            activeLessonLineRef={activeLessonLineRef}
+                            playDialogueAudio={playDialogueAudio}
+                            targetLanguage={targetLanguage}
+                            readingLabelOn={languageMeta.readingOn}
+                            readingLabelOff={languageMeta.readingOff}
+                            t={t}
+                        />
 
-                <VocabularySection
-                    fadeInUp={fadeInUp}
-                    vocabulary={vocabulary}
-                    vocabPinyin={vocabPinyin}
-                    setVocabPinyin={setVocabPinyin}
-                    vocabTrans={vocabTrans}
-                    setVocabTrans={setVocabTrans}
-                    playTtsFallback={playTtsFallback}
-                    t={t}
-                />
+                        <VocabularySection
+                            fadeInUp={fadeInUp}
+                            vocabulary={vocabulary}
+                            vocabPinyin={vocabPinyin}
+                            setVocabPinyin={setVocabPinyin}
+                            vocabTrans={vocabTrans}
+                            setVocabTrans={setVocabTrans}
+                            playTtsFallback={playTtsFallback}
+                            targetLanguage={targetLanguage}
+                            readingLabelOn={languageMeta.readingOn}
+                            readingLabelOff={languageMeta.readingOff}
+                            t={t}
+                        />
+                    </>
+                )}
 
                 {!isDirectLesson && (
                     <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex justify-center pb-24 pt-8">

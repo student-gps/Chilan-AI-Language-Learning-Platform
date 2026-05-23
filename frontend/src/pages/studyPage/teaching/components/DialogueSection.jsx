@@ -48,7 +48,10 @@ const InlineAnnotatedText = ({ words = [], showPinyin, pinyinClassName = '', tex
     );
 };
 
-function ControlCapsule({ pinyin, setPinyin, trans, setTrans, t }) {
+function ControlCapsule({ pinyin, setPinyin, trans, setTrans, t, readingLabelOn, readingLabelOff }) {
+    const onLabel = readingLabelOn || t('teaching_pinyin_on');
+    const offLabel = readingLabelOff || t('teaching_pinyin_off');
+
     return (
         <div className="flex items-center gap-2 rounded-2xl border border-slate-200/50 bg-slate-100 p-1 shadow-inner">
             <button
@@ -58,7 +61,7 @@ function ControlCapsule({ pinyin, setPinyin, trans, setTrans, t }) {
                 }`}
             >
                 {pinyin ? <Eye size={14} /> : <EyeOff size={14} />}
-                {pinyin ? t('teaching_pinyin_on') : t('teaching_pinyin_off')}
+                {pinyin ? onLabel : offLabel}
             </button>
             <button
                 onClick={() => setTrans(!trans)}
@@ -101,8 +104,13 @@ export default function DialogueSection({
     playingKey,
     activeLessonLineRef,
     playDialogueAudio,
+    targetLanguage = '',
+    readingLabelOn,
+    readingLabelOff,
     t,
 }) {
+    const isJapanese = targetLanguage === 'ja';
+    const readingFontClass = isJapanese ? 'font-sans' : 'font-mono';
 
     return (
         <motion.section variants={fadeInUp} initial="hidden" animate="show" className="mb-24">
@@ -118,6 +126,8 @@ export default function DialogueSection({
                     setPinyin={setDiagPinyin}
                     trans={diagTrans}
                     setTrans={setDiagTrans}
+                    readingLabelOn={readingLabelOn}
+                    readingLabelOff={readingLabelOff}
                     t={t}
                 />
             </div>
@@ -163,7 +173,7 @@ export default function DialogueSection({
                                                 <InlineAnnotatedText
                                                     words={line.words || []}
                                                     showPinyin={diagPinyin}
-                                                    pinyinClassName="mb-1 text-sm font-mono text-stone-400 md:text-base"
+                                                    pinyinClassName={`mb-1 text-sm text-stone-400 md:text-base ${readingFontClass}`}
                                                     textClassName="text-stone-800 text-3xl font-medium md:text-[2.15rem]"
                                                 />
                                             </div>
@@ -217,7 +227,7 @@ export default function DialogueSection({
                                                     <InlineAnnotatedText
                                                         words={line.words || []}
                                                         showPinyin={diagPinyin}
-                                                        pinyinClassName={`mb-1 text-xl font-mono ${
+                                                        pinyinClassName={`mb-1 text-xl ${readingFontClass} ${
                                                             isLessonActive
                                                                 ? isLeft ? 'text-slate-500' : 'text-blue-500'
                                                                 : isLeft ? 'text-slate-400' : 'text-blue-400'

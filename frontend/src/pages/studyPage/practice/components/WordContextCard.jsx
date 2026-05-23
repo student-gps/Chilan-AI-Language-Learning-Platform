@@ -12,8 +12,11 @@ const formatPinyinDisplay = (value = '') =>
         .map((token) => token.toLowerCase())
         .join(' ');
 
-export default function WordContextCard({ word, pinyin, metadata, knowledgeData }) {
+export default function WordContextCard({ word, pinyin, metadata, knowledgeData, targetLanguage = 'zh' }) {
     const { t } = useTranslation();
+    const isJapanese = targetLanguage === 'ja';
+    const readingLabel = isJapanese ? 'かな' : t('word_pinyin_btn');
+    const readingTextClass = isJapanese ? 'font-bold text-rose-500' : 'font-bold text-orange-500';
     const examples = metadata?.context_examples || [];
     const fallbackKnowledge = metadata?.knowledge || {};
     const currentSense = knowledgeData?.current_sense || fallbackKnowledge;
@@ -92,7 +95,9 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                 </button>
                                 <div className="pt-2">
                                     {displayPinyin && (
-                                        <p className="text-lg font-black text-orange-500">{formatPinyinDisplay(displayPinyin)}</p>
+                                        <p className={`text-lg font-black ${isJapanese ? 'text-rose-500' : 'text-orange-500'}`}>
+                                            {isJapanese ? displayPinyin : formatPinyinDisplay(displayPinyin)}
+                                        </p>
                                     )}
                                     {displayPartOfSpeech && (
                                         <span className="inline-block mt-3 px-3 py-1 rounded-full bg-slate-100 text-xs font-black uppercase tracking-[0.2em] text-slate-500">
@@ -148,9 +153,9 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                     </button>
                                     <button
                                         onClick={() => togglePinyin(key)}
-                                        className={`px-3 py-2 rounded-xl text-xs font-black uppercase tracking-[0.18em] transition-colors ${pinyinOn ? 'bg-orange-100 text-orange-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+                                        className={`px-3 py-2 rounded-xl text-xs font-black uppercase tracking-[0.18em] transition-colors ${pinyinOn ? (isJapanese ? 'bg-rose-100 text-rose-500' : 'bg-orange-100 text-orange-500') : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
                                     >
-                                        {t('word_pinyin_btn')}
+                                        {readingLabel}
                                     </button>
                                     <button
                                         onClick={() => toggleTranslation(key)}
@@ -196,7 +201,7 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                         </span>
                                     )}
                                     {h.pinyin && (
-                                        <span className="text-sm font-bold text-orange-500">{h.pinyin}</span>
+                                        <span className={`text-sm ${readingTextClass}`}>{h.pinyin}</span>
                                     )}
                                     {typeof h.lesson_id !== 'undefined' && h.lesson_id !== null && (
                                         <span className="text-xs font-black text-slate-400">L{h.lesson_id}</span>
@@ -231,9 +236,9 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData 
                                                 </button>
                                                 <button
                                                     onClick={() => togglePinyin(`history-${i}`)}
-                                                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${showPinyin[`history-${i}`] ? 'bg-orange-100 text-orange-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+                                                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${showPinyin[`history-${i}`] ? (isJapanese ? 'bg-rose-100 text-rose-500' : 'bg-orange-100 text-orange-500') : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
                                                 >
-                                                    {t('word_pinyin_btn')}
+                                                    {readingLabel}
                                                 </button>
                                                 <button
                                                     onClick={() => toggleTranslation(`history-${i}`)}

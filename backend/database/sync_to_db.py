@@ -302,8 +302,28 @@ def upload_assets_to_r2(data: dict) -> dict:
     failed = 0
 
     _artifacts_dir = BACKEND_DIR / "content_builder" / "artifacts"
+    _artifact_roots = [
+        _artifacts_dir,
+        BACKEND_DIR / "content_builder" / "zh" / "integrated_chinese" / "artifacts",
+        BACKEND_DIR / "content_builder" / "ja" / "minna_no_nihongo" / "artifacts",
+        BACKEND_DIR / "content_builder" / "en" / "new_concept_english" / "artifacts",
+    ]
 
-    def _resolve_path(local_path: str) -> Path:
+    def _narration_local_candidates_from_key(object_key: str) -> list[Path]:
+        parts = [part for part in str(object_key or "").strip("/").split("/") if part]
+        if len(parts) < 6 or parts[1:3] != ["audio", "narration"]:
+            return []
+        lang = parts[3]
+        lesson_slug = parts[4]
+        filename = Path(parts[-1]).name
+        suffix = f"_{lang}" if lang != "en" else ""
+        candidates: list[Path] = []
+        for root in _artifact_roots:
+            candidates.append(root / "output_audio" / lang / f"{lesson_slug}_narration" / filename)
+            candidates.append(root / "output_audio" / f"{lesson_slug}_narration{suffix}" / filename)
+        return candidates
+
+    def _resolve_path(local_path: str, object_key: str = "") -> Path:
         """Try absolute path first; fall back to resolving relative to current artifacts dir."""
         p = Path(local_path)
         if p.exists():
@@ -314,13 +334,19 @@ def upload_assets_to_r2(data: dict) -> dict:
         try:
             idx = next(i for i, part in enumerate(parts) if part.lower() == "artifacts")
         except StopIteration:
+            for candidate in _narration_local_candidates_from_key(object_key):
+                if candidate.exists():
+                    return candidate
             return p
         tail = Path(*parts[idx + 1:])
-        for candidate in (
-            _artifacts_dir / tail,
-            _artifacts_dir / "integrated_chinese" / tail,
-            _artifacts_dir / "new_concept_english" / tail,
-        ):
+        candidates = []
+        for root in _artifact_roots:
+            candidates.append(root / tail)
+            candidates.append(root / "integrated_chinese" / tail)
+            candidates.append(root / "new_concept_english" / tail)
+        candidates.extend(_narration_local_candidates_from_key(object_key))
+
+        for candidate in candidates:
             if candidate.exists():
                 return candidate
         return p  # return original (non-existent) path so caller can report it
@@ -328,7 +354,7 @@ def upload_assets_to_r2(data: dict) -> dict:
     def _upload(local_path: str, object_key: str, content_type: str, label: str) -> str:
         """上传单个文件，返回上传成功后的 object_key（失败返回原 object_key）。"""
         nonlocal uploaded, failed
-        p = _resolve_path(local_path)
+        p = _resolve_path(local_path, object_key)
         if not p.exists():
             print(f"  ⚠️ 文件不存在，跳过: {p.name}")
             return object_key
@@ -499,6 +525,7 @@ def _normalize_db_ids(
     sync_context = sync_context or {}
     sync_pipeline = str(sync_context.get("pipeline") or "").strip().lower()
     sync_lang = str(sync_context.get("lang") or "").strip().lower()
+    override_course_id = _int_from_digits(sync_context.get("course_id"))
     localization = data.get("localization", {}) if isinstance(data.get("localization"), dict) else {}
     target_lang = str(localization.get("target_lang") or sync_lang or "").strip().lower()
     course_slug = str(metadata.get("course_slug") or metadata.get("course_id") or "").strip()
@@ -513,7 +540,20 @@ def _normalize_db_ids(
         )
     )
 
-    if (
+    if override_course_id is not None:
+        old_course_id = metadata.get("course_id")
+        course_id = override_course_id
+        if old_course_id not in {None, ""} and _int_from_digits(old_course_id) != course_id:
+            metadata.setdefault("source_course_id", old_course_id)
+        if sync_context.get("course_slug"):
+            metadata["course_slug"] = str(sync_context["course_slug"])
+        if sync_context.get("target_language"):
+            metadata["target_language"] = str(sync_context["target_language"])
+        if sync_context.get("source_language"):
+            metadata["source_language"] = str(sync_context["source_language"])
+        if sync_context.get("support_language"):
+            metadata["support_language"] = str(sync_context["support_language"])
+    elif (
         pipeline_id == "new_concept_english"
         or course_slug in {"new_concept_english_1", "new-concept-english-1"}
     ):

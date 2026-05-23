@@ -18,6 +18,8 @@ from services.course_enrollment_service import (
     MAX_ACTIVE_COURSES,
     PAUSED_COURSE_STATUS,
 )
+from services.maintenance.course_reset import build_request, execute_reset, preview_reset
+from services.maintenance.course_sync import build_sync_request, execute_sync, preview_sync
 
 # ── Vertex AI Service Account：支持部署环境通过 JSON 内容写临时文件 ──────────
 _sa_json = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON", "").strip()
@@ -106,6 +108,9 @@ def _safe_lesson_digits(lesson_id: str) -> str:
         raise HTTPException(status_code=400, detail="Invalid lesson id")
     return str(int(digits))
 
+def _safe_lesson_slug(lesson_id: str) -> str:
+    return f"lesson{_safe_lesson_digits(lesson_id).zfill(3)}"
+
 @app.get("/media/pinyin/{filename}")
 async def get_pinyin_audio(filename: str):
     """Serve pinyin audio: local file first (dev), then R2 presigned URL (prod)."""
@@ -120,6 +125,61 @@ async def get_pinyin_audio(filename: str):
         return RedirectResponse(url=url, status_code=302)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/dev/lesson-artifact-preview")
+async def get_lesson_artifact_preview(
+    pipeline_id: str = "minna_no_nihongo",
+    lang: str = "zh",
+    lesson_id: str = "001",
+):
+    """Dev-only: read a generated lesson artifact without syncing it to DB/R2."""
+    pipeline = get_media_pipeline(pipeline_id)
+    safe_lesson_id = _safe_lesson_digits(lesson_id)
+    lesson_slug = f"lesson{safe_lesson_id.zfill(3)}"
+    safe_lang = "".join(ch for ch in str(lang or "") if ch.isalnum() or ch in {"-", "_"})
+    if not safe_lang:
+        raise HTTPException(status_code=400, detail="Invalid lang")
+
+    artifact_root = pipeline.artifact_root(_BACKEND_DIR)
+    candidates = [
+        artifact_root / "output_json" / safe_lang / f"{lesson_slug}_data.json",
+        artifact_root / "synced_json" / safe_lang / f"{lesson_slug}_data.json",
+        artifact_root / "output_json" / safe_lang / f"lesson{safe_lesson_id}_data.json",
+        artifact_root / "synced_json" / safe_lang / f"lesson{safe_lesson_id}_data.json",
+    ]
+    artifact_path = next((path for path in candidates if path.exists()), None)
+    if not artifact_path:
+        searched = [str(path.relative_to(_BACKEND_DIR)) for path in candidates]
+        raise HTTPException(
+            status_code=404,
+            detail={"message": "Lesson artifact not found", "searched": searched},
+        )
+
+    try:
+        with artifact_path.open(encoding="utf-8") as f:
+            lesson_data = json.load(f)
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=500, detail=f"Invalid JSON artifact: {e}") from e
+
+    deck = lesson_data.get("teaching_slide_deck")
+    if not isinstance(deck, dict):
+        render_plan = lesson_data.get("video_render_plan")
+        if isinstance(render_plan, dict):
+            deck = render_plan.get("teaching_slide_deck")
+    if not isinstance(deck, dict):
+        explanation = lesson_data.get("video_render_plan", {}).get("explanation")
+        if isinstance(explanation, dict):
+            deck = explanation.get("teaching_slide_deck")
+
+    return {
+        "pipeline_id": pipeline.pipeline_id,
+        "lang": safe_lang,
+        "lesson_id": int(safe_lesson_id),
+        "lesson_slug": lesson_slug,
+        "artifact_path": str(artifact_path.relative_to(_BACKEND_DIR)),
+        "lesson_content": lesson_data,
+        "teaching_slide_deck": deck if isinstance(deck, dict) else None,
+    }
 
 @app.get("/media/intro/{filename}")
 async def get_intro_audio(filename: str):
@@ -140,16 +200,16 @@ async def get_intro_audio(filename: str):
 async def get_teaching_slide(pipeline_id: str, lang: str, lesson_id: str, filename: str):
     """Serve static teaching slide images: local file first, then R2."""
     safe_filename = _safe_asset_filename(filename, {".svg", ".webp", ".png", ".jpg", ".jpeg"})
-    safe_lesson_id = _safe_lesson_digits(lesson_id)
+    safe_lesson_slug = _safe_lesson_slug(lesson_id)
     pipeline = get_media_pipeline(pipeline_id)
     artifact_root = pipeline.artifact_root(_BACKEND_DIR)
-    local_file = artifact_root / "output_slides" / lang / f"lesson{safe_lesson_id}" / safe_filename
+    local_file = artifact_root / "output_slides" / lang / safe_lesson_slug / safe_filename
     if local_file.exists():
         media_type = "image/svg+xml" if local_file.suffix.lower() == ".svg" else None
         return FileResponse(str(local_file), media_type=media_type)
     if not _pinyin_storage:
         raise HTTPException(status_code=404, detail=f"{safe_filename} not found locally and storage not configured")
-    object_key = f"{pipeline.target_language}/slides/{lang}/lesson{safe_lesson_id}/{safe_filename}"
+    object_key = f"{pipeline.target_language}/slides/{lang}/{safe_lesson_slug}/{safe_filename}"
     try:
         url = _pinyin_storage.resolve_url(object_key)
         return RedirectResponse(url=url, status_code=302)
@@ -160,16 +220,20 @@ async def get_teaching_slide(pipeline_id: str, lang: str, lesson_id: str, filena
 async def get_teaching_audio(pipeline_id: str, lang: str, lesson_id: str, filename: str):
     """Serve teaching narration audio used by static slide decks."""
     safe_filename = _safe_asset_filename(filename, {".mp3", ".wav", ".m4a"})
-    safe_lesson_id = _safe_lesson_digits(lesson_id)
+    safe_lesson_slug = _safe_lesson_slug(lesson_id)
     pipeline = get_media_pipeline(pipeline_id)
     artifact_root = pipeline.artifact_root(_BACKEND_DIR)
     suffix = f"_{lang}" if lang != "en" else ""
-    local_file = artifact_root / "output_audio" / f"lesson{safe_lesson_id}_narration{suffix}" / safe_filename
-    if local_file.exists():
+    local_candidates = [
+        artifact_root / "output_audio" / lang / f"{safe_lesson_slug}_narration" / safe_filename,
+        artifact_root / "output_audio" / f"{safe_lesson_slug}_narration{suffix}" / safe_filename,
+    ]
+    local_file = next((path for path in local_candidates if path.exists()), None)
+    if local_file:
         return FileResponse(str(local_file), media_type="audio/mpeg")
     if not _pinyin_storage:
         raise HTTPException(status_code=404, detail=f"{safe_filename} not found locally and storage not configured")
-    object_key = f"{pipeline.target_language}/audio/narration/{lang}/lesson{safe_lesson_id}/{safe_filename}"
+    object_key = f"{pipeline.target_language}/audio/narration/{lang}/{safe_lesson_slug}/{safe_filename}"
     try:
         url = _pinyin_storage.resolve_url(object_key)
         return RedirectResponse(url=url, status_code=302)
@@ -189,6 +253,110 @@ class EnrollReq(BaseModel):
     user_id: str
     course_id: int
     action: str = "pause"
+
+
+class DevCourseResetRequest(BaseModel):
+    pipeline: str = "minna_no_nihongo"
+    course_id: int = 303
+    lang: str = "zh"
+    actions: List[str]
+    lesson_start: int | None = None
+    lesson_end: int | None = None
+    dry_run: bool = True
+    confirm: bool = False
+    confirm_code: str = ""
+
+
+class DevCourseSyncRequest(BaseModel):
+    pipeline: str = "minna_no_nihongo"
+    course_id: int = 303
+    lang: str = "zh"
+    lesson_start: int | None = None
+    lesson_end: int | None = None
+    dry_run: bool = True
+    confirm: bool = False
+    confirm_code: str = ""
+    include_synced: bool = True
+    upload_assets: bool = True
+
+
+def _dev_reset_request(payload: DevCourseResetRequest, *, dry_run: bool):
+    try:
+        return build_request(
+            pipeline=payload.pipeline,
+            course_id=payload.course_id,
+            lang=payload.lang,
+            actions=payload.actions,
+            lesson_start=payload.lesson_start,
+            lesson_end=payload.lesson_end,
+            dry_run=dry_run,
+            confirm=payload.confirm,
+            confirm_code=payload.confirm_code,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+
+def _dev_sync_request(payload: DevCourseSyncRequest, *, dry_run: bool):
+    try:
+        return build_sync_request(
+            pipeline=payload.pipeline,
+            course_id=payload.course_id,
+            lang=payload.lang,
+            lesson_start=payload.lesson_start,
+            lesson_end=payload.lesson_end,
+            dry_run=dry_run,
+            confirm=payload.confirm,
+            confirm_code=payload.confirm_code,
+            include_synced=payload.include_synced,
+            upload_assets=payload.upload_assets,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+
+@app.post("/dev/course-reset/preview")
+async def dev_course_reset_preview(payload: DevCourseResetRequest):
+    """Dev-only: preview course-scoped reset impact without mutating DB/R2/local files."""
+    req = _dev_reset_request(payload, dry_run=True)
+    try:
+        return preview_reset(req)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@app.post("/dev/course-sync/preview")
+async def dev_course_sync_preview(payload: DevCourseSyncRequest):
+    """Dev-only: preview generated lesson JSON sync impact without DB/R2 mutation."""
+    req = _dev_sync_request(payload, dry_run=True)
+    try:
+        return preview_sync(req)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@app.post("/dev/course-sync/execute")
+async def dev_course_sync_execute(payload: DevCourseSyncRequest):
+    """Dev-only: execute a confirmed course sync."""
+    req = _dev_sync_request(payload, dry_run=False)
+    try:
+        return execute_sync(req)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@app.post("/dev/course-reset/execute")
+async def dev_course_reset_execute(payload: DevCourseResetRequest):
+    """Dev-only: execute a confirmed course-scoped reset action."""
+    req = _dev_reset_request(payload, dry_run=False)
+    try:
+        return execute_reset(req)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 # ==========================================
 # 2. 课程管理系统 (核心业务：保留)

@@ -85,10 +85,16 @@ export default function LineFocusTemplate({ segment }) {
     const gloss     = heroContent?.focus_gloss_en || segment?.on_screen_text?.focus_gloss_en;
 
     // Subtitle: use full narration text, split into sentences for future animation
-    const narrationText = segment?.narration_track?.subtitle_en || '';
+    const narrationText =
+        segment?.narration_track?.script ||
+        segment?.narration_track?.subtitle_en ||
+        segment?.narration_track?.subtitle_zh ||
+        '';
 
     // Adaptive font size based on Chinese character count
     const cnCount = [...(focusText || '')].filter(c => /[一-鿿]/.test(c)).length;
+    const pinyinSyllables = extractPinyinSyllables(pinyin || '');
+    const showReadingLine = !!pinyin && pinyinSyllables.length !== cnCount;
     const hasBottom = highlightWords.length > 0 || !!quickTake;
     const glossLength = String(gloss || '').length;
     const quickTakeLength = String(quickTake || '').length;
@@ -150,7 +156,19 @@ export default function LineFocusTemplate({ segment }) {
                     justifyContent: 'flex-start',
                     minHeight: 0,
                 }}>
-                    <RubyLine text={focusText} pinyin={pinyin} charSize={charSize} pinyinSize={pinyinSize} />
+                    {showReadingLine && (
+                        <div style={{
+                            marginBottom: 10,
+                            fontSize: Math.max(24, Math.round(charSize * 0.34)),
+                            lineHeight: 1.25,
+                            fontWeight: 800,
+                            color: 'rgba(244,240,230,0.54)',
+                            letterSpacing: '0.02em',
+                        }}>
+                            {pinyin}
+                        </div>
+                    )}
+                    <RubyLine text={focusText} pinyin={showReadingLine ? '' : pinyin} charSize={charSize} pinyinSize={pinyinSize} />
                     {gloss && (
                         <div style={{
                             marginTop: roomyLongLine ? 28 : 22, marginLeft: 4,
