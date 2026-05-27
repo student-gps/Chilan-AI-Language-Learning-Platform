@@ -2,12 +2,13 @@ import os
 import re
 import sys
 import time  # 🌟 引入 time 用于手动记录 Tier 1 耗时
+import hashlib
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel, Field
 import edge_tts
 from psycopg2.extras import RealDictCursor
@@ -33,6 +34,7 @@ from services.storage.media_storage import get_media_storage
 from config.env import get_env
 
 router = APIRouter(tags=["Study Flow"])
+TTS_CACHE_DIR = Path(__file__).resolve().parent.parent / "tts_cache"
 
 # --- ⚙️ 初始化全局单例 ---
 API_KEY = get_env("LLM_GEMINI_API_KEY")
@@ -775,14 +777,31 @@ async def generate_tts(text: str, language: str = Query("zh")):
     if lang.startswith("en"):
         voice = get_env("TTS_EDGE_VOICE_EN", default="en-US-AriaNeural")
         rate = get_env("TTS_EDGE_RATE_EN", default="+0%")
+    elif lang.startswith("ja") or lang.startswith("jp"):
+        voice = get_env("TTS_EDGE_VOICE_JA", default="ja-JP-NanamiNeural")
+        rate = get_env("TTS_EDGE_RATE_JA", default="-5%")
     else:
         voice = get_env("TTS_EDGE_VOICE", default="zh-CN-XiaoxiaoNeural")
         rate = get_env("TTS_EDGE_RATE", default="-12%")
-    communicate = edge_tts.Communicate(text, voice, rate=rate) 
-    async def audio_stream():
-        async for chunk in communicate.stream():
-            if chunk["type"] == "audio": yield chunk["data"]
-    return StreamingResponse(audio_stream(), media_type="audio/mpeg")
+
+    cache_input = f"{lang}|{voice}|{rate}|{text}".encode("utf-8")
+    cache_key = hashlib.sha256(cache_input).hexdigest()
+    cache_dir = TTS_CACHE_DIR / re.sub(r"[^a-z0-9_-]+", "_", lang)
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_path = cache_dir / f"{cache_key}.mp3"
+    if cache_path.exists() and cache_path.stat().st_size > 0:
+        return FileResponse(str(cache_path), media_type="audio/mpeg")
+
+    tmp_path = cache_path.with_name(f"{cache_key}.{os.getpid()}.{int(time.time() * 1000)}.tmp")
+    try:
+        communicate = edge_tts.Communicate(text, voice, rate=rate)
+        await communicate.save(str(tmp_path))
+        tmp_path.replace(cache_path)
+        return FileResponse(str(cache_path), media_type="audio/mpeg")
+    except Exception:
+        if tmp_path.exists():
+            tmp_path.unlink(missing_ok=True)
+        raise
 
 # ==========================================
 # 接口 6: 完成课程，推进总体进度

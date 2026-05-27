@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { AlertTriangle, CheckCircle2, Database, FileJson, HardDrive, Loader2, RotateCcw, Search, Trash2 } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Clipboard, Database, FileJson, HardDrive, Loader2, RotateCcw, Search, Trash2 } from 'lucide-react';
 import apiClient from '../api/apiClient';
 
 const ACTIONS = [
@@ -69,6 +69,8 @@ export default function CourseMaintenance() {
     const [loading, setLoading] = useState('');
     const [courses, setCourses] = useState([]);
     const [coursesLoading, setCoursesLoading] = useState(false);
+    const [logPath, setLogPath] = useState('');
+    const [logDir, setLogDir] = useState('');
 
     const canExecute = report && !loading;
 
@@ -131,10 +133,15 @@ export default function CourseMaintenance() {
         }
         setLoading(mode);
         setError('');
+        setLogPath('');
+        setLogDir('');
         try {
             const endpoint = mode === 'preview' ? '/dev/course-reset/preview' : '/dev/course-reset/execute';
             const res = await apiClient.post(endpoint, mode === 'execute' ? { ...payload, confirm: true } : payload);
-            setReport(res.data || null);
+            const data = res.data || null;
+            setReport(data);
+            if (data?._dev_log?.log_path) setLogPath(data._dev_log.log_path);
+            if (data?._dev_log?.log_dir) setLogDir(data._dev_log.log_dir);
         } catch (err) {
             console.error('course maintenance failed:', err);
             const detail = err?.response?.data?.detail;
@@ -149,6 +156,14 @@ export default function CourseMaintenance() {
     const localEntries = report?.local?.entries || [];
     const restoreFiles = report?.restore_synced?.files || [];
     const warnings = report?.warnings || [];
+    const copyText = async (text) => {
+        if (!text) return;
+        try {
+            await navigator.clipboard.writeText(text);
+        } catch {
+            console.info(text);
+        }
+    };
 
     return (
         <main className="min-h-screen bg-slate-50 px-5 py-24">
@@ -256,6 +271,36 @@ export default function CourseMaintenance() {
                             <div className="rounded-2xl border border-red-100 bg-red-50 px-5 py-4 text-sm font-bold text-red-700">
                                 {error}
                             </div>
+                        )}
+
+                        {logPath && (
+                            <Section title="控制台日志文件">
+                                <div className="space-y-3">
+                                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-xs font-bold text-slate-700">
+                                        {logPath}
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => copyText(logPath)}
+                                            className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 transition hover:border-slate-400"
+                                        >
+                                            <Clipboard size={14} />
+                                            复制日志路径
+                                        </button>
+                                        {logDir && (
+                                            <button
+                                                type="button"
+                                                onClick={() => copyText(logDir)}
+                                                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 transition hover:border-slate-400"
+                                            >
+                                                <Clipboard size={14} />
+                                                复制日志目录
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            </Section>
                         )}
 
                         {!report && !error && (

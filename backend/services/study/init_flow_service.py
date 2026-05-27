@@ -288,6 +288,9 @@ def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None, le
             "mode": "teaching",
             "data": {
                 "lesson_content": {
+                    "pipeline_id": lesson_metadata.get("pipeline_id") or lesson_metadata.get("course_slug"),
+                    "target_language": lesson_metadata.get("target_language"),
+                    "source_language": lesson_metadata.get("source_language") or lesson_metadata.get("support_language"),
                     "lesson_metadata": lesson_metadata,
                     "course_content": course_content,
                     "teaching_video": teaching_video,

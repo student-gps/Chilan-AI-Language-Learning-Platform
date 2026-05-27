@@ -29,6 +29,7 @@ export const buildLessonAudioUrl = (lessonAudioAssets, apiBase) => {
 
 export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl, apiBase }) {
     const [playingKey, setPlayingKey] = useState(null);
+    const [audioLoadingKey, setAudioLoadingKey] = useState(null);
     const [lessonAudioDuration, setLessonAudioDuration] = useState(0);
     const [lessonAudioCurrentTime, setLessonAudioCurrentTime] = useState(0);
     const [isLessonAudioPlaying, setIsLessonAudioPlaying] = useState(false);
@@ -74,6 +75,7 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
             audioRef.current = null;
         }
         setPlayingKey(null);
+        setAudioLoadingKey(null);
     }, []);
 
     const stopLessonAudio = useCallback(() => {
@@ -170,6 +172,10 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
     const playFromUrl = useCallback(async (url, key) => {
         if (!url) return;
 
+        if (audioLoadingKey === key) {
+            return;
+        }
+
         if (playingKey === key) {
             stopCurrentAudio();
             return;
@@ -182,6 +188,18 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
         claimGlobalAudio(audio);
         audioRef.current = audio;
         setPlayingKey(key);
+        setAudioLoadingKey(key);
+
+        audio.onplaying = () => {
+            if (audioRef.current === audio) {
+                setAudioLoadingKey(null);
+            }
+        };
+        audio.oncanplay = () => {
+            if (audioRef.current === audio) {
+                setAudioLoadingKey(null);
+            }
+        };
 
         audio.onpause = () => {
             if (audioRef.current === audio) {
@@ -189,6 +207,7 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
             }
             releaseGlobalAudio(audio);
             setPlayingKey(null);
+            setAudioLoadingKey(null);
         };
         audio.onended = () => {
             if (audioRef.current === audio) {
@@ -196,6 +215,7 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
             }
             releaseGlobalAudio(audio);
             setPlayingKey(null);
+            setAudioLoadingKey(null);
         };
         audio.onerror = () => {
             if (audioRef.current === audio) {
@@ -203,6 +223,7 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
             }
             releaseGlobalAudio(audio);
             setPlayingKey(null);
+            setAudioLoadingKey(null);
         };
 
         try {
@@ -214,12 +235,17 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
             }
             releaseGlobalAudio(audio);
             setPlayingKey(null);
+            setAudioLoadingKey(null);
         }
-    }, [playingKey, stopCurrentAudio, stopLessonAudio]);
+    }, [audioLoadingKey, playingKey, stopCurrentAudio, stopLessonAudio]);
 
-    const playTtsFallback = useCallback((text, key) => {
+    const playTtsFallback = useCallback((text, key, language = 'zh') => {
         if (!text) return;
-        const url = `${apiBase}/study/tts?text=${encodeURIComponent(text)}`;
+        const params = new URLSearchParams({
+            text,
+            language,
+        });
+        const url = `${apiBase}/study/tts?${params.toString()}`;
         playFromUrl(url, key);
     }, [apiBase, playFromUrl]);
 
@@ -313,6 +339,7 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
 
     return {
         playingKey,
+        audioLoadingKey,
         lessonAudioDuration,
         lessonAudioCurrentTime,
         isLessonAudioPlaying,

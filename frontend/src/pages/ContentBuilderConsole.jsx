@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { FileCode2, Loader2, Play, Search, Square, TerminalSquare } from 'lucide-react';
+import { Clipboard, FileCode2, Loader2, Play, Search, Square, TerminalSquare } from 'lucide-react';
 import apiClient from '../api/apiClient';
 
 const API_BASE = import.meta.env.VITE_APP_API_BASE_URL || '';
@@ -46,6 +46,8 @@ export default function ContentBuilderConsole() {
     const [report, setReport] = useState(null);
     const [logs, setLogs] = useState([]);
     const [previewUrl, setPreviewUrl] = useState('');
+    const [logPath, setLogPath] = useState('');
+    const [logDir, setLogDir] = useState('');
     const abortRef = useRef(null);
 
     const payload = useMemo(() => ({
@@ -98,6 +100,8 @@ export default function ContentBuilderConsole() {
         setError('');
         setReport(null);
         setLogs([]);
+        setLogPath('');
+        setLogDir('');
         addLog({ type: 'preview', message: '正在生成运行计划...' });
         try {
             const res = await apiClient.post('/dev/content-builder/preview', payload);
@@ -124,6 +128,8 @@ export default function ContentBuilderConsole() {
         setError('');
         setLogs([]);
         setPreviewUrl('');
+        setLogPath('');
+        setLogDir('');
         addLog({ type: 'start', message: '正在连接 content builder 日志流...' });
         try {
             const res = await fetch(`${API_BASE}/dev/content-builder/run-stream`, {
@@ -148,6 +154,8 @@ export default function ContentBuilderConsole() {
                     if (!line.trim()) continue;
                     const event = JSON.parse(line);
                     addLog(event);
+                    if (event.log_path) setLogPath(event.log_path);
+                    if (event.log_dir) setLogDir(event.log_dir);
                     if (event.plan) setReport(event.plan);
                     if (event.preview_url) setPreviewUrl(event.preview_url);
                     if (event.type === 'fatal') setError(event.message || '运行失败。');
@@ -174,6 +182,15 @@ export default function ContentBuilderConsole() {
 
     const commands = report?.commands || [];
     const canRun = !loading;
+    const copyText = async (text) => {
+        if (!text) return;
+        try {
+            await navigator.clipboard.writeText(text);
+            addLog({ type: 'copied', message: '已复制路径。' });
+        } catch {
+            addLog({ type: 'copied', message: text });
+        }
+    };
 
     return (
         <main className="min-h-screen bg-slate-50 px-5 py-24">
@@ -259,6 +276,36 @@ export default function ContentBuilderConsole() {
 
                     <section className="space-y-5">
                         {error && <div className="rounded-2xl border border-red-100 bg-red-50 px-5 py-4 text-sm font-bold text-red-700">{error}</div>}
+
+                        {logPath && (
+                            <Section title="控制台日志文件">
+                                <div className="space-y-3">
+                                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-xs font-bold text-slate-700">
+                                        {logPath}
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => copyText(logPath)}
+                                            className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 transition hover:border-slate-400"
+                                        >
+                                            <Clipboard size={14} />
+                                            复制日志路径
+                                        </button>
+                                        {logDir && (
+                                            <button
+                                                type="button"
+                                                onClick={() => copyText(logDir)}
+                                                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 transition hover:border-slate-400"
+                                            >
+                                                <Clipboard size={14} />
+                                                复制日志目录
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            </Section>
+                        )}
 
                         {!!logs.length && (
                             <Section title="日志">
