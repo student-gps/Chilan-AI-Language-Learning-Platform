@@ -18,6 +18,7 @@ from services.course_enrollment_service import (
     MAX_ACTIVE_COURSES,
     PAUSED_COURSE_STATUS,
 )
+from services.maintenance.dev_logs import make_dev_log_path, stream_events_with_log
 
 # ── Vertex AI Service Account：支持部署环境通过 JSON 内容写临时文件 ──────────
 _sa_json = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON", "").strip()
@@ -253,6 +254,17 @@ class EnrollReq(BaseModel):
     action: str = "pause"
 
 
+def get_lesson_id_bounds(cur, course_id: int) -> tuple[int, int] | None:
+    cur.execute(
+        "SELECT MIN(lesson_id), MAX(lesson_id) FROM lessons WHERE course_id = %s",
+        (course_id,),
+    )
+    first_lesson_id, last_lesson_id = cur.fetchone()
+    if first_lesson_id is None or last_lesson_id is None:
+        return None
+    return int(first_lesson_id), int(last_lesson_id)
+
+
 class DevCourseResetRequest(BaseModel):
     pipeline: str = "minna_no_nihongo"
     course_id: int = 303
@@ -276,6 +288,25 @@ class DevCourseSyncRequest(BaseModel):
     confirm_code: str = ""
     include_synced: bool = True
     upload_assets: bool = True
+    render_lesson_audio: bool = True
+
+
+class DevContentBuilderRequest(BaseModel):
+    pipeline: str = "minna_no_nihongo"
+    lang: str = "zh"
+    lesson_start: int | None = 1
+    lesson_end: int | None = 1
+    run_stage1: bool = True
+    run_stage2: bool = True
+    stage2_mode: str = "full"
+    force_stage1: bool = True
+    force_narration: bool = True
+    force_slides: bool = True
+    refresh_render_plan: bool = False
+    lesson_audio_metadata_only: bool = False
+    only_slide: int | None = None
+    confirm: bool = False
+    confirm_code: str = ""
 
 
 def _dev_reset_request(payload: DevCourseResetRequest, *, dry_run: bool):
@@ -310,6 +341,7 @@ def _dev_sync_request(payload: DevCourseSyncRequest, *, dry_run: bool):
             confirm_code=payload.confirm_code,
             include_synced=payload.include_synced,
             upload_assets=payload.upload_assets,
+            render_lesson_audio=payload.render_lesson_audio,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e)) from e
@@ -344,13 +376,120 @@ def _load_course_sync_tools():
     return build_sync_request, execute_sync, iter_sync_progress, preview_sync, validate_sync_execute_request
 
 
+def _load_content_builder_tools():
+    try:
+        from services.maintenance.content_builder_runner import (
+            build_content_builder_request,
+            iter_content_builder_progress,
+            preview_content_builder,
+            validate_content_builder_execution,
+        )
+    except ModuleNotFoundError as exc:
+        _dev_tool_unavailable(exc)
+    return (
+        build_content_builder_request,
+        iter_content_builder_progress,
+        preview_content_builder,
+        validate_content_builder_execution,
+    )
+
+
+def _dev_content_builder_request(payload: DevContentBuilderRequest):
+    build_content_builder_request, _, _, _ = _load_content_builder_tools()
+    try:
+        return build_content_builder_request(
+            pipeline=payload.pipeline,
+            lang=payload.lang,
+            lesson_start=payload.lesson_start,
+            lesson_end=payload.lesson_end,
+            run_stage1=payload.run_stage1,
+            run_stage2=payload.run_stage2,
+            stage2_mode=payload.stage2_mode,
+            force_stage1=payload.force_stage1,
+            force_narration=payload.force_narration,
+            force_slides=payload.force_slides,
+            refresh_render_plan=payload.refresh_render_plan,
+            lesson_audio_metadata_only=payload.lesson_audio_metadata_only,
+            only_slide=payload.only_slide,
+            confirm=payload.confirm,
+            confirm_code=payload.confirm_code,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+
+@app.post("/dev/content-builder/preview")
+async def dev_content_builder_preview(payload: DevContentBuilderRequest):
+    """Dev-only: preview the content-builder commands that would run."""
+    req = _dev_content_builder_request(payload)
+    _, _, preview_content_builder, _ = _load_content_builder_tools()
+    try:
+        return preview_content_builder(req)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@app.post("/dev/content-builder/run-stream")
+async def dev_content_builder_run_stream(payload: DevContentBuilderRequest):
+    """Dev-only: run selected content-builder stages and stream logs as NDJSON."""
+    req = _dev_content_builder_request(payload)
+    _, iter_content_builder_progress, _, validate_content_builder_execution = _load_content_builder_tools()
+    try:
+        validate_content_builder_execution(req)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+    def event_stream():
+        log_path = make_dev_log_path(
+            kind="content_builder",
+            pipeline=req.pipeline,
+            lang=req.lang,
+            lesson_start=req.lesson_start,
+            lesson_end=req.lesson_end,
+        )
+
+        def events():
+            try:
+                for event in iter_content_builder_progress(req):
+                    yield event
+            except Exception as e:
+                yield {"type": "fatal", "message": str(e)}
+
+        try:
+            for event in stream_events_with_log(
+                events(),
+                log_path=log_path,
+                start_message=f"日志文件: {log_path}",
+            ):
+                yield json.dumps(event, ensure_ascii=False) + "\n"
+        except Exception as e:
+            yield json.dumps({"type": "fatal", "message": str(e)}, ensure_ascii=False) + "\n"
+
+    return StreamingResponse(event_stream(), media_type="application/x-ndjson")
+
+
 @app.post("/dev/course-reset/preview")
 async def dev_course_reset_preview(payload: DevCourseResetRequest):
     """Dev-only: preview course-scoped reset impact without mutating DB/R2/local files."""
     req = _dev_reset_request(payload, dry_run=True)
     _, _, preview_reset = _load_course_reset_tools()
     try:
-        return preview_reset(req)
+        report = preview_reset(req)
+        log_path = make_dev_log_path(
+            kind="course_reset_preview",
+            pipeline=req.pipeline,
+            lang=req.lang,
+            course_id=req.course_id,
+            lesson_start=req.lesson_start,
+            lesson_end=req.lesson_end,
+        )
+        list(stream_events_with_log(
+            [{"type": "report", "message": "删除 / 回退预览完成。"}],
+            log_path=log_path,
+            start_message=f"日志文件: {log_path}",
+        ))
+        report["_dev_log"] = {"log_path": str(log_path), "log_dir": str(log_path.parent)}
+        return report
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) from e
 
@@ -390,8 +529,28 @@ async def dev_course_sync_execute_stream(payload: DevCourseSyncRequest):
         raise HTTPException(status_code=400, detail=str(e)) from e
 
     def event_stream():
+        log_path = make_dev_log_path(
+            kind="course_sync",
+            pipeline=req.pipeline,
+            lang=req.lang,
+            course_id=req.course_id,
+            lesson_start=req.lesson_start,
+            lesson_end=req.lesson_end,
+        )
+
+        def events():
+            try:
+                for event in iter_sync_progress(req):
+                    yield event
+            except Exception as e:
+                yield {"type": "fatal", "message": str(e)}
+
         try:
-            for event in iter_sync_progress(req):
+            for event in stream_events_with_log(
+                events(),
+                log_path=log_path,
+                start_message=f"日志文件: {log_path}",
+            ):
                 yield json.dumps(event, ensure_ascii=False) + "\n"
         except Exception as e:
             yield json.dumps({"type": "fatal", "message": str(e)}, ensure_ascii=False) + "\n"
@@ -404,11 +563,36 @@ async def dev_course_reset_execute(payload: DevCourseResetRequest):
     """Dev-only: execute a confirmed course-scoped reset action."""
     req = _dev_reset_request(payload, dry_run=False)
     _, execute_reset, _ = _load_course_reset_tools()
+    log_path = make_dev_log_path(
+        kind="course_reset",
+        pipeline=req.pipeline,
+        lang=req.lang,
+        course_id=req.course_id,
+        lesson_start=req.lesson_start,
+        lesson_end=req.lesson_end,
+    )
     try:
-        return execute_reset(req)
+        report = execute_reset(req)
+        list(stream_events_with_log(
+            [{"type": "complete", "message": "删除 / 回退执行完成。"}],
+            log_path=log_path,
+            start_message=f"日志文件: {log_path}",
+        ))
+        report["_dev_log"] = {"log_path": str(log_path), "log_dir": str(log_path.parent)}
+        return report
     except ValueError as e:
+        list(stream_events_with_log(
+            [{"type": "fatal", "message": str(e)}],
+            log_path=log_path,
+            start_message=f"日志文件: {log_path}",
+        ))
         raise HTTPException(status_code=400, detail=str(e)) from e
     except Exception as e:
+        list(stream_events_with_log(
+            [{"type": "fatal", "message": str(e)}],
+            log_path=log_path,
+            start_message=f"日志文件: {log_path}",
+        ))
         raise HTTPException(status_code=500, detail=str(e)) from e
 
 # ==========================================
@@ -493,11 +677,33 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
                 (req.user_id, req.course_id, ACTIVE_COURSE_STATUS)
             )
         
-        # 🌟 关键：初始化该课程的“课时进度”记录，从 100 开始（即下一课是 101）
+        lesson_bounds = get_lesson_id_bounds(cur, req.course_id)
+        initial_completed_lesson_id = 0
+        last_lesson_id = None
+        if lesson_bounds:
+            first_lesson_id, last_lesson_id = lesson_bounds
+            initial_completed_lesson_id = max(first_lesson_id - 1, 0)
+
+        # 初始化该课程的“课时进度”记录：按课程真实 lesson_id 起点计算。
+        # 中文 Integrated Chinese 从 101 起步会得到 100；日语 MNN 从 1 起步会得到 0。
         cur.execute("""
             INSERT INTO user_progress_of_lessons (user_id, course_id, last_completed_lesson_id)
-            VALUES (%s, %s, 100) ON CONFLICT DO NOTHING
-        """, (req.user_id, req.course_id))
+            VALUES (%s, %s, %s) ON CONFLICT DO NOTHING
+        """, (req.user_id, req.course_id, initial_completed_lesson_id))
+
+        if last_lesson_id is not None:
+            cur.execute(
+                """
+                UPDATE user_progress_of_lessons
+                SET last_completed_lesson_id = %s,
+                    practice_question_index = 0,
+                    practice_question_updated_at = NULL
+                WHERE user_id::text = %s
+                  AND course_id = %s
+                  AND COALESCE(last_completed_lesson_id, 0) > %s
+                """,
+                (initial_completed_lesson_id, req.user_id, req.course_id, last_lesson_id),
+            )
         
         db.commit()
         return {"status": "success"}

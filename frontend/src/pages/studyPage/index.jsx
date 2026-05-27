@@ -50,6 +50,7 @@ export default function StudyPage() {
     const [mode, setMode] = useState('loading'); // loading, teaching, practice, review, completed, lesson_finished
     const [studyData, setStudyData] = useState(null);
     const [courseInfo, setCourseInfo] = useState(null);
+    const [isCourseEnrolled, setIsCourseEnrolled] = useState(false);
     const [showPinyinBtn, setShowPinyinBtn] = useState(false);
     const [pinyinPopoverOpen, setPinyinPopoverOpen] = useState(false);
 
@@ -59,9 +60,10 @@ export default function StudyPage() {
         try {
             const initParams = { course_id: courseId, user_id: userId };
             if (lessonId) initParams.lesson_id = lessonId;
-            const [studyRes, coursesRes] = await Promise.all([
+            const [studyRes, coursesRes, myCoursesRes] = await Promise.all([
                 apiClient.get(`/study/init`, { params: initParams }),
                 apiClient.get(`/courses`),
+                apiClient.get(`/my-courses/${userId}`).catch(() => ({ data: [] })),
             ]);
 
             const { mode: responseMode, data } = studyRes.data;
@@ -69,7 +71,9 @@ export default function StudyPage() {
 
             // 判断目标语言是否为中文，决定是否显示拼音入口
             const course = (coursesRes.data || []).find(c => String(c.id) === String(courseId));
+            const myCourses = myCoursesRes.data || [];
             setCourseInfo(course || null);
+            setIsCourseEnrolled(myCourses.some(c => String(c.id) === String(courseId)));
             setShowPinyinBtn(isChinese(course?.target_language) && !isNewConceptContent(data?.lesson_content, course));
 
             // Course catalog browsing should always open the selected lesson normally,
@@ -176,6 +180,8 @@ export default function StudyPage() {
                             userId={userId}
                             onStartPractice={() => setMode('practice')}
                             isDirectLesson={!!lessonId}
+                            canStartPractice={!lessonId || isCourseEnrolled}
+                            hasPracticeItems={(studyData?.pending_items || []).length > 0}
                         />
                     )}
 

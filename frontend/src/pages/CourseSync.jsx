@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { AlertTriangle, CheckCircle2, DatabaseZap, FileJson, Loader2, RotateCw, Search, UploadCloud } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Clipboard, DatabaseZap, FileJson, Loader2, RotateCw, Search, UploadCloud } from 'lucide-react';
 import apiClient from '../api/apiClient';
 
 const parseIntOrNull = (value) => {
@@ -57,14 +57,15 @@ export default function CourseSync() {
     const [lessonEnd, setLessonEnd] = useState('');
     const [includeSynced, setIncludeSynced] = useState(true);
     const [uploadAssets, setUploadAssets] = useState(true);
-    const [confirmCode, setConfirmCode] = useState('');
+    const [renderLessonAudio, setRenderLessonAudio] = useState(true);
     const [report, setReport] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState('');
     const [progressLogs, setProgressLogs] = useState([]);
+    const [logPath, setLogPath] = useState('');
+    const [logDir, setLogDir] = useState('');
 
-    const requiredCode = useMemo(() => `SYNC-${String(courseId || '').trim() || 'COURSE'}`, [courseId]);
-    const canExecute = report && confirmCode === requiredCode && !loading;
+    const canExecute = report && !loading;
 
     const payload = useMemo(() => ({
         pipeline: pipeline.trim(),
@@ -74,9 +75,10 @@ export default function CourseSync() {
         lesson_end: parseIntOrNull(lessonEnd),
         include_synced: includeSynced,
         upload_assets: uploadAssets,
-        confirm: confirmCode === requiredCode,
-        confirm_code: confirmCode,
-    }), [confirmCode, courseId, includeSynced, lang, lessonEnd, lessonStart, pipeline, requiredCode, uploadAssets]);
+        render_lesson_audio: renderLessonAudio,
+        confirm: false,
+        confirm_code: '',
+    }), [courseId, includeSynced, lang, lessonEnd, lessonStart, pipeline, renderLessonAudio, uploadAssets]);
 
     const applyCourse = useCallback((course) => {
         if (!course) return;
@@ -85,7 +87,6 @@ export default function CourseSync() {
         if (defaults.pipeline) setPipeline(defaults.pipeline);
         if (defaults.lang) setLang(defaults.lang);
         setReport(null);
-        setConfirmCode('');
     }, []);
 
     useEffect(() => {
@@ -123,15 +124,22 @@ export default function CourseSync() {
     }, []);
 
     const runExecuteStream = async () => {
+        const ok = window.confirm('确认执行入库？这会写入数据库，并按选项上传或确认 R2 媒体。');
+        if (!ok) {
+            addProgressLog({ type: 'cancelled', message: '已取消入库。' });
+            return;
+        }
         setLoading('execute');
         setError('');
         setProgressLogs([]);
+        setLogPath('');
+        setLogDir('');
         addProgressLog({ type: 'start', message: '正在连接入库进度流...' });
         try {
             const res = await fetch(`${API_BASE}/dev/course-sync/execute-stream`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                body: JSON.stringify({ ...payload, confirm: true }),
             });
             if (!res.ok) {
                 const text = await res.text();
@@ -150,6 +158,8 @@ export default function CourseSync() {
                     if (!line.trim()) continue;
                     const event = JSON.parse(line);
                     addProgressLog(event);
+                    if (event.log_path) setLogPath(event.log_path);
+                    if (event.log_dir) setLogDir(event.log_dir);
                     if (event.report) setReport(event.report);
                     if (event.type === 'fatal') setError(event.message || '入库失败。');
                 }
@@ -157,9 +167,10 @@ export default function CourseSync() {
             if (buffer.trim()) {
                 const event = JSON.parse(buffer);
                 addProgressLog(event);
+                if (event.log_path) setLogPath(event.log_path);
+                if (event.log_dir) setLogDir(event.log_dir);
                 if (event.report) setReport(event.report);
             }
-            setConfirmCode('');
         } catch (err) {
             console.error('course sync stream failed:', err);
             const message = err?.message || '入库失败。';
@@ -178,13 +189,14 @@ export default function CourseSync() {
         setLoading(mode);
         setError('');
         setProgressLogs([]);
+        setLogPath('');
+        setLogDir('');
         addProgressLog({ type: 'preview', message: '正在预览待入库 JSON...' });
         try {
             const endpoint = mode === 'preview' ? '/dev/course-sync/preview' : '/dev/course-sync/execute';
-            const res = await apiClient.post(endpoint, payload);
+            const res = await apiClient.post(endpoint, mode === 'execute' ? { ...payload, confirm: true } : payload);
             setReport(res.data || null);
             addProgressLog({ type: 'report', message: '预览完成。' });
-            if (mode === 'execute') setConfirmCode('');
         } catch (err) {
             console.error('course sync failed:', err);
             const detail = err?.response?.data?.detail;
@@ -199,6 +211,15 @@ export default function CourseSync() {
     const summary = report?.summary || {};
     const lessons = report?.lessons || [];
     const warnings = report?.warnings || [];
+    const copyText = async (text) => {
+        if (!text) return;
+        try {
+            await navigator.clipboard.writeText(text);
+            addProgressLog({ type: 'copied', message: '已复制路径。' });
+        } catch {
+            addProgressLog({ type: 'copied', message: text });
+        }
+    };
 
     return (
         <main className="min-h-screen bg-slate-50 px-5 py-24">
@@ -265,6 +286,10 @@ export default function CourseSync() {
                                     上传 R2 媒体
                                     <input type="checkbox" checked={uploadAssets} onChange={(e) => setUploadAssets(e.target.checked)} className="h-5 w-5 accent-slate-950" />
                                 </label>
+                                <label className="flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-black text-slate-700">
+                                    生成缺失课文音频
+                                    <input type="checkbox" checked={renderLessonAudio} onChange={(e) => setRenderLessonAudio(e.target.checked)} className="h-5 w-5 accent-slate-950" />
+                                </label>
                             </div>
                         </Section>
 
@@ -279,12 +304,6 @@ export default function CourseSync() {
                                     {loading === 'preview' ? <Loader2 className="animate-spin" size={16} /> : <Search size={16} />}
                                     预览入库
                                 </button>
-                                <input
-                                    value={confirmCode}
-                                    onChange={(e) => setConfirmCode(e.target.value)}
-                                    placeholder={requiredCode}
-                                    className="h-11 w-full rounded-xl border border-slate-200 px-3 text-sm font-black outline-none focus:border-slate-500"
-                                />
                                 <button
                                     type="button"
                                     onClick={() => callApi('execute')}
@@ -303,6 +322,35 @@ export default function CourseSync() {
                             <div className="rounded-2xl border border-red-100 bg-red-50 px-5 py-4 text-sm font-bold text-red-700">
                                 {error}
                             </div>
+                        )}
+                        {logPath && (
+                            <Section title="控制台日志文件">
+                                <div className="space-y-3">
+                                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-xs font-bold text-slate-700">
+                                        {logPath}
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => copyText(logPath)}
+                                            className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 transition hover:border-slate-400"
+                                        >
+                                            <Clipboard size={14} />
+                                            复制日志路径
+                                        </button>
+                                        {logDir && (
+                                            <button
+                                                type="button"
+                                                onClick={() => copyText(logDir)}
+                                                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 transition hover:border-slate-400"
+                                            >
+                                                <Clipboard size={14} />
+                                                复制日志目录
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            </Section>
                         )}
                         {!!progressLogs.length && (
                             <Section title="进度">

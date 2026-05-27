@@ -12,11 +12,9 @@ import {
     VolumeX,
     Volume2
 } from 'lucide-react';
-import DialogueSection from './components/DialogueSection';
-import JapaneseLessonReference from './components/JapaneseLessonReference';
+import LessonReference, { inferLessonReferenceLanguage } from './components/LessonReference';
 import LessonSlideDeckPlayer from './components/LessonSlideDeckPlayer';
 import useTeachingAudio, { buildLessonAudioUrl } from './hooks/useTeachingAudio';
-import VocabularySection from './components/VocabularySection';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -74,7 +72,16 @@ const languageUiMeta = (targetLanguage) => {
     };
 };
 
-export default function TeachingSection({ data, courseInfo, courseId, userId, onStartPractice, isDirectLesson }) {
+export default function TeachingSection({
+    data,
+    courseInfo,
+    courseId,
+    userId,
+    onStartPractice,
+    isDirectLesson,
+    canStartPractice = true,
+    hasPracticeItems = true,
+}) {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [diagPinyin, setDiagPinyin] = useState(true);
@@ -85,13 +92,21 @@ export default function TeachingSection({ data, courseInfo, courseId, userId, on
     const API_BASE = import.meta.env.VITE_APP_API_BASE_URL || '';
     const lesson_metadata = data?.lesson_metadata || {};
     const course_content = data?.course_content || {};
-    const targetLanguage = normalizeTargetLanguage(
+    const explicitTargetLanguage =
         data?.target_language ||
         lesson_metadata?.target_language ||
         courseInfo?.target_language ||
         courseInfo?.language ||
-        inferTargetLanguageFromLesson(lesson_metadata, courseId)
-    );
+        inferTargetLanguageFromLesson(lesson_metadata, courseId);
+    const referenceTargetLanguage = inferLessonReferenceLanguage({
+        data,
+        courseContent: course_content,
+        lessonMetadata: lesson_metadata,
+        courseInfo,
+        courseId,
+        targetLanguage: explicitTargetLanguage,
+    });
+    const targetLanguage = normalizeTargetLanguage(explicitTargetLanguage) || referenceTargetLanguage;
     const languageMeta = languageUiMeta(targetLanguage);
     const lesson_audio_assets = data?.lesson_audio_assets || null;
     const teaching_slide_deck =
@@ -110,6 +125,7 @@ export default function TeachingSection({ data, courseInfo, courseId, userId, on
     const lessonFullAudioUrl = buildLessonAudioUrl(lesson_audio_assets, API_BASE);
     const {
         playingKey,
+        audioLoadingKey,
         lessonAudioDuration,
         lessonAudioCurrentTime,
         isLessonAudioPlaying,
@@ -202,7 +218,7 @@ export default function TeachingSection({ data, courseInfo, courseId, userId, on
                     <motion.section ref={lessonAudioSectionRef} variants={fadeInUp} initial="hidden" animate="show" className="mb-10">
                         <div className="rounded-[2.5rem] border border-slate-200 bg-white px-6 py-6 shadow-sm">
                             <h2 className="text-2xl font-black text-slate-900">
-                                {t('teaching_full_lesson_audio')}
+                                {targetLanguage === 'ja' ? '本课完整对话音频' : t('teaching_full_lesson_audio')}
                             </h2>
 
                             <div className="mt-5 rounded-full bg-slate-100/90 px-4 py-3">
@@ -348,52 +364,38 @@ export default function TeachingSection({ data, courseInfo, courseId, userId, on
                     </div>
                 )}
 
-                {targetLanguage === 'ja' ? (
-                    <JapaneseLessonReference
-                        courseContent={course_content}
-                        lessonMetadata={lesson_metadata}
-                        fadeInUp={fadeInUp}
-                        playTextAudio={playTtsFallback}
-                    />
-                ) : (
-                    <>
-                        <DialogueSection
-                            fadeInUp={fadeInUp}
-                            lessonHeading={lessonHeading}
-                            contentType={contentType}
-                            isReadingMode={isReadingMode}
-                            lessonMetadata={lesson_metadata}
-                            lineItems={lineItems}
-                            diagPinyin={diagPinyin}
-                            setDiagPinyin={setDiagPinyin}
-                            diagTrans={diagTrans}
-                            setDiagTrans={setDiagTrans}
-                            playingKey={playingKey}
-                            activeLessonLineRef={activeLessonLineRef}
-                            playDialogueAudio={playDialogueAudio}
-                            targetLanguage={targetLanguage}
-                            readingLabelOn={languageMeta.readingOn}
-                            readingLabelOff={languageMeta.readingOff}
-                            t={t}
-                        />
+                <LessonReference
+                    data={data}
+                    courseContent={course_content}
+                    courseInfo={courseInfo}
+                    courseId={courseId}
+                    targetLanguage={targetLanguage}
+                    fadeInUp={fadeInUp}
+                    lessonHeading={lessonHeading}
+                    contentType={contentType}
+                    isReadingMode={isReadingMode}
+                    lessonMetadata={lesson_metadata}
+                    lineItems={lineItems}
+                    diagPinyin={diagPinyin}
+                    setDiagPinyin={setDiagPinyin}
+                    diagTrans={diagTrans}
+                    setDiagTrans={setDiagTrans}
+                    playingKey={playingKey}
+                    audioLoadingKey={audioLoadingKey}
+                    activeLessonLineRef={activeLessonLineRef}
+                    playDialogueAudio={playDialogueAudio}
+                    vocabulary={vocabulary}
+                    vocabPinyin={vocabPinyin}
+                    setVocabPinyin={setVocabPinyin}
+                    vocabTrans={vocabTrans}
+                    setVocabTrans={setVocabTrans}
+                    playTtsFallback={playTtsFallback}
+                    readingLabelOn={languageMeta.readingOn}
+                    readingLabelOff={languageMeta.readingOff}
+                    t={t}
+                />
 
-                        <VocabularySection
-                            fadeInUp={fadeInUp}
-                            vocabulary={vocabulary}
-                            vocabPinyin={vocabPinyin}
-                            setVocabPinyin={setVocabPinyin}
-                            vocabTrans={vocabTrans}
-                            setVocabTrans={setVocabTrans}
-                            playTtsFallback={playTtsFallback}
-                            targetLanguage={targetLanguage}
-                            readingLabelOn={languageMeta.readingOn}
-                            readingLabelOff={languageMeta.readingOff}
-                            t={t}
-                        />
-                    </>
-                )}
-
-                {!isDirectLesson && (
+                {canStartPractice && hasPracticeItems && (
                     <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex justify-center pb-24 pt-8">
                         <button
                             onClick={handleStartPracticeClick}
