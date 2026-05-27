@@ -70,6 +70,93 @@ const hasKanji = (value) => KANJI_RE.test(value || '');
 
 const isKanaLike = (char) => /[\u3040-\u30ffー・\s。、！？!?〜~]/.test(char || '');
 
+const findSequence = (sourceChars, targetText, start = 0) => {
+    const targetChars = Array.from(textOf(targetText));
+    if (!targetChars.length) return -1;
+    for (let index = Math.max(0, start); index <= sourceChars.length - targetChars.length; index += 1) {
+        const matched = targetChars.every((char, offset) => sourceChars[index + offset] === char);
+        if (matched) return index;
+    }
+    return -1;
+};
+
+const splitSurfaceRuns = (surface) => {
+    const chars = Array.from(textOf(surface));
+    const runs = [];
+    for (const char of chars) {
+        const type = hasKanji(char) ? 'kanji' : 'other';
+        const last = runs[runs.length - 1];
+        if (last && last.type === type) {
+            last.text += char;
+        } else {
+            runs.push({ type, text: char });
+        }
+    }
+    return runs;
+};
+
+const findNextReadingAnchor = (runs, fromIndex, readingChars, readingIndex) => {
+    for (let index = fromIndex + 1; index < runs.length; index += 1) {
+        const run = runs[index];
+        if (run.type !== 'other') continue;
+
+        const specialReading = PARTICLE_READINGS[run.text];
+        if (specialReading) {
+            const specialIndex = findSequence(readingChars, specialReading, readingIndex);
+            if (specialIndex >= 0) return specialIndex;
+        }
+
+        const exactIndex = findSequence(readingChars, run.text, readingIndex);
+        if (exactIndex >= 0) return exactIndex;
+    }
+    return readingChars.length;
+};
+
+const buildRubyPieces = (surface, reading) => {
+    const cleanSurface = textOf(surface);
+    const cleanReading = textOf(reading);
+    if (!shouldShowReading(cleanSurface, cleanReading)) {
+        return [{ text: cleanSurface, ruby: '' }];
+    }
+
+    if (PARTICLE_READINGS[cleanSurface] === cleanReading) {
+        return [{ text: cleanSurface, ruby: cleanReading }];
+    }
+
+    const runs = splitSurfaceRuns(cleanSurface);
+    const readingChars = Array.from(cleanReading);
+    const pieces = [];
+    let readingIndex = 0;
+
+    runs.forEach((run, index) => {
+        if (run.type === 'kanji') {
+            const anchorIndex = findNextReadingAnchor(runs, index, readingChars, readingIndex);
+            const ruby = readingChars.slice(readingIndex, anchorIndex).join('');
+            pieces.push({ text: run.text, ruby });
+            readingIndex = anchorIndex;
+            return;
+        }
+
+        const specialReading = PARTICLE_READINGS[run.text];
+        if (specialReading) {
+            const specialIndex = findSequence(readingChars, specialReading, readingIndex);
+            if (specialIndex === readingIndex) {
+                pieces.push({ text: run.text, ruby: specialReading });
+                readingIndex += Array.from(specialReading).length;
+                return;
+            }
+        }
+
+        const exactIndex = findSequence(readingChars, run.text, readingIndex);
+        if (exactIndex === readingIndex) {
+            readingIndex += Array.from(run.text).length;
+        }
+        pieces.push({ text: run.text, ruby: '' });
+    });
+
+    return pieces;
+};
+
 const splitRubyToken = (surface, reading) => {
     const surfaceChars = Array.from(textOf(surface));
     const readingChars = Array.from(textOf(reading));
@@ -167,28 +254,18 @@ function JapaneseText({ item = {}, showReading = true, size = 'base', muted = fa
                     );
                 }
 
-                const parts = splitRubyToken(token.surface, token.reading);
-                const shouldSplitKanji = parts.core && hasKanji(parts.core);
-                if (shouldSplitKanji) {
-                    return (
-                        <React.Fragment key={`${token.surface}-${idx}`}>
-                            {parts.prefix && <span className={textClass}>{parts.prefix}</span>}
-                            <ruby className={`ruby align-baseline ${textClass}`}>
-                                {parts.core}
-                                <rt className={rtClass}>{parts.ruby || token.reading}</rt>
-                            </ruby>
-                            {parts.suffix && <span className={textClass}>{parts.suffix}</span>}
-                            {token.suffix && <span className={textClass}>{token.suffix}</span>}
-                        </React.Fragment>
-                    );
-                }
-
                 return (
                     <React.Fragment key={`${token.surface}-${idx}`}>
-                        <ruby className={`ruby align-baseline ${textClass}`}>
-                            {token.surface}
-                            <rt className={rtClass}>{token.reading}</rt>
-                        </ruby>
+                        {buildRubyPieces(token.surface, token.reading).map((piece, pieceIndex) => (
+                            piece.ruby ? (
+                                <ruby key={`${piece.text}-${pieceIndex}`} className={`ruby align-baseline ${textClass}`}>
+                                    {piece.text}
+                                    <rt className={rtClass}>{piece.ruby}</rt>
+                                </ruby>
+                            ) : (
+                                <span key={`${piece.text}-${pieceIndex}`} className={textClass}>{piece.text}</span>
+                            )
+                        ))}
                         {token.suffix && <span className={textClass}>{token.suffix}</span>}
                     </React.Fragment>
                 );
@@ -205,24 +282,19 @@ function TermWithReading({ term, reading, showReading }) {
     if (!showRuby) {
         return <span className={termClassName}>{cleanTerm}</span>;
     }
-    const parts = splitRubyToken(cleanTerm, cleanReading);
-    const rubyCore = parts.core && hasKanji(parts.core) ? parts.core : cleanTerm;
-    const rubyText = parts.core && hasKanji(parts.core) ? parts.ruby : cleanReading;
-    const sideClassName = "whitespace-nowrap text-center text-3xl font-black leading-none text-slate-900";
+    const pieces = buildRubyPieces(cleanTerm, cleanReading);
     return (
-        <span className="inline-flex max-w-full items-end align-bottom leading-none">
-            {parts.core && hasKanji(parts.core) && parts.prefix && (
-                <span className={sideClassName}>{parts.prefix}</span>
-            )}
-            <span className="inline-flex min-w-0 flex-col items-center justify-end">
-                <span className="mb-1 min-h-[1rem] max-w-full whitespace-nowrap text-center text-sm font-black leading-none text-rose-500">
-                    {rubyText}
-                </span>
-                <span className={termClassName}>{rubyCore}</span>
-            </span>
-            {parts.core && hasKanji(parts.core) && parts.suffix && (
-                <span className={sideClassName}>{parts.suffix}</span>
-            )}
+        <span className="inline-flex max-w-full flex-wrap items-end align-bottom leading-none">
+            {pieces.map((piece, index) => (
+                piece.ruby ? (
+                    <ruby key={`${piece.text}-${index}`} className={termClassName}>
+                        {piece.text}
+                        <rt className="text-sm font-black leading-none text-rose-500">{piece.ruby}</rt>
+                    </ruby>
+                ) : (
+                    <span key={`${piece.text}-${index}`} className={termClassName}>{piece.text}</span>
+                )
+            ))}
         </span>
     );
 }

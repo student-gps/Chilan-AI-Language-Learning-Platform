@@ -41,6 +41,9 @@ frontend/remotion/generated/
 # 拼音音频文件（本地生成，不入库）
 backend/pinyin_audio/
 
+# 前端按句试听 TTS 缓存（本地生成，不入库）
+backend/tts_cache/
+
 # 课程介绍旁白音频（本地生成后上传 R2，不入库）
 frontend/public/audio/intro/
 
