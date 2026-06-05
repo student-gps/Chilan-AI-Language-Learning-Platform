@@ -40,8 +40,7 @@ router = APIRouter(tags=["Study Flow"])
 TTS_CACHE_DIR = Path(__file__).resolve().parent.parent / "tts_cache"
 
 # --- ⚙️ 初始化全局单例 ---
-API_KEY = get_env("LLM_GEMINI_API_KEY")
-engine = LLMEngine(api_key=API_KEY)
+engine = LLMEngine.from_env()
 llm_tools = LanguageTools(engine=engine)
 scheduler = FSRSScheduler()
 evaluator_service = StudyEvaluator(tools=llm_tools)

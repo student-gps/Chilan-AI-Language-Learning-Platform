@@ -15,6 +15,14 @@ const isChinese = (lang = '') => {
     return l.includes('chinese') || l.includes('中文') || l === 'zh' || l.startsWith('zh-');
 };
 
+const getLessonTargetLanguage = (lessonContent, course) => (
+    lessonContent?.target_language ||
+    lessonContent?.lesson_metadata?.target_language ||
+    course?.target_language ||
+    course?.language ||
+    ''
+);
+
 const isNewConceptContent = (lessonContent, course) => {
     const pipelineId = String(lessonContent?.pipeline_id || course?.pipeline_id || '').toLowerCase();
     const courseId = String(lessonContent?.lesson_metadata?.course_id || course?.course_id || course?.id || '').toLowerCase();
@@ -62,31 +70,23 @@ export default function StudyPage() {
             if (lessonId) initParams.lesson_id = lessonId;
             if (isBrowseEntry) initParams.browse = 1;
             initParams.defer_practice = 1;
-            if (isBrowseEntry) {
-                const studyRes = await apiClient.get(`/study/init`, { params: initParams });
-                const { data } = studyRes.data;
-                setStudyData(data);
-                setCourseInfo(null);
-                setIsCourseEnrolled(false);
-                setShowPinyinBtn(false);
-                setMode(data?.lesson_content ? 'teaching' : (studyRes.data?.mode || 'teaching'));
-                return;
-            }
-            const [studyRes, coursesRes, myCoursesRes] = await Promise.all([
-                apiClient.get(`/study/init`, { params: initParams }),
-                apiClient.get(`/courses`),
-                apiClient.get(`/my-courses/${userId}`).catch(() => ({ data: [] })),
-            ]);
+            const studyRes = await apiClient.get(`/study/init`, { params: initParams });
 
             const { mode: responseMode, data } = studyRes.data;
             let nextData = data;
 
+            const lessonContent = data?.lesson_content;
+            const course = data?.course_info || {
+                id: courseId,
+                target_language: getLessonTargetLanguage(lessonContent, null),
+                source_language: lessonContent?.source_language || lessonContent?.lesson_metadata?.source_language || '',
+            };
+            const isEnrolled = !!data?.is_course_enrolled;
+
             // 判断目标语言是否为中文，决定是否显示拼音入口
-            const course = (coursesRes.data || []).find(c => String(c.id) === String(courseId));
-            const myCourses = myCoursesRes.data || [];
             setCourseInfo(course || null);
-            setIsCourseEnrolled(myCourses.some(c => String(c.id) === String(courseId)));
-            setShowPinyinBtn(isChinese(course?.target_language) && !isNewConceptContent(data?.lesson_content, course));
+            setIsCourseEnrolled(isEnrolled);
+            setShowPinyinBtn(isChinese(getLessonTargetLanguage(lessonContent, course)) && !isNewConceptContent(lessonContent, course));
 
             // Course catalog browsing should always open the selected lesson normally,
             // independent of resume/progress state.
