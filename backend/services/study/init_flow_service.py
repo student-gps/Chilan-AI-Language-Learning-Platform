@@ -1,4 +1,5 @@
 import json
+from collections import OrderedDict
 from pathlib import Path
 from typing import Any, Dict
 
@@ -9,24 +10,34 @@ from services.course_enrollment_service import ACTIVE_COURSE_STATUS
 
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
-_LESSON_ROW_CACHE: dict[tuple[int, int], Dict[str, Any]] = {}
+_LESSON_ROW_CACHE_MAX = 256
+_LESSON_ROW_CACHE: OrderedDict[tuple[int, int], Dict[str, Any]] = OrderedDict()
 
 
-def _cacheable_course(course_id: int) -> bool:
-    return int(course_id or 0) in {303}
+def _needs_teaching_materials(course_id: int) -> bool:
+    # New Concept English renders grammar notes from teaching_materials.
+    return int(course_id or 0) == 101
 
 
 def _get_cached_lesson_row(course_id: int, lesson_id: int | None) -> Dict[str, Any] | None:
-    if lesson_id is None or not _cacheable_course(course_id):
+    if lesson_id is None:
         return None
-    cached = _LESSON_ROW_CACHE.get((int(course_id), int(lesson_id)))
-    return dict(cached) if cached else None
+    cache_key = (int(course_id), int(lesson_id))
+    cached = _LESSON_ROW_CACHE.get(cache_key)
+    if not cached:
+        return None
+    _LESSON_ROW_CACHE.move_to_end(cache_key)
+    return dict(cached)
 
 
 def _put_cached_lesson_row(course_id: int, lesson_id: int | None, lesson_row: Dict[str, Any]) -> None:
-    if lesson_id is None or not _cacheable_course(course_id):
+    if lesson_id is None:
         return
-    _LESSON_ROW_CACHE[(int(course_id), int(lesson_id))] = dict(lesson_row)
+    cache_key = (int(course_id), int(lesson_id))
+    _LESSON_ROW_CACHE[cache_key] = dict(lesson_row)
+    _LESSON_ROW_CACHE.move_to_end(cache_key)
+    while len(_LESSON_ROW_CACHE) > _LESSON_ROW_CACHE_MAX:
+        _LESSON_ROW_CACHE.popitem(last=False)
 
 
 def _normalize_video_render_plan(payload: Any) -> Dict[str, Any]:
@@ -210,6 +221,8 @@ def _build_teaching_response(
     lesson_row: Dict[str, Any],
     *,
     course_id: int,
+    course_info: Dict[str, Any] | None = None,
+    is_course_enrolled: bool = False,
     viewed_lesson: int = 0,
     practice_question_index: int = 0,
     new_questions: list | None = None,
@@ -239,13 +252,16 @@ def _build_teaching_response(
     return {
         "mode": "teaching",
         "data": {
+            "course_info": course_info,
+            "is_course_enrolled": is_course_enrolled,
             "lesson_content": {
                 "pipeline_id": lesson_metadata.get("pipeline_id") or lesson_metadata.get("course_slug"),
-                "target_language": lesson_metadata.get("target_language"),
+                "target_language": lesson_metadata.get("target_language") or (course_info or {}).get("target_language"),
                 "source_language": lesson_metadata.get("source_language") or lesson_metadata.get("support_language"),
                 "lesson_metadata": lesson_metadata,
                 "course_content": course_content,
                 "teaching_video": teaching_video,
+                "teaching_materials": lesson_row.get("teaching_materials") or {},
                 "video_render_plan": video_render_plan,
                 "teaching_slide_deck": video_render_plan.get("teaching_slide_deck"),
                 "lesson_audio_assets": lesson_audio_assets,
@@ -305,32 +321,22 @@ def load_lesson_practice_items(user_id: str, course_id: int, lesson_id: int) -> 
 
 
 def _select_lesson_row(cur, *, course_id: int, lesson_id: int | None, last_lesson: int = 0):
-    if _cacheable_course(course_id):
-        selected_columns = """
-            lesson_id,
-            title,
-            lesson_metadata,
-            course_content,
-            '{}'::jsonb AS teaching_materials,
-            '{}'::jsonb AS video_plan,
-            jsonb_build_object('teaching_slide_deck', video_render_plan->'teaching_slide_deck') AS video_render_plan,
-            lesson_audio_assets,
-            explanation_video_urls,
-            '{}'::jsonb AS llm_usage
-        """
-    else:
-        selected_columns = """
-            lesson_id,
-            title,
-            lesson_metadata,
-            course_content,
-            teaching_materials,
-            video_plan,
-            video_render_plan,
-            lesson_audio_assets,
-            explanation_video_urls,
-            llm_usage
-        """
+    if lesson_id is not None:
+        cached = _get_cached_lesson_row(course_id, lesson_id)
+        if cached:
+            return cached
+
+    teaching_materials_column = "teaching_materials" if _needs_teaching_materials(course_id) else "'{}'::jsonb AS teaching_materials"
+    selected_columns = f"""lesson_id, title,
+        lesson_metadata,
+        course_content,
+        {teaching_materials_column},
+        '{{}}'::jsonb AS video_plan,
+        jsonb_build_object('teaching_slide_deck', video_render_plan->'teaching_slide_deck') AS video_render_plan,
+        lesson_audio_assets,
+        '{{}}'::jsonb AS explanation_video_urls,
+        '{{}}'::jsonb AS llm_usage
+    """
 
     if lesson_id is not None:
         cur.execute(
@@ -353,9 +359,45 @@ def _select_lesson_row(cur, *, course_id: int, lesson_id: int | None, last_lesso
             (course_id, last_lesson),
         )
     row = cur.fetchone()
-    if row and _cacheable_course(course_id):
+    if row:
         _put_cached_lesson_row(course_id, row["lesson_id"], row)
     return row
+
+
+def _load_course_context(cur, *, user_id: str, course_id: int, check_enrollment: bool = True) -> tuple[Dict[str, Any] | None, bool]:
+    cur.execute(
+        """
+        SELECT course_id, name, category, target_language, source_language
+        FROM courses
+        WHERE course_id = %s
+        """,
+        (course_id,),
+    )
+    row = cur.fetchone()
+    course_info = None
+    if row:
+        course_info = {
+            "id": row.get("course_id"),
+            "name": row.get("name"),
+            "category": row.get("category"),
+            "target_language": row.get("target_language"),
+            "source_language": row.get("source_language"),
+        }
+
+    if not check_enrollment:
+        return course_info, False
+
+    cur.execute(
+        """
+        SELECT 1
+        FROM user_courses
+        WHERE user_id::text = %s
+          AND course_id = %s
+          AND status = %s
+        """,
+        (user_id, course_id, ACTIVE_COURSE_STATUS),
+    )
+    return course_info, bool(cur.fetchone())
 
 
 def init_study_flow(
@@ -372,19 +414,8 @@ def init_study_flow(
             return _build_teaching_response(
                 lesson_row,
                 course_id=course_id,
-                viewed_lesson=0,
-                practice_question_index=0,
-                new_questions=[],
-                practice_deferred=True,
-                cos_media_storage=cos_media_storage,
-            )
-
-    if lesson_id is not None and defer_practice_items:
-        lesson_row = _get_cached_lesson_row(course_id, lesson_id)
-        if lesson_row:
-            return _build_teaching_response(
-                lesson_row,
-                course_id=course_id,
+                course_info=None,
+                is_course_enrolled=False,
                 viewed_lesson=0,
                 practice_question_index=0,
                 new_questions=[],
@@ -397,22 +428,17 @@ def init_study_flow(
         conn = get_connection()
         cur = conn.cursor(cursor_factory=RealDictCursor)
 
-        if lesson_id is None:
-            cur.execute(
-                """
-                SELECT 1
-                FROM user_courses
-                WHERE user_id::text = %s
-                  AND course_id = %s
-                  AND status = %s
-                """,
-                (user_id, course_id, ACTIVE_COURSE_STATUS),
-            )
-            if not cur.fetchone():
-                return {
-                    "mode": "not_enrolled",
-                    "message": "请先将课程添加到学习列表。",
-                }
+        course_info, is_course_enrolled = _load_course_context(
+            cur,
+            user_id=user_id,
+            course_id=course_id,
+            check_enrollment=True,
+        )
+        if lesson_id is None and not is_course_enrolled:
+            return {
+                "mode": "not_enrolled",
+                "message": "请先将课程添加到学习列表。",
+            }
 
         # 指定 lesson_id 时跳过 FSRS 复习队列，直接加载该课
         if lesson_id is None:
@@ -505,6 +531,8 @@ def init_study_flow(
         return _build_teaching_response(
             lesson_row,
             course_id=course_id,
+            course_info=course_info,
+            is_course_enrolled=is_course_enrolled,
             viewed_lesson=viewed_lesson,
             practice_question_index=practice_question_index,
             new_questions=new_questions,

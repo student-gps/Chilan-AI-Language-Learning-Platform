@@ -1,4 +1,5 @@
 import asyncio
+import os
 import time
 import json
 from typing import Dict, Any
@@ -6,11 +7,38 @@ from typing import Dict, Any
 from google import genai
 from google.genai import types
 
+from config.env import get_env
+
 
 class LLMEngine:
-    def __init__(self, api_key: str, model_name: str = 'gemini-2.0-flash'):
-        self.client = genai.Client(api_key=api_key)
-        self.model_name = model_name
+    def __init__(self, api_key: str = None, model_name: str = None, use_vertex: bool = False):
+        self.model_name = model_name or get_env("LLM_JUDGE_GEMINI_MODEL_ID", default="gemini-2.5-flash")
+        self.use_vertex = use_vertex
+
+        if use_vertex:
+            project = get_env("LLM_JUDGE_VERTEX_AI_PROJECT_ID", "VERTEX_AI_PROJECT_ID")
+            location = get_env("LLM_JUDGE_VERTEX_AI_LOCATION", "VERTEX_AI_LOCATION", default="us-central1")
+            credentials = get_env("LLM_JUDGE_GOOGLE_APPLICATION_CREDENTIALS", "GOOGLE_APPLICATION_CREDENTIALS")
+            if credentials:
+                os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials
+            if not project:
+                raise ValueError("LLM judge Vertex mode requires VERTEX_AI_PROJECT_ID.")
+            self.client = genai.Client(vertexai=True, project=project, location=location)
+            return
+
+        resolved_api_key = api_key or get_env("LLM_JUDGE_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
+        if not resolved_api_key:
+            raise ValueError("LLM judge Gemini API key is missing. Set LLM_JUDGE_GEMINI_API_KEY or LLM_GEMINI_API_KEY.")
+        self.client = genai.Client(api_key=resolved_api_key)
+
+    @classmethod
+    def from_env(cls) -> "LLMEngine":
+        provider = get_env("LLM_JUDGE_PROVIDER", default="gemini").lower()
+        if provider != "gemini":
+            raise ValueError(f"Unsupported LLM judge provider: {provider}")
+
+        use_vertex = get_env("LLM_JUDGE_GEMINI_USE_VERTEX", default="false").lower() in {"1", "true", "yes", "on"}
+        return cls(use_vertex=use_vertex)
 
     def _call_sync(self, prompt: str) -> str:
         """Run the synchronous Gemini streaming call and return the full text."""
