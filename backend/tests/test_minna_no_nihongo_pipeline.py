@@ -12,7 +12,7 @@ if str(BACKEND_DIR) not in sys.path:
 
 from content_builder.core.pipeline import get_pipeline
 from content_builder.ja.minna_no_nihongo.agent import MinnaNoNihongoAgent
-from content_builder.ja.minna_no_nihongo.book_profiles import book1
+from content_builder.ja.minna_no_nihongo.book_profiles import book1, intermediate, lesson_profile as resolve_lesson_profile
 from content_builder.ja.minna_no_nihongo.tasks.content_extractor import MinnaNoNihongoExtractor
 from content_builder.ja.minna_no_nihongo.tasks.explanation_composer import (
     DIRECTOR_PLAN_VERSION,
@@ -22,6 +22,7 @@ from content_builder.ja.minna_no_nihongo.tasks.explanation_writer import MinnaNo
 from content_builder.ja.minna_no_nihongo.scripts.render_lesson_audio import parse_lesson, parse_only
 from content_builder.ja.minna_no_nihongo.tasks.grammar_refiner import MinnaNoNihongoGrammarRefiner
 from content_builder.ja.minna_no_nihongo.tasks.lesson_audio import MinnaNoNihongoLessonAudioRenderer
+from content_builder.ja.minna_no_nihongo.tasks.lesson_normalizer import MinnaNoNihongoLessonNormalizer
 from content_builder.ja.minna_no_nihongo.tasks.practice_generator import MinnaNoNihongoPracticeGenerator
 from content_builder.ja.minna_no_nihongo.tasks.reading_annotator import JapaneseReadingAnnotator
 from content_builder.ja.minna_no_nihongo.tasks.reading_auditor import MinnaNoNihongoReadingAuditor
@@ -105,6 +106,111 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         )
         self.assertTrue(payload["database_items"])
 
+    def test_lesson051_uses_intermediate_profile_without_changing_elementary(self):
+        elementary = resolve_lesson_profile(50)
+        intermediate_profile = resolve_lesson_profile(51)
+
+        self.assertEqual(elementary.pedagogy_profile, "elementary_sentence_pattern_dialogue")
+        self.assertEqual(elementary.content_type, "sentence_pattern_dialogue")
+        self.assertEqual(intermediate_profile.pedagogy_profile, "intermediate_read_write_speak_listen_grammar")
+        self.assertEqual(intermediate_profile.content_type, "integrated_skills_intermediate")
+        self.assertEqual(intermediate_profile.source_lesson, 51)
+        self.assertEqual(intermediate_profile.source_sections, intermediate.SOURCE_SECTIONS)
+
+    def test_intermediate_placeholder_golden_and_validation_lessons(self):
+        agent = MinnaNoNihongoAgent(provider=None, memory_dir=Path("tmp"), render_lesson_audio=False)
+
+        for lesson_id in (51, 52, 63):
+            with self.subTest(lesson_id=lesson_id):
+                payload = agent.generate_content(f"lesson{lesson_id:03d}.pdf", lesson_id=lesson_id)
+                metadata = payload["lesson_metadata"]
+
+                self.assertEqual(metadata["lesson_slug"], f"lesson{lesson_id:03d}")
+                self.assertEqual(metadata["title"], f"第{lesson_id}課")
+                self.assertEqual(metadata["title_localized"], f"第{lesson_id}课")
+                self.assertEqual(metadata["topic_title"], "お願いがあるんですが")
+                self.assertTrue(metadata["section_titles"])
+                self.assertEqual(metadata["content_type"], "integrated_skills_intermediate")
+                self.assertEqual(metadata["source"]["textbook_ja"], "みんなの日本語 中級")
+                self.assertEqual(metadata["source"]["source_lesson"], lesson_id)
+                self.assertEqual(metadata["source"]["source_sections"], list(intermediate.SOURCE_SECTIONS))
+                self.assertTrue(payload["course_content"]["sentence_patterns"])
+                self.assertTrue(payload["course_content"]["example_sentences"])
+                self.assertTrue(payload["course_content"]["dialogue"]["lines"])
+
+    def test_intermediate_vocabulary_policy_moves_review_words_to_lexical_notes(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            agent = MinnaNoNihongoAgent(provider=None, memory_dir=Path(tmpdir), render_lesson_audio=False)
+            agent.vocab_memory.save_lesson_vocabulary({
+                "lesson_metadata": {"lesson_id": 1, "lesson_slug": "lesson001", "course_id": 201},
+                "course_content": {
+                    "vocabulary": [
+                        {
+                            "term": "返す",
+                            "reading": "かえす",
+                            "translation": "归还",
+                        }
+                    ]
+                },
+            })
+
+            payload = agent.generate_content("lesson051.pdf", lesson_id=51)
+            content = payload["course_content"]
+
+            self.assertEqual([item["term"] for item in content["vocabulary"]], ["文章"])
+            self.assertEqual(content["lexical_notes"][0]["term"], "返す")
+            self.assertEqual(content["lexical_notes"][0]["learning_role"], "context_only")
+            self.assertFalse(content["lexical_notes"][0]["quiz_eligible"])
+            vocab_quiz_terms = {
+                item.get("original_text")
+                for item in payload["database_items"]
+                if ((item.get("metadata") or {}).get("context") or {}).get("source") == "vocabulary"
+            }
+            self.assertNotIn("返す", vocab_quiz_terms)
+            self.assertIn("文章", vocab_quiz_terms)
+
+    def test_elementary_metadata_keeps_number_and_uses_dialogue_title_as_topic(self):
+        payload = MinnaNoNihongoLessonNormalizer().run(
+            {
+                "lesson_metadata": {
+                    "title": "第1課",
+                    "title_localized": "第1课",
+                },
+                "course_content": {
+                    "sentence_patterns": [],
+                    "example_sentences": [],
+                    "dialogue": {
+                        "title": "はじめまして",
+                        "title_localized": "初次见面",
+                        "lines": [
+                            {
+                                "speaker": "ミラー",
+                                "text": "はじめまして。",
+                                "reading": "はじめまして。",
+                                "translation": "初次见面。",
+                            }
+                        ],
+                    },
+                    "vocabulary": [],
+                    "display_only_vocabulary": [],
+                    "grammar_sections": [],
+                },
+            },
+            lesson_id=1,
+            source_pdf=Path("lesson001.pdf"),
+            lesson_pdf=Path("lesson001.pdf"),
+            course_id=201,
+        )
+        metadata = payload["lesson_metadata"]
+
+        self.assertEqual(metadata["title"], "第1課")
+        self.assertEqual(metadata["topic_title"], "はじめまして")
+        self.assertEqual(metadata["topic_title_localized"], "初次见面")
+        self.assertIn(
+            {"section": "会話", "title": "はじめまして", "title_localized": "初次见面"},
+            metadata["section_titles"],
+        )
+
     def test_validator_rejects_missing_sentence_reading(self):
         agent = MinnaNoNihongoAgent(provider=None, memory_dir=Path("tmp"))
         payload = agent.generate_content("lesson001.pdf", lesson_id=1)
@@ -145,6 +251,41 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         self.assertEqual(
             renderer.resolve_voice("テレーザ・サントス", source_section="dialogue"),
             "ja-JP-AoiNeural",
+        )
+
+    def test_intermediate_voice_map_resolves_lesson051_speakers(self):
+        renderer = MinnaNoNihongoLessonAudioRenderer()
+        self.assertEqual(
+            renderer.resolve_voice("タワポン", source_section="dialogue", lesson_id=51),
+            "ja-JP-NaokiNeural",
+        )
+        self.assertEqual(
+            renderer.resolve_voice("佐野さん", source_section="dialogue", lesson_id=51),
+            "ja-JP-MayuNeural",
+        )
+        self.assertEqual(
+            renderer.resolve_voice("ナレーション", source_section="dialogue", lesson_id=51),
+            "ja-JP-NanamiNeural",
+        )
+        self.assertEqual(
+            renderer.resolve_voice("松本 正", source_section="dialogue", lesson_id=51),
+            "ja-JP-DaichiNeural",
+        )
+
+    def test_intermediate_unknown_speakers_get_stable_lesson_voice_map(self):
+        renderer = MinnaNoNihongoLessonAudioRenderer()
+        items = [
+            {"source_section": "dialogue", "speaker": "田中"},
+            {"source_section": "dialogue", "speaker": "鈴木"},
+            {"source_section": "dialogue", "speaker": "田中さん"},
+        ]
+        voice_map = renderer._lesson_role_voice_map(items, lesson_id=52)
+
+        self.assertEqual(voice_map["田中"], "ja-JP-KeitaNeural")
+        self.assertEqual(voice_map["鈴木"], "ja-JP-NanamiNeural")
+        self.assertEqual(
+            renderer.resolve_voice("田中さん", source_section="dialogue", lesson_id=52, lesson_role_voice_map=voice_map),
+            "ja-JP-KeitaNeural",
         )
 
     def test_render_lesson_audio_cli_parsers(self):
@@ -293,6 +434,20 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         self.assertIn("每个 example_sentences item 只放一个独立句子或一个短答句", prompt)
         self.assertIn("不要把“问题 + 回答”合并成一条", prompt)
+
+    def test_content_extractor_prompt_uses_intermediate_sections(self):
+        extractor = MinnaNoNihongoExtractor(FakeSequenceProvider([]))
+        prompt = extractor._build_core_text_prompt(
+            lesson_profile=resolve_lesson_profile(51),
+            support_language="zh",
+            course_id=201,
+        )
+
+        self.assertIn("読む・書く", prompt)
+        self.assertIn("話す・聞く", prompt)
+        self.assertIn("文法・練習", prompt)
+        self.assertIn("topic_title", prompt)
+        self.assertIn("不要强行寻找旧版「文型」栏", prompt)
 
     def test_grammar_refiner_discovers_titles_and_repairs_sections(self):
         provider = FakeSequenceProvider([

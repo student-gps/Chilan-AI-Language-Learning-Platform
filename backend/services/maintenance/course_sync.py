@@ -9,6 +9,7 @@ from typing import Any, Iterator
 from content_builder.core.paths import default_paths
 from content_builder.core.pipeline import get_pipeline
 from database.connection import get_connection
+from database import sync_to_db as sync_db_module
 from database.sync_to_db import EmbeddingFactory, sync_lesson_data, upload_assets_to_r2
 from database.sync_to_db_ja import (
     DEFAULT_COURSE_SLUG as MNN_COURSE_SLUG,
@@ -365,7 +366,8 @@ def execute_sync(req: SyncRequest) -> dict[str, Any]:
             path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
             ok = sync_lesson_data(str(path), provider, sync_context=context)
             if not ok:
-                raise RuntimeError("sync_lesson_data returned false")
+                detail = sync_db_module.LAST_SYNC_ERROR or "sync_lesson_data returned false"
+                raise RuntimeError(detail)
             destination = synced_dir / path.name
             if path.resolve() != destination.resolve():
                 shutil.move(str(path), str(destination))
@@ -462,7 +464,8 @@ def iter_sync_progress(req: SyncRequest) -> Iterator[dict[str, Any]]:
             yield {"type": "lesson_step", "message": f"{lesson_label}: 写入数据库。", "lesson_id": before.get("lesson_id")}
             ok = sync_lesson_data(str(path), provider, sync_context=context)
             if not ok:
-                raise RuntimeError("sync_lesson_data returned false")
+                detail = sync_db_module.LAST_SYNC_ERROR or "sync_lesson_data returned false"
+                raise RuntimeError(detail)
 
             destination = synced_dir / path.name
             if path.resolve() != destination.resolve():

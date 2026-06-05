@@ -60,6 +60,18 @@ export default function StudyPage() {
         try {
             const initParams = { course_id: courseId, user_id: userId };
             if (lessonId) initParams.lesson_id = lessonId;
+            if (isBrowseEntry) initParams.browse = 1;
+            initParams.defer_practice = 1;
+            if (isBrowseEntry) {
+                const studyRes = await apiClient.get(`/study/init`, { params: initParams });
+                const { data } = studyRes.data;
+                setStudyData(data);
+                setCourseInfo(null);
+                setIsCourseEnrolled(false);
+                setShowPinyinBtn(false);
+                setMode(data?.lesson_content ? 'teaching' : (studyRes.data?.mode || 'teaching'));
+                return;
+            }
             const [studyRes, coursesRes, myCoursesRes] = await Promise.all([
                 apiClient.get(`/study/init`, { params: initParams }),
                 apiClient.get(`/courses`),
@@ -67,7 +79,7 @@ export default function StudyPage() {
             ]);
 
             const { mode: responseMode, data } = studyRes.data;
-            setStudyData(data);
+            let nextData = data;
 
             // 判断目标语言是否为中文，决定是否显示拼音入口
             const course = (coursesRes.data || []).find(c => String(c.id) === String(courseId));
@@ -79,10 +91,28 @@ export default function StudyPage() {
             // Course catalog browsing should always open the selected lesson normally,
             // independent of resume/progress state.
             if (isBrowseEntry && lessonId && data?.lesson_content) {
+                setStudyData(nextData);
                 setMode('teaching');
             } else if (responseMode === 'teaching' && data.skip_content) {
+                if (data.practice_deferred && data?.lesson_content?.lesson_metadata?.lesson_id) {
+                    const practiceRes = await apiClient.get('/study/practice_items', {
+                        params: {
+                            user_id: userId,
+                            course_id: courseId,
+                            lesson_id: toApiLessonId(data.lesson_content.lesson_metadata.lesson_id),
+                        }
+                    });
+                    nextData = {
+                        ...data,
+                        pending_items: practiceRes.data?.pending_items || [],
+                        practice_resume_index: practiceRes.data?.practice_resume_index || 0,
+                        practice_deferred: false,
+                    };
+                }
+                setStudyData(nextData);
                 setMode('practice');
             } else {
+                setStudyData(nextData);
                 setMode(responseMode);
             }
         } catch (e) {
@@ -92,6 +122,36 @@ export default function StudyPage() {
     }, [courseId, isBrowseEntry, lessonId, userId]);
 
     useEffect(() => { initFlow(); }, [initFlow]);
+
+    const loadPracticeItems = useCallback(async () => {
+        const lessonIdForPractice = studyData?.lesson_content?.lesson_metadata?.lesson_id;
+        if (!lessonIdForPractice) return [];
+        if (!studyData?.practice_deferred && Array.isArray(studyData?.pending_items)) {
+            return studyData.pending_items;
+        }
+        const practiceRes = await apiClient.get('/study/practice_items', {
+            params: {
+                user_id: userId,
+                course_id: courseId,
+                lesson_id: toApiLessonId(lessonIdForPractice),
+            }
+        });
+        const pendingItems = practiceRes.data?.pending_items || [];
+        setStudyData(prev => ({
+            ...prev,
+            pending_items: pendingItems,
+            practice_resume_index: practiceRes.data?.practice_resume_index || 0,
+            practice_deferred: false,
+        }));
+        return pendingItems;
+    }, [courseId, studyData, userId]);
+
+    const handleStartPractice = useCallback(async () => {
+        const pendingItems = await loadPracticeItems();
+        if (pendingItems.length > 0) {
+            setMode('practice');
+        }
+    }, [loadPracticeItems]);
 
     // 🌟 处理一课结束后的逻辑
     const handleLessonComplete = async () => {
@@ -178,10 +238,10 @@ export default function StudyPage() {
                             courseInfo={courseInfo}
                             courseId={courseId}
                             userId={userId}
-                            onStartPractice={() => setMode('practice')}
+                            onStartPractice={handleStartPractice}
                             isDirectLesson={!!lessonId}
                             canStartPractice={!lessonId || isCourseEnrolled}
-                            hasPracticeItems={(studyData?.pending_items || []).length > 0}
+                            hasPracticeItems={!!studyData?.practice_deferred || (studyData?.pending_items || []).length > 0}
                         />
                     )}
 
