@@ -13,6 +13,13 @@ import apiClient from '../api/apiClient';
 const SUBTLE_PATTERN = `data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23ffffff' stroke-width='1' opacity='0.05'%3E%3Cpath d='M30 0L0 30M60 30L30 60M30 0l30 30M0 30l30 30' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E`;
 const MAX_ACTIVE_COURSES = 2;
 
+const cleanCourseDisplayName = (name = '') => String(name || '').replace(/\s*(初级|中级)\s*/g, ' ').trim();
+
+const toNumber = (value, fallback = 0) => {
+    const number = Number(value);
+    return Number.isFinite(number) ? number : fallback;
+};
+
 function FlagChina({ className = '' }) {
     return (
         <svg viewBox="0 0 64 48" className={className} aria-hidden="true">
@@ -836,6 +843,13 @@ function CourseCard({
     const NativeFlag = visual.NativeFlag;
     const learningLabel = formatLanguageLabel(visual.learning, i18n.language);
     const nativeLabel = formatLanguageLabel(visual.native, i18n.language);
+    const lessonTotal = toNumber(course.lesson_total, 0);
+    const completedLessonCount = Math.min(toNumber(course.completed_lesson_count, 0), lessonTotal);
+    const lessonProgressPercent = lessonTotal > 0
+        ? Math.round((completedLessonCount / lessonTotal) * 100)
+        : 0;
+    const showLessonProgress = progressValue !== null && lessonTotal > 0;
+    const masteredTotal = toNumber(course.total_items, 0);
 
     return (
         <motion.div
@@ -855,18 +869,31 @@ function CourseCard({
                         <LearningFlag className="w-full h-full" />
                     </div>
                 </div>
-                <h3 className={`text-xl font-black ${visual.textColor} leading-snug`}>{course.name}</h3>
+                <h3 className={`text-xl font-black ${visual.textColor} leading-snug`}>
+                    {cleanCourseDisplayName(course.name)}
+                </h3>
                 <p className={`mt-1 ${visual.subtitleColor} text-sm font-semibold`}>{nativeLabel} → {learningLabel}</p>
             </div>
 
             {/* White bottom section */}
             <div className="bg-white px-6 py-4">
-                {progressValue !== null && (
-                    <div className="flex items-center gap-3 mb-3">
-                        <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                            <div className={`h-full rounded-full ${visual.barBg}`} style={{ width: `${Math.min((progressValue / 50) * 100, 100)}%` }} />
+                {showLessonProgress && (
+                    <div className="mb-3">
+                        <div className="mb-2 flex items-center justify-between gap-3">
+                            <p className="truncate text-xs font-black text-slate-500">
+                                {t('course_progress_completed_count', {
+                                    completed: completedLessonCount,
+                                    total: lessonTotal,
+                                })}
+                            </p>
+                            <p className="shrink-0 text-xs font-black text-slate-900">{lessonProgressPercent}%</p>
                         </div>
-                        <p className="text-xs font-bold text-slate-400 shrink-0">{t('classroom_mastered')}: {progressValue}</p>
+                        <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
+                            <div className={`h-full rounded-full ${visual.barBg}`} style={{ width: `${lessonProgressPercent}%` }} />
+                        </div>
+                        <p className="mt-2 text-xs font-bold text-slate-400">
+                            {t('classroom_mastered')}: {progressValue}{masteredTotal > 0 ? ` / ${masteredTotal}` : ''}
+                        </p>
                     </div>
                 )}
                 <div className="flex items-center justify-between gap-3">

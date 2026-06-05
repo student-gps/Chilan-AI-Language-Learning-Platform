@@ -29,7 +29,10 @@ from services.study.lesson_progress_service import (
     mark_lesson_content_viewed as mark_lesson_content_viewed_service,
     save_practice_progress as save_practice_progress_service,
 )
-from services.study.init_flow_service import init_study_flow as init_study_flow_service
+from services.study.init_flow_service import (
+    init_study_flow as init_study_flow_service,
+    load_lesson_practice_items,
+)
 from services.storage.media_storage import get_media_storage
 from config.env import get_env
 
@@ -337,19 +340,42 @@ def ensure_review_logs_item_columns(cur):
 # 接口 1: 初始化学习流 (完整版)
 # ==========================================
 @router.get("/study/init")
-async def init_study_flow(user_id: str, course_id: int = 1, lesson_id: int = None):
+async def init_study_flow(
+    user_id: str,
+    course_id: int = 1,
+    lesson_id: int = None,
+    browse: bool = False,
+    defer_practice: bool = False,
+):
     try:
         return init_study_flow_service(
             user_id=user_id,
             course_id=course_id,
             cos_media_storage=cos_media_storage,
             lesson_id=lesson_id,
+            prefer_local_content=browse,
+            defer_practice_items=defer_practice,
         )
     except Exception as e:
         print(f"❌ Init Flow Error: {e}")
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="加载学习流失败，请检查后端日志")
+
+
+@router.get("/study/practice_items")
+async def get_lesson_practice_items(user_id: str, course_id: int, lesson_id: int):
+    try:
+        return load_lesson_practice_items(
+            user_id=user_id,
+            course_id=course_id,
+            lesson_id=lesson_id,
+        )
+    except Exception as e:
+        print(f"❌ Practice Items Error: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="加载练习题失败，请检查后端日志")
         
 # ==========================================
 # 接口 2: 智能判卷与记忆更新

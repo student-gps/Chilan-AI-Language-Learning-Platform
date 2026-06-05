@@ -614,20 +614,64 @@ async def list_all_courses(db=Depends(get_db)):
 @app.get("/my-courses/{user_id}")
 async def get_my_courses(user_id: str, db=Depends(get_db)):
     cur = db.cursor()
-    # 🌟 关联查询用户课程及 FSRS 掌握进度
+    # 🌟 关联查询用户课程、课时推进进度及 FSRS 掌握进度
     query = """
         SELECT c.course_id, c.name, c.category,
                c.target_language, c.source_language,
-               COUNT(p.item_id) FILTER (WHERE p.is_mastered = TRUE) as mastered_count
+               COUNT(DISTINCT p.item_id) FILTER (WHERE p.is_mastered = TRUE) as mastered_count,
+               COUNT(DISTINCT li.item_id) as total_item_count,
+               COALESCE(lesson_stats.lesson_total, 0) as lesson_total,
+               COALESCE(lesson_stats.completed_lesson_count, 0) as completed_lesson_count,
+               COALESCE(lp.last_completed_lesson_id, 0) as last_completed_lesson_id,
+               COALESCE(lp.viewed_lesson_id, 0) as viewed_lesson_id,
+               COALESCE(lp.practice_question_index, 0) as practice_question_index,
+               next_lesson.lesson_id as next_lesson_id,
+               next_lesson.title as next_lesson_title,
+               next_lesson.title_localized as next_lesson_title_localized
         FROM courses c
         JOIN user_courses uc ON c.course_id = uc.course_id
+        LEFT JOIN user_progress_of_lessons lp
+          ON lp.course_id = c.course_id
+         AND lp.user_id::text = %s
+        LEFT JOIN LATERAL (
+            SELECT
+                COUNT(*) as lesson_total,
+                COUNT(*) FILTER (
+                    WHERE l.lesson_id <= COALESCE(lp.last_completed_lesson_id, 0)
+                ) as completed_lesson_count
+            FROM lessons l
+            WHERE l.course_id = c.course_id
+        ) lesson_stats ON TRUE
+        LEFT JOIN LATERAL (
+            SELECT
+                l.lesson_id,
+                l.title,
+                l.lesson_metadata->>'title_localized' AS title_localized
+            FROM lessons l
+            WHERE l.course_id = c.course_id
+              AND l.lesson_id > COALESCE(lp.last_completed_lesson_id, 0)
+            ORDER BY l.lesson_id ASC
+            LIMIT 1
+        ) next_lesson ON TRUE
         LEFT JOIN language_items li ON c.course_id = li.course_id
         LEFT JOIN user_progress_of_language_items p ON li.item_id = p.item_id AND p.user_id::text = %s
         WHERE uc.user_id::text = %s
           AND uc.status = %s
-        GROUP BY c.course_id;
+        GROUP BY c.course_id,
+                 c.name,
+                 c.category,
+                 c.target_language,
+                 c.source_language,
+                 lesson_stats.lesson_total,
+                 lesson_stats.completed_lesson_count,
+                 lp.last_completed_lesson_id,
+                 lp.viewed_lesson_id,
+                 lp.practice_question_index,
+                 next_lesson.lesson_id,
+                 next_lesson.title,
+                 next_lesson.title_localized;
     """
-    cur.execute(query, (user_id, user_id, ACTIVE_COURSE_STATUS))
+    cur.execute(query, (user_id, user_id, user_id, ACTIVE_COURSE_STATUS))
     return [{
         "id": r[0],
         "name": r[1],
@@ -635,6 +679,15 @@ async def get_my_courses(user_id: str, db=Depends(get_db)):
         "target_language": r[3],
         "source_language": r[4],
         "mastered": r[5],
+        "total_items": r[6],
+        "lesson_total": r[7],
+        "completed_lesson_count": r[8],
+        "last_completed_lesson_id": r[9],
+        "viewed_lesson_id": r[10],
+        "practice_question_index": r[11],
+        "next_lesson_id": r[12],
+        "next_lesson_title": r[13],
+        "next_lesson_title_localized": r[14],
     } for r in cur.fetchall()]
 
 @app.post("/courses/enroll")

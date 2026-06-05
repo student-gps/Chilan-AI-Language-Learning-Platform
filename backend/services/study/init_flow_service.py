@@ -1,10 +1,32 @@
+import json
+from pathlib import Path
 from typing import Any, Dict
 
 from psycopg2.extras import RealDictCursor
 
 from database.connection import get_connection
 from services.course_enrollment_service import ACTIVE_COURSE_STATUS
-from services.study.lesson_progress_service import ensure_lesson_progress_columns
+
+
+BACKEND_DIR = Path(__file__).resolve().parents[2]
+_LESSON_ROW_CACHE: dict[tuple[int, int], Dict[str, Any]] = {}
+
+
+def _cacheable_course(course_id: int) -> bool:
+    return int(course_id or 0) in {303}
+
+
+def _get_cached_lesson_row(course_id: int, lesson_id: int | None) -> Dict[str, Any] | None:
+    if lesson_id is None or not _cacheable_course(course_id):
+        return None
+    cached = _LESSON_ROW_CACHE.get((int(course_id), int(lesson_id)))
+    return dict(cached) if cached else None
+
+
+def _put_cached_lesson_row(course_id: int, lesson_id: int | None, lesson_row: Dict[str, Any]) -> None:
+    if lesson_id is None or not _cacheable_course(course_id):
+        return
+    _LESSON_ROW_CACHE[(int(course_id), int(lesson_id))] = dict(lesson_row)
 
 
 def _normalize_video_render_plan(payload: Any) -> Dict[str, Any]:
@@ -142,13 +164,238 @@ def _hydrate_lesson_audio_urls(payload: Any, cos_media_storage=None) -> Dict[str
     return assets
 
 
-def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None, lesson_id: int = None):
+def _load_local_mnn_lesson_row(course_id: int, lesson_id: int | None, lang: str = "zh") -> Dict[str, Any] | None:
+    """Dev preview fast path for MNN lessons; avoids pulling large JSONB from remote DB."""
+    if course_id != 303 or lesson_id is None:
+        return None
+
+    lesson_slug = f"lesson{int(lesson_id):03d}"
+    artifact_root = BACKEND_DIR / "content_builder" / "ja" / "minna_no_nihongo" / "artifacts"
+    candidates = [
+        artifact_root / "synced_json" / lang / f"{lesson_slug}_data.json",
+        artifact_root / "output_json" / lang / f"{lesson_slug}_data.json",
+    ]
+    json_path = next((path for path in candidates if path.exists()), None)
+    if json_path is None:
+        return None
+
+    try:
+        data = json.loads(json_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"⚠️ 本地 MNN 预览 JSON 读取失败: {json_path} | {exc}")
+        return None
+
+    metadata = data.get("lesson_metadata") if isinstance(data.get("lesson_metadata"), dict) else {}
+    metadata = {
+        **metadata,
+        "course_id": course_id,
+        "lesson_id": int(lesson_id),
+        "pipeline_id": data.get("pipeline_id") or metadata.get("pipeline_id"),
+    }
+    return {
+        "lesson_id": int(lesson_id),
+        "title": metadata.get("title") or data.get("title") or f"第{int(lesson_id)}課",
+        "lesson_metadata": metadata,
+        "course_content": data.get("course_content") if isinstance(data.get("course_content"), dict) else {},
+        "teaching_materials": data.get("teaching_materials") if isinstance(data.get("teaching_materials"), dict) else {},
+        "video_plan": data.get("video_plan") if isinstance(data.get("video_plan"), dict) else {},
+        "video_render_plan": data.get("video_render_plan") if isinstance(data.get("video_render_plan"), dict) else {},
+        "lesson_audio_assets": data.get("lesson_audio_assets") if isinstance(data.get("lesson_audio_assets"), dict) else {},
+        "explanation_video_urls": data.get("explanation_video_urls") if isinstance(data.get("explanation_video_urls"), dict) else {},
+        "llm_usage": data.get("llm_usage") if isinstance(data.get("llm_usage"), dict) else {},
+    }
+
+
+def _build_teaching_response(
+    lesson_row: Dict[str, Any],
+    *,
+    course_id: int,
+    viewed_lesson: int = 0,
+    practice_question_index: int = 0,
+    new_questions: list | None = None,
+    practice_deferred: bool = False,
+    cos_media_storage=None,
+) -> Dict[str, Any]:
+    next_lesson_id = lesson_row["lesson_id"]
+    lesson_metadata = lesson_row.get("lesson_metadata") or {}
+    course_content = lesson_row.get("course_content") or {}
+    video_plan = lesson_row.get("video_plan") or {}
+    video_render_plan = _normalize_video_render_plan(lesson_row.get("video_render_plan"))
+    lesson_audio_assets = _hydrate_lesson_audio_urls(lesson_row.get("lesson_audio_assets"), cos_media_storage)
+    explanation_video_urls = _hydrate_explanation_video_urls(lesson_row.get("explanation_video_urls"), cos_media_storage)
+    teaching_video = _normalize_teaching_video(
+        video_plan.get("dramatization") if isinstance(video_plan.get("dramatization"), dict) else {}
+    )
+    questions = new_questions or []
+
+    lesson_metadata = {
+        "course_id": course_id,
+        "lesson_id": next_lesson_id,
+        "title": lesson_metadata.get("title") or lesson_row["title"],
+        "content_type": lesson_metadata.get("content_type", "dialogue"),
+        **{k: v for k, v in lesson_metadata.items() if k not in {"course_id", "lesson_id", "title", "content_type"}},
+    }
+
+    return {
+        "mode": "teaching",
+        "data": {
+            "lesson_content": {
+                "pipeline_id": lesson_metadata.get("pipeline_id") or lesson_metadata.get("course_slug"),
+                "target_language": lesson_metadata.get("target_language"),
+                "source_language": lesson_metadata.get("source_language") or lesson_metadata.get("support_language"),
+                "lesson_metadata": lesson_metadata,
+                "course_content": course_content,
+                "teaching_video": teaching_video,
+                "video_render_plan": video_render_plan,
+                "teaching_slide_deck": video_render_plan.get("teaching_slide_deck"),
+                "lesson_audio_assets": lesson_audio_assets,
+                "explanation_video_urls": explanation_video_urls,
+                "aigc_visual_prompt": "A thematic visual for the current lesson...",
+            },
+            "pending_items": questions,
+            "practice_deferred": practice_deferred,
+            "skip_content": viewed_lesson == next_lesson_id,
+            "practice_resume_index": max(0, min(practice_question_index, max(len(questions) - 1, 0))),
+        },
+    }
+
+
+def load_lesson_practice_items(user_id: str, course_id: int, lesson_id: int) -> Dict[str, Any]:
     conn = None
     try:
         conn = get_connection()
         cur = conn.cursor(cursor_factory=RealDictCursor)
-        ensure_lesson_progress_columns(cur)
-        conn.commit()
+        cur.execute(
+            """
+            SELECT COALESCE(practice_question_index, 0) AS practice_question_index
+            FROM user_progress_of_lessons
+            WHERE user_id::text = %s AND course_id = %s
+            """,
+            (user_id, course_id),
+        )
+        progress = cur.fetchone() or {}
+        practice_question_index = progress.get("practice_question_index") or 0
+
+        cur.execute(
+            """
+            SELECT
+                item_id,
+                course_id,
+                question_id,
+                question_type,
+                original_text,
+                original_pinyin,
+                standard_answers,
+                metadata,
+                %s as lesson_id
+            FROM language_items
+            WHERE course_id = %s AND lesson_id = %s
+            ORDER BY question_id ASC
+            """,
+            (lesson_id, course_id, lesson_id),
+        )
+        questions = cur.fetchall()
+        return {
+            "pending_items": questions,
+            "practice_resume_index": max(0, min(practice_question_index, max(len(questions) - 1, 0))),
+        }
+    finally:
+        if conn:
+            conn.close()
+
+
+def _select_lesson_row(cur, *, course_id: int, lesson_id: int | None, last_lesson: int = 0):
+    if _cacheable_course(course_id):
+        selected_columns = """
+            lesson_id,
+            title,
+            lesson_metadata,
+            course_content,
+            '{}'::jsonb AS teaching_materials,
+            '{}'::jsonb AS video_plan,
+            jsonb_build_object('teaching_slide_deck', video_render_plan->'teaching_slide_deck') AS video_render_plan,
+            lesson_audio_assets,
+            explanation_video_urls,
+            '{}'::jsonb AS llm_usage
+        """
+    else:
+        selected_columns = """
+            lesson_id,
+            title,
+            lesson_metadata,
+            course_content,
+            teaching_materials,
+            video_plan,
+            video_render_plan,
+            lesson_audio_assets,
+            explanation_video_urls,
+            llm_usage
+        """
+
+    if lesson_id is not None:
+        cur.execute(
+            f"""
+            SELECT {selected_columns}
+            FROM lessons
+            WHERE course_id = %s AND lesson_id = %s
+            """,
+            (course_id, lesson_id),
+        )
+    else:
+        cur.execute(
+            f"""
+            SELECT {selected_columns}
+            FROM lessons
+            WHERE course_id = %s AND lesson_id > %s
+            ORDER BY lesson_id ASC
+            LIMIT 1
+            """,
+            (course_id, last_lesson),
+        )
+    row = cur.fetchone()
+    if row and _cacheable_course(course_id):
+        _put_cached_lesson_row(course_id, row["lesson_id"], row)
+    return row
+
+
+def init_study_flow(
+    user_id: str,
+    course_id: int = 1,
+    cos_media_storage=None,
+    lesson_id: int = None,
+    prefer_local_content: bool = False,
+    defer_practice_items: bool = False,
+):
+    if prefer_local_content and lesson_id is not None:
+        lesson_row = _load_local_mnn_lesson_row(course_id, lesson_id)
+        if lesson_row:
+            return _build_teaching_response(
+                lesson_row,
+                course_id=course_id,
+                viewed_lesson=0,
+                practice_question_index=0,
+                new_questions=[],
+                practice_deferred=True,
+                cos_media_storage=cos_media_storage,
+            )
+
+    if lesson_id is not None and defer_practice_items:
+        lesson_row = _get_cached_lesson_row(course_id, lesson_id)
+        if lesson_row:
+            return _build_teaching_response(
+                lesson_row,
+                course_id=course_id,
+                viewed_lesson=0,
+                practice_question_index=0,
+                new_questions=[],
+                practice_deferred=True,
+                cos_media_storage=cos_media_storage,
+            )
+
+    conn = None
+    try:
+        conn = get_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
 
         if lesson_id is None:
             cur.execute(
@@ -214,97 +461,56 @@ def init_study_flow(user_id: str, course_id: int = 1, cos_media_storage=None, le
             viewed_lesson = 0
             practice_question_index = 0
 
-        if lesson_id is not None:
-            cur.execute(
-                """
-                SELECT lesson_id, title,
-                       lesson_metadata, course_content, teaching_materials,
-                       video_plan, video_render_plan, lesson_audio_assets,
-                       explanation_video_urls, llm_usage
-                FROM lessons
-                WHERE course_id = %s AND lesson_id = %s
-                """,
-                (course_id, lesson_id),
-            )
+        lesson_row = _load_local_mnn_lesson_row(course_id, lesson_id) if prefer_local_content else None
+
+        if lesson_id is not None and lesson_row is None:
+            lesson_row = _select_lesson_row(cur, course_id=course_id, lesson_id=lesson_id)
         else:
-            cur.execute(
-                """
-                SELECT lesson_id, title,
-                       lesson_metadata, course_content, teaching_materials,
-                       video_plan, video_render_plan, lesson_audio_assets,
-                       explanation_video_urls, llm_usage
-                FROM lessons
-                WHERE course_id = %s AND lesson_id > %s
-                ORDER BY lesson_id ASC
-                LIMIT 1
-                """,
-                (course_id, last_lesson),
+            lesson_row = lesson_row or _select_lesson_row(
+                cur,
+                course_id=course_id,
+                lesson_id=None,
+                last_lesson=last_lesson,
             )
-        lesson_row = cur.fetchone()
         if not lesson_row:
             return {"mode": "completed", "message": "恭喜！你已完成本课程的所有内容。"}
 
         next_lesson_id = lesson_row["lesson_id"]
-        lesson_metadata = lesson_row.get("lesson_metadata") or {}
-        course_content = lesson_row.get("course_content") or {}
-        video_plan = lesson_row.get("video_plan") or {}
-        video_render_plan = _normalize_video_render_plan(lesson_row.get("video_render_plan"))
-        lesson_audio_assets = _hydrate_lesson_audio_urls(lesson_row.get("lesson_audio_assets"), cos_media_storage)
-        explanation_video_urls = _hydrate_explanation_video_urls(lesson_row.get("explanation_video_urls"), cos_media_storage)
-        teaching_video = _normalize_teaching_video(
-            video_plan.get("dramatization") if isinstance(video_plan.get("dramatization"), dict) else {}
-        )
 
-        lesson_metadata = {
-            "course_id": course_id,
-            "lesson_id": next_lesson_id,
-            "title": lesson_metadata.get("title") or lesson_row["title"],
-            "content_type": lesson_metadata.get("content_type", "dialogue"),
-            **{k: v for k, v in lesson_metadata.items() if k not in {"course_id", "lesson_id", "title", "content_type"}},
-        }
-
-        cur.execute(
-            """
-            SELECT
-                item_id,
-                course_id,
-                question_id,
-                question_type,
-                original_text,
-                original_pinyin,
-                standard_answers,
-                metadata,
-                %s as lesson_id
-            FROM language_items
-            WHERE course_id = %s AND lesson_id = %s
-            ORDER BY question_id ASC
-            """,
-            (next_lesson_id, course_id, next_lesson_id),
-        )
-        new_questions = cur.fetchall()
+        practice_deferred = bool(defer_practice_items or prefer_local_content)
+        if practice_deferred:
+            new_questions = []
+        else:
+            cur.execute(
+                """
+                SELECT
+                    item_id,
+                    course_id,
+                    question_id,
+                    question_type,
+                    original_text,
+                    original_pinyin,
+                    standard_answers,
+                    metadata,
+                    %s as lesson_id
+                FROM language_items
+                WHERE course_id = %s AND lesson_id = %s
+                ORDER BY question_id ASC
+                """,
+                (next_lesson_id, course_id, next_lesson_id),
+            )
+            new_questions = cur.fetchall()
         skip_content = viewed_lesson == next_lesson_id
 
-        return {
-            "mode": "teaching",
-            "data": {
-                "lesson_content": {
-                    "pipeline_id": lesson_metadata.get("pipeline_id") or lesson_metadata.get("course_slug"),
-                    "target_language": lesson_metadata.get("target_language"),
-                    "source_language": lesson_metadata.get("source_language") or lesson_metadata.get("support_language"),
-                    "lesson_metadata": lesson_metadata,
-                    "course_content": course_content,
-                    "teaching_video": teaching_video,
-                    "video_render_plan": video_render_plan,
-                    "teaching_slide_deck": video_render_plan.get("teaching_slide_deck"),
-                    "lesson_audio_assets": lesson_audio_assets,
-                    "explanation_video_urls": explanation_video_urls,
-                    "aigc_visual_prompt": "A thematic visual for the current lesson...",
-                },
-                "pending_items": new_questions,
-                "skip_content": skip_content,
-                "practice_resume_index": max(0, min(practice_question_index, max(len(new_questions) - 1, 0))),
-            },
-        }
+        return _build_teaching_response(
+            lesson_row,
+            course_id=course_id,
+            viewed_lesson=viewed_lesson,
+            practice_question_index=practice_question_index,
+            new_questions=new_questions,
+            practice_deferred=practice_deferred,
+            cos_media_storage=cos_media_storage,
+        )
     finally:
         if conn:
             conn.close()

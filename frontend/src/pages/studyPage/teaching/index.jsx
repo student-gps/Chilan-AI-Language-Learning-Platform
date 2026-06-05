@@ -165,8 +165,11 @@ export default function TeachingSection({
         } catch (error) {
             console.error('记录阅读进度失败:', error);
         } finally {
-            setIsSaving(false);
-            onStartPractice();
+            try {
+                await onStartPractice?.();
+            } finally {
+                setIsSaving(false);
+            }
         }
     };
 

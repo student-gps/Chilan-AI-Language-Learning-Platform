@@ -62,6 +62,7 @@ except ImportError:
 NEW_CONCEPT_ENGLISH_BOOK1_COURSE_ID = 101
 INTEGRATED_CHINESE_ARTIFACT_NAMESPACE = "integrated_chinese"
 INTEGRATED_CHINESE_DEFAULT_COURSE_ID = 1
+LAST_SYNC_ERROR = ""
 
 # ==========================================
 # 1. 环境与配置初始化
@@ -85,13 +86,28 @@ class GeminiEmbeddingProvider(BaseEmbeddingProvider):
         import os
         from google import genai
         use_vertex = get_env("LLM_GEMINI_USE_VERTEX", default="false").lower() == "true"
+        self.use_vertex = use_vertex
+        self._vertex_project = None
+        self._vertex_locations = []
+        self._location_idx = 0
         if use_vertex:
             project = get_env("VERTEX_AI_PROJECT_ID")
             location = get_env("VERTEX_AI_LOCATION", default="us-central1")
+            fallback_locations = [
+                item.strip()
+                for item in (get_env("VERTEX_AI_FALLBACK_LOCATIONS", default="") or "").split(",")
+                if item.strip()
+            ]
+            all_locations = [location]
+            for fallback in fallback_locations:
+                if fallback not in all_locations:
+                    all_locations.append(fallback)
+            self._vertex_project = project
+            self._vertex_locations = all_locations
             sa_key = get_env("GOOGLE_APPLICATION_CREDENTIALS")
             if sa_key:
                 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sa_key
-            self.client = genai.Client(vertexai=True, project=project, location=location)
+            self.client = self._make_vertex_client(location)
             print(f"  ℹ️  Gemini embedding 使用 Vertex AI ({location})")
         else:
             api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
@@ -100,11 +116,51 @@ class GeminiEmbeddingProvider(BaseEmbeddingProvider):
         self.provider_name = "gemini"
         self.output_dimensionality = get_env_int("LLM_EMBED_GEMINI_OUTPUT_DIMENSIONALITY", default=768)
 
+    def _make_vertex_client(self, location: str):
+        from google import genai
+        return genai.Client(vertexai=True, project=self._vertex_project, location=location)
+
+    def _rotate_region(self, reason: str = "embedding 区域暂不可用") -> bool:
+        if len(self._vertex_locations) <= 1:
+            return False
+        self._location_idx = (self._location_idx + 1) % len(self._vertex_locations)
+        new_location = self._vertex_locations[self._location_idx]
+        self.client = self._make_vertex_client(new_location)
+        print(f"  🔄 {reason}，embedding 自动切换 → {new_location}")
+        return True
+
+    @staticmethod
+    def _is_retryable_network_error(err_str: str) -> bool:
+        retryable_markers = (
+            "UNEXPECTED_EOF_WHILE_READING",
+            "EOF occurred in violation of protocol",
+            "ConnectError",
+            "ConnectionError",
+            "ProxyError",
+            "MaxRetryError",
+            "NewConnectionError",
+            "ConnectionRefusedError",
+            "ReadTimeout",
+            "ConnectTimeout",
+            "TimeoutError",
+            "timed out",
+            "WinError 10061",
+            "Connection reset",
+            "RemoteProtocolError",
+            "TLS",
+            "SSL",
+        )
+        return any(marker in err_str for marker in retryable_markers)
+
     def get_embedding(self, text: str) -> list[float]:
         import time
         print(f"🧠 [Gemini] 正在生成向量: '{text[:15]}...'")
+        max_retries = 24
         waits = [15, 30, 60, 120, 180, 300]
-        for attempt, wait in enumerate(waits, 1):
+        wait_attempt = 0
+        region_cycle_count = 0
+        num_regions = max(1, len(self._vertex_locations))
+        for attempt in range(max_retries):
             try:
                 response = self.client.models.embed_content(
                     model=self.model_id,
@@ -116,21 +172,26 @@ class GeminiEmbeddingProvider(BaseEmbeddingProvider):
                 )
                 return response.embeddings[0].values
             except Exception as e:
-                if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
-                    print(f"  ⏳ 429 配额限制，{wait}s 后重试 (第{attempt}次)...")
-                    time.sleep(wait)
-                else:
+                err_str = str(e)
+                is_quota = "429" in err_str or "RESOURCE_EXHAUSTED" in err_str
+                is_network = self._is_retryable_network_error(err_str)
+                is_retryable = is_quota or is_network or any(code in err_str for code in ("503", "UNAVAILABLE"))
+                if not is_retryable or attempt >= max_retries - 1:
                     raise
-        # 最后一次尝试，不捕获
-        response = self.client.models.embed_content(
-            model=self.model_id,
-            contents=text,
-            config={
-                "task_type": "SEMANTIC_SIMILARITY",
-                "output_dimensionality": self.output_dimensionality,
-            },
-        )
-        return response.embeddings[0].values
+
+                if self.use_vertex and region_cycle_count < num_regions:
+                    reason = "embedding 配额限制" if is_quota else "embedding 连接异常"
+                    self._rotate_region(reason=reason)
+                    region_cycle_count += 1
+                    continue
+
+                region_cycle_count = 0
+                wait = waits[min(wait_attempt, len(waits) - 1)]
+                print(f"  ⏳ Gemini embedding 暂时不可用，{wait}s 后重试 (第{wait_attempt + 1}次)...")
+                time.sleep(wait)
+                wait_attempt += 1
+
+        raise RuntimeError("Gemini embedding 多次重试后仍未返回结果")
 
 class DoubaoEmbeddingProvider(BaseEmbeddingProvider):
     def __init__(self, api_key: str, model_id: str):
@@ -595,6 +656,8 @@ def sync_lesson_data(
     provider: BaseEmbeddingProvider,
     sync_context: dict | None = None,
 ) -> bool:
+    global LAST_SYNC_ERROR
+    LAST_SYNC_ERROR = ""
     with open(json_file_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
@@ -779,6 +842,7 @@ def sync_lesson_data(
         return True
 
     except Exception as e:
+        LAST_SYNC_ERROR = str(e)
         print(f"❌ 入库失败: {e}")
         if conn: conn.rollback()
         return False
