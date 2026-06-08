@@ -3,6 +3,7 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
 import apiClient from '../../api/apiClient';
+import { getAuthState } from '../../utils/authStorage';
 import TeachingSection from './teaching';
 import NewConceptTeachingSection from './english/NewConceptTeachingSection';
 import PracticeSection from './practice/PracticeSection';
@@ -52,7 +53,7 @@ export default function StudyPage() {
     const [searchParams] = useSearchParams();
     const lessonId = searchParams.get('lesson_id');
     const isBrowseEntry = searchParams.get('browse') === '1';
-    const userId = localStorage.getItem('chilan_user_id');
+    const userId = getAuthState().userId;
 
     const [mode, setMode] = useState('loading'); // loading, teaching, practice, review, completed, lesson_finished
     const [studyData, setStudyData] = useState(null);

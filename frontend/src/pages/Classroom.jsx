@@ -14,6 +14,7 @@ import {
     classroomStatsQuery,
     queryKeys,
 } from '../api/queries';
+import { getAuthState } from '../utils/authStorage';
 
 // 通用底纹
 const SUBTLE_PATTERN = `data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23ffffff' stroke-width='1' opacity='0.05'%3E%3Cpath d='M30 0L0 30M60 30L30 60M30 0l30 30M0 30l30 30' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E`;
@@ -468,7 +469,7 @@ export default function Classroom() {
     const [learningFilter, setLearningFilter] = useState('all');
     const [nativeFilter, setNativeFilter] = useState('all');
 
-    const userId = localStorage.getItem('chilan_user_id');
+    const { userId } = getAuthState();
 
     // ── 服务端数据：三个并发查询 ─────────────────────────────────────────────
     const { data: stats = { totalRemaining: 0, totalReviewed: 0, totalNewLearned: 0 } } =

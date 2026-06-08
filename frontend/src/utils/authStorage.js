@@ -23,7 +23,8 @@ export function clearAuthStorage() {
 export function isTokenExpired(token, skewSeconds = 30) {
   if (!token) return true;
   const payload = decodeJwtPayload(token);
-  if (!payload || !payload.exp) return false;
+  // 解码失败视为过期，安全起见拒绝访问
+  if (!payload || !payload.exp) return true;
   const now = Math.floor(Date.now() / 1000);
   return payload.exp <= now + skewSeconds;
 }

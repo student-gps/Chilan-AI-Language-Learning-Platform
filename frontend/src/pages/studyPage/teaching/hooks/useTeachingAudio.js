@@ -190,52 +190,43 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
         setPlayingKey(key);
         setAudioLoadingKey(key);
 
+        // 用 functional updater 比对当前 key，避免 audio A 的回调在 audio B 启动后
+        // 才触发时，错误清掉 audio B 的状态（stale closure race condition）
+        const clearIfStillCurrent = (prevKey) => (prevKey === key ? null : prevKey);
+
         audio.onplaying = () => {
-            if (audioRef.current === audio) {
-                setAudioLoadingKey(null);
-            }
+            if (audioRef.current === audio) setAudioLoadingKey(clearIfStillCurrent);
         };
         audio.oncanplay = () => {
-            if (audioRef.current === audio) {
-                setAudioLoadingKey(null);
-            }
+            if (audioRef.current === audio) setAudioLoadingKey(clearIfStillCurrent);
         };
-
         audio.onpause = () => {
-            if (audioRef.current === audio) {
-                audioRef.current = null;
-            }
+            if (audioRef.current === audio) audioRef.current = null;
             releaseGlobalAudio(audio);
-            setPlayingKey(null);
-            setAudioLoadingKey(null);
+            setPlayingKey(clearIfStillCurrent);
+            setAudioLoadingKey(clearIfStillCurrent);
         };
         audio.onended = () => {
-            if (audioRef.current === audio) {
-                audioRef.current = null;
-            }
+            if (audioRef.current === audio) audioRef.current = null;
             releaseGlobalAudio(audio);
-            setPlayingKey(null);
-            setAudioLoadingKey(null);
+            setPlayingKey(clearIfStillCurrent);
+            setAudioLoadingKey(clearIfStillCurrent);
         };
         audio.onerror = () => {
-            if (audioRef.current === audio) {
-                audioRef.current = null;
-            }
+            if (audioRef.current === audio) audioRef.current = null;
             releaseGlobalAudio(audio);
-            setPlayingKey(null);
-            setAudioLoadingKey(null);
+            setPlayingKey(clearIfStillCurrent);
+            setAudioLoadingKey(clearIfStillCurrent);
         };
 
         try {
             await audio.play();
         } catch (error) {
             console.error('播放音频失败:', error);
-            if (audioRef.current === audio) {
-                audioRef.current = null;
-            }
+            if (audioRef.current === audio) audioRef.current = null;
             releaseGlobalAudio(audio);
-            setPlayingKey(null);
-            setAudioLoadingKey(null);
+            setPlayingKey(clearIfStillCurrent);
+            setAudioLoadingKey(clearIfStillCurrent);
         }
     }, [audioLoadingKey, playingKey, stopCurrentAudio, stopLessonAudio]);
 

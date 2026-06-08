@@ -1,12 +1,26 @@
 import axios from 'axios';
+import { clearAuthStorage } from '../utils/authStorage';
 
-// 🚀 这里会自动根据环境切换 URL
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_APP_API_BASE_URL,
-    headers: {
-        'Content-Type': 'application/json'
-    }
+  headers: { 'Content-Type': 'application/json' },
 });
+
+// 全局 401 拦截：token 失效时自动清除本地状态并跳转登录
+// 排除 /auth 路径的请求，避免登录接口本身的 401 触发循环跳转
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (
+      error.response?.status === 401 &&
+      !error.config?.url?.includes('/auth')
+    ) {
+      clearAuthStorage();
+      window.location.href = '/auth';
+    }
+    return Promise.reject(error);
+  }
+);
 
 export const evaluateStudyAnswer = (payload) => apiClient.post('/study/evaluate', payload);
 

@@ -6,6 +6,7 @@ import { ChevronRight, BookOpen, Play, ArrowLeft, Loader2, PlusCircle, CheckCirc
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import apiClient from '../api/apiClient';
 import { courseQuery, lessonsQuery, myCoursesQuery, queryKeys } from '../api/queries';
+import { getAuthState } from '../utils/authStorage';
 
 const MAX_ACTIVE_COURSES = 2;
 
@@ -86,7 +87,7 @@ export default function CoursePage() {
     const queryClient = useQueryClient();
 
     const [enrollError, setEnrollError] = useState('');
-    const userId = localStorage.getItem('chilan_user_id');
+    const userId = getAuthState().userId;
     const coursePath = `${location.pathname}${location.search || ''}`;
 
     // ── 服务端数据：三个并发查询，React Query 自动处理缓存 ──────────────────
