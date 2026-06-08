@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import apiClient from '../../../api/apiClient';
 import {
     ArrowLeft,
     ArrowRight,
@@ -157,19 +156,9 @@ export default function TeachingSection({
         if (isSaving) return;
         setIsSaving(true);
         try {
-            await apiClient.post('/study/content_viewed', {
-                user_id: userId,
-                course_id: courseId,
-                lesson_id: lesson_metadata.lesson_id
-            });
-        } catch (error) {
-            console.error('记录阅读进度失败:', error);
+            await onStartPractice?.();
         } finally {
-            try {
-                await onStartPractice?.();
-            } finally {
-                setIsSaving(false);
-            }
+            setIsSaving(false);
         }
     };
 

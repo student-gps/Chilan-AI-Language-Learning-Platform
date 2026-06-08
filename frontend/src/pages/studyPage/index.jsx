@@ -7,7 +7,6 @@ import TeachingSection from './teaching';
 import NewConceptTeachingSection from './english/NewConceptTeachingSection';
 import PracticeSection from './practice/PracticeSection';
 import FinishCard from './FinishCard';
-import { Loader2 } from 'lucide-react';
 import PinyinPopover from './PinyinPopover';
 
 const isChinese = (lang = '') => {
@@ -53,7 +52,7 @@ export default function StudyPage() {
     const [searchParams] = useSearchParams();
     const lessonId = searchParams.get('lesson_id');
     const isBrowseEntry = searchParams.get('browse') === '1';
-    const userId = localStorage.getItem('chilan_user_id') || 'test-user-id';
+    const userId = localStorage.getItem('chilan_user_id');
 
     const [mode, setMode] = useState('loading'); // loading, teaching, practice, review, completed, lesson_finished
     const [studyData, setStudyData] = useState(null);
@@ -61,10 +60,13 @@ export default function StudyPage() {
     const [isCourseEnrolled, setIsCourseEnrolled] = useState(false);
     const [showPinyinBtn, setShowPinyinBtn] = useState(false);
     const [pinyinPopoverOpen, setPinyinPopoverOpen] = useState(false);
+    // 预加载的 practice_items promise（用户在看讲解时后台已在请求）
+    const practiceItemsPromiseRef = React.useRef(null);
 
     // 🌟 核心逻辑：初始化学习流
     const initFlow = useCallback(async () => {
         setMode('loading');
+        practiceItemsPromiseRef.current = null;
         try {
             const initParams = { course_id: courseId, user_id: userId };
             if (lessonId) initParams.lesson_id = lessonId;
@@ -83,14 +85,18 @@ export default function StudyPage() {
             };
             const isEnrolled = !!data?.is_course_enrolled;
 
-            // 判断目标语言是否为中文，决定是否显示拼音入口
             setCourseInfo(course || null);
             setIsCourseEnrolled(isEnrolled);
             setShowPinyinBtn(isChinese(getLessonTargetLanguage(lessonContent, course)) && !isNewConceptContent(lessonContent, course));
 
-            // Course catalog browsing should always open the selected lesson normally,
-            // independent of resume/progress state.
             if (isBrowseEntry && lessonId && data?.lesson_content) {
+                // 浏览模式：进入 teaching，同时后台预加载 practice_items
+                const practiceApiLessonId = toApiLessonId(data.lesson_content.lesson_metadata?.lesson_id);
+                if (practiceApiLessonId && data.practice_deferred) {
+                    practiceItemsPromiseRef.current = apiClient.get('/study/practice_items', {
+                        params: { user_id: userId, course_id: courseId, lesson_id: practiceApiLessonId },
+                    });
+                }
                 setStudyData(nextData);
                 setMode('teaching');
             } else if (responseMode === 'teaching' && data.skip_content) {
@@ -112,6 +118,15 @@ export default function StudyPage() {
                 setStudyData(nextData);
                 setMode('practice');
             } else {
+                // 正常 teaching 模式：后台预加载 practice_items，用户看讲解时静默完成
+                if (responseMode === 'teaching' && data.practice_deferred) {
+                    const practiceApiLessonId = toApiLessonId(data.lesson_content?.lesson_metadata?.lesson_id);
+                    if (practiceApiLessonId) {
+                        practiceItemsPromiseRef.current = apiClient.get('/study/practice_items', {
+                            params: { user_id: userId, course_id: courseId, lesson_id: practiceApiLessonId },
+                        });
+                    }
+                }
                 setStudyData(nextData);
                 setMode(responseMode);
             }
@@ -126,16 +141,20 @@ export default function StudyPage() {
     const loadPracticeItems = useCallback(async () => {
         const lessonIdForPractice = studyData?.lesson_content?.lesson_metadata?.lesson_id;
         if (!lessonIdForPractice) return [];
+        // 已有数据直接返回
         if (!studyData?.practice_deferred && Array.isArray(studyData?.pending_items)) {
             return studyData.pending_items;
         }
-        const practiceRes = await apiClient.get('/study/practice_items', {
+        // 优先复用预加载的 promise（用户看讲解时已在后台请求）
+        const req = practiceItemsPromiseRef.current || apiClient.get('/study/practice_items', {
             params: {
                 user_id: userId,
                 course_id: courseId,
                 lesson_id: toApiLessonId(lessonIdForPractice),
             }
         });
+        practiceItemsPromiseRef.current = null; // 消费掉，避免重复使用
+        const practiceRes = await req;
         const pendingItems = practiceRes.data?.pending_items || [];
         setStudyData(prev => ({
             ...prev,
@@ -147,11 +166,20 @@ export default function StudyPage() {
     }, [courseId, studyData, userId]);
 
     const handleStartPractice = useCallback(async () => {
-        const pendingItems = await loadPracticeItems();
+        const lessonApiId = toApiLessonId(studyData?.lesson_content?.lesson_metadata?.lesson_id);
+        // content_viewed 和等待 practice_items 并发，互不阻塞
+        const [pendingItems] = await Promise.all([
+            loadPracticeItems(),
+            lessonApiId
+                ? apiClient.post('/study/content_viewed', {
+                    user_id: userId, course_id: courseId, lesson_id: lessonApiId,
+                  }).catch(e => console.error('content_viewed 失败:', e))
+                : Promise.resolve(),
+        ]);
         if (pendingItems.length > 0) {
             setMode('practice');
         }
-    }, [loadPracticeItems]);
+    }, [courseId, loadPracticeItems, studyData, userId]);
 
     // 🌟 处理一课结束后的逻辑
     const handleLessonComplete = async () => {
@@ -177,8 +205,28 @@ export default function StudyPage() {
     const TeachingComponent = useNewConceptTeaching ? NewConceptTeachingSection : TeachingSection;
 
     if (mode === 'loading') return (
-        <div className="flex h-screen items-center justify-center">
-            <Loader2 className="animate-spin text-blue-500" size={32} />
+        <div className="min-h-screen bg-slate-50 py-8">
+            <div className="max-w-3xl mx-auto px-6 space-y-6 pt-8">
+                {/* 课程标题区骨架 */}
+                <div className="h-8 w-48 rounded-2xl bg-slate-200 animate-pulse" />
+                <div className="h-4 w-72 rounded-xl bg-slate-100 animate-pulse" />
+                {/* 主内容卡片骨架 */}
+                <div className="rounded-3xl bg-white border border-slate-100 shadow-sm overflow-hidden">
+                    <div className="h-56 bg-slate-200 animate-pulse" />
+                    <div className="p-6 space-y-4">
+                        <div className="h-5 w-3/4 rounded-xl bg-slate-100 animate-pulse" />
+                        <div className="h-4 w-full rounded-xl bg-slate-100 animate-pulse" />
+                        <div className="h-4 w-5/6 rounded-xl bg-slate-100 animate-pulse" />
+                        <div className="h-4 w-2/3 rounded-xl bg-slate-100 animate-pulse" />
+                    </div>
+                </div>
+                {/* 词汇区骨架 */}
+                <div className="grid grid-cols-2 gap-3">
+                    {[1,2,3,4].map(i => (
+                        <div key={i} className="h-16 rounded-2xl bg-white border border-slate-100 animate-pulse" />
+                    ))}
+                </div>
+            </div>
         </div>
     );
 

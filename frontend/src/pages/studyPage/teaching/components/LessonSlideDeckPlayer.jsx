@@ -256,6 +256,38 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
 
     useEffect(() => () => stopAudio(), [stopAudio]);
 
+    // 图片预加载：当前 ±2 张，浏览器空闲时静默加载
+    // 避免翻页时图片从空白闪出来
+    useEffect(() => {
+        if (!slides.length) return;
+        const targets = [index - 1, index, index + 1, index + 2]
+            .filter((i) => i >= 0 && i < slides.length);
+        targets.forEach((i) => {
+            const url = resolveAssetUrl(slides[i]?.image, apiBase);
+            if (!url) return;
+            const img = new Image();
+            img.src = url;          // 触发浏览器缓存，不挂载到 DOM
+        });
+    }, [index, slides, apiBase]);
+
+    // 音频预缓冲：当前 slide 和下一张 slide 的音频提前 preload
+    // 用 <audio preload="auto"> 触发浏览器缓冲，不实际播放
+    useEffect(() => {
+        if (!slides.length) return;
+        const targets = [index, index + 1]
+            .filter((i) => i >= 0 && i < slides.length);
+        const nodes = targets.map((i) => {
+            const url = resolveAssetUrl(slides[i]?.audio, apiBase);
+            if (!url) return null;
+            const audio = document.createElement('audio');
+            audio.preload = 'auto';
+            audio.src = url;
+            return audio;
+        }).filter(Boolean);
+        // 不需要挂载 DOM，创建即触发缓冲
+        return () => { nodes.forEach((a) => { a.src = ''; }); };
+    }, [index, slides, apiBase]);
+
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.playbackRate = rate;
