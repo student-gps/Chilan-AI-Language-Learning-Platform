@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ChevronRight, BookOpen, Play, ArrowLeft, Loader2, PlusCircle, CheckCircle2 } from 'lucide-react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import apiClient from '../api/apiClient';
+import { courseQuery, lessonsQuery, myCoursesQuery, queryKeys } from '../api/queries';
 
 const MAX_ACTIVE_COURSES = 2;
 
@@ -81,77 +83,50 @@ export default function CoursePage() {
     const navigate = useNavigate();
     const location = useLocation();
     const { t } = useTranslation();
-    const [lessons, setLessons] = useState([]);
-    const [course, setCourse] = useState(null);
-    const [isEnrolled, setIsEnrolled] = useState(false);
-    const [currentEnrollment, setCurrentEnrollment] = useState(null);
-    const [isEnrolling, setIsEnrolling] = useState(false);
-    const [enrolledCount, setEnrolledCount] = useState(0);
+    const queryClient = useQueryClient();
+
     const [enrollError, setEnrollError] = useState('');
-    const [loading, setLoading] = useState(true);
     const userId = localStorage.getItem('chilan_user_id');
     const coursePath = `${location.pathname}${location.search || ''}`;
 
-    useEffect(() => {
-        const load = async () => {
-            setLoading(true);
-            const [lessonsRes, coursesRes, myCoursesRes] = await Promise.allSettled([
-                apiClient.get(`/courses/${courseId}/lessons`),
-                apiClient.get('/courses'),
-                userId ? apiClient.get(`/my-courses/${userId}`) : Promise.resolve({ data: [] }),
-            ]);
-            if (lessonsRes.status === 'fulfilled') setLessons(lessonsRes.value.data);
-            if (coursesRes.status === 'fulfilled') {
-                const found = (coursesRes.value.data || []).find(c => String(c.id) === String(courseId));
-                setCourse(found || null);
-            }
-            if (myCoursesRes.status === 'fulfilled') {
-                const myCourses = myCoursesRes.value.data || [];
-                const matchedCourse = myCourses.find(c => String(c.id) === String(courseId));
-                setEnrolledCount(myCourses.length);
-                setCurrentEnrollment(matchedCourse || null);
-                setIsEnrolled(Boolean(matchedCourse));
-            }
-            setLoading(false);
-        };
-        load();
-    }, [courseId, userId]);
+    // ── 服务端数据：三个并发查询，React Query 自动处理缓存 ──────────────────
+    const { data: course, isLoading: isCourseLoading } = useQuery(courseQuery(courseId));
+    const { data: lessons = [], isLoading: isLessonsLoading } = useQuery(lessonsQuery(courseId));
+    const { data: myCourses = [], isLoading: isMyCoursesLoading } = useQuery(myCoursesQuery(userId));
 
-    const handleEnroll = async () => {
-        if (!userId || isEnrolling || isEnrolled) return;
+    // 从 myCourses 派生当前课程的报名状态（缓存命中时零请求）
+    const currentEnrollment = myCourses.find(c => String(c.id) === String(courseId)) ?? null;
+    const isEnrolled = Boolean(currentEnrollment);
+    const enrolledCount = myCourses.length;
+
+    const loading = isCourseLoading || isMyCoursesLoading;
+
+    // ── 报名 mutation ────────────────────────────────────────────────────────
+    const enrollMutation = useMutation({
+        mutationFn: () => apiClient.post('/courses/enroll', {
+            user_id: userId,
+            course_id: Number(courseId),
+        }),
+        onSuccess: () => {
+            setEnrollError('');
+            // 使 my-courses 缓存失效 → 自动重新拉取 → isEnrolled / currentEnrollment 自动更新
+            queryClient.invalidateQueries({ queryKey: queryKeys.myCourses(userId) });
+            queryClient.invalidateQueries({ queryKey: queryKeys.classroomStats(userId) });
+        },
+        onError: (err) => {
+            setEnrollError(err.response?.status === 409
+                ? t('course_limit_reached')
+                : t('course_enroll_failed'));
+        },
+    });
+
+    const handleEnroll = () => {
+        if (!userId || enrollMutation.isPending || isEnrolled) return;
         if (enrolledCount >= MAX_ACTIVE_COURSES) {
             setEnrollError(t('course_limit_reached'));
             return;
         }
-        setIsEnrolling(true);
-        setEnrollError('');
-        try {
-            await apiClient.post('/courses/enroll', {
-                user_id: userId,
-                course_id: Number(courseId),
-            });
-            setIsEnrolled(true);
-            setCurrentEnrollment({
-                id: Number(courseId),
-                lesson_total: lessons.length,
-                completed_lesson_count: 0,
-                last_completed_lesson_id: 0,
-                viewed_lesson_id: 0,
-                practice_question_index: 0,
-                next_lesson_id: lessons[0]?.lesson_id,
-                next_lesson_title: lessons[0]?.title,
-                next_lesson_title_localized: lessons[0]?.title_localized,
-            });
-            setEnrolledCount((count) => Math.min(count + 1, MAX_ACTIVE_COURSES));
-        } catch (err) {
-            if (err.response?.status === 409) {
-                setEnrollError(t('course_limit_reached'));
-            } else {
-                setEnrollError(t('course_enroll_failed'));
-            }
-        } finally {
-            setIsEnrolling(false);
-        }
+        enrollMutation.mutate();
     };
 
     if (loading) {
@@ -237,11 +212,11 @@ export default function CoursePage() {
                     ) : (
                         <button
                             onClick={handleEnroll}
-                            disabled={isEnrolling || enrolledCount >= MAX_ACTIVE_COURSES}
+                            disabled={enrollMutation.isPending || enrolledCount >= MAX_ACTIVE_COURSES}
                             className="flex items-center gap-3 px-12 py-5 bg-blue-600 text-white rounded-2xl font-black text-xl hover:bg-slate-900 active:scale-95 disabled:opacity-70 disabled:cursor-wait transition-all shadow-lg shadow-blue-200/70"
                         >
-                            {isEnrolling ? <Loader2 size={22} className="animate-spin" /> : <PlusCircle size={22} />}
-                            {isEnrolling ? t('course_adding_learning') : t('classroom_join_course')}
+                            {enrollMutation.isPending ? <Loader2 size={22} className="animate-spin" /> : <PlusCircle size={22} />}
+                            {enrollMutation.isPending ? t('course_adding_learning') : t('classroom_join_course')}
                         </button>
                     )}
                 </motion.div>
@@ -288,6 +263,11 @@ export default function CoursePage() {
                 {/* Lesson list */}
                 <section>
                     <h2 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">{t('course_all_lessons')}</h2>
+                    {isLessonsLoading ? (
+                        <div className="flex items-center justify-center py-16 text-slate-300">
+                            <Loader2 className="animate-spin" size={28} />
+                        </div>
+                    ) : (
                     <motion.div variants={stagger} initial="hidden" animate="show" className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                         {lessons.map((lesson, idx) => {
                             const lessonId = toNumber(lesson.lesson_id);
@@ -358,6 +338,7 @@ export default function CoursePage() {
                             </div>
                         )}
                     </motion.div>
+                    )}
                 </section>
             </div>
         </div>

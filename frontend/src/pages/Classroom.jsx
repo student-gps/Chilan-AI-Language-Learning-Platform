@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { 
+import {
     Layers, ChevronRight,
     CheckCircle2, Zap, Loader2, GraduationCap, ChevronDown, Check, MinusCircle, X
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-// 🚀 引入统一的 API 客户端，不再直接使用原始 axios
-import apiClient from '../api/apiClient'; 
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import apiClient from '../api/apiClient';
+import {
+    coursesQuery,
+    myCoursesQuery,
+    classroomStatsQuery,
+    queryKeys,
+} from '../api/queries';
 
 // 通用底纹
 const SUBTLE_PATTERN = `data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23ffffff' stroke-width='1' opacity='0.05'%3E%3Cpath d='M30 0L0 30M60 30L30 60M30 0l30 30M0 30l30 30' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E`;
@@ -243,21 +249,11 @@ const _DEFAULT_STYLE = {
 };
 
 const LANGUAGE_STYLE_MAP = {
-    chinese: _DEFAULT_STYLE,
-    english: _DEFAULT_STYLE,
-    japanese: _DEFAULT_STYLE,
-    french: _DEFAULT_STYLE,
-    korean: _DEFAULT_STYLE,
-    spanish: _DEFAULT_STYLE,
-    german: _DEFAULT_STYLE,
-    vietnamese: _DEFAULT_STYLE,
-    portuguese: _DEFAULT_STYLE,
-    arabic: _DEFAULT_STYLE,
-    thai: _DEFAULT_STYLE,
-    russian: _DEFAULT_STYLE,
-    indonesian: _DEFAULT_STYLE,
-    malay: _DEFAULT_STYLE,
-    italian: _DEFAULT_STYLE,
+    chinese: _DEFAULT_STYLE, english: _DEFAULT_STYLE, japanese: _DEFAULT_STYLE,
+    french: _DEFAULT_STYLE, korean: _DEFAULT_STYLE, spanish: _DEFAULT_STYLE,
+    german: _DEFAULT_STYLE, vietnamese: _DEFAULT_STYLE, portuguese: _DEFAULT_STYLE,
+    arabic: _DEFAULT_STYLE, thai: _DEFAULT_STYLE, russian: _DEFAULT_STYLE,
+    indonesian: _DEFAULT_STYLE, malay: _DEFAULT_STYLE, italian: _DEFAULT_STYLE,
 };
 
 const LANGUAGE_CODE_MAP = {
@@ -464,52 +460,49 @@ function LanguagePill({ course, compact = false }) {
 export default function Classroom() {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    
-    const [stats, setStats] = useState({ totalRemaining: 0, totalReviewed: 0, totalNewLearned: 0 });
-    const [myCourses, setMyCourses] = useState([]);
-    const [allCourses, setAllCourses] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isCoursesLoading, setIsCoursesLoading] = useState(false);
+    const queryClient = useQueryClient();
+
+    // ── UI-only 状态（不是服务端数据，不用 React Query 管理）──────────────────
     const [removingCourseId, setRemovingCourseId] = useState(null);
     const [coursePendingPause, setCoursePendingPause] = useState(null);
     const [learningFilter, setLearningFilter] = useState('all');
     const [nativeFilter, setNativeFilter] = useState('all');
 
     const userId = localStorage.getItem('chilan_user_id');
-    const myCoursesGridClass = myCourses.length === 2
-        ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:max-w-[calc(66.666667%-0.666667rem)] lg:mx-auto gap-8'
-        : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
 
-    useEffect(() => {
-        if (!userId) return;
-        const fetchData = async () => {
-            setIsLoading(true);
-            setIsCoursesLoading(true);
-            const [statRes, myCourseRes, coursesRes] = await Promise.allSettled([
-                apiClient.get(`/classroom/stats/${userId}`),
-                apiClient.get(`/my-courses/${userId}`),
-                apiClient.get('/courses'),
-            ]);
-            if (statRes.status === 'fulfilled') {
-                setStats(statRes.value.data);
-            } else {
-                console.error("加载统计数据失败", statRes.reason);
-            }
-            if (myCourseRes.status === 'fulfilled') {
-                setMyCourses(myCourseRes.value.data);
-            } else {
-                console.error("加载我的课程失败", myCourseRes.reason);
-            }
-            if (coursesRes.status === 'fulfilled') {
-                setAllCourses(coursesRes.value.data);
-            } else {
-                console.error("加载课程库失败", coursesRes.reason);
-            }
-            setIsLoading(false);
-            setIsCoursesLoading(false);
-        };
-        fetchData();
-    }, [userId]);
+    // ── 服务端数据：三个并发查询 ─────────────────────────────────────────────
+    const { data: stats = { totalRemaining: 0, totalReviewed: 0, totalNewLearned: 0 } } =
+        useQuery(classroomStatsQuery(userId));
+
+    const { data: myCourses = [], isLoading: isMyCoursesLoading } =
+        useQuery(myCoursesQuery(userId));
+
+    const { data: allCourses = [], isLoading: isCoursesLoading } =
+        useQuery(coursesQuery());
+
+    const isLoading = isMyCoursesLoading && myCourses.length === 0;
+
+    // ── 取消/暂停课程 mutation ────────────────────────────────────────────────
+    const removeMutation = useMutation({
+        mutationFn: ({ courseId, action }) => apiClient.delete('/courses/enroll', {
+            data: { user_id: userId, course_id: Number(courseId), action },
+        }),
+        onMutate: ({ courseId }) => setRemovingCourseId(courseId),
+        onSuccess: () => {
+            // 使 my-courses 和 classroom-stats 缓存失效，自动重新拉取
+            queryClient.invalidateQueries({ queryKey: queryKeys.myCourses(userId) });
+            queryClient.invalidateQueries({ queryKey: queryKeys.classroomStats(userId) });
+        },
+        onError: () => alert(t('course_remove_failed')),
+        onSettled: () => setRemovingCourseId(null),
+    });
+
+    // 1课：flex居中；2课：并排两列；3课以上：正常三列网格
+    const myCoursesGridClass = myCourses.length === 1
+        ? 'flex justify-center'
+        : myCourses.length === 2
+            ? 'grid grid-cols-1 md:grid-cols-2 gap-8 md:max-w-2xl md:mx-auto'
+            : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
 
     const languageOptions = React.useMemo(() => {
         const learning = new Set();
@@ -539,13 +532,8 @@ export default function Classroom() {
 
     useEffect(() => {
         if (!allCourses.length || hasCourseForFilters(allCourses, learningFilter, nativeFilter)) return;
-        if (learningFilter !== 'all') {
-            setLearningFilter('all');
-            return;
-        }
-        if (nativeFilter !== 'all') {
-            setNativeFilter('all');
-        }
+        if (learningFilter !== 'all') { setLearningFilter('all'); return; }
+        if (nativeFilter !== 'all') { setNativeFilter('all'); }
     }, [allCourses, learningFilter, nativeFilter]);
 
     const handleLearningFilterChange = React.useCallback((nextLearning) => {
@@ -563,29 +551,14 @@ export default function Classroom() {
         [myCourses]
     );
 
-    const handleRemoveCourse = async (courseId, action = 'pause') => {
+    const handleRemoveCourse = (courseId, action = 'pause') => {
         if (!userId || removingCourseId) return;
-        setRemovingCourseId(courseId);
-        try {
-            await apiClient.delete('/courses/enroll', {
-                data: {
-                    user_id: userId,
-                    course_id: Number(courseId),
-                    action,
-                },
-            });
-            setMyCourses((courses) => courses.filter((course) => String(course.id) !== String(courseId)));
-        } catch (_err) {
-            alert(t('course_remove_failed'));
-        } finally {
-            setRemovingCourseId(null);
-        }
+        removeMutation.mutate({ courseId, action });
     };
 
-    const handleConfirmPauseCourse = async (action = 'pause') => {
+    const handleConfirmPauseCourse = (action = 'pause') => {
         if (!coursePendingPause) return;
-        const courseId = coursePendingPause.id;
-        await handleRemoveCourse(courseId, action);
+        handleRemoveCourse(coursePendingPause.id, action);
         setCoursePendingPause(null);
     };
 
@@ -660,13 +633,13 @@ export default function Classroom() {
                                 return (
                                     <div
                                         key={course.id}
-                                        className={`w-full ${singleCourse ? 'md:col-start-1 lg:col-start-2' : ''}`}
+                                        className={singleCourse ? 'w-80' : 'w-full'}
                                     >
                                         <CourseCard
                                             course={course}
                                             variants={fadeInUp}
                                             titleAction={t('classroom_start')}
-                                            progressValue={course.mastered}
+                                            masteredCount={course.mastered}
                                             actionButton={
                                                 <button
                                                     type="button"
@@ -729,7 +702,7 @@ export default function Classroom() {
                                             course={course}
                                             variants={fadeInUp}
                                             titleAction={isEnrolled ? t('classroom_in_learning') : t('classroom_start')}
-                                            progressValue={null}
+                                            masteredCount={null}
                                             actionButton={isEnrolled ? (
                                                 <span className="shrink-0 px-5 py-2.5 rounded-2xl text-sm font-black bg-emerald-50 text-emerald-600">
                                                     {t('classroom_added')}
@@ -832,7 +805,7 @@ function CourseCard({
     course,
     variants,
     titleAction,
-    progressValue,
+    masteredCount,
     actionButton = null,
     onClick,
     isInteractive = false,
@@ -848,7 +821,8 @@ function CourseCard({
     const lessonProgressPercent = lessonTotal > 0
         ? Math.round((completedLessonCount / lessonTotal) * 100)
         : 0;
-    const showLessonProgress = progressValue !== null && lessonTotal > 0;
+    // showLessonProgress：仅在「我的课程」区（传入 masteredCount）且课程有课时数据时显示进度条
+    const showLessonProgress = masteredCount !== null && lessonTotal > 0;
     const masteredTotal = toNumber(course.total_items, 0);
 
     return (
@@ -892,8 +866,26 @@ function CourseCard({
                             <div className={`h-full rounded-full ${visual.barBg}`} style={{ width: `${lessonProgressPercent}%` }} />
                         </div>
                         <p className="mt-2 text-xs font-bold text-slate-400">
-                            {t('classroom_mastered')}: {progressValue}{masteredTotal > 0 ? ` / ${masteredTotal}` : ''}
+                            {t('classroom_mastered')}: {masteredCount}{masteredTotal > 0 ? ` / ${masteredTotal}` : ''}
                         </p>
+                    </div>
+                )}
+                {/* 全部课程区：显示课时数 + 词汇数 */}
+                {masteredCount === null && (lessonTotal > 0 || masteredTotal > 0) && (
+                    <div className="mb-3 flex items-center gap-3">
+                        {lessonTotal > 0 && (
+                            <span className="text-xs font-black text-slate-400">
+                                {t('classroom_course_lessons', { count: lessonTotal })}
+                            </span>
+                        )}
+                        {lessonTotal > 0 && masteredTotal > 0 && (
+                            <span className="text-slate-200 font-black text-xs">·</span>
+                        )}
+                        {masteredTotal > 0 && (
+                            <span className="text-xs font-black text-slate-400">
+                                {t('classroom_course_items', { count: masteredTotal })}
+                            </span>
+                        )}
                     </div>
                 )}
                 <div className="flex items-center justify-between gap-3">
@@ -923,30 +915,29 @@ function StatItem({ icon, label, value, color }) {
 function FilterSelect({ label, value, options, onChange }) {
     const { t, i18n } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
+    const containerRef = useRef(null);
     const selectedLabel = value === 'all' ? t('classroom_filter_all') : formatLanguageLabel(value, i18n.language);
 
+    // 标准外部点击关闭：监听 document mousedown，判断点击是否在容器之外
     useEffect(() => {
-        const handlePointerDown = () => {
-            setIsOpen(false);
+        if (!isOpen) return;
+        const handleOutsideClick = (e) => {
+            if (containerRef.current && !containerRef.current.contains(e.target)) {
+                setIsOpen(false);
+            }
         };
-
-        if (isOpen) {
-            window.addEventListener('pointerdown', handlePointerDown);
-        }
-
-        return () => {
-            window.removeEventListener('pointerdown', handlePointerDown);
-        };
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => document.removeEventListener('mousedown', handleOutsideClick);
     }, [isOpen]);
 
     return (
-        <div className="relative min-w-[220px] rounded-[1.5rem] border border-slate-200/80 bg-white/90 p-2 shadow-md shadow-slate-200/50">
+        <div ref={containerRef} className="relative min-w-[220px] rounded-[1.5rem] border border-slate-200/80 bg-white/90 p-2 shadow-md shadow-slate-200/50">
             <div className="mb-2 px-2">
                 <span className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-400 whitespace-nowrap">
                     {label}
                 </span>
             </div>
-            <div className="relative" onPointerDown={(e) => e.stopPropagation()}>
+            <div className="relative">
                 <button
                     type="button"
                     onClick={() => setIsOpen((open) => !open)}
