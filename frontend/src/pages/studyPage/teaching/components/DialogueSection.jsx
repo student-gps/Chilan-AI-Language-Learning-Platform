@@ -11,12 +11,20 @@ const normalizeLineRef = (value) => {
 const PUNCT_RE = /^[：。，！？、；,.!?…·—～]$/;
 
 const InlineAnnotatedText = ({ words = [], showPinyin, pinyinClassName = '', textClassName = '' }) => {
+    // Support both v2 tokens ({surface, annotation}) and v1 words ({cn, py})
+    const tokens = words.map(w => ({
+        surface:    w.surface    ?? w.cn    ?? '',
+        annotation: w.annotation ?? w.py    ?? null,
+        highlight:  Boolean(w.highlight),
+        suffix:     w.suffix ?? '',
+    }));
+
     if (!showPinyin) {
         return (
             <div className={`leading-[1.95] ${textClassName}`}>
-                {words.map((w, idx) => (
+                {tokens.map((w, idx) => (
                     <span key={idx} className={w.highlight ? 'text-blue-600 font-black' : ''}>
-                        {w.cn}
+                        {w.surface}
                     </span>
                 ))}
             </div>
@@ -25,10 +33,10 @@ const InlineAnnotatedText = ({ words = [], showPinyin, pinyinClassName = '', tex
 
     // Attach trailing punctuation to the preceding word to prevent line-break orphans
     const groups = [];
-    for (const w of words) {
-        if (PUNCT_RE.test(w.cn) && groups.length > 0) {
+    for (const w of tokens) {
+        if (PUNCT_RE.test(w.surface) && groups.length > 0) {
             const last = groups[groups.length - 1];
-            groups[groups.length - 1] = { ...last, suffix: (last.suffix || '') + w.cn };
+            groups[groups.length - 1] = { ...last, suffix: (last.suffix || '') + w.surface };
         } else {
             groups.push({ ...w, suffix: '' });
         }
@@ -38,9 +46,9 @@ const InlineAnnotatedText = ({ words = [], showPinyin, pinyinClassName = '', tex
         <div className="flex flex-wrap items-end gap-x-2 gap-y-4 leading-relaxed">
             {groups.map((w, idx) => (
                 <ruby key={idx} className="flex flex-col items-center">
-                    <rt className={pinyinClassName}>{w.py}</rt>
+                    <rt className={pinyinClassName}>{w.annotation}</rt>
                     <span className={`${textClassName} ${w.highlight ? 'text-blue-600 font-black' : ''}`}>
-                        {w.cn}{w.suffix}
+                        {w.surface}{w.suffix}
                     </span>
                 </ruby>
             ))}
@@ -163,7 +171,8 @@ export default function DialogueSection({
                         <div className="space-y-8 px-6 pb-10 pt-7 md:px-10 md:pb-12">
                             {lineItems.map((line, idx) => {
                                 const lineRef = idx + 1;
-                                const cnText = (line.words || []).map(w => w.cn).join('');
+                                const lineTokens = line.tokens || line.words || [];
+                                const cnText = lineTokens.map(w => w.surface ?? w.cn ?? '').join('');
                                 const isActive = playingKey === `line-${lineRef}`;
 
                                 return (
@@ -171,7 +180,7 @@ export default function DialogueSection({
                                         <div className="flex items-end gap-3">
                                             <div className="min-w-0 flex-1">
                                                 <InlineAnnotatedText
-                                                    words={line.words || []}
+                                                    words={lineTokens}
                                                     showPinyin={diagPinyin}
                                                     pinyinClassName={`mb-1 text-sm text-stone-400 md:text-base ${readingFontClass}`}
                                                     textClassName="text-stone-800 text-3xl font-medium md:text-[2.15rem]"
@@ -200,7 +209,8 @@ export default function DialogueSection({
                         {lineItems.map((line, idx) => {
                             const isLeft = idx % 2 === 0;
                             const lineRef = idx + 1;
-                            const cnText = (line.words || []).map((w) => w.cn).join('');
+                            const lineTokens = line.tokens || line.words || [];
+                            const cnText = lineTokens.map((w) => w.surface ?? w.cn ?? '').join('');
                             const isActive = playingKey === `line-${lineRef}`;
                             const isLessonActive = activeLessonLineRef === normalizeLineRef(lineRef);
 
@@ -225,7 +235,7 @@ export default function DialogueSection({
                                             <div className="flex items-end gap-3">
                                                 <div className="min-w-0 flex-1">
                                                     <InlineAnnotatedText
-                                                        words={line.words || []}
+                                                        words={lineTokens}
                                                         showPinyin={diagPinyin}
                                                         pinyinClassName={`mb-1 text-xl ${readingFontClass} ${
                                                             isLessonActive

@@ -102,8 +102,8 @@ export default function VocabularySection({
                                     <div className="mb-2 flex items-center gap-3">
                                         <AnnotatedSentence
                                             tokens={vocab.example_sentence.tokens}
-                                            cn={vocab.example_sentence.cn}
-                                            py={vocab.example_sentence.py}
+                                            cn={vocab.example_sentence.cn ?? vocab.example_sentence.surface}
+                                            py={vocab.example_sentence.py ?? vocab.example_sentence.annotation}
                                             showPinyin={vocabPinyin}
                                             wrapperClassName="flex flex-wrap items-end gap-x-2 gap-y-3"
                                             tokenClassName="inline-flex flex-col items-center justify-end"
@@ -111,7 +111,7 @@ export default function VocabularySection({
                                             textClassName="text-xl font-bold text-slate-800 leading-none"
                                         />
                                         <button
-                                            onClick={() => playTtsFallback(vocab.example_sentence.cn, `example-${idx}`)}
+                                            onClick={() => playTtsFallback(vocab.example_sentence.cn ?? vocab.example_sentence.surface, `example-${idx}`)}
                                             className="p-1.5 text-slate-300 transition-colors hover:text-blue-600"
                                         >
                                             <Volume2 size={18} />
