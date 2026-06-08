@@ -920,6 +920,69 @@ async def get_daily_tasks(user_id: str, db=Depends(get_db)):
         return [{"id": r[0], "type": r[1], "text": r[2]} for r in cur.fetchall()]
     finally:
         cur.close()
+
+@app.get("/overview/stats/{user_id}")
+async def get_overview_stats(user_id: str, db=Depends(get_db)):
+    """
+    学习概览统计：
+    - due_count:        当前待复习题目数
+    - avg_stability:    所有已学题目的平均稳定性（FSRS stability，越高越不易遗忘）
+    - mastered_count:   已掌握词汇总数
+    - level:            学习阶段（按掌握数分档：L1-L5）
+    """
+    cur = db.cursor()
+    try:
+        # 1. 待复习数（仅活跃课程）
+        cur.execute("""
+            SELECT COUNT(*)
+            FROM user_progress_of_language_items p
+            JOIN language_items li ON li.item_id = p.item_id
+            JOIN user_courses uc
+              ON uc.course_id = li.course_id
+             AND uc.user_id::text = p.user_id::text
+             AND uc.status = %s
+            WHERE p.user_id::text = %s
+              AND p.next_review <= CURRENT_TIMESTAMP
+        """, (ACTIVE_COURSE_STATUS, user_id))
+        due_count = cur.fetchone()[0]
+
+        # 2. 平均稳定性 + 掌握数（所有有进度记录的活跃课程题目）
+        cur.execute("""
+            SELECT
+                COALESCE(AVG(p.stability), 0)                                          AS avg_stability,
+                COUNT(*) FILTER (WHERE p.is_mastered = TRUE)                           AS mastered_count
+            FROM user_progress_of_language_items p
+            JOIN language_items li ON li.item_id = p.item_id
+            JOIN user_courses uc
+              ON uc.course_id = li.course_id
+             AND uc.user_id::text = p.user_id::text
+             AND uc.status = %s
+            WHERE p.user_id::text = %s
+        """, (ACTIVE_COURSE_STATUS, user_id))
+        row = cur.fetchone()
+        avg_stability = round(float(row[0]), 2) if row else 0.0
+        mastered_count = int(row[1]) if row else 0
+
+        # 3. 学习阶段（按掌握词汇总数分档）
+        if mastered_count >= 2000:
+            level = 'L5'
+        elif mastered_count >= 800:
+            level = 'L4'
+        elif mastered_count >= 300:
+            level = 'L3'
+        elif mastered_count >= 80:
+            level = 'L2'
+        else:
+            level = 'L1'
+
+        return {
+            "due_count":      due_count,
+            "avg_stability":  avg_stability,
+            "mastered_count": mastered_count,
+            "level":          level,
+        }
+    finally:
+        cur.close()
         
 if __name__ == "__main__":
     import uvicorn

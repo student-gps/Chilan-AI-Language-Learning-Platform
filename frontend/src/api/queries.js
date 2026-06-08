@@ -47,7 +47,13 @@ export const myCoursesQuery = (userId) => ({
   enabled:  Boolean(userId),
 });
 
-/** 教室今日统计（已复习 / 待复习 / 新学） */
+/** 学习概览统计（待复习数、平均稳定性、掌握数、学习阶段） */
+export const overviewStatsQuery = (userId) => ({
+  queryKey: ['overview-stats', String(userId)],
+  queryFn:  () => apiClient.get(`/overview/stats/${userId}`).then(r => r.data),
+  staleTime: 60 * 1000,   // 1 分钟，与 classroomStats 保持一致
+  enabled:  Boolean(userId),
+});
 export const classroomStatsQuery = (userId) => ({
   queryKey: queryKeys.classroomStats(userId),
   queryFn:  () => apiClient.get(`/classroom/stats/${userId}`).then(r => r.data),

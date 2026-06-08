@@ -52,3 +52,6 @@ pinyin_adjustment/
 
 # 海报本地产物与浏览器预览缓存
 poster/
+
+# 本地 AI 模型文件
+vmodel_v05/

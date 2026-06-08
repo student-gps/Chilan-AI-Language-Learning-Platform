@@ -1,12 +1,39 @@
 import { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
-
 import apiClient from '../../../api/apiClient';
 
+// sessionStorage key，tab 关闭后自动清除，不会跨 session 泄漏
+const SS_KEY = 'chilan_auth_draft';
+
+const loadDraft = () => {
+    try {
+        const raw = sessionStorage.getItem(SS_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch {
+        return {};
+    }
+};
+
+const saveDraft = (patch) => {
+    try {
+        const current = loadDraft();
+        sessionStorage.setItem(SS_KEY, JSON.stringify({ ...current, ...patch }));
+    } catch { /* quota 超限等极端情况，静默忽略 */ }
+};
+
+const clearDraft = () => {
+    try { sessionStorage.removeItem(SS_KEY); } catch { /* no-op */ }
+};
+
 export default function useAuthFlow({ navigate, language }) {
-    const [step, setStep] = useState('form');
-    const [mode, setMode] = useState('login');
-    const [email, setEmail] = useState('');
+    const draft = loadDraft();
+
+    // step/mode/email 从 sessionStorage 恢复，刷新页面不丢失
+    const [step, setStepRaw] = useState(draft.step || 'form');
+    const [mode, setModeRaw] = useState(draft.mode || 'login');
+    const [email, setEmailRaw] = useState(draft.email || '');
+
+    // password / code / confirmPassword 不持久化（安全起见）
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [code, setCode] = useState('');
@@ -14,6 +41,10 @@ export default function useAuthFlow({ navigate, language }) {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+
+    const setStep = (v) => { setStepRaw(v); saveDraft({ step: v }); };
+    const setMode = (v) => { setModeRaw(v); saveDraft({ mode: v }); };
+    const setEmail = (v) => { setEmailRaw(v); saveDraft({ email: v }); };
 
     const checks = {
         length: password.length >= 8 && password.length <= 32,
@@ -30,6 +61,7 @@ export default function useAuthFlow({ navigate, language }) {
         localStorage.setItem('chilan_token', responseData.access_token);
         localStorage.setItem('chilan_user_id', responseData.user_id);
         localStorage.setItem('chilan_user_email', responseData.email || fallbackEmail);
+        clearDraft(); // 登录成功，清除 auth 草稿
     };
 
     const handleSubmit = async (e) => {
@@ -51,6 +83,7 @@ export default function useAuthFlow({ navigate, language }) {
                     code,
                     new_password: password,
                 });
+                clearDraft();
                 setStep('success');
                 setTimeout(() => {
                     setStep('form');
@@ -62,6 +95,7 @@ export default function useAuthFlow({ navigate, language }) {
                     setStep('verify');
                 } else {
                     await apiClient.post(`${authPath}/verify`, { email, code });
+                    clearDraft(); // 注册验证成功，清除草稿
                     setStep('success');
                     setTimeout(() => {
                         setMode('login');

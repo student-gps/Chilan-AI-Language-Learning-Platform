@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
@@ -21,8 +20,7 @@ import {
     LaptopMinimal,
     User,
 } from 'lucide-react';
-import apiClient from '../../api/apiClient';
-import { clearAuthStorage } from '../../utils/authStorage';
+import { getAuthState } from '../../utils/authStorage';
 import { COURSE_LANGUAGE_OPTIONS, getUiLanguageOption, UI_LANGUAGE_OPTIONS } from '../../utils/languageOptions';
 import {
     BookOpenGlyph,
@@ -41,6 +39,9 @@ import {
     ToggleRow,
 } from './components/PersonalSettingSections';
 import usePasswordSettings from './hooks/usePasswordSettings';
+import useProfileSection from './hooks/useProfileSection';
+import useSecuritySection from './hooks/useSecuritySection';
+import useDeleteSection from './hooks/useDeleteSection';
 
 const pageMotion = {
     hidden: { opacity: 0, y: 16 },
@@ -55,28 +56,37 @@ const blockMotion = {
 export default function Personal_Setting() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
-    const userId = localStorage.getItem('chilan_user_id');
-    const [profile, setProfile] = useState({
-        username: 'Chilan Learner',
-        email: localStorage.getItem('chilan_user_email') || '',
-        loginProvider: 'password',
-    });
-    const [isProfileLoading, setIsProfileLoading] = useState(true);
-    const [isEditingNickname, setIsEditingNickname] = useState(false);
-    const [nicknameDraft, setNicknameDraft] = useState('');
-    const [nicknameError, setNicknameError] = useState('');
-    const [isSavingNickname, setIsSavingNickname] = useState(false);
-    const [isSecurityOpen, setIsSecurityOpen] = useState(false);
-    const [securityLogs, setSecurityLogs] = useState([]);
-    const [isSecurityLoading, setIsSecurityLoading] = useState(false);
-    const [securityError, setSecurityError] = useState('');
-    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-    const [deleteConfirmText, setDeleteConfirmText] = useState('');
-    const [deletePassword, setDeletePassword] = useState('');
-    const [showDeletePassword, setShowDeletePassword] = useState(false);
-    const [deleteError, setDeleteError] = useState('');
-    const [deleteSuccess, setDeleteSuccess] = useState('');
-    const [isDeletingAccount, setIsDeletingAccount] = useState(false);
+    const { userId, userEmail } = getAuthState();
+
+    // \u2500\u2500 Section hooks\uff1a\u5404\u529f\u80fd\u6a21\u5757\u72ec\u7acb\u7ba1\u7406\u81ea\u5df1\u7684\u72b6\u6001 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    const {
+        profile,
+        isProfileLoading,
+        isEditingNickname, nicknameDraft, setNicknameDraft, nicknameError, isSavingNickname,
+        handleStartEditingNickname, handleCancelEditingNickname, handleSaveNickname,
+    } = useProfileSection(userId, userEmail);
+
+    const {
+        isSecurityOpen, securityLogs, isSecurityLoading, securityError,
+        handleToggleSecurity, loadSecurityLogs,
+    } = useSecuritySection(userId);
+
+    const {
+        isDeleteOpen, deleteConfirmText, setDeleteConfirmText,
+        deletePassword, setDeletePassword, showDeletePassword, setShowDeletePassword,
+        deleteError, deleteSuccess, isDeletingAccount,
+        handleToggleDelete, handleDeleteAccount,
+    } = useDeleteSection(userId, profile.loginProvider);
+
+    const {
+        confirmPassword, currentPassword, handleCancelEditingPassword, handleSavePassword,
+        handleStartEditingPassword, isEditingPassword, isSavingPassword, newPassword,
+        passwordChecks, passwordError, passwordSuccess, setConfirmPassword, setCurrentPassword,
+        setNewPassword, showConfirmPassword, showCurrentPassword, showNewPassword,
+        toggleConfirmPassword, toggleCurrentPassword, toggleNewPassword,
+    } = usePasswordSettings(userId);
+
+    // \u2500\u2500 \u504f\u597d / \u901a\u77e5\uff1a\u672c\u5730\u72b6\u6001\uff08\u6682\u65e0\u540e\u7aef\u63a5\u53e3\uff0c\u540e\u7eed\u6269\u5c55\uff09\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     const [strictness, setStrictness] = useState('balanced');
     const [interfaceLang, setInterfaceLang] = useState('auto');
     const [nativeLang, setNativeLang] = useState('zh');
@@ -91,190 +101,10 @@ export default function Personal_Setting() {
     const [reviewReminderTime, setReviewReminderTime] = useState('20:00');
     const [courseUpdates, setCourseUpdates] = useState(true);
     const [securityAlerts, setSecurityAlerts] = useState(true);
-    const {
-        confirmPassword,
-        currentPassword,
-        handleCancelEditingPassword,
-        handleSavePassword,
-        handleStartEditingPassword,
-        isEditingPassword,
-        isSavingPassword,
-        newPassword,
-        passwordChecks,
-        passwordError,
-        passwordSuccess,
-        setConfirmPassword,
-        setCurrentPassword,
-        setNewPassword,
-        showConfirmPassword,
-        showCurrentPassword,
-        showNewPassword,
-        toggleConfirmPassword,
-        toggleCurrentPassword,
-        toggleNewPassword,
-    } = usePasswordSettings(userId);
 
     useEffect(() => {
         setInterfaceLang(getUiLanguageOption(i18n.language).code);
     }, [i18n.language]);
-
-    useEffect(() => {
-        let active = true;
-
-        const loadProfile = async () => {
-            if (!userId) {
-                setIsProfileLoading(false);
-                return;
-            }
-
-            try {
-                const res = await apiClient.get(`/auth/profile/${userId}`);
-                if (!active) return;
-
-                const nextProfile = {
-                    username: res.data.username || 'Chilan Learner',
-                    email: res.data.email || '',
-                    loginProvider: res.data.login_provider || 'password',
-                };
-
-                setProfile(nextProfile);
-                setNicknameDraft(nextProfile.username || 'Chilan Learner');
-                if (nextProfile.email) {
-                    localStorage.setItem('chilan_user_email', nextProfile.email);
-                }
-            } catch (error) {
-                if (!active) return;
-                console.error('Failed to load profile:', error);
-            } finally {
-                if (active) {
-                    setIsProfileLoading(false);
-                }
-            }
-        };
-
-        loadProfile();
-
-        return () => {
-            active = false;
-        };
-    }, [userId]);
-
-    const validateNickname = (value) => {
-        const trimmed = value.trim();
-        if (trimmed.length < 2 || trimmed.length > 24) {
-            return t('settings_nickname_length_error');
-        }
-        if (!/^[A-Za-z0-9_\-.\u4e00-\u9fff ]+$/.test(trimmed)) {
-            return t('settings_nickname_format_error');
-        }
-        return '';
-    };
-
-    const handleStartEditingNickname = () => {
-        setNicknameDraft(profile.username || '');
-        setNicknameError('');
-        setIsEditingNickname(true);
-    };
-
-    const handleCancelEditingNickname = () => {
-        setNicknameDraft(profile.username || '');
-        setNicknameError('');
-        setIsEditingNickname(false);
-    };
-
-    const handleSaveNickname = async () => {
-        const validationError = validateNickname(nicknameDraft);
-        if (validationError) {
-            setNicknameError(validationError);
-            return;
-        }
-        if (!userId) {
-            setNicknameError(t('settings_user_missing'));
-            return;
-        }
-
-        setIsSavingNickname(true);
-        setNicknameError('');
-        try {
-            const res = await apiClient.put(`/auth/profile/${userId}`, {
-                username: nicknameDraft.trim(),
-            });
-            setProfile((prev) => ({
-                ...prev,
-                username: res.data.username || nicknameDraft.trim(),
-                email: res.data.email || prev.email,
-            }));
-            setNicknameDraft(res.data.username || nicknameDraft.trim());
-            setIsEditingNickname(false);
-        } catch (error) {
-            setNicknameError(error.response?.data?.detail || t('settings_nickname_save_failed'));
-        } finally {
-            setIsSavingNickname(false);
-        }
-    };
-
-    const loadSecurityLogs = async () => {
-        if (!userId) {
-            setSecurityError(t('settings_user_missing'));
-            return;
-        }
-        setIsSecurityLoading(true);
-        setSecurityError('');
-        try {
-            const res = await apiClient.get(`/auth/login-history/${userId}`);
-            setSecurityLogs(res.data.logs || []);
-        } catch (error) {
-            setSecurityError(error.response?.data?.detail || t('settings_login_history_failed'));
-        } finally {
-            setIsSecurityLoading(false);
-        }
-    };
-
-    const handleToggleSecurity = async () => {
-        const nextOpen = !isSecurityOpen;
-        setIsSecurityOpen(nextOpen);
-        if (nextOpen && securityLogs.length === 0 && !isSecurityLoading) {
-            await loadSecurityLogs();
-        }
-    };
-
-    const handleToggleDelete = () => {
-        const nextOpen = !isDeleteOpen;
-        setIsDeleteOpen(nextOpen);
-        if (!nextOpen) {
-            setDeleteConfirmText('');
-            setDeletePassword('');
-            setDeleteError('');
-            setDeleteSuccess('');
-            setShowDeletePassword(false);
-        }
-    };
-
-    const handleDeleteAccount = async () => {
-        if (!userId) {
-            setDeleteError(t('settings_user_missing'));
-            return;
-        }
-
-        setIsDeletingAccount(true);
-        setDeleteError('');
-        setDeleteSuccess('');
-        try {
-            await apiClient.delete(`/auth/account/${userId}`, {
-                data: {
-                    confirm_text: deleteConfirmText,
-                    current_password: profile.loginProvider === 'password' ? deletePassword : null,
-                },
-            });
-            setDeleteSuccess(t('settings_delete_success'));
-            clearAuthStorage();
-            setTimeout(() => navigate('/'), 1000);
-        } catch (error) {
-            setDeleteError(error.response?.data?.detail || t('settings_delete_failed'));
-        } finally {
-            setIsDeletingAccount(false);
-        }
-    };
 
     return (
         <div className="min-h-screen bg-slate-50 pt-24 pb-20 relative overflow-hidden">
