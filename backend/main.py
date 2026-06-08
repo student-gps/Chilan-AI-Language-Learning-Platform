@@ -599,17 +599,49 @@ async def dev_course_reset_execute(payload: DevCourseResetRequest):
 # 2. 课程管理系统 (核心业务：保留)
 # ==========================================
 
+def _serialize_course(row) -> dict:
+    """将课程查询结果行转为统一的 JSON 字典（含课时数和词汇数）。"""
+    return {
+        "id":              row[0],
+        "name":            row[1],
+        "category":        row[2],
+        "target_language": row[3],
+        "source_language": row[4],
+        "lesson_total":    row[5],
+        "total_items":     row[6],
+    }
+
+_COURSE_QUERY = """
+    SELECT
+        c.course_id,
+        c.name,
+        c.category,
+        c.target_language,
+        c.source_language,
+        COUNT(DISTINCT l.lesson_id)      AS lesson_total,
+        COUNT(DISTINCT li.item_id)       AS total_items
+    FROM courses c
+    LEFT JOIN lessons       l  ON l.course_id  = c.course_id
+    LEFT JOIN language_items li ON li.course_id = c.course_id
+"""
+
 @app.get("/courses")
 async def list_all_courses(db=Depends(get_db)):
     cur = db.cursor()
-    cur.execute("SELECT course_id, name, category, target_language, source_language FROM courses")
-    return [{
-        "id": r[0],
-        "name": r[1],
-        "category": r[2],
-        "target_language": r[3],
-        "source_language": r[4],
-    } for r in cur.fetchall()]
+    cur.execute(_COURSE_QUERY + " GROUP BY c.course_id ORDER BY c.course_id")
+    return [_serialize_course(r) for r in cur.fetchall()]
+
+@app.get("/courses/{course_id}")
+async def get_course(course_id: int, db=Depends(get_db)):
+    cur = db.cursor()
+    cur.execute(
+        _COURSE_QUERY + " WHERE c.course_id = %s GROUP BY c.course_id",
+        (course_id,),
+    )
+    row = cur.fetchone()
+    if row is None:
+        raise HTTPException(status_code=404, detail="Course not found")
+    return _serialize_course(row)
 
 @app.get("/my-courses/{user_id}")
 async def get_my_courses(user_id: str, db=Depends(get_db)):
