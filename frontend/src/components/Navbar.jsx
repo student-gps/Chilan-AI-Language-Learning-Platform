@@ -2,67 +2,66 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-    User, Globe, ChevronDown, CheckCircle2, 
-    LogOut, Settings, LayoutDashboard
+import {
+    User, Globe, ChevronDown, CheckCircle2,
+    LogOut, Settings, LayoutDashboard, GraduationCap
 } from 'lucide-react';
 import { clearAuthStorage, getAuthState } from '../utils/authStorage';
 import { getUiLanguageOption, UI_LANGUAGE_OPTIONS } from '../utils/languageOptions';
+import { useQueryClient } from '@tanstack/react-query';
+import { coursesQuery, myCoursesQuery, classroomStatsQuery } from '../api/queries';
 
 export default function Navbar() {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
-    
-    // 状态管理
+    const queryClient = useQueryClient();
+
     const [isLangOpen, setIsLangOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [userEmail, setUserEmail] = useState('');
+    const [userId, setUserId] = useState(null);
 
-    // 引用管理（用于监控点击区域和计时器）
     const langRef = useRef(null);
     const userRef = useRef(null);
     const timerRef = useRef(null);
 
-    // 1. 初始化登录状态与路由监听
     useEffect(() => {
         const authState = getAuthState();
         setIsLoggedIn(authState.isLoggedIn);
         setUserEmail(authState.userEmail || '');
-        
-        // 每次跳转路由，强制关闭所有菜单
+        setUserId(authState.userId || null);
         setIsLangOpen(false);
         setIsUserMenuOpen(false);
     }, [location]);
 
-    // 2. 核心逻辑：点击菜单外部自动关闭
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (langRef.current && !langRef.current.contains(event.target)) {
-                setIsLangOpen(false);
-            }
-            if (userRef.current && !userRef.current.contains(event.target)) {
-                setIsUserMenuOpen(false);
-            }
+            if (langRef.current && !langRef.current.contains(event.target)) setIsLangOpen(false);
+            if (userRef.current && !userRef.current.contains(event.target)) setIsUserMenuOpen(false);
         };
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // 3. 核心逻辑：3秒无操作自动消失（防抖计时器）
     const resetTimer = () => {
         if (timerRef.current) clearTimeout(timerRef.current);
         if (isUserMenuOpen || isLangOpen) {
             timerRef.current = setTimeout(() => {
                 setIsUserMenuOpen(false);
                 setIsLangOpen(false);
-            }, 3000); // 3秒倒计时
+            }, 3000);
         }
     };
+    const clearTimer = () => { if (timerRef.current) clearTimeout(timerRef.current); };
 
-    const clearTimer = () => {
-        if (timerRef.current) clearTimeout(timerRef.current);
+    // 悬停教室入口时预加载数据，让用户点进去时感觉近乎瞬间
+    const handleClassroomPrefetch = () => {
+        if (!userId) return;
+        queryClient.prefetchQuery(classroomStatsQuery(userId));
+        queryClient.prefetchQuery(myCoursesQuery(userId));
+        queryClient.prefetchQuery(coursesQuery());
     };
 
     const handleLogout = () => {
@@ -169,6 +168,14 @@ export default function Navbar() {
                                     
                                     <Link to="/overview" className="flex items-center gap-3 px-6 py-3.5 text-sm font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                         <LayoutDashboard size={18} className="text-blue-500" /> {t('nav_overview')}
+                                    </Link>
+
+                                    <Link
+                                        to="/classroom"
+                                        onMouseEnter={handleClassroomPrefetch}
+                                        className="flex items-center gap-3 px-6 py-3.5 text-sm font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                    >
+                                        <GraduationCap size={18} className="text-blue-500" /> {t('classroom_title')}
                                     </Link>
                                     
                                     <Link to="/settings" className="flex items-center gap-3 px-6 py-3.5 text-sm font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-colors">

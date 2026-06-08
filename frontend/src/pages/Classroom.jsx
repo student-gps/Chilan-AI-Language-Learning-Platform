@@ -575,9 +575,43 @@ export default function Classroom() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 text-slate-500">
-                <Loader2 className="animate-spin w-12 h-12 mb-4 text-blue-500" />
-                <p className="font-medium tracking-widest uppercase text-sm">Loading Classroom...</p>
+            <div className="min-h-screen bg-slate-50 pt-24 pb-20">
+                <div className="max-w-6xl mx-auto px-8 py-12">
+                    {/* Header 骨架 */}
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+                        <div className="space-y-3">
+                            <div className="h-12 w-56 rounded-2xl bg-slate-200 animate-pulse" />
+                            <div className="h-4 w-80 rounded-xl bg-slate-100 animate-pulse" />
+                        </div>
+                        <div className="h-24 w-full md:w-96 rounded-[2.5rem] bg-slate-200 animate-pulse" />
+                    </div>
+                    {/* 我的课程骨架 */}
+                    <div className="h-6 w-40 rounded-xl bg-slate-200 animate-pulse mb-8" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                        {[1, 2].map(i => (
+                            <div key={i} className="rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+                                <div className="h-44 bg-slate-200 animate-pulse" />
+                                <div className="bg-white px-6 py-4 space-y-3">
+                                    <div className="h-2 w-full rounded bg-slate-100 animate-pulse" />
+                                    <div className="h-4 w-24 rounded bg-slate-100 animate-pulse" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    {/* 全部课程骨架 */}
+                    <div className="h-6 w-32 rounded-xl bg-slate-200 animate-pulse mb-8" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[1, 2, 3, 4, 5, 6].map(i => (
+                            <div key={i} className="rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+                                <div className="h-44 bg-slate-200 animate-pulse" />
+                                <div className="bg-white px-6 py-4 space-y-3">
+                                    <div className="h-3 w-32 rounded bg-slate-100 animate-pulse" />
+                                    <div className="h-4 w-20 rounded bg-slate-100 animate-pulse" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     }

@@ -2,21 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { 
-    Brain, Zap, BarChart3, ChevronRight, BookOpen, Coins, Users 
+import {
+    Brain, Zap, BarChart3, ChevronRight, BookOpen, Coins, Users
 } from 'lucide-react';
 import { getAuthState } from '../utils/authStorage';
+import { useQueryClient } from '@tanstack/react-query';
+import { coursesQuery, myCoursesQuery, classroomStatsQuery } from '../api/queries';
 
 export default function Home() {
     const { t, i18n } = useTranslation();
     const location = useLocation();
+    const queryClient = useQueryClient();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userId, setUserId] = useState(null);
 
-    // 仅用于 Hero 按钮的跳转逻辑判断
     useEffect(() => {
         const authState = getAuthState();
         setIsLoggedIn(authState.isLoggedIn);
+        setUserId(authState.userId || null);
     }, [location]);
+
+    const handleClassroomPrefetch = () => {
+        if (!userId) return;
+        queryClient.prefetchQuery(classroomStatsQuery(userId));
+        queryClient.prefetchQuery(myCoursesQuery(userId));
+        queryClient.prefetchQuery(coursesQuery());
+    };
 
     const staggerContainer = {
         hidden: { opacity: 0 },
@@ -47,8 +58,9 @@ export default function Home() {
                     {t('hero_desc')}
                 </motion.p>
                 <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <Link 
-                        to={isLoggedIn ? "/classroom" : "/auth"} 
+                    <Link
+                        to={isLoggedIn ? "/classroom" : "/auth"}
+                        onMouseEnter={handleClassroomPrefetch}
                         className="group px-10 py-5 bg-slate-900 text-white rounded-2xl font-bold text-lg flex items-center gap-2 hover:bg-blue-600 transition-all shadow-xl shadow-blue-100 active:scale-95"
                     >
                         {t('hero_btn_classroom')} <ChevronRight className="group-hover:translate-x-1 transition-transform" />
