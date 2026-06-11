@@ -29,8 +29,10 @@ const normalizeTokens = (tokens = [], cn = '', py = '') => {
     const normalized = (tokens || [])
         .filter((token) => token && typeof token === 'object')
         .map((token) => ({
-            cn: (token.cn || '').trim(),
-            py: (token.py || '').trim(),
+            // v1: {cn, py}  |  v2: {surface, annotation}
+            cn: (token.cn ?? token.surface ?? '').trim(),
+            // annotation may be explicitly null (punctuation) or absent; treat both as ''
+            py: (token.py ?? token.annotation ?? '').trim(),
         }))
         .filter((token) => token.cn);
 

@@ -43,14 +43,14 @@ const InlineAnnotatedText = ({ words = [], showPinyin, pinyinClassName = '', tex
     }
 
     return (
-        <div className="flex flex-wrap items-end gap-x-2 gap-y-4 leading-relaxed">
+        <div className="flex flex-wrap items-end gap-x-1.5 gap-y-4 leading-relaxed">
             {groups.map((w, idx) => (
-                <ruby key={idx} className="flex flex-col items-center">
-                    <rt className={pinyinClassName}>{w.annotation}</rt>
+                <span key={idx} className="inline-flex flex-col items-center justify-end">
+                    <span className={pinyinClassName}>{w.annotation ?? ' '}</span>
                     <span className={`${textClassName} ${w.highlight ? 'text-blue-600 font-black' : ''}`}>
                         {w.surface}{w.suffix}
                     </span>
-                </ruby>
+                </span>
             ))}
         </div>
     );
