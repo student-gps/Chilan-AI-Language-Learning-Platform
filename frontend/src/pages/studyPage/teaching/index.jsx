@@ -14,6 +14,7 @@ import {
 import LessonReference, { inferLessonReferenceLanguage } from './components/LessonReference';
 import LessonSlideDeckPlayer from './components/LessonSlideDeckPlayer';
 import useTeachingAudio, { buildLessonAudioUrl } from './hooks/useTeachingAudio';
+import { normalizeLesson } from '../../../utils/lessonNormalizer';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -89,10 +90,14 @@ export default function TeachingSection({
     const [vocabTrans, setVocabTrans] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const API_BASE = import.meta.env.VITE_APP_API_BASE_URL || '';
-    const lesson_metadata = data?.lesson_metadata || {};
-    const course_content = data?.course_content || {};
+
+    // Normalise to Schema v2 (upgrades v1 words[{cn,py}] → tokens[{surface,annotation}])
+    const normalisedData = normalizeLesson(data);
+
+    const lesson_metadata = normalisedData?.lesson_metadata || {};
+    const course_content = normalisedData?.course_content || {};
     const explicitTargetLanguage =
-        data?.target_language ||
+        normalisedData?.target_language ||
         lesson_metadata?.target_language ||
         courseInfo?.target_language ||
         courseInfo?.language ||
@@ -107,11 +112,11 @@ export default function TeachingSection({
     });
     const targetLanguage = normalizeTargetLanguage(explicitTargetLanguage) || referenceTargetLanguage;
     const languageMeta = languageUiMeta(targetLanguage);
-    const lesson_audio_assets = data?.lesson_audio_assets || null;
+    const lesson_audio_assets = normalisedData?.lesson_audio_assets || null;
     const teaching_slide_deck =
-        data?.teaching_slide_deck ||
-        data?.video_render_plan?.teaching_slide_deck ||
-        data?.video_render_plan?.explanation?.teaching_slide_deck ||
+        normalisedData?.teaching_slide_deck ||
+        normalisedData?.video_render_plan?.teaching_slide_deck ||
+        normalisedData?.video_render_plan?.explanation?.teaching_slide_deck ||
         null;
     const { dialogues, vocabulary } = course_content || {};
     const contentType = lesson_metadata?.content_type || 'dialogue';

@@ -102,16 +102,16 @@ export default function VocabularySection({
                                     <div className="mb-2 flex items-center gap-3">
                                         <AnnotatedSentence
                                             tokens={vocab.example_sentence.tokens}
-                                            cn={vocab.example_sentence.cn}
-                                            py={vocab.example_sentence.py}
+                                            cn={vocab.example_sentence.cn ?? vocab.example_sentence.surface}
+                                            py={vocab.example_sentence.py ?? vocab.example_sentence.annotation}
                                             showPinyin={vocabPinyin}
-                                            wrapperClassName="flex flex-wrap items-end gap-x-2 gap-y-3"
+                                            wrapperClassName="flex flex-wrap items-end gap-x-1.5 gap-y-3"
                                             tokenClassName="inline-flex flex-col items-center justify-end"
                                             pinyinClassName={`mb-1 min-h-[1.1rem] text-sm font-bold text-slate-400 normal-case leading-none ${isJapanese ? 'font-sans' : 'font-mono'}`}
                                             textClassName="text-xl font-bold text-slate-800 leading-none"
                                         />
                                         <button
-                                            onClick={() => playTtsFallback(vocab.example_sentence.cn, `example-${idx}`)}
+                                            onClick={() => playTtsFallback(vocab.example_sentence.cn ?? vocab.example_sentence.surface, `example-${idx}`)}
                                             className="p-1.5 text-slate-300 transition-colors hover:text-blue-600"
                                         >
                                             <Volume2 size={18} />
