@@ -133,10 +133,8 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData,
                                             cn={ex.cn}
                                             py={ex.py}
                                             showPinyin
-                                            wrapperClassName="flex flex-wrap items-end gap-x-1 gap-y-3"
-                                            tokenClassName="inline-flex flex-col items-center justify-end"
-                                            pinyinClassName="mb-1 min-h-[0.9rem] text-xs font-bold text-slate-400 normal-case leading-none"
-                                            textClassName="text-2xl font-black text-slate-800 leading-none"
+                                            pinyinClassName="text-xs font-bold text-slate-400"
+                                            textClassName="text-2xl font-black text-slate-800"
                                         />
                                     ) : (
                                         <p className="text-2xl font-black text-slate-800 leading-tight">

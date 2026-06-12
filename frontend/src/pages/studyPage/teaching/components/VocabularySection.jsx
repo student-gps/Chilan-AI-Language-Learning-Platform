@@ -105,10 +105,8 @@ export default function VocabularySection({
                                             cn={vocab.example_sentence.cn ?? vocab.example_sentence.surface}
                                             py={vocab.example_sentence.py ?? vocab.example_sentence.annotation}
                                             showPinyin={vocabPinyin}
-                                            wrapperClassName="flex flex-wrap items-end gap-x-1.5 gap-y-3"
-                                            tokenClassName="inline-flex flex-col items-center justify-end"
-                                            pinyinClassName={`mb-1 min-h-[1.1rem] text-sm font-bold text-slate-400 normal-case leading-none ${isJapanese ? 'font-sans' : 'font-mono'}`}
-                                            textClassName="text-xl font-bold text-slate-800 leading-none"
+                                            pinyinClassName={`text-xs font-bold text-slate-400 ${isJapanese ? 'font-sans' : 'font-mono'}`}
+                                            textClassName="text-xl font-bold text-slate-800"
                                         />
                                         <button
                                             onClick={() => playTtsFallback(vocab.example_sentence.cn ?? vocab.example_sentence.surface, `example-${idx}`)}

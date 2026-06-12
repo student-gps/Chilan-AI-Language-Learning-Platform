@@ -68,4 +68,4 @@ class LLMEngine:
             return json.loads(full_text)
         except Exception as e:
             print(f"LLM Error: {e}")
-            return {"level": 2, "is_correct": True, "explanation": "Error occurred."}
+            return {"level": 1, "is_correct": False, "explanation": "Error occurred."}

@@ -47,6 +47,9 @@ evaluator_service = StudyEvaluator(tools=llm_tools)
 asr_service = ASRService()
 cos_media_storage = get_media_storage(optional=True)
 
+# 应用启动时执行一次 schema 迁移
+_run_startup_migrations()
+
 # --- 📦 数据模型 ---
 class EvaluateRequest(BaseModel):
     user_id: str
@@ -259,6 +262,21 @@ def ensure_vocabulary_knowledge_table(cur):
     """)
 
 
+def _run_startup_migrations():
+    """在应用启动时执行一次性 schema 迁移，避免每次请求重复跑 DDL。"""
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+        ensure_language_item_progress_item_key(cur)
+        ensure_review_logs_item_columns(cur)
+        conn.commit()
+        cur.close()
+        conn.close()
+        print("✅ Startup schema migrations applied.")
+    except Exception as e:
+        print(f"⚠️  Startup schema migration failed (non-fatal): {e}")
+
+
 def ensure_language_item_progress_item_key(cur):
     cur.execute("""
         DO $$
@@ -446,9 +464,6 @@ async def evaluate_answer(req: EvaluateRequest):
         asr_confidence = _to_optional_float(audio_meta.get("confidence")) if input_mode == "speech" else None
         audio_duration_ms = _to_optional_int(audio_meta.get("duration_ms")) if input_mode == "speech" else None
         vector_score = None
-
-        ensure_language_item_progress_item_key(cur)
-        ensure_review_logs_item_columns(cur)
 
         if req.item_id:
             cur.execute("""
