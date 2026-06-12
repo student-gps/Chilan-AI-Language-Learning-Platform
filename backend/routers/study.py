@@ -47,9 +47,6 @@ evaluator_service = StudyEvaluator(tools=llm_tools)
 asr_service = ASRService()
 cos_media_storage = get_media_storage(optional=True)
 
-# 应用启动时执行一次 schema 迁移
-_run_startup_migrations()
-
 # --- 📦 数据模型 ---
 class EvaluateRequest(BaseModel):
     user_id: str
@@ -275,6 +272,9 @@ def _run_startup_migrations():
         print("✅ Startup schema migrations applied.")
     except Exception as e:
         print(f"⚠️  Startup schema migration failed (non-fatal): {e}")
+
+# 应用启动时执行一次 schema 迁移（函数定义后调用）
+_run_startup_migrations()
 
 
 def ensure_language_item_progress_item_key(cur):

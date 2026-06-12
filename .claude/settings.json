@@ -34,7 +34,8 @@
       "Bash(/c/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe -c \"import markitdown_mcp; print\\(markitdown_mcp.__file__\\)\")",
       "Bash(/c/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe -m markitdown_mcp --help)",
       "Bash(/c/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe -c \"import markitdown; import os; print\\(os.path.dirname\\(markitdown.__file__\\)\\)\")",
-      "Bash(powershell -Command \"& 'C:/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe' -m pip install 'mcp[cli]' --quiet 2>&1 | Select-Object -Last 5\")"
+      "Bash(powershell -Command \"& 'C:/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe' -m pip install 'mcp[cli]' --quiet 2>&1 | Select-Object -Last 5\")",
+      "Bash(timeout 5 /c/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe /c/Users/gaopeng16/.claude/mcp-servers/doc-parser/server.py)"
     ],
     "additionalDirectories": [
       "c:\\Users\\gaope\\Desktop"
