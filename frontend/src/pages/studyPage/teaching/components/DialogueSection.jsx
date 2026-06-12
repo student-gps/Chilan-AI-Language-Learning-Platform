@@ -43,15 +43,26 @@ const InlineAnnotatedText = ({ words = [], showPinyin, pinyinClassName = '', tex
     }
 
     return (
-        <div className="flex flex-wrap items-end gap-x-1.5 gap-y-4 leading-relaxed">
-            {groups.map((w, idx) => (
-                <span key={idx} className="inline-flex flex-col items-center justify-end">
-                    <span className={pinyinClassName}>{w.annotation ?? ' '}</span>
-                    <span className={`${textClassName} ${w.highlight ? 'text-blue-600 font-black' : ''}`}>
-                        {w.surface}{w.suffix}
-                    </span>
-                </span>
-            ))}
+        <div className={`leading-[2.6] ${textClassName}`}>
+            {groups.map((w, idx) => {
+                const hlClass = w.highlight ? 'text-blue-600 font-black' : '';
+                if (!w.annotation) {
+                    return (
+                        <span key={idx} className={hlClass}>
+                            {w.surface}{w.suffix}
+                        </span>
+                    );
+                }
+                return (
+                    <React.Fragment key={idx}>
+                        <ruby className={hlClass}>
+                            {w.surface}
+                            <rt className={pinyinClassName}>{w.annotation}</rt>
+                        </ruby>
+                        {w.suffix && <span className={hlClass}>{w.suffix}</span>}
+                    </React.Fragment>
+                );
+            })}
         </div>
     );
 };
@@ -182,7 +193,7 @@ export default function DialogueSection({
                                                 <InlineAnnotatedText
                                                     words={lineTokens}
                                                     showPinyin={diagPinyin}
-                                                    pinyinClassName={`mb-1 text-sm text-stone-400 md:text-base ${readingFontClass}`}
+                                                    pinyinClassName={`text-xs text-stone-400 ${readingFontClass}`}
                                                     textClassName="text-stone-800 text-3xl font-medium md:text-[2.15rem]"
                                                 />
                                             </div>
@@ -237,7 +248,7 @@ export default function DialogueSection({
                                                     <InlineAnnotatedText
                                                         words={lineTokens}
                                                         showPinyin={diagPinyin}
-                                                        pinyinClassName={`mb-1 text-xl ${readingFontClass} ${
+                                                        pinyinClassName={`text-sm ${readingFontClass} ${
                                                             isLessonActive
                                                                 ? isLeft ? 'text-slate-500' : 'text-blue-500'
                                                                 : isLeft ? 'text-slate-400' : 'text-blue-400'

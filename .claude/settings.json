@@ -15,7 +15,26 @@
       "WebSearch",
       "WebFetch(domain:xata.io)",
       "WebFetch(domain:lite.xata.io)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(python -X utf8 database/sync_to_db.py)",
+      "Bash(DB_POOL_ENABLED=false python -X utf8 database/sync_to_db.py)",
+      "Bash(tasklist)",
+      "Bash(python -X utf8 -c ' *)",
+      "Bash(python -X utf8 database/refresh_tokens.py --dry-run)",
+      "Bash(python -X utf8 database/refresh_tokens.py)",
+      "Bash(cmd /c \"where uvx 2>&1 && uvx --version 2>&1 || echo 'uvx not found'\")",
+      "Bash(cmd /c \"where uv 2>&1 && uv --version 2>&1 || echo 'uv not found'\")",
+      "Bash(cmd /c \"uvx --version\")",
+      "Bash(cmd /c \"npx --version\")",
+      "Bash(cmd /c \"node --version\")",
+      "Bash(cmd /c \"python --version\")",
+      "Bash(powershell -Command \"npx --version; node --version; python --version\")",
+      "Bash(powershell -Command \"python -m pip install markitdown-mcp --quiet 2>&1 | Select-Object -Last 5\")",
+      "Bash(python -)",
+      "Bash(/c/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe -c \"import markitdown_mcp; print\\(markitdown_mcp.__file__\\)\")",
+      "Bash(/c/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe -m markitdown_mcp --help)",
+      "Bash(/c/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe -c \"import markitdown; import os; print\\(os.path.dirname\\(markitdown.__file__\\)\\)\")",
+      "Bash(powershell -Command \"& 'C:/Users/gaopeng16/AppData/Local/Programs/Python/Python314/python.exe' -m pip install 'mcp[cli]' --quiet 2>&1 | Select-Object -Last 5\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\gaope\\Desktop"
