@@ -273,10 +273,6 @@ def _run_startup_migrations():
     except Exception as e:
         print(f"⚠️  Startup schema migration failed (non-fatal): {e}")
 
-# 应用启动时执行一次 schema 迁移（函数定义后调用）
-_run_startup_migrations()
-
-
 def ensure_language_item_progress_item_key(cur):
     cur.execute("""
         DO $$
@@ -349,6 +345,9 @@ def ensure_review_logs_item_columns(cur):
         CREATE INDEX IF NOT EXISTS review_logs_user_course_lesson_time_idx
         ON review_logs (user_id, course_id, lesson_id, review_time DESC);
     """)
+
+# 应用启动时执行一次 schema 迁移（函数定义后调用）
+_run_startup_migrations()
 
 # ==========================================
 # 接口 1: 初始化学习流
