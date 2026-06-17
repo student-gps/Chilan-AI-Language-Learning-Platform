@@ -61,3 +61,7 @@ backend/tools/
 
 # Claude Code 本地权限配置（每台机器不同，用 settings.local.json 代替）
 .claude/settings.json
+
+# BMAD 生成的文档（project-context.md 除外，它是 AI Agent 规则卡需要提交）
+docs/*
+!docs/project-context.md

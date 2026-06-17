@@ -194,7 +194,7 @@ const splitRubyToken = (surface, reading) => {
 
 const normalizeToken = (token = {}) => ({
     surface: textOf(token.surface, token.cn, token.text, token.word),
-    reading: textOf(token.reading, token.py, token.pinyin, token.kana),
+    reading: textOf(token.annotation, token.reading, token.py, token.pinyin, token.kana),
     highlight: Boolean(token.highlight),
 });
 
