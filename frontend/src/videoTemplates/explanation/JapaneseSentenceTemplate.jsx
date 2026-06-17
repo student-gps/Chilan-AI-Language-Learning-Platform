@@ -39,7 +39,7 @@ function hasMeaningfulReading(text, reading) {
 
 function tokenHasRuby(token) {
     const surface = cleanText(token?.surface);
-    const reading = cleanText(token?.reading);
+    const reading = cleanText(token?.annotation ?? token?.reading);
     if (!surface || !reading) return false;
     if (/^[。、！？!?・\s]+$/.test(surface)) return false;
     if (surface === 'は' && reading === 'わ') return true;
@@ -99,7 +99,7 @@ function splitRubyToken(surface, reading) {
 }
 
 function TokenWithRuby({ token, charSize, rubySize, color }) {
-    const rubyParts = splitRubyToken(token.surface, token.reading);
+    const rubyParts = splitRubyToken(token.surface, token.annotation ?? token.reading);
     const plainStyle = {
         fontFamily: japaneseFontStack,
         fontSize: charSize,
@@ -109,7 +109,7 @@ function TokenWithRuby({ token, charSize, rubySize, color }) {
         whiteSpace: 'nowrap',
         letterSpacing: '0',
     };
-    if (!rubyParts.prefix && rubyParts.core === token.surface && rubyParts.ruby === token.reading && !rubyParts.suffix) {
+    if (!rubyParts.prefix && rubyParts.core === token.surface && rubyParts.ruby === (token.annotation ?? token.reading) && !rubyParts.suffix) {
         return (
             <span style={{
                 display: 'inline-flex',
@@ -128,7 +128,7 @@ function TokenWithRuby({ token, charSize, rubySize, color }) {
                     whiteSpace: 'nowrap',
                     letterSpacing: '0',
                 }}>
-                    {token.reading}
+                    {token.annotation ?? token.reading}
                 </span>
                 <span style={plainStyle}>{token.surface}</span>
             </span>
@@ -192,7 +192,7 @@ export function JapaneseRubySentence({ text, reading, tokens, color, charSize, r
     const validTokens = Array.isArray(tokens)
         ? tokens.map((token) => ({
             surface: cleanText(token?.surface),
-            reading: cleanText(token?.reading),
+            reading: cleanText(token?.annotation ?? token?.reading),
         })).filter((token) => token.surface)
         : [];
 
@@ -250,7 +250,7 @@ export function JapaneseRubySentence({ text, reading, tokens, color, charSize, r
             maxWidth: '100%',
         }}>
             {validTokens.map((token, tokenIndex) => {
-                const ruby = tokenHasRuby(token) ? token.reading : '';
+                const ruby = tokenHasRuby(token) ? (token.annotation ?? token.reading) : '';
                 const isPunctuation = /^[。、！？!?・]+$/.test(token.surface);
                 return (
                     <span key={`${token.surface}-${tokenIndex}`} style={{

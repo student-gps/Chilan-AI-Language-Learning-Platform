@@ -100,7 +100,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         self.assertTrue(payload["course_content"]["sentence_patterns"][0]["tokens"])
         self.assertTrue(
             any(
-                token["surface"] == "学生" and token["reading"] == "がくせい"
+                token["surface"] == "学生" and token["annotation"] == "がくせい"
                 for token in payload["course_content"]["sentence_patterns"][0]["tokens"]
             )
         )
@@ -147,7 +147,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                     "vocabulary": [
                         {
                             "term": "返す",
-                            "reading": "かえす",
+                            "annotation": "かえす",
                             "translation": "归还",
                         }
                     ]
@@ -351,7 +351,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
             },
             {
                 "course_content": {
-                    "vocabulary": [{"term": "学生", "reading": "がくせい", "translation": "学生"}],
+                    "vocabulary": [{"term": "学生", "annotation": "がくせい", "translation": "学生"}],
                     "display_only_vocabulary": [{"term": "ミラー", "category": "person_name"}],
                 }
             },
@@ -523,11 +523,11 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                         "text": "これは本です。",
                         "reading": "これはほんです。",
                         "tokens": [
-                            {"surface": "これ", "reading": "これ"},
-                            {"surface": "は", "reading": "は"},
-                            {"surface": "本", "reading": ""},
-                            {"surface": "です", "reading": "です"},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "これ", "annotation": "これ"},
+                            {"surface": "は", "annotation": "は"},
+                            {"surface": "本", "annotation": ""},
+                            {"surface": "です", "annotation": "です"},
+                            {"surface": "。", "annotation": ""},
                         ],
                     }
                 ],
@@ -536,7 +536,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         audited = MinnaNoNihongoReadingAuditor().run(payload)
         tokens = audited["course_content"]["sentence_patterns"][0]["tokens"]
-        self.assertEqual(tokens[1]["reading"], "わ")
+        self.assertEqual(tokens[1]["annotation"], "わ")
         self.assertTrue(audited["pipeline_diagnostics"]["reading_audit"]["deterministic_corrections"])
 
     def test_reading_annotator_synthesizes_sentence_reading_from_tokens(self):
@@ -547,11 +547,11 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "これは本です。",
                     "tokens": [
-                        {"surface": "これ", "reading": "これ"},
-                        {"surface": "は", "reading": "わ"},
-                        {"surface": "本", "reading": "ほん"},
-                        {"surface": "です", "reading": "です"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "これ", "annotation": "これ"},
+                        {"surface": "は", "annotation": "わ"},
+                        {"surface": "本", "annotation": "ほん"},
+                        {"surface": "です", "annotation": "です"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
@@ -568,26 +568,26 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "時計売り場はここです。",
                     "tokens": [
-                        {"surface": "時", "reading": "と"},
-                        {"surface": "計", "reading": "けい"},
-                        {"surface": "売り", "reading": "うり"},
-                        {"surface": "場", "reading": "ば"},
-                        {"surface": "は", "reading": "わ"},
-                        {"surface": "ここ", "reading": "ここ"},
-                        {"surface": "です", "reading": "です"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "時", "annotation": "と"},
+                        {"surface": "計", "annotation": "けい"},
+                        {"surface": "売り", "annotation": "うり"},
+                        {"surface": "場", "annotation": "ば"},
+                        {"surface": "は", "annotation": "わ"},
+                        {"surface": "ここ", "annotation": "ここ"},
+                        {"surface": "です", "annotation": "です"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
             vocabulary=[
-                {"term": "時計", "reading": "とけい", "translation": "钟表"},
-                {"term": "売り場", "reading": "うりば", "translation": "柜台"},
+                {"term": "時計", "annotation": "とけい", "translation": "钟表"},
+                {"term": "売り場", "annotation": "うりば", "translation": "柜台"},
             ],
         )
 
         tokens = lines[0]["tokens"]
         self.assertEqual([token["surface"] for token in tokens[:2]], ["時計", "売り場"])
-        self.assertEqual(tokens[0]["reading"], "とけい")
+        self.assertEqual(tokens[0]["annotation"], "とけい")
         self.assertTrue(tokens[0]["highlight"])
 
     def test_reading_annotator_merges_display_only_vocab_without_highlight(self):
@@ -598,20 +598,20 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "ここは新大阪です。",
                     "tokens": [
-                        {"surface": "ここ", "reading": "ここ"},
-                        {"surface": "は", "reading": "わ"},
-                        {"surface": "新", "reading": "しん"},
-                        {"surface": "大", "reading": "おお"},
-                        {"surface": "阪", "reading": "さか"},
-                        {"surface": "です", "reading": "です"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "ここ", "annotation": "ここ"},
+                        {"surface": "は", "annotation": "わ"},
+                        {"surface": "新", "annotation": "しん"},
+                        {"surface": "大", "annotation": "おお"},
+                        {"surface": "阪", "annotation": "さか"},
+                        {"surface": "です", "annotation": "です"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
-            vocabulary=[{"term": "ここ", "reading": "ここ", "translation": "这里"}],
+            vocabulary=[{"term": "ここ", "annotation": "ここ", "translation": "这里"}],
             merge_vocabulary=[
-                {"term": "ここ", "reading": "ここ", "translation": "这里"},
-                {"term": "新大阪", "reading": "しんおおさか", "category": "place_name"},
+                {"term": "ここ", "annotation": "ここ", "translation": "这里"},
+                {"term": "新大阪", "annotation": "しんおおさか", "category": "place_name"},
             ],
         )
 
@@ -620,7 +620,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         self.assertTrue(
             any(
                 token["surface"] == "新大阪"
-                and token["reading"] == "しんおおさか"
+                and token["annotation"] == "しんおおさか"
                 and not token["highlight"]
                 for token in tokens
             )
@@ -634,20 +634,20 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "わたしは学生です。",
                     "tokens": [
-                        {"surface": "わ", "reading": "わ"},
-                        {"surface": "た", "reading": "た"},
-                        {"surface": "し", "reading": "し"},
-                        {"surface": "は", "reading": "わ"},
-                        {"surface": "学生", "reading": "がくせい"},
-                        {"surface": "で", "reading": "で"},
-                        {"surface": "す", "reading": "す"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "わ", "annotation": "わ"},
+                        {"surface": "た", "annotation": "た"},
+                        {"surface": "し", "annotation": "し"},
+                        {"surface": "は", "annotation": "わ"},
+                        {"surface": "学生", "annotation": "がくせい"},
+                        {"surface": "で", "annotation": "で"},
+                        {"surface": "す", "annotation": "す"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
             vocabulary=[
-                {"term": "私", "reading": "わたし", "translation": "我"},
-                {"term": "学生", "reading": "がくせい", "translation": "学生"},
+                {"term": "私", "annotation": "わたし", "translation": "我"},
+                {"term": "学生", "annotation": "がくせい", "translation": "学生"},
             ],
         )
 
@@ -664,17 +664,17 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "ありません。ください。",
                     "tokens": [
-                        {"surface": "あ", "reading": "あ"},
-                        {"surface": "り", "reading": "り"},
-                        {"surface": "ま", "reading": "ま"},
-                        {"surface": "せ", "reading": "せ"},
-                        {"surface": "ん", "reading": "ん"},
-                        {"surface": "。", "reading": ""},
-                        {"surface": "く", "reading": "く"},
-                        {"surface": "だ", "reading": "だ"},
-                        {"surface": "さ", "reading": "さ"},
-                        {"surface": "い", "reading": "い"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "あ", "annotation": "あ"},
+                        {"surface": "り", "annotation": "り"},
+                        {"surface": "ま", "annotation": "ま"},
+                        {"surface": "せ", "annotation": "せ"},
+                        {"surface": "ん", "annotation": "ん"},
+                        {"surface": "。", "annotation": ""},
+                        {"surface": "く", "annotation": "く"},
+                        {"surface": "だ", "annotation": "だ"},
+                        {"surface": "さ", "annotation": "さ"},
+                        {"surface": "い", "annotation": "い"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
@@ -684,7 +684,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         tokens = lines[0]["tokens"]
         self.assertEqual([token["surface"] for token in tokens], ["ありません", "。", "ください", "。"])
         self.assertFalse(tokens[0]["highlight"])
-        self.assertEqual(tokens[2]["reading"], "ください")
+        self.assertEqual(tokens[2]["annotation"], "ください")
 
     def test_reading_annotator_merges_basic_contractions_and_polite_expressions(self):
         annotator = JapaneseReadingAnnotator()
@@ -694,26 +694,26 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "学生じゃありません。こちらこそよろしくお願いします。",
                     "tokens": [
-                        {"surface": "学生", "reading": "がくせい"},
-                        {"surface": "じ", "reading": "じ"},
-                        {"surface": "ゃ", "reading": "ゃ"},
-                        {"surface": "ありません", "reading": "ありません"},
-                        {"surface": "。", "reading": ""},
-                        {"surface": "こ", "reading": "こ"},
-                        {"surface": "ち", "reading": "ち"},
-                        {"surface": "ら", "reading": "ら"},
-                        {"surface": "こ", "reading": "こ"},
-                        {"surface": "そ", "reading": "そ"},
-                        {"surface": "よ", "reading": "よ"},
-                        {"surface": "ろ", "reading": "ろ"},
-                        {"surface": "し", "reading": "し"},
-                        {"surface": "く", "reading": "く"},
-                        {"surface": "お", "reading": "お"},
-                        {"surface": "願", "reading": "ねが"},
-                        {"surface": "い", "reading": "い"},
-                        {"surface": "し", "reading": "し"},
-                        {"surface": "ます", "reading": "ます"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "学生", "annotation": "がくせい"},
+                        {"surface": "じ", "annotation": "じ"},
+                        {"surface": "ゃ", "annotation": "ゃ"},
+                        {"surface": "ありません", "annotation": "ありません"},
+                        {"surface": "。", "annotation": ""},
+                        {"surface": "こ", "annotation": "こ"},
+                        {"surface": "ち", "annotation": "ち"},
+                        {"surface": "ら", "annotation": "ら"},
+                        {"surface": "こ", "annotation": "こ"},
+                        {"surface": "そ", "annotation": "そ"},
+                        {"surface": "よ", "annotation": "よ"},
+                        {"surface": "ろ", "annotation": "ろ"},
+                        {"surface": "し", "annotation": "し"},
+                        {"surface": "く", "annotation": "く"},
+                        {"surface": "お", "annotation": "お"},
+                        {"surface": "願", "annotation": "ねが"},
+                        {"surface": "い", "annotation": "い"},
+                        {"surface": "し", "annotation": "し"},
+                        {"surface": "ます", "annotation": "ます"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
@@ -725,8 +725,8 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
             [token["surface"] for token in tokens],
             ["学生", "じゃ", "ありません", "。", "こちらこそ", "よろしくお願いします", "。"],
         )
-        self.assertEqual(tokens[1]["reading"], "じゃ")
-        self.assertEqual(tokens[5]["reading"], "よろしくおねがいします")
+        self.assertEqual(tokens[1]["annotation"], "じゃ")
+        self.assertEqual(tokens[5]["annotation"], "よろしくおねがいします")
 
     def test_reading_annotator_merges_vocab_terms_with_spaces_and_tilde(self):
         annotator = JapaneseReadingAnnotator()
@@ -736,26 +736,26 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "アメリカから来ました。どうぞよろしく。",
                     "tokens": [
-                        {"surface": "アメリカ", "reading": "アメリカ"},
-                        {"surface": "か", "reading": "か"},
-                        {"surface": "ら", "reading": "ら"},
-                        {"surface": "来", "reading": "き"},
-                        {"surface": "ました", "reading": "ました"},
-                        {"surface": "。", "reading": ""},
-                        {"surface": "ど", "reading": "ど"},
-                        {"surface": "う", "reading": "う"},
-                        {"surface": "ぞ", "reading": "ぞ"},
-                        {"surface": "よ", "reading": "よ"},
-                        {"surface": "ろ", "reading": "ろ"},
-                        {"surface": "し", "reading": "し"},
-                        {"surface": "く", "reading": "く"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "アメリカ", "annotation": "アメリカ"},
+                        {"surface": "か", "annotation": "か"},
+                        {"surface": "ら", "annotation": "ら"},
+                        {"surface": "来", "annotation": "き"},
+                        {"surface": "ました", "annotation": "ました"},
+                        {"surface": "。", "annotation": ""},
+                        {"surface": "ど", "annotation": "ど"},
+                        {"surface": "う", "annotation": "う"},
+                        {"surface": "ぞ", "annotation": "ぞ"},
+                        {"surface": "よ", "annotation": "よ"},
+                        {"surface": "ろ", "annotation": "ろ"},
+                        {"surface": "し", "annotation": "し"},
+                        {"surface": "く", "annotation": "く"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
             vocabulary=[
-                {"term": "〜から来ました", "reading": "〜からきました", "translation": "来自……"},
-                {"term": "どうぞ よろしく", "reading": "どうぞよろしく", "translation": "请多关照"},
+                {"term": "〜から来ました", "annotation": "〜からきました", "translation": "来自……"},
+                {"term": "どうぞ よろしく", "annotation": "どうぞよろしく", "translation": "请多关照"},
             ],
         )
 
@@ -771,18 +771,18 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "マイク・ミラーです。",
                     "tokens": [
-                        {"surface": "マ", "reading": "マ"},
-                        {"surface": "イ", "reading": "イ"},
-                        {"surface": "ク", "reading": "ク"},
-                        {"surface": "・", "reading": ""},
-                        {"surface": "ミラー", "reading": "ミラー"},
-                        {"surface": "です", "reading": "です"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "マ", "annotation": "マ"},
+                        {"surface": "イ", "annotation": "イ"},
+                        {"surface": "ク", "annotation": "ク"},
+                        {"surface": "・", "annotation": ""},
+                        {"surface": "ミラー", "annotation": "ミラー"},
+                        {"surface": "です", "annotation": "です"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
             vocabulary=[],
-            merge_vocabulary=[{"term": "マイク・ミラー", "reading": "マイク・ミラー"}],
+            merge_vocabulary=[{"term": "マイク・ミラー", "annotation": "マイク・ミラー"}],
         )
 
         tokens = lines[0]["tokens"]
@@ -795,11 +795,11 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         tokens = annotator.tokenize_text(
             "マイク・ミラーです。どうぞ よろしく。",
             vocabulary=[
-                {"term": "どうぞよろしく", "reading": "どうぞよろしく"},
+                {"term": "どうぞよろしく", "annotation": "どうぞよろしく"},
             ],
             merge_vocabulary=[
-                {"term": "マイク・ミラー", "reading": "マイク・ミラー"},
-                {"term": "どうぞ よろしく", "reading": "どうぞよろしく"},
+                {"term": "マイク・ミラー", "annotation": "マイク・ミラー"},
+                {"term": "どうぞ よろしく", "annotation": "どうぞよろしく"},
             ],
         )
 
@@ -809,30 +809,30 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
     def test_reading_annotator_uses_morphological_fallback_for_unknown_segments(self):
         annotator = JapaneseReadingAnnotator(
             morphological_tokenizer=lambda text: [
-                {"surface": "行って", "reading": "いって", "pos": "動詞"},
-                {"surface": "き", "reading": "き", "pos": "動詞"},
+                {"surface": "行って", "annotation": "いって", "pos": "動詞"},
+                {"surface": "き", "annotation": "き", "pos": "動詞"},
             ] if text == "行ってき" else []
         )
 
         tokens = annotator.tokenize_text("行ってきます。", vocabulary=[])
 
         self.assertEqual([token["surface"] for token in tokens], ["行って", "き", "ます", "。"])
-        self.assertEqual(tokens[0]["reading"], "いって")
+        self.assertEqual(tokens[0]["annotation"], "いって")
 
     def test_reading_annotator_forces_particle_readings_after_morphology(self):
         annotator = JapaneseReadingAnnotator(
             morphological_tokenizer=lambda text: [
-                {"surface": "私", "reading": "わたし", "pos": "名詞"},
-                {"surface": "は", "reading": "は", "pos": "助詞"},
-                {"surface": "学校", "reading": "がっこう", "pos": "名詞"},
-                {"surface": "へ", "reading": "へ", "pos": "助詞"},
-                {"surface": "本", "reading": "ほん", "pos": "名詞"},
-                {"surface": "を", "reading": "を", "pos": "助詞"},
+                {"surface": "私", "annotation": "わたし", "pos": "名詞"},
+                {"surface": "は", "annotation": "は", "pos": "助詞"},
+                {"surface": "学校", "annotation": "がっこう", "pos": "名詞"},
+                {"surface": "へ", "annotation": "へ", "pos": "助詞"},
+                {"surface": "本", "annotation": "ほん", "pos": "名詞"},
+                {"surface": "を", "annotation": "を", "pos": "助詞"},
             ]
         )
 
         tokens = annotator.tokenize_text("私は学校へ本を", vocabulary=[])
-        readings = {token["surface"]: token["reading"] for token in tokens}
+        readings = {token["surface"]: token["annotation"] for token in tokens}
 
         self.assertEqual(readings["は"], "わ")
         self.assertEqual(readings["へ"], "え")
@@ -841,17 +841,17 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
     def test_reading_annotator_keeps_vocabulary_longest_match_before_morphology(self):
         annotator = JapaneseReadingAnnotator(
             morphological_tokenizer=lambda text: [
-                {"surface": char, "reading": char}
+                {"surface": char, "annotation": char}
                 for char in text
             ]
         )
 
         tokens = annotator.tokenize_text(
             "ここは新大阪です。",
-            vocabulary=[{"term": "ここ", "reading": "ここ"}],
+            vocabulary=[{"term": "ここ", "annotation": "ここ"}],
             merge_vocabulary=[
-                {"term": "ここ", "reading": "ここ"},
-                {"term": "新大阪", "reading": "しんおおさか"},
+                {"term": "ここ", "annotation": "ここ"},
+                {"term": "新大阪", "annotation": "しんおおさか"},
             ],
         )
 
@@ -866,11 +866,11 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "地下1階です。",
                     "tokens": [
-                        {"surface": "地下", "reading": "ちか"},
-                        {"surface": "1", "reading": "いち"},
-                        {"surface": "階", "reading": "かい"},
-                        {"surface": "です", "reading": "です"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "地下", "annotation": "ちか"},
+                        {"surface": "1", "annotation": "いち"},
+                        {"surface": "階", "annotation": "かい"},
+                        {"surface": "です", "annotation": "です"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
@@ -879,7 +879,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         tokens = lines[0]["tokens"]
         self.assertEqual([token["surface"] for token in tokens], ["地下", "1階", "です", "。"])
-        self.assertEqual(tokens[1]["reading"], "いっかい")
+        self.assertEqual(tokens[1]["annotation"], "いっかい")
         self.assertEqual(lines[0]["reading"], "ちかいっかいです。")
 
     def test_reading_annotator_merges_number_counter_during_tokenize_fallback(self):
@@ -892,7 +892,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         tokens = lines[0]["tokens"]
         self.assertEqual(tokens[0]["surface"], "1階")
-        self.assertEqual(tokens[0]["reading"], "いっかい")
+        self.assertEqual(tokens[0]["annotation"], "いっかい")
 
     def test_reading_annotator_merges_ordinal_counter_tokens(self):
         annotator = JapaneseReadingAnnotator()
@@ -902,11 +902,11 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 {
                     "text": "第3課です。",
                     "tokens": [
-                        {"surface": "第", "reading": "だい"},
-                        {"surface": "3", "reading": "さん"},
-                        {"surface": "課", "reading": "か"},
-                        {"surface": "です", "reading": "です"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "第", "annotation": "だい"},
+                        {"surface": "3", "annotation": "さん"},
+                        {"surface": "課", "annotation": "か"},
+                        {"surface": "です", "annotation": "です"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
@@ -915,23 +915,23 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         tokens = lines[0]["tokens"]
         self.assertEqual([token["surface"] for token in tokens], ["第3課", "です", "。"])
-        self.assertEqual(tokens[0]["reading"], "だいさんか")
+        self.assertEqual(tokens[0]["annotation"], "だいさんか")
 
     def test_reading_auditor_synthesizes_missing_sentence_reading(self):
         payload = {
             "course_content": {
-                "vocabulary": [{"term": "本", "reading": "ほん", "translation": "书"}],
+                "vocabulary": [{"term": "本", "annotation": "ほん", "translation": "书"}],
                 "example_sentences": [
                     {
                         "line_ref": 1,
                         "text": "これは本です。",
                         "reading": "",
                         "tokens": [
-                            {"surface": "これ", "reading": "これ"},
-                            {"surface": "は", "reading": "わ"},
-                            {"surface": "本", "reading": "ほん"},
-                            {"surface": "です", "reading": "です"},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "これ", "annotation": "これ"},
+                            {"surface": "は", "annotation": "わ"},
+                            {"surface": "本", "annotation": "ほん"},
+                            {"surface": "です", "annotation": "です"},
+                            {"surface": "。", "annotation": ""},
                         ],
                     }
                 ],
@@ -952,11 +952,11 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                         "text": "これは辞書です。",
                         "reading": "これはじしょです。",
                         "tokens": [
-                            {"surface": "これ", "reading": "これ"},
-                            {"surface": "は", "reading": "わ"},
-                            {"surface": "辞書", "reading": ""},
-                            {"surface": "です", "reading": "です"},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "これ", "annotation": "これ"},
+                            {"surface": "は", "annotation": "わ"},
+                            {"surface": "辞書", "annotation": ""},
+                            {"surface": "です", "annotation": "です"},
+                            {"surface": "。", "annotation": ""},
                         ],
                     }
                 ],
@@ -966,20 +966,20 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         audited = MinnaNoNihongoReadingAuditor().run(payload)
         tokens = audited["course_content"]["example_sentences"][0]["tokens"]
 
-        self.assertEqual(tokens[2]["reading"], "じしょ")
+        self.assertEqual(tokens[2]["annotation"], "じしょ")
 
     def test_reading_auditor_retokenizes_when_existing_tokens_leave_missing_readings(self):
         payload = {
             "course_content": {
-                "vocabulary": [{"term": "辞書", "reading": "じしょ", "translation": "词典"}],
+                "vocabulary": [{"term": "辞書", "annotation": "じしょ", "translation": "词典"}],
                 "example_sentences": [
                     {
                         "line_ref": 1,
                         "text": "これは辞書です。",
                         "reading": "これはじしょです。",
                         "tokens": [
-                            {"surface": "これは辞書です", "reading": ""},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "これは辞書です", "annotation": ""},
+                            {"surface": "。", "annotation": ""},
                         ],
                     }
                 ],
@@ -989,31 +989,31 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         audited = MinnaNoNihongoReadingAuditor().run(payload)
         tokens = audited["course_content"]["example_sentences"][0]["tokens"]
 
-        self.assertTrue(all(token.get("reading") for token in tokens if token.get("surface") != "。"))
-        self.assertTrue(any(token.get("surface") == "辞書" and token.get("reading") == "じしょ" for token in tokens))
+        self.assertTrue(all(token.get("annotation") for token in tokens if token.get("surface") != "。"))
+        self.assertTrue(any(token.get("surface") == "辞書" and token.get("annotation") == "じしょ" for token in tokens))
 
     def test_reading_auditor_retokenizes_fragmented_tokens_with_local_quality_gate(self):
         annotator = JapaneseReadingAnnotator(
             morphological_tokenizer=lambda text: [
-                {"surface": "学生", "reading": "がくせい", "pos": "名詞"},
-                {"surface": "じゃ", "reading": "じゃ", "pos": "助詞"},
-                {"surface": "ありません", "reading": "ありません", "pos": "表現"},
+                {"surface": "学生", "annotation": "がくせい", "pos": "名詞"},
+                {"surface": "じゃ", "annotation": "じゃ", "pos": "助詞"},
+                {"surface": "ありません", "annotation": "ありません", "pos": "表現"},
             ] if text == "学生じゃありません" else []
         )
         payload = {
             "course_content": {
-                "vocabulary": [{"term": "学生", "reading": "がくせい", "translation": "学生"}],
+                "vocabulary": [{"term": "学生", "annotation": "がくせい", "translation": "学生"}],
                 "sentence_patterns": [
                     {
                         "pattern_id": 1,
                         "text": "学生じゃありません。",
                         "reading": "がくせいじゃありません。",
                         "tokens": [
-                            {"surface": "学生", "reading": "がくせい"},
-                            {"surface": "じ", "reading": "じ"},
-                            {"surface": "ゃ", "reading": "ゃ"},
-                            {"surface": "ありません", "reading": "ありません"},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "学生", "annotation": "がくせい"},
+                            {"surface": "じ", "annotation": "じ"},
+                            {"surface": "ゃ", "annotation": "ゃ"},
+                            {"surface": "ありません", "annotation": "ありません"},
+                            {"surface": "。", "annotation": ""},
                         ],
                     }
                 ],
@@ -1030,18 +1030,18 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         provider = FakeSequenceProvider([])
         payload = {
             "course_content": {
-                "vocabulary": [{"term": "本", "reading": "ほん", "translation": "书"}],
+                "vocabulary": [{"term": "本", "annotation": "ほん", "translation": "书"}],
                 "sentence_patterns": [
                     {
                         "pattern_id": 1,
                         "text": "これは本です。",
                         "reading": "これはほんです。",
                         "tokens": [
-                            {"surface": "これ", "reading": "これ"},
-                            {"surface": "は", "reading": "わ"},
-                            {"surface": "本", "reading": "ほん"},
-                            {"surface": "です", "reading": "です"},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "これ", "annotation": "これ"},
+                            {"surface": "は", "annotation": "わ"},
+                            {"surface": "本", "annotation": "ほん"},
+                            {"surface": "です", "annotation": "です"},
+                            {"surface": "。", "annotation": ""},
                         ],
                     }
                 ],
@@ -1056,19 +1056,19 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         provider = FakeSequenceProvider([])
         payload = {
             "course_content": {
-                "vocabulary": [{"term": "私", "reading": "わたし", "translation": "我"}],
+                "vocabulary": [{"term": "私", "annotation": "わたし", "translation": "我"}],
                 "sentence_patterns": [
                     {
                         "pattern_id": 1,
                         "text": "わたしです。",
                         "reading": "わたしです。",
                         "tokens": [
-                            {"surface": "わ", "reading": "わ"},
-                            {"surface": "た", "reading": "た"},
-                            {"surface": "し", "reading": "し"},
-                            {"surface": "で", "reading": "で"},
-                            {"surface": "す", "reading": "す"},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "わ", "annotation": "わ"},
+                            {"surface": "た", "annotation": "た"},
+                            {"surface": "し", "annotation": "し"},
+                            {"surface": "で", "annotation": "で"},
+                            {"surface": "す", "annotation": "す"},
+                            {"surface": "。", "annotation": ""},
                         ],
                     }
                 ],
@@ -1091,13 +1091,13 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                     {
                         "pattern_id": 1,
                         "text": "わたしです。",
-                        "reading": "わたしです。",
+                        "annotation": "わたしです。",
                         "tokens": [
-                            {"surface": "わ", "reading": "わ"},
-                            {"surface": "た", "reading": "た"},
-                            {"surface": "し", "reading": "し"},
-                            {"surface": "です", "reading": "です"},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "わ", "annotation": "わ"},
+                            {"surface": "た", "annotation": "た"},
+                            {"surface": "し", "annotation": "し"},
+                            {"surface": "です", "annotation": "です"},
+                            {"surface": "。", "annotation": ""},
                         ],
                     }
                 ],
@@ -1108,7 +1108,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
             payload,
             llm_provider=provider,
             lesson_id=2,
-            token_merge_vocabulary=[{"term": "私", "reading": "わたし", "translation": "我"}],
+            token_merge_vocabulary=[{"term": "私", "annotation": "わたし", "translation": "我"}],
         )
         tokens = audited["course_content"]["sentence_patterns"][0]["tokens"]
 
@@ -1122,13 +1122,13 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                     {
                         "source_section": "sentence_patterns",
                         "source_ref": 1,
-                        "reading": "これはあいうえおです。",
+                        "annotation": "これはあいうえおです。",
                         "tokens": [
-                            {"surface": "これ", "reading": "これ"},
-                            {"surface": "は", "reading": "わ"},
-                            {"surface": "あいうえお", "reading": "あいうえお"},
-                            {"surface": "です", "reading": "です"},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "これ", "annotation": "これ"},
+                            {"surface": "は", "annotation": "わ"},
+                            {"surface": "あいうえお", "annotation": "あいうえお"},
+                            {"surface": "です", "annotation": "です"},
+                            {"surface": "。", "annotation": ""},
                         ],
                         "reason": "fragmented kana tokenization",
                     }
@@ -1144,15 +1144,15 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                         "text": "これはあいうえおです。",
                         "reading": "これはあいうえおです。",
                         "tokens": [
-                            {"surface": "これ", "reading": "これ"},
-                            {"surface": "は", "reading": "わ"},
-                            {"surface": "あ", "reading": "あ"},
-                            {"surface": "い", "reading": "い"},
-                            {"surface": "う", "reading": "う"},
-                            {"surface": "え", "reading": "え"},
-                            {"surface": "お", "reading": "お"},
-                            {"surface": "です", "reading": "です"},
-                            {"surface": "。", "reading": ""},
+                            {"surface": "これ", "annotation": "これ"},
+                            {"surface": "は", "annotation": "わ"},
+                            {"surface": "あ", "annotation": "あ"},
+                            {"surface": "い", "annotation": "い"},
+                            {"surface": "う", "annotation": "う"},
+                            {"surface": "え", "annotation": "え"},
+                            {"surface": "お", "annotation": "お"},
+                            {"surface": "です", "annotation": "です"},
+                            {"surface": "。", "annotation": ""},
                         ],
                     }
                 ],
@@ -1174,13 +1174,13 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                         "source_section": "sentence_patterns",
                         "source_ref": 1,
                         "reading": "これはほんです。",
-                        "romaji": "kore wa hon desu.",
+                        "romanization": "kore wa hon desu.",
                         "tokens": [
-                            {"surface": "これ", "reading": "これ", "romaji": "kore"},
-                            {"surface": "は", "reading": "わ", "romaji": "wa"},
-                            {"surface": "本", "reading": "ほん", "romaji": "hon"},
-                            {"surface": "です", "reading": "です", "romaji": "desu"},
-                            {"surface": "。", "reading": "", "romaji": ""},
+                            {"surface": "これ", "annotation": "これ", "romanization": "kore"},
+                            {"surface": "は", "annotation": "わ", "romanization": "wa"},
+                            {"surface": "本", "annotation": "ほん", "romanization": "hon"},
+                            {"surface": "です", "annotation": "です", "romanization": "desu"},
+                            {"surface": "。", "annotation": "", "romanization": ""},
                         ],
                     }
                 ]
@@ -1194,7 +1194,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                         "pattern_id": 1,
                         "text": "これは本です。",
                         "reading": "これはです。",
-                        "tokens": [{"surface": "これ", "reading": "これ"}],
+                        "tokens": [{"surface": "これ", "annotation": "これ"}],
                     }
                 ],
             }
@@ -1203,7 +1203,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         audited = MinnaNoNihongoReadingAuditor().run(payload, llm_provider=provider, lesson_id=1)
         pattern = audited["course_content"]["sentence_patterns"][0]
         self.assertEqual(pattern["reading"], "これはほんです。")
-        self.assertEqual(pattern["tokens"][2]["reading"], "ほん")
+        self.assertEqual(pattern["tokens"][2]["annotation"], "ほん")
         self.assertTrue(audited["pipeline_diagnostics"]["reading_audit"]["llm_corrections"])
 
     def test_reading_auditor_batches_and_retries_invalid_batch(self):
@@ -1220,7 +1220,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                         "pattern_id": index,
                         "text": f"これは本{index}です。",
                         "reading": f"これはほん{index}です。",
-                        "tokens": [{"surface": "これ", "reading": "これ"}],
+                        "tokens": [{"surface": "これ", "annotation": "これ"}],
                     }
                     for index in range(1, 6)
                 ],
@@ -1275,7 +1275,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "学生": [
                     {
                         "term": "学生",
-                        "reading": "がくせい",
+                        "annotation": "がくせい",
                         "definition": "学生",
                         "lesson_id": 1,
                         "lesson_slug": "lesson001",
@@ -1295,8 +1295,8 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                     "example_sentences": [],
                     "dialogue": {"lines": []},
                     "vocabulary": [
-                        {"term": "学生", "reading": "がくせい", "translation": "学生"},
-                        {"term": "先生", "reading": "せんせい", "translation": "老师"},
+                        {"term": "学生", "annotation": "がくせい", "translation": "学生"},
+                        {"term": "先生", "annotation": "せんせい", "translation": "老师"},
                     ],
                 },
             }
@@ -1327,7 +1327,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                     ],
                     "example_sentences": [],
                     "dialogue": {"lines": []},
-                    "vocabulary": [{"term": "学生", "reading": "がくせい", "translation": "学生"}],
+                    "vocabulary": [{"term": "学生", "annotation": "がくせい", "translation": "学生"}],
                 },
             }
 
@@ -1349,7 +1349,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                     ],
                     "example_sentences": [],
                     "dialogue": {"lines": []},
-                    "vocabulary": [{"term": "辞書", "reading": "じしょ", "translation": "词典"}],
+                    "vocabulary": [{"term": "辞書", "annotation": "じしょ", "translation": "词典"}],
                 },
             }
             updated_payload = deepcopy(payload)
@@ -1374,7 +1374,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "私": [
                     {
                         "term": "私",
-                        "reading": "わたし",
+                        "annotation": "わたし",
                         "definition": "我",
                         "lesson_id": 1,
                     }
@@ -1382,7 +1382,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "辞書": [
                     {
                         "term": "辞書",
-                        "reading": "じしょ",
+                        "annotation": "じしょ",
                         "definition": "词典",
                         "lesson_id": 2,
                     }
@@ -1390,7 +1390,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "9": [
                     {
                         "term": "9",
-                        "reading": "きゅう",
+                        "annotation": "きゅう",
                         "definition": "九",
                         "lesson_id": 1,
                     }
@@ -1398,7 +1398,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "歳": [
                     {
                         "term": "歳",
-                        "reading": "さい",
+                        "annotation": "さい",
                         "definition": "岁",
                         "lesson_id": 1,
                     }
@@ -1406,7 +1406,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "日": [
                     {
                         "term": "日",
-                        "reading": "にち",
+                        "annotation": "にち",
                         "definition": "日",
                         "lesson_id": 1,
                     }
@@ -1434,14 +1434,14 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "vocabulary": [
                     {
                         "term": "学生",
-                        "reading": "がくせい",
+                        "annotation": "がくせい",
                         "translation": "学生",
                         "is_new_vocabulary": False,
                         "memory_status": "review",
                     },
                     {
                         "term": "先生",
-                        "reading": "せんせい",
+                        "annotation": "せんせい",
                         "translation": "老师",
                         "is_new_vocabulary": True,
                         "memory_status": "new",
@@ -1464,7 +1464,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "vocabulary": [
                     {
                         "term": "マイク・ミラー",
-                        "reading": "マイク・ミラー",
+                        "annotation": "マイク・ミラー",
                         "translation": "迈克·米勒",
                         "part_of_speech": "固有名詞",
                         "category": "person_name",
@@ -1472,7 +1472,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                     },
                     {
                         "term": "学生",
-                        "reading": "がくせい",
+                        "annotation": "がくせい",
                         "translation": "学生",
                         "is_new_vocabulary": True,
                     },
@@ -1514,7 +1514,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "vocabulary": [
                     {
                         "term": "学生",
-                        "reading": "がくせい",
+                        "annotation": "がくせい",
                         "translation": "学生",
                         "is_new_vocabulary": True,
                     }
@@ -1598,7 +1598,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 "vocabulary": [
                     {
                         "term": "学生",
-                        "reading": "がくせい",
+                        "annotation": "がくせい",
                         "translation": "学生",
                         "is_new_vocabulary": True,
                     }
@@ -1677,16 +1677,16 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                     "reading": "これはほんです。",
                     "translation": "这是书。",
                     "tokens": [
-                        {"surface": "これ", "reading": "これ", "pos": "代名詞", "highlight": True},
-                        {"surface": "は", "reading": "わ", "pos": "助詞"},
-                        {"surface": "本", "reading": "ほん", "pos": "名詞", "highlight": True},
-                        {"surface": "です", "reading": "です", "pos": "助動詞"},
+                        {"surface": "これ", "annotation": "これ", "pos": "代名詞", "highlight": True},
+                        {"surface": "は", "annotation": "わ", "pos": "助詞"},
+                        {"surface": "本", "annotation": "ほん", "pos": "名詞", "highlight": True},
+                        {"surface": "です", "annotation": "です", "pos": "助動詞"},
                     ],
                 }
             ],
             "example_sentences": [{"text": "それは辞書です。", "reading": "それはじしょです。", "translation": "那是词典。"}],
             "dialogue": {"lines": [{"speaker": "ミラー", "text": "これは何ですか。", "reading": "これはなんですか。", "translation": "这是什么？"}]},
-            "vocabulary": [{"term": "本", "reading": "ほん", "translation": "书", "part_of_speech": "名詞"}],
+            "vocabulary": [{"term": "本", "annotation": "ほん", "translation": "书", "part_of_speech": "名詞"}],
             "display_only_vocabulary": [],
             "grammar_sections": [{"title": "これ／それ／あれ", "explanation": "指示事物。", "examples": [{"text": "これは本です。"}]}],
             "practice_source": [{"section": "練習A-1", "instruction": "替换名词。", "pattern": "これは [名詞] です。"}],
@@ -1762,11 +1762,11 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                     "reading": "わたしはがくせいです。",
                     "translation": "我是学生。",
                     "tokens": [
-                        {"surface": "わたし", "reading": "わたし", "pos": "代名詞"},
-                        {"surface": "は", "reading": "わ", "pos": "助詞"},
-                        {"surface": "学生", "reading": "がくせい", "pos": "名詞"},
-                        {"surface": "です", "reading": "です", "pos": "助動詞"},
-                        {"surface": "。", "reading": ""},
+                        {"surface": "わたし", "annotation": "わたし", "pos": "代名詞"},
+                        {"surface": "は", "annotation": "わ", "pos": "助詞"},
+                        {"surface": "学生", "annotation": "がくせい", "pos": "名詞"},
+                        {"surface": "です", "annotation": "です", "pos": "助動詞"},
+                        {"surface": "。", "annotation": ""},
                     ],
                 }
             ],
@@ -1782,15 +1782,15 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                 ],
             },
             "vocabulary": [
-                {"term": "わたし", "reading": "わたし", "translation": "我", "part_of_speech": "代名詞"},
+                {"term": "わたし", "annotation": "わたし", "translation": "我", "part_of_speech": "代名詞"},
                 {
                     "term": "あのひと",
-                    "reading": "あのひと",
+                    "annotation": "あのひと",
                     "translation": "那个人",
                     "part_of_speech": "名詞",
                     "lesson_section": "supplementary",
                 },
-                {"term": "学生", "reading": "がくせい", "translation": "学生", "part_of_speech": "名詞"},
+                {"term": "学生", "annotation": "がくせい", "translation": "学生", "part_of_speech": "名詞"},
             ],
             "display_only_vocabulary": [],
             "grammar_sections": [
@@ -1877,7 +1877,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
             "example_sentences": [],
             "dialogue": {"lines": []},
             "vocabulary": [
-                {"term": "学生", "reading": "がくせい", "translation": "学生", "part_of_speech": "名詞"}
+                {"term": "学生", "annotation": "がくせい", "translation": "学生", "part_of_speech": "名詞"}
             ],
             "display_only_vocabulary": [],
             "grammar_sections": [

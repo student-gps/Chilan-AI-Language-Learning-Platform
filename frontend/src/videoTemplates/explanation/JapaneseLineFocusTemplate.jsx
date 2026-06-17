@@ -42,7 +42,7 @@ function hasMeaningfulReading(text, reading) {
 
 function tokenHasRuby(token) {
     const surface = cleanText(token?.surface);
-    const reading = cleanText(token?.reading);
+    const reading = cleanText(token?.annotation ?? token?.reading);
     if (!surface || !reading) return false;
     if (/^[。、！？!?・\s]+$/.test(surface)) return false;
     if (surface === 'は' && reading === 'わ') return true;
@@ -54,7 +54,7 @@ function JapaneseRubyLine({ text, tokens, reading, charSize }) {
     const validTokens = Array.isArray(tokens)
         ? tokens.map((token) => ({
             surface: cleanText(token?.surface),
-            reading: cleanText(token?.reading),
+            reading: cleanText(token?.annotation ?? token?.reading),
         })).filter((token) => token.surface)
         : [];
 
@@ -85,7 +85,7 @@ function JapaneseRubyLine({ text, tokens, reading, charSize }) {
             maxWidth: '100%',
         }}>
             {validTokens.map((token, index) => {
-                const ruby = tokenHasRuby(token) ? token.reading : '';
+                const ruby = tokenHasRuby(token) ? (token.annotation ?? token.reading) : '';
                 const isPunctuation = /^[。、！？!?・]+$/.test(token.surface);
                 return (
                     <span key={`${token.surface}-${index}`} style={{
