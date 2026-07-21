@@ -1,7 +1,7 @@
 """
 一键清理日语 pipeline 所有产物：
   1. 本地 artifacts 目录（output_json / synced_json / output_audio / output_slides / vocab_memory）
-  2. PostgreSQL：course_id=303 关联的所有记录
+  2. PostgreSQL：course_id=303 关联的所有记录（含 user_courses）
   3. Cloudflare R2：ja/ 前缀的所有对象
 
 用法：
@@ -72,6 +72,11 @@ def cleanup_db(dry_run: bool) -> None:
             "review_logs",
             "SELECT COUNT(*) FROM review_logs WHERE course_id = %s",
             "DELETE FROM review_logs WHERE course_id = %s",
+        ),
+        (
+            "user_courses",
+            "SELECT COUNT(*) FROM user_courses WHERE course_id = %s",
+            "DELETE FROM user_courses WHERE course_id = %s",
         ),
         (
             "user_progress_of_lessons",

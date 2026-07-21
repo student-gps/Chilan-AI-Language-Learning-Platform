@@ -3,6 +3,8 @@ from pathlib import Path
 
 from fastapi import HTTPException
 
+from content_builder.core.pipeline import pipeline_alias_map, pipeline_manifest
+
 
 @dataclass(frozen=True)
 class MediaPipeline:
@@ -14,27 +16,25 @@ class MediaPipeline:
         return backend_dir / self.artifact_relative_path
 
 
-_PIPELINES = {
-    "integrated_chinese": MediaPipeline(
-        pipeline_id="integrated_chinese",
-        target_language="zh",
-        artifact_relative_path="content_builder/zh/integrated_chinese/artifacts",
-    ),
-    "new_concept_english": MediaPipeline(
-        pipeline_id="new_concept_english",
-        target_language="en",
-        artifact_relative_path="content_builder/en/new_concept_english/artifacts",
-    ),
-    "minna_no_nihongo": MediaPipeline(
-        pipeline_id="minna_no_nihongo",
-        target_language="ja",
-        artifact_relative_path="content_builder/ja/minna_no_nihongo/artifacts",
-    ),
-}
+
+
+def _build_media_pipelines() -> dict[str, MediaPipeline]:
+    pipelines: dict[str, MediaPipeline] = {}
+    for pipeline_id, item in pipeline_manifest().items():
+        pipelines[pipeline_id] = MediaPipeline(
+            pipeline_id=pipeline_id,
+            target_language=str(item.get("target_language") or ""),
+            artifact_relative_path=str(item.get("artifact_relative_path") or ""),
+        )
+    return pipelines
+
+
+_PIPELINES = _build_media_pipelines()
 
 
 def get_media_pipeline(pipeline_id: str) -> MediaPipeline:
-    pipeline = _PIPELINES.get(pipeline_id)
+    canonical_id = pipeline_alias_map().get((pipeline_id or "").strip().lower(), (pipeline_id or "").strip().lower())
+    pipeline = _PIPELINES.get(canonical_id)
     if not pipeline:
         raise HTTPException(status_code=404, detail=f"Unknown media pipeline: {pipeline_id}")
     return pipeline

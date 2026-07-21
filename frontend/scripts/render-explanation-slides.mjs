@@ -7,6 +7,39 @@ import process from 'node:process';
 const currentFilePath = fileURLToPath(import.meta.url);
 const frontendDir = path.resolve(path.dirname(currentFilePath), '..');
 const projectRoot = path.resolve(frontendDir, '..');
+const pipelineManifestPath = path.join(projectRoot, 'backend', 'content_builder', 'core', 'pipeline_manifest.json');
+
+function loadPipelineManifest() {
+    const payload = JSON.parse(fs.readFileSync(pipelineManifestPath, 'utf-8'));
+    return Array.isArray(payload?.pipelines) ? payload.pipelines : [];
+}
+
+function buildPipelineMaps() {
+    const currentArtifactRootByPipeline = {};
+    const legacyArtifactRootByPipeline = {};
+    const aliasToPipelineId = {};
+
+    for (const pipeline of loadPipelineManifest()) {
+        const pipelineId = String(pipeline.pipeline_id || '').trim();
+        if (!pipelineId) continue;
+        const artifactRelativePath = String(pipeline.artifact_relative_path || '').trim();
+        if (artifactRelativePath) {
+            currentArtifactRootByPipeline[pipelineId] = path.join(projectRoot, 'backend', ...artifactRelativePath.split('/'));
+        }
+        const legacyRelativePath = String(pipeline.legacy_artifact_relative_path || '').trim();
+        if (legacyRelativePath) {
+            legacyArtifactRootByPipeline[pipelineId] = path.join(projectRoot, 'backend', ...legacyRelativePath.split('/'));
+        }
+        aliasToPipelineId[pipelineId.toLowerCase()] = pipelineId;
+        for (const alias of Array.isArray(pipeline.aliases) ? pipeline.aliases : []) {
+            aliasToPipelineId[String(alias).trim().toLowerCase()] = pipelineId;
+        }
+    }
+
+    return { currentArtifactRootByPipeline, legacyArtifactRootByPipeline, aliasToPipelineId };
+}
+
+const { currentArtifactRootByPipeline, legacyArtifactRootByPipeline, aliasToPipelineId } = buildPipelineMaps();
 
 const lessonId = process.argv[2] || '101';
 const lang = process.argv[3] || 'en';
@@ -15,35 +48,25 @@ const sourceJsonArg = process.argv[5] || '';
 const onlySlideArg = Number.parseInt(process.argv[6] || '', 10);
 const onlySlideIndex = Number.isFinite(onlySlideArg) && onlySlideArg > 0 ? onlySlideArg : null;
 const langSuffix = lang !== 'en' ? `_${lang}` : '';
-
-const artifactsDir = path.join(projectRoot, 'backend', 'content_builder', 'artifacts');
-const artifactRootByPipeline = {
-    integrated_chinese: path.join(artifactsDir, 'integrated_chinese'),
-    'integrated-chinese': path.join(artifactsDir, 'integrated_chinese'),
-    zh: path.join(artifactsDir, 'integrated_chinese'),
-    new_concept_english: path.join(artifactsDir, 'new_concept_english'),
-    'new-concept-english': path.join(artifactsDir, 'new_concept_english'),
-    nce: path.join(artifactsDir, 'new_concept_english'),
-    minna_no_nihongo: path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
-    'minna-no-nihongo': path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
-    mnn: path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
-    ja: path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
-};
-const preferredArtifactRoot = artifactRootByPipeline[pipeline] || path.join(artifactsDir, pipeline);
+const canonicalPipelineId = aliasToPipelineId[pipeline.toLowerCase()] || pipeline;
+const legacyArtifactsDir = path.join(projectRoot, 'backend', 'content_builder', 'artifacts');
+const preferredArtifactRoot = currentArtifactRootByPipeline[canonicalPipelineId] || legacyArtifactRootByPipeline[canonicalPipelineId] || path.join(legacyArtifactsDir, canonicalPipelineId);
 
 const candidateArtifactRoots = [
     preferredArtifactRoot,
-    path.join(artifactsDir, 'integrated_chinese'),
-    path.join(artifactsDir, 'new_concept_english'),
-    path.join(projectRoot, 'backend', 'content_builder', 'ja', 'minna_no_nihongo', 'artifacts'),
-    artifactsDir,
-].filter((item, index, arr) => arr.indexOf(item) === index);
+    legacyArtifactRootByPipeline[canonicalPipelineId],
+    ...Object.values(currentArtifactRootByPipeline),
+    ...Object.values(legacyArtifactRootByPipeline),
+    legacyArtifactsDir,
+].filter(Boolean).filter((item, index, arr) => arr.indexOf(item) === index);
 
 const candidateJsonPaths = sourceJsonArg
     ? [path.resolve(sourceJsonArg)]
     : candidateArtifactRoots.flatMap((artifactRoot) => [
         path.join(artifactRoot, 'output_json', lang, `lesson${lessonId}_data${langSuffix}.json`),
+        path.join(artifactRoot, 'output_json', lang, `lesson${lessonId}_data.json`),
         path.join(artifactRoot, 'synced_json', lang, `lesson${lessonId}_data${langSuffix}.json`),
+        path.join(artifactRoot, 'synced_json', lang, `lesson${lessonId}_data.json`),
     ]);
 
 const sourceJsonPath = candidateJsonPaths.find((candidate) => fs.existsSync(candidate));

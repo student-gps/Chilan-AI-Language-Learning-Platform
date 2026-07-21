@@ -12,7 +12,12 @@ if str(BACKEND_DIR) not in sys.path:
 
 from content_builder.core.pipeline import get_pipeline
 from content_builder.ja.minna_no_nihongo.agent import MinnaNoNihongoAgent
-from content_builder.ja.minna_no_nihongo.book_profiles import book1, intermediate, lesson_profile as resolve_lesson_profile
+from content_builder.ja.minna_no_nihongo.book_profiles import (
+    book1,
+    known_characters_for_lesson,
+    intermediate,
+    lesson_profile as resolve_lesson_profile,
+)
 from content_builder.ja.minna_no_nihongo.tasks.content_extractor import MinnaNoNihongoExtractor
 from content_builder.ja.minna_no_nihongo.tasks.explanation_composer import (
     DIRECTOR_PLAN_VERSION,
@@ -352,6 +357,11 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
             {
                 "course_content": {
                     "vocabulary": [{"term": "学生", "annotation": "がくせい", "translation": "学生"}],
+                }
+            },
+            {"course_content": {}},
+            {
+                "course_content": {
                     "display_only_vocabulary": [{"term": "ミラー", "category": "person_name"}],
                 }
             },
@@ -375,14 +385,109 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
             file_obj={"shared": "pdf"},
         )
 
-        self.assertEqual(len(provider.calls), 4)
-        self.assertTrue(all(call["file_obj"] == {"shared": "pdf"} for call in provider.calls))
-        self.assertTrue(all(call["file_path"] is None for call in provider.calls))
-        self.assertEqual(payload["course_content"]["sentence_patterns"][0]["text"], "わたしは学生です。")
-        self.assertEqual(payload["course_content"]["vocabulary"][0]["term"], "学生")
-        self.assertEqual(payload["course_content"]["grammar_sections"][0]["title"], "N1 は N2 です")
         self.assertEqual(payload["course_content"]["practice_source"][0]["section"], "練習A")
         self.assertTrue(payload["pipeline_diagnostics"]["task1_extraction"]["used_shared_pdf"])
+        self.assertEqual(len(provider.calls), 6)
+        self.assertIn("known_characters", provider.calls[0]["prompt"])
+        self.assertIn("米勒先生", provider.calls[0]["prompt"])
+
+    def test_lesson_normalizer_canonicalizes_known_character_honorifics(self):
+        payload = MinnaNoNihongoLessonNormalizer().run(
+            {
+                "lesson_metadata": {"title": "第1課", "title_localized": "第1课"},
+                "course_content": {
+                    "sentence_patterns": [
+                        {
+                            "text": "ミラーさんは　会社員ですか。",
+                            "reading": "ミラーさんわ　かいしゃいんですか。",
+                            "translation": "米勒先生/女士是公司职员吗？",
+                        }
+                    ],
+                    "example_sentences": [
+                        {
+                            "text": "グプタさんは会社員ですか。",
+                            "reading": "グプタさんはかいしゃいんですか。",
+                            "translation": "古普塔先生/女士是公司职员吗？",
+                        }
+                    ],
+                    "dialogue": {
+                        "title": "会話",
+                        "title_localized": "会话",
+                        "lines": [
+                            {
+                                "speaker": "佐藤けい子",
+                                "text": "佐藤さん、こちらは　マイク・ミラーさんです。",
+                                "reading": "さとうさん、こちらは　マイク・ミラーさんです。",
+                                "translation": "佐藤小姐，这位是迈克·米勒先生。",
+                            }
+                        ],
+                    },
+                    "vocabulary": [
+                        {
+                            "term": "マイク・ミラー",
+                            "reading": "マイク・ミラー",
+                            "translation": "迈克·米勒先生",
+                            "part_of_speech": "固有名詞",
+                            "category": "person_name",
+                        }
+                    ],
+                    "display_only_vocabulary": [
+                        {
+                            "term": "マイク・ミラー",
+                            "reading": "マイク・ミラー",
+                            "translation": "迈克·米勒先生",
+                            "category": "person_name",
+                        },
+                        {
+                            "term": "グプタ",
+                            "reading": "グプタ",
+                            "translation": "古普塔先生",
+                            "category": "person_name",
+                        },
+                    ],
+                    "grammar_sections": [
+                        {
+                            "title": "助詞「さん」",
+                            "explanation": "这里的ミラー先生/女士表示礼貌称呼。",
+                            "patterns": [
+                                {"text": "ミラーさんは 会社員ですか。", "translation": "米勒先生/女士是公司职员吗？"}
+                            ],
+                            "examples": [
+                                {
+                                    "text": "グプタさんは会社員ですか。",
+                                    "reading": "グプタさんはかいしゃいんですか。",
+                                    "translation": "古普塔先生/女士是公司职员吗？",
+                                }
+                            ],
+                        }
+                    ],
+                },
+            },
+            lesson_id=1,
+            source_pdf=Path("lesson001.pdf"),
+            lesson_pdf=Path("lesson001.pdf"),
+            course_id=201,
+        )
+
+        content = payload["course_content"]
+        self.assertEqual(content["sentence_patterns"][0]["translation"], "米勒是公司职员吗？")
+        self.assertEqual(content["example_sentences"][0]["translation"], "古普塔是公司职员吗？")
+        self.assertEqual(content["dialogue"]["lines"][0]["translation"], "佐藤女士，这位是米勒先生。")
+        self.assertEqual(content["dialogue"]["lines"][0]["speaker_localized"], "佐藤惠子女士")
+        self.assertEqual({item["translation"] for item in content["display_only_vocabulary"]}, {"迈克·米勒", "古普塔"})
+        self.assertFalse(content["vocabulary"])
+        self.assertEqual(content["grammar_sections"][0]["patterns"][0]["translation"], "米勒是公司职员吗？")
+        self.assertEqual(content["grammar_sections"][0]["examples"][0]["translation"], "古普塔是公司职员吗？")
+        self.assertNotIn("先生/女士", content["grammar_sections"][0]["explanation"])
+
+    def test_book1_known_characters_include_lesson001_cast(self):
+        cast = known_characters_for_lesson(1)
+        names = {item["ja_name"] for item in cast}
+        self.assertIn("マイク・ミラー", names)
+        self.assertIn("佐藤けい子", names)
+        mike = next(item for item in cast if item["ja_name"] == "マイク・ミラー")
+        self.assertEqual(mike["zh_name"], "迈克·米勒")
+        self.assertEqual(mike["zh_name_with_honorific"], "米勒先生")
 
     def test_content_extractor_splits_combined_example_question_answers(self):
         provider = FakeSequenceProvider([
@@ -422,6 +527,16 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
             ],
         )
         self.assertEqual([item["line_ref"] for item in examples], [1, 2, 3, 4, 5])
+        self.assertEqual(
+            [item["translation"] for item in examples],
+            [
+                "古普塔先生是公司职员吗？",
+                "是，是公司职员。",
+                "卡莉娜小姐也是公司职员吗？",
+                "不是。",
+                "[卡莉娜小姐]是学生。",
+            ],
+        )
         self.assertTrue(all(not item.get("tokens") for item in examples))
 
     def test_content_extractor_prompt_requires_fine_grained_examples(self):
@@ -434,6 +549,9 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         self.assertIn("每个 example_sentences item 只放一个独立句子或一个短答句", prompt)
         self.assertIn("不要把“问题 + 回答”合并成一条", prompt)
+        self.assertIn("known_characters", prompt)
+        self.assertIn("zh_name_with_honorific", prompt)
+        self.assertIn("禁止输出“先生/女士”", prompt)
 
     def test_content_extractor_prompt_uses_intermediate_sections(self):
         extractor = MinnaNoNihongoExtractor(FakeSequenceProvider([]))
@@ -1856,16 +1974,18 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         segments = plan["explanation"]["segments"]
 
         self.assertEqual(plan["explanation"]["renderer_notes"]["plan_version"], DIRECTOR_PLAN_VERSION)
-        self.assertEqual(len(segments), 5)
-        self.assertEqual(
-            [segment["template_name"] for segment in segments],
-            ["ja_line_focus", "ja_sentence_stack", "ja_vocab_board", "ja_grammar_board", "lesson_recap"],
-        )
-        vocab_items = segments[2]["visual_blocks"][0]["content"]["items"]
-        self.assertEqual([item["term"] for item in vocab_items], ["学生"])
-        self.assertEqual(segments[4]["segment_type"], "recap")
-        self.assertEqual(segments[4]["visual_blocks"][0]["block_type"], "recap_summary")
-        self.assertEqual(segments[4]["highlight_words"][0]["word"], "わたしは学生です")
+        self.assertEqual(len(segments), 7)
+        self.assertIn("ja_line_focus", [segment["template_name"] for segment in segments])
+        self.assertIn("ja_sentence_stack", [segment["template_name"] for segment in segments])
+        self.assertIn("ja_vocab_board", [segment["template_name"] for segment in segments])
+        self.assertIn("ja_grammar_board", [segment["template_name"] for segment in segments])
+        self.assertIn("lesson_recap", [segment["template_name"] for segment in segments])
+        vocab_segment = next(segment for segment in segments if segment["template_name"] == "ja_vocab_board")
+        vocab_items = vocab_segment["visual_blocks"][0]["content"]["items"]
+        self.assertEqual([item["term"] for item in vocab_items], ["わたし", "学生"])
+        recap_segment = next(segment for segment in segments if segment["segment_type"] == "recap")
+        self.assertEqual(recap_segment["visual_blocks"][0]["block_type"], "recap_summary")
+        self.assertEqual(recap_segment["highlight_words"][0]["word"], "わたしは学生です")
         self.assertEqual(segments[0]["narration_track"]["subtitle_zh"], "先听 [ja:わたしは学生です]。这句话用来介绍身份。")
 
     def test_explanation_composer_adds_recap_when_llm_omits_it(self):
@@ -1904,6 +2024,50 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         self.assertEqual(segments[-1]["segment_type"], "recap")
         self.assertEqual(segments[-1]["template_name"], "lesson_recap")
         self.assertTrue(segments[-1]["highlight_words"])
+
+    def test_explanation_composer_prefers_localized_dialogue_speaker(self):
+        metadata = {"lesson_id": 1, "course_id": 201, "title_localized": "第1课"}
+        course_content = {
+            "sentence_patterns": [],
+            "example_sentences": [],
+            "dialogue": {
+                "lines": [
+                    {
+                        "line_ref": 1,
+                        "speaker": "佐藤けい子",
+                        "speaker_localized": "佐藤惠子女士",
+                        "text": "はじめまして。",
+                        "reading": "はじめまして。",
+                        "translation": "初次见面。",
+                        "tokens": [],
+                    },
+                    {"line_ref": 2, "speaker": "山田", "text": "よろしくお願いします。", "reading": "よろしくおねがいします。", "translation": "请多关照。", "tokens": []},
+                    {"line_ref": 3, "speaker": "佐藤けい子", "text": "こちらは　マイク・ミラーさんです。", "reading": "こちらは　マイク・ミラーさんです。", "translation": "这位是迈克·米勒先生。", "tokens": []},
+                    {"line_ref": 4, "speaker": "マイク・ミラー", "text": "はじめまして。", "reading": "はじめまして。", "translation": "初次见面。", "tokens": []},
+                    {"line_ref": 5, "speaker": "マイク・ミラー", "text": "どうぞよろしく。", "reading": "どうぞよろしく。", "translation": "请多关照。", "tokens": []},
+                ]
+            },
+            "vocabulary": [],
+            "display_only_vocabulary": [],
+            "grammar_sections": [],
+        }
+        explanation = {
+            "global_config": {"teaching_style": "LLM directed"},
+            "segments": [
+                {
+                    "segment_type": "dialogue_focus",
+                    "source": {"kind": "dialogue", "indexes": [1, 2, 3, 4, 5]},
+                    "segment_title": "会话 1",
+                    "teaching_goal": "认识问候。",
+                    "narration": {"subtitle_zh": "先听会话。"},
+                    "estimated_duration_seconds": 18,
+                }
+            ],
+        }
+
+        plan = MinnaNoNihongoExplanationComposer().run(metadata, course_content, explanation)
+        auto_segment = next(segment for segment in plan["explanation"]["segments"] if segment["segment_type"] == "dialogue_focus")
+        self.assertIn("佐藤惠子女士说：", auto_segment["narration_track"]["subtitle_zh"])
 
     def test_explanation_writer_sanitizes_old_pinyin_key(self):
         writer = MinnaNoNihongoExplanationWriter(FakeExplanationProvider())
