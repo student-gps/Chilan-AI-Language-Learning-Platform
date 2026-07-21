@@ -1,6 +1,13 @@
 ﻿import sys
+import types
 import unittest
 from pathlib import Path
+
+
+if "json_repair" not in sys.modules:
+    json_repair_mod = types.ModuleType("json_repair")
+    json_repair_mod.repair_json = lambda text, **kwargs: text  # noqa: ARG005
+    sys.modules["json_repair"] = json_repair_mod
 
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
@@ -13,6 +20,12 @@ for path in (BACKEND_DIR, CONTENT_BUILDER_DIR):
 
 from content_builder.core.pipeline import get_pipeline
 from content_builder.en.new_concept_english.agent import NewConceptEnglishAgent
+from .pipeline_parity_helpers import (
+    assert_no_legacy_keys,
+    assert_pipeline_registration,
+    assert_render_plan_minimum,
+    assert_schema_v2_payload,
+)
 
 
 def _find_old_keys(value, path="$"):
@@ -29,20 +42,25 @@ def _find_old_keys(value, path="$"):
 
 class NewConceptPipelineOrchestrationTests(unittest.TestCase):
     def test_pipeline_is_registered(self):
-        pipeline = get_pipeline("new_concept_english")
-        self.assertEqual(pipeline.pipeline_id, "new_concept_english")
-        self.assertEqual(pipeline.target_language, "en")
-        self.assertEqual(pipeline.default_output_lang, "zh")
+        assert_pipeline_registration(
+            self,
+            pipeline_id="new_concept_english",
+            target_language="en",
+            default_output_lang="zh",
+            aliases=("nce", "en_from_zh", "new-concept-english"),
+        )
 
     def test_lesson001_agent_finalizes_schema_v2_outputs(self):
         agent = NewConceptEnglishAgent(provider=None, memory_dir=Path("artifacts/new_concept_english"))
         lesson_data = agent.generate_content("lesson001.pdf", lesson_id=1)
 
-        self.assertIsNotNone(lesson_data)
-        self.assertEqual(lesson_data["schema_version"], "2.0")
-        self.assertEqual(lesson_data["pipeline_id"], "new_concept_english")
-        self.assertEqual(lesson_data["target_language"], "en")
-        self.assertEqual(lesson_data["support_language"], "zh")
+        assert_schema_v2_payload(
+            self,
+            lesson_data,
+            pipeline_id="new_concept_english",
+            target_language="en",
+            support_language="zh",
+        )
         self.assertEqual(lesson_data["lesson_metadata"]["course_id"], 101)
         self.assertEqual(lesson_data["lesson_metadata"]["lesson_id"], 1)
         self.assertEqual(lesson_data["lesson_metadata"]["lesson_slug"], "lesson001")
@@ -56,12 +74,14 @@ class NewConceptPipelineOrchestrationTests(unittest.TestCase):
         self.assertIn("PATTERN_DRILL", question_types)
         self.assertNotIn("SUPPORT_TO_TARGET", question_types)
 
-        render_plan = lesson_data["video_render_plan"]["explanation"]
+        render_plan = assert_render_plan_minimum(
+            self,
+            lesson_data,
+            subtitle_keys=("subtitle_en", "subtitle_support"),
+        )
         self.assertGreater(len(render_plan["segments"]), 0)
-        self.assertIn("subtitle_en", render_plan["segments"][0]["narration_track"])
-        self.assertIn("subtitle_support", render_plan["segments"][0]["narration_track"])
 
-        self.assertEqual(list(_find_old_keys(lesson_data)), [])
+        assert_no_legacy_keys(self, lesson_data)
 
 
 if __name__ == "__main__":
