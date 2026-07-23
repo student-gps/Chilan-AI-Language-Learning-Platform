@@ -1,77 +1,101 @@
 <svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .font {
+        font-family: "Inter", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, Helvetica, sans-serif;
+      }
+      .title { fill: #0F172A; font-size: 44px; font-weight: 700; }
+      .title-cn { fill: #334155; font-size: 22px; font-weight: 600; }
+      .subtitle { fill: #475569; font-size: 21px; font-weight: 500; }
+      .chip { font-size: 18px; font-weight: 700; }
+      .card-title { fill: #0F172A; font-size: 31px; font-weight: 700; }
+      .card-title-sm { fill: #0F172A; font-size: 29px; font-weight: 700; }
+      .card-cn { fill: #475569; font-size: 19px; font-weight: 600; }
+      .body { fill: #334155; font-size: 17px; font-weight: 500; }
+    </style>
+  </defs>
+
   <rect width="1600" height="900" rx="32" fill="#F8FAFC"/>
   <rect x="48" y="48" width="1504" height="804" rx="28" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
 
   <rect x="96" y="96" width="64" height="64" rx="18" fill="#1D4ED8"/>
-  <text x="128" y="139" text-anchor="middle" fill="white" font-size="38" font-family="Arial, Helvetica, sans-serif" font-weight="700">C</text>
-  <text x="190" y="138" fill="#0F172A" font-size="44" font-family="Arial, Helvetica, sans-serif" font-weight="700">Chilan product surfaces</text>
-  <text x="190" y="180" fill="#475569" font-size="24" font-family="Arial, Helvetica, sans-serif">A README-friendly overview of the main user and creator flows in the project.</text>
+  <text x="128" y="139" text-anchor="middle" fill="white" font-size="38" class="font" font-weight="700">C</text>
+  <text x="190" y="138" class="font title">Chilan product surfaces</text>
+  <text x="190" y="172" class="font title-cn">Chilan 主要产品界面</text>
+  <text x="190" y="208" class="font subtitle">README-friendly map of the main learner and creator flows in the project.</text>
+  <text x="190" y="238" class="font subtitle">面向 README 展示的学习端与制课端界面概览。</text>
 
   <g>
-    <rect x="96" y="244" width="320" height="238" rx="24" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
-    <rect x="126" y="276" width="116" height="32" rx="16" fill="#DBEAFE"/>
-    <text x="184" y="298" text-anchor="middle" fill="#1D4ED8" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Landing</text>
-    <text x="126" y="350" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Home &amp; onboarding</text>
-    <text x="126" y="394" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Product pitch and feature framing</text>
-    <text x="126" y="426" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Auth entry point</text>
-    <text x="126" y="458" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Public-facing first impression</text>
+    <rect x="96" y="278" width="320" height="270" rx="24" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
+    <rect x="126" y="308" width="124" height="32" rx="16" fill="#DBEAFE"/>
+    <text x="188" y="330" text-anchor="middle" fill="#1D4ED8" class="font chip">Landing</text>
+    <text x="126" y="376" class="font card-title">Home &amp; onboarding</text>
+    <text x="126" y="406" class="font card-cn">首页与注册引导</text>
+    <text x="126" y="446" class="font body">• Product pitch · 产品介绍</text>
+    <text x="126" y="474" class="font body">• Auth entry · 登录入口</text>
+    <text x="126" y="502" class="font body">• First impression · 首屏印象</text>
   </g>
 
   <g>
-    <rect x="448" y="244" width="320" height="238" rx="24" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/>
-    <rect x="478" y="276" width="126" height="32" rx="16" fill="#DCFCE7"/>
-    <text x="541" y="298" text-anchor="middle" fill="#15803D" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Classroom</text>
-    <text x="478" y="350" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Course dashboard</text>
-    <text x="478" y="394" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• My Courses and All Courses</text>
-    <text x="478" y="426" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Enrollment and progress overview</text>
-    <text x="478" y="458" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Review and study momentum</text>
+    <rect x="448" y="278" width="320" height="270" rx="24" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/>
+    <rect x="478" y="308" width="126" height="32" rx="16" fill="#DCFCE7"/>
+    <text x="541" y="330" text-anchor="middle" fill="#15803D" class="font chip">Classroom</text>
+    <text x="478" y="376" class="font card-title">Course dashboard</text>
+    <text x="478" y="406" class="font card-cn">课程教室与概览</text>
+    <text x="478" y="446" class="font body">• My + all courses · 我的与全部课程</text>
+    <text x="478" y="474" class="font body">• Enroll + progress · 选课与进度</text>
+    <text x="478" y="502" class="font body">• Review pace · 复习节奏</text>
   </g>
 
   <g>
-    <rect x="800" y="244" width="320" height="238" rx="24" fill="#FAF5FF" stroke="#E9D5FF" stroke-width="2"/>
-    <rect x="830" y="276" width="108" height="32" rx="16" fill="#F3E8FF"/>
-    <text x="884" y="298" text-anchor="middle" fill="#7C3AED" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Study</text>
-    <text x="830" y="350" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Teaching → practice</text>
-    <text x="830" y="394" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Lesson content and media</text>
-    <text x="830" y="426" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Text and speech answers</text>
-    <text x="830" y="458" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Three-tier semantic grading</text>
+    <rect x="800" y="278" width="320" height="270" rx="24" fill="#FAF5FF" stroke="#E9D5FF" stroke-width="2"/>
+    <rect x="830" y="308" width="108" height="32" rx="16" fill="#F3E8FF"/>
+    <text x="884" y="330" text-anchor="middle" fill="#7C3AED" class="font chip">Study</text>
+    <text x="830" y="376" class="font card-title">Teaching → practice</text>
+    <text x="830" y="406" class="font card-cn">讲解到练习</text>
+    <text x="830" y="446" class="font body">• Content + media · 内容与媒体</text>
+    <text x="830" y="474" class="font body">• Text + speech · 文字与语音</text>
+    <text x="830" y="502" class="font body">• 3-tier grading · 三层判题</text>
   </g>
 
   <g>
-    <rect x="1152" y="244" width="320" height="238" rx="24" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
-    <rect x="1182" y="276" width="110" height="32" rx="16" fill="#FFEDD5"/>
-    <text x="1237" y="298" text-anchor="middle" fill="#C2410C" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Review</text>
-    <text x="1182" y="350" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">FSRS feedback loop</text>
-    <text x="1182" y="394" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Due items and mastery tracking</text>
-    <text x="1182" y="426" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Stability-driven scheduling</text>
-    <text x="1182" y="458" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Long-term retention focus</text>
+    <rect x="1152" y="278" width="320" height="270" rx="24" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+    <rect x="1182" y="308" width="110" height="32" rx="16" fill="#FFEDD5"/>
+    <text x="1237" y="330" text-anchor="middle" fill="#C2410C" class="font chip">Review</text>
+    <text x="1182" y="376" class="font card-title">FSRS feedback loop</text>
+    <text x="1182" y="406" class="font card-cn">FSRS 复习闭环</text>
+    <text x="1182" y="446" class="font body">• Due + mastery · 到期与掌握</text>
+    <text x="1182" y="474" class="font body">• Smart schedule · 智能调度</text>
+    <text x="1182" y="502" class="font body">• Retention · 长期记忆</text>
   </g>
 
   <g>
-    <rect x="96" y="540" width="596" height="248" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
-    <rect x="126" y="572" width="170" height="32" rx="16" fill="#E2E8F0"/>
-    <text x="211" y="594" text-anchor="middle" fill="#334155" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Frontend app</text>
-    <text x="126" y="646" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">React + Vite client</text>
-    <text x="126" y="690" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Routes for Home, Auth, Classroom, Course, Study, Overview, Settings</text>
-    <text x="126" y="722" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Localized interface, media-backed learning flow, and developer tools</text>
-    <text x="126" y="754" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Remotion-powered explanation and presentation tooling</text>
+    <rect x="96" y="592" width="596" height="220" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="126" y="622" width="170" height="32" rx="16" fill="#E2E8F0"/>
+    <text x="211" y="644" text-anchor="middle" fill="#334155" class="font chip">Frontend app</text>
+    <text x="126" y="688" class="font card-title">React + Vite client</text>
+    <text x="126" y="716" class="font card-cn">学习端前端应用</text>
+    <text x="126" y="754" class="font body">Home, Auth, Classroom, Course, Study, Overview, Settings</text>
+    <text x="126" y="780" class="font body">首页、认证、教室、课程、学习、概览、设置</text>
   </g>
 
   <g>
-    <rect x="724" y="540" width="372" height="248" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
-    <rect x="754" y="572" width="176" height="32" rx="16" fill="#E2E8F0"/>
-    <text x="842" y="594" text-anchor="middle" fill="#334155" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Backend services</text>
-    <text x="754" y="646" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">FastAPI engine</text>
-    <text x="754" y="690" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Auth, study evaluation, review scheduling, media delivery</text>
-    <text x="754" y="722" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">PostgreSQL + pgvector + Cloudflare R2 integrations</text>
+    <rect x="724" y="592" width="372" height="220" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="754" y="622" width="176" height="32" rx="16" fill="#E2E8F0"/>
+    <text x="842" y="644" text-anchor="middle" fill="#334155" class="font chip">Backend services</text>
+    <text x="754" y="688" class="font card-title">FastAPI engine</text>
+    <text x="754" y="716" class="font card-cn">后端服务引擎</text>
+    <text x="754" y="754" class="font body">Auth, grading, review, media delivery</text>
+    <text x="754" y="780" class="font body">认证、判题、复习、媒体分发</text>
   </g>
 
   <g>
-    <rect x="1128" y="540" width="344" height="248" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
-    <rect x="1158" y="572" width="176" height="32" rx="16" fill="#E2E8F0"/>
-    <text x="1246" y="594" text-anchor="middle" fill="#334155" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Creator workflow</text>
-    <text x="1158" y="646" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Dev Console</text>
-    <text x="1158" y="690" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Pipeline, sync, maintenance, and local preview utilities</text>
-    <text x="1158" y="722" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Used for local content production and iteration</text>
+    <rect x="1128" y="592" width="344" height="220" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="1158" y="622" width="176" height="32" rx="16" fill="#E2E8F0"/>
+    <text x="1246" y="644" text-anchor="middle" fill="#334155" class="font chip">Creator workflow</text>
+    <text x="1158" y="688" class="font card-title-sm">Dev Console</text>
+    <text x="1158" y="716" class="font card-cn">创作与维护工作台</text>
+    <text x="1158" y="754" class="font body">Pipeline, sync, maintenance, preview</text>
+    <text x="1158" y="780" class="font body">流水线、同步、维护、本地预览</text>
   </g>
 </svg>
