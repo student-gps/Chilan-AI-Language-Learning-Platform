@@ -1,92 +1,93 @@
 <p align="center">
-  <img src="frontend/public/chilan_logo.svg" alt="Chilan logo" width="96" />
+  <img src="docs/assets/chilan-logo.svg" alt="Chilan logo" width="96" />
 </p>
 
 <h1 align="center">Chilan</h1>
 
 <p align="center">
-  <strong>AI-powered, course-based language learning with structured lessons, semantic answer evaluation, speech practice, and FSRS review.</strong>
+  <strong>AI-powered, course-based language learning with textbook-structured lessons, semantic answer evaluation, speech practice, and FSRS review.</strong>
 </p>
 
 <p align="center">
-  <a href="./README.md">English</a> · <a href="./README.zh.md">简体中文</a>
+  <a href="./README.md">English</a> ·
+  <a href="./README.zh.md">简体中文</a> ·
+  <a href="https://www.chilanlearning.com">Live site</a> ·
+  <a href="./docs/index.md">Docs</a> ·
+  <a href="./CONTRIBUTING.md">Contributing</a>
 </p>
 
 <p align="center">
-  <img src="poster/a3-poster-preview.png" alt="Chilan poster preview" width="960" />
+  <img alt="Status" src="https://img.shields.io/badge/status-active%20development-2563eb" />
+  <img alt="Frontend" src="https://img.shields.io/badge/frontend-React%2019%20%2B%20Vite%207-61DAFB" />
+  <img alt="Backend" src="https://img.shields.io/badge/backend-FastAPI%20%2B%20Python%203.13-0EA5E9" />
+  <img alt="Data" src="https://img.shields.io/badge/data-PostgreSQL%20%2B%20pgvector-336791" />
+  <img alt="Storage" src="https://img.shields.io/badge/storage-Cloudflare%20R2-F38020" />
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-16A34A" />
 </p>
 
 ## Overview
 
-Chilan is an AI-powered, course-based language learning platform built around structured Chinese, English, and Japanese study tracks. This repository combines a learner-facing web app, a FastAPI backend, and an offline content pipeline that turns lesson source material into JSON, audio, slides, and published learning assets.
+Chilan is an AI-powered, course-based language learning platform built around structured Chinese, English, and Japanese study tracks. This repository combines a learner-facing web app, a FastAPI backend, public developer docs, and contribution-friendly project metadata.
 
-Instead of relying on rigid exact-match grading alone, Chilan uses a three-tier evaluation system: exact or pattern matching first, embedding similarity second, and LLM judgment last. That keeps the feedback loop fast for obvious cases while preserving nuance when a learner answer is semantically close, ambiguous, or genuinely wrong.
+At the product level, Chilan is designed to solve a familiar learning problem: string-match grading is fast, but often too rigid. Instead of stopping at exact answers, Chilan uses a **three-tier evaluation flow** — regex or normalized matching first, embedding similarity second, and LLM judgment last — so feedback can stay efficient for obvious cases while remaining flexible when answers are semantically close.
 
-## Why Chilan
+## Highlights
 
-Traditional language-learning products are strong at template checking but weak at nuance. If a learner gives the right idea with different wording, many apps reject it too early. Chilan is designed to reduce that false-negative problem without turning every answer into an expensive LLM call.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>🧠 Three-tier semantic grading</strong><br />
+      Regex and pattern matching for fast wins, embeddings for semantic near-matches, and LLM analysis for nuanced evaluation and feedback.
+    </td>
+    <td width="50%" valign="top">
+      <strong>🔁 FSRS-driven review loop</strong><br />
+      Review timing is built into the learning system, with progress, due-item flow, and mastery-oriented reinforcement.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>🎙️ Text + speech practice</strong><br />
+      Study flow supports typed answers, speech transcription, and TTS-backed learning interactions.
+    </td>
+    <td width="50%" valign="top">
+      <strong>📚 Structured course tracks</strong><br />
+      Integrated Chinese, New Concept English, and Minna no Nihongo are modeled as organized study systems rather than open-ended chat prompts.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>🖥️ Media-backed lesson delivery</strong><br />
+      Teaching slides, narration audio, intro assets, and explanation-video tooling support a richer lesson experience.
+    </td>
+    <td width="50%" valign="top">
+      <strong>🛠️ Local creator workflow</strong><br />
+      The project includes local tooling for pipeline execution, sync, maintenance, and preview flows in addition to the live learner app.
+    </td>
+  </tr>
+</table>
 
-In practice, that means the platform can:
+## Demo & project visuals
 
-- stay fast when an answer is obviously correct,
-- catch semantically aligned answers that do not match the template exactly,
-- and provide richer feedback only when deeper judgment is actually needed.
+<p>
+  Public-facing preview: <a href="https://www.chilanlearning.com">chilanlearning.com</a>
+</p>
 
-## Core highlights
+<table>
+  <tr>
+    <td align="center" valign="top" width="32%">
+      <img src="docs/assets/chilan-og.png" alt="Chilan live-site preview" width="300" />
+      <br />
+      <sub>Public site preview asset</sub>
+    </td>
+    <td align="center" valign="top" width="68%">
+      <img src="docs/assets/chilan-surface-map.svg" alt="Chilan product surface map" width="720" />
+      <br />
+      <sub>Tracked README visual summarizing the main product and creator surfaces</sub>
+    </td>
+  </tr>
+</table>
 
-### 1) Three-tier answer evaluation
-
-| Tier | What it does | Why it matters |
-| --- | --- | --- |
-| Tier 1 | Regex / pattern matching | Accepts obvious exact or normalized answers quickly |
-| Tier 2 | Embedding similarity | Catches semantically aligned answers beyond string matching |
-| Tier 3 | LLM judgment | Produces nuanced decisions and feedback when earlier tiers are not enough |
-
-### 2) Structured learning flow
-
-- Course-based study instead of unstructured prompt chatting
-- Teaching → practice / review → completion flow
-- Lesson progress, review queues, and completion tracking
-- Dedicated Chinese foundation pages for **course intro**, **hanzi**, **pinyin**, and **typing**
-
-### 3) Media-backed lessons and speech support
-
-- Audio-backed teaching content
-- Pinyin audio, intro audio, teaching narration, and slide media served by the backend
-- Speech transcription and text-to-speech support in the learning loop
-- Optional explanation video rendering via Remotion-based tooling
-
-### 4) FSRS-based review scheduling
-
-- Review timing is built into the product rather than bolted on afterward
-- Due-review queues and classroom / overview progress surfaces
-- Stability- and mastery-oriented learning flow
-
-### 5) Multilingual interface
-
-- The current UI language options include **15 interface languages**
-- This is interface localization, not a promise that every course exists for every language pair
-
-<details>
-<summary>Current interface languages</summary>
-
-- Simplified Chinese
-- English
-- Japanese
-- French
-- German
-- Korean
-- Spanish
-- Vietnamese
-- Portuguese
-- Arabic
-- Thai
-- Russian
-- Indonesian
-- Malay
-- Italian
-
-</details>
+> Note: the public repo currently includes README-oriented visuals under `docs/assets/`. Large generated assets and local-only pipeline outputs remain intentionally untracked.
 
 ## Course tracks
 
@@ -96,55 +97,49 @@ In practice, that means the platform can:
 | New Concept English | `new_concept_english` | Structured English lessons for Chinese-speaking learners |
 | Minna no Nihongo | `minna_no_nihongo` | Structured Japanese lessons for Chinese-speaking learners |
 
-## How learning works
+## How the product works
 
-1. **Sign in and enter the classroom**  
-   Learners browse courses, enroll, and pick up where they left off.
+1. **Enter the classroom**  
+   Learners sign in, browse courses, enroll, and resume progress.
 
-2. **Study the lesson content**  
-   Teaching mode combines lesson structure, audio, and supporting media.
+2. **Study lesson content**  
+   Teaching mode delivers lesson structure, media, and supporting material.
 
 3. **Move into practice or review**  
-   The study route switches between teaching, practice, review, completion, and related states.
+   The app transitions through teaching, practice, review, completion, and related states.
 
 4. **Submit text or speech answers**  
-   Answers go through the three-tier evaluator via `/study/evaluate`.
+   Evaluation runs through the three-tier pipeline via the backend study flow.
 
-5. **Review on an FSRS schedule**  
-   Due items, progress, and mastery flow back into the classroom and overview surfaces.
+5. **Return through the review loop**  
+   Review scheduling, stability, and progress updates feed back into classroom and overview experiences.
 
 ## Architecture at a glance
 
-```mermaid
-flowchart LR
-  A[React + Vite frontend] --> B[FastAPI backend]
-  B --> C[PostgreSQL / Neon]
-  B --> D[Cloudflare R2]
-  B --> E[LLM judgment + embeddings]
-  B --> F[ASR + TTS services]
-  G[Content builder pipelines] --> B
-  G --> C
-  G --> D
-```
+<p align="center">
+  <img src="docs/assets/chilan-architecture-overview.svg" alt="Chilan architecture overview" width="960" />
+</p>
 
-### Tech stack
+### Main building blocks
 
 - **Frontend:** React 19, Vite 7, Tailwind CSS v4, React Router 7, TanStack Query 5, i18next, Framer Motion, Remotion
-- **Backend:** FastAPI, Python 3.13, psycopg2, PostgreSQL, Cloudflare R2, speech services, AI-assisted evaluation
-- **Content tooling:** Offline lesson generation, narration rendering, slide/video rendering, and publish flows
+- **Backend:** FastAPI, Python 3.13, study evaluation services, review scheduling, media delivery
+- **Data:** PostgreSQL with pgvector-backed semantic comparison workflows
+- **Storage:** Cloudflare R2 for asset delivery patterns used by the platform
+- **Broader project workflow:** local content and publishing utilities are part of the working project, while large generated artifacts stay out of version control
 
 ## Quick start
 
-### Prerequisites
+### Requirements
 
 | Tool | Notes |
 | --- | --- |
-| Python 3.13 | Required for the backend |
+| Python 3.13 | Backend runtime |
 | Node.js 20+ | Documented frontend baseline |
-| PostgreSQL / Neon-compatible DB | Needed for app data |
-| ffmpeg | Only needed for video / content rendering workflows |
+| PostgreSQL / Neon-compatible DB | App data and progress storage |
+| ffmpeg | Needed only for media and render workflows |
 
-### 1) Start the backend
+### Run the backend
 
 Create `backend/.env` with the project settings you need, then run:
 
@@ -154,13 +149,13 @@ pip install -r requirements.txt
 python main.py
 ```
 
-Backend health check:
+Health check:
 
 ```bash
 curl http://127.0.0.1:8000/health
 ```
 
-### 2) Start the frontend
+### Run the frontend
 
 ```bash
 cd frontend
@@ -168,7 +163,7 @@ npm install
 npm run dev
 ```
 
-Useful frontend commands:
+Useful frontend checks:
 
 ```bash
 npm run build
@@ -176,9 +171,7 @@ npm run lint
 npm run preview
 ```
 
-### 3) Key configuration notes
-
-The repo uses code-backed environment names such as:
+### Important configuration notes
 
 | Area | Variables |
 | --- | --- |
@@ -190,54 +183,54 @@ The repo uses code-backed environment names such as:
 | Speech | `ASR_PROVIDER`, `ASR_OPENAI_API_KEY` or `LLM_OPENAI_API_KEY` |
 | Mail | `MAIL_PROVIDER` plus `MAIL_SMTP_*` or `MAIL_RESEND_*` |
 
-> `backend/.env.example` is not currently checked in, so use the code and docs as the source of truth when setting up local configuration.
+> `backend/.env.example` is not currently checked in, so the code and docs are the source of truth for local setup.
 
-## Content pipeline and media tooling
+## Repository layout
 
-Beyond the live learner app, this repo also contains an offline content system under `backend/content_builder/` for turning source material into publishable lesson assets.
+| Path | Role |
+| --- | --- |
+| `frontend/` | React/Vite learner-facing application |
+| `backend/` | FastAPI service, evaluation logic, review scheduling, and database utilities |
+| `docs/` | Public developer docs and README assets |
+| `docs/assets/` | Tracked visuals used by the README and public docs surface |
+| `CONTRIBUTING.md` | Contribution guidelines |
+| `LICENSE` | MIT license |
 
-Typical workflows include:
+## Project status
 
-- lesson / JSON publishing
-- narration generation
-- slide / explanation video rendering
-- media upload and sync to PostgreSQL + Cloudflare R2
+**Status:** Active development.
 
-Useful commands:
+The core study flow, semantic grading model, review pipeline, and local creator utilities are actively evolving. Public docs and repository ergonomics are improving, but contributors should still expect implementation details and internal workflows to continue changing.
 
-```bash
-cd backend
-python database/sync_to_db.py
-```
+## Roadmap
 
-```bash
-cd frontend
-node scripts/render-explanation-video.mjs 101
-# or
-node scripts/render-explanation-video.mjs <lessonId> [lang] [pipelineId]
-```
+The near-term direction of the project includes:
 
-## Repository structure
+- improving automated coverage around grading and review behavior,
+- refining multilingual and speech-practice UX,
+- continuing to harden backend evaluation and data workflows,
+- improving contributor ergonomics and public docs quality,
+- and making the local content-and-publishing workflow easier to reason about.
 
-```text
-.
-├─ frontend/                 # React/Vite learning app
-│  ├─ src/
-│  │  ├─ pages/              # Home, auth, classroom, course, study, overview, settings
-│  │  ├─ api/                # Axios client and query definitions
-│  │  └─ videoTemplates/     # Remotion-based teaching / explanation components
-├─ backend/                  # FastAPI API, study services, storage, database sync
-│  ├─ routers/               # Auth and study routes
-│  ├─ services/              # Evaluation, scheduling, speech, storage, maintenance
-│  ├─ database/              # Connection and sync scripts
-│  └─ content_builder/       # Offline lesson generation and publishing pipelines
-├─ docs/                     # Architecture and development docs
-└─ poster/                   # Showcase assets used for project presentation
-```
+## Contributing
 
-## Documentation map
+Pull requests are welcome.
 
-If you want to go deeper, start here:
+If you want to contribute:
+
+- start with [CONTRIBUTING.md](CONTRIBUTING.md),
+- open an issue or discussion first for larger changes,
+- and include clear notes on behavior changes, testing, and documentation updates.
+
+Changes to grading logic, review scheduling, or course-flow behavior are especially important to explain carefully.
+
+## License
+
+This repository is available under the [MIT License](LICENSE).
+
+## Documentation
+
+Start here if you want the deeper technical picture:
 
 - [Docs index](docs/index.md)
 - [Project overview](docs/project-overview.md)
@@ -247,10 +240,8 @@ If you want to go deeper, start here:
 - [Integration architecture](docs/integration-architecture.md)
 - [Source tree analysis](docs/source-tree-analysis.md)
 
-> Most deeper technical docs in `docs/` are currently Chinese-first.
-
 ## Notes
 
-- This README focuses on the verified current product and repository structure.
 - Interface-language support and course availability are not the same thing.
-- The project name is standardized here as **Chilan**.
+- Public README visuals now live under `docs/assets/` instead of the local `poster/` workspace.
+- Some local creator and generated project assets remain intentionally untracked in git.

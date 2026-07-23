@@ -1,92 +1,93 @@
 <p align="center">
-  <img src="frontend/public/chilan_logo.svg" alt="Chilan logo" width="96" />
+  <img src="docs/assets/chilan-logo.svg" alt="Chilan logo" width="96" />
 </p>
 
 <h1 align="center">Chilan</h1>
 
 <p align="center">
-  <strong>一个以课程为核心的 AI 语言学习平台，结合结构化课时、语义级答案评估、语音练习与 FSRS 间隔复习。</strong>
+  <strong>一个以课程为核心的 AI 语言学习平台，结合教材化课时、语义级答案评估、语音练习与 FSRS 复习循环。</strong>
 </p>
 
 <p align="center">
-  <a href="./README.md">English</a> · <a href="./README.zh.md">简体中文</a>
+  <a href="./README.md">English</a> ·
+  <a href="./README.zh.md">简体中文</a> ·
+  <a href="https://www.chilanlearning.com">在线站点</a> ·
+  <a href="./docs/index.md">文档</a> ·
+  <a href="./CONTRIBUTING.md">贡献指南</a>
 </p>
 
 <p align="center">
-  <img src="poster/a3-poster-preview.png" alt="Chilan 项目展示图" width="960" />
+  <img alt="Status" src="https://img.shields.io/badge/status-active%20development-2563eb" />
+  <img alt="Frontend" src="https://img.shields.io/badge/frontend-React%2019%20%2B%20Vite%207-61DAFB" />
+  <img alt="Backend" src="https://img.shields.io/badge/backend-FastAPI%20%2B%20Python%203.13-0EA5E9" />
+  <img alt="Data" src="https://img.shields.io/badge/data-PostgreSQL%20%2B%20pgvector-336791" />
+  <img alt="Storage" src="https://img.shields.io/badge/storage-Cloudflare%20R2-F38020" />
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-16A34A" />
 </p>
 
 ## 项目简介
 
-Chilan 是一个以课程体系为核心的 AI 语言学习平台，当前围绕中文、英文和日文三条结构化学习路径展开。这个仓库不只是一个学习端网页应用，还同时包含了 FastAPI 后端，以及一套离线内容生产流水线，用来把教材源内容转成 JSON、音频、幻灯片和可发布的学习资产。
+Chilan 是一个以课程体系为核心的 AI 语言学习平台，目前围绕中文、英文、日文三条结构化学习路径展开。这个仓库不只是一个学习端网页应用，也包含 FastAPI 后端、公开开发文档，以及面向本地内容生产的项目元数据和工具链。
 
-和只依赖“精确字符串匹配”的传统判题方式不同，Chilan 使用三层答案评估机制：先做精确 / 模式匹配，再做 embedding 相似度判断，最后才进入 LLM 深度判断。这样可以在明显正确的情况下保持速度，又能在答案“语义接近但不完全同形”时保留足够的判断弹性，并只在真正需要时生成更细致的反馈。
-
-## 为什么要做 Chilan
-
-很多语言学习产品擅长检查模板答案，却不擅长处理“表达方式不同但意思接近”的回答。如果学习者换了一种说法，系统往往会过早判错。Chilan 的目标就是降低这类误判，但又不把每一道题都变成高成本的 LLM 推理。
-
-这意味着平台会尽量做到：
-
-- 对显然正确的答案快速放行，
-- 对语义接近但不完全同形的答案保留容错空间，
-- 只有在确实需要更细致判断时，才进入 LLM 反馈层。
+从产品逻辑上看，Chilan 要解决的是一个很常见的问题：传统字符串精确匹配判题虽然高效，但往往过于僵硬。为此，Chilan 使用 **三层答案评估流程** —— 先做 regex / 规范化匹配，再做 embedding 语义相似度判断，最后才进入 LLM 分析层 —— 从而让明显正确的答案可以快速通过，而语义接近的表达也能得到更合理的反馈。
 
 ## 核心亮点
 
-### 1）三层答案评估
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>🧠 三层语义评测</strong><br />
+      Regex 与模式匹配负责快速通过明显正确答案，embedding 用于捕捉语义近似，LLM 则承担更细腻的判断与反馈。
+    </td>
+    <td width="50%" valign="top">
+      <strong>🔁 FSRS 复习循环</strong><br />
+      复习调度不是外挂模块，而是学习系统本身的一部分，围绕进度、待复习项目和掌握状态持续运转。
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>🎙️ 文字 + 语音练习</strong><br />
+      学习流程同时支持 typed answer、speech transcription 与 TTS 驱动的互动体验。
+    </td>
+    <td width="50%" valign="top">
+      <strong>📚 结构化课程体系</strong><br />
+      Integrated Chinese、New Concept English、Minna no Nihongo 都是组织化学习系统，而不是开放聊天式 prompt 学习。
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <strong>🖥️ 媒体驱动课时体验</strong><br />
+      教学 slides、旁白音频、课程介绍素材与讲解视频工具链共同服务于更完整的 lesson delivery。
+    </td>
+    <td width="50%" valign="top">
+      <strong>🛠️ 本地创作工作流</strong><br />
+      除了线上 learner app，项目还包含 pipeline、sync、maintenance、preview 等本地 creator 工具。
+    </td>
+  </tr>
+</table>
 
-| 层级 | 作用 | 价值 |
-| --- | --- | --- |
-| Tier 1 | Regex / 模式匹配 | 快速接受明显正确或规范化后等价的答案 |
-| Tier 2 | Embedding 相似度 | 捕捉超出字符串匹配范围的语义接近答案 |
-| Tier 3 | LLM 判断 | 在前两层不够时给出更细腻的判断与反馈 |
+## 演示与项目可视化
 
-### 2）结构化学习流程
+<p>
+  公开站点预览：<a href="https://www.chilanlearning.com">chilanlearning.com</a>
+</p>
 
-- 基于课程体系，而不是纯开放聊天式学习
-- Teaching → Practice / Review → Completion 的学习闭环
-- 课时进度、复习队列与完成状态跟踪
-- 中文路径下还有独立的 **课程介绍**、**汉字**、**拼音**、**打字** 基础页面
+<table>
+  <tr>
+    <td align="center" valign="top" width="32%">
+      <img src="docs/assets/chilan-og.png" alt="Chilan 站点预览图" width="300" />
+      <br />
+      <sub>公开站点预览素材</sub>
+    </td>
+    <td align="center" valign="top" width="68%">
+      <img src="docs/assets/chilan-surface-map.svg" alt="Chilan 产品界面总览" width="720" />
+      <br />
+      <sub>README 跟踪资源：概括项目中的主要产品与创作界面</sub>
+    </td>
+  </tr>
+</table>
 
-### 3）媒体驱动的课时体验与语音支持
-
-- 教学内容可以绑定音频与媒体素材
-- 后端提供拼音音频、课程介绍音频、教学旁白和教学幻灯片媒体
-- 学习流程中支持语音转写与 TTS
-- 还支持基于 Remotion 的讲解视频渲染能力
-
-### 4）FSRS 间隔复习
-
-- 复习调度是产品内建能力，而不是事后补上的功能
-- 通过 classroom / overview 暴露待复习、进度与掌握状态
-- 让学习体验围绕稳定度和掌握度持续推进
-
-### 5）多语言界面
-
-- 当前 UI 代码层面支持 **15 种界面语言**
-- 这里说的是界面本地化，不等于每门课程都覆盖所有语言组合
-
-<details>
-<summary>当前界面语言列表</summary>
-
-- 简体中文
-- English
-- 日本語
-- Français
-- Deutsch
-- 한국어
-- Español
-- Tiếng Việt
-- Português
-- العربية
-- ไทย
-- Русский
-- Bahasa Indonesia
-- Bahasa Melayu
-- Italiano
-
-</details>
+> 说明：当前公开仓库中的 README 视觉资源已统一放入 `docs/assets/`。大型生成产物和本地专用 pipeline 输出仍然保持不入库。
 
 ## 课程体系
 
@@ -96,42 +97,36 @@ Chilan 是一个以课程体系为核心的 AI 语言学习平台，当前围绕
 | New Concept English | `new_concept_english` | 面向中文学习者的结构化英语课程 |
 | Minna no Nihongo | `minna_no_nihongo` | 面向中文学习者的结构化日语课程 |
 
-## 学习流程是怎样运作的
+## 产品流程如何运作
 
-1. **登录并进入 Classroom**  
-   学习者浏览课程、报名课程，并从上次中断的位置继续。
+1. **进入 Classroom**  
+   学习者登录后浏览课程、报名课程、恢复既有进度。
 
 2. **先学习课时内容**  
-   Teaching 模式负责承载课时结构、音频和配套媒体。
+   Teaching 模式负责承载 lesson structure、media 和 supporting material。
 
 3. **再进入练习或复习**  
-   学习页面会在 teaching、practice、review、completed 等状态之间切换。
+   应用会在 teaching、practice、review、completion 等状态之间切换。
 
 4. **提交文字或语音答案**  
-   所有答案统一进入 `/study/evaluate` 的三层评估流程。
+   评估统一通过后端 study flow 执行三层判断。
 
-5. **按 FSRS 节奏复习**  
-   待复习题目、学习进度和掌握状态会回流到 classroom 与 overview 页面。
+5. **回到复习循环**  
+   复习调度、稳定度和 progress 更新会反馈到 classroom 与 overview 体验中。
 
 ## 架构总览
 
-```mermaid
-flowchart LR
-  A[React + Vite 前端] --> B[FastAPI 后端]
-  B --> C[PostgreSQL / Neon]
-  B --> D[Cloudflare R2]
-  B --> E[LLM 判断 + embeddings]
-  B --> F[ASR + TTS 服务]
-  G[内容构建流水线] --> B
-  G --> C
-  G --> D
-```
+<p align="center">
+  <img src="docs/assets/chilan-architecture-overview.svg" alt="Chilan 架构总览" width="960" />
+</p>
 
-### 技术栈
+### 主要组成
 
-- **前端：** React 19、Vite 7、Tailwind CSS v4、React Router 7、TanStack Query 5、i18next、Framer Motion、Remotion
-- **后端：** FastAPI、Python 3.13、psycopg2、PostgreSQL、Cloudflare R2、语音服务、AI 辅助评估
-- **内容工具链：** 离线课时生成、旁白渲染、幻灯片 / 视频渲染与发布流程
+- **Frontend：** React 19、Vite 7、Tailwind CSS v4、React Router 7、TanStack Query 5、i18next、Framer Motion、Remotion
+- **Backend：** FastAPI、Python 3.13、学习评估服务、复习调度、媒体分发
+- **Data：** PostgreSQL 与 pgvector 驱动的语义比较流程
+- **Storage：** Cloudflare R2 支持平台资产分发模式
+- **更完整的项目工作流：** 本地内容生成与发布工具属于项目工作流的一部分，但大型生成产物不进入版本控制
 
 ## 快速开始
 
@@ -139,14 +134,14 @@ flowchart LR
 
 | 工具 | 说明 |
 | --- | --- |
-| Python 3.13 | 后端运行需要 |
+| Python 3.13 | 后端运行时 |
 | Node.js 20+ | 当前文档中的前端基线版本 |
-| PostgreSQL / Neon 兼容数据库 | 应用数据存储需要 |
-| ffmpeg | 仅视频 / 内容渲染相关工作流需要 |
+| PostgreSQL / Neon 兼容数据库 | 应用数据与进度存储 |
+| ffmpeg | 仅媒体与渲染工作流需要 |
 
-### 1）启动后端
+### 启动后端
 
-先创建 `backend/.env` 并填入你需要的配置，再执行：
+先创建 `backend/.env` 并填入所需配置，然后执行：
 
 ```bash
 cd backend
@@ -154,13 +149,13 @@ pip install -r requirements.txt
 python main.py
 ```
 
-后端健康检查：
+健康检查：
 
 ```bash
 curl http://127.0.0.1:8000/health
 ```
 
-### 2）启动前端
+### 启动前端
 
 ```bash
 cd frontend
@@ -168,7 +163,7 @@ npm install
 npm run dev
 ```
 
-常用前端命令：
+常用前端检查命令：
 
 ```bash
 npm run build
@@ -176,9 +171,7 @@ npm run lint
 npm run preview
 ```
 
-### 3）关键配置说明
-
-当前仓库代码实际使用的环境变量包括：
+### 重要配置说明
 
 | 领域 | 变量 |
 | --- | --- |
@@ -188,56 +181,56 @@ npm run preview
 | JWT | `SECURITY_JWT_SECRET`、`SECURITY_JWT_ALGORITHM`、`SECURITY_ACCESS_TOKEN_EXPIRE_MINUTES` |
 | Storage | `STORAGE_R2_ACCOUNT_ID`、`STORAGE_R2_ACCESS_KEY_ID`、`STORAGE_R2_SECRET_ACCESS_KEY`、`STORAGE_R2_BUCKET` |
 | Speech | `ASR_PROVIDER`、`ASR_OPENAI_API_KEY` 或 `LLM_OPENAI_API_KEY` |
-| Mail | `MAIL_PROVIDER` 以及 `MAIL_SMTP_*` 或 `MAIL_RESEND_*` |
+| Mail | `MAIL_PROVIDER` 与 `MAIL_SMTP_*` / `MAIL_RESEND_*` |
 
-> 仓库当前没有提交 `backend/.env.example`，所以本地配置时请以当前代码和 `docs/` 文档为准。
-
-## 内容流水线与媒体工具
-
-除了在线学习产品本身，这个仓库还包含位于 `backend/content_builder/` 的离线内容生产系统，用于把教材源内容转换为可发布的课时资产。
-
-典型流程包括：
-
-- 课时 / JSON 发布
-- 旁白生成
-- 幻灯片 / 讲解视频渲染
-- 媒体上传并同步到 PostgreSQL + Cloudflare R2
-
-相关命令示例：
-
-```bash
-cd backend
-python database/sync_to_db.py
-```
-
-```bash
-cd frontend
-node scripts/render-explanation-video.mjs 101
-# 或
-node scripts/render-explanation-video.mjs <lessonId> [lang] [pipelineId]
-```
+> 当前仓库没有提交 `backend/.env.example`，所以本地环境配置仍以代码和文档为准。
 
 ## 仓库结构
 
-```text
-.
-├─ frontend/                 # React/Vite 学习端应用
-│  ├─ src/
-│  │  ├─ pages/              # Home、auth、classroom、course、study、overview、settings
-│  │  ├─ api/                # Axios 客户端与 query 定义
-│  │  └─ videoTemplates/     # 基于 Remotion 的教学 / 讲解组件
-├─ backend/                  # FastAPI API、学习服务、存储、数据库同步
-│  ├─ routers/               # 认证与学习路由
-│  ├─ services/              # 评估、调度、语音、存储、维护逻辑
-│  ├─ database/              # 连接与同步脚本
-│  └─ content_builder/       # 离线课时生成与发布流水线
-├─ docs/                     # 架构与开发文档
-└─ poster/                   # 项目展示素材
-```
+| 路径 | 角色 |
+| --- | --- |
+| `frontend/` | React/Vite 学习端应用 |
+| `backend/` | FastAPI 服务、评估逻辑、复习调度与数据库工具 |
+| `docs/` | 对外公开的开发文档和 README 资源 |
+| `docs/assets/` | README 与公开文档使用的跟踪视觉资源 |
+| `CONTRIBUTING.md` | 贡献指南 |
+| `LICENSE` | MIT 许可 |
 
-## 文档导航
+## 项目状态
 
-如果你想继续深入，可以从这些文档开始：
+**Status：Active development**
+
+核心学习流程、语义判题模型、复习管线以及本地 creator 工具链都在持续迭代中。公开文档和仓库体验也在逐步完善，因此贡献者可以预期实现细节与内部工作流仍会继续变化。
+
+## Roadmap
+
+项目当前的近期方向包括：
+
+- 提升判题与复习逻辑的重要行为覆盖度，
+- 优化多语言与语音练习体验，
+- 继续加固后端评估与数据流，
+- 改善贡献者体验和公开文档质量，
+- 让本地 content-and-publishing workflow 更容易理解和维护。
+
+## Contributing
+
+欢迎提交 Pull Request。
+
+如果你想参与贡献：
+
+- 先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)，
+- 对于较大的改动，建议先开 issue 或 discussion，
+- 并在 PR 中清楚说明行为变化、测试方式以及文档更新情况。
+
+涉及 grading logic、review scheduling、course flow 的改动尤其需要清晰解释其用户影响。
+
+## License
+
+本仓库采用 [MIT License](LICENSE)。
+
+## 文档入口
+
+如果你想继续深入技术细节，可以从这里开始：
 
 - [文档索引](docs/index.md)
 - [项目概述](docs/project-overview.md)
@@ -247,10 +240,8 @@ node scripts/render-explanation-video.mjs <lessonId> [lang] [pipelineId]
 - [集成架构](docs/integration-architecture.md)
 - [源码目录树](docs/source-tree-analysis.md)
 
-> 当前 `docs/` 下的大多数深度技术文档以中文为主。
+## 备注
 
-## 说明
-
-- 这份 README 聚焦于当前已核实的产品能力与仓库结构。
-- “界面支持 15 种语言”与“课程覆盖哪些语言组合”不是一回事。
-- 这里统一将项目名称写作 **Chilan**。
+- “界面支持多语言”和“课程覆盖哪些语言组合”不是同一件事。
+- README 视觉资源现在统一位于 `docs/assets/`，不再直接引用本地 `poster/` 工作目录。
+- 一些本地 creator 工具和大型生成产物仍然有意保持不入库。

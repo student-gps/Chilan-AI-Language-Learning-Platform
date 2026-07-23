@@ -63,6 +63,8 @@ backend/tools/
 .claude/settings.json
 .claude/settings.local.json
 
-# BMAD 生成的文档（project-context.md 除外，它是 AI Agent 规则卡需要提交）
+# BMAD 生成的文档默认不入库；公开项目文档与 README 资源显式放行
 docs/*
-!docs/project-context.md
+!docs/*.md
+!docs/assets/
+!docs/assets/**
