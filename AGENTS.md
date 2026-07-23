@@ -101,7 +101,7 @@ Tracks `stability`, `difficulty`, and `next_review` per user per question. After
 ## Environment Configuration
 
 - **Backend**: `backend/.env` — DB URL, LLM API keys (Gemini, Codex, Doubao, Voyage, DeepSeek, Ali, Zhipu), Whisper ASR, TTS (Tencent/Edge), Cloudflare R2 (`STORAGE_R2_*`), email (Resend/SMTP), Google OAuth, JWT secret
-- **Frontend dev**: `frontend/.env.development` — sets `VITE_API_BASE_URL=http://localhost:8000`
+- **Frontend dev**: `frontend/.env.development` — sets `VITE_APP_API_BASE_URL=http://localhost:8000`
 - **Frontend prod**: `frontend/.env.production` — production API URL
 
 ## Multi-Provider LLM Strategy

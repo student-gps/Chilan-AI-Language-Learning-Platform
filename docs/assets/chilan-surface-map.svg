@@ -1,0 +1,77 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="32" fill="#F8FAFC"/>
+  <rect x="48" y="48" width="1504" height="804" rx="28" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+
+  <rect x="96" y="96" width="64" height="64" rx="18" fill="#1D4ED8"/>
+  <text x="128" y="139" text-anchor="middle" fill="white" font-size="38" font-family="Arial, Helvetica, sans-serif" font-weight="700">C</text>
+  <text x="190" y="138" fill="#0F172A" font-size="44" font-family="Arial, Helvetica, sans-serif" font-weight="700">Chilan product surfaces</text>
+  <text x="190" y="180" fill="#475569" font-size="24" font-family="Arial, Helvetica, sans-serif">A README-friendly overview of the main user and creator flows in the project.</text>
+
+  <g>
+    <rect x="96" y="244" width="320" height="238" rx="24" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
+    <rect x="126" y="276" width="116" height="32" rx="16" fill="#DBEAFE"/>
+    <text x="184" y="298" text-anchor="middle" fill="#1D4ED8" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Landing</text>
+    <text x="126" y="350" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Home &amp; onboarding</text>
+    <text x="126" y="394" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Product pitch and feature framing</text>
+    <text x="126" y="426" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Auth entry point</text>
+    <text x="126" y="458" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Public-facing first impression</text>
+  </g>
+
+  <g>
+    <rect x="448" y="244" width="320" height="238" rx="24" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/>
+    <rect x="478" y="276" width="126" height="32" rx="16" fill="#DCFCE7"/>
+    <text x="541" y="298" text-anchor="middle" fill="#15803D" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Classroom</text>
+    <text x="478" y="350" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Course dashboard</text>
+    <text x="478" y="394" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• My Courses and All Courses</text>
+    <text x="478" y="426" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Enrollment and progress overview</text>
+    <text x="478" y="458" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Review and study momentum</text>
+  </g>
+
+  <g>
+    <rect x="800" y="244" width="320" height="238" rx="24" fill="#FAF5FF" stroke="#E9D5FF" stroke-width="2"/>
+    <rect x="830" y="276" width="108" height="32" rx="16" fill="#F3E8FF"/>
+    <text x="884" y="298" text-anchor="middle" fill="#7C3AED" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Study</text>
+    <text x="830" y="350" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Teaching → practice</text>
+    <text x="830" y="394" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Lesson content and media</text>
+    <text x="830" y="426" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Text and speech answers</text>
+    <text x="830" y="458" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Three-tier semantic grading</text>
+  </g>
+
+  <g>
+    <rect x="1152" y="244" width="320" height="238" rx="24" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+    <rect x="1182" y="276" width="110" height="32" rx="16" fill="#FFEDD5"/>
+    <text x="1237" y="298" text-anchor="middle" fill="#C2410C" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Review</text>
+    <text x="1182" y="350" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">FSRS feedback loop</text>
+    <text x="1182" y="394" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Due items and mastery tracking</text>
+    <text x="1182" y="426" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Stability-driven scheduling</text>
+    <text x="1182" y="458" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">• Long-term retention focus</text>
+  </g>
+
+  <g>
+    <rect x="96" y="540" width="596" height="248" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="126" y="572" width="170" height="32" rx="16" fill="#E2E8F0"/>
+    <text x="211" y="594" text-anchor="middle" fill="#334155" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Frontend app</text>
+    <text x="126" y="646" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">React + Vite client</text>
+    <text x="126" y="690" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Routes for Home, Auth, Classroom, Course, Study, Overview, Settings</text>
+    <text x="126" y="722" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Localized interface, media-backed learning flow, and developer tools</text>
+    <text x="126" y="754" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Remotion-powered explanation and presentation tooling</text>
+  </g>
+
+  <g>
+    <rect x="724" y="540" width="372" height="248" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="754" y="572" width="176" height="32" rx="16" fill="#E2E8F0"/>
+    <text x="842" y="594" text-anchor="middle" fill="#334155" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Backend services</text>
+    <text x="754" y="646" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">FastAPI engine</text>
+    <text x="754" y="690" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Auth, study evaluation, review scheduling, media delivery</text>
+    <text x="754" y="722" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">PostgreSQL + pgvector + Cloudflare R2 integrations</text>
+  </g>
+
+  <g>
+    <rect x="1128" y="540" width="344" height="248" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="1158" y="572" width="176" height="32" rx="16" fill="#E2E8F0"/>
+    <text x="1246" y="594" text-anchor="middle" fill="#334155" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Creator workflow</text>
+    <text x="1158" y="646" fill="#0F172A" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Dev Console</text>
+    <text x="1158" y="690" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Pipeline, sync, maintenance, and local preview utilities</text>
+    <text x="1158" y="722" fill="#334155" font-size="22" font-family="Arial, Helvetica, sans-serif">Used for local content production and iteration</text>
+  </g>
+</svg>
