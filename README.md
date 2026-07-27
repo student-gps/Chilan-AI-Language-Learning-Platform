@@ -80,7 +80,7 @@ At the product level, Chilan is designed to solve a familiar learning problem: s
       <sub>Public site preview asset</sub>
     </td>
     <td align="center" valign="top" width="68%">
-      <img src="docs/assets/chilan-surface-map.svg" alt="Chilan product surface map" width="720" />
+      <img src="docs/assets/chilan-surface-map-en.svg" alt="Chilan product surface map" width="720" />
       <br />
       <sub>Tracked README visual summarizing the main product and creator surfaces</sub>
     </td>
@@ -117,7 +117,7 @@ At the product level, Chilan is designed to solve a familiar learning problem: s
 ## Architecture at a glance
 
 <p align="center">
-  <img src="docs/assets/chilan-architecture-overview.svg" alt="Chilan architecture overview" width="960" />
+  <img src="docs/assets/chilan-architecture-overview-en.svg" alt="Chilan architecture overview" width="960" />
 </p>
 
 ### Main building blocks
