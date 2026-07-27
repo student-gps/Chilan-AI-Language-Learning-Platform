@@ -747,11 +747,11 @@ async def get_knowledge_details(item_id: int):
         cur.execute("""
             SELECT course_id, lesson_id, word, pinyin, part_of_speech, definition, example
             FROM vocabulary_knowledge
-            WHERE word = %s
+            WHERE course_id = %s AND word = %s
             ORDER BY
                 CASE WHEN lesson_id = %s THEN 0 ELSE 1 END,
                 lesson_id ASC
-        """, (word, item.get("lesson_id")))
+        """, (item.get("course_id"), word, item.get("lesson_id")))
         rows = cur.fetchall()
         if not rows:
             return {"status": "success", "data": None}
