@@ -80,7 +80,7 @@ Chilan 是一个以课程体系为核心的 AI 语言学习平台，目前围绕
       <sub>公开站点预览素材</sub>
     </td>
     <td align="center" valign="top" width="68%">
-      <img src="docs/assets/chilan-surface-map.svg" alt="Chilan 产品界面总览" width="720" />
+      <img src="docs/assets/chilan-surface-map-zh.svg" alt="Chilan 产品界面总览" width="720" />
       <br />
       <sub>README 跟踪资源：概括项目中的主要产品与创作界面</sub>
     </td>
@@ -117,7 +117,7 @@ Chilan 是一个以课程体系为核心的 AI 语言学习平台，目前围绕
 ## 架构总览
 
 <p align="center">
-  <img src="docs/assets/chilan-architecture-overview.svg" alt="Chilan 架构总览" width="960" />
+  <img src="docs/assets/chilan-architecture-overview-zh.svg" alt="Chilan 架构总览" width="960" />
 </p>
 
 ### 主要组成

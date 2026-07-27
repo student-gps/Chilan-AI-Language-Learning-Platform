@@ -1,0 +1,107 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .font {
+        font-family: "Inter", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, Helvetica, sans-serif;
+      }
+      .title { fill: #0F172A; font-size: 42px; font-weight: 700; }
+      .subtitle { fill: #475569; font-size: 20px; font-weight: 500; }
+      .chip { font-size: 16px; font-weight: 700; }
+      .card-title { fill: #0F172A; font-size: 28px; font-weight: 700; }
+      .card-title-sm { fill: #0F172A; font-size: 26px; font-weight: 700; }
+      .body { fill: #334155; font-size: 16px; font-weight: 500; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" rx="32" fill="#F8FAFC"/>
+  <rect x="48" y="48" width="1504" height="804" rx="28" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+
+  <rect x="96" y="96" width="64" height="64" rx="18" fill="#1D4ED8"/>
+  <text x="128" y="139" text-anchor="middle" fill="white" font-size="38" class="font" font-weight="700">C</text>
+  <text x="190" y="136" class="font title">Chilan product surfaces</text>
+  <text x="190" y="174" class="font subtitle">A README-friendly map of the main learner and creator flows in the project.</text>
+
+  <g>
+    <rect x="96" y="286" width="320" height="260" rx="24" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
+    <rect x="126" y="314" width="124" height="32" rx="16" fill="#DBEAFE"/>
+    <text x="188" y="336" text-anchor="middle" fill="#1D4ED8" class="font chip">Landing</text>
+    <text x="126" y="378" class="font card-title">Home &amp; onboarding</text>
+    <text x="126" y="428" class="font body">
+      <tspan x="126" dy="0">• Value prop and first look</tspan>
+      <tspan x="126" dy="30">• Sign-in and account entry</tspan>
+      <tspan x="126" dy="30">• Public home surface</tspan>
+    </text>
+  </g>
+
+  <g>
+    <rect x="448" y="286" width="320" height="260" rx="24" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/>
+    <rect x="478" y="314" width="124" height="32" rx="16" fill="#DCFCE7"/>
+    <text x="540" y="336" text-anchor="middle" fill="#15803D" class="font chip">Classroom</text>
+    <text x="478" y="378" class="font card-title">Course dashboard</text>
+    <text x="478" y="428" class="font body">
+      <tspan x="478" dy="0">• My Courses and catalog</tspan>
+      <tspan x="478" dy="30">• Enroll, resume, progress</tspan>
+      <tspan x="478" dy="30">• Review momentum cues</tspan>
+    </text>
+  </g>
+
+  <g>
+    <rect x="800" y="286" width="320" height="260" rx="24" fill="#FAF5FF" stroke="#E9D5FF" stroke-width="2"/>
+    <rect x="830" y="314" width="124" height="32" rx="16" fill="#F3E8FF"/>
+    <text x="892" y="336" text-anchor="middle" fill="#7C3AED" class="font chip">Study</text>
+    <text x="830" y="378" class="font card-title">Teaching → practice</text>
+    <text x="830" y="428" class="font body">
+      <tspan x="830" dy="0">• Lesson media and teaching</tspan>
+      <tspan x="830" dy="30">• Text + speech practice</tspan>
+      <tspan x="830" dy="30">• Three-tier answer checks</tspan>
+    </text>
+  </g>
+
+  <g>
+    <rect x="1152" y="286" width="320" height="260" rx="24" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
+    <rect x="1182" y="314" width="124" height="32" rx="16" fill="#FFEDD5"/>
+    <text x="1244" y="336" text-anchor="middle" fill="#C2410C" class="font chip">Review</text>
+    <text x="1182" y="378" class="font card-title-sm">FSRS review loop</text>
+    <text x="1182" y="428" class="font body">
+      <tspan x="1182" dy="0">• Due items and mastery</tspan>
+      <tspan x="1182" dy="30">• FSRS scheduling loop</tspan>
+      <tspan x="1182" dy="30">• Long-term retention focus</tspan>
+    </text>
+  </g>
+
+  <g>
+    <rect x="272" y="598" width="320" height="214" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="302" y="626" width="176" height="32" rx="16" fill="#E2E8F0"/>
+    <text x="390" y="648" text-anchor="middle" fill="#334155" class="font chip">Frontend app</text>
+    <text x="302" y="688" class="font card-title-sm">React + Vite client</text>
+    <text x="302" y="726" class="font body">
+      <tspan x="302" dy="0">• Home, auth, classroom, study</tspan>
+      <tspan x="302" dy="28">• Localized learner experience</tspan>
+      <tspan x="302" dy="28">• Media and Remotion surfaces</tspan>
+    </text>
+  </g>
+
+  <g>
+    <rect x="624" y="598" width="320" height="214" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="654" y="626" width="176" height="32" rx="16" fill="#E2E8F0"/>
+    <text x="742" y="648" text-anchor="middle" fill="#334155" class="font chip">Backend services</text>
+    <text x="654" y="688" class="font card-title">FastAPI engine</text>
+    <text x="654" y="726" class="font body">
+      <tspan x="654" dy="0">• Auth and study APIs</tspan>
+      <tspan x="654" dy="28">• Review + media services</tspan>
+      <tspan x="654" dy="28">• Postgres, pgvector, R2</tspan>
+    </text>
+  </g>
+
+  <g>
+    <rect x="976" y="598" width="320" height="214" rx="24" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="1006" y="626" width="176" height="32" rx="16" fill="#E2E8F0"/>
+    <text x="1094" y="648" text-anchor="middle" fill="#334155" class="font chip">Creator workflow</text>
+    <text x="1006" y="688" class="font card-title-sm">Dev Console</text>
+    <text x="1006" y="726" class="font body">
+      <tspan x="1006" dy="0">• Pipeline and sync tooling</tspan>
+      <tspan x="1006" dy="28">• Local preview + maintenance</tspan>
+      <tspan x="1006" dy="28">• Content production support</tspan>
+    </text>
+  </g>
+</svg>
