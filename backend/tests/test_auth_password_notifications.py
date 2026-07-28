@@ -28,6 +28,7 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                     "new_password": "Passw0rd!",
                 },
                 headers={
+                    "X-Chilan-Interface-Language": "jp",
                     "accept-language": "en-US,en;q=0.9",
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",
@@ -42,7 +43,7 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         send_success.assert_called_once()
         call_args = send_success.call_args
         self.assertEqual(call_args.args[0], "student@example.com")
-        self.assertEqual(call_args.kwargs["lang"], "en")
+        self.assertEqual(call_args.kwargs["lang"], "ja")
         self.assertEqual(call_args.kwargs["change_source"], "reset")
         self.assertEqual(call_args.kwargs["login_context"]["device_info"], "Windows · Chrome")
 
@@ -69,6 +70,7 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                     "new_password": "NewPassw0rd!",
                 },
                 headers={
+                    "X-Chilan-Interface-Language": "jp",
                     "accept-language": "en-US,en;q=0.9",
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",
@@ -83,7 +85,7 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         send_success.assert_called_once()
         call_args = send_success.call_args
         self.assertEqual(call_args.args[0], "student@example.com")
-        self.assertEqual(call_args.kwargs["lang"], "en")
+        self.assertEqual(call_args.kwargs["lang"], "ja")
         self.assertEqual(call_args.kwargs["change_source"], "change")
         self.assertEqual(call_args.kwargs["login_context"]["device_info"], "Windows · Chrome")
 
@@ -106,6 +108,7 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                     "new_password": "NewPassw0rd!",
                 },
                 headers={
+                    "X-Chilan-Interface-Language": "jp",
                     "accept-language": "en-US,en;q=0.9",
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",

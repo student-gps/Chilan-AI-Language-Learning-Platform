@@ -11,52 +11,68 @@ from config.env import get_env, get_env_bool, get_env_int
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
-# --- 模型定义 ---
+
 class SignupReq(BaseModel):
     email: EmailStr
     password: str
-    lang: str = "zh"
+    lang: str | None = None
+
 
 class VerifyReq(BaseModel):
     email: EmailStr
     code: str
 
+
 class LoginReq(BaseModel):
     email: EmailStr
     password: str
 
+
 class ForgotReq(BaseModel):
     email: EmailStr
+
 
 class ResetReq(BaseModel):
     email: EmailStr
     code: str
     new_password: str
 
+
 class GoogleAuthReq(BaseModel):
     access_token: str
+
 
 class AppleAuthReq(BaseModel):
     token: str
     firstName: str = None
     lastName: str = None
 
+
 class UpdateProfileReq(BaseModel):
     username: str
+
 
 class ChangePasswordReq(BaseModel):
     current_password: str
     new_password: str
+
 
 class DeleteAccountReq(BaseModel):
     confirm_text: str
     current_password: str | None = None
 
 
+INTERFACE_LANGUAGE_HEADER = "X-Chilan-Interface-Language"
+AUTH_EMAIL_DEFAULT_LANG = "zh"
+AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG = "en"
+
+
 def get_db():
     conn = get_connection()
-    try: yield conn
-    finally: conn.close()
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 
 def resolve_login_provider(password_hash: str) -> str:
@@ -275,7 +291,7 @@ async def change_password(user_id: str, req: ChangePasswordReq, request: Request
     db.commit()
     try_send_password_changed_email(
         user[1],
-        lang=infer_mail_lang_from_request(request),
+        lang=resolve_auth_email_lang(request=request),
         change_source="change",
         login_context=build_login_context(request),
     )
@@ -399,74 +415,195 @@ def _send_email_via_resend(to_email: str, subject: str, html_content: str):
         raise HTTPException(status_code=500, detail=f"Mail failed (Resend): {type(e).__name__}")
 
 
+def _auth_template(subject: str, title: str, body: str, footer: str) -> dict:
+    return {
+        "subject": subject,
+        "title": title,
+        "body": body,
+        "footer": footer,
+    }
+
+
 AUTH_EMAIL_TEMPLATES = {
     "signup": {
-        "zh": {
-            "subject": "Chilan LRS 账号激活",
-            "title": "欢迎来到 Chilan LRS",
-            "body": "您的账号注册验证码是：",
-            "footer": "该验证码 10 分钟内有效。如果不是您本人操作，请忽略此邮件。",
-        },
-        "en": {
-            "subject": "Chilan LRS Activation",
-            "title": "Welcome to Chilan LRS",
-            "body": "Your registration code is:",
-            "footer": "Code valid for 10 mins. If this wasn't you, ignore this email.",
-        },
+        "zh": _auth_template("Chilan LRS 账号激活", "欢迎来到 Chilan LRS", "您的账号注册验证码是：", "该验证码 10 分钟内有效。如果不是您本人操作，请忽略此邮件。"),
+        "en": _auth_template("Chilan LRS Activation", "Welcome to Chilan LRS", "Your registration code is:", "Code valid for 10 mins. If this wasn't you, ignore this email."),
+        "ja": _auth_template("Chilan LRS アカウント認証", "Chilan LRS へようこそ", "アカウント登録確認コードはこちらです：", "このコードは10分間有効です。心当たりがない場合は、このメールを無視してください。"),
+        "fr": _auth_template("Activation du compte Chilan LRS", "Bienvenue sur Chilan LRS", "Voici votre code de vérification d'inscription :", "Ce code est valable 10 minutes. Si ce n'était pas vous, ignorez cet e-mail."),
+        "de": _auth_template("Chilan LRS Kontoaktivierung", "Willkommen bei Chilan LRS", "Hier ist Ihr Registrierungscode:", "Dieser Code ist 10 Minuten gültig. Wenn Sie das nicht waren, ignorieren Sie diese E-Mail."),
+        "ko": _auth_template("Chilan LRS 계정 인증", "Chilan LRS에 오신 것을 환영합니다", "회원가입 인증 코드는 다음과 같습니다:", "이 코드는 10분 동안 유효합니다. 본인이 아니라면 이 메일을 무시하세요."),
+        "es": _auth_template("Activación de cuenta de Chilan LRS", "Bienvenido a Chilan LRS", "Este es tu código de verificación de registro:", "Este código es válido durante 10 minutos. Si no fuiste tú, ignora este correo."),
+        "vi": _auth_template("Kích hoạt tài khoản Chilan LRS", "Chào mừng đến với Chilan LRS", "Đây là mã xác minh đăng ký của bạn:", "Mã này có hiệu lực trong 10 phút. Nếu không phải bạn, hãy bỏ qua email này."),
+        "pt": _auth_template("Ativação da conta Chilan LRS", "Bem-vindo ao Chilan LRS", "Aqui está o seu código de verificação de cadastro:", "Este código é válido por 10 minutos. Se não foi você, ignore este e-mail."),
+        "ar": _auth_template("تفعيل حساب Chilan LRS", "مرحبًا بك في Chilan LRS", "إليك رمز التحقق الخاص بتسجيل الحساب:", "هذا الرمز صالح لمدة 10 دقائق. إذا لم تكن أنت، فتجاهل هذا البريد الإلكتروني."),
+        "th": _auth_template("ยืนยันบัญชี Chilan LRS", "ยินดีต้อนรับสู่ Chilan LRS", "นี่คือรหัสยืนยันการสมัครของคุณ:", "รหัสนี้ใช้ได้ 10 นาที หากไม่ใช่คุณ กรุณาเพิกเฉยอีเมลนี้"),
+        "ru": _auth_template("Активация аккаунта Chilan LRS", "Добро пожаловать в Chilan LRS", "Вот ваш код подтверждения регистрации:", "Код действителен 10 минут. Если это были не вы, проигнорируйте это письмо."),
+        "id": _auth_template("Aktivasi akun Chilan LRS", "Selamat datang di Chilan LRS", "Berikut kode verifikasi pendaftaran Anda:", "Kode ini berlaku selama 10 menit. Jika ini bukan Anda, abaikan email ini."),
+        "ms": _auth_template("Pengaktifan akaun Chilan LRS", "Selamat datang ke Chilan LRS", "Berikut ialah kod pengesahan pendaftaran anda:", "Kod ini sah selama 10 minit. Jika ini bukan anda, abaikan e-mel ini."),
+        "it": _auth_template("Attivazione account Chilan LRS", "Benvenuto su Chilan LRS", "Ecco il tuo codice di verifica della registrazione:", "Questo codice è valido per 10 minuti. Se non sei stato tu, ignora questa email."),
     },
     "reset": {
-        "zh": {
-            "subject": "Chilan LRS 密码重置",
-            "title": "找回您的密码",
-            "body": "您正在尝试重置密码，验证码是：",
-            "footer": "如果您并未尝试重置密码，请忽略此邮件。",
-        },
-        "en": {
-            "subject": "Chilan LRS Password Reset",
-            "title": "Reset Password",
-            "body": "Your reset code is:",
-            "footer": "If you didn't request a reset, ignore this email.",
-        },
+        "zh": _auth_template("Chilan LRS 密码重置", "找回您的密码", "您正在尝试重置密码，验证码是：", "如果您并未尝试重置密码，请忽略此邮件。"),
+        "en": _auth_template("Chilan LRS Password Reset", "Reset Password", "Your reset code is:", "If you didn't request a reset, ignore this email."),
+        "ja": _auth_template("Chilan LRS パスワード再設定", "パスワードを再設定", "パスワード再設定の確認コードはこちらです：", "この操作に心当たりがない場合は、このメールを無視してください。"),
+        "fr": _auth_template("Réinitialisation du mot de passe Chilan LRS", "Réinitialisez votre mot de passe", "Voici votre code de réinitialisation du mot de passe :", "Si vous n'avez pas demandé cette réinitialisation, ignorez cet e-mail."),
+        "de": _auth_template("Chilan LRS Passwort zurücksetzen", "Setzen Sie Ihr Passwort zurück", "Hier ist Ihr Code zum Zurücksetzen des Passworts:", "Wenn Sie dies nicht angefordert haben, ignorieren Sie diese E-Mail."),
+        "ko": _auth_template("Chilan LRS 비밀번호 재설정", "비밀번호를 재설정하세요", "비밀번호 재설정 인증 코드는 다음과 같습니다:", "직접 요청한 것이 아니라면 이 메일을 무시하세요."),
+        "es": _auth_template("Restablecimiento de contraseña de Chilan LRS", "Restablece tu contraseña", "Este es tu código para restablecer la contraseña:", "Si no solicitaste este restablecimiento, ignora este correo."),
+        "vi": _auth_template("Đặt lại mật khẩu Chilan LRS", "Đặt lại mật khẩu của bạn", "Đây là mã đặt lại mật khẩu của bạn:", "Nếu bạn không yêu cầu thao tác này, hãy bỏ qua email này."),
+        "pt": _auth_template("Redefinição de senha do Chilan LRS", "Redefina sua senha", "Aqui está o seu código para redefinir a senha:", "Se você não solicitou isso, ignore este e-mail."),
+        "ar": _auth_template("إعادة تعيين كلمة مرور Chilan LRS", "أعد تعيين كلمة المرور", "إليك رمز إعادة تعيين كلمة المرور:", "إذا لم تطلب هذا الإجراء، فتجاهل هذا البريد الإلكتروني."),
+        "th": _auth_template("รีเซ็ตรหัสผ่าน Chilan LRS", "รีเซ็ตรหัสผ่านของคุณ", "นี่คือรหัสรีเซ็ตรหัสผ่านของคุณ:", "หากคุณไม่ได้ร้องขอรายการนี้ กรุณาเพิกเฉยอีเมลนี้"),
+        "ru": _auth_template("Сброс пароля Chilan LRS", "Сбросьте пароль", "Вот ваш код для сброса пароля:", "Если вы не запрашивали сброс, проигнорируйте это письмо."),
+        "id": _auth_template("Atur ulang kata sandi Chilan LRS", "Atur ulang kata sandi Anda", "Berikut kode untuk mengatur ulang kata sandi Anda:", "Jika Anda tidak meminta ini, abaikan email ini."),
+        "ms": _auth_template("Tetapkan semula kata laluan Chilan LRS", "Tetapkan semula kata laluan anda", "Berikut ialah kod tetapan semula kata laluan anda:", "Jika anda tidak meminta tindakan ini, abaikan e-mel ini."),
+        "it": _auth_template("Reimpostazione password Chilan LRS", "Reimposta la tua password", "Ecco il tuo codice per reimpostare la password:", "Se non hai richiesto questa operazione, ignora questa email."),
     },
     "unusual_login": {
-        "zh": {
-            "subject": "Chilan LRS 登录安全提醒",
-            "title": "检测到新的登录环境",
-            "body": "你的账号刚刚在新的设备和网络环境中完成登录。",
-            "footer": "如果这是你本人操作，无需进一步处理；如果不是，请尽快修改密码并检查最近登录记录。",
-        },
-        "en": {
-            "subject": "Chilan LRS Sign-in Security Alert",
-            "title": "We noticed a new sign-in environment",
-            "body": "Your account just signed in from a new device and network environment.",
-            "footer": "If this was you, no action is needed. If not, please reset your password and review recent sign-ins.",
-        },
+        "zh": _auth_template("Chilan LRS 登录安全提醒", "检测到新的登录环境", "你的账号刚刚在新的设备和网络环境中完成登录。", "如果这是你本人操作，无需进一步处理；如果不是，请尽快修改密码并检查最近登录记录。"),
+        "en": _auth_template("Chilan LRS Sign-in Security Alert", "We noticed a new sign-in environment", "Your account just signed in from a new device and network environment.", "If this was you, no action is needed. If not, please reset your password and review recent sign-ins."),
+        "ja": _auth_template("Chilan LRS ログインセキュリティ通知", "新しいログイン環境を検出しました", "新しい端末とネットワーク環境からアカウントへのログインがありました。", "ご自身の操作であれば対応不要です。心当たりがない場合は、すぐにパスワードを変更し最近のログイン履歴をご確認ください。"),
+        "fr": _auth_template("Alerte de sécurité de connexion Chilan LRS", "Nous avons détecté un nouvel environnement de connexion", "Votre compte vient d'être connecté depuis un nouvel appareil et un nouveau réseau.", "Si c'était bien vous, aucune action n'est nécessaire. Sinon, réinitialisez immédiatement votre mot de passe et vérifiez vos connexions récentes."),
+        "de": _auth_template("Chilan LRS Sicherheitswarnung zur Anmeldung", "Wir haben eine neue Anmeldeumgebung erkannt", "Ihr Konto wurde gerade von einem neuen Gerät und Netzwerk aus verwendet.", "Wenn Sie das waren, ist keine weitere Aktion nötig. Wenn nicht, setzen Sie Ihr Passwort bitte sofort zurück und prüfen Sie Ihre letzten Anmeldungen."),
+        "ko": _auth_template("Chilan LRS 로그인 보안 알림", "새로운 로그인 환경이 감지되었습니다", "새로운 기기와 네트워크 환경에서 계정 로그인 시도가 있었습니다.", "본인 로그인이라면 추가 조치가 필요하지 않습니다. 아니라면 즉시 비밀번호를 재설정하고 최근 로그인 기록을 확인하세요."),
+        "es": _auth_template("Alerta de seguridad de inicio de sesión de Chilan LRS", "Detectamos un nuevo entorno de inicio de sesión", "Tu cuenta acaba de iniciar sesión desde un dispositivo y una red nuevos.", "Si fuiste tú, no necesitas hacer nada. Si no, restablece tu contraseña de inmediato y revisa tus inicios de sesión recientes."),
+        "vi": _auth_template("Cảnh báo bảo mật đăng nhập Chilan LRS", "Chúng tôi phát hiện một môi trường đăng nhập mới", "Tài khoản của bạn vừa đăng nhập từ một thiết bị và mạng mới.", "Nếu đó là bạn, bạn không cần làm gì thêm. Nếu không, hãy đặt lại mật khẩu ngay và kiểm tra các lần đăng nhập gần đây."),
+        "pt": _auth_template("Alerta de segurança de login do Chilan LRS", "Detectamos um novo ambiente de login", "Sua conta acabou de entrar a partir de um novo dispositivo e rede.", "Se foi você, nenhuma ação é necessária. Caso contrário, redefina sua senha imediatamente e revise seus acessos recentes."),
+        "ar": _auth_template("تنبيه أمان تسجيل الدخول في Chilan LRS", "اكتشفنا بيئة تسجيل دخول جديدة", "تم تسجيل الدخول إلى حسابك من جهاز وشبكة جديدين.", "إذا كنت أنت، فلا يلزم أي إجراء. وإذا لم تكن أنت، فأعد تعيين كلمة المرور فورًا وراجع عمليات تسجيل الدخول الأخيرة."),
+        "th": _auth_template("การแจ้งเตือนความปลอดภัยการเข้าสู่ระบบ Chilan LRS", "ตรวจพบสภาพแวดล้อมการเข้าสู่ระบบใหม่", "บัญชีของคุณเพิ่งเข้าสู่ระบบจากอุปกรณ์และเครือข่ายใหม่", "หากเป็นคุณเอง ไม่จำเป็นต้องดำเนินการเพิ่มเติม หากไม่ใช่ กรุณารีเซ็ตรหัสผ่านทันทีและตรวจสอบประวัติการเข้าสู่ระบบล่าสุด"),
+        "ru": _auth_template("Предупреждение о безопасности входа Chilan LRS", "Мы обнаружили новую среду входа", "В ваш аккаунт только что вошли с нового устройства и из новой сети.", "Если это были вы, никаких действий не требуется. Если нет, немедленно смените пароль и проверьте последние входы."),
+        "id": _auth_template("Peringatan keamanan login Chilan LRS", "Kami mendeteksi lingkungan login baru", "Akun Anda baru saja masuk dari perangkat dan jaringan baru.", "Jika ini Anda, tidak ada tindakan lebih lanjut yang diperlukan. Jika bukan, segera atur ulang kata sandi Anda dan periksa login terbaru."),
+        "ms": _auth_template("Amaran keselamatan log masuk Chilan LRS", "Kami mengesan persekitaran log masuk baharu", "Akaun anda baru sahaja log masuk daripada peranti dan rangkaian baharu.", "Jika ini anda, tiada tindakan lanjut diperlukan. Jika bukan, tetapkan semula kata laluan anda dengan segera dan semak log masuk terkini."),
+        "it": _auth_template("Avviso di sicurezza accesso Chilan LRS", "Abbiamo rilevato un nuovo ambiente di accesso", "Il tuo account ha appena effettuato l'accesso da un nuovo dispositivo e da una nuova rete.", "Se sei stato tu, non è necessaria alcuna azione. In caso contrario, reimposta subito la password e controlla gli accessi recenti."),
     },
     "password_changed_success": {
-        "zh": {
-            "subject": "Chilan LRS 密码已更新",
-            "title": "你的密码已成功更新",
-            "body": "你的 Chilan LRS 账号密码刚刚被成功修改。",
-            "footer": "如果这不是你本人操作，请立即重置密码并检查最近登录记录。",
-        },
-        "en": {
-            "subject": "Chilan LRS Password Updated",
-            "title": "Your password was changed successfully",
-            "body": "Your Chilan LRS account password was just updated successfully.",
-            "footer": "If this wasn't you, reset your password immediately and review recent sign-ins.",
-        },
+        "zh": _auth_template("Chilan LRS 密码已更新", "你的密码已成功更新", "你的 Chilan LRS 账号密码刚刚被成功修改。", "如果这不是你本人操作，请立即重置密码并检查最近登录记录。"),
+        "en": _auth_template("Chilan LRS Password Updated", "Your password was changed successfully", "Your Chilan LRS account password was just updated successfully.", "If this wasn't you, reset your password immediately and review recent sign-ins."),
+        "ja": _auth_template("Chilan LRS パスワード更新完了", "パスワードが正常に更新されました", "Chilan LRS アカウントのパスワードが更新されました。", "心当たりがない場合は、すぐにパスワードを再設定し最近のログイン履歴をご確認ください。"),
+        "fr": _auth_template("Mot de passe Chilan LRS mis à jour", "Votre mot de passe a bien été mis à jour", "Le mot de passe de votre compte Chilan LRS vient d'être modifié avec succès.", "Si ce n'était pas vous, réinitialisez immédiatement votre mot de passe et vérifiez vos connexions récentes."),
+        "de": _auth_template("Chilan LRS Passwort aktualisiert", "Ihr Passwort wurde erfolgreich geändert", "Das Passwort Ihres Chilan LRS Kontos wurde soeben erfolgreich aktualisiert.", "Wenn Sie das nicht waren, setzen Sie Ihr Passwort sofort zurück und prüfen Sie Ihre letzten Anmeldungen."),
+        "ko": _auth_template("Chilan LRS 비밀번호가 업데이트되었습니다", "비밀번호가 성공적으로 변경되었습니다", "Chilan LRS 계정 비밀번호가 방금 성공적으로 변경되었습니다.", "본인이 아니라면 즉시 비밀번호를 재설정하고 최근 로그인 기록을 확인하세요."),
+        "es": _auth_template("Contraseña de Chilan LRS actualizada", "Tu contraseña se actualizó correctamente", "La contraseña de tu cuenta de Chilan LRS acaba de actualizarse correctamente.", "Si no fuiste tú, restablece tu contraseña de inmediato y revisa tus inicios de sesión recientes."),
+        "vi": _auth_template("Mật khẩu Chilan LRS đã được cập nhật", "Mật khẩu của bạn đã được cập nhật thành công", "Mật khẩu tài khoản Chilan LRS của bạn vừa được cập nhật thành công.", "Nếu đó không phải là bạn, hãy đặt lại mật khẩu ngay và kiểm tra các lần đăng nhập gần đây."),
+        "pt": _auth_template("Senha do Chilan LRS atualizada", "Sua senha foi atualizada com sucesso", "A senha da sua conta Chilan LRS acabou de ser atualizada com sucesso.", "Se não foi você, redefina sua senha imediatamente e revise seus acessos recentes."),
+        "ar": _auth_template("تم تحديث كلمة مرور Chilan LRS", "تم تغيير كلمة المرور بنجاح", "تم تحديث كلمة مرور حسابك في Chilan LRS بنجاح.", "إذا لم تكن أنت، فأعد تعيين كلمة المرور فورًا وراجع عمليات تسجيل الدخول الأخيرة."),
+        "th": _auth_template("อัปเดตรหัสผ่าน Chilan LRS แล้ว", "รหัสผ่านของคุณถูกอัปเดตเรียบร้อยแล้ว", "รหัสผ่านบัญชี Chilan LRS ของคุณเพิ่งถูกอัปเดตสำเร็จ", "หากไม่ใช่คุณ กรุณารีเซ็ตรหัสผ่านทันทีและตรวจสอบประวัติการเข้าสู่ระบบล่าสุด"),
+        "ru": _auth_template("Пароль Chilan LRS обновлён", "Ваш пароль успешно изменён", "Пароль вашего аккаунта Chilan LRS только что был успешно обновлён.", "Если это были не вы, немедленно смените пароль и проверьте последние входы."),
+        "id": _auth_template("Kata sandi Chilan LRS diperbarui", "Kata sandi Anda berhasil diperbarui", "Kata sandi akun Chilan LRS Anda baru saja berhasil diperbarui.", "Jika ini bukan Anda, segera atur ulang kata sandi Anda dan periksa login terbaru."),
+        "ms": _auth_template("Kata laluan Chilan LRS dikemas kini", "Kata laluan anda berjaya dikemas kini", "Kata laluan akaun Chilan LRS anda baru sahaja berjaya dikemas kini.", "Jika ini bukan anda, tetapkan semula kata laluan anda dengan segera dan semak log masuk terkini."),
+        "it": _auth_template("Password Chilan LRS aggiornata", "La tua password è stata aggiornata con successo", "La password del tuo account Chilan LRS è stata appena aggiornata con successo.", "Se non sei stato tu, reimposta immediatamente la password e controlla gli accessi recenti."),
+    },
+}
+
+AUTH_SUPPORTED_EMAIL_LANGS = set(AUTH_EMAIL_TEMPLATES["signup"].keys())
+AUTH_EMAIL_LANG_ALIASES = {
+    "jp": "ja",
+    "ja": "ja",
+    "ja-jp": "ja",
+    "zh": "zh",
+    "zh-cn": "zh",
+    "zh-hans": "zh",
+    "zh-hans-cn": "zh",
+    "zh-hant": "zh",
+    "zh-hk": "zh",
+    "zh-tw": "zh",
+    "en": "en",
+    "en-us": "en",
+    "en-gb": "en",
+}
+
+AUTH_EMAIL_COPY = {
+    "zh": {
+        "login_method": "登录方式",
+        "device": "设备",
+        "ip": "IP",
+        "time": "时间",
+        "change_source": "变更方式",
+        "unknown": "未知",
+        "unknown_device": "未知设备",
+        "unusual_login_highlight": "新登录提醒",
+        "password_changed_highlight": "密码更新成功",
+        "provider_password": "邮箱密码",
+        "change_source_reset": "通过邮箱验证码重置",
+        "change_source_change": "在账号设置中修改",
+    },
+    "en": {
+        "login_method": "Sign-in method",
+        "device": "Device",
+        "ip": "IP",
+        "time": "Time",
+        "change_source": "Change source",
+        "unknown": "Unknown",
+        "unknown_device": "Unknown device",
+        "unusual_login_highlight": "New sign-in detected",
+        "password_changed_highlight": "Password updated",
+        "provider_password": "Email & Password",
+        "change_source_reset": "Reset via email verification",
+        "change_source_change": "Changed from account settings",
+    },
+    "ja": {
+        "login_method": "ログイン方法",
+        "device": "デバイス",
+        "ip": "IP",
+        "time": "時刻",
+        "change_source": "変更方法",
+        "unknown": "不明",
+        "unknown_device": "不明なデバイス",
+        "unusual_login_highlight": "新しいログインを検出",
+        "password_changed_highlight": "パスワード更新完了",
+        "provider_password": "メールとパスワード",
+        "change_source_reset": "メール認証コードで再設定",
+        "change_source_change": "アカウント設定から変更",
     },
 }
 
 
-def infer_mail_lang_from_request(request: Request | None, fallback: str = "zh") -> str:
-    if request is None:
-        return fallback
-    header = (request.headers.get("accept-language") or "").strip().lower()
-    if not header:
-        return fallback
-    primary = header.split(",", 1)[0].split("-", 1)[0].strip()
-    return primary if primary in {"zh", "en"} else fallback
+def normalize_auth_email_lang(raw_lang: str | None) -> str | None:
+    if raw_lang is None:
+        return None
+    normalized = str(raw_lang).strip().lower().replace("_", "-")
+    if not normalized:
+        return None
+    normalized = normalized.split(",", 1)[0].split(";", 1)[0].strip()
+    normalized = AUTH_EMAIL_LANG_ALIASES.get(normalized, normalized)
+    primary = normalized.split("-", 1)[0].strip()
+    primary = AUTH_EMAIL_LANG_ALIASES.get(primary, primary)
+    if primary in AUTH_SUPPORTED_EMAIL_LANGS:
+        return primary
+    return None
+
+
+def resolve_auth_email_lang(request: Request | None = None, explicit_lang: str | None = None, fallback: str = AUTH_EMAIL_DEFAULT_LANG) -> str:
+    candidates = []
+    if request is not None:
+        candidates.append((request.headers.get(INTERFACE_LANGUAGE_HEADER), True))
+    candidates.append((explicit_lang, True))
+    if request is not None:
+        candidates.append((request.headers.get("accept-language"), False))
+
+    for raw_value, explicit in candidates:
+        raw_text = str(raw_value or "").strip()
+        if not raw_text:
+            continue
+        normalized = normalize_auth_email_lang(raw_text)
+        if normalized:
+            return normalized
+        if explicit:
+            return AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG
+    return fallback
+
+
+def infer_mail_lang_from_request(request: Request | None, fallback: str = AUTH_EMAIL_DEFAULT_LANG) -> str:
+    return resolve_auth_email_lang(request=request, fallback=fallback)
+
+
+def _get_auth_email_copy(lang: str) -> dict:
+    normalized = normalize_auth_email_lang(lang) or AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG
+    if normalized == "zh":
+        return AUTH_EMAIL_COPY["zh"]
+    if normalized == "ja":
+        return AUTH_EMAIL_COPY["ja"]
+    return AUTH_EMAIL_COPY[AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG]
 
 
 def _now_utc_label() -> str:
@@ -475,20 +612,37 @@ def _now_utc_label() -> str:
 
 def _translate_login_provider(provider: str, lang: str) -> str:
     normalized = (provider or "password").strip().lower()
-    if lang == "zh":
-        mapping = {"password": "邮箱密码", "google": "Google", "apple": "Apple"}
-    else:
-        mapping = {"password": "Email & Password", "google": "Google", "apple": "Apple"}
-    return mapping.get(normalized, normalized or ("未知" if lang == "zh" else "Unknown"))
+    copy = _get_auth_email_copy(lang)
+    mapping = {
+        "password": copy["provider_password"],
+        "google": "Google",
+        "apple": "Apple",
+    }
+    return mapping.get(normalized, normalized or copy["unknown"])
 
 
 def _translate_password_change_source(change_source: str, lang: str) -> str:
     normalized = (change_source or "change").strip().lower()
-    if lang == "zh":
-        mapping = {"reset": "通过邮箱验证码重置", "change": "在账号设置中修改"}
-    else:
-        mapping = {"reset": "Reset via email verification", "change": "Changed from account settings"}
-    return mapping.get(normalized, mapping["change"])
+    copy = _get_auth_email_copy(lang)
+    mapping = {
+        "reset": copy["change_source_reset"],
+        "change": copy["change_source_change"],
+    }
+    return mapping.get(normalized, copy["change_source_change"])
+
+
+def _display_device_info(device_info: str | None, lang: str) -> str:
+    copy = _get_auth_email_copy(lang)
+    value = (device_info or "").strip()
+    if not value or value == "Unknown device":
+        return copy["unknown_device"]
+    return value
+
+
+def _display_value(value: str | None, lang: str) -> str:
+    copy = _get_auth_email_copy(lang)
+    normalized = (value or "").strip()
+    return normalized or copy["unknown"]
 
 
 def _build_auth_mail_html(template: dict, highlight_value: str, details=None, highlight_is_code: bool = False) -> str:
@@ -554,15 +708,15 @@ def send_auth_email(
     to_email: str,
     highlight_value: str,
     email_type: str = "signup",
-    lang: str = "zh",
+    lang: str = AUTH_EMAIL_DEFAULT_LANG,
     details=None,
     highlight_is_code: bool | None = None,
 ):
-    lang_key = lang[:2] if lang[:2] in ["zh", "en"] else "en"
+    lang_key = normalize_auth_email_lang(lang) or AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG
     template_group = AUTH_EMAIL_TEMPLATES.get(email_type)
     if not template_group:
         raise ValueError(f"Unsupported auth email type: {email_type}")
-    template = template_group.get(lang_key, template_group.get("en"))
+    template = template_group.get(lang_key) or template_group.get(AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG)
     if highlight_is_code is None:
         highlight_is_code = email_type in {"signup", "reset"}
 
@@ -578,9 +732,9 @@ def send_auth_email(
         f"lang={lang_key} to={to_email}"
     )
     if provider == "resend":
-        _send_email_via_resend(to_email, template['subject'], content)
+        _send_email_via_resend(to_email, template["subject"], content)
     else:
-        _send_email_via_smtp(to_email, template['subject'], content)
+        _send_email_via_smtp(to_email, template["subject"], content)
 
 
 def try_send_auth_email(*args, **kwargs):
@@ -592,23 +746,17 @@ def try_send_auth_email(*args, **kwargs):
         traceback.print_exc()
 
 
-def try_send_unusual_login_email(to_email: str, provider: str, login_context: dict, lang: str = "zh"):
-    if lang == "zh":
-        details = [
-            ("登录方式", _translate_login_provider(provider, lang)),
-            ("设备", login_context.get("device_info") or "Unknown device"),
-            ("IP", login_context.get("ip_address") or "Unknown"),
-            ("时间", _now_utc_label()),
-        ]
-        highlight_value = login_context.get("device_info") or "新登录提醒"
-    else:
-        details = [
-            ("Sign-in method", _translate_login_provider(provider, lang)),
-            ("Device", login_context.get("device_info") or "Unknown device"),
-            ("IP", login_context.get("ip_address") or "Unknown"),
-            ("Time", _now_utc_label()),
-        ]
-        highlight_value = login_context.get("device_info") or "New sign-in detected"
+def try_send_unusual_login_email(to_email: str, provider: str, login_context: dict, lang: str = AUTH_EMAIL_DEFAULT_LANG):
+    copy = _get_auth_email_copy(lang)
+    details = [
+        (copy["login_method"], _translate_login_provider(provider, lang)),
+        (copy["device"], _display_device_info(login_context.get("device_info"), lang)),
+        (copy["ip"], _display_value(login_context.get("ip_address"), lang)),
+        (copy["time"], _now_utc_label()),
+    ]
+    highlight_value = _display_device_info(login_context.get("device_info"), lang)
+    if highlight_value == copy["unknown_device"]:
+        highlight_value = copy["unusual_login_highlight"]
 
     try_send_auth_email(
         to_email,
@@ -622,35 +770,24 @@ def try_send_unusual_login_email(to_email: str, provider: str, login_context: di
 
 def try_send_password_changed_email(
     to_email: str,
-    lang: str = "zh",
+    lang: str = AUTH_EMAIL_DEFAULT_LANG,
     change_source: str = "change",
     login_context: dict | None = None,
 ):
     login_context = login_context or {}
-    if lang == "zh":
-        details = [
-            ("变更方式", _translate_password_change_source(change_source, lang)),
-            ("时间", _now_utc_label()),
-        ]
-        if login_context.get("device_info"):
-            details.append(("设备", login_context.get("device_info")))
-        if login_context.get("ip_address"):
-            details.append(("IP", login_context.get("ip_address")))
-        highlight_value = "密码更新成功"
-    else:
-        details = [
-            ("Change source", _translate_password_change_source(change_source, lang)),
-            ("Time", _now_utc_label()),
-        ]
-        if login_context.get("device_info"):
-            details.append(("Device", login_context.get("device_info")))
-        if login_context.get("ip_address"):
-            details.append(("IP", login_context.get("ip_address")))
-        highlight_value = "Password updated"
+    copy = _get_auth_email_copy(lang)
+    details = [
+        (copy["change_source"], _translate_password_change_source(change_source, lang)),
+        (copy["time"], _now_utc_label()),
+    ]
+    if login_context.get("device_info"):
+        details.append((copy["device"], _display_device_info(login_context.get("device_info"), lang)))
+    if login_context.get("ip_address"):
+        details.append((copy["ip"], _display_value(login_context.get("ip_address"), lang)))
 
     try_send_auth_email(
         to_email,
-        highlight_value,
+        copy["password_changed_highlight"],
         email_type="password_changed_success",
         lang=lang,
         details=details,
@@ -658,9 +795,8 @@ def try_send_password_changed_email(
     )
 
 
-# --- 路由接口 (已修正为 @router) ---
 @router.post("/signup")
-async def signup(req: SignupReq, db=Depends(get_db)):
+async def signup(req: SignupReq, request: Request, db=Depends(get_db)):
     password_pattern = r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9])(?=\S+$).{8,32}$"
     if not re.match(password_pattern, req.password):
         raise HTTPException(status_code=400, detail="Password too weak")
@@ -674,7 +810,7 @@ async def signup(req: SignupReq, db=Depends(get_db)):
         "INSERT INTO verification_codes (email, code, created_at) VALUES (%s, %s, CURRENT_TIMESTAMP) ON CONFLICT (email) DO UPDATE SET code = EXCLUDED.code, created_at = CURRENT_TIMESTAMP;",
         (req.email, code)
     )
-    send_auth_email(req.email, code, "signup", req.lang)
+    send_auth_email(req.email, code, "signup", resolve_auth_email_lang(request=request, explicit_lang=req.lang))
     db.commit()
     return {"status": "success"}
 
@@ -716,7 +852,7 @@ async def login(req: LoginReq, request: Request, db=Depends(get_db)):
             user[2],
             provider=provider,
             login_context=login_context,
-            lang=infer_mail_lang_from_request(request),
+            lang=resolve_auth_email_lang(request=request),
         )
 
     return {
@@ -740,7 +876,7 @@ async def forgot_password(req: ForgotReq, request: Request, db=Depends(get_db)):
         "INSERT INTO verification_codes (email, code, created_at) VALUES (%s, %s, CURRENT_TIMESTAMP) ON CONFLICT (email) DO UPDATE SET code = EXCLUDED.code, created_at = CURRENT_TIMESTAMP;",
         (req.email, code)
     )
-    send_auth_email(req.email, code, "reset", infer_mail_lang_from_request(request))
+    send_auth_email(req.email, code, "reset", resolve_auth_email_lang(request=request))
     db.commit()
     return {"status": "success"}
 
@@ -757,7 +893,7 @@ async def reset_password(req: ResetReq, request: Request, db=Depends(get_db)):
     db.commit()
     try_send_password_changed_email(
         req.email,
-        lang=infer_mail_lang_from_request(request),
+        lang=resolve_auth_email_lang(request=request),
         change_source="reset",
         login_context=build_login_context(request),
     )
@@ -798,7 +934,7 @@ async def google_auth(req: GoogleAuthReq, request: Request, db=Depends(get_db)):
             data['email'],
             provider="google",
             login_context=login_context,
-            lang=infer_mail_lang_from_request(request),
+            lang=resolve_auth_email_lang(request=request),
         )
 
     return {
@@ -849,7 +985,7 @@ async def apple_auth(req: AppleAuthReq, request: Request, db=Depends(get_db)):
                 email,
                 provider="apple",
                 login_context=login_context,
-                lang=infer_mail_lang_from_request(request),
+                lang=resolve_auth_email_lang(request=request),
             )
 
         return {
