@@ -75,6 +75,7 @@ class AuthLoginSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                 headers={
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",
+                    "X-Chilan-Interface-Language": "jp",
                     "accept-language": "en-US,en;q=0.9",
                 },
             )
@@ -84,7 +85,7 @@ class AuthLoginSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         call_args = send_alert.call_args
         self.assertEqual(call_args.args[0], "student@example.com")
         self.assertEqual(call_args.kwargs["provider"], "password")
-        self.assertEqual(call_args.kwargs["lang"], "en")
+        self.assertEqual(call_args.kwargs["lang"], "ja")
         self.assertEqual(call_args.kwargs["login_context"]["ip_address"], "203.0.113.7")
         self.assertEqual(call_args.kwargs["login_context"]["device_info"], "Windows · Chrome")
 
@@ -121,6 +122,7 @@ class AuthLoginSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                 headers={
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",
+                    "X-Chilan-Interface-Language": "jp",
                 },
             )
 

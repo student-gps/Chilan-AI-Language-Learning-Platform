@@ -1,9 +1,32 @@
 import axios from 'axios';
 import { clearAuthStorage } from '../utils/authStorage';
 
+const INTERFACE_LANGUAGE_HEADER = 'X-Chilan-Interface-Language';
+
+const getInterfaceLanguage = () => {
+  try {
+    return localStorage.getItem('chilan_interface_language') || 'zh';
+  } catch {
+    return 'zh';
+  }
+};
+
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_APP_API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
+});
+
+apiClient.interceptors.request.use((config) => {
+  const lang = getInterfaceLanguage();
+  if (config.headers?.set) {
+    config.headers.set(INTERFACE_LANGUAGE_HEADER, lang);
+  } else {
+    config.headers = {
+      ...(config.headers || {}),
+      [INTERFACE_LANGUAGE_HEADER]: lang,
+    };
+  }
+  return config;
 });
 
 // 全局 401 拦截：token 失效时自动清除本地状态并跳转登录
