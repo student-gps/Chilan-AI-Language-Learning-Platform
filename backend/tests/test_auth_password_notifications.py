@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime, timezone, timedelta
 from unittest.mock import patch
 
 from .test_helpers import FakeConnection, SmokeTestCaseMixin, auth, get_password_hash, main
@@ -7,10 +8,11 @@ from .test_helpers import FakeConnection, SmokeTestCaseMixin, auth, get_password
 class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
     def test_reset_password_sends_success_notification(self):
         updated_password_hashes = []
+        created_at = datetime.now(timezone.utc) - timedelta(minutes=3)
 
         def handler(query, params):
-            if "SELECT code FROM verification_codes WHERE email = %s" in query:
-                return {"fetchone": ("123456",)}
+            if "SELECT code, created_at FROM verification_codes WHERE email = %s" in query:
+                return {"fetchone": ("123456", created_at)}
             if "UPDATE users SET password_hash = %s WHERE email = %s" in query:
                 updated_password_hashes.append(params[0])
                 return {}
@@ -46,6 +48,34 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual(call_args.kwargs["lang"], "ja")
         self.assertEqual(call_args.kwargs["change_source"], "reset")
         self.assertEqual(call_args.kwargs["login_context"]["device_info"], "Windows · Chrome")
+
+    def test_reset_password_rejects_expired_code(self):
+        expired_at = datetime.now(timezone.utc) - timedelta(minutes=11)
+
+        def handler(query, params):
+            if "SELECT code, created_at FROM verification_codes WHERE email = %s" in query:
+                return {"fetchone": ("123456", expired_at)}
+            return {}
+
+        fake_db = FakeConnection(handler)
+        main.app.dependency_overrides[auth.get_db] = lambda: fake_db
+
+        with patch.object(auth, "try_send_password_changed_email") as send_success:
+            response = self.client.post(
+                "/auth/reset-password",
+                json={
+                    "email": "student@example.com",
+                    "code": "123456",
+                    "new_password": "Passw0rd!",
+                },
+                headers={"X-Chilan-Interface-Language": "jp"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("有効期限", response.json()["detail"])
+        send_success.assert_not_called()
+        self.assertEqual(fake_db.commit_calls, 1)
+        self.assertTrue(any("DELETE FROM verification_codes WHERE email = %s" in query for query, _ in fake_db.executed_queries))
 
     def test_change_password_sends_success_notification(self):
         current_hash = get_password_hash("OldPassw0rd!")
