@@ -63,7 +63,7 @@ class DeleteAccountReq(BaseModel):
 
 
 INTERFACE_LANGUAGE_HEADER = "X-Chilan-Interface-Language"
-AUTH_EMAIL_DEFAULT_LANG = "zh"
+AUTH_EMAIL_DEFAULT_LANG = "en"
 AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG = "en"
 
 

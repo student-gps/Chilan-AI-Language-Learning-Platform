@@ -54,7 +54,6 @@ const blockMotion = {
 };
 
 export default function Personal_Setting() {
-    const navigate = useNavigate();
     const { t, i18n } = useTranslation();
     const { userId, userEmail } = getAuthState();
 
