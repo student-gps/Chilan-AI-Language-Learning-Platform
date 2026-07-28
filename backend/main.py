@@ -31,9 +31,9 @@ if _sa_json and not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
         _tmp.flush()
         _tmp.close()
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = _tmp.name
-        print(f"✅ Vertex SA key written to {_tmp.name}")
+        print(f"[startup] Vertex SA key written to {_tmp.name}")
     except Exception as _e:
-        print(f"⚠️  Failed to write Vertex SA key: {_e}")
+        print(f"[startup] Failed to write Vertex SA key: {_e}")
 
 app = FastAPI(title="Chilan LRS - Core Service")
 

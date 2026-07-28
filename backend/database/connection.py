@@ -21,8 +21,15 @@ def _resolve_db_url() -> str:
         raise ValueError("DB_MODE=cloud 但未在 .env 中找到 APP_DATABASE_URL")
     return url
 
-DB_URL = _resolve_db_url()
+_DB_URL = None
 _POOL = None
+
+
+def _get_db_url() -> str:
+    global _DB_URL
+    if _DB_URL is None:
+        _DB_URL = _resolve_db_url()
+    return _DB_URL
 
 
 class _PooledConnection:
@@ -56,12 +63,12 @@ def _get_pool() -> ThreadedConnectionPool | None:
     if _POOL is None:
         minconn = get_env_int("DB_POOL_MINCONN", default=1)
         maxconn = get_env_int("DB_POOL_MAXCONN", default=8)
-        _POOL = ThreadedConnectionPool(max(1, minconn), max(maxconn, minconn), DB_URL)
+        _POOL = ThreadedConnectionPool(max(1, minconn), max(maxconn, minconn), _get_db_url())
     return _POOL
 
 def get_connection():
     """获取标准的 PostgreSQL 连接（由 DB_MODE 决定使用云端或本地）"""
     pool = _get_pool()
     if pool is None:
-        return psycopg2.connect(DB_URL)
+        return psycopg2.connect(_get_db_url())
     return _PooledConnection(pool, pool.getconn())

@@ -9,7 +9,13 @@ from config.env import get_env, get_env_int
 # 新密码统一使用 pbkdf2_sha256，避免 Render / Python 3.14 环境下
 # passlib+bcrypt 的兼容问题。旧用户如果库里存的是 bcrypt 哈希，仍做兼容验证。
 
-SECRET_KEY = get_env("SECURITY_JWT_SECRET", default="fallback_secret")
+def _get_secret_key() -> str:
+    secret = get_env("SECURITY_JWT_SECRET")
+    if not secret:
+        raise RuntimeError("SECURITY_JWT_SECRET is required.")
+    return secret
+
+
 ALGORITHM = get_env("SECURITY_JWT_ALGORITHM", default="HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = get_env_int(
     "SECURITY_ACCESS_TOKEN_EXPIRE_MINUTES",
@@ -43,4 +49,4 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
         expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     
     to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(to_encode, _get_secret_key(), algorithm=ALGORITHM)

@@ -1,6 +1,10 @@
+import os
 import sys
 import types
 from pathlib import Path
+
+
+os.environ.setdefault("SECURITY_JWT_SECRET", "test-secret")
 
 
 CURRENT_DIR = Path(__file__).resolve().parent
