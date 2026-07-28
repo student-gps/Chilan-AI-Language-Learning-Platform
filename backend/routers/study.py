@@ -19,11 +19,8 @@ from database.connection import get_connection
 
 # 🌟 引入监控工具和原有服务
 from services.utils.monitor import PerformanceMonitor
-from services.llm.base_engine import LLMEngine
-from services.llm.tools import LanguageTools
 from services.speech import ASRService
 from services.study.scheduler import FSRSScheduler
-from services.study.evaluator_service import StudyEvaluator
 from services.study.lesson_progress_service import (
     complete_lesson as complete_lesson_service,
     mark_lesson_content_viewed as mark_lesson_content_viewed_service,
@@ -40,12 +37,32 @@ router = APIRouter(tags=["Study Flow"])
 TTS_CACHE_DIR = Path(__file__).resolve().parent.parent / "tts_cache"
 
 # --- ⚙️ 初始化全局单例 ---
-engine = LLMEngine.from_env()
-llm_tools = LanguageTools(engine=engine)
+engine = None
+llm_tools = None
 scheduler = FSRSScheduler()
-evaluator_service = StudyEvaluator(tools=llm_tools)
+evaluator_service = None
 asr_service = ASRService()
 cos_media_storage = get_media_storage(optional=True)
+
+
+def _get_llm_tools():
+    from services.llm.base_engine import LLMEngine
+    from services.llm.tools import LanguageTools
+
+    global engine, llm_tools
+    if llm_tools is None:
+        engine = LLMEngine.from_env()
+        llm_tools = LanguageTools(engine=engine)
+    return llm_tools
+
+
+def _get_evaluator_service():
+    from services.study.evaluator_service import StudyEvaluator
+
+    global evaluator_service
+    if evaluator_service is None:
+        evaluator_service = StudyEvaluator(tools=_get_llm_tools())
+    return evaluator_service
 
 # --- 📦 数据模型 ---
 class EvaluateRequest(BaseModel):
@@ -269,9 +286,9 @@ def _run_startup_migrations():
         conn.commit()
         cur.close()
         conn.close()
-        print("✅ Startup schema migrations applied.")
+        print("[startup] schema migrations applied.")
     except Exception as e:
-        print(f"⚠️  Startup schema migration failed (non-fatal): {e}")
+        print(f"[startup] schema migration failed (non-fatal): {e}")
 
 def ensure_language_item_progress_item_key(cur):
     cur.execute("""
@@ -517,7 +534,8 @@ async def evaluate_answer(req: EvaluateRequest):
         stability = base_info['stability']
         difficulty = base_info['difficulty']
         history = base_info['recent_history']
-        speech_eval_config = evaluator_service.get_speech_eval_config(item_metadata.get("speech_eval_config"))
+        evaluator = _get_evaluator_service()
+        speech_eval_config = evaluator.get_speech_eval_config(item_metadata.get("speech_eval_config"))
         
         # 定义状态：如果没有历史记录说明是新题(0)，有记录说明在复习(1)
         current_state = 0 if not history else 1
@@ -550,7 +568,7 @@ async def evaluate_answer(req: EvaluateRequest):
             return {"status": "success", "data": {**res, "inputMode": "forfeit", "recognizedText": None, "vectorScore": None}}
 
         if input_mode == "speech":
-            retry_res = evaluator_service.check_speech_readiness(
+            retry_res = evaluator.check_speech_readiness(
                 asr_text=effective_answer,
                 asr_confidence=asr_confidence,
                 speech_eval_config=speech_eval_config,
@@ -566,7 +584,7 @@ async def evaluate_answer(req: EvaluateRequest):
 
         # 🛡️ Tier 1: 极速正则匹配
         t1_start = time.perf_counter()
-        is_exact = evaluator_service.check_exact(effective_answer, normalized_answers)
+        is_exact = evaluator.check_exact(effective_answer, normalized_answers)
         pm.record("Tier 1 (Regex)", time.perf_counter() - t1_start)
 
         if is_exact:
@@ -580,7 +598,7 @@ async def evaluate_answer(req: EvaluateRequest):
         else:
             # 🚄 Tier 2 & 3: 向量 + LLM
             try:
-                user_vec = await llm_tools.get_embedding(effective_answer, pm=pm)
+                user_vec = await _get_llm_tools().get_embedding(effective_answer, pm=pm)
 
                 cur.execute(
                     """
@@ -596,7 +614,7 @@ async def evaluate_answer(req: EvaluateRequest):
                 sim_score = sim_row['sim_score'] if sim_row else 0.0
                 vector_score = sim_score
 
-                res = await evaluator_service.process_judge(
+                res = await evaluator.process_judge(
                     q_type=resolved_question_type,
                     user_ans=effective_answer,
                     origin=resolved_original_text,
