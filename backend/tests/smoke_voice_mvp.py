@@ -15,15 +15,40 @@ try:
 except Exception:
     google_pkg = types.ModuleType("google")
     google_genai_mod = types.ModuleType("google.generativeai")
+    google_modern_genai = types.ModuleType("google.genai")
+    google_modern_genai_types = types.ModuleType("google.genai.types")
 
     def _embed_content(*args, **kwargs):  # noqa: ARG001, ARG002
         return {"embedding": [0.0]}
 
+    class _DummyClient:
+        def __init__(self, *args, **kwargs):  # noqa: ARG002
+            pass
+
+        class models:
+            @staticmethod
+            def generate_content_stream(*args, **kwargs):  # noqa: ARG001, ARG002
+                return []
+
+            @staticmethod
+            def embed_content(*args, **kwargs):  # noqa: ARG001, ARG002
+                return types.SimpleNamespace(embeddings=[types.SimpleNamespace(values=[0.0])])
+
+    class _DummyGenerateContentConfig:
+        def __init__(self, *args, **kwargs):  # noqa: ARG002
+            pass
+
     google_genai_mod.configure = lambda *args, **kwargs: None  # noqa: E731
     google_genai_mod.embed_content = _embed_content
+    google_modern_genai.Client = _DummyClient
+    google_modern_genai.types = google_modern_genai_types
+    google_modern_genai_types.GenerateContentConfig = _DummyGenerateContentConfig
     google_pkg.generativeai = google_genai_mod
+    google_pkg.genai = google_modern_genai
     sys.modules["google"] = google_pkg
     sys.modules["google.generativeai"] = google_genai_mod
+    sys.modules["google.genai"] = google_modern_genai
+    sys.modules["google.genai.types"] = google_modern_genai_types
 
 from services.speech.asr_service import ASRService  # noqa: E402
 from services.study.evaluator_service import StudyEvaluator  # noqa: E402
@@ -38,7 +63,7 @@ class FakeTools:
         self.response = response
         self.calls = 0
 
-    async def judge_with_ai(self, q_type, question, user_ans, standards, pm=None):  # noqa: ARG002
+    async def judge_with_ai(self, q_type, question, user_ans, standards, pm=None, metadata=None):  # noqa: ARG002
         self.calls += 1
         return self.response
 
@@ -54,7 +79,7 @@ class DummyASRService(ASRService):
 
 
 def test_asr_service():
-    os.environ["ASR_ACTIVE_PROVIDER"] = "openai"
+    os.environ["ASR_PROVIDER"] = "openai"
     os.environ["ASR_MAX_AUDIO_BYTES"] = "1024"
 
     service = DummyASRService()
@@ -75,7 +100,7 @@ def test_asr_service():
     except ValueError as exc:
         assert "too large" in str(exc)
 
-    os.environ["ASR_ACTIVE_PROVIDER"] = "mock_provider"
+    os.environ["ASR_PROVIDER"] = "mock_provider"
     bad_provider = ASRService()
     try:
         bad_provider.transcribe(audio_bytes=b"123")
@@ -90,7 +115,7 @@ async def test_evaluator_service():
     speech_cfg = {"pass_threshold": 0.88, "review_threshold": 0.78, "min_asr_confidence": 0.60}
 
     high_res = await evaluator.process_judge(
-        q_type="EN_TO_CN_SPEAK",
+        q_type="SPEAK",
         user_ans="我喜欢学习中文",
         origin="I like learning Chinese",
         std_answers=["我喜欢学习中文"],
@@ -114,7 +139,7 @@ async def test_evaluator_service():
     llm_tools = FakeTools({"level": 4, "is_correct": True, "explanation": "语义准确"})
     evaluator_llm = StudyEvaluator(tools=llm_tools)
     mid_res = await evaluator_llm.process_judge(
-        q_type="EN_TO_CN_SPEAK",
+        q_type="SPEAK",
         user_ans="我平时会看书",
         origin="I usually read books.",
         std_answers=["我平时看书"],
@@ -130,7 +155,7 @@ async def test_evaluator_service():
     strict_tools = FakeTools({"level": 4, "is_correct": True, "explanation": "unused"})
     evaluator_strict = StudyEvaluator(tools=strict_tools)
     strict_res = await evaluator_strict.process_judge(
-        q_type="EN_TO_CN_SPEAK",
+        q_type="SPEAK",
         user_ans="noise",
         origin="I usually read books.",
         std_answers=["correct answer"],

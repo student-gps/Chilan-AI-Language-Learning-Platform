@@ -217,14 +217,14 @@ class ContentBuilderVocabularyExampleTests(unittest.TestCase):
         )
 
         items = [
-            {"question_type": "EN_TO_CN_SPEAK", "original_text": "Speak", "standard_answers": ["说"]},
-            {"question_type": "CN_LISTEN_WRITE", "original_text": "听写", "standard_answers": ["听写"]},
+            {"question_type": "SPEAK", "original_text": "Speak", "standard_answers": ["说"]},
+            {"question_type": "LISTEN_WRITE", "original_text": "听写", "standard_answers": ["听写"]},
             {"question_type": "CN_TO_EN", "original_text": "你好", "standard_answers": ["hello"]},
             {"question_type": "EN_TO_CN", "original_text": "hello", "standard_answers": ["你好"]},
         ]
         sort_order = self.generator.exercise_sort_order
         sorted_items = sorted(items, key=lambda item: (sort_order.get(item["question_type"], 999), item["question_type"]))
-        self.assertEqual([item["question_type"] for item in sorted_items], ["CN_TO_EN", "EN_TO_CN", "CN_LISTEN_WRITE", "EN_TO_CN_SPEAK"])
+        self.assertEqual([item["question_type"] for item in sorted_items], ["CN_TO_EN", "EN_TO_CN", "LISTEN_WRITE", "SPEAK"])
 
 
 if __name__ == "__main__":

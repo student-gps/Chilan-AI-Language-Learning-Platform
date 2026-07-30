@@ -3,28 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Loader2, RefreshCcw, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import WordContextCard from './WordContextCard';
+import { getQuestionTypeConfig } from '../questionTypeConfig';
 
 const splitFeedbackParagraphs = (message = '') =>
     String(message)
         .split(/\r?\n+/)
         .map((part) => part.trim())
         .filter(Boolean);
-
-const inferQuestionTargetLanguage = (question = {}) => {
-    const metadata = question.metadata || {};
-    const type = String(question.question_type || '').toUpperCase();
-    const reading = String(question.original_pinyin || '');
-    if (
-        type.startsWith('JA_') ||
-        /_TO_JA$/.test(type) ||
-        metadata.speech_language === 'ja' ||
-        metadata.audio_language === 'ja' ||
-        /[\u3040-\u30ff]/.test(reading)
-    ) {
-        return 'ja';
-    }
-    return 'zh';
-};
 
 export default function PracticeFeedbackPanel({
     feedback,
@@ -49,6 +34,7 @@ export default function PracticeFeedbackPanel({
 }) {
     const { t } = useTranslation();
     const [activeAction, setActiveAction] = React.useState(feedback.level === 1 ? 'retry' : 'next');
+    const questionConfig = React.useMemo(() => getQuestionTypeConfig(currentQuestion), [currentQuestion]);
 
     React.useEffect(() => {
         setActiveAction(feedback.level === 1 ? 'retry' : 'next');
@@ -168,7 +154,12 @@ export default function PracticeFeedbackPanel({
                     pinyin={currentQuestion.original_pinyin}
                     metadata={currentQuestion.metadata}
                     knowledgeData={knowledgeDetails}
-                    targetLanguage={inferQuestionTargetLanguage(currentQuestion)}
+                    targetLanguage={
+                        currentQuestion?.metadata?.target_language ||
+                        currentQuestion?.metadata?.audio_language ||
+                        questionConfig.targetLanguage ||
+                        'zh'
+                    }
                 />
             )}
         </motion.div>

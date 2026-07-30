@@ -1666,8 +1666,8 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         self.assertIn("JA_TO_CN", question_types)
         self.assertIn("CN_TO_JA", question_types)
-        self.assertIn("JA_SPEAK", question_types)
-        self.assertIn("JA_LISTEN_WRITE", question_types)
+        self.assertIn("SPEAK", question_types)
+        self.assertIn("LISTEN_WRITE", question_types)
 
     def test_practice_generator_uses_llm_batches_for_task2_items(self):
         provider = FakeSequenceProvider([
@@ -1692,17 +1692,17 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
             {
                 "database_items": [
                     {
-                        "question_type": "JA_SPEAK",
+                        "question_type": "SPEAK",
                         "original_text": "我是学生。",
                         "standard_answers": ["わたしは学生です。"],
-                        "metadata": {"answer_mode": "speech", "speech_language": "ja"},
+                        "metadata": {"answer_mode": "speech", "speech_language": "ja", "target_language": "ja", "support_language": "zh"},
                     }
                 ]
             },
             {
                 "database_items": [
                     {
-                        "question_type": "JA_LISTEN_WRITE",
+                        "question_type": "LISTEN_WRITE",
                         "original_text": "我是学生。",
                         "standard_answers": ["わたしは学生です。"],
                     }
@@ -1739,8 +1739,8 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         database_items = generator.build_database_items(payload, llm_provider=provider)
 
         self.assertEqual(len(provider.calls), 4)
-        self.assertTrue(any(item["question_type"] == "JA_LISTEN_WRITE" for item in database_items))
-        self.assertTrue(any(item["question_type"] == "JA_SPEAK" for item in database_items))
+        self.assertTrue(any(item["question_type"] == "LISTEN_WRITE" for item in database_items))
+        self.assertTrue(any(item["question_type"] == "SPEAK" for item in database_items))
 
     def test_practice_generator_allows_conjugation_llm_from_lesson_14(self):
         provider = FakeSequenceProvider([

@@ -624,6 +624,7 @@ async def evaluate_answer(req: EvaluateRequest):
                     input_mode=input_mode,
                     asr_confidence=asr_confidence,
                     speech_eval_config=speech_eval_config,
+                    item_metadata=item_metadata,
                 )
             except Exception as judge_error:
                 print(f"⚠️ Evaluate degraded: {judge_error}")

@@ -18,7 +18,7 @@ export default function usePracticeKeyboardShortcuts({
     handleStopRecording,
     onPlayAudio,
 }) {
-    // ↑ to replay audio for question types that have audio (CN_LISTEN_WRITE, CN_TO_EN)
+    // ↑ to replay audio for question types that have audio (LISTEN_WRITE, CN_TO_EN)
     // Safe in a single-line input (cursor can't move up), and e.isComposing guards against IME candidate navigation
     useEffect(() => {
         if (!onPlayAudio) return;
