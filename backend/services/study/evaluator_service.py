@@ -171,6 +171,7 @@ class StudyEvaluator:
         input_mode: str = "text",
         asr_confidence: Optional[float] = None,
         speech_eval_config: Optional[Dict[str, Any]] = None,
+        item_metadata: Optional[Dict[str, Any]] = None,
     ):
         if pm is None:
             pm = PerformanceMonitor()
@@ -207,7 +208,14 @@ class StudyEvaluator:
                     "judgedBy": "Vector Engine",
                 }
 
-            raw_res = await self.tools.judge_with_ai(q_type, origin, user_ans, std_answers, pm=pm)
+            raw_res = await self.tools.judge_with_ai(
+                q_type,
+                origin,
+                user_ans,
+                std_answers,
+                pm=pm,
+                metadata=item_metadata,
+            )
             final_res = self._normalize_ai_result(raw_res)
             pm.report(vector_score=vector_score)
             return final_res
@@ -222,7 +230,14 @@ class StudyEvaluator:
                 "judgedBy": "Vector Engine",
             }
 
-        raw_res = await self.tools.judge_with_ai(q_type, origin, user_ans, std_answers, pm=pm)
+        raw_res = await self.tools.judge_with_ai(
+            q_type,
+            origin,
+            user_ans,
+            std_answers,
+            pm=pm,
+            metadata=item_metadata,
+        )
         final_res = self._normalize_ai_result(raw_res)
         pm.report(vector_score=vector_score)
         return final_res

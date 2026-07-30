@@ -63,6 +63,44 @@ const DICTATION_INTO_FN = {
     de: (tgt) => `${LANG_NAME[tgt]?.de || tgt}-Diktat`,
 };
 
+const LANG_CODE_ALIASES = {
+    zh: 'zh',
+    cn: 'zh',
+    jp: 'ja',
+    ja: 'ja',
+    en: 'en',
+    fr: 'fr',
+    de: 'de',
+    ko: 'ko',
+    ru: 'ru',
+    es: 'es',
+    pt: 'pt',
+    vi: 'vi',
+    th: 'th',
+    ar: 'ar',
+    it: 'it',
+    id: 'id',
+    ms: 'ms',
+};
+
+const LABEL_CODE_ALIASES = {
+    zh: 'CN',
+    ja: 'JA',
+    en: 'EN',
+    fr: 'FR',
+    de: 'DE',
+    ko: 'KO',
+    ru: 'RU',
+    es: 'ES',
+    pt: 'PT',
+    vi: 'VI',
+    th: 'TH',
+    ar: 'AR',
+    it: 'IT',
+    id: 'ID',
+    ms: 'MS',
+};
+
 const _uiLang = () => (i18n.language || 'en').split('-')[0].toLowerCase();
 const _abbrev = (code, lang) => { const e = LANG_ABBREV[code?.toUpperCase()] || {}; return e[lang] || e.default || code?.toUpperCase() || '?'; };
 const _buildTranslateBadge = (src, tgt) => { const l = _uiLang(); return `${TRANSLATE_VERB[l] || TRANSLATE_VERB.en} · ${_abbrev(src, l)}→${_abbrev(tgt, l)}`; };
@@ -71,6 +109,45 @@ const _buildDictationBadge = (tgt) => { const l = _uiLang(); return `${DICTATION
 const _buildPromptLabel = (tgt) => { const l = _uiLang(); return (TRANSLATE_INTO_FN[l] || TRANSLATE_INTO_FN.en)(tgt?.toUpperCase()); };
 const _buildSpeakPromptLabel = (tgt) => { const l = _uiLang(); return (SPEAK_INTO_FN[l] || SPEAK_INTO_FN.en)(tgt?.toUpperCase()); };
 const _buildDictationPromptLabel = (tgt) => { const l = _uiLang(); return (DICTATION_INTO_FN[l] || DICTATION_INTO_FN.en)(tgt?.toUpperCase()); };
+
+const normalizeLangCode = (value, fallback = 'zh') => {
+    const normalized = String(value || '').trim().toLowerCase();
+    return LANG_CODE_ALIASES[normalized] || fallback;
+};
+
+const toLabelLangCode = (value, fallback = 'CN') => LABEL_CODE_ALIASES[normalizeLangCode(value, '')] || fallback;
+
+const pickFirstLang = (...values) => {
+    for (const value of values) {
+        const normalized = String(value || '').trim();
+        if (normalized) return normalized;
+    }
+    return '';
+};
+
+const resolveTargetLanguage = (metadata = {}, fallback = 'zh') => normalizeLangCode(
+    pickFirstLang(
+        metadata.target_language,
+        metadata.targetLanguage,
+        metadata.answer_language,
+        metadata.answerLanguage,
+        metadata.speech_language,
+        metadata.audio_language,
+    ),
+    fallback,
+);
+
+const resolveSupportLanguage = (metadata = {}, fallback = 'zh') => normalizeLangCode(
+    pickFirstLang(
+        metadata.support_language,
+        metadata.supportLanguage,
+        metadata.source_language,
+        metadata.sourceLanguage,
+        metadata.prompt_language,
+        metadata.promptLanguage,
+    ),
+    fallback,
+);
 
 const THEMES = {
     blue: {
@@ -127,6 +204,8 @@ const CONFIGS = {
         promptMode: 'text',
         answerMode: 'text',
         answerLanguage: 'en',
+        targetLanguage: 'en',
+        supportLanguage: 'zh',
         ttsLanguage: 'zh',
         autoPlayPrompt: true,
         replayPrompt: true,
@@ -139,6 +218,8 @@ const CONFIGS = {
         promptMode: 'text',
         answerMode: 'text',
         answerLanguage: 'zh',
+        targetLanguage: 'zh',
+        supportLanguage: 'en',
         ttsLanguage: 'en',
         replayPrompt: false,
         showKnowledgeCard: true,
@@ -150,6 +231,8 @@ const CONFIGS = {
         promptMode: 'text',
         answerMode: 'speech',
         answerLanguage: 'zh',
+        targetLanguage: 'zh',
+        supportLanguage: 'en',
         speechLanguage: 'zh',
         ttsLanguage: 'en',
         replayPrompt: false,
@@ -162,7 +245,10 @@ const CONFIGS = {
         promptMode: 'listen_write',
         answerMode: 'text',
         answerLanguage: 'zh',
+        targetLanguage: 'zh',
+        supportLanguage: 'en',
         audioLanguage: 'zh',
+        ttsLanguage: 'zh',
         showKnowledgeCard: true,
         theme: THEMES.indigo,
     },
@@ -172,6 +258,8 @@ const CONFIGS = {
         promptMode: 'pattern',
         answerMode: 'text',
         answerLanguage: 'en',
+        targetLanguage: 'en',
+        supportLanguage: 'zh',
         ttsLanguage: 'zh',
         replayPrompt: false,
         showKnowledgeCard: false,
@@ -183,6 +271,8 @@ const CONFIGS = {
         promptMode: 'pattern',
         answerMode: 'text',
         answerLanguage: 'en',
+        targetLanguage: 'en',
+        supportLanguage: 'zh',
         ttsLanguage: 'zh',
         replayPrompt: false,
         showKnowledgeCard: false,
@@ -194,6 +284,8 @@ const CONFIGS = {
         promptMode: 'text',
         answerMode: 'text',
         answerLanguage: 'zh',
+        targetLanguage: 'zh',
+        supportLanguage: 'en',
         ttsLanguage: 'en',
         replayPrompt: true,
         showKnowledgeCard: false,
@@ -205,7 +297,10 @@ const CONFIGS = {
         promptMode: 'listen_write',
         answerMode: 'text',
         answerLanguage: 'en',
+        targetLanguage: 'en',
+        supportLanguage: 'zh',
         audioLanguage: 'en',
+        ttsLanguage: 'en',
         showKnowledgeCard: false,
         theme: THEMES.indigo,
     },
@@ -215,6 +310,8 @@ const CONFIGS = {
         promptMode: 'text',
         answerMode: 'speech',
         answerLanguage: 'en',
+        targetLanguage: 'en',
+        supportLanguage: 'zh',
         speechLanguage: 'en',
         ttsLanguage: 'zh',
         replayPrompt: false,
@@ -229,100 +326,163 @@ const FALLBACK_CONFIG = {
     promptMode: 'text',
     answerMode: 'text',
     answerLanguage: 'en',
+    targetLanguage: 'en',
+    supportLanguage: 'zh',
     ttsLanguage: 'zh',
     showKnowledgeCard: false,
     theme: THEMES.blue,
 };
 
+const withResolvedLanguages = (config, metadata = {}) => {
+    const targetLanguage = resolveTargetLanguage(metadata, config.targetLanguage || config.answerLanguage || 'zh');
+    const supportLanguage = resolveSupportLanguage(
+        metadata,
+        config.supportLanguage || config.ttsLanguage || (targetLanguage === 'zh' ? 'en' : 'zh'),
+    );
+
+    return {
+        ...config,
+        answerLanguage: normalizeLangCode(config.answerLanguage || targetLanguage, targetLanguage),
+        targetLanguage,
+        supportLanguage,
+        speechLanguage: normalizeLangCode(metadata.speech_language || config.speechLanguage || targetLanguage, targetLanguage),
+        audioLanguage: normalizeLangCode(metadata.audio_language || config.audioLanguage || config.ttsLanguage || supportLanguage, supportLanguage),
+        ttsLanguage: normalizeLangCode(metadata.tts_language || config.ttsLanguage || config.audioLanguage || supportLanguage, supportLanguage),
+    };
+};
+
+const buildCanonicalSpeakConfig = (metadata = {}) => {
+    const targetLanguage = resolveTargetLanguage(metadata, normalizeLangCode(metadata.speech_language, 'zh'));
+    const supportLanguage = resolveSupportLanguage(
+        metadata,
+        normalizeLangCode(metadata.audio_language, targetLanguage === 'zh' ? 'en' : 'zh'),
+    );
+    const labelCode = toLabelLangCode(targetLanguage, 'CN');
+
+    return withResolvedLanguages({
+        promptMode: 'text',
+        answerMode: 'speech',
+        answerLanguage: targetLanguage,
+        targetLanguage,
+        supportLanguage,
+        speechLanguage: targetLanguage,
+        audioLanguage: supportLanguage,
+        ttsLanguage: supportLanguage,
+        replayPrompt: false,
+        autoPlayPrompt: false,
+        showKnowledgeCard: metadata.show_knowledge_card ?? targetLanguage === 'zh',
+        badgeLabel: _buildSpeakBadge(labelCode),
+        badgeKey: null,
+        promptLabel: _buildSpeakPromptLabel(labelCode),
+        promptLabelKey: null,
+        theme: targetLanguage === 'zh' ? THEMES.rose : THEMES.teal,
+    }, metadata);
+};
+
+const buildCanonicalListenWriteConfig = (metadata = {}) => {
+    const targetLanguage = resolveTargetLanguage(metadata, normalizeLangCode(metadata.audio_language, 'zh'));
+    const supportLanguage = resolveSupportLanguage(metadata, targetLanguage === 'zh' ? 'en' : 'zh');
+    const labelCode = toLabelLangCode(targetLanguage, 'CN');
+
+    return withResolvedLanguages({
+        promptMode: 'listen_write',
+        answerMode: 'text',
+        answerLanguage: targetLanguage,
+        targetLanguage,
+        supportLanguage,
+        audioLanguage: targetLanguage,
+        ttsLanguage: targetLanguage,
+        replayPrompt: false,
+        showKnowledgeCard: metadata.show_knowledge_card ?? targetLanguage === 'zh',
+        badgeLabel: _buildDictationBadge(labelCode),
+        badgeKey: null,
+        promptLabel: _buildDictationPromptLabel(labelCode),
+        promptLabelKey: null,
+        theme: THEMES.indigo,
+    }, metadata);
+};
+
 export const getQuestionTypeConfig = (question) => {
-    const type = question?.question_type;
+    const type = String(question?.question_type || '').trim().toUpperCase();
     const metadata = question?.metadata || {};
+
+    if (type === 'SPEAK') {
+        return buildCanonicalSpeakConfig(metadata);
+    }
+
+    if (type === 'LISTEN_WRITE') {
+        return buildCanonicalListenWriteConfig(metadata);
+    }
 
     const exact = CONFIGS[type];
     if (exact) {
-        return {
-            ...exact,
-            speechLanguage: metadata.speech_language || exact.speechLanguage || exact.answerLanguage || 'zh',
-            audioLanguage: metadata.audio_language || exact.audioLanguage || exact.ttsLanguage || 'zh',
-        };
+        return withResolvedLanguages(exact, metadata);
     }
 
     // Dynamic resolution for localized variants: CN_TO_JA, FR_TO_CN, JA_TO_CN_SPEAK, etc.
     let m;
-    if ((m = type?.match(/^CN_TO_(\w+)$/))) {
-        const tgt = m[1];
-        return {
+    if ((m = type.match(/^CN_TO_(\w+)$/))) {
+        const targetLanguage = normalizeLangCode(m[1], 'en');
+        const supportLanguage = 'zh';
+        const labelCode = toLabelLangCode(targetLanguage, 'EN');
+        return withResolvedLanguages({
             ...CONFIGS.CN_TO_EN,
-            badgeLabel: _buildTranslateBadge('CN', tgt),
+            badgeLabel: _buildTranslateBadge('CN', labelCode),
             badgeKey: null,
-            promptLabel: _buildPromptLabel(tgt),
+            promptLabel: _buildPromptLabel(labelCode),
             promptLabelKey: null,
-            answerLanguage: tgt.toLowerCase(),
-            speechLanguage: metadata.speech_language || tgt.toLowerCase(),
-            audioLanguage: metadata.audio_language || 'zh',
-        };
+            answerLanguage: targetLanguage,
+            targetLanguage,
+            supportLanguage,
+            speechLanguage: targetLanguage,
+            audioLanguage: supportLanguage,
+        }, metadata);
     }
-    if ((m = type?.match(/^(\w+)_TO_CN_SPEAK$/))) {
-        return {
-            ...CONFIGS.EN_TO_CN_SPEAK,
-            badgeLabel: _buildSpeakBadge('CN'),
-            badgeKey: null,
-            speechLanguage: metadata.speech_language || CONFIGS.EN_TO_CN_SPEAK.speechLanguage || 'zh',
-            audioLanguage: metadata.audio_language || m[1].toLowerCase(),
-        };
+    if ((m = type.match(/^(\w+)_TO_CN_SPEAK$/))) {
+        return buildCanonicalSpeakConfig({
+            ...metadata,
+            target_language: 'zh',
+            support_language: normalizeLangCode(m[1], 'en'),
+            speech_language: metadata.speech_language || 'zh',
+            audio_language: metadata.audio_language || normalizeLangCode(m[1], 'en'),
+            show_knowledge_card: metadata.show_knowledge_card ?? true,
+        });
     }
-    if ((m = type?.match(/^(\w+)_TO_CN$/))) {
-        const src = m[1];
-        const srcLang = src.toLowerCase();
-        return {
+    if ((m = type.match(/^(\w+)_TO_CN$/))) {
+        const supportLanguage = normalizeLangCode(m[1], 'en');
+        return withResolvedLanguages({
             ...CONFIGS.EN_TO_CN,
-            badgeLabel: _buildTranslateBadge(src, 'CN'),
+            badgeLabel: _buildTranslateBadge(toLabelLangCode(supportLanguage, 'EN'), 'CN'),
             badgeKey: null,
             promptLabel: _buildPromptLabel('CN'),
             promptLabelKey: null,
-            ttsLanguage: srcLang,
-            speechLanguage: metadata.speech_language || 'zh',
-            audioLanguage: metadata.audio_language || srcLang,
-        };
+            targetLanguage: 'zh',
+            supportLanguage,
+            ttsLanguage: supportLanguage,
+        }, metadata);
     }
-    if ((m = type?.match(/^(\w+)_LISTEN_WRITE$/))) {
-        const tgt = m[1];
-        const tgtLang = tgt.toLowerCase();
-        return {
-            ...CONFIGS.TARGET_LISTEN_WRITE,
-            badgeLabel: _buildDictationBadge(tgt),
-            badgeKey: null,
-            promptLabel: _buildDictationPromptLabel(tgt),
-            promptLabelKey: null,
-            answerLanguage: tgtLang,
-            audioLanguage: metadata.audio_language || tgtLang,
-            ttsLanguage: metadata.audio_language || tgtLang,
-            showKnowledgeCard: false,
-        };
+    if ((m = type.match(/^(\w+)_LISTEN_WRITE$/))) {
+        return buildCanonicalListenWriteConfig({
+            ...metadata,
+            target_language: normalizeLangCode(m[1], 'en'),
+            audio_language: metadata.audio_language || normalizeLangCode(m[1], 'en'),
+            support_language: metadata.support_language || metadata.source_language || 'zh',
+            show_knowledge_card: metadata.show_knowledge_card ?? false,
+        });
     }
-    if ((m = type?.match(/^(\w+)_SPEAK$/))) {
-        const tgt = m[1];
-        const tgtLang = tgt.toLowerCase();
-        return {
-            ...CONFIGS.TARGET_SPEAK,
-            badgeLabel: _buildSpeakBadge(tgt),
-            badgeKey: null,
-            promptLabel: _buildSpeakPromptLabel(tgt),
-            promptLabelKey: null,
-            answerLanguage: tgtLang,
-            speechLanguage: metadata.speech_language || tgtLang,
-            ttsLanguage: metadata.tts_language || 'zh',
-            audioLanguage: metadata.audio_language || 'zh',
-            showKnowledgeCard: false,
-        };
+    if ((m = type.match(/^(\w+)_SPEAK$/))) {
+        return buildCanonicalSpeakConfig({
+            ...metadata,
+            target_language: normalizeLangCode(m[1], 'en'),
+            speech_language: metadata.speech_language || normalizeLangCode(m[1], 'en'),
+            support_language: metadata.support_language || metadata.source_language || 'zh',
+            audio_language: metadata.audio_language || metadata.support_language || metadata.source_language || 'zh',
+            show_knowledge_card: metadata.show_knowledge_card ?? false,
+        });
     }
 
     const base = FALLBACK_CONFIG;
-    return {
-        ...base,
-        speechLanguage: metadata.speech_language || base.answerLanguage || 'zh',
-        audioLanguage: metadata.audio_language || base.ttsLanguage || 'zh',
-    };
+    return withResolvedLanguages(base, metadata);
 };
 
 export const isListenWriteQuestion = (question) =>

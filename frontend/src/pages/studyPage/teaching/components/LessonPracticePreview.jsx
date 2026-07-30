@@ -16,6 +16,8 @@ const TYPE_LABELS = {
     JA_TO_CN: '日译中',
     JA_LISTEN_WRITE: '听写',
     JA_SPEAK: '口说',
+    LISTEN_WRITE: '听写',
+    SPEAK: '口说',
     CONJUGATION: '活用',
 };
 
@@ -24,6 +26,8 @@ const TYPE_HINTS = {
     JA_TO_CN: '看日语，理解中文意思。',
     JA_LISTEN_WRITE: '听日语音频，写出原句。',
     JA_SPEAK: '看中文提示，说出日语。',
+    LISTEN_WRITE: '听目标语言音频，写出原句。',
+    SPEAK: '看支撑语言提示，说出目标语言。',
     CONJUGATION: '针对动词、形容词等做形式变化。',
 };
 

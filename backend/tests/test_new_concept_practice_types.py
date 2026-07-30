@@ -15,8 +15,8 @@ class NewConceptPracticeTypePromptTests(unittest.TestCase):
         expected_markers = {
             "PATTERN_DRILL": "correct English pattern sentence",
             "TARGET_TO_SUPPORT": "translation from English to Chinese",
-            "TARGET_LISTEN_WRITE": "English dictation",
-            "TARGET_SPEAK": "spoken English answer",
+            "LISTEN_WRITE": "dictation answer against the reference English sentence",
+            "SPEAK": "spoken English answer from ASR transcript",
         }
 
         for question_type, marker in expected_markers.items():

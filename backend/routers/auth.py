@@ -1,5 +1,5 @@
 import re, random, httpx, jwt, smtplib, traceback
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from email.mime.text import MIMEText
 from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel, EmailStr
@@ -65,6 +65,8 @@ class DeleteAccountReq(BaseModel):
 INTERFACE_LANGUAGE_HEADER = "X-Chilan-Interface-Language"
 AUTH_EMAIL_DEFAULT_LANG = "en"
 AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG = "en"
+VERIFICATION_CODE_TTL_MINUTES = 10
+VERIFICATION_CODE_TTL = timedelta(minutes=VERIFICATION_CODE_TTL_MINUTES)
 
 
 def get_db():
@@ -164,6 +166,79 @@ def record_login_event(db, user_id: str, provider: str, login_context: dict):
             login_context.get("device_info", "Unknown device"),
         )
     )
+
+
+def _verification_code_expired(created_at) -> bool:
+    if created_at is None:
+        return True
+    if isinstance(created_at, datetime):
+        created_dt = created_at
+    else:
+        return True
+    if created_dt.tzinfo is None:
+        created_dt = created_dt.replace(tzinfo=timezone.utc)
+    return datetime.now(timezone.utc) - created_dt > VERIFICATION_CODE_TTL
+
+
+def _delete_verification_code(db, email: str):
+    cur = db.cursor()
+    cur.execute("DELETE FROM verification_codes WHERE email = %s", (email,))
+
+
+def _delete_expired_verification_code(db, email: str):
+    _delete_verification_code(db, email)
+
+
+def _verification_code_error_message(kind: str, lang: str) -> str:
+    lang_key = normalize_auth_email_lang(lang) or AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG
+    messages = {
+        "invalid": {
+            "zh": "验证码无效，请重新输入。",
+            "en": "Invalid verification code. Please try again.",
+            "ja": "認証コードが正しくありません。もう一度入力してください。",
+            "fr": "Code de vérification invalide. Veuillez réessayer.",
+            "de": "Ungültiger Bestätigungscode. Bitte versuchen Sie es erneut.",
+            "ko": "인증 코드가 올바르지 않습니다. 다시 시도해 주세요.",
+            "es": "Código de verificación no válido. Inténtalo de nuevo.",
+            "vi": "Mã xác minh không hợp lệ. Vui lòng thử lại.",
+            "pt": "Código de verificação inválido. Tente novamente.",
+            "ar": "رمز التحقق غير صالح. يُرجى المحاولة مرة أخرى.",
+            "th": "รหัสยืนยันไม่ถูกต้อง กรุณาลองอีกครั้ง",
+            "ru": "Неверный код подтверждения. Попробуйте ещё раз.",
+            "id": "Kode verifikasi tidak valid. Silakan coba lagi.",
+            "ms": "Kod pengesahan tidak sah. Sila cuba lagi.",
+            "it": "Codice di verifica non valido. Riprova.",
+        },
+        "expired": {
+            "zh": f"验证码已过期，请重新获取。该验证码有效期为 {VERIFICATION_CODE_TTL_MINUTES} 分钟。",
+            "en": f"Verification code expired. Please request a new code. Valid for {VERIFICATION_CODE_TTL_MINUTES} minutes.",
+            "ja": f"認証コードの有効期限が切れています。新しいコードを再取得してください。このコードの有効期間は {VERIFICATION_CODE_TTL_MINUTES} 分です。",
+            "fr": f"Le code de vérification a expiré. Veuillez demander un nouveau code. Durée de validité : {VERIFICATION_CODE_TTL_MINUTES} minutes.",
+            "de": f"Der Bestätigungscode ist abgelaufen. Bitte fordern Sie einen neuen Code an. Gültig für {VERIFICATION_CODE_TTL_MINUTES} Minuten.",
+            "ko": f"인증 코드가 만료되었습니다. 새 코드를 다시 요청해 주세요. 유효 시간은 {VERIFICATION_CODE_TTL_MINUTES}분입니다.",
+            "es": f"El código de verificación ha caducado. Solicita un código nuevo. Válido durante {VERIFICATION_CODE_TTL_MINUTES} minutos.",
+            "vi": f"Mã xác minh đã hết hạn. Vui lòng yêu cầu mã mới. Mã có hiệu lực trong {VERIFICATION_CODE_TTL_MINUTES} phút.",
+            "pt": f"O código de verificação expirou. Solicite um novo código. Válido por {VERIFICATION_CODE_TTL_MINUTES} minutos.",
+            "ar": f"انتهت صلاحية رمز التحقق. يُرجى طلب رمز جديد. مدة الصلاحية {VERIFICATION_CODE_TTL_MINUTES} دقائق.",
+            "th": f"รหัสยืนยันหมดอายุแล้ว กรุณาขอรหัสใหม่ รหัสนี้มีอายุ {VERIFICATION_CODE_TTL_MINUTES} นาที",
+            "ru": f"Срок действия кода подтверждения истёк. Запросите новый код. Код действителен {VERIFICATION_CODE_TTL_MINUTES} минут.",
+            "id": f"Kode verifikasi telah kedaluwarsa. Silakan minta kode baru. Berlaku selama {VERIFICATION_CODE_TTL_MINUTES} menit.",
+            "ms": f"Kod pengesahan telah tamat tempoh. Sila minta kod baharu. Sah selama {VERIFICATION_CODE_TTL_MINUTES} minit.",
+            "it": f"Il codice di verifica è scaduto. Richiedi un nuovo codice. Valido per {VERIFICATION_CODE_TTL_MINUTES} minuti.",
+        },
+    }
+    bucket = messages.get(kind, messages["invalid"])
+    return bucket.get(lang_key, bucket[AUTH_EMAIL_UNSUPPORTED_FALLBACK_LANG])
+
+
+def _raise_if_verification_code_invalid(db, email: str, row, submitted_code: str, lang: str):
+    if not row or row[0] != submitted_code:
+        raise HTTPException(status_code=400, detail=_verification_code_error_message("invalid", lang))
+    created_at = row[1] if len(row) > 1 else None
+    if _verification_code_expired(created_at):
+        _delete_expired_verification_code(db, email)
+        db.commit()
+        raise HTTPException(status_code=400, detail=_verification_code_error_message("expired", lang))
 
 
 def get_recent_successful_login_logs(db, user_id: str, limit: int = 10):
@@ -443,21 +518,21 @@ AUTH_EMAIL_TEMPLATES = {
         "it": _auth_template("Attivazione account Chilan LRS", "Benvenuto su Chilan LRS", "Ecco il tuo codice di verifica della registrazione:", "Questo codice è valido per 10 minuti. Se non sei stato tu, ignora questa email."),
     },
     "reset": {
-        "zh": _auth_template("Chilan LRS 密码重置", "找回您的密码", "您正在尝试重置密码，验证码是：", "如果您并未尝试重置密码，请忽略此邮件。"),
-        "en": _auth_template("Chilan LRS Password Reset", "Reset Password", "Your reset code is:", "If you didn't request a reset, ignore this email."),
-        "ja": _auth_template("Chilan LRS パスワード再設定", "パスワードを再設定", "パスワード再設定の確認コードはこちらです：", "この操作に心当たりがない場合は、このメールを無視してください。"),
-        "fr": _auth_template("Réinitialisation du mot de passe Chilan LRS", "Réinitialisez votre mot de passe", "Voici votre code de réinitialisation du mot de passe :", "Si vous n'avez pas demandé cette réinitialisation, ignorez cet e-mail."),
-        "de": _auth_template("Chilan LRS Passwort zurücksetzen", "Setzen Sie Ihr Passwort zurück", "Hier ist Ihr Code zum Zurücksetzen des Passworts:", "Wenn Sie dies nicht angefordert haben, ignorieren Sie diese E-Mail."),
-        "ko": _auth_template("Chilan LRS 비밀번호 재설정", "비밀번호를 재설정하세요", "비밀번호 재설정 인증 코드는 다음과 같습니다:", "직접 요청한 것이 아니라면 이 메일을 무시하세요."),
-        "es": _auth_template("Restablecimiento de contraseña de Chilan LRS", "Restablece tu contraseña", "Este es tu código para restablecer la contraseña:", "Si no solicitaste este restablecimiento, ignora este correo."),
-        "vi": _auth_template("Đặt lại mật khẩu Chilan LRS", "Đặt lại mật khẩu của bạn", "Đây là mã đặt lại mật khẩu của bạn:", "Nếu bạn không yêu cầu thao tác này, hãy bỏ qua email này."),
-        "pt": _auth_template("Redefinição de senha do Chilan LRS", "Redefina sua senha", "Aqui está o seu código para redefinir a senha:", "Se você não solicitou isso, ignore este e-mail."),
-        "ar": _auth_template("إعادة تعيين كلمة مرور Chilan LRS", "أعد تعيين كلمة المرور", "إليك رمز إعادة تعيين كلمة المرور:", "إذا لم تطلب هذا الإجراء، فتجاهل هذا البريد الإلكتروني."),
-        "th": _auth_template("รีเซ็ตรหัสผ่าน Chilan LRS", "รีเซ็ตรหัสผ่านของคุณ", "นี่คือรหัสรีเซ็ตรหัสผ่านของคุณ:", "หากคุณไม่ได้ร้องขอรายการนี้ กรุณาเพิกเฉยอีเมลนี้"),
-        "ru": _auth_template("Сброс пароля Chilan LRS", "Сбросьте пароль", "Вот ваш код для сброса пароля:", "Если вы не запрашивали сброс, проигнорируйте это письмо."),
-        "id": _auth_template("Atur ulang kata sandi Chilan LRS", "Atur ulang kata sandi Anda", "Berikut kode untuk mengatur ulang kata sandi Anda:", "Jika Anda tidak meminta ini, abaikan email ini."),
-        "ms": _auth_template("Tetapkan semula kata laluan Chilan LRS", "Tetapkan semula kata laluan anda", "Berikut ialah kod tetapan semula kata laluan anda:", "Jika anda tidak meminta tindakan ini, abaikan e-mel ini."),
-        "it": _auth_template("Reimpostazione password Chilan LRS", "Reimposta la tua password", "Ecco il tuo codice per reimpostare la password:", "Se non hai richiesto questa operazione, ignora questa email."),
+        "zh": _auth_template("Chilan LRS 密码重置", "找回您的密码", "您正在尝试重置密码，验证码是：", "该验证码 10 分钟内有效。如果这不是您本人操作，请忽略此邮件。"),
+        "en": _auth_template("Chilan LRS Password Reset", "Reset Password", "Your reset code is:", "This verification code is valid for 10 minutes. If you didn't request a reset, ignore this email."),
+        "ja": _auth_template("Chilan LRS パスワード再設定", "パスワードを再設定", "パスワード再設定の確認コードはこちらです：", "この認証コードは10分間有効です。心当たりがない場合は、このメールを無視してください。"),
+        "fr": _auth_template("Réinitialisation du mot de passe Chilan LRS", "Réinitialisez votre mot de passe", "Voici votre code de réinitialisation du mot de passe :", "Ce code de vérification est valable 10 minutes. Si vous n'avez pas demandé cette réinitialisation, ignorez cet e-mail."),
+        "de": _auth_template("Chilan LRS Passwort zurücksetzen", "Setzen Sie Ihr Passwort zurück", "Hier ist Ihr Code zum Zurücksetzen des Passworts:", "Dieser Bestätigungscode ist 10 Minuten gültig. Wenn Sie dies nicht angefordert haben, ignorieren Sie diese E-Mail."),
+        "ko": _auth_template("Chilan LRS 비밀번호 재설정", "비밀번호를 재설정하세요", "비밀번호 재설정 인증 코드는 다음과 같습니다:", "이 인증 코드는 10분 동안 유효합니다. 직접 요청한 것이 아니라면 이 메일을 무시하세요."),
+        "es": _auth_template("Restablecimiento de contraseña de Chilan LRS", "Restablece tu contraseña", "Este es tu código para restablecer la contraseña:", "Este código de verificación es válido durante 10 minutos. Si no solicitaste este restablecimiento, ignora este correo."),
+        "vi": _auth_template("Đặt lại mật khẩu Chilan LRS", "Đặt lại mật khẩu của bạn", "Đây là mã đặt lại mật khẩu của bạn:", "Mã xác minh này có hiệu lực trong 10 phút. Nếu bạn không yêu cầu thao tác này, hãy bỏ qua email này."),
+        "pt": _auth_template("Redefinição de senha do Chilan LRS", "Redefina sua senha", "Aqui está o seu código para redefinir a senha:", "Este código de verificação é válido por 10 minutos. Se você não solicitou isso, ignore este e-mail."),
+        "ar": _auth_template("إعادة تعيين كلمة مرور Chilan LRS", "أعد تعيين كلمة المرور", "إليك رمز إعادة تعيين كلمة المرور:", "رمز التحقق هذا صالح لمدة 10 دقائق. إذا لم تطلب هذا الإجراء، فتجاهل هذا البريد الإلكتروني."),
+        "th": _auth_template("รีเซ็ตรหัสผ่าน Chilan LRS", "รีเซ็ตรหัสผ่านของคุณ", "นี่คือรหัสรีเซ็ตรหัสผ่านของคุณ:", "รหัสยืนยันนี้ใช้ได้ 10 นาที หากคุณไม่ได้ร้องขอรายการนี้ กรุณาเพิกเฉยอีเมลนี้"),
+        "ru": _auth_template("Сброс пароля Chilan LRS", "Сбросьте пароль", "Вот ваш код для сброса пароля:", "Этот код подтверждения действителен 10 минут. Если вы не запрашивали сброс, проигнорируйте это письмо."),
+        "id": _auth_template("Atur ulang kata sandi Chilan LRS", "Atur ulang kata sandi Anda", "Berikut kode untuk mengatur ulang kata sandi Anda:", "Kode verifikasi ini berlaku selama 10 menit. Jika Anda tidak meminta ini, abaikan email ini."),
+        "ms": _auth_template("Tetapkan semula kata laluan Chilan LRS", "Tetapkan semula kata laluan anda", "Berikut ialah kod tetapan semula kata laluan anda:", "Kod pengesahan ini sah selama 10 minit. Jika anda tidak meminta tindakan ini, abaikan e-mel ini."),
+        "it": _auth_template("Reimpostazione password Chilan LRS", "Reimposta la tua password", "Ecco il tuo codice per reimpostare la password:", "Questo codice di verifica è valido per 10 minuti. Se non hai richiesto questa operazione, ignora questa email."),
     },
     "unusual_login": {
         "zh": _auth_template("Chilan LRS 登录安全提醒", "检测到新的登录环境", "你的账号刚刚在新的设备和网络环境中完成登录。", "如果这是你本人操作，无需进一步处理；如果不是，请尽快修改密码并检查最近登录记录。"),
@@ -742,8 +817,10 @@ def try_send_auth_email(*args, **kwargs):
         send_auth_email(*args, **kwargs)
     except Exception as e:
         email_type = kwargs.get("email_type") or (args[2] if len(args) > 2 else "unknown")
-        print(f"[auth-mail] non-blocking send failed for type={email_type}: {repr(e)}")
-        traceback.print_exc()
+        print(
+            f"[auth-mail] non-blocking send failed "
+            f"type={email_type} error={type(e).__name__}: {e}"
+        )
 
 
 def try_send_unusual_login_email(to_email: str, provider: str, login_context: dict, lang: str = AUTH_EMAIL_DEFAULT_LANG):
@@ -816,14 +893,13 @@ async def signup(req: SignupReq, request: Request, db=Depends(get_db)):
 
 
 @router.post("/verify")
-async def verify(req: VerifyReq, db=Depends(get_db)):
+async def verify(req: VerifyReq, request: Request, db=Depends(get_db)):
     cur = db.cursor()
-    cur.execute("SELECT code FROM verification_codes WHERE email = %s", (req.email,))
+    cur.execute("SELECT code, created_at FROM verification_codes WHERE email = %s", (req.email,))
     row = cur.fetchone()
-    if not row or row[0] != req.code:
-        raise HTTPException(status_code=400, detail="Invalid code")
+    _raise_if_verification_code_invalid(db, req.email, row, req.code, resolve_auth_email_lang(request=request))
     cur.execute("UPDATE users SET is_active = TRUE WHERE email = %s", (req.email,))
-    cur.execute("DELETE FROM verification_codes WHERE email = %s", (req.email,))
+    _delete_verification_code(db, req.email)
     db.commit()
     return {"status": "success"}
 
@@ -884,12 +960,11 @@ async def forgot_password(req: ForgotReq, request: Request, db=Depends(get_db)):
 @router.post("/reset-password")
 async def reset_password(req: ResetReq, request: Request, db=Depends(get_db)):
     cur = db.cursor()
-    cur.execute("SELECT code FROM verification_codes WHERE email = %s", (req.email,))
+    cur.execute("SELECT code, created_at FROM verification_codes WHERE email = %s", (req.email,))
     row = cur.fetchone()
-    if not row or row[0] != req.code:
-        raise HTTPException(status_code=400, detail="Invalid code")
+    _raise_if_verification_code_invalid(db, req.email, row, req.code, resolve_auth_email_lang(request=request))
     cur.execute("UPDATE users SET password_hash = %s WHERE email = %s", (get_password_hash(req.new_password), req.email))
-    cur.execute("DELETE FROM verification_codes WHERE email = %s", (req.email,))
+    _delete_verification_code(db, req.email)
     db.commit()
     try_send_password_changed_email(
         req.email,

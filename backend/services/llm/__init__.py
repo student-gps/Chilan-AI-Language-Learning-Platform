@@ -72,8 +72,8 @@ class LanguageTools:
                 pm.record("Tier 2 (FAILED)", 0)
             raise
 
-    async def judge_with_ai(self, q_type: str, question: str, user_ans: str, standards: list, pm=None):
-        template = get_eval_prompt(q_type)
+    async def judge_with_ai(self, q_type: str, question: str, user_ans: str, standards: list, pm=None, metadata=None):
+        template = get_eval_prompt(q_type, metadata=metadata)
         prompt = template.format(question=question, user_answer=user_ans, standards=standards)
         return await self.engine.generate_json(prompt, pm=pm)
 
