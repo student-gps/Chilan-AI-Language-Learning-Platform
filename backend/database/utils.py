@@ -47,6 +47,19 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    
+
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, _get_secret_key(), algorithm=ALGORITHM)
+
+
+def decode_access_token_subject(token: str) -> str | None:
+    """验证访问令牌并返回其中的用户 ID；无效令牌返回 None。"""
+    try:
+        payload = jwt.decode(token, _get_secret_key(), algorithms=[ALGORITHM])
+    except JWTError:
+        return None
+
+    subject = payload.get("sub")
+    if not isinstance(subject, str) or not subject.strip():
+        return None
+    return subject

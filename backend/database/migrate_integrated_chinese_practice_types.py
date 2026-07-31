@@ -359,9 +359,23 @@ def sync_changed_files(changed_files: Iterable[FileReport]) -> list[str]:
     _ensure_utf8_console()
     from database.sync_to_db import EmbeddingFactory, sync_lesson_data
 
+    files = list(changed_files)
     provider = EmbeddingFactory.create_provider()
     failures: list[str] = []
-    for report in changed_files:
+    active_lang = ""
+    total = len(files)
+
+    for index, report in enumerate(files, start=1):
+        if report.lang != active_lang:
+            active_lang = report.lang
+            print(f"\n=== Syncing {active_lang.upper()} artifacts ===", flush=True)
+
+        lesson_id = _lesson_id(report.path)
+        print(
+            f"[{index}/{total}] {active_lang.upper()} lesson={lesson_id or '?'} "
+            f"{report.path.name}",
+            flush=True,
+        )
         try:
             synced = sync_lesson_data(
                 str(report.path),
@@ -374,6 +388,350 @@ def sync_changed_files(changed_files: Iterable[FileReport]) -> list[str]:
         if not synced:
             failures.append(f"{report.path}: sync_to_db returned false")
     return failures
+
+
+@dataclass
+class DbPatchTarget:
+    path: Path
+    directory_lang: str
+    support_language: str
+    course_id: int
+    lesson_id: int
+    payload: dict
+    source_priority: int
+
+
+@dataclass
+class DbPatchFileReport:
+    target: DbPatchTarget
+    matched: int = 0
+    updated: int = 0
+    already_correct: int = 0
+    failure: str = ""
+
+
+@dataclass
+class DbPatchSummary:
+    targets: int = 0
+    updated: int = 0
+    already_correct: int = 0
+    failures: list[str] = field(default_factory=list)
+    skipped_duplicates: list[str] = field(default_factory=list)
+
+
+def _int_from_value(value: Any) -> int | None:
+    if isinstance(value, int):
+        return value
+    match = re.search(r"\d+", str(value or ""))
+    return int(match.group(0)) if match else None
+
+
+def _artifact_support_language(payload: dict, directory_lang: str) -> str:
+    localization = payload.get("localization")
+    localization = localization if isinstance(localization, dict) else {}
+    lesson_metadata = payload.get("lesson_metadata")
+    lesson_metadata = lesson_metadata if isinstance(lesson_metadata, dict) else {}
+    candidates = (
+        localization.get("target_lang"),
+        directory_lang,
+        payload.get("support_language"),
+        lesson_metadata.get("support_language"),
+    )
+    for candidate in candidates:
+        normalized = _normalize_lang(candidate)
+        if normalized:
+            return normalized
+    return ""
+
+
+def _resolve_db_course_id(cur, support_language: str) -> int:
+    if support_language == "en":
+        return 1
+
+    category = f"{support_language.upper()}_TO_CN"
+    cur.execute(
+        """
+        SELECT course_id
+        FROM courses
+        WHERE category = %s AND lower(target_language) = 'chinese'
+        ORDER BY course_id
+        """,
+        (category,),
+    )
+    rows = cur.fetchall()
+    if len(rows) == 1:
+        row = rows[0]
+        return int(row["course_id"] if isinstance(row, dict) else row[0])
+    if not rows:
+        raise MigrationError(
+            f"No Chinese course found for support_language={support_language!r} "
+            f"(expected category={category!r})."
+        )
+    raise MigrationError(
+        f"Multiple Chinese courses found for support_language={support_language!r}: {rows}"
+    )
+
+
+def _canonical_items_for_db(payload: dict) -> list[dict]:
+    items = payload.get("database_items")
+    if not isinstance(items, list):
+        return []
+
+    selected = []
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            continue
+        question_type = str(item.get("question_type") or "").strip().upper()
+        if question_type not in {"SPEAK", "LISTEN_WRITE"}:
+            continue
+        question_id = _int_from_value(item.get("question_id"))
+        metadata = item.get("metadata")
+        if question_id is None:
+            raise MigrationError(f"item[{index}] {question_type} has no valid question_id")
+        if not isinstance(metadata, dict):
+            raise MigrationError(f"item[{index}] {question_type} has no metadata object")
+        _validate_payload({"database_items": [item]}, {"database_items": [item]})
+        selected.append({
+            "question_id": question_id,
+            "question_type": question_type,
+            "standard_answers": item.get("standard_answers") or [],
+            "metadata": metadata,
+        })
+    return selected
+
+
+def _normalize_answers(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(answer).strip() for answer in value]
+
+
+def _build_db_patch_targets(cur, langs: Iterable[str], lessons: set[int], include_output_json: bool) -> tuple[list[DbPatchTarget], list[str]]:
+    targets_by_key: dict[tuple[int, int], DbPatchTarget] = {}
+    failures: list[str] = []
+    course_id_cache: dict[str, int] = {}
+    artifacts = list(iter_artifacts(
+        langs=langs,
+        lessons=lessons,
+        include_output_json=include_output_json,
+    ))
+    total = len(artifacts)
+    print(f"Preflight: resolving {total} JSON artifacts and target courses...", flush=True)
+
+    for index, (path, directory_lang) in enumerate(artifacts, start=1):
+        if index == 1 or index == total or index % 25 == 0:
+            print(
+                f"[preflight {index}/{total}] {directory_lang.upper()} {path.name}",
+                flush=True,
+            )
+        try:
+            with open(path, encoding="utf-8") as handle:
+                payload = json.load(handle)
+            support_language = _artifact_support_language(payload, directory_lang)
+            if not support_language:
+                raise MigrationError("could not resolve support language")
+            lesson_metadata = payload.get("lesson_metadata")
+            lesson_metadata = lesson_metadata if isinstance(lesson_metadata, dict) else {}
+            lesson_id = _int_from_value(lesson_metadata.get("lesson_id")) or _lesson_id(path)
+            if lesson_id is None:
+                raise MigrationError("could not resolve lesson_id")
+            course_id = course_id_cache.get(support_language)
+            if course_id is None:
+                course_id = _resolve_db_course_id(cur, support_language)
+                course_id_cache[support_language] = course_id
+            key = (course_id, lesson_id)
+            source_priority = 0 if PRIMARY_ARTIFACT_ROOT in path.parents else 1
+            target = DbPatchTarget(
+                path=path,
+                directory_lang=directory_lang,
+                support_language=support_language,
+                course_id=course_id,
+                lesson_id=lesson_id,
+                payload=payload,
+                source_priority=source_priority,
+            )
+            existing = targets_by_key.get(key)
+            if existing is None or target.source_priority < existing.source_priority:
+                targets_by_key[key] = target
+        except (OSError, json.JSONDecodeError, MigrationError) as exc:
+            failures.append(f"{path}: {exc}")
+
+    return (
+        sorted(
+            targets_by_key.values(),
+            key=lambda target: (target.directory_lang, target.lesson_id, target.path.name),
+        ),
+        failures,
+    )
+
+
+def _patch_db_target(cur, target: DbPatchTarget, apply: bool) -> DbPatchFileReport:
+    report = DbPatchFileReport(target=target)
+    for item in _canonical_items_for_db(target.payload):
+        cur.execute(
+            """
+            SELECT item_id, question_type, standard_answers, metadata
+            FROM language_items
+            WHERE course_id = %s AND lesson_id = %s AND question_id = %s
+            """,
+            (target.course_id, target.lesson_id, item["question_id"]),
+        )
+        row = cur.fetchone()
+        if not row:
+            raise MigrationError(
+                f"question_id={item['question_id']} is missing from language_items "
+                f"for course={target.course_id}, lesson={target.lesson_id}"
+            )
+
+        db_answers = row["standard_answers"] if isinstance(row, dict) else row[2]
+        if _normalize_answers(db_answers) != _normalize_answers(item["standard_answers"]):
+            raise MigrationError(
+                f"question_id={item['question_id']} standard_answers differ between JSON and database"
+            )
+
+        item_id = row["item_id"] if isinstance(row, dict) else row[0]
+        db_type = row["question_type"] if isinstance(row, dict) else row[1]
+        db_metadata = row["metadata"] if isinstance(row, dict) else row[3]
+        merged_metadata = dict(db_metadata) if isinstance(db_metadata, dict) else {}
+        merged_metadata.update(item["metadata"])
+        report.matched += 1
+
+        if db_type == item["question_type"] and db_metadata == merged_metadata:
+            report.already_correct += 1
+            continue
+
+        report.updated += 1
+        if apply:
+            from psycopg2.extras import Json
+
+            cur.execute(
+                """
+                UPDATE language_items
+                SET question_type = %s, metadata = %s
+                WHERE item_id = %s
+                """,
+                (item["question_type"], Json(merged_metadata), item_id),
+            )
+            if cur.rowcount != 1:
+                raise MigrationError(f"question_id={item['question_id']} update did not affect exactly one row")
+
+    return report
+
+
+def _verify_direct_db_patch(cur, course_ids: Iterable[int]) -> dict[int, dict[str, int]]:
+    verification: dict[int, dict[str, int]] = {}
+    for course_id in sorted(set(course_ids)):
+        cur.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM language_items
+            WHERE course_id = %s
+              AND (question_type ~ '^[A-Z]+_TO_CN_SPEAK$' OR question_type = 'CN_LISTEN_WRITE')
+            """,
+            (course_id,),
+        )
+        legacy_row = cur.fetchone()
+        legacy = int(legacy_row["count"] if isinstance(legacy_row, dict) else legacy_row[0])
+
+        cur.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM language_items
+            WHERE course_id = %s
+              AND (
+                (question_type = 'SPEAK' AND (
+                  metadata->>'answer_mode' IS DISTINCT FROM 'speech' OR
+                  metadata->>'target_language' IS DISTINCT FROM 'zh' OR
+                  COALESCE(metadata->>'support_language', '') = '' OR
+                  metadata->>'speech_language' IS DISTINCT FROM 'zh' OR
+                  COALESCE(metadata->>'audio_language', '') = ''
+                ))
+                OR
+                (question_type = 'LISTEN_WRITE' AND (
+                  metadata->>'answer_mode' IS DISTINCT FROM 'text' OR
+                  metadata->>'target_language' IS DISTINCT FROM 'zh' OR
+                  COALESCE(metadata->>'support_language', '') = '' OR
+                  metadata->>'audio_language' IS DISTINCT FROM 'zh'
+                ))
+              )
+            """,
+            (course_id,),
+        )
+        metadata_row = cur.fetchone()
+        verification[course_id] = {
+            "legacy": legacy,
+            "invalid_metadata": int(metadata_row["count"] if isinstance(metadata_row, dict) else metadata_row[0]),
+        }
+    return verification
+
+
+def run_direct_db_patch(
+    *,
+    langs: Iterable[str],
+    lessons: set[int],
+    include_output_json: bool,
+    apply: bool,
+    start_after: int | None,
+    continue_on_error: bool,
+) -> tuple[DbPatchSummary, dict[int, dict[str, int]]]:
+    from psycopg2.extras import RealDictCursor
+    from database.connection import get_connection
+
+    _ensure_utf8_console()
+    conn = get_connection()
+    summary = DbPatchSummary()
+    try:
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        targets, preflight_failures = _build_db_patch_targets(cur, langs, lessons, include_output_json)
+        summary.failures.extend(preflight_failures)
+        if preflight_failures and not continue_on_error:
+            return summary, {}
+
+        if start_after is not None:
+            targets = [target for target in targets if target.lesson_id > start_after]
+
+        summary.targets = len(targets)
+        total = len(targets)
+        active_lang = ""
+        for index, target in enumerate(targets, start=1):
+            if target.directory_lang != active_lang:
+                active_lang = target.directory_lang
+                print(f"\n=== Direct patch {active_lang.upper()} artifacts ===", flush=True)
+            print(
+                f"[{index}/{total}] {active_lang.upper()} lesson={target.lesson_id} | "
+                f"course={target.course_id} {target.path.name}",
+                flush=True,
+            )
+            try:
+                report = _patch_db_target(cur, target, apply=apply)
+                if apply:
+                    conn.commit()
+                    print(
+                        f"[{index}/{total}] committed | matched={report.matched} "
+                        f"updated={report.updated} already={report.already_correct}",
+                        flush=True,
+                    )
+                else:
+                    conn.rollback()
+                    print(
+                        f"[{index}/{total}] dry-run | matched={report.matched} "
+                        f"would_update={report.updated} already={report.already_correct}",
+                        flush=True,
+                    )
+                summary.updated += report.updated
+                summary.already_correct += report.already_correct
+            except Exception as exc:
+                conn.rollback()
+                message = f"{target.directory_lang.upper()} lesson={target.lesson_id} {target.path}: {exc}"
+                summary.failures.append(message)
+                print(f"[{index}/{total}] failed | {exc}", flush=True)
+                if not continue_on_error:
+                    break
+
+        verification = _verify_direct_db_patch(cur, [target.course_id for target in targets]) if apply else {}
+        return summary, verification
+    finally:
+        conn.close()
 
 
 def _available_languages(include_output_json: bool) -> list[str]:
@@ -389,7 +747,7 @@ def _available_languages(include_output_json: bool) -> list[str]:
     return sorted(languages)
 
 
-def _print_report(report: MigrationReport, dry_run: bool) -> None:
+def _print_report(report: MigrationReport, dry_run: bool, verbose_files: bool = True) -> None:
     mode = "DRY-RUN" if dry_run else "APPLIED"
     print(f"\n=== {mode}: Integrated Chinese practice-type migration ===")
     print(
@@ -404,12 +762,13 @@ def _print_report(report: MigrationReport, dry_run: bool) -> None:
     )
     for lang, changes in sorted(report.per_language.items()):
         print(f"  {lang}: {changes} item changes")
-    for item in report.changed_files:
-        print(
-            f"  {'[DRY] ' if dry_run else ''}{item.path}: "
-            f"speak={item.legacy_speak}, listen_write={item.legacy_listen_write}, "
-            f"metadata={item.metadata_repaired}"
-        )
+    if verbose_files:
+        for item in report.changed_files:
+            print(
+                f"  {'[DRY] ' if dry_run else ''}{item.path}: "
+                f"speak={item.legacy_speak}, listen_write={item.legacy_listen_write}, "
+                f"metadata={item.metadata_repaired}"
+            )
     if report.unresolved:
         print("\nUnresolved items (no files were written for these cases):")
         for issue in report.unresolved:
@@ -465,10 +824,35 @@ def main() -> None:
         action="store_true",
         help="Re-sync already-migrated JSON artifacts to PostgreSQL without rewriting JSON.",
     )
+    parser.add_argument(
+        "--dry-run-db",
+        action="store_true",
+        help="Preview direct language_items patches without writing JSON or PostgreSQL.",
+    )
+    parser.add_argument(
+        "--patch-db",
+        action="store_true",
+        help="Directly patch language_items question_type and metadata without sync_to_db, R2, or embeddings.",
+    )
+    parser.add_argument(
+        "--start-after",
+        type=int,
+        default=None,
+        metavar="LESSON_ID",
+        help="In direct DB patch mode, skip lessons through this ID in each language folder.",
+    )
+    parser.add_argument(
+        "--continue-on-error",
+        action="store_true",
+        help="In direct DB patch mode, record a failed lesson and continue to later lessons.",
+    )
     args = parser.parse_args()
 
+    direct_db_mode = args.dry_run_db or args.patch_db
     if args.sync_db and not args.apply_json:
         parser.error("--sync-db requires --apply-json so DB data cannot get ahead of the JSON source.")
+    if direct_db_mode and (args.sync_db or args.sync_existing_db or args.apply_json):
+        parser.error("--dry-run-db/--patch-db cannot be combined with JSON migration or sync_to_db options.")
     if args.sync_existing_db and (args.sync_db or args.apply_json):
         parser.error("--sync-existing-db cannot be combined with --sync-db or --apply-json.")
     if args.overwrite_backup and not args.apply_json:
@@ -484,6 +868,33 @@ def main() -> None:
 
     report = MigrationReport()
     lessons = set(args.lesson)
+    if direct_db_mode:
+        summary, verification = run_direct_db_patch(
+            langs=langs,
+            lessons=lessons,
+            include_output_json=args.include_output_json,
+            apply=args.patch_db,
+            start_after=args.start_after,
+            continue_on_error=args.continue_on_error,
+        )
+        mode = "PATCHED" if args.patch_db else "DRY-RUN"
+        print(
+            f"\n=== Direct DB {mode} summary ===\n"
+            f"targets={summary.targets} updated={summary.updated} "
+            f"already_correct={summary.already_correct} failures={len(summary.failures)}"
+        )
+        for course_id, result in sorted(verification.items()):
+            print(
+                f"  course={course_id}: legacy={result['legacy']} "
+                f"invalid_metadata={result['invalid_metadata']}"
+            )
+        if summary.failures:
+            print("\nDirect DB patch failures:")
+            for failure in summary.failures:
+                print(f"  - {failure}")
+            raise SystemExit("Direct DB patch completed with failures.")
+        return
+
     if args.sync_existing_db:
         report.changed_files = [
             FileReport(path=path, lang=lang, changed=True)
@@ -512,7 +923,11 @@ def main() -> None:
                 file_report = FileReport(path=path, lang=lang, unresolved=[str(exc)])
             report.add(file_report)
 
-    _print_report(report, dry_run=not args.apply_json and not args.sync_existing_db)
+    _print_report(
+        report,
+        dry_run=not args.apply_json and not args.sync_existing_db,
+        verbose_files=not args.sync_existing_db,
+    )
     if report.unresolved:
         raise SystemExit("Migration stopped: resolve the listed items before applying or syncing.")
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { clearAuthStorage } from '../utils/authStorage';
+import { clearAuthStorage, getValidToken } from '../utils/authStorage';
 
 const INTERFACE_LANGUAGE_HEADER = 'X-Chilan-Interface-Language';
 
@@ -18,12 +18,15 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
   const lang = getInterfaceLanguage();
+  const token = getValidToken();
   if (config.headers?.set) {
     config.headers.set(INTERFACE_LANGUAGE_HEADER, lang);
+    if (token) config.headers.set('Authorization', `Bearer ${token}`);
   } else {
     config.headers = {
       ...(config.headers || {}),
       [INTERFACE_LANGUAGE_HEADER]: lang,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
   }
   return config;

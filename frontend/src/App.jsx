@@ -1,6 +1,8 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
+import { preloadCoursePage } from './coursePageLoader';
+
 // 导入组件
 import Navbar from './components/Navbar';
 import { getValidToken } from './utils/authStorage';
@@ -21,7 +23,8 @@ const PinyinPage = lazy(() => import('./pages/PinyinPage'));
 const CourseIntroPage = lazy(() => import('./pages/CourseIntroPage'));
 const HanziIntroPage = lazy(() => import('./pages/HanziIntroPage'));
 const TypingIntroPage = lazy(() => import('./pages/TypingIntroPage'));
-const CoursePage = lazy(() => import('./pages/CoursePage'));
+
+const CoursePage = lazy(preloadCoursePage);
 
 const ProtectedRoute = ({ children }) => {
   const token = getValidToken();

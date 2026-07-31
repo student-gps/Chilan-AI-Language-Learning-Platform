@@ -12,8 +12,10 @@ import {
     coursesQuery,
     myCoursesQuery,
     classroomStatsQuery,
+    lessonsQuery,
     queryKeys,
 } from '../api/queries';
+import { preloadCoursePage } from '../coursePageLoader';
 import { getAuthState } from '../utils/authStorage';
 
 // 通用底纹
@@ -486,7 +488,7 @@ export default function Classroom() {
     // ── 取消/暂停课程 mutation ────────────────────────────────────────────────
     const removeMutation = useMutation({
         mutationFn: ({ courseId, action }) => apiClient.delete('/courses/enroll', {
-            data: { user_id: userId, course_id: Number(courseId), action },
+            data: { course_id: Number(courseId), action },
         }),
         onMutate: ({ courseId }) => setRemovingCourseId(courseId),
         onSuccess: () => {
@@ -551,6 +553,29 @@ export default function Classroom() {
         () => new Set(myCourses.map((course) => course.id)),
         [myCourses]
     );
+
+    const resolveCourseForNavigation = React.useCallback((course) => (
+        allCourses.find((candidate) => String(candidate.id) === String(course?.id)) || course
+    ), [allCourses]);
+
+    const prefetchCourse = React.useCallback((course) => {
+        const selectedCourse = resolveCourseForNavigation(course);
+        if (!selectedCourse?.id) return;
+
+        queryClient.setQueryData(queryKeys.course(selectedCourse.id), selectedCourse);
+        void queryClient.prefetchQuery(lessonsQuery(selectedCourse.id));
+        void preloadCoursePage().catch(() => {});
+    }, [queryClient, resolveCourseForNavigation]);
+
+    const openCourse = React.useCallback((course) => {
+        const selectedCourse = resolveCourseForNavigation(course);
+        if (!selectedCourse?.id) return;
+
+        prefetchCourse(selectedCourse);
+        navigate(`/course/${selectedCourse.id}`, {
+            state: { course: selectedCourse },
+        });
+    }, [navigate, prefetchCourse, resolveCourseForNavigation]);
 
     const handleRemoveCourse = (courseId, action = 'pause') => {
         if (!userId || removingCourseId) return;
@@ -693,7 +718,8 @@ export default function Classroom() {
                                                     {t('course_remove_learning')}
                                                 </button>
                                             }
-                                            onClick={() => navigate(`/course/${course.id}`)}
+                                            onClick={() => openCourse(course)}
+                                            onPrefetch={() => prefetchCourse(course)}
                                             isInteractive
                                         />
                                     </div>
@@ -743,7 +769,8 @@ export default function Classroom() {
                                                     {t('classroom_added')}
                                                 </span>
                                             ) : null}
-                                            onClick={() => navigate(`/course/${course.id}`)}
+                                            onClick={() => openCourse(course)}
+                                            onPrefetch={() => prefetchCourse(course)}
                                             isInteractive
                                         />
                                     );
@@ -843,6 +870,7 @@ function CourseCard({
     masteredCount,
     actionButton = null,
     onClick,
+    onPrefetch,
     isInteractive = false,
 }) {
     const { t, i18n } = useTranslation();
@@ -864,6 +892,8 @@ function CourseCard({
         <motion.div
             variants={variants}
             whileHover={{ y: -6, scale: 1.01 }}
+            onPointerEnter={onPrefetch}
+            onPointerDown={onPrefetch}
             onClick={onClick}
             className={`rounded-3xl overflow-hidden shadow-lg ${visual.shadowClass} border border-white/60 ${isInteractive ? 'cursor-pointer group' : ''}`}
         >

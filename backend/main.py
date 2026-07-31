@@ -3,6 +3,7 @@ import json
 import tempfile
 from pathlib import Path
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, StreamingResponse
 from pydantic import BaseModel
@@ -11,6 +12,7 @@ from typing import List
 # 🌟 1. 挂载路由（所有的 /study/... 和 /auth/... 逻辑都已移入这两个文件）
 from routers import auth, study
 from database.connection import get_connection
+from database.utils import decode_access_token_subject
 from config.env import get_env
 from services.course_enrollment_service import (
     ACTIVE_COURSE_STATUS,
@@ -248,8 +250,36 @@ def get_db():
         conn.close()
 
 # --- 📦 业务请求模型 ---
+_bearer_scheme = HTTPBearer(auto_error=False)
+
+
+def require_current_user_id(
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+) -> str:
+    if credentials is None or credentials.scheme.lower() != "bearer":
+        raise HTTPException(
+            status_code=401,
+            detail="Authentication required",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    user_id = decode_access_token_subject(credentials.credentials)
+    if not user_id:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid or expired access token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return user_id
+
+
+def require_matching_user_id(path_user_id: str, current_user_id: str) -> None:
+    if path_user_id != current_user_id:
+        raise HTTPException(status_code=403, detail="Cannot access another user's data")
+
+
 class EnrollReq(BaseModel):
-    user_id: str
+    user_id: str | None = None
     course_id: int
     action: str = "pause"
 
@@ -644,7 +674,12 @@ async def get_course(course_id: int, db=Depends(get_db)):
     return _serialize_course(row)
 
 @app.get("/my-courses/{user_id}")
-async def get_my_courses(user_id: str, db=Depends(get_db)):
+async def get_my_courses(
+    user_id: str,
+    current_user_id: str = Depends(require_current_user_id),
+    db=Depends(get_db),
+):
+    require_matching_user_id(user_id, current_user_id)
     cur = db.cursor()
     # 🌟 关联查询用户课程、课时推进进度及 FSRS 掌握进度
     query = """
@@ -723,12 +758,19 @@ async def get_my_courses(user_id: str, db=Depends(get_db)):
     } for r in cur.fetchall()]
 
 @app.post("/courses/enroll")
-async def enroll_course(req: EnrollReq, db=Depends(get_db)):
+async def enroll_course(
+    req: EnrollReq,
+    current_user_id: str = Depends(require_current_user_id),
+    db=Depends(get_db),
+):
+    if req.user_id is not None:
+        require_matching_user_id(req.user_id, current_user_id)
+    user_id = current_user_id
     cur = db.cursor()
     try:
         cur.execute(
             "SELECT status FROM user_courses WHERE user_id::text = %s AND course_id = %s",
-            (req.user_id, req.course_id)
+            (user_id, req.course_id)
         )
         existing = cur.fetchone()
         if existing and existing[0] == ACTIVE_COURSE_STATUS:
@@ -737,7 +779,7 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
 
         cur.execute(
             "SELECT COUNT(*) FROM user_courses WHERE user_id::text = %s AND status = %s",
-            (req.user_id, ACTIVE_COURSE_STATUS)
+            (user_id, ACTIVE_COURSE_STATUS)
         )
         active_course_count = cur.fetchone()[0]
         if active_course_count >= MAX_ACTIVE_COURSES:
@@ -754,12 +796,12 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
                 SET status = %s
                 WHERE user_id::text = %s AND course_id = %s
                 """,
-                (ACTIVE_COURSE_STATUS, req.user_id, req.course_id)
+                (ACTIVE_COURSE_STATUS, user_id, req.course_id)
             )
         else:
             cur.execute(
                 "INSERT INTO user_courses (user_id, course_id, status) VALUES (%s, %s, %s)",
-                (req.user_id, req.course_id, ACTIVE_COURSE_STATUS)
+                (user_id, req.course_id, ACTIVE_COURSE_STATUS)
             )
         
         lesson_bounds = get_lesson_id_bounds(cur, req.course_id)
@@ -774,7 +816,7 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
         cur.execute("""
             INSERT INTO user_progress_of_lessons (user_id, course_id, last_completed_lesson_id)
             VALUES (%s, %s, %s) ON CONFLICT DO NOTHING
-        """, (req.user_id, req.course_id, initial_completed_lesson_id))
+        """, (user_id, req.course_id, initial_completed_lesson_id))
 
         if last_lesson_id is not None:
             cur.execute(
@@ -787,7 +829,7 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
                   AND course_id = %s
                   AND COALESCE(last_completed_lesson_id, 0) > %s
                 """,
-                (initial_completed_lesson_id, req.user_id, req.course_id, last_lesson_id),
+                (initial_completed_lesson_id, user_id, req.course_id, last_lesson_id),
             )
         
         db.commit()
@@ -799,7 +841,14 @@ async def enroll_course(req: EnrollReq, db=Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.delete("/courses/enroll")
-async def unenroll_course(req: EnrollReq, db=Depends(get_db)):
+async def unenroll_course(
+    req: EnrollReq,
+    current_user_id: str = Depends(require_current_user_id),
+    db=Depends(get_db),
+):
+    if req.user_id is not None:
+        require_matching_user_id(req.user_id, current_user_id)
+    user_id = current_user_id
     cur = db.cursor()
     try:
         action = (req.action or "pause").strip().lower()
@@ -812,19 +861,19 @@ async def unenroll_course(req: EnrollReq, db=Depends(get_db)):
                   AND p.user_id::text = %s
                   AND li.course_id = %s
                 """,
-                (req.user_id, req.course_id)
+                (user_id, req.course_id)
             )
             cur.execute(
                 "DELETE FROM review_logs WHERE user_id::text = %s AND course_id = %s",
-                (req.user_id, req.course_id)
+                (user_id, req.course_id)
             )
             cur.execute(
                 "DELETE FROM user_progress_of_lessons WHERE user_id::text = %s AND course_id = %s",
-                (req.user_id, req.course_id)
+                (user_id, req.course_id)
             )
             cur.execute(
                 "DELETE FROM user_courses WHERE user_id::text = %s AND course_id = %s",
-                (req.user_id, req.course_id)
+                (user_id, req.course_id)
             )
         else:
             cur.execute(
@@ -835,7 +884,7 @@ async def unenroll_course(req: EnrollReq, db=Depends(get_db)):
                   AND course_id = %s
                   AND status <> %s
                 """,
-                (PAUSED_COURSE_STATUS, req.user_id, req.course_id, COMPLETED_COURSE_STATUS)
+                (PAUSED_COURSE_STATUS, user_id, req.course_id, COMPLETED_COURSE_STATUS)
             )
         db.commit()
         return {"status": "success"}
@@ -857,7 +906,12 @@ async def get_course_lessons(course_id: int, db=Depends(get_db)):
 # ==========================================
 
 @app.get("/classroom/stats/{user_id}")
-async def get_classroom_stats(user_id: str, db=Depends(get_db)):
+async def get_classroom_stats(
+    user_id: str,
+    current_user_id: str = Depends(require_current_user_id),
+    db=Depends(get_db),
+):
+    require_matching_user_id(user_id, current_user_id)
     cur = db.cursor()
     try:
         # 1. 查询待复习数 (Based on FSRS next_review)

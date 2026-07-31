@@ -89,23 +89,37 @@ export default function CoursePage() {
     const [enrollError, setEnrollError] = useState('');
     const userId = getAuthState().userId;
     const coursePath = `${location.pathname}${location.search || ''}`;
+    const routeCourse = location.state?.course;
+    const hasMatchingRouteCourse = String(routeCourse?.id) === String(courseId);
+    const cachedCourse = queryClient.getQueryData(queryKeys.course(courseId));
+    const cachedCourses = queryClient.getQueryData(queryKeys.courses()) || [];
+    const catalogCourse = cachedCourses.find((candidate) => String(candidate.id) === String(courseId));
+    const initialCourse = hasMatchingRouteCourse ? routeCourse : cachedCourse || catalogCourse;
+    const courseCacheState = queryClient.getQueryState(queryKeys.course(courseId));
+    const coursesCacheState = queryClient.getQueryState(queryKeys.courses());
+    const initialCourseUpdatedAt = cachedCourse
+        ? courseCacheState?.dataUpdatedAt
+        : coursesCacheState?.dataUpdatedAt;
 
-    // ── 服务端数据：三个并发查询，React Query 自动处理缓存 ──────────────────
-    const { data: course, isLoading: isCourseLoading } = useQuery(courseQuery(courseId));
+    // ── 服务端数据：课程信息优先复用教室页缓存，课时与报名状态独立刷新 ─────────
+    const { data: course = initialCourse, isLoading: isCourseLoading } = useQuery({
+        ...courseQuery(courseId),
+        initialData: initialCourse,
+        initialDataUpdatedAt: initialCourseUpdatedAt,
+    });
     const { data: lessons = [], isLoading: isLessonsLoading } = useQuery(lessonsQuery(courseId));
-    const { data: myCourses = [], isLoading: isMyCoursesLoading } = useQuery(myCoursesQuery(userId));
+    const { data: myCourses = [] } = useQuery(myCoursesQuery(userId));
 
     // 从 myCourses 派生当前课程的报名状态（缓存命中时零请求）
     const currentEnrollment = myCourses.find(c => String(c.id) === String(courseId)) ?? null;
     const isEnrolled = Boolean(currentEnrollment);
     const enrolledCount = myCourses.length;
 
-    const loading = isCourseLoading || isMyCoursesLoading;
+    const loading = isCourseLoading && !course;
 
     // ── 报名 mutation ────────────────────────────────────────────────────────
     const enrollMutation = useMutation({
         mutationFn: () => apiClient.post('/courses/enroll', {
-            user_id: userId,
             course_id: Number(courseId),
         }),
         onSuccess: () => {
