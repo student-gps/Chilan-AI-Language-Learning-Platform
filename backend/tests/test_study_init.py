@@ -7,20 +7,22 @@ from .test_helpers import FakeConnection, SmokeTestCaseMixin, init_flow_service
 class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
     def test_study_init_returns_teaching_payload_for_next_lesson(self):
         def handler(query, params):
-            if "ALTER TABLE user_progress_of_lessons" in query:
-                return {}
-            if "FROM user_courses" in query:
-                return {"fetchone": [1]}
-            if "JOIN user_progress_of_language_items p" in query:
-                return {"fetchall": []}
-            if "SELECT last_completed_lesson_id, viewed_lesson_id, practice_question_index" in query:
+            if "EXISTS (" in query and "is_course_enrolled" in query:
                 return {
                     "fetchone": {
+                        "course_id": 1,
+                        "name": "Course 1",
+                        "category": "general",
+                        "target_language": "Chinese",
+                        "source_language": "English",
+                        "is_course_enrolled": True,
                         "last_completed_lesson_id": 100,
                         "viewed_lesson_id": 0,
                         "practice_question_index": 1,
                     }
                 }
+            if "JOIN user_progress_of_language_items p" in query:
+                return {"fetchall": []}
             if "SELECT lesson_id, title," in query and "FROM lessons" in query:
                 return {
                     "fetchone": {
@@ -39,6 +41,8 @@ class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                         "llm_usage": {},
                     }
                 }
+            if "SELECT lesson_id" in query and "FROM lessons" in query:
+                return {"fetchone": {"lesson_id": 101}}
             if "FROM language_items" in query and "ORDER BY question_id ASC" in query:
                 return {
                     "fetchall": [
@@ -77,7 +81,70 @@ class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertFalse(body["data"]["skip_content"])
         self.assertEqual(body["data"]["practice_resume_index"], 1)
         self.assertEqual(body["data"]["lesson_content"]["lesson_metadata"]["lesson_id"], 101)
+        self.assertNotIn("teaching_slide_deck", body["data"]["lesson_content"])
         self.assertEqual(len(body["data"]["pending_items"]), 2)
+
+    def test_practice_items_use_one_query_and_keep_resume_index(self):
+        def handler(query, params):
+            if "WITH progress AS" in query:
+                return {
+                    "fetchall": [
+                        {
+                            "practice_question_index": 1,
+                            "item_id": 1,
+                            "course_id": 1,
+                            "lesson_id": 101,
+                            "question_id": 1001,
+                            "question_type": "CN_TO_EN",
+                            "original_text": "你好",
+                            "original_pinyin": "ni hao",
+                            "standard_answers": ["hello"],
+                            "metadata": {},
+                        },
+                        {
+                            "practice_question_index": 1,
+                            "item_id": 2,
+                            "course_id": 1,
+                            "lesson_id": 101,
+                            "question_id": 1002,
+                            "question_type": "EN_TO_CN",
+                            "original_text": "hello",
+                            "original_pinyin": "",
+                            "standard_answers": ["你好"],
+                            "metadata": {},
+                        },
+                    ]
+                }
+            return {}
+
+        fake_db = FakeConnection(handler)
+
+        with patch.object(init_flow_service, "get_connection", return_value=fake_db):
+            result = init_flow_service.load_lesson_practice_items("u-1", 1, 101)
+
+        self.assertEqual(len(fake_db.executed_queries), 1)
+        query, params = fake_db.executed_queries[0]
+        self.assertIn("WITH progress AS", query)
+        self.assertIn("ORDER BY item.question_id ASC, item.item_id ASC", query)
+        self.assertEqual(params, ("u-1", 1, 101, 1, 101))
+        self.assertEqual(result["practice_resume_index"], 1)
+        self.assertEqual([item["item_id"] for item in result["pending_items"]], [1, 2])
+        self.assertTrue(all("practice_question_index" not in item for item in result["pending_items"]))
+
+    def test_lesson_cache_returns_deep_copies(self):
+        init_flow_service.clear_lesson_row_cache()
+        source = {
+            "lesson_id": 101,
+            "lesson_audio_assets": {"items": [{"object_key": "audio.mp3"}]},
+        }
+        init_flow_service._put_cached_lesson_row(1, 101, source)
+
+        first = init_flow_service._get_cached_lesson_row(1, 101)
+        first["lesson_audio_assets"]["items"][0]["audio_url"] = "signed-url"
+        second = init_flow_service._get_cached_lesson_row(1, 101)
+
+        self.assertNotIn("audio_url", second["lesson_audio_assets"]["items"][0])
+        init_flow_service.clear_lesson_row_cache()
 
 
 if __name__ == "__main__":

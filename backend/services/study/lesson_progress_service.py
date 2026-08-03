@@ -2,23 +2,11 @@ from database.connection import get_connection
 from services.course_enrollment_service import COMPLETED_COURSE_STATUS
 
 
-def ensure_lesson_progress_columns(cur):
-    cur.execute("""
-        ALTER TABLE user_progress_of_lessons
-        ADD COLUMN IF NOT EXISTS practice_question_index INTEGER DEFAULT 0;
-    """)
-    cur.execute("""
-        ALTER TABLE user_progress_of_lessons
-        ADD COLUMN IF NOT EXISTS practice_question_updated_at TIMESTAMP;
-    """)
-
-
 def mark_lesson_content_viewed(user_id: str, course_id: int, lesson_id: int):
     conn = None
     try:
         conn = get_connection()
         cur = conn.cursor()
-        ensure_lesson_progress_columns(cur)
         cur.execute(
             """
             INSERT INTO user_progress_of_lessons (user_id, course_id, viewed_lesson_id)
@@ -44,7 +32,6 @@ def save_practice_progress(user_id: str, course_id: int, lesson_id: int, current
     try:
         conn = get_connection()
         cur = conn.cursor()
-        ensure_lesson_progress_columns(cur)
         cur.execute(
             """
             INSERT INTO user_progress_of_lessons (user_id, course_id, viewed_lesson_id, practice_question_index, practice_question_updated_at)
@@ -73,7 +60,6 @@ def complete_lesson(user_id: str, course_id: int, lesson_id: int):
     try:
         conn = get_connection()
         cur = conn.cursor()
-        ensure_lesson_progress_columns(cur)
         cur.execute(
             """
             INSERT INTO user_progress_of_lessons (user_id, course_id, last_completed_lesson_id)

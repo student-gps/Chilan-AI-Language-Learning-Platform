@@ -641,33 +641,66 @@ def _serialize_course(row) -> dict:
         "total_items":     row[6],
     }
 
-_COURSE_QUERY = """
+_COURSE_CATALOG_QUERY = """
+    WITH lesson_counts AS (
+        SELECT course_id, COUNT(DISTINCT lesson_id) AS lesson_total
+        FROM lessons
+        GROUP BY course_id
+    ),
+    item_counts AS (
+        SELECT course_id, COUNT(*) AS total_items
+        FROM language_items
+        GROUP BY course_id
+    )
     SELECT
         c.course_id,
         c.name,
         c.category,
         c.target_language,
         c.source_language,
-        COUNT(DISTINCT l.lesson_id)      AS lesson_total,
-        COUNT(DISTINCT li.item_id)       AS total_items
+        COALESCE(lc.lesson_total, 0) AS lesson_total,
+        COALESCE(ic.total_items, 0) AS total_items
     FROM courses c
-    LEFT JOIN lessons       l  ON l.course_id  = c.course_id
-    LEFT JOIN language_items li ON li.course_id = c.course_id
+    LEFT JOIN lesson_counts lc ON lc.course_id = c.course_id
+    LEFT JOIN item_counts ic ON ic.course_id = c.course_id
 """
+
+
+_COURSE_DETAIL_QUERY = """
+    SELECT
+        c.course_id,
+        c.name,
+        c.category,
+        c.target_language,
+        c.source_language,
+        COALESCE(lc.lesson_total, 0) AS lesson_total,
+        COALESCE(ic.total_items, 0) AS total_items
+    FROM courses c
+    LEFT JOIN LATERAL (
+        SELECT COUNT(DISTINCT l.lesson_id) AS lesson_total
+        FROM lessons l
+        WHERE l.course_id = c.course_id
+    ) lc ON TRUE
+    LEFT JOIN LATERAL (
+        SELECT COUNT(*) AS total_items
+        FROM language_items li
+        WHERE li.course_id = c.course_id
+    ) ic ON TRUE
+    WHERE c.course_id = %s
+"""
+
 
 @app.get("/courses")
 async def list_all_courses(db=Depends(get_db)):
     cur = db.cursor()
-    cur.execute(_COURSE_QUERY + " GROUP BY c.course_id ORDER BY c.course_id")
+    cur.execute(_COURSE_CATALOG_QUERY + " ORDER BY c.course_id")
     return [_serialize_course(r) for r in cur.fetchall()]
+
 
 @app.get("/courses/{course_id}")
 async def get_course(course_id: int, db=Depends(get_db)):
     cur = db.cursor()
-    cur.execute(
-        _COURSE_QUERY + " WHERE c.course_id = %s GROUP BY c.course_id",
-        (course_id,),
-    )
+    cur.execute(_COURSE_DETAIL_QUERY, (course_id,))
     row = cur.fetchone()
     if row is None:
         raise HTTPException(status_code=404, detail="Course not found")
@@ -681,34 +714,72 @@ async def get_my_courses(
 ):
     require_matching_user_id(user_id, current_user_id)
     cur = db.cursor()
-    # 🌟 关联查询用户课程、课时推进进度及 FSRS 掌握进度
+    # 活跃报名、题目进度与课时进度分开汇总，避免多张事实表相乘后再去重。
     query = """
+        WITH active_courses AS (
+            SELECT DISTINCT uc.course_id
+            FROM user_courses uc
+            WHERE uc.user_id::text = %s
+              AND uc.status = %s
+        ),
+        item_progress AS (
+            SELECT
+                li.course_id,
+                COUNT(DISTINCT li.item_id) AS total_item_count,
+                COUNT(DISTINCT p.item_id) FILTER (WHERE p.is_mastered = TRUE) AS mastered_count
+            FROM language_items li
+            JOIN active_courses ac ON ac.course_id = li.course_id
+            LEFT JOIN user_progress_of_language_items p
+              ON p.item_id = li.item_id
+             AND p.user_id::text = %s
+            GROUP BY li.course_id
+        ),
+        lesson_rollup AS (
+            SELECT
+                l.course_id,
+                COUNT(DISTINCT l.lesson_id) AS lesson_total,
+                COUNT(DISTINCT l.lesson_id) FILTER (
+                    WHERE l.lesson_id <= COALESCE(progress.last_completed_lesson_id, 0)
+                ) AS completed_lesson_count
+            FROM lessons l
+            JOIN active_courses ac ON ac.course_id = l.course_id
+            LEFT JOIN LATERAL (
+                SELECT last_completed_lesson_id
+                FROM user_progress_of_lessons lp
+                WHERE lp.course_id = l.course_id
+                  AND lp.user_id::text = %s
+                ORDER BY lp.last_completed_lesson_id DESC
+                LIMIT 1
+            ) progress ON TRUE
+            GROUP BY l.course_id
+        )
         SELECT c.course_id, c.name, c.category,
                c.target_language, c.source_language,
-               COUNT(DISTINCT p.item_id) FILTER (WHERE p.is_mastered = TRUE) as mastered_count,
-               COUNT(DISTINCT li.item_id) as total_item_count,
-               COALESCE(lesson_stats.lesson_total, 0) as lesson_total,
-               COALESCE(lesson_stats.completed_lesson_count, 0) as completed_lesson_count,
-               COALESCE(lp.last_completed_lesson_id, 0) as last_completed_lesson_id,
-               COALESCE(lp.viewed_lesson_id, 0) as viewed_lesson_id,
-               COALESCE(lp.practice_question_index, 0) as practice_question_index,
-               next_lesson.lesson_id as next_lesson_id,
-               next_lesson.title as next_lesson_title,
-               next_lesson.title_localized as next_lesson_title_localized
-        FROM courses c
-        JOIN user_courses uc ON c.course_id = uc.course_id
-        LEFT JOIN user_progress_of_lessons lp
-          ON lp.course_id = c.course_id
-         AND lp.user_id::text = %s
+               COALESCE(ip.mastered_count, 0) AS mastered_count,
+               COALESCE(ip.total_item_count, 0) AS total_item_count,
+               COALESCE(lr.lesson_total, 0) AS lesson_total,
+               COALESCE(lr.completed_lesson_count, 0) AS completed_lesson_count,
+               COALESCE(lp.last_completed_lesson_id, 0) AS last_completed_lesson_id,
+               COALESCE(lp.viewed_lesson_id, 0) AS viewed_lesson_id,
+               COALESCE(lp.practice_question_index, 0) AS practice_question_index,
+               next_lesson.lesson_id AS next_lesson_id,
+               next_lesson.title AS next_lesson_title,
+               next_lesson.title_localized AS next_lesson_title_localized
+        FROM active_courses ac
+        JOIN courses c ON c.course_id = ac.course_id
         LEFT JOIN LATERAL (
             SELECT
-                COUNT(*) as lesson_total,
-                COUNT(*) FILTER (
-                    WHERE l.lesson_id <= COALESCE(lp.last_completed_lesson_id, 0)
-                ) as completed_lesson_count
-            FROM lessons l
-            WHERE l.course_id = c.course_id
-        ) lesson_stats ON TRUE
+                lp.last_completed_lesson_id,
+                lp.viewed_lesson_id,
+                lp.practice_question_index
+            FROM user_progress_of_lessons lp
+            WHERE lp.course_id = c.course_id
+              AND lp.user_id::text = %s
+            ORDER BY lp.last_completed_lesson_id DESC
+            LIMIT 1
+        ) lp ON TRUE
+        LEFT JOIN item_progress ip ON ip.course_id = c.course_id
+        LEFT JOIN lesson_rollup lr ON lr.course_id = c.course_id
         LEFT JOIN LATERAL (
             SELECT
                 l.lesson_id,
@@ -719,26 +790,15 @@ async def get_my_courses(
               AND l.lesson_id > COALESCE(lp.last_completed_lesson_id, 0)
             ORDER BY l.lesson_id ASC
             LIMIT 1
-        ) next_lesson ON TRUE
-        LEFT JOIN language_items li ON c.course_id = li.course_id
-        LEFT JOIN user_progress_of_language_items p ON li.item_id = p.item_id AND p.user_id::text = %s
-        WHERE uc.user_id::text = %s
-          AND uc.status = %s
-        GROUP BY c.course_id,
-                 c.name,
-                 c.category,
-                 c.target_language,
-                 c.source_language,
-                 lesson_stats.lesson_total,
-                 lesson_stats.completed_lesson_count,
-                 lp.last_completed_lesson_id,
-                 lp.viewed_lesson_id,
-                 lp.practice_question_index,
-                 next_lesson.lesson_id,
-                 next_lesson.title,
-                 next_lesson.title_localized;
+        ) next_lesson ON TRUE;
     """
-    cur.execute(query, (user_id, user_id, user_id, ACTIVE_COURSE_STATUS))
+    cur.execute(query, (
+        user_id,
+        ACTIVE_COURSE_STATUS,
+        user_id,
+        user_id,
+        user_id,
+    ))
     return [{
         "id": r[0],
         "name": r[1],
@@ -914,45 +974,58 @@ async def get_classroom_stats(
     require_matching_user_id(user_id, current_user_id)
     cur = db.cursor()
     try:
-        # 1. 查询待复习数 (Based on FSRS next_review)
         cur.execute("""
-            SELECT COUNT(*)
-            FROM user_progress_of_language_items p
-            JOIN language_items q ON q.item_id = p.item_id
-            JOIN user_courses uc
-              ON uc.course_id = q.course_id
-             AND uc.user_id::text = p.user_id::text
-             AND uc.status = %s
-            WHERE p.user_id::text = %s
-              AND p.next_review <= CURRENT_TIMESTAMP
-        """, (ACTIVE_COURSE_STATUS, user_id,))
-        rem = cur.fetchone()[0]
-        # 2. 查询今日已复习数量
-        cur.execute("""
-            SELECT COUNT(DISTINCT rl.item_id)
-            FROM review_logs rl
-            JOIN user_courses uc
-              ON uc.course_id = rl.course_id
-             AND uc.user_id::text = rl.user_id::text
-             AND uc.status = %s
-            WHERE rl.user_id::text = %s
-              AND rl.review_time >= CURRENT_DATE
-        """, (ACTIVE_COURSE_STATUS, user_id,))
-        rev = cur.fetchone()[0]
-        # 3. 查询今日新学题目数量
-        cur.execute("""
-            SELECT COUNT(*)
-            FROM review_logs rl
-            JOIN user_courses uc
-              ON uc.course_id = rl.course_id
-             AND uc.user_id::text = rl.user_id::text
-             AND uc.status = %s
-            WHERE rl.user_id::text = %s
-              AND rl.state = 0
-              AND rl.review_time >= CURRENT_DATE
-        """, (ACTIVE_COURSE_STATUS, user_id,))
-        new_l = cur.fetchone()[0]
-        return {"totalRemaining": rem, "totalReviewed": rev, "totalNewLearned": new_l}
+            SELECT
+                due.total_remaining AS total_remaining,
+                reviewed.total_reviewed AS total_reviewed,
+                newly_learned.total_new_learned AS total_new_learned
+            FROM (VALUES (1)) AS one(dummy)
+            CROSS JOIN LATERAL (
+                SELECT COUNT(*) AS total_remaining
+                FROM user_progress_of_language_items p
+                JOIN language_items q ON q.item_id = p.item_id
+                JOIN user_courses uc
+                  ON uc.course_id = q.course_id
+                 AND uc.user_id::text = p.user_id::text
+                 AND uc.status = %s
+                WHERE p.user_id::text = %s
+                  AND p.next_review <= CURRENT_TIMESTAMP
+            ) due
+            CROSS JOIN LATERAL (
+                SELECT COUNT(DISTINCT rl.item_id) AS total_reviewed
+                FROM review_logs rl
+                JOIN user_courses uc
+                  ON uc.course_id = rl.course_id
+                 AND uc.user_id::text = rl.user_id::text
+                 AND uc.status = %s
+                WHERE rl.user_id::text = %s
+                  AND rl.review_time >= CURRENT_DATE
+            ) reviewed
+            CROSS JOIN LATERAL (
+                SELECT COUNT(*) AS total_new_learned
+                FROM review_logs rl
+                JOIN user_courses uc
+                  ON uc.course_id = rl.course_id
+                 AND uc.user_id::text = rl.user_id::text
+                 AND uc.status = %s
+                WHERE rl.user_id::text = %s
+                  AND rl.state = 0
+                  AND rl.review_time >= CURRENT_DATE
+            ) newly_learned;
+        """, (
+            ACTIVE_COURSE_STATUS,
+            user_id,
+            ACTIVE_COURSE_STATUS,
+            user_id,
+            ACTIVE_COURSE_STATUS,
+            user_id,
+        ))
+        row = cur.fetchone() or (0, 0, 0)
+        return {
+            "totalRemaining": row[0],
+            "totalReviewed": row[1],
+            "totalNewLearned": row[2],
+        }
     finally:
         cur.close()
 

@@ -281,6 +281,7 @@ def _run_startup_migrations():
     try:
         conn = get_connection()
         cur = conn.cursor()
+        ensure_lesson_progress_columns(cur)
         ensure_language_item_progress_item_key(cur)
         ensure_review_logs_item_columns(cur)
         conn.commit()
