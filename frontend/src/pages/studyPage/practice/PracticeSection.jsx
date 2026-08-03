@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Loader2, Send, Sparkles } from 'lucide-react';
-import apiClient from '../../../api/apiClient';
+import apiClient, { renewLessonAudioUrl } from '../../../api/apiClient';
 import { claimGlobalAudio, releaseGlobalAudio } from '../../../utils/audioPlayback';
 import AIThinkingIndicator from './components/AIThinkingIndicator';
 import PracticeAnswerPanel from './components/PracticeAnswerPanel';
@@ -52,7 +52,7 @@ const questionAudioLookupKeys = (metadata = {}) => {
     return keys;
 };
 
-export default function PracticeSection({ questions, isReview, onAllDone, userId, courseId, lessonId, lessonAudioAssets, initialIndex = 0 }) {
+export default function PracticeSection({ questions, isReview, onAllDone, courseId, lessonId, lessonAudioAssets, initialIndex = 0 }) {
     const { t, i18n } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFocused, setIsFocused] = useState(false);
@@ -82,22 +82,56 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         if (!Array.isArray(items)) return {};
         const entries = [];
         items.forEach((item) => {
-            if (!item?.audio_url) return;
-            audioLookupKeys(item).forEach((key) => entries.push([key, item.audio_url]));
+            audioLookupKeys(item).forEach((key) => entries.push([key, item]));
         });
         return Object.fromEntries(entries);
     }, [lessonAudioAssets]);
 
     const playLineAudio = useCallback((audioKey) => {
-        const url = lineRefAudioMap[audioKey];
-        if (!url) return;
-        const audio = new Audio(url);
+        const item = lineRefAudioMap[audioKey];
+        const url = item?.audio_url;
+        const assetRef = item?.audio_id
+            ? `audio:${item.audio_id}`
+            : item?.line_ref != null
+                ? `line:${item.line_ref}`
+                : '';
+        if (!url && !assetRef) return;
+
+        const audio = new Audio(url || '');
+        let hasRenewed = false;
+        const cleanup = () => {
+            releaseGlobalAudio(audio);
+        };
+        const renewAndReplay = async () => {
+            if (hasRenewed || !assetRef) {
+                cleanup();
+                return;
+            }
+            hasRenewed = true;
+            try {
+                const renewed = await renewLessonAudioUrl({
+                    courseId,
+                    lessonId,
+                    assetRef,
+                });
+                if (!renewed?.audio_url) throw new Error('missing renewed URL');
+                audio.src = renewed.audio_url;
+                await audio.play();
+            } catch (error) {
+                console.error('刷新练习音频链接失败:', error);
+                cleanup();
+            }
+        };
         claimGlobalAudio(audio);
-        audio.onpause = () => releaseGlobalAudio(audio);
-        audio.onended = () => releaseGlobalAudio(audio);
-        audio.onerror = () => releaseGlobalAudio(audio);
-        audio.play().catch(() => releaseGlobalAudio(audio));
-    }, [lineRefAudioMap]);
+        audio.onpause = cleanup;
+        audio.onended = cleanup;
+        audio.onerror = () => { void renewAndReplay(); };
+        if (url) {
+            audio.play().catch(() => { void renewAndReplay(); });
+        } else {
+            void renewAndReplay();
+        }
+    }, [lineRefAudioMap, courseId, lessonId]);
 
     const {
         speechMode,
@@ -144,7 +178,6 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
         handleForfeit,
     } = usePracticeFlow({
         currentQuestion,
-        userId,
         t,
         speechMode,
         speechTranscript,
@@ -208,7 +241,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
             return;
         }
         const fallbackText = isListenWrite
-            ? (currentQuestion.standard_answers || [])[0]
+            ? ''
             : currentQuestion.original_text;
         playAudio(fallbackText, questionConfig.audioLanguage || questionConfig.ttsLanguage || 'zh');
     }, [currentQuestion, isListenWrite, lineRefAudioMap, playAudio, playLineAudio, questionConfig.audioLanguage, questionConfig.ttsLanguage]);
@@ -256,11 +289,10 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
     }, [currentQuestion, currentIndex, isListenWrite, playQuestionAudio]);
 
     useEffect(() => {
-        if (!questions?.length || !userId || !courseId || !lessonId || isReview) return;
+        if (!questions?.length || !courseId || !lessonId || isReview) return;
         const syncProgress = async () => {
             try {
                 await apiClient.post('/study/practice_progress', {
-                    user_id: userId,
                     course_id: Number(courseId),
                     lesson_id: toApiLessonId(lessonId),
                     current_index: currentIndex,
@@ -270,7 +302,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, userId
             }
         };
         syncProgress();
-    }, [currentIndex, questions, userId, courseId, lessonId, isReview]);
+    }, [currentIndex, questions, courseId, lessonId, isReview]);
 
     useEffect(() => {
         if (speechMode) return;

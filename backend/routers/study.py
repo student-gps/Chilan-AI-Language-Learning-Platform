@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel, Field
 import edge_tts
@@ -16,11 +16,18 @@ from psycopg2.extras import RealDictCursor
 # 🌟 动态引入路径
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from database.connection import get_connection
+from dependencies.auth import require_current_user_id, require_matching_user_id
 
 # 🌟 引入监控工具和原有服务
 from services.utils.monitor import PerformanceMonitor
 from services.speech import ASRService
 from services.study.scheduler import FSRSScheduler
+from services.study.access_service import (
+    assert_active_course_enrollment,
+    assert_lesson_belongs_to_course,
+    get_item_course_context,
+    get_lesson_audio_asset,
+)
 from services.study.lesson_progress_service import (
     complete_lesson as complete_lesson_service,
     mark_lesson_content_viewed as mark_lesson_content_viewed_service,
@@ -66,15 +73,15 @@ def _get_evaluator_service():
 
 # --- 📦 数据模型 ---
 class EvaluateRequest(BaseModel):
-    user_id: str
+    user_id: str | None = None
     item_id: Optional[int] = None
     course_id: Optional[int] = None
-    lesson_id: int
-    question_id: int
-    question_type: str
-    original_text: str
+    lesson_id: int = 0
+    question_id: int = 0
+    question_type: str = ""
+    original_text: str = ""
     original_pinyin: str = ""
-    standard_answers: List[str]
+    standard_answers: List[str] = Field(default_factory=list)
     user_answer: str = ""
     input_mode: str = "text"
     asr_text: str = ""
@@ -82,20 +89,26 @@ class EvaluateRequest(BaseModel):
     forfeit: bool = False
 
 class ContentViewedRequest(BaseModel):
-    user_id: str
+    user_id: str | None = None
     course_id: int = 1
     lesson_id: int
 
 class CompleteLessonRequest(BaseModel):
-    user_id: str
+    user_id: str | None = None
     course_id: int
     lesson_id: int
 
 class PracticeProgressRequest(BaseModel):
-    user_id: str
+    user_id: str | None = None
     course_id: int
     lesson_id: int
     current_index: int
+
+
+class AudioUrlRequest(BaseModel):
+    course_id: int
+    lesson_id: int
+    asset_ref: str
 
 
 def _normalize_teaching_video(payload: Any) -> Dict[str, Any]:
@@ -281,6 +294,7 @@ def _run_startup_migrations():
     try:
         conn = get_connection()
         cur = conn.cursor()
+        ensure_lesson_progress_columns(cur)
         ensure_language_item_progress_item_key(cur)
         ensure_review_logs_item_columns(cur)
         conn.commit()
@@ -374,21 +388,25 @@ _run_startup_migrations()
 # ==========================================
 @router.get("/study/init")
 async def init_study_flow(
-    user_id: str,
     course_id: int = 1,
     lesson_id: int = None,
     browse: bool = False,
     defer_practice: bool = False,
+    user_id: str | None = None,
+    current_user_id: str = Depends(require_current_user_id),
 ):
+    require_matching_user_id(user_id, current_user_id)
     try:
         return init_study_flow_service(
-            user_id=user_id,
+            user_id=current_user_id,
             course_id=course_id,
             cos_media_storage=cos_media_storage,
             lesson_id=lesson_id,
             prefer_local_content=browse,
             defer_practice_items=defer_practice,
         )
+    except HTTPException:
+        raise
     except Exception as e:
         print(f"❌ Init Flow Error: {e}")
         import traceback
@@ -397,13 +415,21 @@ async def init_study_flow(
 
 
 @router.get("/study/practice_items")
-async def get_lesson_practice_items(user_id: str, course_id: int, lesson_id: int):
+async def get_lesson_practice_items(
+    course_id: int,
+    lesson_id: int,
+    user_id: str | None = None,
+    current_user_id: str = Depends(require_current_user_id),
+):
+    require_matching_user_id(user_id, current_user_id)
     try:
         return load_lesson_practice_items(
-            user_id=user_id,
+            user_id=current_user_id,
             course_id=course_id,
             lesson_id=lesson_id,
         )
+    except HTTPException:
+        raise
     except Exception as e:
         print(f"❌ Practice Items Error: {e}")
         import traceback
@@ -416,9 +442,25 @@ async def get_lesson_practice_items(user_id: str, course_id: int, lesson_id: int
 @router.post("/study/speech/transcribe")
 async def transcribe_speech(
     audio: UploadFile = File(...),
+    item_id: int = Form(...),
     language: str = Form("zh"),
     prompt: str = Form(""),
+    current_user_id: str = Depends(require_current_user_id),
 ):
+    conn = None
+    try:
+        conn = get_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        item = get_item_course_context(cur, item_id=item_id)
+        assert_active_course_enrollment(
+            cur,
+            user_id=current_user_id,
+            course_id=item["course_id"],
+        )
+    finally:
+        if conn:
+            conn.close()
+
     try:
         if not audio:
             raise HTTPException(status_code=400, detail="Audio file is required.")
@@ -453,7 +495,14 @@ async def transcribe_speech(
 
 
 @router.post("/study/evaluate")
-async def evaluate_answer(req: EvaluateRequest):
+async def evaluate_answer(
+    req: EvaluateRequest,
+    current_user_id: str = Depends(require_current_user_id),
+):
+    require_matching_user_id(req.user_id, current_user_id)
+    if not req.item_id:
+        raise HTTPException(status_code=400, detail="item_id is required")
+
     pm = PerformanceMonitor()
     conn = None
     try:
@@ -481,51 +530,32 @@ async def evaluate_answer(req: EvaluateRequest):
         audio_duration_ms = _to_optional_int(audio_meta.get("duration_ms")) if input_mode == "speech" else None
         vector_score = None
 
-        if req.item_id:
-            cur.execute("""
-                SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
-                       q.question_type, q.original_text, q.standard_answers,
-                       q.metadata as item_metadata, p.stability, p.difficulty,
-                       p.recent_history, p.state
-                FROM language_items q
-                LEFT JOIN user_progress_of_language_items p
-                       ON q.item_id = p.item_id AND p.user_id::text = %s
-                WHERE q.item_id = %s;
-            """, (req.user_id, req.item_id))
-        elif req.course_id:
-            cur.execute("""
-                SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
-                       q.question_type, q.original_text, q.standard_answers,
-                       q.metadata as item_metadata, p.stability, p.difficulty,
-                       p.recent_history, p.state
-                FROM language_items q
-                LEFT JOIN user_progress_of_language_items p
-                       ON q.item_id = p.item_id AND p.user_id::text = %s
-                WHERE q.course_id = %s AND q.lesson_id = %s AND q.question_id = %s;
-            """, (req.user_id, req.course_id, req.lesson_id, req.question_id))
-        else:
-            cur.execute("""
-                SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
-                       q.question_type, q.original_text, q.standard_answers,
-                       q.metadata as item_metadata, p.stability, p.difficulty,
-                       p.recent_history, p.state
-                FROM language_items q
-                LEFT JOIN user_progress_of_language_items p
-                       ON q.item_id = p.item_id AND p.user_id::text = %s
-                WHERE q.lesson_id = %s AND q.question_id = %s;
-            """, (req.user_id, req.lesson_id, req.question_id))
-        
+        cur.execute("""
+            SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
+                   q.question_type, q.original_text, q.standard_answers,
+                   q.metadata as item_metadata, p.stability, p.difficulty,
+                   p.recent_history, p.state
+            FROM language_items q
+            LEFT JOIN user_progress_of_language_items p
+                   ON q.item_id = p.item_id AND p.user_id::text = %s
+            WHERE q.item_id = %s;
+        """, (current_user_id, req.item_id))
         base_info = cur.fetchone()
         if not base_info:
             raise HTTPException(status_code=404, detail="题目不存在")
+        assert_active_course_enrollment(
+            cur,
+            user_id=current_user_id,
+            course_id=base_info["course_id"],
+        )
 
         item_pk = base_info['item_pk']
-        resolved_question_id = base_info.get("question_id") or req.question_id
-        resolved_course_id = base_info.get("course_id") or req.course_id
-        resolved_lesson_id = base_info.get("lesson_id") or req.lesson_id
-        resolved_question_type = base_info.get("question_type") or req.question_type
-        resolved_original_text = base_info.get("original_text") or req.original_text
-        resolved_answers = base_info.get("standard_answers") or req.standard_answers or []
+        resolved_question_id = base_info["question_id"]
+        resolved_course_id = base_info["course_id"]
+        resolved_lesson_id = base_info["lesson_id"]
+        resolved_question_type = base_info["question_type"]
+        resolved_original_text = base_info["original_text"]
+        resolved_answers = base_info.get("standard_answers") or []
         normalized_answers = [str(ans).strip() for ans in resolved_answers if str(ans).strip()]
         if not normalized_answers:
             raise HTTPException(status_code=400, detail="standard_answers is empty.")
@@ -555,17 +585,17 @@ async def evaluate_answer(req: EvaluateRequest):
                     difficulty = EXCLUDED.difficulty, state = EXCLUDED.state,
                     recent_history = EXCLUDED.recent_history, is_mastered = EXCLUDED.is_mastered,
                     last_review = CURRENT_TIMESTAMP, next_review = EXCLUDED.next_review;
-            """, (req.user_id, resolved_question_id, item_pk, new_s, new_d, current_state, new_hist,
+            """, (current_user_id, resolved_question_id, item_pk, new_s, new_d, current_state, new_hist,
                   scheduler.check_mastery(new_hist), next_r))
             cur.execute("""
                 INSERT INTO review_logs
                     (user_id, question_id, item_id, course_id, lesson_id, rating, state, review_time, stability, difficulty,
                      input_mode, asr_text, asr_confidence, vector_score, audio_duration_ms)
                 VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
-            """, (req.user_id, resolved_question_id, item_pk, resolved_course_id, resolved_lesson_id, 1, current_state, new_s, new_d,
+            """, (current_user_id, resolved_question_id, item_pk, resolved_course_id, resolved_lesson_id, 1, current_state, new_s, new_d,
                   "forfeit", None, None, None, None))
             conn.commit()
-            return {"status": "success", "data": {**res, "inputMode": "forfeit", "recognizedText": None, "vectorScore": None}}
+            return {"status": "success", "data": {**res, "expected_answers": normalized_answers, "inputMode": "forfeit", "recognizedText": None, "vectorScore": None}}
 
         if input_mode == "speech":
             retry_res = evaluator.check_speech_readiness(
@@ -578,6 +608,7 @@ async def evaluate_answer(req: EvaluateRequest):
                     **retry_res,
                     "inputMode": input_mode,
                     "recognizedText": asr_text_for_log,
+                    "expected_answers": normalized_answers,
                     "vectorScore": None,
                 }
                 return {"status": "success", "data": response_payload}
@@ -636,6 +667,7 @@ async def evaluate_answer(req: EvaluateRequest):
                     "shouldRetry": True,
                     "inputMode": input_mode,
                     "recognizedText": asr_text_for_log if input_mode == "speech" else None,
+                    "expected_answers": normalized_answers,
                     "vectorScore": None,
                 }
                 return {"status": "success", "data": response_payload}
@@ -662,7 +694,7 @@ async def evaluate_answer(req: EvaluateRequest):
                 last_review = CURRENT_TIMESTAMP, 
                 next_review = EXCLUDED.next_review;
         """, (
-            req.user_id, resolved_question_id, item_pk,
+            current_user_id, resolved_question_id, item_pk,
             new_s, new_d, current_state, new_hist, 
             scheduler.check_mastery(new_hist), next_r
         ))
@@ -676,7 +708,7 @@ async def evaluate_answer(req: EvaluateRequest):
                 )
             VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
         """, (
-            req.user_id, resolved_question_id, item_pk,
+            current_user_id, resolved_question_id, item_pk,
             resolved_course_id, resolved_lesson_id, res["level"], current_state, new_s, new_d,
             input_mode, asr_text_for_log, asr_confidence, vector_score, audio_duration_ms
         ))
@@ -686,6 +718,7 @@ async def evaluate_answer(req: EvaluateRequest):
             **res,
             "inputMode": input_mode,
             "recognizedText": asr_text_for_log if input_mode == "speech" else None,
+            "expected_answers": normalized_answers,
             "vectorScore": vector_score,
         }
         return {"status": "success", "data": response_payload}
@@ -699,39 +732,100 @@ async def evaluate_answer(req: EvaluateRequest):
     finally:
         if conn: conn.close()
 
-# ==========================================
-# 接口 3: 标记讲义已看
-# ==========================================
-@router.post("/study/content_viewed")
-async def mark_lesson_content_viewed(req: ContentViewedRequest):
+
+@router.post("/study/media/audio-url")
+async def renew_lesson_audio_url(
+    req: AudioUrlRequest,
+    current_user_id: str = Depends(require_current_user_id),
+):
+    conn = None
     try:
+        conn = get_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        assert_active_course_enrollment(cur, user_id=current_user_id, course_id=req.course_id)
+        asset = get_lesson_audio_asset(
+            cur,
+            course_id=req.course_id,
+            lesson_id=req.lesson_id,
+            asset_ref=req.asset_ref,
+        )
+        url = cos_media_storage.resolve_url(asset["object_key"]) if cos_media_storage else ""
+        if not url:
+            raise HTTPException(status_code=404, detail="Lesson audio storage is unavailable")
+        return {
+            "asset_ref": asset["asset_ref"],
+            "audio_url": url,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Lesson audio URL renewal error: {e}")
+        raise HTTPException(status_code=500, detail="Unable to renew lesson audio URL")
+    finally:
+        if conn:
+            conn.close()
+
+@router.post("/study/content_viewed")
+async def mark_lesson_content_viewed(
+    req: ContentViewedRequest,
+    current_user_id: str = Depends(require_current_user_id),
+):
+    require_matching_user_id(req.user_id, current_user_id)
+    conn = None
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+        assert_lesson_belongs_to_course(cur, course_id=req.course_id, lesson_id=req.lesson_id)
+        assert_active_course_enrollment(cur, user_id=current_user_id, course_id=req.course_id)
         return mark_lesson_content_viewed_service(
-            user_id=req.user_id,
+            user_id=current_user_id,
             course_id=req.course_id,
             lesson_id=req.lesson_id,
         )
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if conn:
+            conn.close()
 
 # ==========================================
 # 接口 4: 同步练习进度（账号级断点续练）
 # ==========================================
 @router.post("/study/practice_progress")
-async def save_practice_progress(req: PracticeProgressRequest):
+async def save_practice_progress(
+    req: PracticeProgressRequest,
+    current_user_id: str = Depends(require_current_user_id),
+):
+    require_matching_user_id(req.user_id, current_user_id)
+    conn = None
     try:
+        conn = get_connection()
+        cur = conn.cursor()
+        assert_lesson_belongs_to_course(cur, course_id=req.course_id, lesson_id=req.lesson_id)
+        assert_active_course_enrollment(cur, user_id=current_user_id, course_id=req.course_id)
         return save_practice_progress_service(
-            user_id=req.user_id,
+            user_id=current_user_id,
             course_id=req.course_id,
             lesson_id=req.lesson_id,
             current_index=req.current_index,
         )
+    except HTTPException:
+        raise
     except Exception as e:
         print(f"❌ Save Practice Progress Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if conn:
+            conn.close()
 
 
 @router.get("/study/knowledge")
-async def get_knowledge_details(item_id: int):
+async def get_knowledge_details(
+    item_id: int,
+    current_user_id: str = Depends(require_current_user_id),
+):
     conn = None
     try:
         conn = get_connection()
@@ -747,6 +841,11 @@ async def get_knowledge_details(item_id: int):
         item = cur.fetchone()
         if not item:
             raise HTTPException(status_code=404, detail="题目不存在")
+        assert_active_course_enrollment(
+            cur,
+            user_id=current_user_id,
+            course_id=item["course_id"],
+        )
 
         metadata = item.get("metadata") or {}
         knowledge_meta = metadata.get("knowledge") or {}
@@ -895,13 +994,27 @@ async def lesson_preview(course_id: int, lesson_id: int):
 
 
 @router.post("/study/complete_lesson")
-async def complete_lesson(req: CompleteLessonRequest):
+async def complete_lesson(
+    req: CompleteLessonRequest,
+    current_user_id: str = Depends(require_current_user_id),
+):
+    require_matching_user_id(req.user_id, current_user_id)
+    conn = None
     try:
+        conn = get_connection()
+        cur = conn.cursor()
+        assert_lesson_belongs_to_course(cur, course_id=req.course_id, lesson_id=req.lesson_id)
+        assert_active_course_enrollment(cur, user_id=current_user_id, course_id=req.course_id)
         return complete_lesson_service(
-            user_id=req.user_id,
+            user_id=current_user_id,
             course_id=req.course_id,
             lesson_id=req.lesson_id,
         )
+    except HTTPException:
+        raise
     except Exception as e:
         print(f"❌ Complete Lesson Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if conn:
+            conn.close()

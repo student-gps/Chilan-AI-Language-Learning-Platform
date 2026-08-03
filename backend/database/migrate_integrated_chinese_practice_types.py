@@ -665,6 +665,58 @@ def _verify_direct_db_patch(cur, course_ids: Iterable[int]) -> dict[int, dict[st
     return verification
 
 
+def _safe_rollback(conn) -> None:
+    try:
+        if conn is not None and not getattr(conn, "closed", True):
+            conn.rollback()
+    except Exception:
+        pass
+
+
+def _is_retryable_db_disconnect(exc: Exception) -> bool:
+    from psycopg2 import InterfaceError, OperationalError
+
+    if isinstance(exc, (OperationalError, InterfaceError)):
+        return True
+    message = str(exc).lower()
+    return any(marker in message for marker in (
+        "server closed the connection",
+        "connection already closed",
+        "connection reset",
+        "connection refused",
+        "ssl connection has been closed",
+    ))
+
+
+def _patch_target_in_own_connection(target: DbPatchTarget, apply: bool) -> DbPatchFileReport:
+    from psycopg2.extras import RealDictCursor
+    from database.connection import get_connection
+
+    last_error = None
+    for attempt in range(2):
+        conn = None
+        try:
+            conn = get_connection()
+            cur = conn.cursor(cursor_factory=RealDictCursor)
+            report = _patch_db_target(cur, target, apply=apply)
+            if apply:
+                conn.commit()
+            else:
+                conn.rollback()
+            return report
+        except Exception as exc:
+            _safe_rollback(conn)
+            last_error = exc
+            if attempt == 0 and _is_retryable_db_disconnect(exc):
+                print("  reconnecting after database disconnect...", flush=True)
+                continue
+            raise
+        finally:
+            if conn is not None:
+                conn.close()
+    raise last_error or MigrationError("Direct DB patch failed without an exception")
+
+
 def run_direct_db_patch(
     *,
     langs: Iterable[str],
@@ -678,60 +730,79 @@ def run_direct_db_patch(
     from database.connection import get_connection
 
     _ensure_utf8_console()
-    conn = get_connection()
     summary = DbPatchSummary()
+    preflight_conn = None
     try:
-        cur = conn.cursor(cursor_factory=RealDictCursor)
-        targets, preflight_failures = _build_db_patch_targets(cur, langs, lessons, include_output_json)
-        summary.failures.extend(preflight_failures)
-        if preflight_failures and not continue_on_error:
-            return summary, {}
-
-        if start_after is not None:
-            targets = [target for target in targets if target.lesson_id > start_after]
-
-        summary.targets = len(targets)
-        total = len(targets)
-        active_lang = ""
-        for index, target in enumerate(targets, start=1):
-            if target.directory_lang != active_lang:
-                active_lang = target.directory_lang
-                print(f"\n=== Direct patch {active_lang.upper()} artifacts ===", flush=True)
-            print(
-                f"[{index}/{total}] {active_lang.upper()} lesson={target.lesson_id} | "
-                f"course={target.course_id} {target.path.name}",
-                flush=True,
-            )
-            try:
-                report = _patch_db_target(cur, target, apply=apply)
-                if apply:
-                    conn.commit()
-                    print(
-                        f"[{index}/{total}] committed | matched={report.matched} "
-                        f"updated={report.updated} already={report.already_correct}",
-                        flush=True,
-                    )
-                else:
-                    conn.rollback()
-                    print(
-                        f"[{index}/{total}] dry-run | matched={report.matched} "
-                        f"would_update={report.updated} already={report.already_correct}",
-                        flush=True,
-                    )
-                summary.updated += report.updated
-                summary.already_correct += report.already_correct
-            except Exception as exc:
-                conn.rollback()
-                message = f"{target.directory_lang.upper()} lesson={target.lesson_id} {target.path}: {exc}"
-                summary.failures.append(message)
-                print(f"[{index}/{total}] failed | {exc}", flush=True)
-                if not continue_on_error:
-                    break
-
-        verification = _verify_direct_db_patch(cur, [target.course_id for target in targets]) if apply else {}
-        return summary, verification
+        preflight_conn = get_connection()
+        preflight_cur = preflight_conn.cursor(cursor_factory=RealDictCursor)
+        targets, preflight_failures = _build_db_patch_targets(
+            preflight_cur,
+            langs,
+            lessons,
+            include_output_json,
+        )
     finally:
-        conn.close()
+        if preflight_conn is not None:
+            preflight_conn.close()
+
+    summary.failures.extend(preflight_failures)
+    if preflight_failures and not continue_on_error:
+        return summary, {}
+
+    if start_after is not None:
+        targets = [target for target in targets if target.lesson_id > start_after]
+
+    summary.targets = len(targets)
+    total = len(targets)
+    active_lang = ""
+    for index, target in enumerate(targets, start=1):
+        if target.directory_lang != active_lang:
+            active_lang = target.directory_lang
+            print(f"\n=== Direct patch {active_lang.upper()} artifacts ===", flush=True)
+        print(
+            f"[{index}/{total}] {active_lang.upper()} lesson={target.lesson_id} | "
+            f"course={target.course_id} {target.path.name}",
+            flush=True,
+        )
+        try:
+            report = _patch_target_in_own_connection(target, apply=apply)
+            if apply:
+                print(
+                    f"[{index}/{total}] committed | matched={report.matched} "
+                    f"updated={report.updated} already={report.already_correct}",
+                    flush=True,
+                )
+            else:
+                print(
+                    f"[{index}/{total}] dry-run | matched={report.matched} "
+                    f"would_update={report.updated} already={report.already_correct}",
+                    flush=True,
+                )
+            summary.updated += report.updated
+            summary.already_correct += report.already_correct
+        except Exception as exc:
+            message = f"{target.directory_lang.upper()} lesson={target.lesson_id} {target.path}: {exc}"
+            summary.failures.append(message)
+            print(f"[{index}/{total}] failed | {exc}", flush=True)
+            if not continue_on_error:
+                break
+
+    verification = {}
+    if apply and targets:
+        verify_conn = None
+        try:
+            verify_conn = get_connection()
+            verify_cur = verify_conn.cursor(cursor_factory=RealDictCursor)
+            verification = _verify_direct_db_patch(
+                verify_cur,
+                [target.course_id for target in targets],
+            )
+        except Exception as exc:
+            summary.failures.append(f"Post-patch verification failed: {exc}")
+        finally:
+            if verify_conn is not None:
+                verify_conn.close()
+    return summary, verification
 
 
 def _available_languages(include_output_json: bool) -> list[str]:

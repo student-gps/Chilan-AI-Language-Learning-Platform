@@ -50,9 +50,19 @@ apiClient.interceptors.response.use(
 
 export const evaluateStudyAnswer = (payload) => apiClient.post('/study/evaluate', payload);
 
-export const transcribeSpeech = async ({ audioBlob, filename = 'speech.webm', language = 'zh', prompt = '' }) => {
+export const renewLessonAudioUrl = ({ courseId, lessonId, assetRef }) => apiClient.post(
+  '/study/media/audio-url',
+  {
+    course_id: Number(courseId),
+    lesson_id: Number(lessonId),
+    asset_ref: assetRef,
+  },
+).then((response) => response.data);
+
+export const transcribeSpeech = async ({ audioBlob, itemId, filename = 'speech.webm', language = 'zh', prompt = '' }) => {
     const formData = new FormData();
     formData.append('audio', audioBlob, filename);
+    formData.append('item_id', String(itemId));
     formData.append('language', language);
     if (prompt) formData.append('prompt', prompt);
 

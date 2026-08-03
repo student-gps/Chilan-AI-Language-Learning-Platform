@@ -76,7 +76,6 @@ export default function TeachingSection({
     data,
     courseInfo,
     courseId,
-    userId,
     onStartPractice,
     isDirectLesson,
     canStartPractice = true,
@@ -127,6 +126,7 @@ export default function TeachingSection({
         : (isMixedMode ? `🎭 ${t('teaching_content')}` : `💬 ${t('teaching_dialogue')}`);
     const lineItems = dialogues?.flatMap((section) => section.lines || []) || [];
     const lessonFullAudioUrl = buildLessonAudioUrl(lesson_audio_assets, API_BASE);
+    const hasLessonFullAudio = Boolean(lesson_audio_assets?.full_audio);
     const {
         playingKey,
         audioLoadingKey,
@@ -153,6 +153,8 @@ export default function TeachingSection({
         lessonAudioAssets: lesson_audio_assets,
         lessonFullAudioUrl,
         apiBase: API_BASE,
+        courseId,
+        lessonId: lesson_metadata.lesson_id,
     });
 
     if (!data) return null;
@@ -211,7 +213,7 @@ export default function TeachingSection({
                     <LessonSlideDeckPlayer deck={teaching_slide_deck} apiBase={API_BASE} />
                 </motion.div>
 
-                {lessonFullAudioUrl && (
+                {hasLessonFullAudio && (
                     <motion.section ref={lessonAudioSectionRef} variants={fadeInUp} initial="hidden" animate="show" className="mb-10">
                         <div className="rounded-[2.5rem] border border-slate-200 bg-white px-6 py-6 shadow-sm">
                             <h2 className="text-2xl font-black text-slate-900">

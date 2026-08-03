@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { claimGlobalAudio, releaseGlobalAudio, stopGlobalAudio } from '../../../../utils/audioPlayback';
+import { renewLessonAudioUrl } from '../../../../api/apiClient';
 
 const normalizeLineRef = (value) => {
     const num = Number(value);
@@ -15,6 +16,12 @@ const audioLineKey = (item) => {
     return '';
 };
 
+const audioAssetRef = (item, fallbackLineRef = null) => {
+    if (item?.audio_id) return `audio:${item.audio_id}`;
+    const lineRef = normalizeLineRef(item?.line_ref) || normalizeLineRef(fallbackLineRef);
+    return lineRef ? `line:${lineRef}` : '';
+};
+
 const buildAbsoluteAudioUrl = (url, apiBase) => {
     if (!url) return '';
     if (url.startsWith('http://') || url.startsWith('https://')) return url;
@@ -27,7 +34,7 @@ export const buildLessonAudioUrl = (lessonAudioAssets, apiBase) => {
     return buildAbsoluteAudioUrl(relativeUrl, apiBase);
 };
 
-export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl, apiBase }) {
+export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl, apiBase, courseId, lessonId }) {
     const [playingKey, setPlayingKey] = useState(null);
     const [audioLoadingKey, setAudioLoadingKey] = useState(null);
     const [lessonAudioDuration, setLessonAudioDuration] = useState(0);
@@ -43,6 +50,17 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
     const lessonAudioRef = useRef(null);
     const lessonVolumeControlRef = useRef(null);
     const lessonAudioSectionRef = useRef(null);
+
+    const renewAudioUrl = useCallback(async (assetRef) => {
+        if (!courseId || !lessonId || !assetRef) return '';
+        try {
+            const result = await renewLessonAudioUrl({ courseId, lessonId, assetRef });
+            return buildAbsoluteAudioUrl(result?.audio_url, apiBase);
+        } catch (error) {
+            console.error('刷新课程音频链接失败:', error);
+            return '';
+        }
+    }, [apiBase, courseId, lessonId]);
 
     const audioAssetMap = useMemo(() => {
         const map = new Map();
@@ -143,7 +161,7 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
     }, [lessonAudioRate]);
 
     useEffect(() => {
-        if (!lessonFullAudioUrl) {
+        if (!lessonFullAudioUrl && !lessonAudioAssets?.full_audio) {
             setShowFloatingLessonAudio(false);
             return;
         }
@@ -167,10 +185,12 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
             window.removeEventListener('scroll', updateFloatingPlayerVisibility);
             window.removeEventListener('resize', updateFloatingPlayerVisibility);
         };
-    }, [lessonFullAudioUrl]);
+    }, [lessonAudioAssets?.full_audio, lessonFullAudioUrl]);
 
-    const playFromUrl = useCallback(async (url, key) => {
-        if (!url) return;
+    const playFromUrl = useCallback(async (url, key, assetRef = '') => {
+        if (!url && !assetRef) return;
+        const initialUrl = url || await renewAudioUrl(assetRef);
+        if (!initialUrl) return;
 
         if (audioLoadingKey === key) {
             return;
@@ -184,7 +204,7 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
         stopCurrentAudio();
         stopLessonAudio();
 
-        const audio = new Audio(url);
+        const audio = new Audio(initialUrl);
         claimGlobalAudio(audio);
         audioRef.current = audio;
         setPlayingKey(key);
@@ -212,23 +232,39 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
             setPlayingKey(clearIfStillCurrent);
             setAudioLoadingKey(clearIfStillCurrent);
         };
-        audio.onerror = () => {
+        let hasRenewed = false;
+        const cleanupFailedAudio = () => {
             if (audioRef.current === audio) audioRef.current = null;
             releaseGlobalAudio(audio);
             setPlayingKey(clearIfStillCurrent);
             setAudioLoadingKey(clearIfStillCurrent);
         };
+        const retryWithRenewedUrl = async () => {
+            if (hasRenewed || !assetRef) {
+                cleanupFailedAudio();
+                return;
+            }
+            hasRenewed = true;
+            const renewedUrl = await renewAudioUrl(assetRef);
+            if (!renewedUrl) {
+                cleanupFailedAudio();
+                return;
+            }
+            audio.src = renewedUrl;
+            try {
+                await audio.play();
+            } catch (error) {
+                console.error('刷新链接后播放音频失败:', error);
+                cleanupFailedAudio();
+            }
+        };
 
-        try {
-            await audio.play();
-        } catch (error) {
+        audio.onerror = () => { void retryWithRenewedUrl(); };
+        audio.play().catch((error) => {
             console.error('播放音频失败:', error);
-            if (audioRef.current === audio) audioRef.current = null;
-            releaseGlobalAudio(audio);
-            setPlayingKey(clearIfStillCurrent);
-            setAudioLoadingKey(clearIfStillCurrent);
-        }
-    }, [audioLoadingKey, playingKey, stopCurrentAudio, stopLessonAudio]);
+            void retryWithRenewedUrl();
+        });
+    }, [audioLoadingKey, playingKey, renewAudioUrl, stopCurrentAudio, stopLessonAudio]);
 
     const playTtsFallback = useCallback((text, key, language = 'zh') => {
         if (!text) return;
@@ -246,8 +282,8 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
         const readyUrl = buildAbsoluteAudioUrl(item?.audio_url, apiBase);
         const playbackKey = `line-${lineRef}`;
 
-        if (readyUrl) {
-            playFromUrl(readyUrl, playbackKey);
+        if (readyUrl || audioAssetRef(item, lineRef)) {
+            playFromUrl(readyUrl, playbackKey, audioAssetRef(item, lineRef));
             return;
         }
 
@@ -255,10 +291,11 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
     }, [apiBase, audioAssetMap, playFromUrl, playTtsFallback]);
 
     const handleLessonAudioToggle = useCallback(async () => {
-        if (!lessonFullAudioUrl) return;
+        const initialUrl = lessonFullAudioUrl || await renewAudioUrl('full');
+        if (!initialUrl) return;
 
         if (!lessonAudioRef.current) {
-            const audio = new Audio(lessonFullAudioUrl);
+            const audio = new Audio(initialUrl);
             audio.volume = lessonAudioVolume;
             audio.playbackRate = lessonAudioRate;
             if ('preservesPitch' in audio) audio.preservesPitch = true;
@@ -284,9 +321,24 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
                     lessonAudioRef.current.currentTime = 0;
                 }
             };
+            let hasRenewed = false;
             audio.onerror = () => {
-                setIsLessonAudioPlaying(false);
-                releaseGlobalAudio(audio);
+                if (hasRenewed) {
+                    setIsLessonAudioPlaying(false);
+                    releaseGlobalAudio(audio);
+                    return;
+                }
+                hasRenewed = true;
+                renewAudioUrl('full').then((renewedUrl) => {
+                    if (!renewedUrl) throw new Error('renewal failed');
+                    audio.src = renewedUrl;
+                    return audio.play();
+                }).then(() => {
+                    setIsLessonAudioPlaying(true);
+                }).catch(() => {
+                    setIsLessonAudioPlaying(false);
+                    releaseGlobalAudio(audio);
+                });
             };
         }
 
@@ -310,7 +362,7 @@ export default function useTeachingAudio({ lessonAudioAssets, lessonFullAudioUrl
             setIsLessonAudioPlaying(false);
             releaseGlobalAudio(audio);
         }
-    }, [isLessonAudioPlaying, lessonAudioRate, lessonAudioVolume, lessonFullAudioUrl, stopCurrentAudio]);
+    }, [isLessonAudioPlaying, lessonAudioRate, lessonAudioVolume, lessonFullAudioUrl, renewAudioUrl, stopCurrentAudio]);
 
     const handleLessonAudioSeek = useCallback((event) => {
         const nextTime = Number(event.target.value || 0);

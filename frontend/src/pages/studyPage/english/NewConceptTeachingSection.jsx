@@ -14,7 +14,6 @@ import {
     Repeat2,
     Volume2,
 } from 'lucide-react';
-import apiClient from '../../../api/apiClient';
 import { claimGlobalAudio, releaseGlobalAudio } from '../../../utils/audioPlayback';
 
 const fadeInUp = {
@@ -30,11 +29,6 @@ const staggerContainer = {
 const getLessonNumber = (lessonId = '') => {
     const digits = String(lessonId).match(/\d+/)?.[0] || '';
     return digits ? digits.padStart(3, '0') : String(lessonId || '');
-};
-
-const toApiLessonId = (lessonId = '') => {
-    const digits = String(lessonId).match(/\d+/)?.[0];
-    return digits ? Number(digits) : lessonId;
 };
 
 const normalizeText = (value) => String(value || '').trim();
@@ -377,7 +371,6 @@ function GrammarNotesSection({ teachingMaterials = {} }) {
 export default function NewConceptTeachingSection({
     data,
     courseId,
-    userId,
     onStartPractice,
     isDirectLesson,
 }) {
@@ -415,16 +408,9 @@ export default function NewConceptTeachingSection({
         if (isSaving) return;
         setIsSaving(true);
         try {
-            await apiClient.post('/study/content_viewed', {
-                user_id: userId,
-                course_id: courseId,
-                lesson_id: toApiLessonId(metadata.lesson_id),
-            });
-        } catch (error) {
-            console.error('记录阅读进度失败:', error);
+            await onStartPractice?.();
         } finally {
             setIsSaving(false);
-            onStartPractice();
         }
     };
 

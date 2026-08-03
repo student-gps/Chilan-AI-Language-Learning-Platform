@@ -54,7 +54,7 @@ export default function PracticeFeedbackPanel({
             <div className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-4">
                 <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2">{t('practice_std_answer')}</p>
                 <p className="text-xl font-black text-slate-800">
-                    {(currentQuestion.standard_answers || []).join(' · ')}
+                    {(feedback.expected_answers || []).join(' · ')}
                 </p>
             </div>
 

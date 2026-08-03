@@ -19,7 +19,7 @@ class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
             self.client.get(f"/my-courses/{USER_A}"),
             self.client.get(f"/classroom/stats/{USER_A}"),
             self.client.post("/courses/enroll", json={"course_id": 1}),
-            self.client.delete("/courses/enroll", json={"course_id": 1}),
+            self.client.request("DELETE", "/courses/enroll", json={"course_id": 1}),
         ]
 
         for response in responses:
@@ -77,9 +77,9 @@ class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
 
     def test_public_catalog_and_lesson_endpoints_remain_anonymous(self):
         def handler(query, params):
-            if "GROUP BY c.course_id ORDER BY c.course_id" in query:
+            if "WITH lesson_counts AS" in query:
                 return {"fetchall": [(1, "Course", "general", "zh", "en", 1, 2)]}
-            if "WHERE c.course_id = %s GROUP BY c.course_id" in query:
+            if "LEFT JOIN LATERAL" in query and "WHERE c.course_id = %s" in query:
                 return {"fetchone": (1, "Course", "general", "zh", "en", 1, 2)}
             if "FROM lessons WHERE course_id = %s" in query:
                 return {"fetchall": [(101, "Lesson 101", "第一课")]}
@@ -98,6 +98,75 @@ class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual(catalog.json()[0]["id"], 1)
         self.assertEqual(course.json()["id"], 1)
         self.assertEqual(lessons.json()[0]["lesson_id"], 101)
+
+        catalog_query = fake_db.executed_queries[0][0]
+        self.assertIn("WITH lesson_counts AS", catalog_query)
+        self.assertIn("item_counts AS", catalog_query)
+        self.assertNotIn("LEFT JOIN lessons       l", catalog_query)
+
+    def test_my_courses_uses_independent_active_course_rollups(self):
+        def handler(query, params):
+            if "WITH active_courses AS" in query:
+                return {
+                    "fetchall": [
+                        (1, "Course", "general", "zh", "en", 4, 10, 3, 1, 101, 102, 2, 102, "Lesson 102", "第二课")
+                    ]
+                }
+            return {}
+
+        fake_db = FakeConnection(handler)
+        main.app.dependency_overrides[main.get_db] = lambda: fake_db
+
+        response = self.client.get(f"/my-courses/{USER_A}", headers=auth_headers())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), [{
+            "id": 1,
+            "name": "Course",
+            "category": "general",
+            "target_language": "zh",
+            "source_language": "en",
+            "mastered": 4,
+            "total_items": 10,
+            "lesson_total": 3,
+            "completed_lesson_count": 1,
+            "last_completed_lesson_id": 101,
+            "viewed_lesson_id": 102,
+            "practice_question_index": 2,
+            "next_lesson_id": 102,
+            "next_lesson_title": "Lesson 102",
+            "next_lesson_title_localized": "第二课",
+        }])
+        self.assertEqual(len(fake_db.executed_queries), 1)
+        query, params = fake_db.executed_queries[0]
+        self.assertIn("WITH active_courses AS", query)
+        self.assertIn("item_progress AS", query)
+        self.assertIn("lesson_rollup AS", query)
+        self.assertEqual(params, (USER_A, "active", USER_A, USER_A, USER_A))
+
+    def test_classroom_stats_uses_one_statement_and_preserves_metric_values(self):
+        def handler(query, params):
+            if "CROSS JOIN LATERAL" in query:
+                return {"fetchone": (5, 3, 2)}
+            return {}
+
+        fake_db = FakeConnection(handler)
+        main.app.dependency_overrides[main.get_db] = lambda: fake_db
+
+        response = self.client.get(f"/classroom/stats/{USER_A}", headers=auth_headers())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {
+            "totalRemaining": 5,
+            "totalReviewed": 3,
+            "totalNewLearned": 2,
+        })
+        self.assertEqual(len(fake_db.executed_queries), 1)
+        query, params = fake_db.executed_queries[0]
+        self.assertEqual(query.count("CROSS JOIN LATERAL"), 3)
+        self.assertIn("COUNT(DISTINCT rl.item_id)", query)
+        self.assertIn("rl.state = 0", query)
+        self.assertEqual(params, ("active", USER_A, "active", USER_A, "active", USER_A))
 
 
 if __name__ == "__main__":

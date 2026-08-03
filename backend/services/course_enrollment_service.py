@@ -11,6 +11,25 @@ VALID_COURSE_STATUSES = (
 _USER_COURSES_STATUS_SCHEMA_READY = False
 
 
+def ensure_course_query_indexes(cur):
+    """Create indexes used by course, enrollment, and Classroom aggregate queries."""
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS progress_items_user_text_item_idx
+        ON user_progress_of_language_items ((user_id::text), item_id)
+        INCLUDE (is_mastered);
+    """)
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS review_logs_user_text_time_course_idx
+        ON review_logs ((user_id::text), review_time, course_id)
+        INCLUDE (item_id, state);
+    """)
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS review_logs_user_text_new_time_course_idx
+        ON review_logs ((user_id::text), review_time, course_id)
+        WHERE state = 0;
+    """)
+
+
 def ensure_user_courses_status(cur):
     global _USER_COURSES_STATUS_SCHEMA_READY
     if _USER_COURSES_STATUS_SCHEMA_READY:
@@ -59,4 +78,5 @@ def ensure_user_courses_status(cur):
         CREATE INDEX IF NOT EXISTS review_logs_user_text_course_time_idx
         ON review_logs ((user_id::text), course_id, review_time);
     """)
+    ensure_course_query_indexes(cur)
     _USER_COURSES_STATUS_SCHEMA_READY = True
