@@ -187,6 +187,7 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
         try {
             const result = await transcribeSpeech({
                 audioBlob,
+                itemId: currentQuestion?.item_id,
                 filename: mimeType?.includes('mp4') ? 'speech.mp4' : 'speech.webm',
                 language: questionConfig.speechLanguage || 'zh'
             });
@@ -218,7 +219,7 @@ export default function useSpeechPractice({ currentQuestion, onTranscriptReady, 
         } finally {
             setIsTranscribing(false);
         }
-    }, [onTranscriptReady, questionConfig.speechLanguage, speechConfig.min_asr_confidence, t]);
+    }, [currentQuestion?.item_id, onTranscriptReady, questionConfig.speechLanguage, speechConfig.min_asr_confidence, t]);
 
     const handleStartRecording = useCallback(async () => {
         if (!speechMode || isRecording || isTranscribing) return;

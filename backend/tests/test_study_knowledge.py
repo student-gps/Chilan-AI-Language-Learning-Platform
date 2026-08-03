@@ -2,6 +2,14 @@ import unittest
 from unittest.mock import patch
 
 from .test_helpers import FakeConnection, SmokeTestCaseMixin, study
+from database.utils import create_access_token
+
+
+USER_ID = "11111111-1111-1111-1111-111111111111"
+
+
+def auth_headers():
+    return {"Authorization": f"Bearer {create_access_token({'sub': USER_ID})}"}
 
 
 class StudyKnowledgeSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
@@ -73,6 +81,8 @@ class StudyKnowledgeSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                         },
                     }
                 }
+            if "FROM user_courses" in query:
+                return {"fetchone": (1,)}
             if "FROM vocabulary_knowledge" in query:
                 if params == (99, "我", 101):
                     return {"fetchall": same_course_rows}
@@ -84,7 +94,7 @@ class StudyKnowledgeSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         fake_db = FakeConnection(handler)
 
         with patch.object(study, "get_connection", return_value=fake_db):
-            response = self.client.get("/study/knowledge", params={"item_id": 1})
+            response = self.client.get("/study/knowledge", params={"item_id": 1}, headers=auth_headers())
 
         self.assertEqual(response.status_code, 200)
         body = response.json()

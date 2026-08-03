@@ -9,6 +9,84 @@ from psycopg2.extras import RealDictCursor
 
 from database.connection import get_connection
 from services.course_enrollment_service import ACTIVE_COURSE_STATUS
+from services.study.access_service import assert_active_course_enrollment, assert_lesson_belongs_to_course
+
+
+PRACTICE_METADATA_FIELDS = {
+    "answer_mode",
+    "answer_language",
+    "answerLanguage",
+    "audio_id",
+    "audio_language",
+    "line_ref",
+    "prompt_language",
+    "show_knowledge_card",
+    "source_language",
+    "source_ref",
+    "source_section",
+    "speech_eval_config",
+    "speech_language",
+    "support_language",
+    "supportLanguage",
+    "target_language",
+    "targetLanguage",
+    "tts_language",
+}
+PRACTICE_CONTEXT_FIELDS = {
+    "audio_id",
+    "audio_language",
+    "line_ref",
+    "pattern",
+    "slot",
+    "source_ref",
+    "source_section",
+    "support_language",
+    "target_language",
+}
+
+
+def _practice_metadata(metadata: Any) -> Dict[str, Any]:
+    if not isinstance(metadata, dict):
+        return {}
+
+    safe_metadata = {
+        key: value
+        for key, value in metadata.items()
+        if key in PRACTICE_METADATA_FIELDS
+    }
+    context = metadata.get("context")
+    if isinstance(context, dict):
+        safe_context = {
+            key: value
+            for key, value in context.items()
+            if key in PRACTICE_CONTEXT_FIELDS
+        }
+        if safe_context:
+            safe_metadata["context"] = safe_context
+    return safe_metadata
+
+
+def serialize_practice_item(item: Dict[str, Any]) -> Dict[str, Any]:
+    """Return only UI fields needed before an answer is evaluated."""
+    return {
+        "item_id": item.get("item_id"),
+        "course_id": item.get("course_id"),
+        "lesson_id": item.get("lesson_id"),
+        "question_id": item.get("question_id"),
+        "question_type": item.get("question_type"),
+        "original_text": item.get("original_text"),
+        "original_pinyin": item.get("original_pinyin") or "",
+        "metadata": _practice_metadata(item.get("metadata")),
+    }
+
+
+def _study_capabilities(is_course_enrolled: bool) -> Dict[str, bool]:
+    return {
+        "can_view_lesson": True,
+        "can_practice": bool(is_course_enrolled),
+        "can_write_progress": bool(is_course_enrolled),
+        "can_renew_lesson_media": bool(is_course_enrolled),
+    }
 
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
@@ -166,11 +244,8 @@ def _normalize_lesson_audio_assets(payload: Any) -> Dict[str, Any]:
 
 def _hydrate_lesson_audio_urls(payload: Any, cos_media_storage=None) -> Dict[str, Any]:
     assets = _normalize_lesson_audio_assets(payload)
-    if not cos_media_storage:
-        return assets
-
     full_audio = assets.get("full_audio", {})
-    if isinstance(full_audio, dict):
+    if cos_media_storage and isinstance(full_audio, dict):
         object_key = (full_audio.get("object_key") or "").strip()
         if object_key:
             try:
@@ -180,12 +255,17 @@ def _hydrate_lesson_audio_urls(payload: Any, cos_media_storage=None) -> Dict[str
 
     for item in assets.get("items", []):
         object_key = (item.get("object_key") or "").strip()
-        if not object_key:
+        if not object_key or not cos_media_storage:
             continue
         try:
             item["audio_url"] = cos_media_storage.resolve_url(object_key)
         except Exception as e:
             print(f"⚠️ COS sentence audio 签名 URL 生成失败: line_ref={item.get('line_ref')} | {e}")
+
+    for asset in [assets.get("full_audio"), *assets.get("items", [])]:
+        if isinstance(asset, dict):
+            asset.pop("object_key", None)
+            asset.pop("local_audio_file", None)
 
     return assets
 
@@ -240,6 +320,7 @@ def _build_teaching_response(
     is_course_enrolled: bool = False,
     viewed_lesson: int = 0,
     practice_question_index: int = 0,
+    can_practice: bool = False,
     new_questions: list | None = None,
     practice_deferred: bool = False,
     cos_media_storage=None,
@@ -250,11 +331,17 @@ def _build_teaching_response(
     video_plan = lesson_row.get("video_plan") or {}
     video_render_plan = _normalize_video_render_plan(lesson_row.get("video_render_plan"))
     lesson_audio_assets = _hydrate_lesson_audio_urls(lesson_row.get("lesson_audio_assets"), cos_media_storage)
+    if not can_practice:
+        lesson_audio_assets = {
+            **lesson_audio_assets,
+            "full_audio": {},
+            "items": [],
+        }
     explanation_video_urls = _hydrate_explanation_video_urls(lesson_row.get("explanation_video_urls"), cos_media_storage)
     teaching_video = _normalize_teaching_video(
         video_plan.get("dramatization") if isinstance(video_plan.get("dramatization"), dict) else {}
     )
-    questions = new_questions or []
+    questions = [serialize_practice_item(question) for question in (new_questions or [])]
 
     lesson_metadata = {
         "course_id": course_id,
@@ -269,6 +356,7 @@ def _build_teaching_response(
         "data": {
             "course_info": course_info,
             "is_course_enrolled": is_course_enrolled,
+            "capabilities": _study_capabilities(can_practice),
             "lesson_content": {
                 "pipeline_id": lesson_metadata.get("pipeline_id") or lesson_metadata.get("course_slug"),
                 "target_language": lesson_metadata.get("target_language") or (course_info or {}).get("target_language"),
@@ -295,6 +383,8 @@ def load_lesson_practice_items(user_id: str, course_id: int, lesson_id: int) -> 
     try:
         conn = get_connection()
         cur = conn.cursor(cursor_factory=RealDictCursor)
+        assert_lesson_belongs_to_course(cur, course_id=course_id, lesson_id=lesson_id)
+        assert_active_course_enrollment(cur, user_id=user_id, course_id=course_id)
         cur.execute(
             """
             WITH progress AS (
@@ -324,11 +414,11 @@ def load_lesson_practice_items(user_id: str, course_id: int, lesson_id: int) -> 
         )
         rows = cur.fetchall()
         practice_question_index = (rows[0].get("practice_question_index") or 0) if rows else 0
-        questions = [{
+        questions = [serialize_practice_item({
             key: value
             for key, value in row.items()
             if key != "practice_question_index"
-        } for row in rows]
+        }) for row in rows]
         return {
             "pending_items": questions,
             "practice_resume_index": max(0, min(practice_question_index, max(len(questions) - 1, 0))),
@@ -448,21 +538,6 @@ def init_study_flow(
     prefer_local_content: bool = False,
     defer_practice_items: bool = False,
 ):
-    if prefer_local_content and lesson_id is not None:
-        lesson_row = _load_local_mnn_lesson_row(course_id, lesson_id)
-        if lesson_row:
-            return _build_teaching_response(
-                lesson_row,
-                course_id=course_id,
-                course_info=None,
-                is_course_enrolled=False,
-                viewed_lesson=0,
-                practice_question_index=0,
-                new_questions=[],
-                practice_deferred=True,
-                cos_media_storage=cos_media_storage,
-            )
-
     conn = None
     try:
         conn = get_connection()
@@ -473,7 +548,10 @@ def init_study_flow(
             user_id=user_id,
             course_id=course_id,
         )
-        if lesson_id is None and not is_course_enrolled:
+        can_practice = is_course_enrolled
+        if lesson_id is not None:
+            assert_lesson_belongs_to_course(cur, course_id=course_id, lesson_id=lesson_id)
+        if not is_course_enrolled and (lesson_id is None or not prefer_local_content):
             return {
                 "mode": "not_enrolled",
                 "message": "请先将课程添加到学习列表。",
@@ -505,7 +583,13 @@ def init_study_flow(
             )
             due_questions = cur.fetchall()
             if due_questions:
-                return {"mode": "review", "data": {"pending_items": due_questions}}
+                return {
+                    "mode": "review",
+                    "data": {
+                        "pending_items": [serialize_practice_item(question) for question in due_questions],
+                        "capabilities": _study_capabilities(True),
+                    },
+                }
 
         last_lesson = progress.get("last_completed_lesson_id") or 0
         viewed_lesson = progress.get("viewed_lesson_id") or 0
@@ -526,7 +610,7 @@ def init_study_flow(
 
         next_lesson_id = lesson_row["lesson_id"]
 
-        practice_deferred = bool(defer_practice_items or prefer_local_content)
+        practice_deferred = bool(defer_practice_items or prefer_local_content or not can_practice)
         if practice_deferred:
             new_questions = []
         else:
@@ -561,6 +645,7 @@ def init_study_flow(
         is_course_enrolled=is_course_enrolled,
         viewed_lesson=viewed_lesson,
         practice_question_index=practice_question_index,
+        can_practice=can_practice,
         new_questions=new_questions,
         practice_deferred=practice_deferred,
         cos_media_storage=cos_media_storage,

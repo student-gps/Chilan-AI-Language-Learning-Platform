@@ -3,7 +3,6 @@ import json
 import tempfile
 from pathlib import Path
 from fastapi import FastAPI, Depends, HTTPException
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, StreamingResponse
 from pydantic import BaseModel
@@ -12,7 +11,7 @@ from typing import List
 # 🌟 1. 挂载路由（所有的 /study/... 和 /auth/... 逻辑都已移入这两个文件）
 from routers import auth, study
 from database.connection import get_connection
-from database.utils import decode_access_token_subject
+from dependencies.auth import require_current_user_id, require_matching_user_id
 from config.env import get_env
 from services.course_enrollment_service import (
     ACTIVE_COURSE_STATUS,
@@ -250,34 +249,6 @@ def get_db():
         conn.close()
 
 # --- 📦 业务请求模型 ---
-_bearer_scheme = HTTPBearer(auto_error=False)
-
-
-def require_current_user_id(
-    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
-) -> str:
-    if credentials is None or credentials.scheme.lower() != "bearer":
-        raise HTTPException(
-            status_code=401,
-            detail="Authentication required",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-
-    user_id = decode_access_token_subject(credentials.credentials)
-    if not user_id:
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid or expired access token",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    return user_id
-
-
-def require_matching_user_id(path_user_id: str, current_user_id: str) -> None:
-    if path_user_id != current_user_id:
-        raise HTTPException(status_code=403, detail="Cannot access another user's data")
-
-
 class EnrollReq(BaseModel):
     user_id: str | None = None
     course_id: int

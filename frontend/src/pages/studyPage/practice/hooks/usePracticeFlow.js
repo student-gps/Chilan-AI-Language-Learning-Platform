@@ -7,15 +7,8 @@ const getErrorMessage = (error, fallback) => {
     return message || fallback;
 };
 
-const toApiLessonId = (value) => {
-    if (typeof value === 'number' && Number.isFinite(value)) return value;
-    const digits = String(value || '').match(/\d+/)?.[0];
-    return digits ? Number(digits) : 101;
-};
-
 export default function usePracticeFlow({
     currentQuestion,
-    userId,
     t,
     speechMode,
     speechTranscript,
@@ -64,16 +57,7 @@ export default function usePracticeFlow({
         setIsEvaluating(true);
         try {
             const res = await evaluateStudyAnswer({
-                user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
                 item_id: currentQuestion.item_id,
-                course_id: currentQuestion.course_id,
-                lesson_id: toApiLessonId(currentQuestion.lesson_id),
-                question_id: currentQuestion.question_id,
-                question_type: currentQuestion.question_type,
-                original_text: currentQuestion.original_text,
-                standard_answers: Array.isArray(currentQuestion.standard_answers)
-                    ? currentQuestion.standard_answers
-                    : [currentQuestion.standard_answers],
                 user_answer: '',
                 forfeit: true,
             });
@@ -83,7 +67,7 @@ export default function usePracticeFlow({
         } finally {
             setIsEvaluating(false);
         }
-    }, [currentQuestion, isEvaluating, userId]);
+    }, [currentQuestion, isEvaluating]);
 
     const handleSubmit = useCallback(async () => {
         if (!currentQuestion || isEvaluating) return;
@@ -106,14 +90,7 @@ export default function usePracticeFlow({
         setIsEvaluating(true);
         try {
             const res = await evaluateStudyAnswer({
-                user_id: userId || localStorage.getItem('chilan_user_id') || 'test-user-id',
                 item_id: currentQuestion.item_id,
-                course_id: currentQuestion.course_id,
-                lesson_id: toApiLessonId(currentQuestion.lesson_id),
-                question_id: currentQuestion.question_id,
-                question_type: currentQuestion.question_type,
-                original_text: currentQuestion.original_text,
-                standard_answers: Array.isArray(currentQuestion.standard_answers) ? currentQuestion.standard_answers : [currentQuestion.standard_answers],
                 user_answer: activeAnswer,
                 input_mode: speechMode ? 'speech' : 'text',
                 asr_text: speechMode ? speechTranscript : '',
@@ -146,8 +123,7 @@ export default function usePracticeFlow({
         speechMode,
         speechTranscript,
         t,
-        userAnswer,
-        userId
+        userAnswer
     ]);
 
     useEffect(() => {

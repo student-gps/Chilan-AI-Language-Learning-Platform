@@ -2,6 +2,14 @@ import unittest
 from unittest.mock import patch
 
 from .test_helpers import FakeConnection, SmokeTestCaseMixin, init_flow_service
+from database.utils import create_access_token
+
+
+USER_ID = "11111111-1111-1111-1111-111111111111"
+
+
+def auth_headers():
+    return {"Authorization": f"Bearer {create_access_token({'sub': USER_ID})}"}
 
 
 class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
@@ -73,7 +81,11 @@ class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         fake_db = FakeConnection(handler)
 
         with patch.object(init_flow_service, "get_connection", return_value=fake_db):
-            response = self.client.get("/study/init", params={"user_id": "u-1", "course_id": 1})
+            response = self.client.get(
+                "/study/init",
+                params={"user_id": USER_ID, "course_id": 1},
+                headers=auth_headers(),
+            )
 
         self.assertEqual(response.status_code, 200)
         body = response.json()
@@ -86,6 +98,10 @@ class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
 
     def test_practice_items_use_one_query_and_keep_resume_index(self):
         def handler(query, params):
+            if "FROM user_courses" in query:
+                return {"fetchone": (1,)}
+            if "SELECT 1" in query and "FROM lessons" in query:
+                return {"fetchone": (1,)}
             if "WITH progress AS" in query:
                 return {
                     "fetchall": [
@@ -122,8 +138,8 @@ class StudyInitSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         with patch.object(init_flow_service, "get_connection", return_value=fake_db):
             result = init_flow_service.load_lesson_practice_items("u-1", 1, 101)
 
-        self.assertEqual(len(fake_db.executed_queries), 1)
-        query, params = fake_db.executed_queries[0]
+        self.assertEqual(len(fake_db.executed_queries), 3)
+        query, params = fake_db.executed_queries[-1]
         self.assertIn("WITH progress AS", query)
         self.assertIn("ORDER BY item.question_id ASC, item.item_id ASC", query)
         self.assertEqual(params, ("u-1", 1, 101, 1, 101))

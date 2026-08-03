@@ -3,7 +3,6 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
 import apiClient from '../../api/apiClient';
-import { getAuthState } from '../../utils/authStorage';
 import TeachingSection from './teaching';
 import NewConceptTeachingSection from './english/NewConceptTeachingSection';
 import PracticeSection from './practice/PracticeSection';
@@ -53,12 +52,14 @@ export default function StudyPage() {
     const [searchParams] = useSearchParams();
     const lessonId = searchParams.get('lesson_id');
     const isBrowseEntry = searchParams.get('browse') === '1';
-    const userId = getAuthState().userId;
 
     const [mode, setMode] = useState('loading'); // loading, teaching, practice, review, completed, lesson_finished
     const [studyData, setStudyData] = useState(null);
     const [courseInfo, setCourseInfo] = useState(null);
-    const [isCourseEnrolled, setIsCourseEnrolled] = useState(false);
+    const [studyCapabilities, setStudyCapabilities] = useState({
+        can_practice: false,
+        can_write_progress: false,
+    });
     const [showPinyinBtn, setShowPinyinBtn] = useState(false);
     const [pinyinPopoverOpen, setPinyinPopoverOpen] = useState(false);
     // 预加载的 practice_items promise（用户在看讲解时后台已在请求）
@@ -69,7 +70,7 @@ export default function StudyPage() {
         setMode('loading');
         practiceItemsPromiseRef.current = null;
         try {
-            const initParams = { course_id: courseId, user_id: userId };
+            const initParams = { course_id: courseId };
             if (lessonId) initParams.lesson_id = lessonId;
             if (isBrowseEntry) initParams.browse = 1;
             initParams.defer_practice = 1;
@@ -84,27 +85,30 @@ export default function StudyPage() {
                 target_language: getLessonTargetLanguage(lessonContent, null),
                 source_language: lessonContent?.source_language || lessonContent?.lesson_metadata?.source_language || '',
             };
-            const isEnrolled = !!data?.is_course_enrolled;
+            const capabilities = data?.capabilities || {};
+            const canPractice = !!capabilities.can_practice;
 
             setCourseInfo(course || null);
-            setIsCourseEnrolled(isEnrolled);
+            setStudyCapabilities({
+                can_practice: !!capabilities.can_practice,
+                can_write_progress: !!capabilities.can_write_progress,
+            });
             setShowPinyinBtn(isChinese(getLessonTargetLanguage(lessonContent, course)) && !isNewConceptContent(lessonContent, course));
 
             if (isBrowseEntry && lessonId && data?.lesson_content) {
                 // 浏览模式：进入 teaching，同时后台预加载 practice_items
                 const practiceApiLessonId = toApiLessonId(data.lesson_content.lesson_metadata?.lesson_id);
-                if (practiceApiLessonId && data.practice_deferred) {
+                if (practiceApiLessonId && data.practice_deferred && canPractice) {
                     practiceItemsPromiseRef.current = apiClient.get('/study/practice_items', {
-                        params: { user_id: userId, course_id: courseId, lesson_id: practiceApiLessonId },
+                        params: { course_id: courseId, lesson_id: practiceApiLessonId },
                     });
                 }
                 setStudyData(nextData);
                 setMode('teaching');
-            } else if (responseMode === 'teaching' && data.skip_content) {
+            } else if (responseMode === 'teaching' && data.skip_content && canPractice) {
                 if (data.practice_deferred && data?.lesson_content?.lesson_metadata?.lesson_id) {
                     const practiceRes = await apiClient.get('/study/practice_items', {
                         params: {
-                            user_id: userId,
                             course_id: courseId,
                             lesson_id: toApiLessonId(data.lesson_content.lesson_metadata.lesson_id),
                         }
@@ -122,9 +126,9 @@ export default function StudyPage() {
                 // 正常 teaching 模式：后台预加载 practice_items，用户看讲解时静默完成
                 if (responseMode === 'teaching' && data.practice_deferred) {
                     const practiceApiLessonId = toApiLessonId(data.lesson_content?.lesson_metadata?.lesson_id);
-                    if (practiceApiLessonId) {
+                    if (practiceApiLessonId && capabilities.can_practice) {
                         practiceItemsPromiseRef.current = apiClient.get('/study/practice_items', {
-                            params: { user_id: userId, course_id: courseId, lesson_id: practiceApiLessonId },
+                            params: { course_id: courseId, lesson_id: practiceApiLessonId },
                         });
                     }
                 }
@@ -135,11 +139,12 @@ export default function StudyPage() {
             console.error("加载学习流失败:", e);
             setMode('error');
         }
-    }, [courseId, isBrowseEntry, lessonId, userId]);
+    }, [courseId, isBrowseEntry, lessonId]);
 
     useEffect(() => { initFlow(); }, [initFlow]);
 
     const loadPracticeItems = useCallback(async () => {
+        if (!studyCapabilities.can_practice) return [];
         const lessonIdForPractice = studyData?.lesson_content?.lesson_metadata?.lesson_id;
         if (!lessonIdForPractice) return [];
         // 已有数据直接返回
@@ -149,7 +154,6 @@ export default function StudyPage() {
         // 优先复用预加载的 promise（用户看讲解时已在后台请求）
         const req = practiceItemsPromiseRef.current || apiClient.get('/study/practice_items', {
             params: {
-                user_id: userId,
                 course_id: courseId,
                 lesson_id: toApiLessonId(lessonIdForPractice),
             }
@@ -164,23 +168,24 @@ export default function StudyPage() {
             practice_deferred: false,
         }));
         return pendingItems;
-    }, [courseId, studyData, userId]);
+    }, [courseId, studyCapabilities.can_practice, studyData]);
 
     const handleStartPractice = useCallback(async () => {
         const lessonApiId = toApiLessonId(studyData?.lesson_content?.lesson_metadata?.lesson_id);
         // content_viewed 和等待 practice_items 并发，互不阻塞
         const [pendingItems] = await Promise.all([
             loadPracticeItems(),
-            lessonApiId
+            studyCapabilities.can_write_progress && lessonApiId
                 ? apiClient.post('/study/content_viewed', {
-                    user_id: userId, course_id: courseId, lesson_id: lessonApiId,
+                    course_id: courseId,
+                    lesson_id: lessonApiId,
                   }).catch(e => console.error('content_viewed 失败:', e))
                 : Promise.resolve(),
         ]);
         if (pendingItems.length > 0) {
             setMode('practice');
         }
-    }, [courseId, loadPracticeItems, studyData, userId]);
+    }, [courseId, loadPracticeItems, studyCapabilities.can_write_progress, studyData]);
 
     // 🌟 处理一课结束后的逻辑
     const handleLessonComplete = async () => {
@@ -189,7 +194,6 @@ export default function StudyPage() {
         if (lessonId && mode === 'practice') {
             try {
                 await apiClient.post(`/study/complete_lesson`, {
-                    user_id: userId,
                     course_id: courseId,
                     lesson_id: toApiLessonId(lessonId)
                 });
@@ -286,10 +290,9 @@ export default function StudyPage() {
                             data={lessonContent}
                             courseInfo={courseInfo}
                             courseId={courseId}
-                            userId={userId}
                             onStartPractice={handleStartPractice}
                             isDirectLesson={!!lessonId}
-                            canStartPractice={!lessonId || isCourseEnrolled}
+                            canStartPractice={studyCapabilities.can_practice}
                             hasPracticeItems={!!studyData?.practice_deferred || (studyData?.pending_items || []).length > 0}
                         />
                     )}
@@ -299,7 +302,6 @@ export default function StudyPage() {
                         <PracticeSection
                             questions={studyData.pending_items}
                             isReview={mode === 'review'}
-                            userId={userId}
                             courseId={courseId}
                             lessonId={studyData?.lesson_content?.lesson_metadata?.lesson_id}
                             lessonAudioAssets={studyData?.lesson_content?.lesson_audio_assets}
