@@ -1366,7 +1366,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         normalized = generator.normalize_practice_items(items, [], {"lines": []}, lesson_id=13)
 
-        self.assertEqual([item["question_type"] for item in normalized], ["CN_TO_JA"])
+        self.assertEqual([item["question_type"] for item in normalized], ["TRANSLATE"])
 
     def test_practice_generator_allows_limited_conjugation_from_lesson_14(self):
         generator = MinnaNoNihongoPracticeGenerator()
@@ -1603,7 +1603,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         self.assertEqual(len(database_items), 2)
         self.assertTrue(all("マイク・ミラー" not in item["original_text"] for item in database_items))
-        self.assertEqual({item["question_type"] for item in database_items}, {"JA_TO_CN", "CN_TO_JA"})
+        self.assertEqual({item["question_type"] for item in database_items}, {"TRANSLATE"})
 
     def test_practice_generator_normalizes_object_prompt_and_answers(self):
         generator = MinnaNoNihongoPracticeGenerator()
@@ -1664,8 +1664,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
         database_items = generator.build_database_items(payload)
         question_types = {item["question_type"] for item in database_items}
 
-        self.assertIn("JA_TO_CN", question_types)
-        self.assertIn("CN_TO_JA", question_types)
+        self.assertIn("TRANSLATE", question_types)
         self.assertIn("SPEAK", question_types)
         self.assertIn("LISTEN_WRITE", question_types)
 
@@ -1750,6 +1749,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
                         "question_type": "CONJUGATION",
                         "original_text": "飲みます -> て形",
                         "standard_answers": ["飲んで"],
+                        "context_examples": [{"cn": "水を飲んでください。"}],
                     }
                 ]
             }
@@ -1771,6 +1771,7 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
 
         self.assertEqual(len(provider.calls), 1)
         self.assertEqual(database_items[0]["question_type"], "CONJUGATION")
+        self.assertEqual(database_items[0]["context_examples"], [])
         self.assertIn("conjugation", database_items[0]["metadata"]["skill_tags"])
 
     def test_render_plan_regenerates_legacy_existing_plan(self):

@@ -28,10 +28,11 @@ function SegmentScene({ segment, showSubtitleBar = true }) {
     const scale = interpolate(enter, [0, 1], [0.98, 1]);
 
     // Compute which subtitle sentence to show based on current frame
+    const narrationTrack = segment?.narration_track || {};
     const narrationText =
-        segment?.narration_track?.script ||
-        segment?.narration_track?.subtitle_en ||
-        segment?.narration_track?.subtitle_zh ||
+        narrationTrack.script ||
+        narrationTrack.subtitle_zh ||
+        narrationTrack.subtitle_en ||
         '';
     const sentenceTexts = Array.isArray(segment?.sentence_texts) ? segment.sentence_texts : null;
     const sentences = sentenceTexts?.length ? sentenceTexts : splitSentences(narrationText);

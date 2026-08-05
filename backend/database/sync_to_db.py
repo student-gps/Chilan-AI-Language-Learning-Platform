@@ -47,6 +47,10 @@ BACKEND_DIR = CURRENT_DIR.parent
 sys.path.append(str(BACKEND_DIR))
 
 from config.env import get_env, get_env_int
+from services.study.practice_item_schema import (
+    PracticeItemSchemaError,
+    canonicalize_database_item,
+)
 
 # 🌟 引入数据库连接池
 try:
@@ -674,6 +678,17 @@ def sync_lesson_data(
 
     course_id, lesson_id, lesson_metadata = _normalize_db_ids(data, lesson_metadata, sync_context)
     title = lesson_metadata.get("title")
+    practice_defaults = {
+        "course_target_language": data.get("target_language") or lesson_metadata.get("target_language"),
+        "course_support_language": data.get("support_language") or lesson_metadata.get("support_language") or lesson_metadata.get("source_language"),
+        "feedback_language": data.get("support_language") or lesson_metadata.get("support_language") or lesson_metadata.get("source_language"),
+    }
+    if not practice_defaults["course_target_language"]:
+        practice_defaults["course_target_language"] = "en"
+    if not practice_defaults["course_support_language"]:
+        practice_defaults["course_support_language"] = "zh"
+    if not practice_defaults["feedback_language"]:
+        practice_defaults["feedback_language"] = practice_defaults["course_support_language"]
 
     conn = None
     cur = None
@@ -736,18 +751,26 @@ def sync_lesson_data(
 
         # 2. 同步 language_items 表
         print(f"🎯 正在处理 {len(database_items)} 道深度解析题目...")
-        for item in database_items:
+        for raw_item in database_items:
+            try:
+                item = canonicalize_database_item(
+                    raw_item,
+                    defaults=practice_defaults,
+                    retire_legacy_fields=True,
+                )
+            except PracticeItemSchemaError as exc:
+                raise ValueError(
+                    f"Invalid canonical practice item question_id={raw_item.get('question_id')!r}: {exc}"
+                ) from exc
             q_id = item['question_id']
             # 🚀 提取新增字段
             q_pinyin = item.get('original_pinyin', '')
             q_type = item.get('question_type')
 
             vocab_word = ""
-            if re.match(r"^CN_TO_\w+$", q_type or ""):
-                vocab_word = (item.get('original_text') or '').strip()
-            elif re.match(r"^\w+_TO_CN", q_type or ""):
-                standard_answers = item.get('standard_answers') or []
-                vocab_word = (standard_answers[0] if standard_answers else '').strip()
+            item_metadata = item.get("metadata", {})
+            if isinstance(item_metadata, dict):
+                vocab_word = str(item_metadata.get("vocabulary_word") or "").strip()
 
             vocab_entry = vocab_lookup.get(vocab_word, {})
             current_example = vocab_entry.get("example_sentence", {}) if isinstance(vocab_entry, dict) else {}

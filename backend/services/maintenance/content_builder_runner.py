@@ -201,6 +201,7 @@ def _commands_for_lesson(req: ContentBuilderRequest, lesson_id: int) -> list[tup
                 argv.append("--force")
             if req.refresh_render_plan:
                 argv.append("--refresh-render-plan")
+            argv.append("--without-audio")
             if req.only_slide:
                 argv.extend(["--only-slide", str(req.only_slide)])
             commands.append((lesson_id, "Stage2 slides only", argv))

@@ -127,10 +127,10 @@ const pickFirstLang = (...values) => {
 
 const resolveTargetLanguage = (metadata = {}, fallback = 'zh') => normalizeLangCode(
     pickFirstLang(
-        metadata.target_language,
-        metadata.targetLanguage,
         metadata.answer_language,
         metadata.answerLanguage,
+        metadata.target_language,
+        metadata.targetLanguage,
         metadata.speech_language,
         metadata.audio_language,
     ),
@@ -139,12 +139,14 @@ const resolveTargetLanguage = (metadata = {}, fallback = 'zh') => normalizeLangC
 
 const resolveSupportLanguage = (metadata = {}, fallback = 'zh') => normalizeLangCode(
     pickFirstLang(
+        metadata.prompt_language,
+        metadata.promptLanguage,
+        metadata.feedback_language,
+        metadata.feedbackLanguage,
         metadata.support_language,
         metadata.supportLanguage,
         metadata.source_language,
         metadata.sourceLanguage,
-        metadata.prompt_language,
-        metadata.promptLanguage,
     ),
     fallback,
 );
@@ -402,9 +404,73 @@ const buildCanonicalListenWriteConfig = (metadata = {}) => {
     }, metadata);
 };
 
+const buildCanonicalTranslateConfig = (metadata = {}) => {
+    const promptLanguage = normalizeLangCode(
+        metadata.prompt_language || metadata.promptLanguage || metadata.feedback_language,
+        'zh',
+    );
+    const answerLanguage = resolveTargetLanguage(metadata, 'en');
+    const sourceCode = toLabelLangCode(promptLanguage, 'CN');
+    const answerCode = toLabelLangCode(answerLanguage, 'EN');
+
+    return withResolvedLanguages({
+        promptMode: 'text',
+        answerMode: 'text',
+        answerLanguage,
+        targetLanguage: answerLanguage,
+        supportLanguage: promptLanguage,
+        ttsLanguage: promptLanguage,
+        replayPrompt: false,
+        autoPlayPrompt: false,
+        showKnowledgeCard: metadata.show_knowledge_card ?? false,
+        badgeLabel: _buildTranslateBadge(sourceCode, answerCode),
+        badgeKey: null,
+        promptLabel: _buildPromptLabel(answerCode),
+        promptLabelKey: null,
+        theme: answerLanguage === 'zh' ? THEMES.emerald : THEMES.blue,
+    }, metadata);
+};
+
+const buildCanonicalPatternConfig = (metadata = {}) => {
+    const promptLanguage = normalizeLangCode(
+        metadata.prompt_language || metadata.promptLanguage || metadata.feedback_language,
+        'zh',
+    );
+    const answerLanguage = resolveTargetLanguage(metadata, 'en');
+    const answerCode = toLabelLangCode(answerLanguage, 'EN');
+
+    return withResolvedLanguages({
+        promptMode: 'pattern',
+        answerMode: 'text',
+        answerLanguage,
+        targetLanguage: answerLanguage,
+        supportLanguage: promptLanguage,
+        ttsLanguage: promptLanguage,
+        replayPrompt: false,
+        showKnowledgeCard: false,
+        badgeLabel: `${TRANSLATE_VERB[_uiLang()] || TRANSLATE_VERB.en} · ${_abbrev(toLabelLangCode(promptLanguage, 'CN'), _uiLang())}→${_abbrev(answerCode, _uiLang())}`,
+        badgeKey: null,
+        promptLabel: _buildPromptLabel(answerCode),
+        promptLabelKey: null,
+        theme: THEMES.amber,
+    }, metadata);
+};
+
 export const getQuestionTypeConfig = (question) => {
     const type = String(question?.question_type || '').trim().toUpperCase();
     const metadata = question?.metadata || {};
+
+    if (type === 'TRANSLATE') {
+        return buildCanonicalTranslateConfig(metadata);
+    }
+
+    if (['PATTERN_DRILL', 'PARTICLE_FILL', 'CONJUGATION', 'TONE_MARKING', 'MEASURE_WORD_FILL'].includes(type)) {
+        return buildCanonicalPatternConfig(metadata);
+    }
+
+    if (['SENTENCE_SOURCE_TO_TARGET', 'SENTENCE_TARGET_TO_SOURCE', 'VOCAB_SOURCE_TO_TARGET', 'VOCAB_TARGET_TO_SOURCE'].includes(type)) {
+        return buildCanonicalTranslateConfig(metadata);
+    }
 
     if (type === 'SPEAK') {
         return buildCanonicalSpeakConfig(metadata);
