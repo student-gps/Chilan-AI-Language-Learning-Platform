@@ -1,0 +1,152 @@
+================================================================================
+QUESTION TYPE & LANGUAGE METADATA: DATA FLOW MAP
+================================================================================
+
+CONTENT BUILDER (Question Creation)
+────────────────────────────────────
+Chinese: EN_TO_CN, CN_TO_EN, SPEAK + metadata, LISTEN_WRITE + metadata
+English: PATTERN_DRILL, TARGET_TO_SUPPORT, TARGET_SPEAK, TARGET_LISTEN_WRITE
+Japanese: JA_TO_CN, CN_TO_JA, JA_SPEAK, JA_LISTEN_WRITE
+Multi-lang: CN_TO_{LANG}, {LANG}_TO_CN, {LANG}_SPEAK, {LANG}_LISTEN_WRITE
+
+
+DATABASE (language_items table)
+───────────────────────────────
+┌─────────────┬──────────┬──────────────────────────────────────────────────┐
+│ question_id │question_ │ metadata (JSONB)                                 │
+│             │type      │                                                  │
+├─────────────┼──────────┼──────────────────────────────────────────────────┤
+│ 1           │ EN_TO_CN │ { target_language: "zh",                         │
+│             │          │   support_language: "en",                        │
+│             │          │   audio_language: "en" }                         │
+├─────────────┼──────────┼──────────────────────────────────────────────────┤
+│ 2           │ SPEAK    │ { target_language: "zh",                         │
+│             │          │   support_language: "en",                        │
+│             │          │   speech_language: "zh",                         │
+│             │          │   audio_language: "en" }                         │
+└─────────────┴──────────┴──────────────────────────────────────────────────┘
+
+
+BACKEND EVALUATION (Answer Judging)
+───────────────────────────────────
+Question Type + Metadata → get_eval_prompt() → Select evaluation rubric
+
+Prompt selection logic:
+  • SPEAK: Dynamic based on target_language ("for English speakers")
+  • LISTEN_WRITE: Dynamic ("for English speakers")
+  • EN_TO_CN: Explicit ("Expert Chinese Tutor for English speakers")
+  • CN_TO_EN: Explicit ("Expert Language Coach")
+  • PATTERN_DRILL: Explicit ("for Chinese Native Speakers")
+  • JA_SPEAK, JA_LISTEN_WRITE: Explicit
+  • {LANG}_VARIANTS: Derived from base type
+
+⚠️ RISK: Audience is inferred from question_type, not explicit metadata
+
+
+FRONTEND UI RENDERING (Practice Display)
+────────────────────────────────────────
+Question Type + Metadata → getQuestionTypeConfig() → Config object
+
+Config resolution:
+  • SPEAK → buildCanonicalSpeakConfig(metadata)
+  • LISTEN_WRITE → buildCanonicalListenWriteConfig(metadata)
+  • CN_TO_EN, EN_TO_CN → Hardcoded CONFIGS
+  • CN_TO_{LANG} → Regex match, dynamic build
+  • {LANG}_SPEAK → Pattern match, canonical builder
+  • Unknown → FALLBACK_CONFIG
+
+Config includes:
+  • targetLanguage, supportLanguage (from metadata)
+  • answerMode (text, speech, listen_write, pattern)
+  • badgeLabel, promptLabel (localized)
+  • theme (color scheme)
+
+
+CANONICALIZATION CHALLENGE: Named → Generic Types
+──────────────────────────────────────────────────
+
+Current:
+  [Named Types: EN_TO_CN, PATTERN_DRILL, etc.]
+        ↓
+  [Hardcoded Prompts + UI Configs]
+        ↓
+  [User sees correct evaluation & display]
+
+Proposed:
+  [Canonical Types: TRANSLATE, SPEAK, LISTEN_WRITE, PATTERN_DRILL]
+  + [Metadata: target_language, support_language, ...]
+        ↓
+  [Dynamic Prompt Selection]
+  [Dynamic UI Config Selection]
+        ↓
+  [User sees correct evaluation & display]
+
+
+KEY COMPATIBILITY RISKS
+───────────────────────
+
+1. AUDIENCE INFERENCE IS IMPLICIT
+   Current: question_type = "EN_TO_CN" → implies "for English speakers"
+   Proposed: question_type = "TRANSLATE" + metadata
+   Problem: Can't infer who should evaluate without explicit "evaluator_language"
+   Impact: HIGH - Wrong evaluation prompt if inferred audience is wrong
+
+2. NEW LANGUAGE PAIRS BREAK THEME LOGIC
+   Current: Hardcoded theme per type (e.g., EN_TO_CN_SPEAK → rose)
+   Proposed: Compute theme from target_language + answerMode
+   Problem: No theme defined for all 100+ language pair combinations
+   Impact: MEDIUM - New language pairs need theme assignment rules
+
+3. MIGRATION OF ~5,000 EXISTING QUESTIONS
+   Current: Old questions have question_type = "EN_TO_CN_SPEAK"
+   Proposed: Change to "SPEAK" + fill metadata
+   Problem: If metadata is wrong for even 1%, wrong prompts are used
+   Impact: HIGH - Requires comprehensive validation before/after
+
+4. FRONTEND PATTERN MATCHING BECOMES PERMANENT TECH DEBT
+   Current: Frontend handles CN_TO_{LANG} patterns
+   Proposed: All types should be canonical
+   Problem: Old questions still have named types; pattern matchers must persist
+   Impact: MEDIUM - Legacy code forever unless database is migrated
+
+5. EVALUATION PROMPT AUDIENCE NOT TRACKED ANYWHERE
+   Current: Audience is implicit in question_type
+   Proposed: Audience should be explicit
+   Problem: "PATTERN_DRILL for Chinese speakers" vs "PATTERN_DRILL for English speakers" not distinguishable
+   Impact: MEDIUM - Can't change evaluation audience per question later
+
+
+CRITICAL QUESTION
+──────────────────
+Should "evaluator_language" or "rubric_audience" be EXPLICIT metadata?
+
+Without it:
+  • Can't safely swap evaluation audience later
+  • Prompt selection is brittle: "if target_language == en then English speaker"
+  • Multi-evaluator scenarios (peer review) not supported
+
+With it:
+  • One extra field per question
+  • Explicit, verifiable, changeable per question
+  • Supports future audience variations
+
+Recommendation: YES, add explicit evaluator_language metadata
+before canonicalizing question types.
+
+
+FILES INVOLVED
+───────────────
+Backend:
+  • backend/services/llm/prompts.py (700+ lines, prompts for 10+ types)
+  • backend/database/migrate_integrated_chinese_practice_types.py (script)
+  • backend/routers/study.py (evaluation endpoint)
+  • backend/services/study/init_flow_service.py (serialization)
+
+Frontend:
+  • frontend/src/pages/studyPage/practice/questionTypeConfig.js (500 lines)
+  • frontend/src/pages/studyPage/practice/PracticeSection.jsx (usage)
+
+Tests:
+  • backend/tests/test_new_concept_practice_types.py (16 combinations tested)
+  • backend/tests/test_migrate_integrated_chinese_practice_types.py (migration tests)
+

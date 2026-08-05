@@ -71,8 +71,8 @@ class NewConceptPipelineOrchestrationTests(unittest.TestCase):
             item["question_type"]
             for item in lesson_data["database_items"]
         }
-        self.assertIn("PATTERN_DRILL", question_types)
-        self.assertNotIn("SUPPORT_TO_TARGET", question_types)
+        self.assertIn("TRANSLATE", question_types)
+        self.assertNotIn("TARGET_TO_SUPPORT", question_types)
 
         render_plan = assert_render_plan_minimum(
             self,

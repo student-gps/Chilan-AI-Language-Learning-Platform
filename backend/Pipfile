@@ -30,6 +30,7 @@ scikit-learn = "*"
 json-repair = "*"
 zhconv = "*"
 boto3 = "*"
+pillow = "*"
 
 [dev-packages]
 

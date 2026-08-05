@@ -1,5 +1,5 @@
-import unittest
 import sys
+import unittest
 from pathlib import Path
 
 
@@ -10,26 +10,89 @@ if str(BACKEND_DIR) not in sys.path:
 from services.llm.prompts import get_eval_prompt
 
 
-class NewConceptPracticeTypePromptTests(unittest.TestCase):
-    def test_new_concept_question_types_have_targeted_prompts(self):
-        expected_markers = {
-            "PATTERN_DRILL": "correct English pattern sentence",
-            "TARGET_TO_SUPPORT": "translation from English to Chinese",
-            "LISTEN_WRITE": "dictation answer against the reference English sentence",
-            "SPEAK": "spoken English answer from ASR transcript",
-        }
+class CanonicalPracticePromptTests(unittest.TestCase):
+    def test_canonical_types_render_languages_from_metadata(self):
+        cases = [
+            (
+                "TRANSLATE",
+                {"prompt_language": "ja", "answer_language": "zh", "feedback_language": "zh"},
+                ("translation from Japanese to Chinese", "explanation\" MUST be in Chinese"),
+            ),
+            (
+                "SPEAK",
+                {
+                    "prompt_language": "zh",
+                    "answer_language": "ja",
+                    "feedback_language": "zh",
+                    "answer_mode": "speech",
+                    "speech_language": "ja",
+                },
+                ("spoken Japanese answer", "explanation\" MUST be in Chinese"),
+            ),
+            (
+                "LISTEN_WRITE",
+                {
+                    "prompt_language": "fr",
+                    "answer_language": "ja",
+                    "feedback_language": "fr",
+                    "audio_language": "ja",
+                },
+                ("Japanese dictation answer", "explanation\" MUST be in French"),
+            ),
+            (
+                "PATTERN_DRILL",
+                {"prompt_language": "zh", "answer_language": "en", "feedback_language": "zh"},
+                ("English Pattern Coach", "explanation\" MUST be in Chinese"),
+            ),
+        ]
 
-        for question_type, marker in expected_markers.items():
+        for question_type, metadata, markers in cases:
             with self.subTest(question_type=question_type):
-                prompt = get_eval_prompt(question_type)
-                self.assertIn(marker, prompt)
-                self.assertIn("Chinese Native Speakers", prompt)
+                prompt = get_eval_prompt(question_type, metadata)
+                for marker in markers:
+                    self.assertIn(marker, prompt)
 
-    def test_legacy_support_to_target_uses_pattern_drill_prompt(self):
-        prompt = get_eval_prompt("SUPPORT_TO_TARGET")
+    def test_request_values_are_only_in_final_evaluation_input(self):
+        cases = [
+            ("TRANSLATE", {"prompt_language": "en", "answer_language": "zh", "feedback_language": "zh"}),
+            (
+                "SPEAK",
+                {
+                    "prompt_language": "zh",
+                    "answer_language": "ja",
+                    "feedback_language": "zh",
+                    "speech_language": "ja",
+                },
+            ),
+            (
+                "LISTEN_WRITE",
+                {
+                    "prompt_language": "zh",
+                    "answer_language": "en",
+                    "feedback_language": "zh",
+                    "audio_language": "en",
+                },
+            ),
+            ("PATTERN_DRILL", {"prompt_language": "zh", "answer_language": "en", "feedback_language": "zh"}),
+        ]
+        question = "__QUESTION_SENTINEL__"
+        standards = ["__STANDARD_SENTINEL__"]
+        user_answer = "__ANSWER_SENTINEL__"
 
-        self.assertIn("correct English pattern sentence", prompt)
-        self.assertIn("Chinese Native Speakers", prompt)
+        for question_type, metadata in cases:
+            with self.subTest(question_type=question_type):
+                prompt = get_eval_prompt(question_type, metadata).format(
+                    question=question,
+                    standards=standards,
+                    user_answer=user_answer,
+                )
+                input_start = prompt.rindex("# Evaluation Input:")
+
+                self.assertLess(prompt.index("# Output Format:"), input_start)
+                self.assertLess(input_start, prompt.index(question))
+                self.assertLess(prompt.index(question), prompt.index("__STANDARD_SENTINEL__"))
+                self.assertLess(prompt.index("__STANDARD_SENTINEL__"), prompt.index(user_answer))
+                self.assertTrue(prompt.rstrip().endswith(f'"{user_answer}"'))
 
 
 if __name__ == "__main__":

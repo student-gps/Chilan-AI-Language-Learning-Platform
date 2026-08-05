@@ -257,7 +257,19 @@ class MediaArtifactRoutesSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual(response.content, expected)
         self.assertIn("image/png", response.headers.get("content-type", ""))
 
-    def test_get_teaching_slide_serves_local_japanese_svg(self):
+    def test_get_teaching_slide_serves_local_japanese_webp(self):
+        expected = b"WEBP-JAPANESE"
+        self._write_bytes(
+            self.ja_root / "output_slides" / "zh" / "lesson001" / "slide_001.webp",
+            expected,
+        )
+
+        response = self.client.get("/media/teaching-slide/minna_no_nihongo/zh/001/slide_001.webp")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, expected)
+        self.assertIn("image/webp", response.headers.get("content-type", ""))
+
         expected = b"<svg xmlns='http://www.w3.org/2000/svg'></svg>"
         self._write_bytes(
             self.ja_root / "output_slides" / "zh" / "lesson001" / "slide_001.svg",

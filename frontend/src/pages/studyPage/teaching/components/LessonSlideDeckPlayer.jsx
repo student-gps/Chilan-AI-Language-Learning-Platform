@@ -89,13 +89,14 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     const playSlideRef = useRef(null);
 
     const slide = slides[index] || null;
+    const hasAudio = deck?.audio_mode !== 'none';
     const imageUrl = resolveAssetUrl(slide?.image, apiBase);
-    const audioUrl = resolveAssetUrl(slide?.audio, apiBase);
+    const audioUrl = hasAudio ? resolveAssetUrl(slide?.audio, apiBase) : '';
     const startMs = Number(slide?.audio?.start_ms || 0);
     const endMs = Number(slide?.audio?.end_ms || startMs + (slide?.duration_ms || 0));
     const durationMs = Math.max(1, Number(slide?.duration_ms || endMs - startMs || 1));
     const progress = Math.max(0, Math.min(1, localMs / durationMs));
-    const cue = useMemo(() => currentCueFor(slide, localMs), [slide, localMs]);
+    const cue = useMemo(() => currentCueFor(slide, hasAudio ? localMs : 0), [hasAudio, slide, localMs]);
     const cueKey = cue ? `${cue.start_ms}-${cue.end_ms}` : 'empty';
 
     // Sync all data refs every render so tick always reads fresh values
@@ -215,6 +216,10 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     }, [durationMs, startMs]);
 
     const handleTimelineClick = useCallback((event, targetIndex) => {
+        if (!hasAudio) {
+            goTo(targetIndex);
+            return;
+        }
         const rect = event.currentTarget.getBoundingClientRect();
         const ratio = rect.width > 0 ? (event.clientX - rect.left) / rect.width : 0;
         if (targetIndex !== index) {
@@ -222,7 +227,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
             return;
         }
         seekTo(durationMs * Math.max(0, Math.min(1, ratio)));
-    }, [durationMs, goTo, index, playSlide, playing, seekTo]);
+    }, [durationMs, goTo, hasAudio, index, playSlide, playing, seekTo]);
 
     // play: resume/start current slide from localMs (used by toggle button)
     const play = useCallback(() => {
@@ -273,7 +278,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     // 音频预缓冲：当前 slide 和下一张 slide 的音频提前 preload
     // 用 <audio preload="auto"> 触发浏览器缓冲，不实际播放
     useEffect(() => {
-        if (!slides.length) return;
+        if (!hasAudio || !slides.length) return;
         const targets = [index, index + 1]
             .filter((i) => i >= 0 && i < slides.length);
         const nodes = targets.map((i) => {
@@ -286,7 +291,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         }).filter(Boolean);
         // 不需要挂载 DOM，创建即触发缓冲
         return () => { nodes.forEach((a) => { a.src = ''; }); };
-    }, [index, slides, apiBase]);
+    }, [hasAudio, index, slides, apiBase]);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -393,7 +398,9 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                             <div className="flex min-w-0 flex-1 flex-col justify-center">
                                 <div className="mb-1 flex items-center justify-center">
                                     <p className="truncate text-center text-xs font-black uppercase tracking-[0.18em] text-white/45">
-                                        {index + 1} / {slides.length} · {formatTime(localMs)} / {formatTime(durationMs)}
+                                        {hasAudio
+                                            ? `${index + 1} / ${slides.length} · ${formatTime(localMs)} / ${formatTime(durationMs)}`
+                                            : `${index + 1} / ${slides.length}`}
                                     </p>
                                 </div>
                                 <div className="flex min-h-[3.25rem] items-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
@@ -407,14 +414,16 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                                 </div>
                             </div>
 
-                            <button
-                                type="button"
-                                onClick={toggle}
-                                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/20 text-white transition hover:bg-white/30"
-                                aria-label={playing ? 'Pause slide narration' : 'Play slide narration'}
-                            >
-                                {playing ? <Pause size={22} /> : <Play size={22} className="ml-0.5" />}
-                            </button>
+                            {hasAudio && (
+                                <button
+                                    type="button"
+                                    onClick={toggle}
+                                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/20 text-white transition hover:bg-white/30"
+                                    aria-label={playing ? 'Pause slide narration' : 'Play slide narration'}
+                                >
+                                    {playing ? <Pause size={22} /> : <Play size={22} className="ml-0.5" />}
+                                </button>
+                            )}
 
                             <button
                                 type="button"
@@ -426,7 +435,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                                 <ChevronRight size={20} />
                             </button>
 
-                            <RateSelector rate={rate} setRate={setRate} />
+                            {hasAudio && <RateSelector rate={rate} setRate={setRate} />}
 
                             <button
                                 type="button"

@@ -12,6 +12,7 @@ const textOf = (...values) => {
 };
 
 const TYPE_LABELS = {
+    TRANSLATE: '翻译',
     CN_TO_JA: '中译日',
     JA_TO_CN: '日译中',
     JA_LISTEN_WRITE: '听写',
@@ -22,6 +23,7 @@ const TYPE_LABELS = {
 };
 
 const TYPE_HINTS = {
+    TRANSLATE: '根据题干语言翻译成指定答案语言。',
     CN_TO_JA: '看中文，写出日语。',
     JA_TO_CN: '看日语，理解中文意思。',
     JA_LISTEN_WRITE: '听日语音频，写出原句。',
@@ -31,7 +33,14 @@ const TYPE_HINTS = {
     CONJUGATION: '针对动词、形容词等做形式变化。',
 };
 
-const typeLabel = (type) => TYPE_LABELS[type] || type || '未分类';
+const typeLabel = (type, metadata = {}) => {
+    if (type === 'TRANSLATE') {
+        const promptLanguage = String(metadata.prompt_language || '').toUpperCase();
+        const answerLanguage = String(metadata.answer_language || '').toUpperCase();
+        return promptLanguage && answerLanguage ? `翻译 · ${promptLanguage}→${answerLanguage}` : '翻译';
+    }
+    return TYPE_LABELS[type] || type || '未分类';
+};
 
 const sourceLabel = (metadata = {}) => {
     const context = metadata.context || {};
@@ -99,7 +108,7 @@ function PracticeCard({ item }) {
                         #{item?.question_id || '?'}
                     </span>
                     <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-700 ring-1 ring-blue-100">
-                        {typeLabel(type)}
+                        {typeLabel(type, metadata)}
                     </span>
                 </div>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-black text-slate-500 ring-1 ring-slate-100">
@@ -212,7 +221,7 @@ export default function LessonPracticePreview({ items = [], className = '' }) {
                         title={TYPE_HINTS[type] || ''}
                     >
                         <Layers3 size={15} />
-                        {typeLabel(type)} {groupItems.length}
+                        {typeLabel(type, groupItems[0]?.metadata)} {groupItems.length}
                     </button>
                 ))}
             </div>

@@ -219,12 +219,13 @@ class ContentBuilderVocabularyExampleTests(unittest.TestCase):
         items = [
             {"question_type": "SPEAK", "original_text": "Speak", "standard_answers": ["说"]},
             {"question_type": "LISTEN_WRITE", "original_text": "听写", "standard_answers": ["听写"]},
-            {"question_type": "CN_TO_EN", "original_text": "你好", "standard_answers": ["hello"]},
-            {"question_type": "EN_TO_CN", "original_text": "hello", "standard_answers": ["你好"]},
+            {"question_type": "TRANSLATE", "original_text": "你好", "standard_answers": ["hello"]},
+            {"question_type": "TRANSLATE", "original_text": "hello", "standard_answers": ["你好"]},
         ]
-        sort_order = self.generator.exercise_sort_order
-        sorted_items = sorted(items, key=lambda item: (sort_order.get(item["question_type"], 999), item["question_type"]))
-        self.assertEqual([item["question_type"] for item in sorted_items], ["CN_TO_EN", "EN_TO_CN", "LISTEN_WRITE", "SPEAK"])
+        sort_order = {"TRANSLATE": 1, "LISTEN_WRITE": 2, "SPEAK": 3}
+        sorted_items = sorted(items, key=lambda item: (sort_order.get(item["question_type"], 999), item["original_text"]))
+        self.assertEqual([item["original_text"] for item in sorted_items[:2]], ["hello", "你好"])
+        self.assertEqual([item["question_type"] for item in sorted_items], ["TRANSLATE", "TRANSLATE", "LISTEN_WRITE", "SPEAK"])
 
 
 if __name__ == "__main__":

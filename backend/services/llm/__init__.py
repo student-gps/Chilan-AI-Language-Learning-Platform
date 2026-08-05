@@ -3,6 +3,7 @@ from typing import List
 
 from google import genai
 
+from services.study.practice_item_schema import canonicalize_practice_item
 from .base_engine import LLMEngine
 from .prompts import get_eval_prompt
 from config.env import get_env, get_env_int
@@ -73,7 +74,8 @@ class LanguageTools:
             raise
 
     async def judge_with_ai(self, q_type: str, question: str, user_ans: str, standards: list, pm=None, metadata=None):
-        template = get_eval_prompt(q_type, metadata=metadata)
+        canonical_type, normalized_metadata = canonicalize_practice_item(q_type, metadata)
+        template = get_eval_prompt(canonical_type, metadata=normalized_metadata)
         prompt = template.format(question=question, user_answer=user_ans, standards=standards)
         return await self.engine.generate_json(prompt, pm=pm)
 

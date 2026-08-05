@@ -849,13 +849,10 @@ async def get_knowledge_details(
 
         metadata = item.get("metadata") or {}
         knowledge_meta = metadata.get("knowledge") or {}
-        question_type = item.get("question_type")
+        vocabulary_word = (metadata.get("vocabulary_word") or knowledge_meta.get("word") or "").strip()
         standard_answers = item.get("standard_answers") or []
 
-        if re.match(r"^CN_TO_\w+$", question_type or ""):
-            word = (item.get("original_text") or "").strip()
-        else:
-            word = (standard_answers[0] if standard_answers else "").strip()
+        word = vocabulary_word or (standard_answers[0] if standard_answers else "").strip()
 
         if not word:
             return {"status": "success", "data": None}

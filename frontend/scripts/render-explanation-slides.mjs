@@ -78,7 +78,32 @@ if (!sourceJsonPath) {
 
 const artifactRoot = candidateArtifactRoots.find((root) => sourceJsonPath.startsWith(root)) || preferredArtifactRoot;
 const raw = JSON.parse(fs.readFileSync(sourceJsonPath, 'utf-8'));
-const renderPlan = raw?.video_render_plan?.explanation;
+const rawRenderPlan = raw?.video_render_plan?.explanation;
+
+function preferredNarrationText(segment = {}) {
+    const track = segment?.narration_track || {};
+    return track[`subtitle_${lang}`]
+        || track.script
+        || track.subtitle_zh
+        || track.subtitle_en
+        || '';
+}
+
+const renderPlan = rawRenderPlan && Array.isArray(rawRenderPlan.segments)
+    ? {
+        ...rawRenderPlan,
+        segments: rawRenderPlan.segments.map((segment) => {
+            const { sentence_texts, sentence_timings_seconds, narration_track, ...rest } = segment || {};
+            return {
+                ...rest,
+                narration_track: {
+                    ...(narration_track || {}),
+                    script: preferredNarrationText(segment),
+                },
+            };
+        }),
+    }
+    : rawRenderPlan;
 
 if (!renderPlan || !Array.isArray(renderPlan?.segments) || renderPlan.segments.length === 0) {
     console.error(`lesson${lessonId} 缺少 video_render_plan.explanation.segments，无法渲染。`);
@@ -115,7 +140,7 @@ function RemotionRoot() {
             height={HEIGHT}
             defaultProps={{
                 renderPlan: explanationRenderPlan,
-                showSubtitleBar: false,
+                showSubtitleBar: true,
             }}
         />
     );

@@ -11,7 +11,7 @@ for path in (BACKEND_DIR, BACKEND_DIR / "content_builder"):
     if path_str not in sys.path:
         sys.path.append(path_str)
 
-from content_builder.core.slide_asset_helpers import cleanup_stale_slide_assets, detect_image_suffix
+from content_builder.core.slide_asset_helpers import cleanup_stale_slide_assets, convert_pngs_to_webp, detect_image_suffix
 from content_builder.core.stage2_helpers import (
     apply_reused_narration,
     expected_narration_path,
@@ -83,7 +83,25 @@ class Stage2HelpersTests(unittest.TestCase):
         (tmpdir / "slide_002.webp").write_bytes(b"WEBP")
         self.assertEqual(detect_image_suffix(tmpdir, [1, 2], prefer_webp=True), ".webp")
 
-    def test_cleanup_stale_slide_assets_removes_extra_images_and_audio(self):
+    def test_convert_pngs_to_webp_uses_webp_and_removes_png(self):
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest("Pillow is required for WebP conversion")
+
+        tmpdir = Path(self._make_tempdir())
+        png_path = tmpdir / "slide_001.png"
+        Image.new("RGB", (12, 12), color=(32, 96, 160)).save(png_path, "PNG")
+
+        converted = convert_pngs_to_webp(tmpdir, [1], quality=85)
+        webp_path = tmpdir / "slide_001.webp"
+
+        self.assertTrue(converted)
+        self.assertFalse(png_path.exists())
+        self.assertTrue(webp_path.exists())
+        with Image.open(webp_path) as image:
+            self.assertEqual(image.format, "WEBP")
+
         tmpdir = Path(self._make_tempdir())
         slide_dir = tmpdir / "slides"
         audio_dir = tmpdir / "audio"
@@ -111,6 +129,29 @@ class Stage2HelpersTests(unittest.TestCase):
         self.assertFalse((audio_dir / "lesson101_slide_001.mp3").exists())
         self.assertTrue((audio_dir / "lesson101_slide_002.mp3").exists())
         self.assertFalse((audio_dir / "lesson101_slide_003.mp3").exists())
+
+    def test_cleanup_stale_slide_assets_removes_all_audio_when_disabled(self):
+        tmpdir = Path(self._make_tempdir())
+        slide_dir = tmpdir / "slides"
+        audio_dir = tmpdir / "audio"
+        slide_dir.mkdir(parents=True, exist_ok=True)
+        audio_dir.mkdir(parents=True, exist_ok=True)
+        (slide_dir / "slide_001.png").write_bytes(b"PNG")
+        (audio_dir / "lesson101_slide_001.mp3").write_bytes(b"ID3")
+        (audio_dir / "lesson101_slide_002.mp3").write_bytes(b"ID3")
+
+        cleanup_stale_slide_assets(
+            slide_dir=slide_dir,
+            audio_dir=audio_dir,
+            lesson_digits="101",
+            lang="en",
+            slide_indexes=[1],
+            image_suffixes=(".png",),
+            keep_audio=False,
+        )
+
+        self.assertFalse((audio_dir / "lesson101_slide_001.mp3").exists())
+        self.assertFalse((audio_dir / "lesson101_slide_002.mp3").exists())
 
     def _make_tempdir(self) -> str:
         import tempfile
