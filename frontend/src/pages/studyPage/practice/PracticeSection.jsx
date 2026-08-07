@@ -382,18 +382,18 @@ export default function PracticeSection({ questions, isReview, onAllDone, course
                 initial="hidden"
                 animate="show"
                 exit={{ opacity: 0, y: -10, transition: { duration: 0.18 } }}
-                className="max-w-5xl mx-auto px-6 pt-10 pb-0"
+                className="max-w-5xl mx-auto px-6 pt-14 pb-0"
             >
-                <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-5 flex items-center justify-between gap-3">
-                    <div className="flex min-w-0 items-center gap-2.5">
-                        <Sparkles className={`${qTheme.sparkle} shrink-0`} size={22} />
-                        <p className="truncate text-lg font-black tracking-tight text-slate-800 sm:text-xl">
+                <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+                    <div className="flex items-center gap-2.5">
+                        <Sparkles className={`${qTheme.sparkle} shrink-0`} size={24} />
+                        <p className="text-xl font-black tracking-tight text-slate-800 sm:text-2xl">
                             {practiceLabel}
-                            <span className="mx-2 text-slate-300">·</span>
+                            <span className="mx-2.5 text-slate-300">·</span>
                             <span className={qTheme.sparkle}>{practiceBadgeLabel}</span>
                         </p>
                     </div>
-                    <div className="shrink-0 rounded-full bg-slate-200/50 px-3.5 py-1 text-sm font-black tracking-tighter text-slate-500 sm:text-base">
+                    <div className="rounded-full bg-slate-200/50 px-4 py-1.5 text-base font-black tracking-tighter text-slate-500 sm:text-lg">
                         {currentIndex + 1} / {questions.length}
                     </div>
                 </motion.div>
