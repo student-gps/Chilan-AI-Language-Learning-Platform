@@ -3,6 +3,7 @@ from datetime import timedelta
 
 from .test_helpers import FakeConnection, SmokeTestCaseMixin, main
 from database.utils import create_access_token
+from services.course_registry import public_course_definition
 
 
 USER_A = "11111111-1111-1111-1111-111111111111"
@@ -14,6 +15,63 @@ def auth_headers(user_id=USER_A):
 
 
 class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
+    def test_course_registry_assigns_stable_chinese_slug_and_modules(self):
+        definition = public_course_definition(
+            course_id=1,
+            category="EN_TO_CN",
+            target_language="chinese",
+            source_language="english",
+        )
+
+        self.assertEqual(definition["slug"], "integrated-chinese-en")
+        self.assertEqual(definition["target_language_code"], "zh")
+        self.assertEqual(definition["support_language_code"], "en")
+        self.assertEqual(
+            [module["key"] for module in definition["foundations"]],
+            ["intro", "hanzi", "pinyin", "typing"],
+        )
+
+    def test_course_registry_does_not_assign_chinese_modules_to_japanese(self):
+        definition = public_course_definition(
+            course_id=303,
+            category="CN_TO_JA",
+            target_language="japanese",
+            source_language="chinese",
+        )
+
+        self.assertEqual(definition["slug"], "minna-no-nihongo-zh")
+        self.assertEqual(definition["target_language_code"], "ja")
+        self.assertEqual(definition["foundations"], [])
+
+    def test_slug_foundation_endpoints_resolve_the_chinese_registry(self):
+        def handler(query, params):
+            if "WITH lesson_counts AS" in query:
+                return {"fetchall": [(1, "Course", "EN_TO_CN", "chinese", "english", 1, 2)]}
+            return {}
+
+        fake_db = FakeConnection(handler)
+        main.app.dependency_overrides[main.get_db] = lambda: fake_db
+
+        course = self.client.get("/courses/by-slug/integrated-chinese-en")
+        modules = self.client.get("/courses/by-slug/integrated-chinese-en/foundations")
+        module = self.client.get("/courses/by-slug/integrated-chinese-en/foundations/typing")
+
+        self.assertEqual(course.status_code, 200)
+        self.assertEqual(course.json()["id"], 1)
+        self.assertEqual(course.json()["slug"], "integrated-chinese-en")
+        self.assertEqual(modules.status_code, 200)
+        self.assertEqual([item["key"] for item in modules.json()], ["intro", "hanzi", "pinyin", "typing"])
+        self.assertEqual(module.status_code, 200)
+        self.assertEqual(module.json()["implementation_key"], "chinese-ime-v1")
+
+    def test_unknown_course_slug_returns_not_found(self):
+        fake_db = FakeConnection(lambda query, params: {"fetchall": []})
+        main.app.dependency_overrides[main.get_db] = lambda: fake_db
+
+        response = self.client.get("/courses/by-slug/missing-course")
+
+        self.assertEqual(response.status_code, 404)
+
     def test_private_navigation_endpoints_require_a_bearer_token(self):
         responses = [
             self.client.get(f"/my-courses/{USER_A}"),
@@ -136,6 +194,49 @@ class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
             "next_lesson_id": 102,
             "next_lesson_title": "Lesson 102",
             "next_lesson_title_localized": "第二课",
+            "slug": "integrated-chinese-en",
+            "course_family": "integrated_chinese",
+            "pipeline_id": "integrated_chinese",
+            "target_language_code": "zh",
+            "support_language_code": "en",
+            "foundations": [
+                {
+                    "key": "intro",
+                    "position": 1,
+                    "implementation_key": "course-intro-v1",
+                    "title_key": "course_intro_card_title",
+                    "description_key": "course_intro_card_sub",
+                    "icon": "✨",
+                    "tone": "amber",
+                },
+                {
+                    "key": "hanzi",
+                    "position": 2,
+                    "implementation_key": "chinese-hanzi-v1",
+                    "title_key": "course_hanzi_card_title",
+                    "description_key": "course_hanzi_card_sub",
+                    "icon": "字",
+                    "tone": "indigo",
+                },
+                {
+                    "key": "pinyin",
+                    "position": 3,
+                    "implementation_key": "chinese-pinyin-v1",
+                    "title_key": "course_pinyin_card_title",
+                    "description_key": "course_pinyin_card_sub",
+                    "icon": "abc",
+                    "tone": "blue",
+                },
+                {
+                    "key": "typing",
+                    "position": 4,
+                    "implementation_key": "chinese-ime-v1",
+                    "title_key": "course_typing_card_title",
+                    "description_key": "course_typing_card_sub",
+                    "icon": "⌨",
+                    "tone": "emerald",
+                },
+            ],
         }])
         self.assertEqual(len(fake_db.executed_queries), 1)
         query, params = fake_db.executed_queries[0]

@@ -241,19 +241,22 @@ function StrokeMark({ item, index }) {
     );
 }
 
-export default function HanziIntroPage() {
+export default function HanziIntroPage({ foundationNavigation, locationState: routeLocationState, navigate: routeNavigate }) {
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const routerNavigate = useNavigate();
     const location = useLocation();
+    const navigate = routeNavigate || routerNavigate;
+    const locationState = routeLocationState ?? location.state;
     const content = t('hanzi_intro', { returnObjects: true });
 
     return (
         <div className="min-h-screen bg-slate-50 pt-16">
             <IntroFloatingNav
                 currentPath="/learn/hanzi"
-                locationState={location.state}
+                locationState={locationState}
                 navigate={navigate}
                 t={t}
+                foundationNavigation={foundationNavigation}
             />
 
             <div className="mx-auto max-w-7xl px-4 py-12 pb-28 sm:px-5 lg:px-6">

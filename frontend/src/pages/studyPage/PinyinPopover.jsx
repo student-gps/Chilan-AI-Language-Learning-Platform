@@ -65,7 +65,7 @@ function SoundBtn({ label, audioFile }) {
     );
 }
 
-export default function PinyinPopover({ onClose }) {
+export default function PinyinPopover({ onClose, foundationPath = '/learn/pinyin' }) {
     const navigate = useNavigate();
     const location = useLocation();
     const ref = useRef(null);
@@ -135,7 +135,7 @@ export default function PinyinPopover({ onClose }) {
             {/* 底部：完整页面入口 */}
             <div className="mt-4 border-t border-slate-100 pt-4">
                 <button
-                    onClick={() => navigate('/learn/pinyin', { state: { from: location.pathname } })}
+                    onClick={() => navigate(foundationPath, { state: { from: location.pathname } })}
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
                 >
                     <span>Open Full Pinyin Guide</span>

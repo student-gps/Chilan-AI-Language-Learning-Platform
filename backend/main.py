@@ -19,6 +19,7 @@ from services.course_enrollment_service import (
     MAX_ACTIVE_COURSES,
     PAUSED_COURSE_STATUS,
 )
+from services.course_registry import public_course_definition
 from services.maintenance.dev_logs import make_dev_log_path, stream_events_with_log
 
 # ── Vertex AI Service Account：支持部署环境通过 JSON 内容写临时文件 ──────────
@@ -602,14 +603,21 @@ async def dev_course_reset_execute(payload: DevCourseResetRequest):
 
 def _serialize_course(row) -> dict:
     """将课程查询结果行转为统一的 JSON 字典（含课时数和词汇数）。"""
+    definition = public_course_definition(
+        course_id=row[0],
+        category=row[2],
+        target_language=row[3],
+        source_language=row[4],
+    )
     return {
-        "id":              row[0],
-        "name":            row[1],
-        "category":        row[2],
+        "id": row[0],
+        "name": row[1],
+        "category": row[2],
         "target_language": row[3],
         "source_language": row[4],
-        "lesson_total":    row[5],
-        "total_items":     row[6],
+        "lesson_total": row[5],
+        "total_items": row[6],
+        **definition,
     }
 
 _COURSE_CATALOG_QUERY = """
@@ -666,6 +674,32 @@ async def list_all_courses(db=Depends(get_db)):
     cur = db.cursor()
     cur.execute(_COURSE_CATALOG_QUERY + " ORDER BY c.course_id")
     return [_serialize_course(r) for r in cur.fetchall()]
+
+
+@app.get("/courses/by-slug/{course_slug}")
+async def get_course_by_slug(course_slug: str, db=Depends(get_db)):
+    cur = db.cursor()
+    cur.execute(_COURSE_CATALOG_QUERY + " ORDER BY c.course_id")
+    for row in cur.fetchall():
+        course = _serialize_course(row)
+        if course["slug"] == course_slug:
+            return course
+    raise HTTPException(status_code=404, detail="Course not found")
+
+
+@app.get("/courses/by-slug/{course_slug}/foundations")
+async def get_course_foundations_by_slug(course_slug: str, db=Depends(get_db)):
+    course = await get_course_by_slug(course_slug, db)
+    return course["foundations"]
+
+
+@app.get("/courses/by-slug/{course_slug}/foundations/{module_key}")
+async def get_course_foundation_by_slug(course_slug: str, module_key: str, db=Depends(get_db)):
+    course = await get_course_by_slug(course_slug, db)
+    module = next((item for item in course["foundations"] if item["key"] == module_key), None)
+    if module is None:
+        raise HTTPException(status_code=404, detail="Foundation module not found")
+    return module
 
 
 @app.get("/courses/{course_id}")
@@ -770,23 +804,33 @@ async def get_my_courses(
         user_id,
         user_id,
     ))
-    return [{
-        "id": r[0],
-        "name": r[1],
-        "category": r[2],
-        "target_language": r[3],
-        "source_language": r[4],
-        "mastered": r[5],
-        "total_items": r[6],
-        "lesson_total": r[7],
-        "completed_lesson_count": r[8],
-        "last_completed_lesson_id": r[9],
-        "viewed_lesson_id": r[10],
-        "practice_question_index": r[11],
-        "next_lesson_id": r[12],
-        "next_lesson_title": r[13],
-        "next_lesson_title_localized": r[14],
-    } for r in cur.fetchall()]
+    courses = []
+    for r in cur.fetchall():
+        definition = public_course_definition(
+            course_id=r[0],
+            category=r[2],
+            target_language=r[3],
+            source_language=r[4],
+        )
+        courses.append({
+            "id": r[0],
+            "name": r[1],
+            "category": r[2],
+            "target_language": r[3],
+            "source_language": r[4],
+            "mastered": r[5],
+            "total_items": r[6],
+            "lesson_total": r[7],
+            "completed_lesson_count": r[8],
+            "last_completed_lesson_id": r[9],
+            "viewed_lesson_id": r[10],
+            "practice_question_index": r[11],
+            "next_lesson_id": r[12],
+            "next_lesson_title": r[13],
+            "next_lesson_title_localized": r[14],
+            **definition,
+        })
+    return courses
 
 @app.post("/courses/enroll")
 async def enroll_course(

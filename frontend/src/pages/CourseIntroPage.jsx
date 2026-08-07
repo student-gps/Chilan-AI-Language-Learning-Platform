@@ -15,10 +15,12 @@ const FEAT_ICONS = [
 
 const STEP_COLORS = ['bg-blue-500', 'bg-violet-500', 'bg-rose-500', 'bg-emerald-500'];
 
-export default function CourseIntroPage() {
+export default function CourseIntroPage({ foundationNavigation, locationState: routeLocationState, navigate: routeNavigate }) {
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const routerNavigate = useNavigate();
     const location = useLocation();
+    const navigate = routeNavigate || routerNavigate;
+    const locationState = routeLocationState ?? location.state;
 
     const FEATURES = FEAT_ICONS.map((f, i) => ({
         ...f,
@@ -37,9 +39,10 @@ export default function CourseIntroPage() {
         <div className="min-h-screen bg-slate-50 pt-16">
             <IntroFloatingNav
                 currentPath="/learn/intro"
-                locationState={location.state}
+                locationState={locationState}
                 navigate={navigate}
                 t={t}
+                foundationNavigation={foundationNavigation}
             />
 
             {/* Hero + Video */}

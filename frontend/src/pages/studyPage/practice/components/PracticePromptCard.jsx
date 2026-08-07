@@ -43,7 +43,7 @@ export default function PracticePromptCard({
 
     if (isListenWrite) {
         return (
-            <motion.div variants={fadeInUp} initial="hidden" animate="show" className={`text-center ${showBadge ? 'mb-8' : 'mb-5'}`}>
+            <motion.div variants={fadeInUp} initial="hidden" animate="show" className={`text-center ${showBadge ? 'mb-8' : 'mb-3'}`}>
                 {showBadge && (
                     <div className={`inline-flex items-center gap-2 px-4 py-1.5 ${theme.badgeBg} rounded-full mb-6`}>
                         <Icon size={15} className={theme.badgeText} />
@@ -88,7 +88,7 @@ export default function PracticePromptCard({
     }
 
     return (
-        <motion.div variants={fadeInUp} initial="hidden" animate="show" className={`text-center ${showBadge ? 'mb-8' : 'mb-5'}`}>
+        <motion.div variants={fadeInUp} initial="hidden" animate="show" className={`text-center ${showBadge ? 'mb-8' : 'mb-3'}`}>
             {showBadge && (
                 <div className={`inline-flex items-center gap-2 px-4 py-1.5 ${theme.badgeBg} rounded-full mb-4`}>
                     <Icon size={15} className={theme.badgeText} />

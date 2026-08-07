@@ -53,10 +53,9 @@ export default function PracticeFeedbackPanel({
     const hasTypingCursor = typedFeedbackMessage.length < (feedback.message || '').length;
 
     return (
-        <motion.div ref={actionsRef} key="feedback-area" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
+        <motion.div ref={actionsRef} key="feedback-area" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
             {canShowAnswer && (
-                <div className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-6 text-center">
-                    <p className="mb-3 text-center text-[11px] font-black uppercase tracking-widest text-slate-400">{t('practice_std_answer')}</p>
+                <div className="rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 text-center">
                     <p className="text-center text-3xl font-black leading-tight tracking-tight text-slate-900 md:text-4xl">
                         {feedback.expected_answers.join(' · ')}
                     </p>
@@ -64,7 +63,7 @@ export default function PracticeFeedbackPanel({
             )}
 
             {!isPerfectFeedback && !feedback.forfeited && (
-                <div className="rounded-[2rem] border border-slate-200 bg-slate-50/70 px-6 py-5">
+                <div className="rounded-[2rem] border border-slate-200 bg-slate-50/70 px-5 py-4">
                     <div className="space-y-4">
                         <AnimatePresence initial={false}>
                             {isTypingFeedback && (

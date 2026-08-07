@@ -10,6 +10,8 @@ import apiClient from './apiClient';
 export const queryKeys = {
   courses:        ()           => ['courses'],
   course:         (courseId)   => ['course', String(courseId)],
+  courseBySlug:   (courseSlug) => ['course-by-slug', String(courseSlug)],
+  foundations:    (courseSlug) => ['course-foundations', String(courseSlug)],
   lessons:        (courseId)   => ['lessons', String(courseId)],
   myCourses:      (userId)     => ['my-courses', String(userId)],
   classroomStats: (userId)     => ['classroom-stats', String(userId)],
@@ -29,6 +31,22 @@ export const courseQuery = (courseId) => ({
   queryFn:  () => apiClient.get(`/courses/${courseId}`).then(r => r.data),
   staleTime: 10 * 60 * 1000,
   enabled:  Boolean(courseId),
+});
+
+/** Public course resolved from its stable browser-facing slug. */
+export const courseBySlugQuery = (courseSlug) => ({
+  queryKey: queryKeys.courseBySlug(courseSlug),
+  queryFn:  () => apiClient.get(`/courses/by-slug/${encodeURIComponent(courseSlug)}`).then(r => r.data),
+  staleTime: 10 * 60 * 1000,
+  enabled:  Boolean(courseSlug),
+});
+
+/** Ordered foundation modules available for one course. */
+export const foundationModulesQuery = (courseSlug) => ({
+  queryKey: queryKeys.foundations(courseSlug),
+  queryFn:  () => apiClient.get(`/courses/by-slug/${encodeURIComponent(courseSlug)}/foundations`).then(r => r.data),
+  staleTime: 10 * 60 * 1000,
+  enabled:  Boolean(courseSlug),
 });
 
 /** 某课程的课时列表 */

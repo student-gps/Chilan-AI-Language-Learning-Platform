@@ -9,6 +9,7 @@ from psycopg2.extras import RealDictCursor
 
 from database.connection import get_connection
 from services.course_enrollment_service import ACTIVE_COURSE_STATUS
+from services.course_registry import public_course_definition
 from services.study.access_service import assert_active_course_enrollment, assert_lesson_belongs_to_course
 
 
@@ -519,12 +520,23 @@ def _load_study_context(
             "practice_question_index": 0,
         }
 
+    course_id_value = row.get("course_id")
+    category = row.get("category")
+    target_language = row.get("target_language")
+    source_language = row.get("source_language")
+    definition = public_course_definition(
+        course_id=course_id_value,
+        category=category,
+        target_language=target_language,
+        source_language=source_language,
+    )
     return {
-        "id": row.get("course_id"),
+        "id": course_id_value,
         "name": row.get("name"),
-        "category": row.get("category"),
-        "target_language": row.get("target_language"),
-        "source_language": row.get("source_language"),
+        "category": category,
+        "target_language": target_language,
+        "source_language": source_language,
+        **definition,
     }, bool(row.get("is_course_enrolled")), {
         "last_completed_lesson_id": row.get("last_completed_lesson_id") or 0,
         "viewed_lesson_id": row.get("viewed_lesson_id") or 0,

@@ -17,7 +17,7 @@ export default function TextAnswerPanel({
             bg-slate-50 border-2 rounded-[2rem]
             ${statusTone || (isFocused ? 'border-blue-500 bg-white shadow-md' : 'border-slate-100')}
             opacity-100
-            mb-6
+            mb-4
         `}>
             <textarea
                 ref={inputRef}

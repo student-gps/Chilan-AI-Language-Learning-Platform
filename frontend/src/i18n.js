@@ -4855,8 +4855,12 @@ Object.entries(COURSE_INTRO_PAGE_TRANSLATIONS).forEach(([locale, overrides]) => 
 
 Object.entries(TYPING_INTRO_TRANSLATIONS).forEach(([locale, overrides]) => {
   if (!resources[locale]) return;
-  resources[locale].translation.typing_intro = overrides;
+  resources[locale].translation.typing_intro = {
+    ...TYPING_INTRO_TRANSLATIONS.en,
+    ...overrides,
+  };
 });
+resources.ja = resources.jp;
 
 Object.entries(PINYIN_INTRO_TRANSLATIONS).forEach(([locale, overrides]) => {
   if (!resources[locale]) return;
