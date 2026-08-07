@@ -34,11 +34,11 @@ export default function PracticeFeedbackPanel({
     showKnowledgeCard = true,
 }) {
     const { t } = useTranslation();
-    const [activeAction, setActiveAction] = React.useState(feedback.level === 1 && !feedback.forfeited ? 'retry' : 'next');
+    const [activeAction, setActiveAction] = React.useState(feedback.level === 1 ? 'retry' : 'next');
     const questionConfig = React.useMemo(() => getQuestionTypeConfig(currentQuestion), [currentQuestion]);
 
     React.useEffect(() => {
-        setActiveAction(feedback.level === 1 && !feedback.forfeited ? 'retry' : 'next');
+        setActiveAction(feedback.level === 1 ? 'retry' : 'next');
     }, [feedback, currentIndex]);
 
     const resolveButtonClass = (actionKey) =>
@@ -118,7 +118,7 @@ export default function PracticeFeedbackPanel({
             )}
 
             <div className="flex flex-col gap-3">
-                {feedback.level === 1 && !feedback.forfeited ? (
+                {feedback.level === 1 ? (
                     <>
                         <button
                             ref={primaryButtonRef}
@@ -128,7 +128,9 @@ export default function PracticeFeedbackPanel({
                             className={`w-full py-5 rounded-[1.2rem] font-black text-xl transition-all flex items-center justify-center gap-3 shadow-lg disabled:bg-slate-200 disabled:text-slate-400 ${resolveButtonClass('retry')}`}
                         >
                             {isBusy ? <Loader2 className="animate-spin" /> : <RefreshCcw size={22} />}
-                            {isForfeitFailure ? t('practice_retry_show_answer') : (speechMode ? t('practice_retry_speech') : t('practice_retry_text'))}
+                            {isForfeitFailure
+                                ? t('practice_retry_show_answer')
+                                : (speechMode ? t('practice_retry_speech') : t('practice_retry_text'))}
                             <span className={`ml-2 font-normal text-xs uppercase tracking-widest opacity-70 ${enterHintClass('retry')}`}>Enter</span>
                         </button>
                         <button
