@@ -31,7 +31,11 @@ class StudyKnowledgeSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                 "pinyin": "wǒ",
                 "part_of_speech": "pronoun",
                 "definition": "me (object)",
-                "example": {"cn": "他看见我。", "translation": "They saw me."},
+                "example": {
+                    "cn": "他看见我。",
+                    "py": "tā kàn jiàn wǒ",
+                    "translation": "They saw me.",
+                },
             },
         ]
         leaked_cross_course_rows = same_course_rows + [
@@ -103,6 +107,14 @@ class StudyKnowledgeSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual(
             [entry["definition"] for entry in body["data"]["other_senses"]],
             ["me (object)"],
+        )
+        self.assertEqual(
+            body["data"]["other_senses"][0]["example_sentence"],
+            {
+                "cn": "他看见我。",
+                "py": "tā kàn jiàn wǒ",
+                "translation": "They saw me.",
+            },
         )
         self.assertTrue(
             any(
