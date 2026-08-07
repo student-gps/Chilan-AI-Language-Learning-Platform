@@ -65,6 +65,46 @@ class CanonicalPracticePromptTests(unittest.TestCase):
         self.assertIn('The "explanation" MUST be in English.', prompt)
         self.assertIn('Address the student with "you".', prompt)
 
+    def test_incorrect_feedback_includes_expected_answer_instruction(self):
+        cases = [
+            (
+                "TRANSLATE",
+                {"prompt_language": "zh", "answer_language": "en", "feedback_language": "en"},
+                "begin with “A correct answer is” and quote one or two appropriate answers",
+            ),
+            (
+                "SPEAK",
+                {
+                    "prompt_language": "zh",
+                    "answer_language": "en",
+                    "feedback_language": "en",
+                    "speech_language": "en",
+                },
+                "begin with “A correct answer is” and quote one or two appropriate answers",
+            ),
+            (
+                "LISTEN_WRITE",
+                {
+                    "prompt_language": "zh",
+                    "answer_language": "en",
+                    "feedback_language": "en",
+                    "audio_language": "en",
+                },
+                "begin with “The corrected sentence is” and quote the most appropriate",
+            ),
+            (
+                "PATTERN_DRILL",
+                {"prompt_language": "zh", "answer_language": "en", "feedback_language": "en"},
+                "begin with “A correct answer is” and quote one or two appropriate answers",
+            ),
+        ]
+
+        for question_type, metadata, correction_rule in cases:
+            with self.subTest(question_type=question_type):
+                prompt = get_eval_prompt(question_type, metadata)
+                self.assertIn("Keep exactly 2 short sentences", prompt)
+                self.assertIn(correction_rule, prompt)
+
     def test_request_values_are_only_in_final_evaluation_input(self):
         cases = [
             ("TRANSLATE", {"prompt_language": "en", "answer_language": "zh", "feedback_language": "zh"}),

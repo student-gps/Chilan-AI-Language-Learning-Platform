@@ -51,7 +51,7 @@ C. Evaluate naturalness separately from correctness.
 - Address the student with "{you}".
 - Keep exactly 2 short sentences separated by a newline character (\\n).
 - Sentence 1: summarize what the student's answer means.
-- Sentence 2: explain whether it matches the prompt and what to improve.
+- Sentence 2: if is_correct=false, begin with “A correct answer is” and quote one or two appropriate answers from Reference {answer_name} Answers, then state why they correct the error; if is_correct=true, confirm correctness and give a concise improvement only if useful.
 
 # Output Format:
 JSON only: {{{{"level": int, "is_correct": bool, "explanation": string}}}}
@@ -83,7 +83,7 @@ _SPEAK_TPL = """
 - Address the student with "{you}".
 - Keep exactly 2 short sentences separated by a newline character (\\n).
 - Sentence 1: summarize what the ASR transcript says.
-- Sentence 2: explain whether it matches the target and what to improve.
+- Sentence 2: if is_correct=false, begin with “A correct answer is” and quote one or two appropriate answers from Reference {answer_name} Answers, then state why they correct the error; if is_correct=true, confirm correctness and give a concise improvement only if useful.
 
 # Output Format:
 JSON only: {{{{"level": int, "is_correct": bool, "explanation": string}}}}
@@ -115,7 +115,7 @@ _LISTEN_WRITE_TPL = """
 - Address the student with "{you}".
 - Keep exactly 2 short sentences separated by a newline character (\\n).
 - Sentence 1: point out what matched or what was heard incorrectly.
-- Sentence 2: give the corrected {answer_name} sentence.
+- Sentence 2: if is_correct=false, begin with “The corrected sentence is” and quote the most appropriate Reference {answer_name} Answer; if is_correct=true, confirm that the dictation matches.
 
 # Output Format:
 JSON only: {{{{"level": int, "is_correct": bool, "explanation": string}}}}
@@ -147,7 +147,7 @@ _PATTERN_DRILL_TPL = """
 - Address the student with "{you}".
 - Keep exactly 2 short sentences separated by a newline character (\\n).
 - Sentence 1: say what the student's answer means or which pattern they used.
-- Sentence 2: explain whether it matches the target and what to fix.
+- Sentence 2: if is_correct=false, begin with “A correct answer is” and quote one or two appropriate answers from Reference {answer_name} Answers, then state which pattern element needs correction; if is_correct=true, confirm correctness and give a concise improvement only if useful.
 
 # Output Format:
 JSON only: {{{{"level": int, "is_correct": bool, "explanation": string}}}}
