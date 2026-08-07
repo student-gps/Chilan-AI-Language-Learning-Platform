@@ -360,6 +360,10 @@ def ensure_review_logs_item_columns(cur):
         ADD COLUMN IF NOT EXISTS lesson_id INTEGER;
     """)
     cur.execute("""
+        ALTER TABLE review_logs
+        ADD COLUMN IF NOT EXISTS forfeited BOOLEAN NOT NULL DEFAULT FALSE;
+    """)
+    cur.execute("""
         UPDATE review_logs rl
         SET
             course_id = COALESCE(rl.course_id, li.course_id),
@@ -595,12 +599,12 @@ async def evaluate_answer(
             cur.execute("""
                 INSERT INTO review_logs
                     (user_id, question_id, item_id, course_id, lesson_id, rating, state, review_time, stability, difficulty,
-                     input_mode, asr_text, asr_confidence, vector_score, audio_duration_ms)
-                VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
+                     input_mode, forfeited, asr_text, asr_confidence, vector_score, audio_duration_ms)
+                VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s, %s)
             """, (current_user_id, resolved_question_id, item_pk, resolved_course_id, resolved_lesson_id, 1, current_state, new_s, new_d,
-                  "forfeit", None, None, None, None))
+                  input_mode, True, None, None, None, None))
             conn.commit()
-            return {"status": "success", "data": {**res, "expected_answers": normalized_answers, "inputMode": "forfeit", "recognizedText": None, "vectorScore": None}}
+            return {"status": "success", "data": {**res, "expected_answers": normalized_answers, "inputMode": input_mode, "recognizedText": None, "vectorScore": None}}
 
         if input_mode == "speech":
             retry_res = evaluator.check_speech_readiness(
@@ -709,13 +713,13 @@ async def evaluate_answer(
             INSERT INTO review_logs 
                 (
                     user_id, question_id, item_id, course_id, lesson_id, rating, state, review_time, stability, difficulty,
-                    input_mode, asr_text, asr_confidence, vector_score, audio_duration_ms
+                    input_mode, forfeited, asr_text, asr_confidence, vector_score, audio_duration_ms
                 )
-            VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (
             current_user_id, resolved_question_id, item_pk,
             resolved_course_id, resolved_lesson_id, res["level"], current_state, new_s, new_d,
-            input_mode, asr_text_for_log, asr_confidence, vector_score, audio_duration_ms
+            input_mode, False, asr_text_for_log, asr_confidence, vector_score, audio_duration_ms
         ))
         
         conn.commit()

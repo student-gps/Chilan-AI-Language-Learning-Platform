@@ -19,6 +19,8 @@ export default function SpeechAnswerPanel({
     showSubmit,
     onSubmit,
     submitDisabled,
+    onForfeit,
+    forfeitDisabled,
     isEvaluating,
     actionsRef,
     primaryButtonRef,
@@ -164,6 +166,13 @@ export default function SpeechAnswerPanel({
                         </span>
                     </motion.button>
                 )}
+                <button
+                    onClick={onForfeit}
+                    disabled={forfeitDisabled}
+                    className={`w-full py-5 rounded-[1.3rem] font-black text-xl transition-all flex items-center justify-center gap-3 shadow-lg disabled:bg-slate-200 disabled:text-slate-400 ${secondaryButtonClass}`}
+                >
+                    {t('practice_forfeit')}
+                </button>
             </div>
         </div>
     );

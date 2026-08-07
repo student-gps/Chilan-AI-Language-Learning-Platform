@@ -53,21 +53,27 @@ export default function usePracticeFlow({
     }, [cleanupMedia, resetSpeechState]);
 
     const handleForfeit = useCallback(async () => {
-        if (!currentQuestion || isEvaluating) return;
+        if (!currentQuestion || isEvaluating || isRecording || isTranscribing) return;
         setIsEvaluating(true);
         try {
             const res = await evaluateStudyAnswer({
                 item_id: currentQuestion.item_id,
                 user_answer: '',
+                input_mode: speechMode ? 'speech' : 'text',
                 forfeit: true,
             });
             setFeedback(res.data.data);
-        } catch (_e) {
-            setFeedback({ level: 1, isCorrect: false, message: '', forfeited: true });
+        } catch (e) {
+            setFeedback({
+                level: 1,
+                isCorrect: false,
+                message: getErrorMessage(e, t('practice_eval_failed')),
+                forfeitFailed: true,
+            });
         } finally {
             setIsEvaluating(false);
         }
-    }, [currentQuestion, isEvaluating]);
+    }, [currentQuestion, isEvaluating, isRecording, isTranscribing, speechMode, t]);
 
     const handleSubmit = useCallback(async () => {
         if (!currentQuestion || isEvaluating) return;
