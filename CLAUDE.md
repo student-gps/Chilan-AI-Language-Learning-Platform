@@ -64,7 +64,7 @@ React SPA (port 5173) → FastAPI (port 8000) → PostgreSQL (Neon Cloud)
 - **routers/study.py** — Core study flow: three-tier evaluation (`/study/evaluate`), speech transcription, lesson completion, FSRS progress recording
 - **services/study/evaluator_service.py** — The three-tier evaluation engine
 - **services/study/scheduler.py** — FSRS (Free Spaced Repetition Scheduler) for review interval calculation
-- **services/llm/** — LLM engine (Gemini 2.0 Flash default), embedding providers (Gemini, Doubao, Voyage), evaluation prompts
+- **services/llm/** — LLM judge engine (DeepSeek V4 Flash or Gemini), embedding providers (Gemini, Doubao, Voyage), evaluation prompts
 - **services/speech/asr_service.py** — Whisper-based speech recognition with noise filtering
 - **services/storage/r2_storage.py** — Cloudflare R2 media storage with presigned URLs
 - **services/storage/media_storage.py** — Factory: `get_media_storage()` returns R2Storage instance
@@ -103,6 +103,15 @@ Tracks `stability`, `difficulty`, and `next_review` per user per question. After
 - **Backend**: `backend/.env` — DB URL, LLM API keys (Gemini, Claude, Doubao, Voyage, DeepSeek, Ali, Zhipu), Whisper ASR, TTS (Tencent/Edge), Cloudflare R2 (`STORAGE_R2_*`), email (Resend/SMTP), Google OAuth, JWT secret
 - **Frontend dev**: `frontend/.env.development` — sets `VITE_APP_API_BASE_URL=http://localhost:8000`
 - **Frontend prod**: `frontend/.env.production` — production API URL
+
+## LLM Judge Providers
+
+Tier 3 answer evaluation uses `LLM_JUDGE_PROVIDER`:
+
+- `deepseek` — DeepSeek V4 Flash through its OpenAI-compatible API. Tier 3 explicitly disables thinking, requests JSON mode, and records `prompt_cache_hit_tokens`, `prompt_cache_miss_tokens`, TTFT, and total latency from the streamed response.
+- `gemini` — Gemini Developer API or Vertex AI, retained as a configured fallback option.
+
+For DeepSeek, keep `LLM_JUDGE_DEEPSEEK_USER_ID` stable and opaque (never a learner ID): DeepSeek isolates KVCaches by `user_id`, so a shared non-sensitive value lets identical judge prompt prefixes reuse cache state. Cache hits are best-effort and must be confirmed through telemetry.
 
 ## Multi-Provider LLM Strategy
 
