@@ -18,6 +18,7 @@ export default function PracticePromptCard({
     currentQuestion,
     promptLabel,
     onPlayAudio,
+    showBadge = true,
 }) {
     const { t } = useTranslation();
     const [playCount, setPlayCount] = useState(0);
@@ -42,11 +43,13 @@ export default function PracticePromptCard({
 
     if (isListenWrite) {
         return (
-            <motion.div variants={fadeInUp} initial="hidden" animate="show" className="text-center mb-8">
-                <div className={`inline-flex items-center gap-2 px-4 py-1.5 ${theme.badgeBg} rounded-full mb-6`}>
-                    <Icon size={15} className={theme.badgeText} />
-                    <span className={`text-xs font-black ${theme.badgeText} uppercase tracking-widest`}>{badgeLabel}</span>
-                </div>
+            <motion.div variants={fadeInUp} initial="hidden" animate="show" className={`text-center ${showBadge ? 'mb-8' : 'mb-5'}`}>
+                {showBadge && (
+                    <div className={`inline-flex items-center gap-2 px-4 py-1.5 ${theme.badgeBg} rounded-full mb-6`}>
+                        <Icon size={15} className={theme.badgeText} />
+                        <span className={`text-xs font-black ${theme.badgeText} uppercase tracking-widest`}>{badgeLabel}</span>
+                    </div>
+                )}
 
                 <div className="flex flex-col items-center gap-5">
                     <button
@@ -85,11 +88,13 @@ export default function PracticePromptCard({
     }
 
     return (
-        <motion.div variants={fadeInUp} initial="hidden" animate="show" className="text-center mb-8">
-            <div className={`inline-flex items-center gap-2 px-4 py-1.5 ${theme.badgeBg} rounded-full mb-4`}>
-                <Icon size={15} className={theme.badgeText} />
-                <span className={`text-xs font-black ${theme.badgeText} uppercase tracking-widest`}>{badgeLabel}</span>
-            </div>
+        <motion.div variants={fadeInUp} initial="hidden" animate="show" className={`text-center ${showBadge ? 'mb-8' : 'mb-5'}`}>
+            {showBadge && (
+                <div className={`inline-flex items-center gap-2 px-4 py-1.5 ${theme.badgeBg} rounded-full mb-4`}>
+                    <Icon size={15} className={theme.badgeText} />
+                    <span className={`text-xs font-black ${theme.badgeText} uppercase tracking-widest`}>{badgeLabel}</span>
+                </div>
+            )}
 
             {config.promptMode === 'pattern' && context?.pattern && (
                 <div className="mx-auto mb-5 max-w-2xl rounded-[1.5rem] border border-amber-100 bg-amber-50 px-5 py-4 text-left">
