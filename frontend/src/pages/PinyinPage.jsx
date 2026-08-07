@@ -1173,10 +1173,12 @@ function DetailSection({ page, onBackToTop, lang, ui }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // MAIN COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
-export default function PinyinPage() {
+export default function PinyinPage({ foundationNavigation, locationState: routeLocationState, navigate: routeNavigate }) {
     const { t, i18n } = useTranslation();
-    const navigate = useNavigate();
+    const routerNavigate = useNavigate();
     const location = useLocation();
+    const navigate = routeNavigate || routerNavigate;
+    const locationState = routeLocationState ?? location.state;
     const introRef = useRef(null);
 
     // Scroll to a section, offset for sticky bars (navbar 64px + sticky bar ~52px)
@@ -1194,9 +1196,10 @@ export default function PinyinPage() {
         <div className="min-h-screen bg-slate-50 pt-16">
             <IntroFloatingNav
                 currentPath="/learn/pinyin"
-                locationState={location.state}
+                locationState={locationState}
                 navigate={navigate}
                 t={t}
+                foundationNavigation={foundationNavigation}
             />
 
             {/* Single scroll content */}

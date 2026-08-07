@@ -414,7 +414,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, course
                     }
                 />
 
-                <motion.div variants={fadeInUp} initial="hidden" animate="show" className={`p-8 md:p-10 rounded-[2.5rem] shadow-xl border transition-colors ${qTheme.card}`}>
+                <motion.div variants={fadeInUp} initial="hidden" animate="show" className={`p-6 md:p-7 rounded-[2.5rem] shadow-xl border transition-colors ${qTheme.card}`}>
                     <PracticeAnswerPanel
                         speechMode={speechMode}
                         value={userAnswer}

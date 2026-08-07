@@ -8,6 +8,7 @@ import NewConceptTeachingSection from './english/NewConceptTeachingSection';
 import PracticeSection from './practice/PracticeSection';
 import FinishCard from './FinishCard';
 import PinyinPopover from './PinyinPopover';
+import { buildCoursePath, buildFoundationPath } from '../../utils/courseRoutes';
 
 const isChinese = (lang = '') => {
     const l = String(lang).toLowerCase();
@@ -45,9 +46,10 @@ const pageTransition = {
     exit: { opacity: 0, y: -12, transition: { duration: 0.18 } }
 };
 
-export default function StudyPage() {
+export default function StudyPage({ resolvedCourseId = null, resolvedCourse = null }) {
     const { t, i18n } = useTranslation();
-    const { courseId = 1 } = useParams();
+    const params = useParams();
+    const courseId = String(resolvedCourseId || params.courseId || '1');
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const lessonId = searchParams.get('lesson_id');
@@ -80,7 +82,7 @@ export default function StudyPage() {
             let nextData = data;
 
             const lessonContent = data?.lesson_content;
-            const course = data?.course_info || {
+            const course = data?.course_info || resolvedCourse || {
                 id: courseId,
                 target_language: getLessonTargetLanguage(lessonContent, null),
                 source_language: lessonContent?.source_language || lessonContent?.lesson_metadata?.source_language || '',
@@ -139,7 +141,7 @@ export default function StudyPage() {
             console.error("加载学习流失败:", e);
             setMode('error');
         }
-    }, [courseId, isBrowseEntry, lessonId]);
+    }, [courseId, isBrowseEntry, lessonId, resolvedCourse]);
 
     useEffect(() => { initFlow(); }, [initFlow]);
 
@@ -241,7 +243,10 @@ export default function StudyPage() {
             {showPinyinBtn && (
                 <>
                     {pinyinPopoverOpen && (
-                        <PinyinPopover onClose={() => setPinyinPopoverOpen(false)} />
+                        <PinyinPopover
+                            onClose={() => setPinyinPopoverOpen(false)}
+                            foundationPath={buildFoundationPath(courseInfo || resolvedCourse || { id: courseId }, 'pinyin')}
+                        />
                     )}
                     <button
                         onClick={() => setPinyinPopoverOpen(o => !o)}
@@ -275,7 +280,7 @@ export default function StudyPage() {
                                 <p className="text-lg font-black text-slate-900">{t('study_not_enrolled_title')}</p>
                                 <p className="mt-2 max-w-md text-sm font-semibold text-slate-500">{t('study_not_enrolled_desc')}</p>
                                 <button
-                                    onClick={() => navigate(`/course/${courseId}`)}
+                                    onClick={() => navigate(buildCoursePath(courseInfo || resolvedCourse || { id: courseId }))}
                                     className="mt-6 rounded-2xl bg-blue-600 px-6 py-3 text-sm font-black text-white transition hover:bg-slate-900 active:scale-95"
                                 >
                                     {t('study_not_enrolled_action')}
@@ -288,7 +293,7 @@ export default function StudyPage() {
                     {mode === 'teaching' && (
                         <TeachingComponent
                             data={lessonContent}
-                            courseInfo={courseInfo}
+                            courseInfo={courseInfo || resolvedCourse}
                             courseId={courseId}
                             onStartPractice={handleStartPractice}
                             isDirectLesson={!!lessonId}

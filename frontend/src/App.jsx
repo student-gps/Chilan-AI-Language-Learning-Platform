@@ -5,6 +5,7 @@ import { preloadCoursePage } from './coursePageLoader';
 
 // 导入组件
 import Navbar from './components/Navbar';
+import AppErrorBoundary from './components/AppErrorBoundary';
 import { getValidToken } from './utils/authStorage';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -19,10 +20,10 @@ const CourseMaintenance = lazy(() => import('./pages/CourseMaintenance'));
 const CourseSync = lazy(() => import('./pages/CourseSync'));
 const ContentBuilderConsole = lazy(() => import('./pages/ContentBuilderConsole'));
 const DevTools = lazy(() => import('./pages/DevTools'));
-const PinyinPage = lazy(() => import('./pages/PinyinPage'));
-const CourseIntroPage = lazy(() => import('./pages/CourseIntroPage'));
-const HanziIntroPage = lazy(() => import('./pages/HanziIntroPage'));
-const TypingIntroPage = lazy(() => import('./pages/TypingIntroPage'));
+const CourseFoundationPage = lazy(() => import('./pages/CourseFoundationPage'));
+const CourseSlugPage = lazy(() => import('./pages/CourseSlugPage'));
+const CourseStudySlugPage = lazy(() => import('./pages/CourseStudySlugPage'));
+const LegacyFoundationRedirect = lazy(() => import('./pages/LegacyFoundationRedirect'));
 
 const CoursePage = lazy(preloadCoursePage);
 
@@ -48,32 +49,34 @@ function App() {
       {/* 核心改动：Navbar 放在这里，它将出现在每一个页面顶部 */}
       <Navbar /> 
 
-      <Suspense fallback={<RouteFallback />}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/register" element={<Auth />} />
-          <Route path="/login" element={<Auth />} />
+      <AppErrorBoundary>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/register" element={<Auth />} />
+            <Route path="/login" element={<Auth />} />
 
-          {/* 受保护路由 */}
-          <Route path="/classroom" element={<ProtectedRoute><Classroom /></ProtectedRoute>} />
-          <Route path="/overview" element={<ProtectedRoute><Learning_Overview /></ProtectedRoute>} />
-          <Route path="/settings" element={<ProtectedRoute><Personal_Setting /></ProtectedRoute>} />
-          <Route path="/course/:courseId" element={<ProtectedRoute><CoursePage /></ProtectedRoute>} />
-          <Route path="/study/:courseId" element={<ProtectedRoute><StudyPage /></ProtectedRoute>} />
-          <Route path="/video-template-preview/:courseId" element={<ExplanationTemplatePreview />} />
-          <Route path="/dev" element={<DevTools />} />
-          <Route path="/dev/teaching-preview" element={<LocalTeachingPreview />} />
-          <Route path="/dev/course-maintenance" element={<CourseMaintenance />} />
-          <Route path="/dev/course-sync" element={<CourseSync />} />
-          <Route path="/dev/content-builder" element={<ContentBuilderConsole />} />
-          <Route path="/learn/pinyin" element={<ProtectedRoute><PinyinPage /></ProtectedRoute>} />
-          <Route path="/learn/intro" element={<ProtectedRoute><CourseIntroPage /></ProtectedRoute>} />
-          <Route path="/learn/hanzi" element={<ProtectedRoute><HanziIntroPage /></ProtectedRoute>} />
-          <Route path="/learn/typing" element={<ProtectedRoute><TypingIntroPage /></ProtectedRoute>} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Suspense>
+            {/* 受保护路由 */}
+            <Route path="/classroom" element={<ProtectedRoute><Classroom /></ProtectedRoute>} />
+            <Route path="/overview" element={<ProtectedRoute><Learning_Overview /></ProtectedRoute>} />
+            <Route path="/settings" element={<ProtectedRoute><Personal_Setting /></ProtectedRoute>} />
+            <Route path="/course/:courseId" element={<ProtectedRoute><CoursePage /></ProtectedRoute>} />
+            <Route path="/courses/:courseSlug" element={<ProtectedRoute><CourseSlugPage /></ProtectedRoute>} />
+            <Route path="/study/:courseId" element={<ProtectedRoute><StudyPage /></ProtectedRoute>} />
+            <Route path="/courses/:courseSlug/study" element={<ProtectedRoute><CourseStudySlugPage /></ProtectedRoute>} />
+            <Route path="/courses/:courseSlug/foundations/:moduleKey" element={<ProtectedRoute><CourseFoundationPage /></ProtectedRoute>} />
+            <Route path="/learn/:moduleKey" element={<ProtectedRoute><LegacyFoundationRedirect /></ProtectedRoute>} />
+            <Route path="/video-template-preview/:courseId" element={<ExplanationTemplatePreview />} />
+            <Route path="/dev" element={<DevTools />} />
+            <Route path="/dev/teaching-preview" element={<LocalTeachingPreview />} />
+            <Route path="/dev/course-maintenance" element={<CourseMaintenance />} />
+            <Route path="/dev/course-sync" element={<CourseSync />} />
+            <Route path="/dev/content-builder" element={<ContentBuilderConsole />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Suspense>
+      </AppErrorBoundary>
     </Router>
   );
 }

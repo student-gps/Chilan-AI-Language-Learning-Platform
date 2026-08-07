@@ -50,19 +50,33 @@ function NumberedList({ items }) {
     );
 }
 
-export default function TypingIntroPage() {
-    const navigate = useNavigate();
+export default function TypingIntroPage({ foundationNavigation, locationState: routeLocationState, navigate: routeNavigate }) {
+    const routerNavigate = useNavigate();
     const location = useLocation();
+    const navigate = routeNavigate || routerNavigate;
+    const locationState = routeLocationState ?? location.state;
     const { t } = useTranslation();
-    const content = t('typing_intro', { returnObjects: true });
+    const englishContent = t('typing_intro', { returnObjects: true, lng: 'en' });
+    const localizedContent = t('typing_intro', { returnObjects: true });
+    const content = {
+        ...englishContent,
+        ...localizedContent,
+        platforms: localizedContent?.platforms || englishContent.platforms,
+        flow: localizedContent?.flow || englishContent.flow,
+        demos: localizedContent?.demos || englishContent.demos,
+        specialExamples: localizedContent?.specialExamples || englishContent.specialExamples,
+        skills: localizedContent?.skills || englishContent.skills,
+        pitfalls: localizedContent?.pitfalls || englishContent.pitfalls,
+    };
 
     return (
         <div className="min-h-screen bg-slate-50 pt-16">
             <IntroFloatingNav
                 currentPath="/learn/typing"
-                locationState={location.state}
+                locationState={locationState}
                 navigate={navigate}
                 t={t}
+                foundationNavigation={foundationNavigation}
             />
 
             <div className="mx-auto max-w-5xl px-6 py-12 pb-28">

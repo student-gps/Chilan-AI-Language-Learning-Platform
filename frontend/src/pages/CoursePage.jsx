@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { ChevronRight, BookOpen, Play, ArrowLeft, Loader2, PlusCircle, CheckCircle2 } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import apiClient from '../api/apiClient';
-import { courseQuery, lessonsQuery, myCoursesQuery, queryKeys } from '../api/queries';
+import { courseQuery, foundationModulesQuery, lessonsQuery, myCoursesQuery, queryKeys } from '../api/queries';
+import { buildFoundationPath, buildStudyPath } from '../utils/courseRoutes';
 import { getAuthState } from '../utils/authStorage';
 
 const MAX_ACTIVE_COURSES = 2;
@@ -79,8 +80,9 @@ const buildCourseProgress = (enrollment, lessons, t) => {
     };
 };
 
-export default function CoursePage() {
-    const { courseId } = useParams();
+export default function CoursePage({ resolvedCourseId = null, resolvedCourse = null }) {
+    const params = useParams();
+    const courseId = String(resolvedCourseId || params.courseId || '');
     const navigate = useNavigate();
     const location = useLocation();
     const { t } = useTranslation();
@@ -89,7 +91,7 @@ export default function CoursePage() {
     const [enrollError, setEnrollError] = useState('');
     const userId = getAuthState().userId;
     const coursePath = `${location.pathname}${location.search || ''}`;
-    const routeCourse = location.state?.course;
+    const routeCourse = resolvedCourse || location.state?.course;
     const hasMatchingRouteCourse = String(routeCourse?.id) === String(courseId);
     const cachedCourse = queryClient.getQueryData(queryKeys.course(courseId));
     const cachedCourses = queryClient.getQueryData(queryKeys.courses()) || [];
@@ -108,6 +110,7 @@ export default function CoursePage() {
         initialDataUpdatedAt: initialCourseUpdatedAt,
     });
     const { data: lessons = [], isLoading: isLessonsLoading } = useQuery(lessonsQuery(courseId));
+    const { data: foundations = [] } = useQuery(foundationModulesQuery(course?.slug));
     const { data: myCourses = [] } = useQuery(myCoursesQuery(userId));
 
     // 从 myCourses 派生当前课程的报名状态（缓存命中时零请求）
@@ -219,7 +222,7 @@ export default function CoursePage() {
                 <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-10 flex justify-center">
                     {isEnrolled ? (
                         <button
-                            onClick={() => navigate(`/study/${courseId}`)}
+                            onClick={() => navigate(buildStudyPath(course || { id: courseId }))}
                             className="flex items-center gap-3 px-12 py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-blue-600 active:scale-95 transition-all shadow-lg shadow-slate-300/40"
                         >
                             <Play size={22} fill="white" /> {t('course_start_learning')}
@@ -248,32 +251,28 @@ export default function CoursePage() {
                     </motion.div>
                 )}
 
-                {/* 入门基础 */}
-                <motion.section variants={stagger} initial="hidden" animate="show" className="mb-10">
-                    <h2 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">{t('course_foundations')}</h2>
-                    <div className="flex gap-3 flex-wrap">
-                        {[
-                            { label: t('course_intro_card_title'), sub: t('course_intro_card_sub'), icon: '✨', path: '/learn/intro', hover: 'hover:border-amber-200 group-hover:text-amber-600' },
-                            { label: t('course_hanzi_card_title'), sub: t('course_hanzi_card_sub'), icon: '字', path: '/learn/hanzi', hover: 'hover:border-indigo-200 group-hover:text-indigo-600' },
-                            { label: t('course_pinyin_card_title'), sub: t('course_pinyin_card_sub'), icon: 'abc', path: '/learn/pinyin', hover: 'hover:border-blue-200 group-hover:text-blue-600' },
-                            { label: t('course_typing_card_title'), sub: t('course_typing_card_sub'), icon: '⌨', path: '/learn/typing', hover: 'hover:border-green-200 group-hover:text-green-600' },
-                        ].map(item => (
-                            <motion.button
-                                key={item.path}
-                                variants={fadeInUp}
-                                onClick={() => navigate(item.path, { state: { from: coursePath } })}
-                                className={`flex items-center gap-3 px-5 py-3.5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group ${item.hover}`}
-                            >
-                                <span className="text-2xl w-8 text-center font-black text-slate-500">{item.icon}</span>
-                                <div className="text-left">
-                                    <div className="font-black text-slate-800 text-sm transition-colors">{item.label}</div>
-                                    <div className="text-xs text-slate-400">{item.sub}</div>
-                                </div>
-                                <ChevronRight size={14} className="text-slate-300 ml-1" />
-                            </motion.button>
-                        ))}
-                    </div>
-                </motion.section>
+                {foundations.length > 0 && (
+                    <motion.section variants={stagger} initial="hidden" animate="show" className="mb-10">
+                        <h2 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">{t('course_foundations')}</h2>
+                        <div className="flex gap-3 flex-wrap">
+                            {foundations.map((item) => (
+                                <motion.button
+                                    key={item.key}
+                                    variants={fadeInUp}
+                                    onClick={() => navigate(buildFoundationPath(course || { id: courseId }, item.key), { state: { from: coursePath } })}
+                                    className="flex items-center gap-3 px-5 py-3.5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
+                                >
+                                    <span className="text-2xl w-8 text-center font-black text-slate-500">{item.icon}</span>
+                                    <div className="text-left">
+                                        <div className="font-black text-slate-800 text-sm transition-colors group-hover:text-blue-600">{t(item.title_key)}</div>
+                                        <div className="text-xs text-slate-400">{t(item.description_key)}</div>
+                                    </div>
+                                    <ChevronRight size={14} className="text-slate-300 ml-1" />
+                                </motion.button>
+                            ))}
+                        </div>
+                    </motion.section>
+                )}
 
                 {/* Lesson list */}
                 <section>
@@ -298,7 +297,7 @@ export default function CoursePage() {
                                 <motion.button
                                     key={lesson.lesson_id}
                                     variants={fadeInUp}
-                                    onClick={() => navigate(`/study/${courseId}?lesson_id=${lesson.lesson_id}&browse=1`)}
+                                    onClick={() => navigate(`${buildStudyPath(course || { id: courseId })}?lesson_id=${lesson.lesson_id}&browse=1`)}
                                     className={`flex items-center gap-5 px-6 py-4 bg-white rounded-2xl border shadow-sm hover:shadow-md hover:border-blue-200 transition-all group text-left ${
                                         isCurrent ? 'border-blue-200 ring-2 ring-blue-50' : 'border-slate-100'
                                     }`}
