@@ -12,6 +12,11 @@ const formatPinyinDisplay = (value = '') =>
         .map((token) => token.toLowerCase())
         .join(' ');
 
+const normalizeExample = (example) => {
+    if (!example || typeof example !== 'object') return {};
+    return example.translation ? example : { ...example, translation: example.en || '' };
+};
+
 export default function WordContextCard({ word, pinyin, metadata, knowledgeData, targetLanguage = 'zh' }) {
     const { t } = useTranslation();
     const isJapanese = targetLanguage === 'ja';
@@ -36,7 +41,7 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData,
     examples.forEach((ex) => {
         if (!ex) return;
         // normalise: some older lessons store the translation as "en" instead of "translation"
-        const normalized = ex.translation ? ex : { ...ex, translation: ex.en || '' };
+        const normalized = normalizeExample(ex);
         const exists = combinedExamples.some((item) => item?.cn === normalized?.cn);
         if (!exists) combinedExamples.push(normalized);
     });
@@ -190,7 +195,13 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData,
                         {t('knowledge_other_senses')}
                     </p>
                     <div className="space-y-3">
-                        {history.map((h, i) => (
+                        {history.map((h, i) => {
+                            const example = normalizeExample(h.example_sentence || h.example);
+                            const key = `history-${i}`;
+                            const pinyinOn = showPinyin[key];
+                            const translationOn = showTranslation[key];
+
+                            return (
                             <div key={i} className="bg-white/80 p-4 rounded-2xl border border-white shadow-sm">
                                 <div className="flex flex-wrap items-center gap-2 mb-2">
                                     {h.part_of_speech && (
@@ -206,15 +217,15 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData,
                                     )}
                                 </div>
                                 <p className="text-base font-black text-slate-800 leading-snug">{h.definition}</p>
-                                {h.example?.cn && (
+                                {example.cn && (
                                     <div className="mt-3">
                                         <div className="flex items-start justify-between gap-4">
                                             <div className="flex-1">
-                                                {showPinyin[`history-${i}`] && h.example?.py ? (
+                                                {pinyinOn && example.py ? (
                                                     <AnnotatedSentence
-                                                        tokens={h.example.tokens}
-                                                        cn={h.example.cn}
-                                                        py={h.example.py}
+                                                        tokens={example.tokens}
+                                                        cn={example.cn}
+                                                        py={example.py}
                                                         showPinyin
                                                         wrapperClassName="flex flex-wrap items-end gap-x-1 gap-y-2"
                                                         tokenClassName="inline-flex flex-col items-center justify-end"
@@ -222,46 +233,47 @@ export default function WordContextCard({ word, pinyin, metadata, knowledgeData,
                                                         textClassName="text-sm font-bold text-slate-700 leading-none"
                                                     />
                                                 ) : (
-                                                    <p className="text-sm font-bold text-slate-700">{h.example.cn}</p>
+                                                    <p className="text-sm font-bold text-slate-700">{example.cn}</p>
                                                 )}
                                             </div>
                                             <div className="flex items-center gap-2 shrink-0">
                                                 <button
-                                                    onClick={() => playAudio(h.example.cn)}
+                                                    onClick={() => playAudio(example.cn)}
                                                     className="p-1.5 text-slate-300 hover:text-blue-600 transition-colors"
                                                 >
                                                     <Volume2 size={16} />
                                                 </button>
                                                 <button
-                                                    onClick={() => togglePinyin(`history-${i}`)}
-                                                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${showPinyin[`history-${i}`] ? (isJapanese ? 'bg-rose-100 text-rose-500' : 'bg-orange-100 text-orange-500') : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+                                                    onClick={() => togglePinyin(key)}
+                                                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${pinyinOn ? (isJapanese ? 'bg-rose-100 text-rose-500' : 'bg-orange-100 text-orange-500') : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
                                                 >
                                                     {readingLabel}
                                                 </button>
                                                 <button
-                                                    onClick={() => toggleTranslation(`history-${i}`)}
-                                                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${showTranslation[`history-${i}`] ? 'bg-blue-100 text-blue-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+                                                    onClick={() => toggleTranslation(key)}
+                                                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.16em] transition-colors ${translationOn ? 'bg-blue-100 text-blue-500' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
                                                 >
                                                     {t('word_translation_btn')}
                                                 </button>
                                             </div>
                                         </div>
                                         <AnimatePresence initial={false}>
-                                            {showTranslation[`history-${i}`] && (h.example?.translation || h.example?.en) && (
+                                            {translationOn && example.translation && (
                                                 <motion.div
                                                     initial={{ opacity: 0, height: 0 }}
                                                     animate={{ opacity: 1, height: 'auto' }}
                                                     exit={{ opacity: 0, height: 0 }}
                                                     className="overflow-hidden mt-2"
                                                 >
-                                                    <p className="text-sm font-semibold italic text-blue-600">{h.example.translation || h.example.en}</p>
+                                                    <p className="text-sm font-semibold italic text-blue-600">{example.translation}</p>
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>
                                     </div>
                                 )}
                             </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             )}
