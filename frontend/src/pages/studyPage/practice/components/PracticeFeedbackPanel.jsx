@@ -18,6 +18,7 @@ export default function PracticeFeedbackPanel({
     typedFeedbackMessage,
     speechMode,
     onRetry,
+    onForfeit,
     onSkip,
     onNext,
     retryDisabled,
@@ -33,11 +34,11 @@ export default function PracticeFeedbackPanel({
     showKnowledgeCard = true,
 }) {
     const { t } = useTranslation();
-    const [activeAction, setActiveAction] = React.useState(feedback.level === 1 ? 'retry' : 'next');
+    const [activeAction, setActiveAction] = React.useState(feedback.level === 1 && !feedback.forfeited ? 'retry' : 'next');
     const questionConfig = React.useMemo(() => getQuestionTypeConfig(currentQuestion), [currentQuestion]);
 
     React.useEffect(() => {
-        setActiveAction(feedback.level === 1 ? 'retry' : 'next');
+        setActiveAction(feedback.level === 1 && !feedback.forfeited ? 'retry' : 'next');
     }, [feedback, currentIndex]);
 
     const resolveButtonClass = (actionKey) =>
@@ -46,17 +47,21 @@ export default function PracticeFeedbackPanel({
     const enterHintClass = (actionKey) =>
         activeAction === actionKey ? 'text-blue-200' : 'text-slate-400';
 
+    const isForfeitFailure = Boolean(feedback.forfeitFailed);
+    const canShowAnswer = Array.isArray(feedback.expected_answers) && feedback.expected_answers.length > 0;
     const feedbackParagraphs = splitFeedbackParagraphs(typedFeedbackMessage);
     const hasTypingCursor = typedFeedbackMessage.length < (feedback.message || '').length;
 
     return (
         <motion.div ref={actionsRef} key="feedback-area" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-            <div className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-4">
-                <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2">{t('practice_std_answer')}</p>
-                <p className="text-xl font-black text-slate-800">
-                    {(feedback.expected_answers || []).join(' · ')}
-                </p>
-            </div>
+            {canShowAnswer && (
+                <div className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-4">
+                    <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2">{t('practice_std_answer')}</p>
+                    <p className="text-xl font-black text-slate-800">
+                        {feedback.expected_answers.join(' · ')}
+                    </p>
+                </div>
+            )}
 
             {!isPerfectFeedback && !feedback.forfeited && (
                 <div className="rounded-[2rem] border border-slate-200 bg-slate-50/70 px-6 py-5">
@@ -113,17 +118,17 @@ export default function PracticeFeedbackPanel({
             )}
 
             <div className="flex flex-col gap-3">
-                {feedback.level === 1 ? (
+                {feedback.level === 1 && !feedback.forfeited ? (
                     <>
                         <button
                             ref={primaryButtonRef}
-                            onClick={onRetry}
+                            onClick={isForfeitFailure ? onForfeit : onRetry}
                             onFocus={() => setActiveAction('retry')}
-                            disabled={retryDisabled}
+                            disabled={isForfeitFailure ? isBusy : retryDisabled}
                             className={`w-full py-5 rounded-[1.2rem] font-black text-xl transition-all flex items-center justify-center gap-3 shadow-lg disabled:bg-slate-200 disabled:text-slate-400 ${resolveButtonClass('retry')}`}
                         >
                             {isBusy ? <Loader2 className="animate-spin" /> : <RefreshCcw size={22} />}
-                            {speechMode ? t('practice_retry_speech') : t('practice_retry_text')}
+                            {isForfeitFailure ? t('practice_retry_show_answer') : (speechMode ? t('practice_retry_speech') : t('practice_retry_text'))}
                             <span className={`ml-2 font-normal text-xs uppercase tracking-widest opacity-70 ${enterHintClass('retry')}`}>Enter</span>
                         </button>
                         <button

@@ -435,6 +435,8 @@ export default function PracticeSection({ questions, isReview, onAllDone, course
                         showSubmit={hasSpeechTranscript && !isRecording && !isTranscribing}
                         onSubmit={handleSubmit}
                         submitDisabled={!activeAnswer.trim() || isEvaluating || lowConfidence || speechShouldRetry}
+                        onForfeit={handleForfeit}
+                        forfeitDisabled={isRecording || isTranscribing || isEvaluating}
                         isEvaluating={isEvaluating}
                         primaryButtonRef={speechMode ? speechPrimaryButtonRef : undefined}
                         submitButtonRef={speechMode ? speechSubmitButtonRef : undefined}
@@ -487,6 +489,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, course
                                 typedFeedbackMessage={typedFeedbackMessage}
                                 speechMode={speechMode}
                                 onRetry={speechMode ? handleStartRecording : handleSubmit}
+                                onForfeit={handleForfeit}
                                 onSkip={handleNext}
                                 onNext={handleNext}
                                 retryDisabled={speechMode ? (isRecording || isTranscribing) : isResubmitDisabled}
