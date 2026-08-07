@@ -34,16 +34,16 @@ function KeyboardKey({ children, wide = false, accent = false, muted = false }) 
 
 function CandidateBar({ active = false }) {
     return (
-        <div className="flex min-h-11 items-center gap-1.5 overflow-hidden rounded-xl border border-slate-200 bg-white p-1.5 shadow-sm">
-            <span className="rounded-lg bg-blue-600 px-2.5 py-1 font-black text-white">你好</span>
-            <span className="rounded-lg px-2.5 py-1 font-bold text-slate-400">你号</span>
-            <span className="rounded-lg px-2.5 py-1 font-bold text-slate-400">拟好</span>
-            <span className={`ml-auto px-1 text-xs font-black ${active ? 'text-blue-500' : 'text-slate-300'}`}>1</span>
+        <div className="flex min-h-11 flex-nowrap items-center gap-1.5 overflow-hidden rounded-xl border border-slate-200 bg-white p-1.5 shadow-sm">
+            <span className="shrink-0 whitespace-nowrap rounded-lg bg-blue-600 px-2.5 py-1 font-black text-white">你好</span>
+            <span className="shrink-0 whitespace-nowrap rounded-lg px-2.5 py-1 font-bold text-slate-400">你号</span>
+            <span className="shrink-0 whitespace-nowrap rounded-lg px-2.5 py-1 font-bold text-slate-400">拟好</span>
+            <span className={`ml-auto shrink-0 px-1 text-xs font-black ${active ? 'text-blue-500' : 'text-slate-300'}`}>1</span>
         </div>
     );
 }
 
-function TypingFlowIllustration() {
+function TypingFlowIllustration({ visualNotes }) {
     return (
         <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-5 shadow-xl shadow-slate-200/70 sm:p-7">
             <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-blue-400/20 blur-3xl" />
@@ -71,11 +71,12 @@ function TypingFlowIllustration() {
                 </div>
             </div>
             <div className="relative mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-bold text-slate-300">
-                <span>不输入声调</span>
-                <span className="h-1 w-1 rounded-full bg-blue-300" />
-                <span>空格确认候选</span>
-                <span className="h-1 w-1 rounded-full bg-blue-300" />
-                <span>整词输入更准确</span>
+                {visualNotes.map((note, index) => (
+                    <React.Fragment key={note}>
+                        {index > 0 && <span className="h-1 w-1 rounded-full bg-blue-300" />}
+                        <span>{note}</span>
+                    </React.Fragment>
+                ))}
             </div>
         </div>
     );
@@ -188,6 +189,9 @@ export default function TypingIntroPage({ foundationNavigation, locationState: r
         moreTipsLabel: localizedContent?.moreTipsLabel || englishContent.moreTipsLabel || 'More tips',
         hideMoreTipsLabel: localizedContent?.hideMoreTipsLabel || englishContent.hideMoreTipsLabel || 'Hide extra tips',
         enterHint: localizedContent?.enterHint || englishContent.enterHint || 'Enter keeps raw letters for names, URLs, and English words.',
+        typingFlowNotes: localizedContent?.typingFlowNotes || englishContent.typingFlowNotes || ['No tone marks', 'Space confirms a candidate', 'Whole phrases work better'],
+        typingFlowSummary: localizedContent?.typingFlowSummary || englishContent.typingFlowSummary || 'Pinyin → candidates → Chinese characters',
+        noToneLabel: localizedContent?.noToneLabel || englishContent.noToneLabel || 'No tone marks',
     };
     const visualFlow = content.flow.slice(0, 3);
     const examples = content.demos.filter((_, index) => [0, 2, 3].includes(index));
@@ -215,11 +219,11 @@ export default function TypingIntroPage({ foundationNavigation, locationState: r
                             {content.subtitle}
                         </p>
                         <div className="mt-6 flex flex-wrap gap-2">
-                            <span className="rounded-full bg-white px-3 py-1.5 text-xs font-black text-slate-600 shadow-sm ring-1 ring-slate-100">拼音 → 候选词 → 汉字</span>
-                            <span className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-black text-blue-700 ring-1 ring-blue-100">不用输入声调</span>
+                            <span className="rounded-full bg-white px-3 py-1.5 text-xs font-black text-slate-600 shadow-sm ring-1 ring-slate-100">{content.typingFlowSummary}</span>
+                            <span className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-black text-blue-700 ring-1 ring-blue-100">{content.noToneLabel}</span>
                         </div>
                     </div>
-                    <TypingFlowIllustration />
+                    <TypingFlowIllustration visualNotes={content.typingFlowNotes} />
                 </section>
 
                 <section className="mt-12">
