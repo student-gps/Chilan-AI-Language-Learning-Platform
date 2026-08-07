@@ -75,6 +75,8 @@ export default function PracticeSection({ questions, isReview, onAllDone, course
     const isListenWrite = isListenWriteQuestion(currentQuestion);
     const qType = currentQuestion?.question_type;
     const qTheme = questionConfig.theme;
+    const practiceLabel = isReview ? t('practice_compact_review') : t('practice_compact_lesson');
+    const practiceBadgeLabel = questionConfig.badgeLabel || t(questionConfig.badgeKey);
 
     // Build stable audio lookup from lesson_audio_assets.
     const lineRefAudioMap = useMemo(() => {
@@ -380,16 +382,18 @@ export default function PracticeSection({ questions, isReview, onAllDone, course
                 initial="hidden"
                 animate="show"
                 exit={{ opacity: 0, y: -10, transition: { duration: 0.18 } }}
-                className="max-w-5xl mx-auto px-6 pt-20 pb-0"
+                className="max-w-5xl mx-auto px-6 pt-10 pb-0"
             >
-                <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex items-center justify-center gap-5 mb-8">
-                    <div className="flex items-center gap-3">
-                        <Sparkles className={qTheme.sparkle} size={28} />
-                        <h1 className="text-5xl font-black text-slate-900 tracking-tight">
-                            {isReview ? t('practice_title_review') : t('practice_title_lesson')}
-                        </h1>
+                <motion.div variants={fadeInUp} initial="hidden" animate="show" className="mb-5 flex items-center justify-between gap-3">
+                    <div className="flex min-w-0 items-center gap-2.5">
+                        <Sparkles className={`${qTheme.sparkle} shrink-0`} size={22} />
+                        <p className="truncate text-lg font-black tracking-tight text-slate-800 sm:text-xl">
+                            {practiceLabel}
+                            <span className="mx-2 text-slate-300">·</span>
+                            <span className={qTheme.sparkle}>{practiceBadgeLabel}</span>
+                        </p>
                     </div>
-                    <div className="px-5 py-1.5 bg-slate-200/50 rounded-full text-xl font-black text-slate-500 tracking-tighter">
+                    <div className="shrink-0 rounded-full bg-slate-200/50 px-3.5 py-1 text-sm font-black tracking-tighter text-slate-500 sm:text-base">
                         {currentIndex + 1} / {questions.length}
                     </div>
                 </motion.div>
@@ -400,6 +404,7 @@ export default function PracticeSection({ questions, isReview, onAllDone, course
                     originalText={isListenWrite ? null : currentQuestion.original_text}
                     questionType={qType}
                     currentQuestion={currentQuestion}
+                    showBadge={false}
                     onPlayAudio={
                         isListenWrite
                             ? playQuestionAudio

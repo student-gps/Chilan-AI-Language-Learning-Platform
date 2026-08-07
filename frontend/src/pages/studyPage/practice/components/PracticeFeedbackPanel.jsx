@@ -55,9 +55,9 @@ export default function PracticeFeedbackPanel({
     return (
         <motion.div ref={actionsRef} key="feedback-area" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
             {canShowAnswer && (
-                <div className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-4">
-                    <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2">{t('practice_std_answer')}</p>
-                    <p className="text-xl font-black text-slate-800">
+                <div className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-6 text-center">
+                    <p className="mb-3 text-center text-[11px] font-black uppercase tracking-widest text-slate-400">{t('practice_std_answer')}</p>
+                    <p className="text-center text-3xl font-black leading-tight tracking-tight text-slate-900 md:text-4xl">
                         {feedback.expected_answers.join(' · ')}
                     </p>
                 </div>
