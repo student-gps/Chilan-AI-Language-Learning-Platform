@@ -533,9 +533,10 @@ async def evaluate_answer(
         cur.execute("""
             SELECT q.item_id as item_pk, q.question_id, q.course_id, q.lesson_id,
                    q.question_type, q.original_text, q.standard_answers,
-                   q.metadata as item_metadata, p.stability, p.difficulty,
-                   p.recent_history, p.state
+                   q.metadata as item_metadata, c.source_language as course_support_language,
+                   p.stability, p.difficulty, p.recent_history, p.state
             FROM language_items q
+            JOIN courses c ON c.course_id = q.course_id
             LEFT JOIN user_progress_of_language_items p
                    ON q.item_id = p.item_id AND p.user_id::text = %s
             WHERE q.item_id = %s;
@@ -561,6 +562,10 @@ async def evaluate_answer(
             raise HTTPException(status_code=400, detail="standard_answers is empty.")
 
         item_metadata = base_info.get('item_metadata') if isinstance(base_info.get('item_metadata'), dict) else {}
+        item_metadata = dict(item_metadata)
+        course_feedback_language = str(base_info.get("course_support_language") or "").strip()
+        if course_feedback_language:
+            item_metadata["feedback_language"] = course_feedback_language
         stability = base_info['stability']
         difficulty = base_info['difficulty']
         history = base_info['recent_history']

@@ -52,6 +52,19 @@ class CanonicalPracticePromptTests(unittest.TestCase):
                 for marker in markers:
                     self.assertIn(marker, prompt)
 
+    def test_course_support_language_controls_feedback_language(self):
+        prompt = get_eval_prompt(
+            "TRANSLATE",
+            {
+                "prompt_language": "zh",
+                "answer_language": "en",
+                "feedback_language": "english",
+            },
+        )
+
+        self.assertIn('The "explanation" MUST be in English.', prompt)
+        self.assertIn('Address the student with "you".', prompt)
+
     def test_request_values_are_only_in_final_evaluation_input(self):
         cases = [
             ("TRANSLATE", {"prompt_language": "en", "answer_language": "zh", "feedback_language": "zh"}),
