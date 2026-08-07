@@ -836,6 +836,11 @@ const TYPING_INTRO_TRANSLATIONS = {
     "badge": "Foundation · Typing",
     "title": "Typing Chinese with pinyin",
     "subtitle": "Set up an input method, type pronunciation, choose the right characters, and handle the small traps that beginners meet first.",
+    "expandLabel": "Show full steps",
+    "collapseLabel": "Show less",
+    "moreTipsLabel": "More tips",
+    "hideMoreTipsLabel": "Hide extra tips",
+    "enterHint": "Enter keeps raw letters for names, URLs, and English words.",
     "setupTitle": "Set up the Chinese keyboard once",
     "setupLead": "You do not need a special physical keyboard. Add a Simplified Chinese Pinyin input method to your operating system, then switch to it when you want to type Chinese.",
     "platforms": [
@@ -976,6 +981,11 @@ const TYPING_INTRO_TRANSLATIONS = {
     "badge": "基础 · 打字",
     "title": "用拼音输入中文",
     "subtitle": "先设置输入法，再用拼音打出读音、选择正确汉字，并处理初学者最容易卡住的几个小问题。",
+    "expandLabel": "查看完整步骤",
+    "collapseLabel": "收起步骤",
+    "moreTipsLabel": "查看更多技巧",
+    "hideMoreTipsLabel": "收起更多技巧",
+    "enterHint": "Enter 会保留原始字母，适合输入人名、网址和英文词。",
     "setupTitle": "先把中文键盘设置好",
     "setupLead": "不需要特殊键盘。只要在系统里添加“简体中文拼音输入法”，需要打中文时切换过去就可以。",
     "platforms": [

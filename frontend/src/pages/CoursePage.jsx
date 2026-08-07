@@ -254,7 +254,7 @@ export default function CoursePage({ resolvedCourseId = null, resolvedCourse = n
                 {foundations.length > 0 && (
                     <motion.section variants={stagger} initial="hidden" animate="show" className="mb-10">
                         <h2 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">{t('course_foundations')}</h2>
-                        <div className="flex gap-3 flex-wrap">
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
                             {foundations.map((item) => (
                                 <motion.button
                                     key={item.key}
