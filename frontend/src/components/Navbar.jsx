@@ -1,15 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    User, Globe, ChevronDown, CheckCircle2,
+    User, Globe, ChevronDown, CheckCircle2, Search,
     LogOut, Settings, LayoutDashboard, GraduationCap
 } from 'lucide-react';
 import { clearAuthStorage, getAuthState } from '../utils/authStorage';
 import { getUiLanguageOption, UI_LANGUAGE_OPTIONS } from '../utils/languageOptions';
 import { useQueryClient } from '@tanstack/react-query';
 import { coursesQuery, myCoursesQuery, classroomStatsQuery } from '../api/queries';
+
+const languages = UI_LANGUAGE_OPTIONS;
+
+const normalizeLanguageSearch = (value) => value
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase();
 
 export default function Navbar() {
     const { t, i18n } = useTranslation();
@@ -18,12 +25,15 @@ export default function Navbar() {
     const queryClient = useQueryClient();
 
     const [isLangOpen, setIsLangOpen] = useState(false);
+    const [languageQuery, setLanguageQuery] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [userEmail, setUserEmail] = useState('');
     const [userId, setUserId] = useState(null);
 
     const langRef = useRef(null);
+    const languageButtonRef = useRef(null);
+    const languageSearchRef = useRef(null);
     const userRef = useRef(null);
     const timerRef = useRef(null);
 
@@ -33,12 +43,22 @@ export default function Navbar() {
         setUserEmail(authState.userEmail || '');
         setUserId(authState.userId || null);
         setIsLangOpen(false);
+        setLanguageQuery('');
         setIsUserMenuOpen(false);
     }, [location]);
 
     useEffect(() => {
+        if (!isLangOpen) return;
+        setLanguageQuery('');
+        languageSearchRef.current?.focus();
+    }, [isLangOpen]);
+
+    useEffect(() => {
         const handleClickOutside = (event) => {
-            if (langRef.current && !langRef.current.contains(event.target)) setIsLangOpen(false);
+            if (langRef.current && !langRef.current.contains(event.target)) {
+                setIsLangOpen(false);
+                setLanguageQuery('');
+            }
             if (userRef.current && !userRef.current.contains(event.target)) setIsUserMenuOpen(false);
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -51,6 +71,7 @@ export default function Navbar() {
             timerRef.current = setTimeout(() => {
                 setIsUserMenuOpen(false);
                 setIsLangOpen(false);
+                setLanguageQuery('');
             }, 3000);
         }
     };
@@ -70,8 +91,41 @@ export default function Navbar() {
         navigate('/');
     };
 
-    const languages = UI_LANGUAGE_OPTIONS;
     const currentLang = getUiLanguageOption(i18n.language);
+    const normalizedLanguageQuery = useMemo(
+        () => normalizeLanguageSearch(languageQuery.trim()),
+        [languageQuery],
+    );
+    const filteredLanguages = useMemo(() => {
+        if (!normalizedLanguageQuery) return languages;
+
+        return languages.filter((item) => [item.name, item.nativeName, item.code]
+            .some((value) => normalizeLanguageSearch(value).includes(normalizedLanguageQuery)));
+    }, [normalizedLanguageQuery]);
+
+    const closeLanguageMenu = ({ restoreFocus = false } = {}) => {
+        setIsLangOpen(false);
+        setLanguageQuery('');
+        if (restoreFocus) languageButtonRef.current?.focus();
+    };
+
+    const handleLanguageChange = (languageCode) => {
+        i18n.changeLanguage(languageCode);
+        closeLanguageMenu({ restoreFocus: true });
+    };
+
+    useEffect(() => {
+        const handleLanguageMenuKeyDown = (event) => {
+            if (!isLangOpen || event.key !== 'Escape') return;
+            event.preventDefault();
+            setIsLangOpen(false);
+            setLanguageQuery('');
+            languageButtonRef.current?.focus();
+        };
+
+        document.addEventListener('keydown', handleLanguageMenuKeyDown);
+        return () => document.removeEventListener('keydown', handleLanguageMenuKeyDown);
+    }, [isLangOpen]);
 
     // 🌟 核心：引入统一的动画变体配置
     const staggerContainer = {
@@ -102,10 +156,16 @@ export default function Navbar() {
             >
                 {/* --- 语言选择模块 --- */}
                 {/* 🌟 给子元素加上 variants={fadeInUp} */}
-                <motion.div variants={fadeInUp} className="relative" ref={langRef} onMouseMove={resetTimer} onMouseLeave={clearTimer}>
-                    <button 
-                        onClick={() => setIsLangOpen(!isLangOpen)} 
+                <motion.div variants={fadeInUp} className="relative" ref={langRef}>
+                    <button
+                        ref={languageButtonRef}
+                        type="button"
+                        onClick={() => setIsLangOpen((isOpen) => !isOpen)}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all text-slate-600 font-bold text-sm"
+                        aria-label="Change interface language"
+                        aria-haspopup="dialog"
+                        aria-expanded={isLangOpen}
+                        aria-controls="interface-language-menu"
                     >
                         <Globe size={18} className="text-blue-500" />
                         <span className="text-lg leading-none">{currentLang.flag}</span>
@@ -114,26 +174,58 @@ export default function Navbar() {
 
                     <AnimatePresence>
                         {isLangOpen && (
-                            <motion.div 
+                            <motion.div
+                                id="interface-language-menu"
+                                role="dialog"
+                                aria-label="Change interface language"
                                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                className="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-2xl py-2 z-50 origin-top-right"
+                                className="absolute right-0 mt-2 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-2xl z-50 origin-top-right"
                             >
-                                {languages.map((item) => (
-                                    <button 
-                                        key={item.code} 
-                                        onClick={() => { i18n.changeLanguage(item.code); setIsLangOpen(false); }} 
-                                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors hover:bg-blue-50 ${i18n.language.startsWith(item.code) ? 'text-blue-600 bg-blue-50/50' : 'text-slate-600'}`}
-                                    >
-                                        <span className="text-xl">{item.flag}</span>
-                                        <span className="flex flex-col items-start leading-tight">
-                                            <span>{item.nativeName}</span>
-                                            <span className="text-[10px] font-semibold text-slate-400">{item.name}</span>
-                                        </span>
-                                        {i18n.language.startsWith(item.code) && <CheckCircle2 size={14} className="ml-auto" />}
-                                    </button>
-                                ))}
+                                <div className="border-b border-slate-100 px-4 pb-3 pt-4">
+                                    <p className="mb-3 text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Interface language</p>
+                                    <label className="relative block">
+                                        <span className="sr-only">Search languages</span>
+                                        <Search size={16} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                        <input
+                                            ref={languageSearchRef}
+                                            type="search"
+                                            value={languageQuery}
+                                            onChange={(event) => setLanguageQuery(event.target.value)}
+                                            placeholder="Search languages"
+                                            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-3 text-sm font-medium text-slate-700 outline-none transition focus:border-blue-300 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        />
+                                    </label>
+                                </div>
+
+                                <div className="max-h-[min(24rem,calc(100vh-11rem))] overflow-y-auto overscroll-contain p-2" role="listbox" aria-label="Available interface languages">
+                                    {filteredLanguages.length > 0 ? filteredLanguages.map((item) => {
+                                        const isActive = currentLang.code === item.code;
+                                        return (
+                                            <button
+                                                key={item.code}
+                                                type="button"
+                                                role="option"
+                                                onClick={() => handleLanguageChange(item.code)}
+                                                aria-selected={isActive}
+                                                className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${isActive ? 'bg-blue-50/70 text-blue-600' : 'text-slate-600'}`}
+                                            >
+                                                <span className="text-xl leading-none" aria-hidden="true">{item.flag}</span>
+                                                <span className="min-w-0 flex-1">
+                                                    <span className="block truncate font-bold">{item.nativeName}</span>
+                                                    <span className="block truncate text-[11px] font-semibold text-slate-400">{item.name}</span>
+                                                </span>
+                                                {isActive && <CheckCircle2 size={16} className="shrink-0" aria-hidden="true" />}
+                                            </button>
+                                        );
+                                    }) : (
+                                        <div className="px-4 py-8 text-center">
+                                            <p className="text-sm font-bold text-slate-600">No languages found</p>
+                                            <p className="mt-1 text-xs font-medium text-slate-400">Try a language name or code.</p>
+                                        </div>
+                                    )}
+                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>

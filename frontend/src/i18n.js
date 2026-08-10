@@ -841,6 +841,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     "moreTipsLabel": "More tips",
     "hideMoreTipsLabel": "Hide extra tips",
     "enterHint": "Enter keeps raw letters for names, URLs, and English words.",
+    "typingFlowNotes": ["No tone marks", "Space confirms a candidate", "Whole phrases work better"],
+    "typingFlowSummary": "Pinyin → candidates → Chinese characters",
+    "noToneLabel": "No tone marks",
     "setupTitle": "Set up the Chinese keyboard once",
     "setupLead": "You do not need a special physical keyboard. Add a Simplified Chinese Pinyin input method to your operating system, then switch to it when you want to type Chinese.",
     "platforms": [
@@ -986,6 +989,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     "moreTipsLabel": "查看更多技巧",
     "hideMoreTipsLabel": "收起更多技巧",
     "enterHint": "Enter 会保留原始字母，适合输入人名、网址和英文词。",
+    "typingFlowNotes": ["不输入声调", "空格确认候选", "整词输入更准确"],
+    "typingFlowSummary": "拼音 → 候选词 → 汉字",
+    "noToneLabel": "不用输入声调",
     "setupTitle": "先把中文键盘设置好",
     "setupLead": "不需要特殊键盘。只要在系统里添加“简体中文拼音输入法”，需要打中文时切换过去就可以。",
     "platforms": [
@@ -1121,6 +1127,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "fr": {
+    "typingFlowNotes": ["Sans tons", "Espace confirme le candidat", "Les phrases donnent de meilleurs résultats"],
+    "typingFlowSummary": "Pinyin → candidats → caractères chinois",
+    "noToneLabel": "Sans tons",
     "platforms": [
       [
         "Windows",
@@ -1243,6 +1252,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "de": {
+    "typingFlowNotes": ["Ohne Töne", "Leertaste bestätigt den Kandidaten", "Ganze Phrasen sind genauer"],
+    "typingFlowSummary": "Pinyin → Kandidaten → chinesische Zeichen",
+    "noToneLabel": "Ohne Töne",
     "platforms": [
       [
         "Windows",
@@ -1365,6 +1377,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "jp": {
+    "typingFlowNotes": ["声調は入力しない", "Space で候補を確定", "語句で入力すると正確"],
+    "typingFlowSummary": "ピンイン → 候補 → 中国語の文字",
+    "noToneLabel": "声調は入力しない",
     "platforms": [
       [
         "Windows",
@@ -1487,6 +1502,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "ko": {
+    "typingFlowNotes": ["성조는 입력하지 않기", "스페이스로 후보 확정", "구절 전체 입력이 더 정확"],
+    "typingFlowSummary": "병음 → 후보 → 중국어 문자",
+    "noToneLabel": "성조는 입력하지 않기",
     "platforms": [
       [
         "Windows",
@@ -1609,6 +1627,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "es": {
+    "typingFlowNotes": ["Sin tonos", "Espacio confirma el candidato", "Las frases completas son más precisas"],
+    "typingFlowSummary": "Pinyin → candidatos → caracteres chinos",
+    "noToneLabel": "Sin tonos",
     "platforms": [
       [
         "Windows",
@@ -1731,6 +1752,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "vi": {
+    "typingFlowNotes": ["Không nhập thanh điệu", "Phím cách xác nhận ứng viên", "Nhập cả cụm từ chính xác hơn"],
+    "typingFlowSummary": "Pinyin → lựa chọn → chữ Hán",
+    "noToneLabel": "Không nhập thanh điệu",
     "platforms": [
       [
         "Windows",
@@ -1853,6 +1877,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "pt": {
+    "typingFlowNotes": ["Sem tons", "Espaço confirma o candidato", "Frases inteiras são mais precisas"],
+    "typingFlowSummary": "Pinyin → candidatos → caracteres chineses",
+    "noToneLabel": "Sem tons",
     "platforms": [
       [
         "Windows",
@@ -1975,6 +2002,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "ru": {
+    "typingFlowNotes": ["Без тонов", "Пробел подтверждает вариант", "Вводите фразы целиком — так точнее"],
+    "typingFlowSummary": "Пиньинь → варианты → китайские иероглифы",
+    "noToneLabel": "Без тонов",
     "platforms": [
       [
         "Windows",
@@ -2097,6 +2127,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "id": {
+    "typingFlowNotes": ["Tanpa nada", "Spasi mengonfirmasi kandidat", "Masukkan frasa utuh agar lebih akurat"],
+    "typingFlowSummary": "Pinyin → kandidat → karakter Tionghoa",
+    "noToneLabel": "Tanpa nada",
     "platforms": [
       [
         "Windows",
@@ -2219,6 +2252,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "ms": {
+    "typingFlowNotes": ["Tanpa nada", "Space mengesahkan calon", "Masukkan frasa penuh untuk lebih tepat"],
+    "typingFlowSummary": "Pinyin → calon → aksara Cina",
+    "noToneLabel": "Tanpa nada",
     "platforms": [
       [
         "Windows",
@@ -2341,6 +2377,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "it": {
+    "typingFlowNotes": ["Senza toni", "Spazio conferma il candidato", "Le frasi intere sono più precise"],
+    "typingFlowSummary": "Pinyin → candidati → caratteri cinesi",
+    "noToneLabel": "Senza toni",
     "platforms": [
       [
         "Windows",
@@ -2463,6 +2502,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "ar": {
+    "typingFlowNotes": ["من دون نغمات", "المسافة تؤكد المرشح", "إدخال العبارات الكاملة أدق"],
+    "typingFlowSummary": "Pinyin ← المرشحون ← الأحرف الصينية",
+    "noToneLabel": "من دون نغمات",
     "platforms": [
       [
         "Windows",
@@ -2585,6 +2627,9 @@ const TYPING_INTRO_TRANSLATIONS = {
     ]
   },
   "th": {
+    "typingFlowNotes": ["ไม่ต้องใส่วรรณยุกต์", "Space ยืนยันตัวเลือก", "พิมพ์ทั้งวลีจะแม่นยำกว่า"],
+    "typingFlowSummary": "Pinyin → ตัวเลือก → อักษรจีน",
+    "noToneLabel": "ไม่ต้องใส่วรรณยุกต์",
     "platforms": [
       [
         "Windows",
