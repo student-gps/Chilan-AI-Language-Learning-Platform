@@ -373,6 +373,7 @@ export default function NewConceptTeachingSection({
     courseId,
     onStartPractice,
     isDirectLesson,
+    isBrowseMode = false,
 }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -455,7 +456,7 @@ export default function NewConceptTeachingSection({
 
             <GrammarNotesSection teachingMaterials={data.teaching_materials || {}} />
 
-            {!isDirectLesson && (
+            {!isBrowseMode && !isDirectLesson && (
                 <motion.div variants={fadeInUp} className="flex justify-center pb-24 pt-4">
                     <button
                         type="button"
