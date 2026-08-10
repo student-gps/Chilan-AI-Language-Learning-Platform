@@ -109,17 +109,23 @@ export default function Navbar() {
         if (restoreFocus) languageButtonRef.current?.focus();
     };
 
-    const handleLanguageMenuKeyDown = (event) => {
-        if (event.key === 'Escape') {
-            event.preventDefault();
-            closeLanguageMenu({ restoreFocus: true });
-        }
-    };
-
     const handleLanguageChange = (languageCode) => {
         i18n.changeLanguage(languageCode);
         closeLanguageMenu({ restoreFocus: true });
     };
+
+    useEffect(() => {
+        const handleLanguageMenuKeyDown = (event) => {
+            if (!isLangOpen || event.key !== 'Escape') return;
+            event.preventDefault();
+            setIsLangOpen(false);
+            setLanguageQuery('');
+            languageButtonRef.current?.focus();
+        };
+
+        document.addEventListener('keydown', handleLanguageMenuKeyDown);
+        return () => document.removeEventListener('keydown', handleLanguageMenuKeyDown);
+    }, [isLangOpen]);
 
     // 🌟 核心：引入统一的动画变体配置
     const staggerContainer = {
@@ -150,7 +156,7 @@ export default function Navbar() {
             >
                 {/* --- 语言选择模块 --- */}
                 {/* 🌟 给子元素加上 variants={fadeInUp} */}
-                <motion.div variants={fadeInUp} className="relative" ref={langRef} onMouseMove={resetTimer} onMouseLeave={clearTimer}>
+                <motion.div variants={fadeInUp} className="relative" ref={langRef}>
                     <button
                         ref={languageButtonRef}
                         type="button"
@@ -175,7 +181,6 @@ export default function Navbar() {
                                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                onKeyDown={handleLanguageMenuKeyDown}
                                 className="absolute right-0 mt-2 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-2xl z-50 origin-top-right"
                             >
                                 <div className="border-b border-slate-100 px-4 pb-3 pt-4">
