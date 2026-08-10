@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { clearAuthStorage, getValidToken } from '../utils/authStorage';
+import { normalizeUiLocale } from '../utils/languageOptions';
 
 const INTERFACE_LANGUAGE_HEADER = 'X-Chilan-Interface-Language';
 
 const getInterfaceLanguage = () => {
   try {
-    return localStorage.getItem('chilan_interface_language') || 'zh';
+    return normalizeUiLocale(localStorage.getItem('chilan_interface_language'));
   } catch {
-    return 'zh';
+    return normalizeUiLocale();
   }
 };
 

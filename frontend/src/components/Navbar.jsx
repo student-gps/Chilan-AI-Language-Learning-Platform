@@ -7,7 +7,12 @@ import {
     LogOut, Settings, LayoutDashboard, GraduationCap
 } from 'lucide-react';
 import { clearAuthStorage, getAuthState } from '../utils/authStorage';
-import { getUiLanguageOption, UI_LANGUAGE_OPTIONS } from '../utils/languageOptions';
+import {
+    getUiLanguageDisplayName,
+    getUiLanguageOption,
+    getUiLanguageSearchTerms,
+    UI_LANGUAGE_OPTIONS,
+} from '../utils/languageOptions';
 import { useQueryClient } from '@tanstack/react-query';
 import { coursesQuery, myCoursesQuery, classroomStatsQuery } from '../api/queries';
 
@@ -99,9 +104,9 @@ export default function Navbar() {
     const filteredLanguages = useMemo(() => {
         if (!normalizedLanguageQuery) return languages;
 
-        return languages.filter((item) => [item.name, item.nativeName, item.code]
+        return languages.filter((item) => getUiLanguageSearchTerms(item.locale, i18n.resolvedLanguage)
             .some((value) => normalizeLanguageSearch(value).includes(normalizedLanguageQuery)));
-    }, [normalizedLanguageQuery]);
+    }, [i18n.resolvedLanguage, normalizedLanguageQuery]);
 
     const closeLanguageMenu = ({ restoreFocus = false } = {}) => {
         setIsLangOpen(false);
@@ -110,7 +115,7 @@ export default function Navbar() {
     };
 
     const handleLanguageChange = (languageCode) => {
-        i18n.changeLanguage(languageCode);
+        i18n.changeLanguage(getUiLanguageOption(languageCode).locale);
         closeLanguageMenu({ restoreFocus: true });
     };
 
@@ -201,20 +206,21 @@ export default function Navbar() {
 
                                 <div className="max-h-[min(24rem,calc(100vh-11rem))] overflow-y-auto overscroll-contain p-2" role="listbox" aria-label="Available interface languages">
                                     {filteredLanguages.length > 0 ? filteredLanguages.map((item) => {
-                                        const isActive = currentLang.code === item.code;
+                                        const isActive = currentLang.locale === item.locale;
+                                        const displayName = getUiLanguageDisplayName(item.locale, i18n.resolvedLanguage);
                                         return (
                                             <button
-                                                key={item.code}
+                                                key={item.locale}
                                                 type="button"
                                                 role="option"
-                                                onClick={() => handleLanguageChange(item.code)}
+                                                onClick={() => handleLanguageChange(item.locale)}
                                                 aria-selected={isActive}
                                                 className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${isActive ? 'bg-blue-50/70 text-blue-600' : 'text-slate-600'}`}
                                             >
                                                 <span className="text-xl leading-none" aria-hidden="true">{item.flag}</span>
                                                 <span className="min-w-0 flex-1">
                                                     <span className="block truncate font-bold">{item.nativeName}</span>
-                                                    <span className="block truncate text-[11px] font-semibold text-slate-400">{item.name}</span>
+                                                    <span className="block truncate text-[11px] font-semibold text-slate-400">{displayName} · {item.locale.toUpperCase()}</span>
                                                 </span>
                                                 {isActive && <CheckCircle2 size={16} className="shrink-0" aria-hidden="true" />}
                                             </button>

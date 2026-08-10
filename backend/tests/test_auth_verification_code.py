@@ -5,6 +5,12 @@ from .test_helpers import FakeConnection, SmokeTestCaseMixin, auth, main
 
 
 class AuthVerificationCodeSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
+    def test_normalize_auth_email_lang_accepts_standard_and_legacy_values(self):
+        self.assertEqual(auth.normalize_auth_email_lang("zh-Hans"), "zh")
+        self.assertEqual(auth.normalize_auth_email_lang("ja"), "ja")
+        self.assertEqual(auth.normalize_auth_email_lang("pt-BR"), "pt")
+        self.assertEqual(auth.normalize_auth_email_lang("jp"), "ja")
+
     def test_verify_accepts_fresh_code(self):
         created_at = datetime.now(timezone.utc) - timedelta(minutes=2)
 
@@ -40,13 +46,33 @@ class AuthVerificationCodeSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         response = self.client.post(
             "/auth/verify",
             json={"email": "student@example.com", "code": "123456"},
-            headers={"X-Chilan-Interface-Language": "jp"},
+            headers={"X-Chilan-Interface-Language": "ja"},
         )
 
         self.assertEqual(response.status_code, 400)
         self.assertIn("有効期限", response.json()["detail"])
         self.assertEqual(fake_db.commit_calls, 1)
         self.assertTrue(any("DELETE FROM verification_codes WHERE email = %s" in query for query, _ in fake_db.executed_queries))
+
+    def test_verify_accepts_legacy_japanese_interface_language_code(self):
+        created_at = datetime.now(timezone.utc) - timedelta(minutes=11)
+
+        def handler(query, params):
+            if "SELECT code, created_at FROM verification_codes WHERE email = %s" in query:
+                return {"fetchone": ("123456", created_at)}
+            return {}
+
+        fake_db = FakeConnection(handler)
+        main.app.dependency_overrides[auth.get_db] = lambda: fake_db
+
+        response = self.client.post(
+            "/auth/verify",
+            json={"email": "student@example.com", "code": "123456"},
+            headers={"X-Chilan-Interface-Language": "jp"},
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("有効期限", response.json()["detail"])
 
     def test_verify_rejects_invalid_code_in_french(self):
         created_at = datetime.now(timezone.utc) - timedelta(minutes=2)

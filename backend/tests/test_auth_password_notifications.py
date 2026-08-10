@@ -30,7 +30,7 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                     "new_password": "Passw0rd!",
                 },
                 headers={
-                    "X-Chilan-Interface-Language": "jp",
+                    "X-Chilan-Interface-Language": "ja",
                     "accept-language": "en-US,en;q=0.9",
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",
@@ -68,7 +68,7 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                     "code": "123456",
                     "new_password": "Passw0rd!",
                 },
-                headers={"X-Chilan-Interface-Language": "jp"},
+                headers={"X-Chilan-Interface-Language": "ja"},
             )
 
         self.assertEqual(response.status_code, 400)
@@ -100,7 +100,7 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                     "new_password": "NewPassw0rd!",
                 },
                 headers={
-                    "X-Chilan-Interface-Language": "jp",
+                    "X-Chilan-Interface-Language": "ja",
                     "accept-language": "en-US,en;q=0.9",
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",
@@ -138,7 +138,7 @@ class AuthPasswordNotificationSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                     "new_password": "NewPassw0rd!",
                 },
                 headers={
-                    "X-Chilan-Interface-Language": "jp",
+                    "X-Chilan-Interface-Language": "ja",
                     "accept-language": "en-US,en;q=0.9",
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",
