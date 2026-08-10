@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { COURSE_INTRO_PAGE_TRANSLATIONS } from './courseIntroPageTranslations';
 import { INTRO_VIDEO_TRANSLATIONS } from './introVideoTranslations';
+import { normalizeUiLocale, UI_SUPPORTED_LOCALES } from './utils/languageOptions';
 
 const HANZI_RADICAL_BASE = [
   { no: 1, radical: "人/亻", pinyin: "rén", examples: "今 · 他" },
@@ -5128,22 +5129,34 @@ Object.entries(COURSE_PROGRESS_TRANSLATIONS).forEach(([locale, overrides]) => {
   };
 });
 
+resources['zh-Hans'] = resources.zh;
+resources.ja = resources.jp;
+
 Object.keys(resources).forEach((locale) => {
   resources[locale].translation.hanzi_intro = HANZI_INTRO_TRANSLATIONS[locale] || HANZI_INTRO_TRANSLATIONS.en;
 });
-resources.ja = resources.jp;
+
+const persistedUiLocale = normalizeUiLocale(localStorage.getItem('chilan_interface_language'));
+
+localStorage.setItem('chilan_interface_language', persistedUiLocale);
 
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: localStorage.getItem('chilan_interface_language') || "zh",
-    fallbackLng: "en",
+    lng: persistedUiLocale,
+    supportedLngs: UI_SUPPORTED_LOCALES,
+    nonExplicitSupportedLngs: true,
+    fallbackLng: {
+      'zh-Hans': ['zh', 'en'],
+      ja: ['jp', 'en'],
+      default: ['en'],
+    },
     interpolation: { escapeValue: false }
   });
 
 i18n.on('languageChanged', (lng) => {
-  localStorage.setItem('chilan_interface_language', lng);
+  localStorage.setItem('chilan_interface_language', normalizeUiLocale(lng));
 });
 
 export default i18n;

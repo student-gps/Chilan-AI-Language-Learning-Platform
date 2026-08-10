@@ -2,6 +2,24 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useSta
 import { ChevronDown, ChevronLeft, ChevronRight, Maximize2, Minimize2, Pause, Play, Scan } from 'lucide-react';
 
 const SLIDE_AUDIO_RATES = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3];
+const PLAYER_ASPECT_RATIO = 16 / 9;
+const MAX_FULLSCREEN_PLAYER_WIDTH = 1760;
+const MAX_EXPANDED_PLAYER_WIDTH = 1600;
+const FULLSCREEN_PADDING = 18;
+const EXPANDED_TOP_GAP = 12;
+const EXPANDED_BOTTOM_GAP = 16;
+const CARD_CHROME_HEIGHT = 4;
+
+const fitPlayerWidth = ({ availableWidth, availableHeight, controlsHeight, maxWidth }) => {
+    const availableStageHeight = availableHeight - controlsHeight - CARD_CHROME_HEIGHT;
+    if (availableWidth <= 0 || availableStageHeight <= 0) return null;
+
+    return Math.floor(Math.min(
+        availableWidth,
+        availableStageHeight * PLAYER_ASPECT_RATIO,
+        maxWidth,
+    ));
+};
 
 function RateSelector({ rate, setRate }) {
     const [open, setOpen] = useState(false);
@@ -70,9 +88,12 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     const [rate, setRate] = useState(1.0);
     const [expanded, setExpanded] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
+    const [controlsHeight, setControlsHeight] = useState(0);
+    const [fittedWidth, setFittedWidth] = useState(null);
 
     const sectionRef = useRef(null);
     const panelRef = useRef(null);
+    const controlsRef = useRef(null);
     const audioRef = useRef(null);
     const rafRef = useRef(null);
     const tickRef = useRef(null);
@@ -301,10 +322,62 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
     }, [rate]);
 
     useEffect(() => {
+        if (!controlsRef.current) return undefined;
+
+        const updateControlsHeight = () => {
+            setControlsHeight(Math.ceil(controlsRef.current?.getBoundingClientRect().height || 0));
+        };
+        updateControlsHeight();
+
+        if (typeof ResizeObserver === 'undefined') return undefined;
+        const observer = new ResizeObserver(updateControlsHeight);
+        observer.observe(controlsRef.current);
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const updateFittedWidth = () => {
+            if (!fullscreen && !expanded) {
+                setFittedWidth(null);
+                return;
+            }
+
+            const panel = panelRef.current;
+            if (!panel || controlsHeight <= 0) return;
+
+            if (fullscreen) {
+                setFittedWidth(fitPlayerWidth({
+                    availableWidth: window.innerWidth - FULLSCREEN_PADDING * 2,
+                    availableHeight: window.innerHeight - FULLSCREEN_PADDING * 2,
+                    controlsHeight,
+                    maxWidth: MAX_FULLSCREEN_PLAYER_WIDTH,
+                }));
+                return;
+            }
+
+            const panelTop = panel.getBoundingClientRect().top;
+            setFittedWidth(fitPlayerWidth({
+                availableWidth: window.innerWidth * 0.96,
+                availableHeight: window.innerHeight - panelTop - EXPANDED_BOTTOM_GAP,
+                controlsHeight,
+                maxWidth: MAX_EXPANDED_PLAYER_WIDTH,
+            }));
+        };
+
+        updateFittedWidth();
+        window.addEventListener('resize', updateFittedWidth);
+        window.addEventListener('scroll', updateFittedWidth, { passive: true });
+        return () => {
+            window.removeEventListener('resize', updateFittedWidth);
+            window.removeEventListener('scroll', updateFittedWidth);
+        };
+    }, [controlsHeight, expanded, fullscreen]);
+
+    useEffect(() => {
         if (!expanded || !sectionRef.current) return;
         const navEl = document.querySelector('nav');
         const navH = navEl ? navEl.getBoundingClientRect().height : 64;
-        const top = sectionRef.current.getBoundingClientRect().top + window.scrollY - navH - 12;
+        const top = sectionRef.current.getBoundingClientRect().top + window.scrollY - navH - EXPANDED_TOP_GAP;
         window.scrollTo({ top, behavior: 'smooth' });
     }, [expanded]);
 
@@ -327,7 +400,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
         <section
             ref={sectionRef}
             className={`mb-16 ${expanded ? 'relative left-1/2 -translate-x-1/2' : ''}`}
-            style={expanded ? { width: 'min(96vw, 128vh, 1600px)' } : undefined}
+            style={expanded ? { width: fittedWidth ? `${fittedWidth}px` : 'min(96vw, 128vh, 1600px)' } : undefined}
         >
             <div ref={panelRef} className="lesson-slide-deck">
                 <style>
@@ -337,20 +410,23 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                             to { opacity: 1; transform: translateY(0); }
                         }
                         .lesson-slide-deck:fullscreen {
+                            box-sizing: border-box;
                             background: #020617;
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            padding: 18px;
+                            padding: ${FULLSCREEN_PADDING}px;
                         }
                         .lesson-slide-deck:fullscreen .lesson-slide-deck-card {
-                            width: min(100%, 150vh, 1760px);
-                            max-height: calc(100vh - 36px);
+                            max-height: none;
                         }
                     `}
                 </style>
-                <div className="lesson-slide-deck-card overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-950 shadow-2xl">
-                    <div className="relative w-full bg-slate-950" style={{ aspectRatio: '16/9' }}>
+                <div
+                    className="lesson-slide-deck-card overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-950 shadow-2xl"
+                    style={fittedWidth ? { width: `${fittedWidth}px` } : undefined}
+                >
+                    <div className="lesson-slide-deck-stage relative w-full bg-slate-950" style={{ aspectRatio: '16/9' }}>
                         {imageUrl ? (
                             <img
                                 src={imageUrl}
@@ -365,7 +441,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                         )}
                     </div>
 
-                    <div className="border-t border-white/10 bg-slate-950 px-4 py-4">
+                    <div ref={controlsRef} className="lesson-slide-deck-controls border-t border-white/10 bg-slate-950 px-4 py-4">
                         <div className="mb-3 flex gap-1.5" aria-label="Slide timeline">
                             {slides.map((item, i) => (
                                 <button

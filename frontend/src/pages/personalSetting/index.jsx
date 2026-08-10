@@ -21,7 +21,11 @@ import {
     User,
 } from 'lucide-react';
 import { getAuthState } from '../../utils/authStorage';
-import { COURSE_LANGUAGE_OPTIONS, getUiLanguageOption, UI_LANGUAGE_OPTIONS } from '../../utils/languageOptions';
+import {
+    COURSE_LANGUAGE_OPTIONS,
+    getUiLanguageOption,
+    getUiLanguageSelectOptions,
+} from '../../utils/languageOptions';
 import {
     BookOpenGlyph,
     ChoicePillGroup,
@@ -102,7 +106,7 @@ export default function Personal_Setting() {
     const [securityAlerts, setSecurityAlerts] = useState(true);
 
     useEffect(() => {
-        setInterfaceLang(getUiLanguageOption(i18n.language).code);
+        setInterfaceLang(getUiLanguageOption(i18n.language).locale);
     }, [i18n.language]);
 
     return (
@@ -214,10 +218,7 @@ export default function Personal_Setting() {
                                         setInterfaceLang(value);
                                         i18n.changeLanguage(value);
                                     }}
-                                    options={UI_LANGUAGE_OPTIONS.map((item) => ({
-                                        value: item.code,
-                                        label: `${item.flag} ${item.nativeName}`,
-                                    }))}
+                                    options={getUiLanguageSelectOptions(i18n.resolvedLanguage)}
                                 />
                                 <SelectRow
                                     label={t('settings_native_language')}

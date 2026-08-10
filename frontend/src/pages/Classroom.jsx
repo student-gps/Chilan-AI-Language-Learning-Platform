@@ -422,7 +422,9 @@ const getCourseVisual = (course = {}) => {
 
 function formatLanguageLabel(language, locale = 'zh') {
     if (!language) return '';
-    return LANGUAGE_LABEL_MAP[locale]?.[language] || LANGUAGE_LABEL_MAP.en?.[language] || (language.charAt(0).toUpperCase() + language.slice(1));
+    const localeKey = locale.toLowerCase().split('-')[0];
+    const lookupLocale = localeKey === 'ja' ? 'jp' : localeKey;
+    return LANGUAGE_LABEL_MAP[lookupLocale]?.[language] || LANGUAGE_LABEL_MAP.en?.[language] || (language.charAt(0).toUpperCase() + language.slice(1));
 }
 
 function LanguagePill({ course, compact = false }) {
@@ -896,7 +898,7 @@ function CourseCard({
             onPointerEnter={onPrefetch}
             onPointerDown={onPrefetch}
             onClick={onClick}
-            className={`rounded-3xl overflow-hidden shadow-lg ${visual.shadowClass} border border-white/60 ${isInteractive ? 'cursor-pointer group' : ''}`}
+            className={`rounded-3xl overflow-hidden bg-white shadow-lg ${visual.shadowClass} border border-white/60 ${isInteractive ? 'cursor-pointer group' : ''}`}
         >
             {/* Colored top section */}
             <div className={`relative ${visual.headerBg} px-6 py-6 h-44 flex flex-col items-center justify-center text-center`}>

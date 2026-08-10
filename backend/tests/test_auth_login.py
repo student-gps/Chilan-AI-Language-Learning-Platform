@@ -75,7 +75,7 @@ class AuthLoginSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                 headers={
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",
-                    "X-Chilan-Interface-Language": "jp",
+                    "X-Chilan-Interface-Language": "ja",
                     "accept-language": "en-US,en;q=0.9",
                 },
             )
@@ -122,7 +122,7 @@ class AuthLoginSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
                 headers={
                     "x-forwarded-for": "203.0.113.7",
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/138.0 Safari/537.36",
-                    "X-Chilan-Interface-Language": "jp",
+                    "X-Chilan-Interface-Language": "ja",
                 },
             )
 
