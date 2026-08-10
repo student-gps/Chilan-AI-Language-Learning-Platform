@@ -5,7 +5,7 @@ const SLIDE_AUDIO_RATES = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3];
 const PLAYER_ASPECT_RATIO = 16 / 9;
 const MAX_FULLSCREEN_PLAYER_WIDTH = 1760;
 const MAX_EXPANDED_PLAYER_WIDTH = 1600;
-const FULLSCREEN_PADDING = 18;
+const FULLSCREEN_PADDING = 4;
 const EXPANDED_TOP_GAP = 12;
 const EXPANDED_BOTTOM_GAP = 16;
 const CARD_CHROME_HEIGHT = 4;
@@ -419,6 +419,29 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                         }
                         .lesson-slide-deck:fullscreen .lesson-slide-deck-card {
                             max-height: none;
+                            border-radius: 0;
+                            border-color: transparent;
+                        }
+                        .lesson-slide-deck:fullscreen .lesson-slide-deck-controls {
+                            padding: 0.75rem 1rem;
+                        }
+                        .lesson-slide-deck:fullscreen .lesson-slide-deck-control-row {
+                            min-height: 3.25rem;
+                            flex-wrap: wrap;
+                        }
+                        .lesson-slide-deck:fullscreen .lesson-slide-deck-control-row > .flex-1 {
+                            order: -1;
+                            flex-basis: 100%;
+                        }
+                        .lesson-slide-deck:fullscreen .lesson-slide-deck-caption {
+                            min-height: 0;
+                            padding: 0.5rem 0.75rem;
+                        }
+                        .lesson-slide-deck:fullscreen .lesson-slide-deck-caption-text {
+                            display: block;
+                            overflow: visible;
+                            font-size: 1.125rem;
+                            line-height: 1.45;
                         }
                     `}
                 </style>
@@ -460,7 +483,7 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                             ))}
                         </div>
 
-                        <div className="flex min-h-[4.75rem] items-center gap-3">
+                        <div className="lesson-slide-deck-control-row flex min-h-[4.75rem] items-center gap-3">
                             <button
                                 type="button"
                                 onClick={() => playing ? playSlide(index - 1) : goTo(index - 1)}
@@ -479,10 +502,10 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
                                             : `${index + 1} / ${slides.length}`}
                                     </p>
                                 </div>
-                                <div className="flex min-h-[3.25rem] items-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                                <div className="lesson-slide-deck-caption flex min-h-[3.25rem] items-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                                     <p
                                         key={cueKey}
-                                        className="line-clamp-2 text-base font-semibold leading-relaxed text-white md:text-lg"
+                                        className={`lesson-slide-deck-caption-text text-base font-semibold leading-relaxed text-white md:text-lg ${fullscreen ? '' : 'line-clamp-2'}`}
                                         style={{ animation: cue ? 'lesson-caption-in 180ms ease-out' : undefined }}
                                     >
                                         {cleanCaptionText(cue?.text || '')}
@@ -513,15 +536,17 @@ export default function LessonSlideDeckPlayer({ deck, apiBase = '' }) {
 
                             {hasAudio && <RateSelector rate={rate} setRate={setRate} />}
 
-                            <button
-                                type="button"
-                                onClick={() => setExpanded((value) => !value)}
-                                className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 md:flex"
-                                aria-label={expanded ? 'Use normal size' : 'Use larger size'}
-                                title={expanded ? 'Normal size' : 'Larger size'}
-                            >
-                                {expanded ? <Minimize2 size={18} /> : <Scan size={18} />}
-                            </button>
+                            {!fullscreen && (
+                                <button
+                                    type="button"
+                                    onClick={() => setExpanded((value) => !value)}
+                                    className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 md:flex"
+                                    aria-label={expanded ? 'Use normal size' : 'Use larger size'}
+                                    title={expanded ? 'Normal size' : 'Larger size'}
+                                >
+                                    {expanded ? <Minimize2 size={18} /> : <Scan size={18} />}
+                                </button>
+                            )}
 
                             <button
                                 type="button"
