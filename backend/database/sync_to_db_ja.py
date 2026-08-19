@@ -157,6 +157,7 @@ def main() -> None:
         "support_language": lang,
     }
 
+    failed: list[str] = []
     for target_json in json_files:
         print(f"\n🚀 [MNN JA Sync] 开始处理: {target_json.name}")
         with target_json.open(encoding="utf-8") as f:
@@ -175,6 +176,12 @@ def main() -> None:
             if target_json.resolve() != destination.resolve():
                 shutil.move(str(target_json), str(destination))
                 print(f"📦 已归档到: {destination}")
+        else:
+            failed.append(target_json.name)
+            break
+
+    if failed:
+        raise SystemExit(f"❌ MNN JA sync failed for: {', '.join(failed)}")
 
 
 if __name__ == "__main__":

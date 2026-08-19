@@ -310,6 +310,14 @@ def get_or_create_answer_embedding(cur, provider: BaseEmbeddingProvider, answer_
     if row:
         return int(row[0])
 
+    # External embedding calls can take long enough for managed Postgres to close
+    # an idle transaction. Commit the current upsert progress before waiting so a
+    # rerun can resume cleanly if the process is interrupted.
+    try:
+        cur.connection.commit()
+    except Exception:
+        pass
+
     embedding = provider.get_embedding(answer)
     if len(embedding) != dims:
         raise ValueError(
@@ -751,6 +759,7 @@ def sync_lesson_data(
 
         # 2. 同步 language_items 表
         print(f"🎯 正在处理 {len(database_items)} 道深度解析题目...")
+        current_question_ids: set[int] = set()
         for raw_item in database_items:
             try:
                 item = canonicalize_database_item(
@@ -763,6 +772,7 @@ def sync_lesson_data(
                     f"Invalid canonical practice item question_id={raw_item.get('question_id')!r}: {exc}"
                 ) from exc
             q_id = item['question_id']
+            current_question_ids.add(int(q_id))
             # 🚀 提取新增字段
             q_pinyin = item.get('original_pinyin', '')
             q_type = item.get('question_type')
@@ -859,7 +869,21 @@ def sync_lesson_data(
                 """, (course_id, lesson_id, q_id, item['question_type'], 
                       item['original_text'], q_pinyin, item['standard_answers'], 
                       answer_embedding_id, Json(q_metadata)))
-            
+
+        if current_question_ids:
+            cur.execute(
+                """
+                DELETE FROM language_items
+                WHERE course_id = %s
+                  AND lesson_id = %s
+                  AND NOT (question_id = ANY(%s))
+                """,
+                (course_id, lesson_id, sorted(current_question_ids)),
+            )
+            deleted_stale = cur.rowcount
+            if deleted_stale:
+                print(f"🧹 已清理旧 language_items: {deleted_stale}")
+             
         conn.commit()
         print(f"✅ 入库成功！包含题目拼音与例句上下文。")
         return True
@@ -867,11 +891,24 @@ def sync_lesson_data(
     except Exception as e:
         LAST_SYNC_ERROR = str(e)
         print(f"❌ 入库失败: {e}")
-        if conn: conn.rollback()
+        if conn:
+            try:
+                if not getattr(conn, "closed", False):
+                    conn.rollback()
+            except Exception as rollback_exc:
+                print(f"⚠️ rollback skipped because the DB connection is no longer usable: {rollback_exc}")
         return False
     finally:
-        if cur: cur.close()
-        if conn: conn.close()
+        if cur:
+            try:
+                cur.close()
+            except Exception:
+                pass
+        if conn:
+            try:
+                conn.close()
+            except Exception:
+                pass
 
 # ==========================================
 # 5. 执行入口

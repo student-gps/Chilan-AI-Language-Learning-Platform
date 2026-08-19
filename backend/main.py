@@ -89,7 +89,7 @@ app.include_router(study.router)
 
 # --- 🔊 拼音音频代理（本地文件优先，R2 presigned URL 兜底）---
 from fastapi.responses import FileResponse
-from services.media_pipeline_registry import get_media_pipeline
+from services.media_pipeline_registry import get_media_pipeline, list_media_pipelines
 from services.storage.media_storage import get_media_storage as _get_media_storage
 _pinyin_storage = _get_media_storage(optional=True)
 _BACKEND_DIR = Path(__file__).resolve().parent
@@ -112,6 +112,43 @@ def _safe_lesson_digits(lesson_id: str) -> str:
 def _safe_lesson_slug(lesson_id: str) -> str:
     return f"lesson{_safe_lesson_digits(lesson_id).zfill(3)}"
 
+def _attach_lesson_audio_preview_urls(
+    lesson_data: dict,
+    *,
+    pipeline_id: str,
+    lesson_slug: str,
+    artifact_root: Path,
+) -> None:
+    """Attach local media URLs for generated lesson sentence audio in dev preview."""
+    assets = lesson_data.get("lesson_audio_assets")
+    if not isinstance(assets, dict):
+        return
+
+    local_audio_dir = artifact_root / "output_audio" / lesson_slug
+    allowed_suffixes = {".mp3", ".wav", ".m4a"}
+
+    def patch_asset(asset: dict) -> None:
+        if not isinstance(asset, dict):
+            return
+        filename = Path(str(asset.get("local_audio_file") or "")).name
+        if not filename:
+            return
+        try:
+            safe_filename = _safe_asset_filename(filename, allowed_suffixes)
+        except HTTPException:
+            return
+        if not (local_audio_dir / safe_filename).exists():
+            return
+
+        media_path = f"/media/lesson-audio/{pipeline_id}/{lesson_slug}/{safe_filename}"
+        asset["media_path"] = media_path
+        if not asset.get("audio_url"):
+            asset["audio_url"] = media_path
+
+    patch_asset(assets.get("full_audio"))
+    for item in assets.get("items") or []:
+        patch_asset(item)
+
 @app.get("/media/pinyin/{filename}")
 async def get_pinyin_audio(filename: str):
     """Serve pinyin audio: local file first (dev), then R2 presigned URL (prod)."""
@@ -126,6 +163,49 @@ async def get_pinyin_audio(filename: str):
         return RedirectResponse(url=url, status_code=302)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/dev/lesson-artifact-options")
+async def get_lesson_artifact_options():
+    """Dev-only: list generated lesson artifacts available for local preview."""
+    pipeline_options = []
+
+    for pipeline in list_media_pipelines():
+        artifact_root = pipeline.artifact_root(_BACKEND_DIR)
+        lessons_by_lang: dict[str, set[int]] = {}
+
+        for stage in ("output_json", "synced_json"):
+            stage_dir = artifact_root / stage
+            if not stage_dir.is_dir():
+                continue
+
+            for lang_dir in stage_dir.iterdir():
+                if not lang_dir.is_dir():
+                    continue
+                lesson_ids = lessons_by_lang.setdefault(lang_dir.name, set())
+                for artifact_path in lang_dir.glob("lesson*_data.json"):
+                    digits = artifact_path.name[len("lesson"):-len("_data.json")]
+                    if digits.isdigit():
+                        lesson_ids.add(int(digits))
+
+        languages = [
+            {
+                "lang": lang,
+                "lessons": [str(lesson_id).zfill(3) for lesson_id in sorted(lesson_ids)],
+            }
+            for lang, lesson_ids in sorted(lessons_by_lang.items())
+            if lesson_ids
+        ]
+        pipeline_options.append(
+            {
+                "pipeline_id": pipeline.pipeline_id,
+                "display_name": pipeline.display_name,
+                "target_language": pipeline.target_language,
+                "languages": languages,
+            }
+        )
+
+    return {"pipelines": pipeline_options}
+
 
 @app.get("/dev/lesson-artifact-preview")
 async def get_lesson_artifact_preview(
@@ -161,6 +241,13 @@ async def get_lesson_artifact_preview(
             lesson_data = json.load(f)
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=500, detail=f"Invalid JSON artifact: {e}") from e
+
+    _attach_lesson_audio_preview_urls(
+        lesson_data,
+        pipeline_id=pipeline.pipeline_id,
+        lesson_slug=lesson_slug,
+        artifact_root=artifact_root,
+    )
 
     deck = lesson_data.get("teaching_slide_deck")
     if not isinstance(deck, dict):
@@ -235,6 +322,26 @@ async def get_teaching_audio(pipeline_id: str, lang: str, lesson_id: str, filena
     if not _pinyin_storage:
         raise HTTPException(status_code=404, detail=f"{safe_filename} not found locally and storage not configured")
     object_key = f"{pipeline.target_language}/audio/narration/{lang}/{safe_lesson_slug}/{safe_filename}"
+    try:
+        url = _pinyin_storage.resolve_url(object_key)
+        return RedirectResponse(url=url, status_code=302)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/media/lesson-audio/{pipeline_id}/{lesson_id}/{filename}")
+async def get_lesson_audio(pipeline_id: str, lesson_id: str, filename: str):
+    """Serve generated lesson sentence/dialogue audio for local artifact previews."""
+    safe_filename = _safe_asset_filename(filename, {".mp3", ".wav", ".m4a"})
+    safe_lesson_slug = _safe_lesson_slug(lesson_id)
+    pipeline = get_media_pipeline(pipeline_id)
+    artifact_root = pipeline.artifact_root(_BACKEND_DIR)
+    local_file = artifact_root / "output_audio" / safe_lesson_slug / safe_filename
+    if local_file.exists():
+        return FileResponse(str(local_file), media_type="audio/mpeg")
+    if not _pinyin_storage:
+        raise HTTPException(status_code=404, detail=f"{safe_filename} not found locally and storage not configured")
+    bucket = "full" if "_full_" in safe_filename else "sentences"
+    object_key = f"{pipeline.target_language}/audio/{safe_lesson_slug}/{bucket}/{safe_filename}"
     try:
         url = _pinyin_storage.resolve_url(object_key)
         return RedirectResponse(url=url, status_code=302)
@@ -1129,4 +1236,3 @@ async def get_overview_stats(user_id: str, db=Depends(get_db)):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
-

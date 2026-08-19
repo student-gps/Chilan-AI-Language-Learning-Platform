@@ -157,7 +157,7 @@ const buildRubyPieces = (surface, reading) => {
     return pieces;
 };
 
-const splitRubyToken = (surface, reading) => {
+const _splitRubyToken = (surface, reading) => {
     const surfaceChars = Array.from(textOf(surface));
     const readingChars = Array.from(textOf(reading));
     if (!surfaceChars.length || !readingChars.length) {
@@ -333,17 +333,19 @@ const AudioIcon = ({ loading }) => (
 function TextSection({
     title,
     eyebrow,
-    icon: Icon,
+    icon,
     items,
     showReading,
     showTranslation,
     playTextAudio,
+    canPlayTextAudio,
     playingKey,
     audioLoadingKey,
     activeLessonLineRef,
     dialogue = false,
 }) {
     if (!items.length) return null;
+    const Icon = icon;
 
     return (
         <section className="rounded-[2rem] border border-slate-100 bg-white p-6 shadow-sm md:p-8">
@@ -362,6 +364,20 @@ function TextSection({
                     const text = textOf(item.text);
                     const audioKey = `ja-reference-${title}-${idx}`;
                     const lineRef = normalizeLineRef(item.line_ref) || idx + 1;
+                    const sourceSection = dialogue
+                        ? 'dialogue'
+                        : title === '文型'
+                            ? 'sentence_patterns'
+                            : title === '例文'
+                                ? 'example_sentences'
+                                : '';
+                    const sourceRef = normalizeLineRef(item.pattern_id) || normalizeLineRef(item.example_id) || lineRef;
+                    const audioMeta = { sourceSection, sourceRef, lineRef, index: idx };
+                    const hasAudio = Boolean(
+                        playTextAudio &&
+                        text &&
+                        (!canPlayTextAudio || canPlayTextAudio(text, audioKey, audioMeta))
+                    );
                     const isLoading = audioLoadingKey === audioKey;
                     const isPlaying = playingKey === audioKey && !isLoading;
                     const isLessonActive = dialogue && activeLessonLineRef === normalizeLineRef(lineRef);
@@ -390,10 +406,10 @@ function TextSection({
                                         </p>
                                     )}
                                 </div>
-                                {playTextAudio && text && (
+                                {hasAudio && (
                                     <button
                                         type="button"
-                                        onClick={() => playTextAudio(text, audioKey)}
+                                        onClick={() => playTextAudio(text, audioKey, audioMeta)}
                                         className={`mt-7 rounded-2xl p-2.5 shadow-sm transition hover:bg-slate-900 hover:text-white ${isPlaying ? 'bg-slate-900 text-white' : 'bg-white text-slate-400'}`}
                                         aria-label={isLoading ? '正在加载音频' : '播放'}
                                     >
@@ -409,7 +425,7 @@ function TextSection({
     );
 }
 
-function VocabularyGroup({ title, eyebrow, items, showReading, showTranslation, playTextAudio, playingKey, audioLoadingKey }) {
+function VocabularyGroup({ title, eyebrow, items, showReading, showTranslation, playTextAudio, canPlayTextAudio, playingKey, audioLoadingKey }) {
     if (!items.length) return null;
 
     return (
@@ -437,6 +453,18 @@ function VocabularyGroup({ title, eyebrow, items, showReading, showTranslation, 
                     const exampleTranslation = textOf(example?.translation, example?.definition);
                     const termAudioKey = `ja-vocab-${title}-${idx}`;
                     const exampleAudioKey = `ja-vocab-example-${title}-${idx}`;
+                    const termAudioMeta = { sourceSection: 'vocabulary', sourceRef: idx + 1, index: idx };
+                    const exampleAudioMeta = { sourceSection: 'vocabulary_examples', sourceRef: idx + 1, index: idx };
+                    const hasTermAudio = Boolean(
+                        playTextAudio &&
+                        term &&
+                        (!canPlayTextAudio || canPlayTextAudio(term, termAudioKey, termAudioMeta))
+                    );
+                    const hasExampleAudio = Boolean(
+                        playTextAudio &&
+                        exampleText &&
+                        (!canPlayTextAudio || canPlayTextAudio(exampleText, exampleAudioKey, exampleAudioMeta))
+                    );
                     const isTermLoading = audioLoadingKey === termAudioKey;
                     const isTermPlaying = playingKey === termAudioKey && !isTermLoading;
                     const isExampleLoading = audioLoadingKey === exampleAudioKey;
@@ -455,10 +483,10 @@ function VocabularyGroup({ title, eyebrow, items, showReading, showTranslation, 
                                         <p className="mt-2 text-lg font-bold text-slate-600">{translation}</p>
                                     )}
                                 </div>
-                                {playTextAudio && term && (
+                                {hasTermAudio && (
                                     <button
                                         type="button"
-                                        onClick={() => playTextAudio(term, termAudioKey)}
+                                        onClick={() => playTextAudio(term, termAudioKey, termAudioMeta)}
                                         className={`rounded-2xl p-2.5 shadow-sm transition hover:bg-slate-900 hover:text-white ${isTermPlaying ? 'bg-slate-900 text-white' : 'bg-white text-slate-400'}`}
                                         aria-label={isTermLoading ? '正在加载音频' : '播放'}
                                     >
@@ -472,10 +500,10 @@ function VocabularyGroup({ title, eyebrow, items, showReading, showTranslation, 
                                         <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-black text-slate-400 shadow-sm">
                                             例句
                                         </span>
-                                        {playTextAudio && (
+                                        {hasExampleAudio && (
                                             <button
                                                 type="button"
-                                                onClick={() => playTextAudio(exampleText, exampleAudioKey)}
+                                                onClick={() => playTextAudio(exampleText, exampleAudioKey, exampleAudioMeta)}
                                                 className={`rounded-xl p-2 shadow-sm transition hover:bg-slate-900 hover:text-white ${isExamplePlaying ? 'bg-slate-900 text-white' : 'bg-white text-slate-400'}`}
                                                 aria-label={isExampleLoading ? '正在加载例句音频' : '播放例句'}
                                             >
@@ -504,6 +532,7 @@ export default function JapaneseLessonReference({
     lessonMetadata = {},
     fadeInUp,
     playTextAudio,
+    canPlayTextAudio,
     playingKey,
     audioLoadingKey,
     activeLessonLineRef,
@@ -564,6 +593,7 @@ export default function JapaneseLessonReference({
                     showReading={showReading}
                     showTranslation={showTranslation}
                     playTextAudio={playTextAudio}
+                    canPlayTextAudio={canPlayTextAudio}
                     playingKey={playingKey}
                     audioLoadingKey={audioLoadingKey}
                     activeLessonLineRef={activeLessonLineRef}
@@ -576,6 +606,7 @@ export default function JapaneseLessonReference({
                     showReading={showReading}
                     showTranslation={showTranslation}
                     playTextAudio={playTextAudio}
+                    canPlayTextAudio={canPlayTextAudio}
                     playingKey={playingKey}
                     audioLoadingKey={audioLoadingKey}
                     activeLessonLineRef={activeLessonLineRef}
@@ -588,6 +619,7 @@ export default function JapaneseLessonReference({
                     showReading={showReading}
                     showTranslation={showTranslation}
                     playTextAudio={playTextAudio}
+                    canPlayTextAudio={canPlayTextAudio}
                     playingKey={playingKey}
                     audioLoadingKey={audioLoadingKey}
                     activeLessonLineRef={activeLessonLineRef}
@@ -600,6 +632,7 @@ export default function JapaneseLessonReference({
                     showReading={showReading}
                     showTranslation={showTranslation}
                     playTextAudio={playTextAudio}
+                    canPlayTextAudio={canPlayTextAudio}
                     playingKey={playingKey}
                     audioLoadingKey={audioLoadingKey}
                 />
@@ -610,6 +643,7 @@ export default function JapaneseLessonReference({
                     showReading={showReading}
                     showTranslation={showTranslation}
                     playTextAudio={playTextAudio}
+                    canPlayTextAudio={canPlayTextAudio}
                     playingKey={playingKey}
                     audioLoadingKey={audioLoadingKey}
                 />
@@ -620,6 +654,7 @@ export default function JapaneseLessonReference({
                     showReading={showReading}
                     showTranslation={showTranslation}
                     playTextAudio={playTextAudio}
+                    canPlayTextAudio={canPlayTextAudio}
                     playingKey={playingKey}
                     audioLoadingKey={audioLoadingKey}
                 />

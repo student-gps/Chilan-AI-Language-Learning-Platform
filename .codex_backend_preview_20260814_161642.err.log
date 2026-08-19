@@ -1,0 +1,22 @@
+INFO:     Will watch for changes in these directories: ['D:\\gaopeng16\\Desktop\\Chilan\\backend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [36956] using StatReload
+INFO:     Started server process [35968]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'content_builder\ja\minna_no_nihongo\tasks\render_plan_builder.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [35968]
+INFO:     Started server process [33652]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'content_builder\ja\minna_no_nihongo\tasks\lesson_audio.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [33652]
+INFO:     Started server process [33004]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
