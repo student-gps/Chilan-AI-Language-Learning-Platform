@@ -10,7 +10,12 @@ const MODULE_LOADERS = {
     'chinese-hanzi-v1': lazy(() => import('./HanziIntroPage')),
     'chinese-pinyin-v1': lazy(() => import('./PinyinPage')),
     'chinese-ime-v1': lazy(() => import('./TypingIntroPage')),
+    'japanese-foundations-v1': lazy(() => import('./japaneseFoundation/JapaneseFoundationPage')),
 };
+
+const moduleLabel = (module, t) => t(module.title_key, {
+    defaultValue: module.default_title || module.key,
+});
 
 function ModuleFallback() {
     return (
@@ -83,11 +88,11 @@ export default function CourseFoundationPage() {
         coursePath: buildCoursePath(course),
         previous: previousModule && {
             path: buildFoundationPath(course, previousModule.key),
-            label: t(previousModule.title_key),
+            label: moduleLabel(previousModule, t),
         },
         next: nextModule && {
             path: buildFoundationPath(course, nextModule.key),
-            label: t(nextModule.title_key),
+            label: moduleLabel(nextModule, t),
         },
     };
 
@@ -97,6 +102,8 @@ export default function CourseFoundationPage() {
                 foundationNavigation={navigation}
                 locationState={location.state}
                 navigate={navigate}
+                course={course}
+                foundationModule={currentModule}
             />
         </Suspense>
     );

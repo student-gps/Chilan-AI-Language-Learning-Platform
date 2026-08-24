@@ -134,10 +134,71 @@ _CHINESE_FOUNDATIONS = (
 )
 
 
+_JAPANESE_FOUNDATIONS = (
+    {
+        "key": "intro",
+        "position": 1,
+        "implementation_key": "japanese-foundations-v1",
+        "title_key": "course_japanese_intro_card_title",
+        "description_key": "course_japanese_intro_card_sub",
+        "default_title": "Japanese Course Guide",
+        "default_description": "Writing systems · method · path",
+        "icon": "✨",
+        "tone": "amber",
+    },
+    {
+        "key": "kana",
+        "position": 2,
+        "implementation_key": "japanese-foundations-v1",
+        "title_key": "course_japanese_kana_card_title",
+        "description_key": "course_japanese_kana_card_sub",
+        "default_title": "Kana Basics",
+        "default_description": "Hiragana · katakana · combinations",
+        "icon": "あ",
+        "tone": "rose",
+    },
+    {
+        "key": "pronunciation",
+        "position": 3,
+        "implementation_key": "japanese-foundations-v1",
+        "title_key": "course_japanese_pronunciation_card_title",
+        "description_key": "course_japanese_pronunciation_card_sub",
+        "default_title": "Pronunciation",
+        "default_description": "Vowels · morae · special sounds",
+        "icon": "音",
+        "tone": "sky",
+    },
+    {
+        "key": "kanji",
+        "position": 4,
+        "implementation_key": "japanese-foundations-v1",
+        "title_key": "course_japanese_kanji_card_title",
+        "description_key": "course_japanese_kanji_card_sub",
+        "default_title": "Japanese Kanji",
+        "default_description": "Readings · components · context",
+        "icon": "漢",
+        "tone": "indigo",
+    },
+    {
+        "key": "typing",
+        "position": 5,
+        "implementation_key": "japanese-foundations-v1",
+        "title_key": "course_japanese_typing_card_title",
+        "description_key": "course_japanese_typing_card_sub",
+        "default_title": "Japanese Typing",
+        "default_description": "IME · romaji input · conversion",
+        "icon": "⌨",
+        "tone": "emerald",
+    },
+)
+
+
 def _foundation_modules(course_family: str) -> list[dict[str, Any]]:
-    if course_family != "integrated_chinese":
-        return []
-    return [dict(module) for module in _CHINESE_FOUNDATIONS]
+    modules_by_family = {
+        "integrated_chinese": _CHINESE_FOUNDATIONS,
+        "minna_no_nihongo": _JAPANESE_FOUNDATIONS,
+    }
+    return [dict(module) for module in modules_by_family.get(course_family, ())]
 
 
 def public_course_definition(

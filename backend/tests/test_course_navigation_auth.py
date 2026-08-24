@@ -31,7 +31,7 @@ class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
             ["intro", "hanzi", "pinyin", "typing"],
         )
 
-    def test_course_registry_does_not_assign_chinese_modules_to_japanese(self):
+    def test_course_registry_assigns_japanese_specific_modules(self):
         definition = public_course_definition(
             course_id=303,
             category="CN_TO_JA",
@@ -41,7 +41,14 @@ class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
 
         self.assertEqual(definition["slug"], "minna-no-nihongo-zh")
         self.assertEqual(definition["target_language_code"], "ja")
-        self.assertEqual(definition["foundations"], [])
+        self.assertEqual(
+            [module["key"] for module in definition["foundations"]],
+            ["intro", "kana", "pronunciation", "kanji", "typing"],
+        )
+        self.assertTrue(all(
+            module["implementation_key"] == "japanese-foundations-v1"
+            for module in definition["foundations"]
+        ))
 
     def test_slug_foundation_endpoints_resolve_the_chinese_registry(self):
         def handler(query, params):
@@ -63,6 +70,26 @@ class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual([item["key"] for item in modules.json()], ["intro", "hanzi", "pinyin", "typing"])
         self.assertEqual(module.status_code, 200)
         self.assertEqual(module.json()["implementation_key"], "chinese-ime-v1")
+
+    def test_slug_foundation_endpoints_resolve_the_japanese_registry(self):
+        def handler(query, params):
+            if "WITH lesson_counts AS" in query:
+                return {"fetchall": [(303, "Japanese", "CN_TO_JA", "japanese", "chinese", 74, 1000)]}
+            return {}
+
+        fake_db = FakeConnection(handler)
+        main.app.dependency_overrides[main.get_db] = lambda: fake_db
+
+        modules = self.client.get("/courses/by-slug/minna-no-nihongo-zh/foundations")
+        module = self.client.get("/courses/by-slug/minna-no-nihongo-zh/foundations/kana")
+
+        self.assertEqual(modules.status_code, 200)
+        self.assertEqual(
+            [item["key"] for item in modules.json()],
+            ["intro", "kana", "pronunciation", "kanji", "typing"],
+        )
+        self.assertEqual(module.status_code, 200)
+        self.assertEqual(module.json()["implementation_key"], "japanese-foundations-v1")
 
     def test_unknown_course_slug_returns_not_found(self):
         fake_db = FakeConnection(lambda query, params: {"fetchall": []})
