@@ -29,7 +29,17 @@ const toNumber = (value, fallback = 0) => {
 };
 
 const getLessonDisplayTitle = (lesson, fallback = '') =>
-    lesson?.title_localized || lesson?.title || fallback;
+    lesson?.topic_title_localized ||
+    lesson?.topic_title ||
+    lesson?.title_localized ||
+    lesson?.title ||
+    fallback;
+
+const getLessonPrimaryTitle = (lesson, fallback = '') =>
+    lesson?.topic_title || lesson?.title || fallback;
+
+const getLessonSecondaryTitle = (lesson) =>
+    lesson?.topic_title_localized || lesson?.title_localized || '';
 
 const buildCourseProgress = (enrollment, lessons, t) => {
     const lessonTotal = toNumber(enrollment?.lesson_total, lessons.length) || lessons.length;
@@ -44,11 +54,15 @@ const buildCourseProgress = (enrollment, lessons, t) => {
     const progressPercent = lessonTotal > 0
         ? Math.round((completedLessonCount / lessonTotal) * 100)
         : 0;
+    const nextLessonFromList = lessons.find(
+        (lesson) => toNumber(lesson.lesson_id) === toNumber(enrollment?.next_lesson_id)
+    );
     const nextLesson = enrollment?.next_lesson_id
         ? {
+            ...nextLessonFromList,
             lesson_id: enrollment.next_lesson_id,
-            title: enrollment.next_lesson_title,
-            title_localized: enrollment.next_lesson_title_localized,
+            title: nextLessonFromList?.title || enrollment.next_lesson_title,
+            title_localized: nextLessonFromList?.title_localized || enrollment.next_lesson_title_localized,
         }
         : lessons.find((lesson) => toNumber(lesson.lesson_id) > lastCompletedLessonId);
     const nextLessonId = toNumber(nextLesson?.lesson_id, 0);
@@ -330,11 +344,11 @@ export default function CoursePage({ resolvedCourseId = null, resolvedCourse = n
                                             Lesson {lesson.lesson_id}
                                         </div>
                                         <div className="font-black text-slate-800 truncate group-hover:text-blue-700 transition-colors">
-                                            {lesson.title || `第 ${idx + 1} 课`}
+                                            {getLessonPrimaryTitle(lesson, `第 ${idx + 1} 课`)}
                                         </div>
-                                        {lesson.title_localized && (
+                                        {getLessonSecondaryTitle(lesson) && (
                                             <div className="text-xs font-medium text-slate-400 truncate mt-0.5">
-                                                {lesson.title_localized}
+                                                {getLessonSecondaryTitle(lesson)}
                                             </div>
                                         )}
                                         {isEnrolled && (

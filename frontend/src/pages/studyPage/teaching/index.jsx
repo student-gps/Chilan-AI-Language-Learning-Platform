@@ -112,6 +112,12 @@ export default function TeachingSection({
     });
     const targetLanguage = normalizeTargetLanguage(explicitTargetLanguage) || referenceTargetLanguage;
     const languageMeta = languageUiMeta(targetLanguage);
+    const lessonDisplayTitle = targetLanguage === 'ja'
+        ? (lesson_metadata.topic_title || lesson_metadata.title)
+        : lesson_metadata.title;
+    const lessonDisplayTitleLocalized = targetLanguage === 'ja'
+        ? (lesson_metadata.topic_title_localized || lesson_metadata.title_localized)
+        : lesson_metadata.title_localized;
     const lesson_audio_assets = normalisedData?.lesson_audio_assets || null;
     const teaching_slide_deck =
         normalisedData?.teaching_slide_deck ||
@@ -202,11 +208,11 @@ export default function TeachingSection({
                 </motion.div>
 
                 <h1 className="mb-2 text-5xl font-black tracking-tight text-slate-900">
-                    {lesson_metadata.title}
+                    {lessonDisplayTitle}
                 </h1>
-                {lesson_metadata.title_localized && (
+                {lessonDisplayTitleLocalized && (
                     <p className="mb-4 text-xl font-medium text-slate-400">
-                        {lesson_metadata.title_localized}
+                        {lessonDisplayTitleLocalized}
                     </p>
                 )}
 

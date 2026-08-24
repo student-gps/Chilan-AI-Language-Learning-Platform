@@ -1101,10 +1101,29 @@ async def unenroll_course(
 async def get_course_lessons(course_id: int, db=Depends(get_db)):
     cur = db.cursor()
     cur.execute(
-        "SELECT lesson_id, title, lesson_metadata->>'title_localized' AS title_localized FROM lessons WHERE course_id = %s ORDER BY lesson_id ASC",
+        """
+        SELECT
+            lesson_id,
+            title,
+            lesson_metadata->>'title_localized' AS title_localized,
+            lesson_metadata->>'topic_title' AS topic_title,
+            lesson_metadata->>'topic_title_localized' AS topic_title_localized
+        FROM lessons
+        WHERE course_id = %s
+        ORDER BY lesson_id ASC
+        """,
         (course_id,)
     )
-    return [{"lesson_id": r[0], "title": r[1], "title_localized": r[2]} for r in cur.fetchall()]
+    return [
+        {
+            "lesson_id": r[0],
+            "title": r[1],
+            "title_localized": r[2],
+            "topic_title": r[3],
+            "topic_title_localized": r[4],
+        }
+        for r in cur.fetchall()
+    ]
 
 # ==========================================
 # 3. 教室仪表盘与统计 (数据中心：保留)

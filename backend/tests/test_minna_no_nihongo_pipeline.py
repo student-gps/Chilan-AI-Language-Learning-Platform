@@ -37,6 +37,7 @@ from content_builder.ja.minna_no_nihongo.tasks.render_plan_builder import (
 )
 from content_builder.ja.minna_no_nihongo.tasks.speaker_resolver import MinnaNoNihongoSpeakerResolver
 from content_builder.ja.minna_no_nihongo.tasks.vocab_memory import MinnaNoNihongoVocabMemory
+from database.sync_to_db_ja import prepare_mnn_lesson_data
 
 
 class FakeSpeakerAuditProvider:
@@ -215,6 +216,55 @@ class MinnaNoNihongoPipelineTest(unittest.TestCase):
             {"section": "会話", "title": "はじめまして", "title_localized": "初次见面"},
             metadata["section_titles"],
         )
+
+    def test_intermediate_metadata_cannot_restart_the_app_lesson_number(self):
+        payload = MinnaNoNihongoLessonNormalizer().run(
+            {
+                "lesson_metadata": {
+                    "title": "第3課",
+                    "title_localized": "第3课",
+                    "topic_title": "遅れそうなんです",
+                    "topic_title_localized": "好像要迟到了",
+                },
+                "course_content": {
+                    "sentence_patterns": [],
+                    "example_sentences": [],
+                    "dialogue": {"title": "", "title_localized": "", "lines": []},
+                    "vocabulary": [],
+                    "display_only_vocabulary": [],
+                    "grammar_sections": [],
+                },
+            },
+            lesson_id=53,
+            source_pdf=Path("lesson053.pdf"),
+            lesson_pdf=Path("lesson053.pdf"),
+            course_id=303,
+        )
+
+        metadata = payload["lesson_metadata"]
+        self.assertEqual(metadata["title"], "第53課")
+        self.assertEqual(metadata["title_localized"], "第53课")
+        self.assertEqual(metadata["topic_title"], "遅れそうなんです")
+
+    def test_japanese_db_sync_enforces_continuous_lesson_numbering(self):
+        payload = prepare_mnn_lesson_data(
+            {
+                "lesson_metadata": {
+                    "lesson_id": 53,
+                    "title": "第3課",
+                    "title_localized": "第3课",
+                    "topic_title": "遅れそうなんです",
+                    "topic_title_localized": "好像要迟到了",
+                }
+            },
+            course_id=303,
+            lang="zh",
+        )
+
+        metadata = payload["lesson_metadata"]
+        self.assertEqual(metadata["title"], "第53課")
+        self.assertEqual(metadata["title_localized"], "第53课")
+        self.assertEqual(metadata["topic_title"], "遅れそうなんです")
 
     def test_validator_rejects_missing_sentence_reading(self):
         agent = MinnaNoNihongoAgent(provider=None, memory_dir=Path("tmp"))

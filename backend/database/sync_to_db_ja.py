@@ -85,7 +85,7 @@ def ensure_japanese_course(course_id: int) -> None:
 
 
 def prepare_mnn_lesson_data(data: dict, *, course_id: int, lang: str) -> dict:
-    """Normalize formal DB identity without changing generated lesson content."""
+    """Normalize formal DB identity and canonical continuous lesson numbering."""
     data["pipeline_id"] = MNN_PIPELINE_ID
     data["target_language"] = "ja"
     data["support_language"] = lang
@@ -104,6 +104,15 @@ def prepare_mnn_lesson_data(data: dict, *, course_id: int, lang: str) -> dict:
     metadata["target_language"] = "ja"
     metadata["source_language"] = lang
     metadata["support_language"] = lang
+
+    lesson_id = metadata.get("lesson_id")
+    lesson_digits = int(str(lesson_id)) if str(lesson_id).isdigit() else None
+    if lesson_digits is not None:
+        # The intermediate textbook restarts its printed chapter numbers, but
+        # the app course is one continuous sequence. Never persist an extracted
+        # page heading such as 第3課 as the title of app lesson 53.
+        metadata["title"] = f"第{lesson_digits}課"
+        metadata["title_localized"] = f"第{lesson_digits}课"
 
     for item in data.get("database_items", []) if isinstance(data.get("database_items"), list) else []:
         if isinstance(item, dict):

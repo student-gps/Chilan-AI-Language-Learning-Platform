@@ -166,8 +166,8 @@ class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
                 return {"fetchall": [(1, "Course", "general", "zh", "en", 1, 2)]}
             if "LEFT JOIN LATERAL" in query and "WHERE c.course_id = %s" in query:
                 return {"fetchone": (1, "Course", "general", "zh", "en", 1, 2)}
-            if "FROM lessons WHERE course_id = %s" in query:
-                return {"fetchall": [(101, "Lesson 101", "第一课")]}
+            if "FROM lessons" in query and "WHERE course_id = %s" in query:
+                return {"fetchall": [(101, "Lesson 101", "第一课", "你好", "Hello")]}
             return {}
 
         fake_db = FakeConnection(handler)
@@ -183,6 +183,8 @@ class CourseNavigationAuthTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual(catalog.json()[0]["id"], 1)
         self.assertEqual(course.json()["id"], 1)
         self.assertEqual(lessons.json()[0]["lesson_id"], 101)
+        self.assertEqual(lessons.json()[0]["topic_title"], "你好")
+        self.assertEqual(lessons.json()[0]["topic_title_localized"], "Hello")
 
         catalog_query = fake_db.executed_queries[0][0]
         self.assertIn("WITH lesson_counts AS", catalog_query)
