@@ -2,6 +2,8 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { COURSE_INTRO_PAGE_TRANSLATIONS } from './courseIntroPageTranslations';
 import { INTRO_VIDEO_TRANSLATIONS } from './introVideoTranslations';
+import { JAPANESE_FOUNDATION_CARD_TRANSLATIONS } from './japaneseFoundationTranslations.generated';
+import { normalizeJapaneseFoundationLanguage } from './utils/japaneseFoundationLanguages';
 import { normalizeUiLocale, UI_SUPPORTED_LOCALES } from './utils/languageOptions';
 
 const HANZI_RADICAL_BASE = [
@@ -5164,6 +5166,8 @@ resources.ja = resources.jp;
 
 Object.keys(resources).forEach((locale) => {
   resources[locale].translation.hanzi_intro = HANZI_INTRO_TRANSLATIONS[locale] || HANZI_INTRO_TRANSLATIONS.en;
+  const japaneseFoundationCards = JAPANESE_FOUNDATION_CARD_TRANSLATIONS[normalizeJapaneseFoundationLanguage(locale)];
+  if (japaneseFoundationCards) Object.assign(resources[locale].translation, japaneseFoundationCards);
 });
 
 const persistedUiLocale = normalizeUiLocale(localStorage.getItem('chilan_interface_language'));

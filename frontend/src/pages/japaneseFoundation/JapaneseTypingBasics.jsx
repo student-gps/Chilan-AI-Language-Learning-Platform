@@ -91,7 +91,7 @@ export default function JapaneseTypingBasics(props) {
                     {content.flow.map(([number, title, key, result], index) => (
                         <article key={number} className="relative rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
                             {index < content.flow.length - 1 && <span className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 text-2xl text-emerald-300 lg:block">→</span>}
-                            <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500">Step {number}</p>
+                            <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500">{copy.common.step} {number}</p>
                             <h3 className="mt-2 text-lg font-black text-slate-900">{title}</h3>
                             <div className="mt-5 flex min-h-14 items-center justify-between gap-3 rounded-2xl bg-slate-50 p-3">
                                 <KeyCap accent={index > 0}>{key}</KeyCap>

@@ -1,3 +1,5 @@
+import { normalizeJapaneseFoundationLanguage } from './japaneseFoundationLanguages.js';
+
 const FNV_OFFSET_BASIS_64 = 0xcbf29ce484222325n;
 const FNV_PRIME_64 = 0x100000001b3n;
 
@@ -14,7 +16,7 @@ export function japaneseFoundationAudioFilename(text) {
 }
 
 export function japaneseCourseIntroAudioFilename(language, slideId) {
-    const safeLanguage = language === 'zh' ? 'zh' : 'en';
+    const safeLanguage = normalizeJapaneseFoundationLanguage(language);
     const safeSlideId = String(slideId || '').replace(/[^a-z0-9_-]/gi, '');
     return `course-intro-${safeLanguage}-${safeSlideId}.mp3`;
 }

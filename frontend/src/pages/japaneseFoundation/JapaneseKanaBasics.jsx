@@ -107,7 +107,7 @@ function KanaQuiz({ copy, audio }) {
 }
 
 export default function JapaneseKanaBasics(props) {
-    const { copy, audio, supportLanguage } = props;
+    const { copy, audio } = props;
     const content = copy.kana;
     const [script, setScript] = useState('hiragana');
     const scriptIndex = script === 'hiragana' ? 0 : 1;
@@ -150,9 +150,9 @@ export default function JapaneseKanaBasics(props) {
             <section>
                 <SectionHeading title={content.voicedTitle} body={content.voicedBody} />
                 <div className="grid gap-3 lg:grid-cols-2">
-                    {VOICED_KANA.map((row) => (
+                    {VOICED_KANA.map((row, rowIndex) => (
                         <article key={row.label} className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
-                            <h3 className="text-sm font-black text-slate-700">{supportLanguage === 'zh' ? row.label : row.labelEn}</h3>
+                            <h3 className="text-sm font-black text-slate-700">{content.voicedLabels[rowIndex]}</h3>
                             <div className="mt-3 grid grid-cols-5 gap-2">
                                 {row.pairs.map(([base, voiced, romaji]) => {
                                     const display = scriptIndex === 0 ? voiced : voiced.replace(/[ぁ-ゖ]/g, (char) => String.fromCharCode(char.charCodeAt(0) + 0x60));

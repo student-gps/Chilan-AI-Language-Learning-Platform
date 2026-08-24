@@ -17,7 +17,7 @@ const NAV_BUTTON_STYLE = {
     lineHeight: 1,
 };
 
-function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, subtitle }) {
+function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, subtitle, labels }) {
     return (
         <div style={{
             position: 'absolute',
@@ -46,7 +46,7 @@ function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, 
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 16px 14px' }}>
-                <button type="button" aria-label="Previous slide" onClick={onPrev} disabled={index === 0} style={{ ...NAV_BUTTON_STYLE, cursor: index === 0 ? 'default' : 'pointer', opacity: index === 0 ? 0.28 : 1 }}>‹</button>
+                <button type="button" aria-label={labels.previousSlide} onClick={onPrev} disabled={index === 0} style={{ ...NAV_BUTTON_STYLE, cursor: index === 0 ? 'default' : 'pointer', opacity: index === 0 ? 0.28 : 1 }}>‹</button>
                 <p style={{
                     flex: 1,
                     margin: 0,
@@ -61,7 +61,7 @@ function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, 
                 }}>
                     {subtitle}
                 </p>
-                <button type="button" aria-label={playing ? 'Pause narration' : 'Play narration'} onClick={onToggle} style={{
+                <button type="button" aria-label={playing ? labels.pauseNarration : labels.playNarration} onClick={onToggle} style={{
                     ...NAV_BUTTON_STYLE,
                     width: 36,
                     height: 36,
@@ -72,7 +72,7 @@ function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, 
                 }}>
                     {playing ? '⏸' : '▶'}
                 </button>
-                <button type="button" aria-label="Next slide" onClick={onNext} disabled={index === total - 1} style={{ ...NAV_BUTTON_STYLE, cursor: index === total - 1 ? 'default' : 'pointer', opacity: index === total - 1 ? 0.28 : 1 }}>›</button>
+                <button type="button" aria-label={labels.nextSlide} onClick={onNext} disabled={index === total - 1} style={{ ...NAV_BUTTON_STYLE, cursor: index === total - 1 ? 'default' : 'pointer', opacity: index === total - 1 ? 0.28 : 1 }}>›</button>
             </div>
         </div>
     );
@@ -84,7 +84,15 @@ export default function NarratedCourseIntroDeck({
     getNarrationText,
     getAudioUrls,
     ariaLabel = 'Course introduction',
+    labels = {},
 }) {
+    const playerLabels = {
+        previousSlide: 'Previous slide',
+        nextSlide: 'Next slide',
+        playNarration: 'Play narration',
+        pauseNarration: 'Pause narration',
+        ...labels,
+    };
     const [index, setIndex] = useState(0);
     const [playing, setPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -230,6 +238,7 @@ export default function NarratedCourseIntroDeck({
                 onToggle={toggle}
                 onNext={() => goTo(index + 1)}
                 subtitle={subtitle}
+                labels={playerLabels}
             />
         </div>
     );

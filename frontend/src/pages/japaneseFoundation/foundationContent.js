@@ -1,3 +1,6 @@
+import { JAPANESE_FOUNDATION_TRANSLATIONS } from '../../japaneseFoundationTranslations.generated.js';
+import { normalizeJapaneseFoundationLanguage } from '../../utils/japaneseFoundationLanguages.js';
+
 export const KANA_ROWS = [
     { label: '∅', cells: [['あ', 'ア', 'a'], ['い', 'イ', 'i'], ['う', 'ウ', 'u'], ['え', 'エ', 'e'], ['お', 'オ', 'o']] },
     { label: 'K', cells: [['か', 'カ', 'ka'], ['き', 'キ', 'ki'], ['く', 'ク', 'ku'], ['け', 'ケ', 'ke'], ['こ', 'コ', 'ko']] },
@@ -75,6 +78,8 @@ export const FOUNDATION_COPY = {
     zh: {
         common: {
             courseBadge: 'Chilan · 日语入门基础',
+            back: '返回',
+            step: '步骤',
             listen: '听发音',
             listening: '正在播放',
             audioError: '暂时无法播放，请检查网络或稍后再试。',
@@ -88,6 +93,7 @@ export const FOUNDATION_COPY = {
         },
         intro: {
             eyebrow: '开始之前',
+            slidesAriaLabel: '日语课程导览幻灯片',
             title: '先看懂日语这套系统，再开始背句子',
             subtitle: '日语的难点不是某一个规则，而是三套文字、声音节拍、词形变化和语境同时工作。本导览告诉你每个模块学什么、什么时候够用。',
             scriptTitle: '三套文字，各有分工',
@@ -132,6 +138,7 @@ export const FOUNDATION_COPY = {
             katakana: '片假名',
             vowels: ['a', 'i', 'u', 'e', 'o'],
             voicedTitle: '浊音与半浊音',
+            voicedLabels: ['浊音 G', '浊音 Z', '浊音 D', '浊音 B', '半浊音 P'],
             voicedBody: '右上角的两点「゛」让辅音浊化；小圆圈「゜」把 H 行变成 P 行。ぢ/づ 的常见读音接近 じ/ず，但拼写不能随意替换。',
             contractedTitle: '拗音：一拍读完',
             contractedBody: 'I 段假名（き、し、ち等）加小写 ゃ・ゅ・ょ，合成一拍。きゃ 是 kya，不是 ki-ya 两拍。',
@@ -209,6 +216,8 @@ export const FOUNDATION_COPY = {
         },
         kanji: {
             eyebrow: 'Kanji · 日语汉字',
+            contextHeaders: ['字', '词语', '读音', '含义'],
+            componentHeaders: ['部件', '线索', '例字', '常见关联'],
             title: '不要问“这个汉字怎么读”，要问“这个词怎么读”',
             subtitle: '同一个汉字会因词语而有不同读音。最稳妥的单位是：完整词语、假名读音、含义和一个真实例句。',
             systemTitle: '日语汉字的三条核心规律',
@@ -311,12 +320,15 @@ export const FOUNDATION_COPY = {
     en: {
         common: {
             courseBadge: 'Chilan · Japanese foundations',
+            back: 'Back',
+            step: 'Step',
             listen: 'Play audio', listening: 'Playing', audioError: 'Audio is unavailable right now. Please try again later.',
             readingOnly: 'Understand the pattern first; you do not need to memorize everything at once',
             quiz: 'Quick check', correct: 'Correct', incorrect: 'Try again', next: 'Next', restart: 'Restart', score: 'Score {{score}} / {{total}}',
         },
         intro: {
             eyebrow: 'Before lesson one', title: 'See how Japanese works before memorizing sentences',
+            slidesAriaLabel: 'Japanese course introduction slides',
             subtitle: 'Japanese combines three scripts, mora-timed sound, inflection, and context. This guide shows what each foundation module covers and what “ready” looks like.',
             scriptTitle: 'Three scripts, three jobs',
             scripts: [
@@ -345,6 +357,7 @@ export const FOUNDATION_COPY = {
             subtitle: 'Hiragana carries grammar and many common words; katakana often marks loanwords. Build a direct character-to-sound response before studying combinations.',
             chartTitle: 'The modern 46-kana chart', chartNote: 'Switch scripts and select any kana to hear it. Columns follow a · i · u · e · o; blanks have no modern basic kana.', hiragana: 'Hiragana', katakana: 'Katakana', vowels: ['a', 'i', 'u', 'e', 'o'],
             voicedTitle: 'Voiced and semi-voiced kana', voicedBody: 'Dakuten 「゛」voices a consonant; handakuten 「゜」turns the H row into P. ぢ/づ usually sound like じ/ず, but their spellings are not interchangeable.',
+            voicedLabels: ['Voiced G', 'Voiced Z', 'Voiced D', 'Voiced B', 'Semi-voiced P'],
             contractedTitle: 'Contracted sounds take one mora', contractedBody: 'An i-column kana plus small ゃ・ゅ・ょ forms one mora. きゃ is kya, not ki-ya.',
             marksTitle: 'Four patterns to recognize immediately',
             marks: [['っ / ッ', 'Geminate marker', 'Hold one mora before the next consonant', 'きって · stamp'], ['ゃゅょ / ャュョ', 'Small kana', 'Combines with the previous kana into one mora', 'りょこう · travel'], ['ー', 'Katakana long-vowel mark', 'Extends the preceding vowel by one mora', 'コーヒー'], ['を / ん', 'Special basics', 'を as a particle is usually o; ん occupies one mora', '本を読む · ほん']],
@@ -368,12 +381,14 @@ export const FOUNDATION_COPY = {
         },
         kanji: {
             eyebrow: 'Kanji', title: 'Ask how the word is read, not how the kanji is read',
+            contextHeaders: ['Kanji', 'Word', 'Reading', 'Meaning'],
+            componentHeaders: ['Part', 'Cue', 'Examples', 'Common link'],
             subtitle: 'One character can have different readings in different words. The reliable learning unit is a whole word, its kana reading, meaning, and a real example.',
             systemTitle: 'Three core ideas', system: [{ glyph: '日', title: 'On reading', body: 'Historically borrowed readings, frequent in compounds.', examples: '日本（にほん）・日曜日（にちようび）' }, { glyph: '日', title: 'Kun reading', body: 'Native Japanese words mapped to kanji, common in standalone words and words with okurigana.', examples: '日（ひ）・日の出（ひので）' }, { glyph: '食べる', title: 'Okurigana', body: 'Kana after kanji shows endings, inflection, and reading boundaries. It is part of the word.', examples: '食べる・食べます・食べない' }],
             contextTitle: 'Context determines the reading', contextRows: [['人', '人', 'ひと', 'person'], ['人', '日本人', 'にほんじん', 'Japanese person'], ['人', '三人', 'さんにん', 'three people'], ['生', '学生', 'がくせい', 'student'], ['生', '生まれる', 'うまれる', 'to be born'], ['生', '生ビール', 'なまビール', 'draft beer']],
             componentsTitle: 'Components organize meaning and memory', componentsBody: 'Radicals and components can hint at a semantic area or structure, but rarely guarantee a reading. Use them as indexes and memory cues, not formulas.',
             components: [['亻', 'person', '休・体・住', 'people and human actions'], ['氵', 'water', '海・酒・洗', 'water, liquids, washing'], ['言', 'speech', '話・語・読', 'speech, language, reading'], ['木', 'tree', '林・校・本', 'trees, materials, related forms'], ['日', 'sun/time', '明・時・曜', 'light, dates, time']],
-            chineseTitle: 'For Chinese readers: use the advantage, avoid false friends', chinesePairs: [['手紙', 'てがみ', 'letter', 'not the modern Chinese meaning'], ['勉強', 'べんきょう', 'study', 'not “reluctant”'], ['丈夫', 'じょうぶ', 'sturdy / healthy', 'not “husband”'], ['娘', 'むすめ', 'daughter / young woman', 'different modern range'], ['汽車', 'きしゃ', 'train / steam locomotive', '電車 is common for electric trains']],
+            chineseTitle: 'Kanji words that can mislead', chinesePairs: [['手紙', 'てがみ', 'letter', 'Learn the whole word instead of guessing character by character.'], ['勉強', 'べんきょう', 'study', 'The combined word has its own everyday meaning.'], ['丈夫', 'じょうぶ', 'sturdy / healthy', 'The real meaning may differ from what the characters suggest.'], ['娘', 'むすめ', 'daughter / young woman', 'Context determines the word’s exact range.'], ['汽車', 'きしゃ', 'train / steam locomotive', '電車 is common for electric trains']],
             methodTitle: 'How to learn one word', methodSteps: [['1', 'See the whole word', '日本語, not three isolated characters.'], ['2', 'Attach the reading', 'にほんご, spoken and segmented by mora.'], ['3', 'Put it in a sentence', '日本語を勉強します。'], ['4', 'Recall before checking', 'Say reading and meaning before revealing the answer.']],
             cautionTitle: 'Avoid the reading dump', caution: 'Do not memorize every reading of 生 the first time you see it. Learn the reading in the current word; add another branch when a new word appears.',
             quizTitle: 'Choose the word reading', quizHelp: 'Use the complete word, not an isolated character.',
@@ -391,8 +406,9 @@ export const FOUNDATION_COPY = {
             habitTitle: 'Three habits that speed you up', habits: ['Type phrase-sized chunks and inspect candidates.', 'Before confirming, recheck particles, vowel length, and kanji.', 'Read without romaji; use romaji only as a keyboard encoding.'],
         },
     },
+    ...JAPANESE_FOUNDATION_TRANSLATIONS,
 };
 
 export function getFoundationCopy(supportLanguageCode) {
-    return FOUNDATION_COPY[supportLanguageCode === 'zh' ? 'zh' : 'en'];
+    return FOUNDATION_COPY[normalizeJapaneseFoundationLanguage(supportLanguageCode)] || FOUNDATION_COPY.en;
 }

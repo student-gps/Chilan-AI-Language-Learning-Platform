@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { buildJapaneseCourseIntroAudioUrl } from '../../utils/japaneseStaticAudio';
+import { normalizeJapaneseFoundationLanguage } from '../../utils/japaneseFoundationLanguages';
 import { chalk } from '../explanation/templateUtils';
 import NarratedCourseIntroDeck from './NarratedCourseIntroDeck';
 import {
@@ -157,7 +158,7 @@ function SlideStart({ content }) {
 const SLIDE_COMPONENTS = { welcome: SlideWelcome, sounds: SlideSounds, skills: SlideSkills, ai: SlideAI, fsrs: SlideFSRS, start: SlideStart };
 
 export default function JapaneseCourseIntroVideo({ supportLanguage = 'zh' }) {
-    const language = supportLanguage === 'zh' ? 'zh' : 'en';
+    const language = normalizeJapaneseFoundationLanguage(supportLanguage);
     const content = JAPANESE_COURSE_INTRO_COPY[language];
     const getNarrationText = useCallback((slideId) => content[slideId]?.narration || '', [content]);
     const getAudioUrls = useCallback((slide) => [buildJapaneseCourseIntroAudioUrl(language, slide.id)], [language]);
@@ -165,7 +166,13 @@ export default function JapaneseCourseIntroVideo({ supportLanguage = 'zh' }) {
         const SlideComponent = SLIDE_COMPONENTS[slide.id];
         return <SlideComponent key={slide.id} content={content[slide.id]} common={content.common} />;
     }, [content]);
-    const ariaLabel = useMemo(() => language === 'zh' ? '日语课程介绍幻灯片' : 'Japanese course introduction slides', [language]);
+    const playerLabels = useMemo(() => ({
+        ariaLabel: content.common.ariaLabel,
+        previousSlide: content.common.previousSlide,
+        nextSlide: content.common.nextSlide,
+        playNarration: content.common.playNarration,
+        pauseNarration: content.common.pauseNarration,
+    }), [content]);
 
     return (
         <NarratedCourseIntroDeck
@@ -173,7 +180,8 @@ export default function JapaneseCourseIntroVideo({ supportLanguage = 'zh' }) {
             renderSlide={renderSlide}
             getNarrationText={getNarrationText}
             getAudioUrls={getAudioUrls}
-            ariaLabel={ariaLabel}
+            ariaLabel={playerLabels.ariaLabel}
+            labels={playerLabels}
         />
     );
 }

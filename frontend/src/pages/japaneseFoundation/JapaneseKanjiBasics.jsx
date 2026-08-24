@@ -63,10 +63,10 @@ function KanjiQuiz({ copy, audio }) {
 }
 
 export default function JapaneseKanjiBasics(props) {
-    const { copy, audio, supportLanguage } = props;
+    const { copy, audio } = props;
     const content = copy.kanji;
-    const contextHeaders = supportLanguage === 'zh' ? ['字', '词语', '读音', '含义'] : ['Kanji', 'Word', 'Reading', 'Meaning'];
-    const componentHeaders = supportLanguage === 'zh' ? ['部件', '线索', '例字', '常见关联'] : ['Part', 'Cue', 'Examples', 'Common link'];
+    const contextHeaders = content.contextHeaders;
+    const componentHeaders = content.componentHeaders;
 
     return (
         <FoundationLayout {...props} moduleCopy={content} icon="漢" tone="indigo">

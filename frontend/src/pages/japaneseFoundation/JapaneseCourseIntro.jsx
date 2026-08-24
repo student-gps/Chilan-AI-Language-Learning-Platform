@@ -15,7 +15,7 @@ export default function JapaneseCourseIntro(props) {
 
     return (
         <FoundationLayout {...props} moduleCopy={content} icon="日" tone="amber">
-            <section aria-label={supportLanguage === 'zh' ? '日语课程导览幻灯片' : 'Japanese course introduction slides'}>
+            <section aria-label={content.slidesAriaLabel}>
                 <JapaneseCourseIntroVideo supportLanguage={supportLanguage} />
             </section>
 
@@ -75,7 +75,7 @@ export default function JapaneseCourseIntro(props) {
                     {content.scope.map(([number, title, body], index) => (
                         <article key={number} className="relative rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
                             {index < content.scope.length - 1 && <span className="absolute -right-3 top-8 z-10 hidden text-slate-200 lg:block">→</span>}
-                            <span className="text-xs font-black uppercase tracking-[0.2em] text-rose-400">Step {number}</span>
+                            <span className="text-xs font-black uppercase tracking-[0.2em] text-rose-400">{copy.common.step} {number}</span>
                             <h3 className="mt-2 text-lg font-black text-slate-900">{title}</h3>
                             <p className="mt-2 text-sm font-medium leading-6 text-slate-500">{body}</p>
                         </article>

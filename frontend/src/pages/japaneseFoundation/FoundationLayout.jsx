@@ -129,6 +129,7 @@ export default function FoundationLayout({
     icon,
     tone,
     foundationNavigation,
+    supportLanguage,
     locationState: routeLocationState,
     navigate: routeNavigate,
     audio,
@@ -141,12 +142,16 @@ export default function FoundationLayout({
     const styles = TONE_STYLES[tone] || TONE_STYLES.rose;
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-16">
+        <div
+            className="min-h-screen bg-slate-50 pt-16"
+            lang={supportLanguage}
+            dir={supportLanguage === 'ar' ? 'rtl' : 'ltr'}
+        >
             <IntroFloatingNav
                 currentPath=""
                 locationState={locationState}
                 navigate={navigate}
-                t={(key) => key === 'common_back' ? (copy.common.courseBadge.startsWith('Chilan · 日') ? '返回' : 'Back') : key}
+                t={(key) => key === 'common_back' ? copy.common.back : key}
                 foundationNavigation={foundationNavigation}
             />
 

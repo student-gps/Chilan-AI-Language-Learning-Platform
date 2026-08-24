@@ -6,6 +6,7 @@ import JapaneseKanjiBasics from './JapaneseKanjiBasics';
 import JapaneseTypingBasics from './JapaneseTypingBasics';
 import { useJapaneseAudio } from './FoundationLayout';
 import { getFoundationCopy } from './foundationContent';
+import { normalizeJapaneseFoundationLanguage } from '../../utils/japaneseFoundationLanguages';
 
 const MODULE_COMPONENTS = {
     intro: JapaneseCourseIntro,
@@ -16,7 +17,7 @@ const MODULE_COMPONENTS = {
 };
 
 export default function JapaneseFoundationPage({ course, foundationModule, ...navigationProps }) {
-    const supportLanguage = course?.support_language_code === 'zh' ? 'zh' : 'en';
+    const supportLanguage = normalizeJapaneseFoundationLanguage(course?.support_language_code);
     const copy = useMemo(() => getFoundationCopy(supportLanguage), [supportLanguage]);
     const audio = useJapaneseAudio(copy.common.audioError);
     const ModuleComponent = MODULE_COMPONENTS[foundationModule?.key] || JapaneseCourseIntro;

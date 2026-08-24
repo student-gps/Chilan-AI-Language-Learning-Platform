@@ -1,4 +1,5 @@
 import { chalk } from '../explanation/templateUtils.js';
+import { JAPANESE_COURSE_INTRO_TRANSLATIONS } from '../../japaneseFoundationTranslations.generated.js';
 
 export const JAPANESE_COURSE_INTRO_SLIDES = [
     { id: 'welcome', duration: 14000 },
@@ -11,7 +12,16 @@ export const JAPANESE_COURSE_INTRO_SLIDES = [
 
 export const JAPANESE_COURSE_INTRO_COPY = {
     zh: {
-        common: { course: 'CHILAN · 日语', day: '天', month: '月' },
+        common: {
+            course: 'CHILAN · 日语',
+            day: '天',
+            month: '月',
+            ariaLabel: '日语课程介绍幻灯片',
+            previousSlide: '上一页',
+            nextSlide: '下一页',
+            playNarration: '播放旁白',
+            pauseNarration: '暂停旁白',
+        },
         welcome: {
             pill: '从真实沟通出发',
             title: '学习日语',
@@ -74,7 +84,16 @@ export const JAPANESE_COURSE_INTRO_COPY = {
         },
     },
     en: {
-        common: { course: 'CHILAN · Japanese', day: 'd', month: 'mo' },
+        common: {
+            course: 'CHILAN · Japanese',
+            day: 'd',
+            month: 'mo',
+            ariaLabel: 'Japanese course introduction slides',
+            previousSlide: 'Previous slide',
+            nextSlide: 'Next slide',
+            playNarration: 'Play narration',
+            pauseNarration: 'Pause narration',
+        },
         welcome: {
             pill: 'Built for real communication', title: 'Learn Japanese', accent: 'the way it is actually used', subtitle: 'Listen, speak, read three scripts, and express yourself with a Japanese IME.',
             narration: 'Welcome to Chilan Japanese. This AI-assisted course goes beyond memorizing a textbook. It progressively builds practical listening, speaking, reading, and digital writing skills.',
@@ -108,4 +127,5 @@ export const JAPANESE_COURSE_INTRO_COPY = {
             narration: 'You are ready to begin. Learn kana first, then Japanese mora timing, kanji readings inside real words, and finally Japanese input. Grammar and expression will grow through the context of each lesson.',
         },
     },
+    ...JAPANESE_COURSE_INTRO_TRANSLATIONS,
 };

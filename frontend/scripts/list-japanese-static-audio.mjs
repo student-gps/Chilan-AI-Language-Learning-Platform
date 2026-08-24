@@ -15,6 +15,7 @@ import {
     japaneseCourseIntroAudioFilename,
     japaneseFoundationAudioFilename,
 } from '../src/utils/japaneseStaticAudioNaming.js';
+import { JAPANESE_FOUNDATION_LANGUAGE_CODES } from '../src/utils/japaneseFoundationLanguages.js';
 
 const foundationTexts = new Set();
 const add = (value) => {
@@ -49,7 +50,10 @@ for (const item of KANA_QUIZ) add(item.kana);
 for (const item of MORA_QUIZ) add(item.text);
 for (const item of KANJI_QUIZ) add(item.word);
 
-for (const copy of Object.values(FOUNDATION_COPY)) {
+// Japanese example audio is language-invariant. Use one canonical copy so a
+// translator changing the visible gloss separator cannot create a bogus TTS
+// item such as "あさ・morning".
+for (const copy of [FOUNDATION_COPY.en]) {
     for (const mark of copy.kana.marks) add(exampleText(mark[3]));
     for (const vowel of copy.pronunciation.vowels) add(exampleText(vowel[4]));
     for (const example of copy.pronunciation.moraExamples) add(example[0]);
@@ -63,7 +67,7 @@ for (const copy of Object.values(FOUNDATION_COPY)) {
 }
 
 const manifest = [];
-for (const language of ['zh', 'en']) {
+for (const language of JAPANESE_FOUNDATION_LANGUAGE_CODES) {
     const copy = JAPANESE_COURSE_INTRO_COPY[language];
     for (const slide of JAPANESE_COURSE_INTRO_SLIDES) {
         manifest.push({
