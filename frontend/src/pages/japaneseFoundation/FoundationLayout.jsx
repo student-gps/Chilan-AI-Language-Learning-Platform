@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AlertCircle, BookOpenCheck, Loader2, Volume2 } from 'lucide-react';
+import { buildJapaneseFoundationAudioUrl } from '../../utils/japaneseStaticAudio';
 import IntroFloatingNav from '../introNavigation';
 
 const TONE_STYLES = {
@@ -56,9 +57,7 @@ export function useJapaneseAudio(audioErrorMessage) {
         stop();
         setAudioError('');
         setPlayingText(text);
-        const apiBase = import.meta.env.VITE_APP_API_BASE_URL || '';
-        const params = new URLSearchParams({ text, language: 'ja' });
-        const audio = new Audio(`${apiBase}/study/tts?${params.toString()}`);
+        const audio = new Audio(buildJapaneseFoundationAudioUrl(text));
         audioRef.current = audio;
         audio.onended = stop;
         audio.onerror = () => {

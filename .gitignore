@@ -48,6 +48,7 @@ backend/tts_cache/
 
 # 课程介绍旁白音频（本地生成后上传 R2，不入库）
 frontend/public/audio/intro/
+frontend/public/audio/japanese-foundations/
 
 # 拼音工具脚本目录（本地工具，不入库）
 pinyin_adjustment/

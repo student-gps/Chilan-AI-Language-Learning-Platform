@@ -70,7 +70,7 @@ class CanonicalPracticePromptTests(unittest.TestCase):
             (
                 "TRANSLATE",
                 {"prompt_language": "zh", "answer_language": "en", "feedback_language": "en"},
-                "begin with “A correct answer is” and quote one or two appropriate answers",
+                "begin with the exact English phrase “A correct answer is” and quote one or two appropriate answers",
             ),
             (
                 "SPEAK",
@@ -80,7 +80,7 @@ class CanonicalPracticePromptTests(unittest.TestCase):
                     "feedback_language": "en",
                     "speech_language": "en",
                 },
-                "begin with “A correct answer is” and quote one or two appropriate answers",
+                "begin with the exact English phrase “A correct answer is” and quote one or two appropriate answers",
             ),
             (
                 "LISTEN_WRITE",
@@ -90,12 +90,12 @@ class CanonicalPracticePromptTests(unittest.TestCase):
                     "feedback_language": "en",
                     "audio_language": "en",
                 },
-                "begin with “The corrected sentence is” and quote the most appropriate",
+                "begin with the exact English phrase “The corrected sentence is” and quote the most appropriate",
             ),
             (
                 "PATTERN_DRILL",
                 {"prompt_language": "zh", "answer_language": "en", "feedback_language": "en"},
-                "begin with “A correct answer is” and quote one or two appropriate answers",
+                "begin with the exact English phrase “A correct answer is” and quote one or two appropriate answers",
             ),
         ]
 
@@ -104,6 +104,47 @@ class CanonicalPracticePromptTests(unittest.TestCase):
                 prompt = get_eval_prompt(question_type, metadata)
                 self.assertIn("Keep exactly 2 short sentences", prompt)
                 self.assertIn(correction_rule, prompt)
+
+    def test_chinese_feedback_uses_chinese_correction_lead_in(self):
+        cases = [
+            (
+                "TRANSLATE",
+                {"prompt_language": "en", "answer_language": "ja", "feedback_language": "zh"},
+                "begin with the exact Chinese phrase “正确答案是”",
+            ),
+            (
+                "SPEAK",
+                {
+                    "prompt_language": "zh",
+                    "answer_language": "ja",
+                    "feedback_language": "zh",
+                    "speech_language": "ja",
+                },
+                "begin with the exact Chinese phrase “正确答案是”",
+            ),
+            (
+                "LISTEN_WRITE",
+                {
+                    "prompt_language": "zh",
+                    "answer_language": "ja",
+                    "feedback_language": "zh",
+                    "audio_language": "ja",
+                },
+                "begin with the exact Chinese phrase “订正后的句子是”",
+            ),
+            (
+                "PATTERN_DRILL",
+                {"prompt_language": "zh", "answer_language": "ja", "feedback_language": "zh"},
+                "begin with the exact Chinese phrase “正确答案是”",
+            ),
+        ]
+
+        for question_type, metadata, localized_rule in cases:
+            with self.subTest(question_type=question_type):
+                prompt = get_eval_prompt(question_type, metadata)
+                self.assertIn(localized_rule, prompt)
+                self.assertNotIn("A correct answer is", prompt)
+                self.assertNotIn("The corrected sentence is", prompt)
 
     def test_request_values_are_only_in_final_evaluation_input(self):
         cases = [

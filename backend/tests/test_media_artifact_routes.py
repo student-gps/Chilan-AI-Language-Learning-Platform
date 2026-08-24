@@ -361,6 +361,47 @@ class MediaArtifactRoutesSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertIn("not found locally and storage not configured", response.json()["detail"])
 
+    def test_get_japanese_foundation_audio_serves_local_static_mp3(self):
+        expected = b"ID3-JAPANESE-FOUNDATION"
+        audio_dir = self.tempdir / "japanese-foundations"
+        self._write_bytes(audio_dir / "ja-example.mp3", expected)
+
+        with patch.object(main, "_JAPANESE_FOUNDATION_AUDIO_LOCAL_DIR", audio_dir):
+            response = self.client.get("/media/japanese-foundation/ja-example.mp3")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, expected)
+        self.assertIn("audio/mpeg", response.headers.get("content-type", ""))
+
+    def test_get_japanese_foundation_audio_redirects_to_r2_when_local_file_is_missing(self):
+        class _FakeStorage:
+            def __init__(self):
+                self.object_key = ""
+
+            def resolve_url(self, object_key):
+                self.object_key = object_key
+                return "https://assets.example.test/static-ja.mp3"
+
+        storage = _FakeStorage()
+        missing_dir = self.tempdir / "missing-japanese-foundations"
+        with (
+            patch.object(main, "_JAPANESE_FOUNDATION_AUDIO_LOCAL_DIR", missing_dir),
+            patch.object(main, "_pinyin_storage", storage),
+        ):
+            response = self.client.get(
+                "/media/japanese-foundation/ja-example.mp3",
+                follow_redirects=False,
+            )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.headers["location"], "https://assets.example.test/static-ja.mp3")
+        self.assertEqual(storage.object_key, "ja/audio/foundations/ja-example.mp3")
+
+    def test_get_japanese_foundation_audio_rejects_non_mp3_assets(self):
+        response = self.client.get("/media/japanese-foundation/manifest.json")
+
+        self.assertEqual(response.status_code, 400)
+
 
 if __name__ == "__main__":
     unittest.main()

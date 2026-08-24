@@ -4,21 +4,21 @@ from services.study.practice_item_schema import PracticeItemSchemaError, canonic
 
 
 _LANG_META = {
-    "en": {"name": "English", "you": "you"},
-    "fr": {"name": "French", "you": "vous"},
-    "ja": {"name": "Japanese", "you": "あなた"},
-    "zh": {"name": "Chinese", "you": "你"},
-    "de": {"name": "German", "you": "Sie"},
-    "ko": {"name": "Korean", "you": "당신"},
-    "ru": {"name": "Russian", "you": "вы"},
-    "es": {"name": "Spanish", "you": "usted"},
-    "pt": {"name": "Portuguese", "you": "você"},
-    "vi": {"name": "Vietnamese", "you": "bạn"},
-    "th": {"name": "Thai", "you": "คุณ"},
-    "ar": {"name": "Arabic", "you": "أنت"},
-    "it": {"name": "Italian", "you": "lei"},
-    "id": {"name": "Indonesian", "you": "Anda"},
-    "ms": {"name": "Malay", "you": "anda"},
+    "en": {"name": "English", "you": "you", "correct_answer_lead": "A correct answer is", "corrected_sentence_lead": "The corrected sentence is"},
+    "fr": {"name": "French", "you": "vous", "correct_answer_lead": "Une réponse correcte est", "corrected_sentence_lead": "La phrase corrigée est"},
+    "ja": {"name": "Japanese", "you": "あなた", "correct_answer_lead": "正しい答えは", "corrected_sentence_lead": "訂正した文は"},
+    "zh": {"name": "Chinese", "you": "你", "correct_answer_lead": "正确答案是", "corrected_sentence_lead": "订正后的句子是"},
+    "de": {"name": "German", "you": "Sie", "correct_answer_lead": "Eine richtige Antwort ist", "corrected_sentence_lead": "Der korrigierte Satz lautet"},
+    "ko": {"name": "Korean", "you": "당신", "correct_answer_lead": "정답은", "corrected_sentence_lead": "수정한 문장은"},
+    "ru": {"name": "Russian", "you": "вы", "correct_answer_lead": "Правильный ответ", "corrected_sentence_lead": "Исправленное предложение"},
+    "es": {"name": "Spanish", "you": "usted", "correct_answer_lead": "Una respuesta correcta es", "corrected_sentence_lead": "La frase corregida es"},
+    "pt": {"name": "Portuguese", "you": "você", "correct_answer_lead": "Uma resposta correta é", "corrected_sentence_lead": "A frase corrigida é"},
+    "vi": {"name": "Vietnamese", "you": "bạn", "correct_answer_lead": "Một đáp án đúng là", "corrected_sentence_lead": "Câu đã sửa là"},
+    "th": {"name": "Thai", "you": "คุณ", "correct_answer_lead": "คำตอบที่ถูกต้องคือ", "corrected_sentence_lead": "ประโยคที่แก้ไขแล้วคือ"},
+    "ar": {"name": "Arabic", "you": "أنت", "correct_answer_lead": "إجابة صحيحة هي", "corrected_sentence_lead": "الجملة المصححة هي"},
+    "it": {"name": "Italian", "you": "lei", "correct_answer_lead": "Una risposta corretta è", "corrected_sentence_lead": "La frase corretta è"},
+    "id": {"name": "Indonesian", "you": "Anda", "correct_answer_lead": "Jawaban yang benar adalah", "corrected_sentence_lead": "Kalimat yang telah diperbaiki adalah"},
+    "ms": {"name": "Malay", "you": "anda", "correct_answer_lead": "Jawapan yang betul ialah", "corrected_sentence_lead": "Ayat yang dibetulkan ialah"},
 }
 
 _TRANSLATE_TPL = """
@@ -51,7 +51,7 @@ C. Evaluate naturalness separately from correctness.
 - Address the student with "{you}".
 - Keep exactly 2 short sentences separated by a newline character (\\n).
 - Sentence 1: summarize what the student's answer means.
-- Sentence 2: if is_correct=false, begin with “A correct answer is” and quote one or two appropriate answers from Reference {answer_name} Answers, then state why they correct the error; if is_correct=true, confirm correctness and give a concise improvement only if useful.
+- Sentence 2: if is_correct=false, begin with the exact {feedback_name} phrase “{correct_answer_lead}” and quote one or two appropriate answers from Reference {answer_name} Answers, then state why they correct the error; if is_correct=true, confirm correctness and give a concise improvement only if useful.
 
 # Output Format:
 JSON only: {{{{"level": int, "is_correct": bool, "explanation": string}}}}
@@ -83,7 +83,7 @@ _SPEAK_TPL = """
 - Address the student with "{you}".
 - Keep exactly 2 short sentences separated by a newline character (\\n).
 - Sentence 1: summarize what the ASR transcript says.
-- Sentence 2: if is_correct=false, begin with “A correct answer is” and quote one or two appropriate answers from Reference {answer_name} Answers, then state why they correct the error; if is_correct=true, confirm correctness and give a concise improvement only if useful.
+- Sentence 2: if is_correct=false, begin with the exact {feedback_name} phrase “{correct_answer_lead}” and quote one or two appropriate answers from Reference {answer_name} Answers, then state why they correct the error; if is_correct=true, confirm correctness and give a concise improvement only if useful.
 
 # Output Format:
 JSON only: {{{{"level": int, "is_correct": bool, "explanation": string}}}}
@@ -115,7 +115,7 @@ _LISTEN_WRITE_TPL = """
 - Address the student with "{you}".
 - Keep exactly 2 short sentences separated by a newline character (\\n).
 - Sentence 1: point out what matched or what was heard incorrectly.
-- Sentence 2: if is_correct=false, begin with “The corrected sentence is” and quote the most appropriate Reference {answer_name} Answer; if is_correct=true, confirm that the dictation matches.
+- Sentence 2: if is_correct=false, begin with the exact {feedback_name} phrase “{corrected_sentence_lead}” and quote the most appropriate Reference {answer_name} Answer; if is_correct=true, confirm that the dictation matches.
 
 # Output Format:
 JSON only: {{{{"level": int, "is_correct": bool, "explanation": string}}}}
@@ -147,7 +147,7 @@ _PATTERN_DRILL_TPL = """
 - Address the student with "{you}".
 - Keep exactly 2 short sentences separated by a newline character (\\n).
 - Sentence 1: say what the student's answer means or which pattern they used.
-- Sentence 2: if is_correct=false, begin with “A correct answer is” and quote one or two appropriate answers from Reference {answer_name} Answers, then state which pattern element needs correction; if is_correct=true, confirm correctness and give a concise improvement only if useful.
+- Sentence 2: if is_correct=false, begin with the exact {feedback_name} phrase “{correct_answer_lead}” and quote one or two appropriate answers from Reference {answer_name} Answers, then state which pattern element needs correction; if is_correct=true, confirm correctness and give a concise improvement only if useful.
 
 # Output Format:
 JSON only: {{{{"level": int, "is_correct": bool, "explanation": string}}}}
@@ -202,4 +202,6 @@ def get_eval_prompt(q_type: str, metadata: Optional[Dict[str, Any]] = None) -> s
         answer_name=answer_meta["name"],
         feedback_name=feedback_meta["name"],
         you=feedback_meta["you"],
+        correct_answer_lead=feedback_meta["correct_answer_lead"],
+        corrected_sentence_lead=feedback_meta["corrected_sentence_lead"],
     )

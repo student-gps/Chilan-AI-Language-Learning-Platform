@@ -95,6 +95,9 @@ _pinyin_storage = _get_media_storage(optional=True)
 _BACKEND_DIR = Path(__file__).resolve().parent
 _PINYIN_LOCAL_DIR = Path(__file__).resolve().parent / "pinyin_audio"
 _INTRO_LOCAL_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "audio" / "intro"
+_JAPANESE_FOUNDATION_AUDIO_LOCAL_DIR = (
+    Path(__file__).resolve().parent.parent / "frontend" / "public" / "audio" / "japanese-foundations"
+)
 
 def _safe_asset_filename(filename: str, allowed_suffixes: set[str]) -> str:
     name = Path(filename).name
@@ -278,6 +281,26 @@ async def get_intro_audio(filename: str):
     if not _pinyin_storage:
         raise HTTPException(status_code=404, detail=f"{filename} not found locally and storage not configured")
     object_key = f"zh/audio/intro/{filename}"
+    try:
+        url = _pinyin_storage.resolve_url(object_key)
+        return RedirectResponse(url=url, status_code=302)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/media/japanese-foundation/{filename}")
+async def get_japanese_foundation_audio(filename: str):
+    """Serve static Japanese foundation audio: local file first, then R2."""
+    safe_filename = _safe_asset_filename(filename, {".mp3"})
+    local_file = _JAPANESE_FOUNDATION_AUDIO_LOCAL_DIR / safe_filename
+    if local_file.exists():
+        return FileResponse(str(local_file), media_type="audio/mpeg")
+    if not _pinyin_storage:
+        raise HTTPException(
+            status_code=404,
+            detail=f"{safe_filename} not found locally and storage not configured",
+        )
+    object_key = f"ja/audio/foundations/{safe_filename}"
     try:
         url = _pinyin_storage.resolve_url(object_key)
         return RedirectResponse(url=url, status_code=302)

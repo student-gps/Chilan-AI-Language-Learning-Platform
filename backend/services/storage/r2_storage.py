@@ -135,6 +135,18 @@ class R2Storage:
             ExpiresIn=expires_seconds or self.signed_url_expires_seconds,
         )
 
+    def get_object_metadata(self, object_key: str) -> dict:
+        normalized_key = self._normalize_key(object_key)
+        if not normalized_key:
+            raise ValueError("object_key cannot be empty")
+        response = self._get_client().head_object(Bucket=self.bucket, Key=normalized_key)
+        return {
+            "object_key": normalized_key,
+            "content_length": int(response.get("ContentLength") or 0),
+            "content_type": response.get("ContentType") or "",
+            "etag": str(response.get("ETag") or "").strip('"'),
+        }
+
     def delete_object(self, object_key: str) -> bool:
         normalized_key = self._normalize_key(object_key)
         if not normalized_key:
