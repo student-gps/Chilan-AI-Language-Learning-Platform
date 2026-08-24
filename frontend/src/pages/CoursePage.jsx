@@ -254,7 +254,7 @@ export default function CoursePage({ resolvedCourseId = null, resolvedCourse = n
                 {foundations.length > 0 && (
                     <motion.section variants={stagger} initial="hidden" animate="show" className="mb-10">
                         <h2 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">{t('course_foundations')}</h2>
-                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                        <div className={`grid grid-cols-1 gap-3 sm:grid-cols-2 ${foundations.length === 5 ? 'lg:grid-cols-3 xl:grid-cols-5' : 'lg:grid-cols-4'}`}>
                             {foundations.map((item) => (
                                 <motion.button
                                     key={item.key}
@@ -264,8 +264,12 @@ export default function CoursePage({ resolvedCourseId = null, resolvedCourse = n
                                 >
                                     <span className="text-2xl w-8 text-center font-black text-slate-500">{item.icon}</span>
                                     <div className="text-left">
-                                        <div className="font-black text-slate-800 text-sm transition-colors group-hover:text-blue-600">{t(item.title_key)}</div>
-                                        <div className="text-xs text-slate-400">{t(item.description_key)}</div>
+                                        <div className="font-black text-slate-800 text-sm transition-colors group-hover:text-blue-600">
+                                            {t(item.title_key, { defaultValue: item.default_title || item.key })}
+                                        </div>
+                                        <div className="text-xs text-slate-400">
+                                            {t(item.description_key, { defaultValue: item.default_description || '' })}
+                                        </div>
                                     </div>
                                     <ChevronRight size={14} className="text-slate-300 ml-1" />
                                 </motion.button>
