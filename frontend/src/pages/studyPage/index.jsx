@@ -173,6 +173,7 @@ export default function StudyPage({ resolvedCourseId = null, resolvedCourse = nu
     }, [courseId, studyCapabilities.can_practice, studyData]);
 
     const handleStartPractice = useCallback(async () => {
+        if (isBrowseEntry) return;
         const lessonApiId = toApiLessonId(studyData?.lesson_content?.lesson_metadata?.lesson_id);
         // content_viewed 和等待 practice_items 并发，互不阻塞
         const [pendingItems] = await Promise.all([
@@ -187,7 +188,7 @@ export default function StudyPage({ resolvedCourseId = null, resolvedCourse = nu
         if (pendingItems.length > 0) {
             setMode('practice');
         }
-    }, [courseId, loadPracticeItems, studyCapabilities.can_write_progress, studyData]);
+    }, [courseId, isBrowseEntry, loadPracticeItems, studyCapabilities.can_write_progress, studyData]);
 
     // 🌟 处理一课结束后的逻辑
     const handleLessonComplete = async () => {
@@ -297,7 +298,8 @@ export default function StudyPage({ resolvedCourseId = null, resolvedCourse = nu
                             courseId={courseId}
                             onStartPractice={handleStartPractice}
                             isDirectLesson={!!lessonId}
-                            canStartPractice={studyCapabilities.can_practice}
+                            isBrowseMode={isBrowseEntry}
+                            canStartPractice={!isBrowseEntry && studyCapabilities.can_practice}
                             hasPracticeItems={!!studyData?.practice_deferred || (studyData?.pending_items || []).length > 0}
                         />
                     )}

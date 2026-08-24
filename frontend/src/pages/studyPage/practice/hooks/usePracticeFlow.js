@@ -88,10 +88,10 @@ export default function usePracticeFlow({
             return;
         }
 
-        if (!speechMode && answerLanguage && isWrongLanguage(userAnswer, answerLanguage)) {
-            setLangWarning(true);
-            return;
-        }
+        const hasLanguageMismatch = !speechMode
+            && Boolean(answerLanguage)
+            && isWrongLanguage(userAnswer, answerLanguage);
+        setLangWarning(hasLanguageMismatch);
 
         setIsEvaluating(true);
         try {
@@ -135,10 +135,6 @@ export default function usePracticeFlow({
     useEffect(() => {
         resetQuestionUiState();
     }, [currentQuestion, resetQuestionUiState]);
-
-    useEffect(() => {
-        if (langWarning) setLangWarning(false);
-    }, [langWarning, userAnswer]);
 
     useEffect(() => {
         const fullMessage = feedback?.message || '';

@@ -194,6 +194,7 @@ class IntegratedChinesePublishScriptTests(unittest.TestCase):
                         }
                     },
                     "teaching_slide_deck": {
+                        "render_version": publish_script.SLIDE_RENDER_VERSION,
                         "lang": "fr",
                         "slide_count": 1,
                         "slides": [
@@ -211,6 +212,12 @@ class IntegratedChinesePublishScriptTests(unittest.TestCase):
         )
 
         publish_script._validate_outputs([json_path], "fr")
+
+        payload = publish_script.json.loads(json_path.read_text(encoding="utf-8"))
+        payload["teaching_slide_deck"]["render_version"] = "1-caption-baked-into-image"
+        json_path.write_text(publish_script.json.dumps(payload), encoding="utf-8")
+        errors = publish_script._validate_file(json_path, "fr")
+        self.assertTrue(any("teaching_slide_deck.render_version" in error for error in errors))
 
     def test_validate_outputs_raises_on_missing_narration_audio(self):
         tmpdir = Path(self._make_tempdir())

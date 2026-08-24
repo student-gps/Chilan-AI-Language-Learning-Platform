@@ -113,10 +113,11 @@ from .test_helpers import SmokeTestCaseMixin, main  # noqa: E402
 
 
 class _FakeMediaPipeline:
-    def __init__(self, pipeline_id: str, root: Path, target_language: str):
+    def __init__(self, pipeline_id: str, root: Path, target_language: str, display_name: str):
         self.pipeline_id = pipeline_id
         self._root = root
         self.target_language = target_language
+        self.display_name = display_name
 
     def artifact_root(self, backend_dir: Path) -> Path:  # noqa: ARG002
         return self._root
@@ -130,21 +131,34 @@ class MediaArtifactRoutesSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.zh_root = self.backend_root / "content_builder" / "zh" / "integrated_chinese" / "artifacts"
         self.ja_root = self.backend_root / "content_builder" / "ja" / "minna_no_nihongo" / "artifacts"
 
+        self.fake_pipelines = {
+            "integrated_chinese": _FakeMediaPipeline(
+                "integrated_chinese", self.zh_root, "zh", "Integrated Chinese"
+            ),
+            "minna_no_nihongo": _FakeMediaPipeline(
+                "minna_no_nihongo", self.ja_root, "ja", "Minna no Nihongo"
+            ),
+        }
+
         def fake_media_pipeline(pipeline_id: str):
-            if pipeline_id == "integrated_chinese":
-                return _FakeMediaPipeline(pipeline_id, self.zh_root, "zh")
-            if pipeline_id == "minna_no_nihongo":
-                return _FakeMediaPipeline(pipeline_id, self.ja_root, "ja")
+            pipeline = self.fake_pipelines.get(pipeline_id)
+            if pipeline:
+                return pipeline
             raise main.HTTPException(status_code=404, detail=f"Unknown media pipeline: {pipeline_id}")
 
         self._backend_dir_patcher = patch.object(main, "_BACKEND_DIR", self.backend_root)
         self._storage_patcher = patch.object(main, "_pinyin_storage", None)
         self._media_pipeline_patcher = patch.object(main, "get_media_pipeline", side_effect=fake_media_pipeline)
+        self._media_pipeline_list_patcher = patch.object(
+            main, "list_media_pipelines", return_value=tuple(self.fake_pipelines.values())
+        )
         self._backend_dir_patcher.start()
         self._storage_patcher.start()
         self._media_pipeline_patcher.start()
+        self._media_pipeline_list_patcher.start()
 
     def tearDown(self):
+        self._media_pipeline_list_patcher.stop()
         self._media_pipeline_patcher.stop()
         self._storage_patcher.stop()
         self._backend_dir_patcher.stop()
@@ -196,6 +210,33 @@ class MediaArtifactRoutesSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual(
             body["artifact_path"].replace("\\", "/"),
             "content_builder/zh/integrated_chinese/artifacts/output_json/en/lesson101_data.json",
+        )
+
+    def test_dev_lesson_artifact_options_lists_generated_combinations(self):
+        self._write_json(
+            self.zh_root / "output_json" / "en" / "lesson101_data.json",
+            {"lesson_metadata": {"lesson_id": 101}},
+        )
+        self._write_json(
+            self.zh_root / "synced_json" / "en" / "lesson102_data.json",
+            {"lesson_metadata": {"lesson_id": 102}},
+        )
+        self._write_json(
+            self.ja_root / "output_json" / "zh" / "lesson001_data.json",
+            {"lesson_metadata": {"lesson_id": 1}},
+        )
+
+        response = self.client.get("/dev/lesson-artifact-options")
+
+        self.assertEqual(response.status_code, 200)
+        pipelines = {item["pipeline_id"]: item for item in response.json()["pipelines"]}
+        self.assertEqual(
+            pipelines["integrated_chinese"]["languages"],
+            [{"lang": "en", "lessons": ["101", "102"]}],
+        )
+        self.assertEqual(
+            pipelines["minna_no_nihongo"]["languages"],
+            [{"lang": "zh", "lessons": ["001"]}],
         )
 
     def test_dev_lesson_artifact_preview_returns_japanese_nested_explanation_deck(self):

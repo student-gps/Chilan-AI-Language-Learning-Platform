@@ -9,6 +9,7 @@ from fastapi import HTTPException
 @dataclass(frozen=True)
 class MediaPipeline:
     pipeline_id: str
+    display_name: str
     target_language: str
     artifact_relative_path: str
 
@@ -20,18 +21,21 @@ _MANIFEST_PATH = Path(__file__).resolve().parents[1] / "content_builder" / "core
 _FALLBACK_PIPELINES = {
     "integrated_chinese": {
         "pipeline_id": "integrated_chinese",
+        "display_name": "Integrated Chinese",
         "target_language": "zh",
         "artifact_relative_path": "content_builder/zh/integrated_chinese/artifacts",
         "aliases": ["default", "zh_from_en", "integrated-chinese", "zh"],
     },
     "new_concept_english": {
         "pipeline_id": "new_concept_english",
+        "display_name": "New Concept English",
         "target_language": "en",
         "artifact_relative_path": "content_builder/en/new_concept_english/artifacts",
         "aliases": ["new-concept-english", "nce", "en_from_zh", "en"],
     },
     "minna_no_nihongo": {
         "pipeline_id": "minna_no_nihongo",
+        "display_name": "Minna no Nihongo",
         "target_language": "ja",
         "artifact_relative_path": "content_builder/ja/minna_no_nihongo/artifacts",
         "aliases": ["minna-no-nihongo", "mnn", "ja_from_zh", "ja"],
@@ -72,10 +76,16 @@ def _build_media_pipelines() -> dict[str, MediaPipeline]:
     for pipeline_id, item in _pipeline_manifest().items():
         pipelines[pipeline_id] = MediaPipeline(
             pipeline_id=pipeline_id,
+            display_name=str(item.get("display_name") or pipeline_id.replace("_", " ").title()),
             target_language=str(item.get("target_language") or ""),
             artifact_relative_path=str(item.get("artifact_relative_path") or ""),
         )
     return pipelines
+
+
+def list_media_pipelines() -> tuple[MediaPipeline, ...]:
+    """Return every configured media pipeline in manifest order."""
+    return tuple(_build_media_pipelines().values())
 
 
 def get_media_pipeline(pipeline_id: str) -> MediaPipeline:

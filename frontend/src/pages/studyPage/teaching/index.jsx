@@ -78,6 +78,7 @@ export default function TeachingSection({
     courseId,
     onStartPractice,
     isDirectLesson,
+    isBrowseMode = false,
     canStartPractice = true,
     hasPracticeItems = true,
 }) {
@@ -394,7 +395,7 @@ export default function TeachingSection({
                     t={t}
                 />
 
-                {canStartPractice && hasPracticeItems && (
+                {!isBrowseMode && canStartPractice && hasPracticeItems && (
                     <motion.div variants={fadeInUp} initial="hidden" animate="show" className="flex justify-center pb-24 pt-8">
                         <button
                             onClick={handleStartPracticeClick}
