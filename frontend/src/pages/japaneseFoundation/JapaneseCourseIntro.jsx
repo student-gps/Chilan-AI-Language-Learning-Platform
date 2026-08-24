@@ -1,4 +1,5 @@
 import { BrainCircuit, Headphones, Keyboard, MessageCircle, Repeat2, ScanText } from 'lucide-react';
+import JapaneseCourseIntroVideo from '../../videoTemplates/courseIntro/JapaneseCourseIntroVideo';
 import FoundationLayout, { LearningNote, SectionHeading } from './FoundationLayout';
 
 const PRINCIPLE_ICONS = [Headphones, MessageCircle, ScanText, BrainCircuit, Repeat2, Keyboard];
@@ -9,11 +10,15 @@ const SCRIPT_TONES = [
 ];
 
 export default function JapaneseCourseIntro(props) {
-    const { copy } = props;
+    const { copy, supportLanguage } = props;
     const content = copy.intro;
 
     return (
         <FoundationLayout {...props} moduleCopy={content} icon="日" tone="amber">
+            <section aria-label={supportLanguage === 'zh' ? '日语课程导览幻灯片' : 'Japanese course introduction slides'}>
+                <JapaneseCourseIntroVideo supportLanguage={supportLanguage} />
+            </section>
+
             <section>
                 <SectionHeading title={content.scriptTitle} />
                 <div className="grid gap-5 lg:grid-cols-3">
