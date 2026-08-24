@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { chalk, blackboard } from '../explanation/templateUtils';
-import ChalkTexture from '../explanation/ChalkTexture';
+import { chalk } from '../explanation/templateUtils';
+import NarratedCourseIntroDeck from './NarratedCourseIntroDeck';
 
 // Static narration audio — pre-generated with CosyVoice TTS (EN) or Azure TTS (FR/others).
 // Run:  cd backend && python generate_intro_narration.py
@@ -347,94 +347,9 @@ const SLIDE_COMPONENTS = {
     start:   SlideStart,
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// BOTTOM CONTROL BAR
-// ─────────────────────────────────────────────────────────────────────────────
-
-const NAV_BTN = {
-    background: 'rgba(244,240,230,0.12)',
-    border: '1px solid rgba(244,240,230,0.20)',
-    borderRadius: 99,
-    width: 30, height: 30,
-    color: 'rgba(244,240,230,0.85)',
-    fontSize: 16,
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    flexShrink: 0,
-    lineHeight: 1,
-};
-
-function BottomBar({ index, total, progress, playing, onPrev, onToggle, onNext, subtitle }) {
-    return (
-        <div style={{
-            position: 'absolute', bottom: 0, left: 0, right: 0,
-            zIndex: 10,
-            background: 'linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.60) 55%, transparent 100%)',
-            paddingTop: 28,
-        }}>
-            <div style={{ display: 'flex', gap: 4, padding: '0 16px 8px' }}>
-                {Array.from({ length: total }).map((_, i) => {
-                    const fill = i < index ? 1 : i === index ? progress : 0;
-                    return (
-                        <div key={i} style={{ flex: 1, height: 2, borderRadius: 99, background: 'rgba(244,240,230,0.18)', overflow: 'hidden' }}>
-                            <div style={{
-                                height: '100%', width: `${fill * 100}%`,
-                                background: 'rgba(244,240,230,0.80)', borderRadius: 99,
-                                transition: fill === 1 || fill === 0 ? 'none' : 'width 0.25s linear',
-                            }} />
-                        </div>
-                    );
-                })}
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 16px 14px' }}>
-                <button onClick={onPrev} disabled={index === 0} style={{ ...NAV_BTN, cursor: index === 0 ? 'default' : 'pointer', opacity: index === 0 ? 0.28 : 1 }}>‹</button>
-
-                <p style={{
-                    flex: 1, margin: 0,
-                    fontSize: 13, lineHeight: 1.55,
-                    color: 'rgba(244,240,230,0.75)',
-                    fontWeight: 400,
-                    overflow: 'hidden',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                }}>
-                    {subtitle}
-                </p>
-
-                <button onClick={onToggle} style={{
-                    ...NAV_BTN,
-                    width: 36, height: 36, fontSize: 14,
-                    background: 'rgba(244,240,230,0.20)',
-                    border: '1px solid rgba(244,240,230,0.28)',
-                    cursor: 'pointer',
-                }}>
-                    {playing ? '⏸' : '▶'}
-                </button>
-
-                <button onClick={onNext} disabled={index === total - 1} style={{ ...NAV_BTN, cursor: index === total - 1 ? 'default' : 'pointer', opacity: index === total - 1 ? 0.28 : 1 }}>›</button>
-            </div>
-        </div>
-    );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// MAIN COMPONENT
-// ─────────────────────────────────────────────────────────────────────────────
-
 export default function CourseIntroVideo() {
     const { t, i18n } = useTranslation();
-    const [index, setIndex] = useState(0);
-    const [playing, setPlaying] = useState(false);
-    const [progress, setProgress] = useState(0);
-    const audioRef = useRef(null);
-    const timerRef = useRef(null);
-    const elapsedRef = useRef(0);
-
     const lang = (i18n.language || 'en').split('-')[0];
-
-    const currentSlide = SLIDES[index];
-    const SlideContent = SLIDE_COMPONENTS[currentSlide.id];
     const getNarrationText = useCallback((slideId) => {
         const key = `civ_narration_${slideId}`;
         const localized = t(key);
@@ -442,146 +357,23 @@ export default function CourseIntroVideo() {
         const fallback = t(key, { lng: 'en' });
         return typeof fallback === 'string' && fallback !== key ? fallback : '';
     }, [t]);
-    const subtitle = playing || progress > 0 ? getNarrationText(currentSlide.id) : '';
-
-    // ── Stop whatever is currently playing ──────────────────────────────────
-    const stopAudio = useCallback(() => {
-        if (audioRef.current) {
-            audioRef.current.pause();
-            audioRef.current.onended = null;
-            audioRef.current.ontimeupdate = null;
-            audioRef.current.onerror = null;
-            audioRef.current = null;
-        }
-        clearInterval(timerRef.current);
-    }, []);
-
-    // ── Start narration audio with lang-specific → EN → timer fallback chain ─
-    const startAudio = useCallback((slide) => {
-        stopAudio();
-        elapsedRef.current = 0;
-        setProgress(0);
-
-        const urls = lang !== 'en'
+    const getAudioUrls = useCallback((slide) => (
+        lang !== 'en'
             ? [`${_API}/media/intro/slide_${slide.id}_${lang}.mp3`, `${_API}/media/intro/slide_${slide.id}.mp3`]
-            : [`${_API}/media/intro/slide_${slide.id}.mp3`];
-
-        let urlIdx = 0;
-
-        const tryNext = () => {
-            if (urlIdx >= urls.length) {
-                // All audio URLs failed — fall back to timer
-                const duration = slide.duration;
-                timerRef.current = setInterval(() => {
-                    elapsedRef.current += 200;
-                    setProgress(Math.min(elapsedRef.current / duration, 1));
-                    if (elapsedRef.current >= duration) {
-                        clearInterval(timerRef.current);
-                        setIndex((idx) => {
-                            if (idx < SLIDES.length - 1) return idx + 1;
-                            setPlaying(false);
-                            return idx;
-                        });
-                    }
-                }, 200);
-                return;
-            }
-
-            const url = urls[urlIdx++];
-            const audio = new Audio(url);
-            audioRef.current = audio;
-
-            audio.ontimeupdate = () => {
-                if (audio.duration && audio.duration > 0) {
-                    setProgress(audio.currentTime / audio.duration);
-                }
-            };
-
-            audio.onended = () => {
-                setProgress(1);
-                setTimeout(() => {
-                    setIndex((idx) => {
-                        if (idx < SLIDES.length - 1) return idx + 1;
-                        setPlaying(false);
-                        return idx;
-                    });
-                }, 600);
-            };
-
-            audio.onerror = () => tryNext();
-
-            audio.play().catch(() => {});
-        };
-
-        tryNext();
-    }, [stopAudio, lang]);
-
-    // ── Navigation ───────────────────────────────────────────────────────────
-    const goTo = useCallback((i) => {
-        const clamped = Math.max(0, Math.min(SLIDES.length - 1, i));
-        stopAudio();
-        setProgress(0);
-        setIndex(clamped);
-    }, [stopAudio]);
-
-    // ── Play / Pause toggle ──────────────────────────────────────────────────
-    const toggle = useCallback(() => {
-        setPlaying((prev) => {
-            if (prev) {
-                if (audioRef.current) audioRef.current.pause();
-                clearInterval(timerRef.current);
-            }
-            return !prev;
-        });
+            : [`${_API}/media/intro/slide_${slide.id}.mp3`]
+    ), [lang]);
+    const renderSlide = useCallback((slide) => {
+        const SlideContent = SLIDE_COMPONENTS[slide.id];
+        return <SlideContent key={slide.id} />;
     }, []);
-
-    // ── When playing becomes true or slide index changes while playing ───────
-    useEffect(() => {
-        if (playing) {
-            startAudio(SLIDES[index]);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [playing, index]);
-
-    // ── Unmount cleanup ──────────────────────────────────────────────────────
-    useEffect(() => () => stopAudio(), [stopAudio]);
 
     return (
-        <div style={{
-            ...blackboard.shell,
-            aspectRatio: '16/9',
-            borderRadius: 20,
-            boxShadow: 'inset 0 0 100px rgba(0,0,0,0.30), 0 0 0 4px #6B4820, 0 40px 100px rgba(0,0,0,0.50)',
-            overflow: 'hidden',
-            userSelect: 'none',
-        }}>
-            <ChalkTexture opacity={0.07} zIndex={0} />
-
-            <div style={{
-                position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0,
-                boxShadow: 'inset 0 0 0 18px #9C7040, inset 0 0 130px rgba(0,0,0,0.14)',
-            }} />
-
-            <div style={{
-                position: 'absolute', inset: 0,
-                paddingTop: 18,
-                paddingBottom: 72,
-                display: 'flex', flexDirection: 'column',
-                zIndex: 2,
-            }}>
-                <SlideContent key={currentSlide.id} />
-            </div>
-
-            <BottomBar
-                index={index}
-                total={SLIDES.length}
-                progress={progress}
-                playing={playing}
-                onPrev={() => goTo(index - 1)}
-                onToggle={toggle}
-                onNext={() => goTo(index + 1)}
-                subtitle={subtitle}
-            />
-        </div>
+        <NarratedCourseIntroDeck
+            slides={SLIDES}
+            renderSlide={renderSlide}
+            getNarrationText={getNarrationText}
+            getAudioUrls={getAudioUrls}
+            ariaLabel="Chinese course introduction"
+        />
     );
 }
