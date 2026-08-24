@@ -332,10 +332,104 @@ class ChineseStage2RegressionTests(unittest.TestCase):
         render_mock.assert_not_called()
         convert_mock.assert_not_called()
         self.assertEqual(deck["slide_count"], 1)
+        self.assertEqual(deck["render_version"], deck_script.SLIDE_RENDER_VERSION)
         self.assertEqual(deck["slides"][0]["image"]["local_path"].endswith("slide_001.webp"), True)
         self.assertEqual(deck["slides"][0]["image"]["object_key"], "zh/slides/en/lesson101/slide_001.webp")
         persisted = json.loads(json_path.read_text(encoding="utf-8"))
         self.assertEqual(persisted["teaching_slide_deck"]["slide_count"], 1)
+        self.assertEqual(
+            persisted["teaching_slide_deck"]["render_version"],
+            deck_script.SLIDE_RENDER_VERSION,
+        )
+
+    def test_refresh_deck_images_preserves_slide_audio_and_cues(self):
+        tmpdir = Path(self._make_tempdir())
+        artifact_root = tmpdir / "artifacts"
+        slide_dir = artifact_root / "output_slides" / "en" / "lesson101"
+        audio_dir = artifact_root / "output_audio" / "en" / "lesson101_narration"
+        slide_dir.mkdir(parents=True)
+        audio_dir.mkdir(parents=True)
+        old_image = slide_dir / "slide_001.webp"
+        slide_audio = audio_dir / "lesson101_slide_001.mp3"
+        old_image.write_bytes(b"old-captioned-image")
+        slide_audio.write_bytes(b"existing-slide-audio")
+        json_path = artifact_root / "output_json" / "en" / "lesson101_data.json"
+        json_path.parent.mkdir(parents=True)
+        original_audio = {
+            "local_path": str(slide_audio),
+            "object_key": "zh/audio/narration/en/lesson101/lesson101_slide_001.mp3",
+            "media_path": "/media/teaching-audio/integrated_chinese/en/101/lesson101_slide_001.mp3",
+            "media_url": "existing-audio-url",
+            "start_ms": 0,
+            "end_ms": 4000,
+        }
+        original_cues = [{"start_ms": 0, "end_ms": 4000, "text": "Existing cue."}]
+        payload = {
+            "lesson_metadata": {"lesson_id": 101, "title": "Lesson 101"},
+            "video_render_plan": {
+                "explanation": {
+                    "segments": [{"segment_id": 1, "segment_title": "Greeting", "duration_seconds": 4}]
+                }
+            },
+            "teaching_slide_deck": {
+                "version": "1.0",
+                "render_version": "1-caption-baked-into-image",
+                "lang": "en",
+                "slide_count": 1,
+                "slides": [
+                    {
+                        "id": "seg_001",
+                        "segment_id": 1,
+                        "title": "Greeting",
+                        "duration_ms": 4000,
+                        "image": {"local_path": str(old_image)},
+                        "audio": original_audio,
+                        "caption_cues": original_cues,
+                    }
+                ],
+            },
+        }
+        json_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+        class _FakePipeline:
+            pipeline_id = "integrated_chinese"
+            target_language = "zh"
+
+            def artifact_root(self, paths):  # noqa: ARG002
+                return artifact_root
+
+        def fake_render(**kwargs):
+            (slide_dir / "slide_001.png").write_bytes(b"new-png")
+            return slide_dir, ".png"
+
+        def fake_convert(rendered_dir, indexes):
+            self.assertEqual(indexes, [1])
+            (rendered_dir / "slide_001.png").unlink()
+            (rendered_dir / "slide_001.webp").write_bytes(b"new-un-captioned-image")
+            return True
+
+        with patch.object(
+            deck_script,
+            "default_paths",
+            return_value=types.SimpleNamespace(backend_dir=tmpdir, project_root=tmpdir),
+        ), patch.object(deck_script, "get_pipeline", return_value=_FakePipeline()), patch.object(
+            deck_script, "load_dotenv", return_value=None
+        ), patch.object(deck_script, "_render_remotion_slides", side_effect=fake_render), patch.object(
+            deck_script, "_convert_pngs_to_webp", side_effect=fake_convert
+        ):
+            deck = deck_script.refresh_deck_images(
+                json_path,
+                "integrated_chinese",
+                "en",
+                force=True,
+            )
+
+        self.assertEqual(deck["render_version"], deck_script.SLIDE_RENDER_VERSION)
+        self.assertEqual(deck["slides"][0]["audio"], original_audio)
+        self.assertEqual(deck["slides"][0]["caption_cues"], original_cues)
+        self.assertEqual(old_image.read_bytes(), b"new-un-captioned-image")
+        persisted = json.loads(json_path.read_text(encoding="utf-8"))
+        self.assertEqual(persisted["teaching_slide_deck"]["render_version"], deck_script.SLIDE_RENDER_VERSION)
 
     def test_build_deck_falls_back_to_svg_when_remotion_fails(self):
         tmpdir = Path(self._make_tempdir())

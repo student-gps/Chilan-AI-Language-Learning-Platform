@@ -450,23 +450,24 @@ export default function PracticeSection({ questions, isReview, onAllDone, course
                         secondaryButtonClass={secondaryButtonClass}
                     />
 
+                    <AnimatePresence>
+                        {!feedback && langWarningText && (
+                            <motion.div
+                                key="lang-warning"
+                                initial={{ opacity: 0, y: -6 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -6 }}
+                                className="mb-3 px-5 py-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-700 text-sm font-bold text-center"
+                            >
+                                ⚠️ {langWarningText}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
                     <AnimatePresence mode="wait">
                         {!feedback && !isEvaluating ? (
                             !speechMode && (
                                 <motion.div key="text-actions" className="flex flex-col gap-3">
-                                    <AnimatePresence>
-                                        {langWarningText && (
-                                            <motion.div
-                                                key="lang-warning"
-                                                initial={{ opacity: 0, y: -6 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -6 }}
-                                                className="px-5 py-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-700 text-sm font-bold text-center"
-                                            >
-                                                ⚠️ {langWarningText}
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
                                     <motion.button
                                         whileTap={{ scale: 0.98 }}
                                         onClick={handleSubmit}

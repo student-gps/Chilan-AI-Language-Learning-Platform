@@ -20,6 +20,7 @@ if "json_repair" not in sys.modules:
 
 from content_builder.zh.integrated_chinese.scripts import localize  # noqa: E402
 from content_builder.zh.integrated_chinese.scripts import run_resumable_enhanced_english as english_runner  # noqa: E402
+from content_builder.zh.integrated_chinese.scripts import run_resumable_l1_rebuild as l1_runner  # noqa: E402
 from content_builder.zh.integrated_chinese.tasks._explanation_writer import (  # noqa: E402
     Task3ExplanationGenerator,
 )
@@ -102,9 +103,10 @@ class IntegratedChineseL1ExplanationTests(unittest.TestCase):
         self.assertEqual(result, complete)
         self.assertEqual(len(llm.prompts), 2)
 
-    def test_batch_retries_when_page_reads_only_a_keyword_instead_of_full_example(self):
+    def test_batch_deterministically_repairs_a_partial_readthrough(self):
         base = {
             "segment_type": "line_walkthrough",
+            "source_line_refs": [1],
             "on_screen_text": {"focus_text": "你贵姓？我姓王。"},
             "learner_l1_focus": _l1_focus("français"),
         }
@@ -113,24 +115,12 @@ class IntegratedChineseL1ExplanationTests(unittest.TestCase):
             "segments": [
                 {
                     **base,
-                    "reading_text": "你贵姓？我姓王。",
+                    "reading_text": "你贵姓？",
                     "narration": {"subtitle_en": "Écoutez [zh:贵姓], puis regardons la phrase."},
                 }
             ],
         }
-        complete = {
-            "global_config": {},
-            "segments": [
-                {
-                    **base,
-                    "reading_text": "你贵姓？我姓王。",
-                    "narration": {
-                        "subtitle_en": "Écoutons d'abord la phrase complète. [zh:你贵姓？我姓王。] Ensuite, observons sa structure."
-                    },
-                }
-            ],
-        }
-        llm = _SequenceLLM([incomplete, complete])
+        llm = _SequenceLLM([incomplete])
         writer = Task3ExplanationGenerator(llm)
 
         with contextlib.redirect_stdout(io.StringIO()):
@@ -144,10 +134,13 @@ class IntegratedChineseL1ExplanationTests(unittest.TestCase):
                 support_language="fr",
             )
 
-        self.assertEqual(result, complete)
-        self.assertEqual(len(llm.prompts), 2)
+        segment = result["segments"][0]
+        self.assertEqual(segment["reading_text"], "你贵姓？我姓王。")
+        self.assertTrue(segment["narration"]["subtitle_en"].startswith("[zh:你贵姓？我姓王。]"))
+        self.assertEqual(writer._batch_quality_issues(result), [])
+        self.assertEqual(len(llm.prompts), 1)
 
-        late = json.loads(json.dumps(complete, ensure_ascii=False))
+        late = json.loads(json.dumps(result, ensure_ascii=False))
         late["segments"][0]["narration"]["subtitle_en"] = (
             "Commençons par le sens. Regardons ensuite la structure. "
             "Écoutons seulement maintenant [zh:你贵姓？我姓王。]."
@@ -155,6 +148,81 @@ class IntegratedChineseL1ExplanationTests(unittest.TestCase):
         self.assertTrue(
             any("appears too late" in issue for issue in writer._batch_quality_issues(late))
         )
+
+    def test_optional_erhua_parentheses_are_normalized_without_a_separator(self):
+        source_line = "七点半我去白英爱的宿舍跟她聊天（儿）。"
+        normalized_line = "七点半我去白英爱的宿舍跟她聊天儿。"
+        incomplete = {
+            "global_config": {},
+            "segments": [
+                {
+                    "segment_type": "line_walkthrough",
+                    "source_line_refs": [13],
+                    "reading_text": "七点半我去白英爱的宿舍跟她聊天。",
+                    "narration": {"subtitle_en": "First listen to [zh:聊天], then study the line."},
+                    "on_screen_text": {"focus_text": normalized_line},
+                    "learner_l1_focus": _l1_focus("English"),
+                }
+            ],
+        }
+        llm = _SequenceLLM([incomplete])
+        writer = Task3ExplanationGenerator(llm)
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            result = writer._request_batch(
+                metadata={"title": "A Day in the Life"},
+                dialogues=[{"line_ref": 13, "hanzi": source_line}],
+                teaching_materials={},
+                vocabulary=[],
+                grammar=[],
+                batch_mode="foundation",
+                support_language="en",
+            )
+
+        segment = result["segments"][0]
+        self.assertEqual(writer._reading_from_value(source_line), normalized_line)
+        self.assertEqual(writer._reading_from_value(source_line.replace("（儿）", "(儿)")), normalized_line)
+        self.assertEqual(segment["reading_text"], normalized_line)
+        self.assertTrue(segment["narration"]["subtitle_en"].startswith(f"[zh:{normalized_line}]"))
+        self.assertEqual(writer._batch_quality_issues(result), [])
+        self.assertEqual(len(llm.prompts), 1)
+
+    def test_stray_ocr_quote_does_not_split_a_full_readthrough(self):
+        source_line = "这个饭馆儿的菜是“不错,但是没有我们杭州的饭馆儿好。"
+        normalized_line = "这个饭馆儿的菜是不错，但是没有我们杭州的饭馆儿好。"
+        incomplete = {
+            "global_config": {},
+            "segments": [
+                {
+                    "segment_type": "line_walkthrough",
+                    "source_line_refs": [26],
+                    "reading_text": "这个饭馆的菜是不错。",
+                    "narration": {"subtitle_en": "First listen to [zh:这个饭馆的菜是不错]."},
+                    "on_screen_text": {"focus_text": normalized_line},
+                    "learner_l1_focus": _l1_focus("English"),
+                }
+            ],
+        }
+        llm = _SequenceLLM([incomplete])
+        writer = Task3ExplanationGenerator(llm)
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            result = writer._request_batch(
+                metadata={"title": "在饭馆儿"},
+                dialogues=[{"line_ref": 26, "hanzi": source_line}],
+                teaching_materials={},
+                vocabulary=[],
+                grammar=[],
+                batch_mode="foundation",
+                support_language="en",
+            )
+
+        segment = result["segments"][0]
+        self.assertEqual(writer._reading_from_value(source_line), normalized_line)
+        self.assertEqual(segment["reading_text"], normalized_line)
+        self.assertTrue(segment["narration"]["subtitle_en"].startswith(f"[zh:{normalized_line}]"))
+        self.assertEqual(writer._batch_quality_issues(result), [])
+        self.assertEqual(len(llm.prompts), 1)
 
     def test_translation_collection_excludes_the_old_english_explanation(self):
         data = {
@@ -360,6 +428,7 @@ class IntegratedChineseL1ExplanationTests(unittest.TestCase):
                             "audio_file": str(narration),
                         },
                         "teaching_slide_deck": {
+                            "render_version": english_runner.SLIDE_RENDER_VERSION,
                             "lang": "en",
                             "slide_count": 1,
                             "slides": [
@@ -376,6 +445,18 @@ class IntegratedChineseL1ExplanationTests(unittest.TestCase):
             )
 
             complete = english_runner.inspect_lesson(json_path, 101)
+            complete_image_refresh = english_runner._can_refresh_images_only(json_path, "en")
+            narration.unlink()
+            per_slide_narration = english_runner.inspect_lesson(json_path, 101)
+            narration.write_bytes(b"asset")
+            stale_payload = json.loads(json_path.read_text(encoding="utf-8"))
+            stale_payload["teaching_slide_deck"]["render_version"] = "1-caption-baked-into-image"
+            json_path.write_text(json.dumps(stale_payload, ensure_ascii=False), encoding="utf-8")
+            stale_slides = english_runner.inspect_lesson(json_path, 101)
+            stale_image_refresh = english_runner._can_refresh_images_only(json_path, "en")
+
+            stale_payload["teaching_slide_deck"]["render_version"] = english_runner.SLIDE_RENDER_VERSION
+            json_path.write_text(json.dumps(stale_payload, ensure_ascii=False), encoding="utf-8")
             french_payload = json.loads(json_path.read_text(encoding="utf-8"))
             french_explanation = french_payload["video_render_plan"]["explanation"]
             french_explanation["support_language"] = "fr"
@@ -383,6 +464,14 @@ class IntegratedChineseL1ExplanationTests(unittest.TestCase):
             french_payload["teaching_slide_deck"]["lang"] = "fr"
             json_path.write_text(json.dumps(french_payload, ensure_ascii=False), encoding="utf-8")
             french_complete = english_runner.inspect_lesson(json_path, 101, lang="fr")
+            french_image_refresh = english_runner._can_refresh_images_only(json_path, "fr")
+
+            french_explanation["support_language"] = "de"
+            french_explanation["target_audience"] = "German native speakers learning Chinese"
+            french_payload["teaching_slide_deck"]["lang"] = "de"
+            json_path.write_text(json.dumps(french_payload, ensure_ascii=False), encoding="utf-8")
+            german_complete = english_runner.inspect_lesson(json_path, 101, lang="de")
+            german_image_refresh = english_runner._can_refresh_images_only(json_path, "de")
 
             french_explanation["support_language"] = "en"
             french_explanation["target_audience"] = "English native speakers learning Chinese"
@@ -390,12 +479,25 @@ class IntegratedChineseL1ExplanationTests(unittest.TestCase):
             json_path.write_text(json.dumps(french_payload, ensure_ascii=False), encoding="utf-8")
             slide_audio.unlink()
             interrupted = english_runner.inspect_lesson(json_path, 101)
+            interrupted_image_refresh = english_runner._can_refresh_images_only(json_path, "en")
 
         self.assertTrue(complete.complete)
+        self.assertTrue(complete_image_refresh)
+        self.assertTrue(per_slide_narration.narration)
+        self.assertTrue(per_slide_narration.complete)
+        self.assertTrue(stale_slides.enhanced)
+        self.assertTrue(stale_slides.narration)
+        self.assertFalse(stale_slides.slides)
+        self.assertTrue(stale_image_refresh)
+        self.assertEqual(english_runner._stage2_force_flags(stale_slides, False), (False, True))
         self.assertTrue(french_complete.complete)
+        self.assertTrue(french_image_refresh)
+        self.assertTrue(german_complete.complete)
+        self.assertTrue(german_image_refresh)
         self.assertTrue(interrupted.enhanced)
         self.assertTrue(interrupted.narration)
         self.assertFalse(interrupted.slides)
+        self.assertFalse(interrupted_image_refresh)
         self.assertEqual(english_runner._stage2_force_flags(interrupted, False), (False, True))
 
     def test_enhanced_english_runner_rerenders_slides_when_narration_is_rebuilt(self):
@@ -409,6 +511,33 @@ class IntegratedChineseL1ExplanationTests(unittest.TestCase):
         )
 
         self.assertEqual(english_runner._stage2_force_flags(state, False), (True, True))
+
+    def test_l1_runner_restores_synced_localized_checkpoint_without_overwriting_work(self):
+        with tempfile.TemporaryDirectory(prefix="ic-l1-resume-") as temp_dir:
+            root = Path(temp_dir)
+            output_dir = root / "output_json" / "de"
+            synced_dir = root / "synced_json" / "de"
+            synced_dir.mkdir(parents=True)
+            synced_path = synced_dir / "lesson101_data_de.json"
+            synced_path.write_text('{"checkpoint": "synced"}', encoding="utf-8")
+
+            l1_runner._restore_localized_checkpoints(
+                lesson_ids=[101],
+                output_dir=output_dir,
+                synced_dir=synced_dir,
+                lang="de",
+            )
+            output_path = output_dir / synced_path.name
+            self.assertEqual(json.loads(output_path.read_text(encoding="utf-8"))["checkpoint"], "synced")
+
+            output_path.write_text('{"checkpoint": "working"}', encoding="utf-8")
+            l1_runner._restore_localized_checkpoints(
+                lesson_ids=[101],
+                output_dir=output_dir,
+                synced_dir=synced_dir,
+                lang="de",
+            )
+            self.assertEqual(json.loads(output_path.read_text(encoding="utf-8"))["checkpoint"], "working")
 
     def test_enhanced_english_seed_preserves_working_json_and_fills_only_missing(self):
         with tempfile.TemporaryDirectory(prefix="ic-seed-") as temp_dir:

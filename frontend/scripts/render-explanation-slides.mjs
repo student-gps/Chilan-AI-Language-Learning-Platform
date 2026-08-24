@@ -140,7 +140,10 @@ function RemotionRoot() {
             height={HEIGHT}
             defaultProps={{
                 renderPlan: explanationRenderPlan,
-                showSubtitleBar: true,
+                // Static deck images stay on screen while the player advances
+                // caption_cues, so baking one cue into the image causes the two
+                // subtitle surfaces to diverge as soon as narration advances.
+                showSubtitleBar: false,
             }}
         />
     );
