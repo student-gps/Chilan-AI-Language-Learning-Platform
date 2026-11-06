@@ -1,7 +1,8 @@
 import unittest
 from unittest.mock import patch
 
-from .test_helpers import FakeConnection, SmokeTestCaseMixin, lesson_progress_service
+from .test_helpers import FakeConnection, SmokeTestCaseMixin, lesson_progress_service, study
+from database.utils import create_access_token
 
 
 class StudyContentViewedSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
@@ -20,8 +21,11 @@ class StudyContentViewedSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
             "lesson_id": 101,
         }
 
-        with patch.object(lesson_progress_service, "get_connection", return_value=fake_db):
-            response = self.client.post("/study/content_viewed", json=payload)
+        route_db = FakeConnection(lambda query, params: {"fetchone": (1,)})
+        headers = {"Authorization": f"Bearer {create_access_token({'sub': payload['user_id']})}"}
+        with patch.object(study, "get_connection", return_value=route_db), \
+             patch.object(lesson_progress_service, "get_connection", return_value=fake_db):
+            response = self.client.post("/study/content_viewed", json=payload, headers=headers)
 
         self.assertEqual(response.status_code, 200)
         body = response.json()
