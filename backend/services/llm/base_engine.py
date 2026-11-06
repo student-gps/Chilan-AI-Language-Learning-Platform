@@ -252,7 +252,7 @@ class LLMEngine:
             parsed = json.loads(result["text"])
             self._emit_success(result)
             if pm:
-                pm.record("Tier 3 (LLM Inf)", time.perf_counter() - started_at)
+                pm.record("Tier 2 (LLM Inf)", time.perf_counter() - started_at)
             return parsed
         except Exception as exc:
             retryable = self.provider == "deepseek" and self._is_retryable_deepseek_error(exc)
@@ -266,7 +266,7 @@ class LLMEngine:
                         fallback_provider=self.provider,
                     )
                     if pm:
-                        pm.record("Tier 3 (LLM Inf)", time.perf_counter() - started_at)
+                        pm.record("Tier 2 (LLM Inf)", time.perf_counter() - started_at)
                     return parsed
                 except Exception as fallback_exc:
                     emit_judge_usage(
@@ -288,4 +288,4 @@ class LLMEngine:
                     error_type=type(exc).__name__,
                 )
             print(f"LLM Error: {exc}")
-            return {"level": 1, "is_correct": False, "explanation": "Error occurred."}
+            raise
