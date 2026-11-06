@@ -628,38 +628,20 @@ async def evaluate_answer(
         pm.record("Tier 1 (Regex)", time.perf_counter() - t1_start)
 
         if is_exact:
-            vector_score = 1.0
             res = {
                 "level": 4, 
                 "isCorrect": True, 
                 "message": "Perfect match! Your expression is very natural.", "judgedBy": "Regex"
             }
-            pm.report(vector_score=vector_score)
+            pm.report()
         else:
-            # 🚄 Tier 2 & 3: 向量 + LLM
+            # Tier 2: Unmatched answers are evaluated directly by the LLM.
             try:
-                user_vec = await _get_llm_tools().get_embedding(effective_answer, pm=pm)
-
-                cur.execute(
-                    """
-                    SELECT 1 - (ae.primary_embedding <=> %s::vector) AS sim_score
-                    FROM language_items q
-                    JOIN answer_embeddings ae
-                      ON ae.embedding_id = q.answer_embedding_id
-                    WHERE q.item_id = %s
-                    """,
-                    (user_vec, item_pk)
-                )
-                sim_row = cur.fetchone()
-                sim_score = sim_row['sim_score'] if sim_row else 0.0
-                vector_score = sim_score
-
                 res = await evaluator.process_judge(
                     q_type=resolved_question_type,
                     user_ans=effective_answer,
                     origin=resolved_original_text,
                     std_answers=normalized_answers,
-                    vector_score=sim_score,
                     pm=pm,
                     input_mode=input_mode,
                     asr_confidence=asr_confidence,
