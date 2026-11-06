@@ -2,7 +2,7 @@
 Initialize the cloud database schema after restoring the legacy Neon schema.
 
 This keeps the old application tables from the dump, then applies the newer
-embedding-deduplication schema used by sync_to_db.py.
+text-answer compatibility schema used by sync_to_db.py.
 """
 
 import sys
@@ -25,7 +25,6 @@ def main() -> None:
     cur = conn.cursor()
 
     cur.execute('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
-    cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
     ensure_vocabulary_knowledge_table(cur)
     ensure_answer_embeddings_table(cur)
     ensure_language_items_answer_embedding_id(cur)
