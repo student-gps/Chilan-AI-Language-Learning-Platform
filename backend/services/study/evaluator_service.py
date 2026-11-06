@@ -166,7 +166,6 @@ class StudyEvaluator:
         user_ans,
         origin,
         std_answers,
-        vector_score,
         pm=None,
         input_mode: str = "text",
         asr_confidence: Optional[float] = None,
@@ -176,68 +175,19 @@ class StudyEvaluator:
         if pm is None:
             pm = PerformanceMonitor()
 
-        is_speech_mode = (input_mode or "").strip().lower() == "speech"
-        if is_speech_mode:
-            cfg = self.get_speech_eval_config(speech_eval_config)
+        if (input_mode or "").strip().lower() == "speech":
             retry_res = self.check_speech_readiness(
                 asr_text=user_ans,
                 asr_confidence=asr_confidence,
-                speech_eval_config=cfg,
+                speech_eval_config=speech_eval_config,
             )
             if retry_res:
-                pm.report(vector_score=vector_score if vector_score is not None else 0.0)
+                pm.report()
                 return retry_res
 
-            if vector_score >= cfg["pass_threshold"]:
-                pm.record("Tier 3 (Skipped)", 0.0)
-                pm.report(vector_score=vector_score)
-                return {
-                    "level": 4,
-                    "isCorrect": True,
-                    "message": "Great job! Semantic match passed.",
-                    "judgedBy": "Vector Engine",
-                }
-
-            if (not cfg.get("allow_paraphrase", True)) and vector_score < cfg["review_threshold"]:
-                pm.record("Tier 3 (Skipped)", 0.0)
-                pm.report(vector_score=vector_score)
-                return {
-                    "level": 1,
-                    "isCorrect": False,
-                    "message": "Semantic similarity is too low. Please try again.",
-                    "judgedBy": "Vector Engine",
-                }
-
-            raw_res = await self.tools.judge_with_ai(
-                q_type,
-                origin,
-                user_ans,
-                std_answers,
-                pm=pm,
-                metadata=item_metadata,
-            )
-            final_res = self._normalize_ai_result(raw_res)
-            pm.report(vector_score=vector_score)
-            return final_res
-
-        if vector_score > 0.95:
-            pm.record("Tier 3 (Skipped)", 0.0)
-            pm.report(vector_score=vector_score)
-            return {
-                "level": 4,
-                "isCorrect": True,
-                "message": "Excellent semantic match!",
-                "judgedBy": "Vector Engine",
-            }
-
         raw_res = await self.tools.judge_with_ai(
-            q_type,
-            origin,
-            user_ans,
-            std_answers,
-            pm=pm,
-            metadata=item_metadata,
+            q_type, origin, user_ans, std_answers, pm=pm, metadata=item_metadata,
         )
         final_res = self._normalize_ai_result(raw_res)
-        pm.report(vector_score=vector_score)
+        pm.report()
         return final_res

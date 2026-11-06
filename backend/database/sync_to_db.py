@@ -38,7 +38,6 @@ from functools import lru_cache
 from psycopg2.extras import Json
 from pathlib import Path
 from dotenv import load_dotenv
-from abc import ABC, abstractmethod
 import sys
 
 # 将父目录加入路径以确保能找到 connection
@@ -76,155 +75,11 @@ load_dotenv(BACKEND_DIR / ".env")
 # ==========================================
 # 2. Embedding 抽象基类与具体实现
 # ==========================================
-class BaseEmbeddingProvider(ABC):
-    provider_name = "unknown"
-    model_id = "unknown"
-    output_dimensionality = None
-
-    @abstractmethod
-    def get_embedding(self, text: str) -> list[float]:
-        pass
-
-class GeminiEmbeddingProvider(BaseEmbeddingProvider):
-    def __init__(self, model_id: str):
-        import os
-        from google import genai
-        use_vertex = get_env("LLM_GEMINI_USE_VERTEX", default="false").lower() == "true"
-        self.use_vertex = use_vertex
-        self._vertex_project = None
-        self._vertex_locations = []
-        self._location_idx = 0
-        if use_vertex:
-            project = get_env("VERTEX_AI_PROJECT_ID")
-            location = get_env("VERTEX_AI_LOCATION", default="us-central1")
-            fallback_locations = [
-                item.strip()
-                for item in (get_env("VERTEX_AI_FALLBACK_LOCATIONS", default="") or "").split(",")
-                if item.strip()
-            ]
-            all_locations = [location]
-            for fallback in fallback_locations:
-                if fallback not in all_locations:
-                    all_locations.append(fallback)
-            self._vertex_project = project
-            self._vertex_locations = all_locations
-            sa_key = get_env("GOOGLE_APPLICATION_CREDENTIALS")
-            if sa_key:
-                os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sa_key
-            self.client = self._make_vertex_client(location)
-            print(f"  ℹ️  Gemini embedding 使用 Vertex AI ({location})")
-        else:
-            api_key = get_env("LLM_EMBED_GEMINI_API_KEY", "LLM_GEMINI_API_KEY")
-            self.client = genai.Client(api_key=api_key)
-        self.model_id = model_id
-        self.provider_name = "gemini"
-        self.output_dimensionality = get_env_int("LLM_EMBED_GEMINI_OUTPUT_DIMENSIONALITY", default=768)
-
-    def _make_vertex_client(self, location: str):
-        from google import genai
-        return genai.Client(vertexai=True, project=self._vertex_project, location=location)
-
-    def _rotate_region(self, reason: str = "embedding 区域暂不可用") -> bool:
-        if len(self._vertex_locations) <= 1:
-            return False
-        self._location_idx = (self._location_idx + 1) % len(self._vertex_locations)
-        new_location = self._vertex_locations[self._location_idx]
-        self.client = self._make_vertex_client(new_location)
-        print(f"  🔄 {reason}，embedding 自动切换 → {new_location}")
-        return True
-
-    @staticmethod
-    def _is_retryable_network_error(err_str: str) -> bool:
-        retryable_markers = (
-            "UNEXPECTED_EOF_WHILE_READING",
-            "EOF occurred in violation of protocol",
-            "ConnectError",
-            "ConnectionError",
-            "ProxyError",
-            "MaxRetryError",
-            "NewConnectionError",
-            "ConnectionRefusedError",
-            "ReadTimeout",
-            "ConnectTimeout",
-            "TimeoutError",
-            "timed out",
-            "WinError 10061",
-            "Connection reset",
-            "RemoteProtocolError",
-            "TLS",
-            "SSL",
-        )
-        return any(marker in err_str for marker in retryable_markers)
-
-    def get_embedding(self, text: str) -> list[float]:
-        import time
-        print(f"🧠 [Gemini] 正在生成向量: '{text[:15]}...'")
-        max_retries = 24
-        waits = [15, 30, 60, 120, 180, 300]
-        wait_attempt = 0
-        region_cycle_count = 0
-        num_regions = max(1, len(self._vertex_locations))
-        for attempt in range(max_retries):
-            try:
-                response = self.client.models.embed_content(
-                    model=self.model_id,
-                    contents=text,
-                    config={
-                        "task_type": "SEMANTIC_SIMILARITY",
-                        "output_dimensionality": self.output_dimensionality,
-                    },
-                )
-                return response.embeddings[0].values
-            except Exception as e:
-                err_str = str(e)
-                is_quota = "429" in err_str or "RESOURCE_EXHAUSTED" in err_str
-                is_network = self._is_retryable_network_error(err_str)
-                is_retryable = is_quota or is_network or any(code in err_str for code in ("503", "UNAVAILABLE"))
-                if not is_retryable or attempt >= max_retries - 1:
-                    raise
-
-                if self.use_vertex and region_cycle_count < num_regions:
-                    reason = "embedding 配额限制" if is_quota else "embedding 连接异常"
-                    self._rotate_region(reason=reason)
-                    region_cycle_count += 1
-                    continue
-
-                region_cycle_count = 0
-                wait = waits[min(wait_attempt, len(waits) - 1)]
-                print(f"  ⏳ Gemini embedding 暂时不可用，{wait}s 后重试 (第{wait_attempt + 1}次)...")
-                time.sleep(wait)
-                wait_attempt += 1
-
-        raise RuntimeError("Gemini embedding 多次重试后仍未返回结果")
-
-class DoubaoEmbeddingProvider(BaseEmbeddingProvider):
-    def __init__(self, api_key: str, model_id: str):
-        from volcenginesdkarkruntime import Ark
-        self.client = Ark(api_key=api_key)
-        self.model_id = model_id
-        self.provider_name = "doubao"
-        self.output_dimensionality = get_env_int("LLM_EMBED_DOUBAO_OUTPUT_DIMENSIONALITY", default=0) or None
-
-    def get_embedding(self, text: str) -> list[float]:
-        print(f"🧠 [Doubao] 正在生成向量: '{text[:15]}...'")
-        response = self.client.embeddings.create(
-            model=self.model_id,
-            input=[text]
-        )
-        return response.data[0].embedding
-
 class EmbeddingFactory:
+    """Compatibility bridge for existing sync callers; vectors are retired."""
     @staticmethod
-    def create_provider() -> BaseEmbeddingProvider:
-        provider_type = get_env("LLM_EMBED_PROVIDER", default="doubao").lower()
-        if provider_type == "gemini":
-            model_id = get_env("LLM_EMBED_GEMINI_MODEL_ID", default="gemini-embedding-001")
-            return GeminiEmbeddingProvider(model_id)
-        elif provider_type == "doubao":
-            api_key = get_env("LLM_EMBED_DOUBAO_API_KEY")
-            model_id = get_env("LLM_EMBED_DOUBAO_MODEL_ID")
-            return DoubaoEmbeddingProvider(api_key, model_id)
-        raise ValueError(f"❌ 不支持的 Provider: {provider_type}")
+    def create_provider():
+        return None
 
 
 def ensure_vocabulary_knowledge_table(cur):
@@ -243,97 +98,31 @@ def ensure_vocabulary_knowledge_table(cur):
 
 
 def ensure_answer_embeddings_table(cur):
-    cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS answer_embeddings (
-            embedding_id BIGSERIAL PRIMARY KEY,
-            answer_text TEXT NOT NULL,
-            embedding_provider TEXT NOT NULL,
-            embedding_model TEXT NOT NULL,
-            embedding_dims INTEGER NOT NULL,
-            primary_embedding vector(768) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            UNIQUE (embedding_provider, embedding_model, embedding_dims, answer_text)
-        );
-    """)
+    """Legacy initialization hook; no vector tables are created."""
+    return None
 
 
 def ensure_language_items_answer_embedding_id(cur):
-    cur.execute("""
-        ALTER TABLE language_items
-        ADD COLUMN IF NOT EXISTS answer_embedding_id BIGINT;
-    """)
-    # Old databases still have primary_embedding as NOT NULL. New writes use
-    # answer_embedding_id, so relax the old column until it can be dropped.
+    """Allow text-only imports on legacy schemas without adding vector columns."""
     cur.execute("""
         DO $$
         BEGIN
             IF EXISTS (
-                SELECT 1
-                FROM information_schema.columns
-                WHERE table_schema = 'public'
-                  AND table_name = 'language_items'
-                  AND column_name = 'primary_embedding'
-                  AND is_nullable = 'NO'
+                SELECT 1 FROM information_schema.columns
+                WHERE table_schema = 'public' AND table_name = 'language_items'
+                  AND column_name = 'primary_embedding' AND is_nullable = 'NO'
             ) THEN
                 ALTER TABLE language_items ALTER COLUMN primary_embedding DROP NOT NULL;
             END IF;
+            IF EXISTS (
+                SELECT 1 FROM information_schema.columns
+                WHERE table_schema = 'public' AND table_name = 'language_items'
+                  AND column_name = 'answer_embedding_id' AND is_nullable = 'NO'
+            ) THEN
+                ALTER TABLE language_items ALTER COLUMN answer_embedding_id DROP NOT NULL;
+            END IF;
         END $$;
     """)
-    cur.execute("""
-        CREATE INDEX IF NOT EXISTS idx_language_items_answer_embedding_id
-        ON language_items (answer_embedding_id);
-    """)
-
-
-def get_or_create_answer_embedding(cur, provider: BaseEmbeddingProvider, answer_text: str) -> int:
-    answer = str(answer_text or "").strip()
-    if not answer:
-        raise ValueError("standard answer is empty; cannot create embedding")
-
-    provider_name = provider.provider_name
-    model_id = provider.model_id
-    dims = provider.output_dimensionality
-    if not dims:
-        raise ValueError(f"Embedding provider {provider_name!r} did not expose output_dimensionality")
-
-    cur.execute("""
-        SELECT embedding_id
-        FROM answer_embeddings
-        WHERE embedding_provider = %s
-          AND embedding_model = %s
-          AND embedding_dims = %s
-          AND answer_text = %s
-    """, (provider_name, model_id, dims, answer))
-    row = cur.fetchone()
-    if row:
-        return int(row[0])
-
-    # External embedding calls can take long enough for managed Postgres to close
-    # an idle transaction. Commit the current upsert progress before waiting so a
-    # rerun can resume cleanly if the process is interrupted.
-    try:
-        cur.connection.commit()
-    except Exception:
-        pass
-
-    embedding = provider.get_embedding(answer)
-    if len(embedding) != dims:
-        raise ValueError(
-            f"Embedding dimension mismatch for {provider_name}/{model_id}: "
-            f"expected {dims}, got {len(embedding)}"
-        )
-
-    cur.execute("""
-        INSERT INTO answer_embeddings
-            (answer_text, embedding_provider, embedding_model, embedding_dims, primary_embedding)
-        VALUES (%s, %s, %s, %s, %s::vector)
-        ON CONFLICT (embedding_provider, embedding_model, embedding_dims, answer_text)
-        DO UPDATE SET updated_at = CURRENT_TIMESTAMP
-        RETURNING embedding_id
-    """, (answer, provider_name, model_id, dims, str(embedding)))
-    return int(cur.fetchone()[0])
 
 
 def ensure_lessons_course_scoped_key(cur):
@@ -665,7 +454,7 @@ def _normalize_db_ids(
 # ==========================================
 def sync_lesson_data(
     json_file_path: str,
-    provider: BaseEmbeddingProvider,
+    provider=None,
     sync_context: dict | None = None,
 ) -> bool:
     global LAST_SYNC_ERROR
@@ -839,13 +628,6 @@ def sync_lesson_data(
                     Json(vocab_entry.get("example_sentence", {}))
                 ))
 
-            # 题目共享同一个标准答案向量，避免每道题重复存储 768 维 embedding。
-            answer_embedding_id = get_or_create_answer_embedding(
-                cur,
-                provider,
-                item['standard_answers'][0],
-            )
-
             cur.execute("""
                 SELECT 1 FROM language_items 
                 WHERE course_id = %s AND lesson_id = %s AND question_id = %s
@@ -855,20 +637,20 @@ def sync_lesson_data(
                 cur.execute("""
                     UPDATE language_items 
                     SET question_type = %s, original_text = %s, original_pinyin = %s, 
-                        standard_answers = %s, answer_embedding_id = %s, metadata = %s
+                        standard_answers = %s, metadata = %s
                     WHERE course_id = %s AND lesson_id = %s AND question_id = %s
                 """, (item['question_type'], item['original_text'], q_pinyin, 
-                      item['standard_answers'], answer_embedding_id, Json(q_metadata),
+                      item['standard_answers'], Json(q_metadata),
                       course_id, lesson_id, q_id))
             else:
                 cur.execute("""
                     INSERT INTO language_items 
                     (course_id, lesson_id, question_id, question_type, original_text, 
-                     original_pinyin, standard_answers, answer_embedding_id, metadata)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                     original_pinyin, standard_answers, metadata)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 """, (course_id, lesson_id, q_id, item['question_type'], 
                       item['original_text'], q_pinyin, item['standard_answers'], 
-                      answer_embedding_id, Json(q_metadata)))
+                      Json(q_metadata)))
 
         if current_question_ids:
             cur.execute(
@@ -973,4 +755,3 @@ if __name__ == "__main__":
                 destination = synced_dir / target_json.name
                 if target_json.resolve() != destination.resolve():
                     shutil.move(str(target_json), str(destination))
-

@@ -1,6 +1,6 @@
 """
 Unit tests for StudyEvaluator — pure logic, no DB or network.
-覆盖三层评估引擎的核心分支，改动阈值/逻辑时这里会先报警。
+Cover normalized matching, legacy config compatibility, and Regex-to-LLM judging.
 """
 import asyncio
 import unittest
@@ -159,102 +159,55 @@ class TestNormalizeAiResult(unittest.TestCase):
 # process_judge — text mode
 # ─────────────────────────────────────────────
 class TestProcessJudgeTextMode(unittest.TestCase):
-    def test_high_vector_score_skips_llm(self):
+    def test_unmatched_text_calls_llm(self):
         ev = _make_evaluator()
         result = run(ev.process_judge(
-            q_type="CN_TO_EN", user_ans="hello", origin="你好",
-            std_answers=["hello"], vector_score=0.96, input_mode="text",
+            q_type="CN_TO_EN", user_ans="hi", origin="你好",
+            std_answers=["hello"], input_mode="text",
         ))
         self.assertTrue(result["isCorrect"])
-        self.assertEqual(result["judgedBy"], "Vector Engine")
-        ev.tools.judge_with_ai.assert_not_called()
-
-    def test_vector_score_exactly_095_calls_llm(self):
-        # 0.95 不超过阈值，应走 LLM
-        ev = _make_evaluator({"level": 3, "is_correct": True, "explanation": "Good"})
-        result = run(ev.process_judge(
-            q_type="CN_TO_EN", user_ans="hello", origin="你好",
-            std_answers=["hello"], vector_score=0.95, input_mode="text",
-        ))
-        ev.tools.judge_with_ai.assert_called_once()
         self.assertEqual(result["judgedBy"], "LLM Mentor")
+        ev.tools.judge_with_ai.assert_called_once()
 
-    def test_low_vector_score_calls_llm(self):
+    def test_incorrect_meaning_keeps_llm_grade(self):
         ev = _make_evaluator({"level": 2, "is_correct": False, "explanation": "Needs work"})
         result = run(ev.process_judge(
             q_type="CN_TO_EN", user_ans="bye", origin="你好",
-            std_answers=["hello"], vector_score=0.5, input_mode="text",
+            std_answers=["hello"], input_mode="text",
         ))
         ev.tools.judge_with_ai.assert_called_once()
         self.assertFalse(result["isCorrect"])
 
-    def test_llm_error_state_is_incorrect(self):
-        # LLM 报错时（level=1, is_correct=False）不应标记为正确
-        ev = _make_evaluator({"level": 1, "is_correct": False, "explanation": "Error occurred."})
-        result = run(ev.process_judge(
-            q_type="CN_TO_EN", user_ans="whatever", origin="你好",
-            std_answers=["hello"], vector_score=0.5, input_mode="text",
-        ))
-        self.assertFalse(result["isCorrect"])
 
-
-# ─────────────────────────────────────────────
-# process_judge — speech mode
-# ─────────────────────────────────────────────
 class TestProcessJudgeSpeechMode(unittest.TestCase):
     def test_empty_transcript_triggers_retry(self):
         ev = _make_evaluator()
         result = run(ev.process_judge(
             q_type="CN_TO_EN", user_ans="", origin="你好",
-            std_answers=["hello"], vector_score=0.5, input_mode="speech",
+            std_answers=["hello"], input_mode="speech",
         ))
         self.assertTrue(result.get("shouldRetry"))
-        self.assertFalse(result["isCorrect"])
         ev.tools.judge_with_ai.assert_not_called()
 
     def test_low_asr_confidence_triggers_retry(self):
         ev = _make_evaluator()
         result = run(ev.process_judge(
             q_type="CN_TO_EN", user_ans="hello", origin="你好",
-            std_answers=["hello"], vector_score=0.85,
-            input_mode="speech", asr_confidence=0.3,
+            std_answers=["hello"], input_mode="speech", asr_confidence=0.3,
         ))
         self.assertTrue(result.get("shouldRetry"))
         ev.tools.judge_with_ai.assert_not_called()
 
-    def test_high_vector_score_passes_without_llm(self):
+    def test_reliable_speech_uses_llm_instead_of_similarity_thresholds(self):
         ev = _make_evaluator()
         result = run(ev.process_judge(
-            q_type="CN_TO_EN", user_ans="hello", origin="你好",
-            std_answers=["hello"], vector_score=0.92,
-            input_mode="speech", asr_confidence=0.9,
+            q_type="CN_TO_EN", user_ans="hi there", origin="你好",
+            std_answers=["hello"], input_mode="speech", asr_confidence=0.9,
+            speech_eval_config={"allow_paraphrase": False, "review_threshold": 1.0},
         ))
         self.assertTrue(result["isCorrect"])
-        self.assertEqual(result["judgedBy"], "Vector Engine")
-        ev.tools.judge_with_ai.assert_not_called()
-
-    def test_low_vector_no_paraphrase_fails_immediately(self):
-        ev = _make_evaluator()
-        result = run(ev.process_judge(
-            q_type="CN_TO_EN", user_ans="hi there", origin="你好",
-            std_answers=["hello"], vector_score=0.5,
-            input_mode="speech", asr_confidence=0.9,
-            speech_eval_config={"allow_paraphrase": False, "review_threshold": 0.78},
-        ))
-        self.assertFalse(result["isCorrect"])
-        self.assertEqual(result["judgedBy"], "Vector Engine")
-        ev.tools.judge_with_ai.assert_not_called()
-
-    def test_medium_vector_with_paraphrase_calls_llm(self):
-        ev = _make_evaluator({"level": 3, "is_correct": True, "explanation": "Close enough"})
-        result = run(ev.process_judge(
-            q_type="CN_TO_EN", user_ans="hi there", origin="你好",
-            std_answers=["hello"], vector_score=0.82,
-            input_mode="speech", asr_confidence=0.9,
-            speech_eval_config={"allow_paraphrase": True},
-        ))
+        self.assertEqual(result["judgedBy"], "LLM Mentor")
         ev.tools.judge_with_ai.assert_called_once()
-        self.assertTrue(result["isCorrect"])
 
 
 if __name__ == "__main__":

@@ -55,7 +55,7 @@ class StudyEvaluateSmokeTests(SmokeTestCaseMixin, unittest.TestCase):
         self.assertEqual(body["status"], "success")
         self.assertTrue(body["data"]["isCorrect"])
         self.assertEqual(body["data"]["judgedBy"], "Regex")
-        self.assertEqual(body["data"]["vectorScore"], 1.0)
+        self.assertIsNone(body["data"]["vectorScore"])
         self.assertEqual(body["data"]["inputMode"], "text")
         self.assertEqual(body["data"]["expected_answers"], ["bonjour"])
         self.assertGreaterEqual(fake_db.commit_calls, 1)

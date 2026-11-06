@@ -7,6 +7,8 @@ TEST_MODULES = [
     "tests.test_auth_google",
     "tests.test_study_init",
     "tests.test_study_evaluate",
+    "tests.test_evaluator_unit",
+    "tests.test_two_tier_evaluation",
     "tests.test_study_content_viewed",
     "tests.test_study_complete_lesson",
 ]
