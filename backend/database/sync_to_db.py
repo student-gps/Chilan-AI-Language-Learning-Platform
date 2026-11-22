@@ -1,4 +1,4 @@
-﻿"""
+"""
 sync_to_db.py — 将本地 lesson JSON 上传到 R2 并同步至 PostgreSQL 数据库。
 
 用法（在 backend/ 目录下运行）：
@@ -146,17 +146,21 @@ def ensure_lessons_course_scoped_key(cur):
 # ==========================================
 # 3. R2 上传（入库前统一执行）
 # ==========================================
-def upload_assets_to_r2(data: dict) -> dict:
+def upload_assets_to_r2(data: dict, *, strict: bool = False) -> dict:
     """
     上传 data 中所有本地音频和静态教学幻灯片到 R2，并将 object_key 和 media_url 写回 data。
     如果 R2 未配置或文件不存在，静默跳过。
     返回更新后的 data（原地修改，同时也返回以便链式调用）。
     """
     if get_media_storage is None:
+        if strict:
+            raise RuntimeError("Media storage is unavailable")
         return data
 
     r2 = get_media_storage(optional=True)
     if not r2:
+        if strict:
+            raise RuntimeError("Media storage must be configured before publishing")
         print("ℹ️ R2 未配置，跳过资源上传（仅本地可用）。")
         return data
 
@@ -201,6 +205,8 @@ def upload_assets_to_r2(data: dict) -> dict:
                     return candidate
             return p
         tail = Path(*parts[idx + 1:])
+        if tail.parts and tail.parts[0] in {"integrated_chinese", "new_concept_english", "minna_no_nihongo"}:
+            tail = Path(*tail.parts[1:])
         candidates = []
         for root in _artifact_roots:
             candidates.append(root / tail)
@@ -218,6 +224,8 @@ def upload_assets_to_r2(data: dict) -> dict:
         nonlocal uploaded, failed
         p = _resolve_path(local_path, object_key)
         if not p.exists():
+            if strict:
+                raise FileNotFoundError(f"Required publishing asset missing: {p}")
             print(f"  ⚠️ 文件不存在，跳过: {p.name}")
             return object_key
         try:
@@ -226,6 +234,8 @@ def upload_assets_to_r2(data: dict) -> dict:
             uploaded += 1
             return result.get("object_key", object_key)
         except Exception as e:
+            if strict:
+                raise RuntimeError(f"Asset upload failed: {label}") from e
             print(f"  ⚠️ R2 上传失败 [{label}]: {e}")
             failed += 1
             return object_key
@@ -461,7 +471,7 @@ def sync_lesson_data(
     LAST_SYNC_ERROR = ""
     with open(json_file_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
-    
+
     lesson_metadata = data.get("lesson_metadata", {})
     course_content = data.get("course_content", {})
     teaching_materials = data.get("teaching_materials", {}) if isinstance(data.get("teaching_materials"), dict) else {}
@@ -489,7 +499,7 @@ def sync_lesson_data(
 
     conn = None
     cur = None
-    
+
     try:
         conn = get_connection()
         cur = conn.cursor()
@@ -629,27 +639,27 @@ def sync_lesson_data(
                 ))
 
             cur.execute("""
-                SELECT 1 FROM language_items 
+                SELECT 1 FROM language_items
                 WHERE course_id = %s AND lesson_id = %s AND question_id = %s
             """, (course_id, lesson_id, q_id))
-            
+
             if cur.fetchone():
                 cur.execute("""
-                    UPDATE language_items 
-                    SET question_type = %s, original_text = %s, original_pinyin = %s, 
+                    UPDATE language_items
+                    SET question_type = %s, original_text = %s, original_pinyin = %s,
                         standard_answers = %s, metadata = %s
                     WHERE course_id = %s AND lesson_id = %s AND question_id = %s
-                """, (item['question_type'], item['original_text'], q_pinyin, 
+                """, (item['question_type'], item['original_text'], q_pinyin,
                       item['standard_answers'], Json(q_metadata),
                       course_id, lesson_id, q_id))
             else:
                 cur.execute("""
-                    INSERT INTO language_items 
-                    (course_id, lesson_id, question_id, question_type, original_text, 
+                    INSERT INTO language_items
+                    (course_id, lesson_id, question_id, question_type, original_text,
                      original_pinyin, standard_answers, metadata)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                """, (course_id, lesson_id, q_id, item['question_type'], 
-                      item['original_text'], q_pinyin, item['standard_answers'], 
+                """, (course_id, lesson_id, q_id, item['question_type'],
+                      item['original_text'], q_pinyin, item['standard_answers'],
                       Json(q_metadata)))
 
         if current_question_ids:
@@ -665,7 +675,7 @@ def sync_lesson_data(
             deleted_stale = cur.rowcount
             if deleted_stale:
                 print(f"🧹 已清理旧 language_items: {deleted_stale}")
-             
+
         conn.commit()
         print(f"✅ 入库成功！包含题目拼音与例句上下文。")
         return True
@@ -700,19 +710,20 @@ if __name__ == "__main__":
     parser.add_argument("files", nargs="*", help="Specific lesson JSON file(s) to sync.")
     parser.add_argument("--pipeline", default="integrated_chinese", help="Pipeline artifact namespace.")
     parser.add_argument("--lang", default=None, help="Output language folder to scan.")
+    parser.add_argument("--strict", action="store_true", help="Validate deliverable media and stop on missing storage, upload failures or DB failures.")
     args = parser.parse_args()
 
-    embed_provider = EmbeddingFactory.create_provider()
 
     # 路径绑定
     content_builder_dir = CURRENT_DIR.parent / "content_builder"
     artifacts_dir = content_builder_dir / "artifacts"
-    if args.pipeline in {"integrated_chinese", "integrated-chinese", "zh"}:
-        artifact_root = artifacts_dir / INTEGRATED_CHINESE_ARTIFACT_NAMESPACE
-        default_lang = "en"
-    else:
-        artifact_root = artifacts_dir / args.pipeline
-        default_lang = "zh" if args.pipeline == "new_concept_english" else "en"
+    from services.media_pipeline_registry import get_media_pipeline
+    aliases = {"integrated-chinese": "integrated_chinese", "zh": "integrated_chinese",
+               "new-concept-english": "new_concept_english", "nce": "new_concept_english",
+               "minna-no-nihongo": "minna_no_nihongo", "mnn": "minna_no_nihongo"}
+    args.pipeline = aliases.get(args.pipeline, args.pipeline)
+    artifact_root = get_media_pipeline(args.pipeline).artifact_root(BACKEND_DIR)
+    default_lang = "en" if args.pipeline == "integrated_chinese" else "zh"
     lang = args.lang or default_lang
     output_dir = artifact_root / "output_json" / lang
     synced_dir = artifact_root / "synced_json" / lang
@@ -736,6 +747,8 @@ if __name__ == "__main__":
             print(f"ℹ️ 未在 {output_dir} 找到 JSON，改用旧中文目录: {legacy_output_dir}")
     if not json_files:
         print("📭 没有待处理的 JSON 文件。")
+        if args.strict:
+            raise SystemExit(1)
     else:
         for target_json in json_files:
             print(f"\n🚀 开始处理: {target_json.name}")
@@ -743,15 +756,23 @@ if __name__ == "__main__":
             with open(target_json, encoding="utf-8") as _f:
                 lesson_data = json.load(_f)
 
+            if args.strict:
+                if args.pipeline != "integrated_chinese":
+                    raise ValueError("Strict publishing gate currently supports integrated_chinese")
+                from content_builder.zh.integrated_chinese.quality import audit_lesson, require_quality
+                require_quality(audit_lesson(lesson_data, artifact_root=artifact_root, lang=lang, media=True, deep=True))
+
             print("☁️ 上传本地资产到 R2...")
-            lesson_data = upload_assets_to_r2(lesson_data)
+            lesson_data = upload_assets_to_r2(lesson_data, strict=args.strict)
 
             # 写回更新后的 object_key（供入库使用）
             with open(target_json, "w", encoding="utf-8") as _f:
                 json.dump(lesson_data, _f, ensure_ascii=False, indent=2)
 
             sync_context = {"pipeline": args.pipeline, "lang": lang}
-            if sync_lesson_data(str(target_json), embed_provider, sync_context=sync_context):
+            if sync_lesson_data(str(target_json), sync_context=sync_context):
                 destination = synced_dir / target_json.name
                 if target_json.resolve() != destination.resolve():
                     shutil.move(str(target_json), str(destination))
+            elif args.strict:
+                raise SystemExit(f"Database sync failed for {target_json.name}")

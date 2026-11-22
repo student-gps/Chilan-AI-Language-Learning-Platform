@@ -1,0 +1,1 @@
+"""Japanese content builder pipelines."""

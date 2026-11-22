@@ -89,7 +89,7 @@ export default function GrammarPatternTemplate({ segment }) {
         segment?.narration_track?.subtitle_en ||
         segment?.narration_track?.subtitle_zh ||
         '';
-    const patternNotes = breakdownContent?.notes || segment?.visual_notes;
+    const patternNotes = breakdownContent?.notes;
 
     const focusText  = heroContent?.focus_text  || segment?.on_screen_text?.focus_text;
     const focusPinyin = heroContent?.focus_pinyin || segment?.on_screen_text?.focus_pinyin;

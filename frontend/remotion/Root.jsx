@@ -1,6 +1,7 @@
 import React from 'react';
 import { Composition } from 'remotion';
 import ExplanationLessonVideo from './ExplanationLessonVideo';
+import ExplanationLessonSlide from './ExplanationLessonSlide';
 import explanationRenderPlan from './generated/explanationRenderPlan';
 import pinyinOverviewRenderPlan from './generated/pinyinOverviewRenderPlan';
 
@@ -30,14 +31,13 @@ export default function RemotionRoot() {
             />
             <Composition
                 id="ExplanationLessonSlide"
-                component={ExplanationLessonVideo}
-                durationInFrames={durationInFrames}
+                component={ExplanationLessonSlide}
+                durationInFrames={1}
                 fps={FPS}
                 width={WIDTH}
                 height={HEIGHT}
                 defaultProps={{
-                    renderPlan: explanationRenderPlan,
-                    showSubtitleBar: false,
+                    segment: explanationRenderPlan?.segments?.[0],
                 }}
             />
             <Composition

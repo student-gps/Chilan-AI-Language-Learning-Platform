@@ -45,6 +45,7 @@ Core product ideas include:
 
 ### Reference docs
 
+- [content-workflow-release.md](content-workflow-release.md)
 - [data-models-backend.md](data-models-backend.md)
 - [api-contracts-backend.md](api-contracts-backend.md)
 - [component-inventory-frontend.md](component-inventory-frontend.md)

@@ -22,9 +22,9 @@ class ContentBuilderRequest:
     run_stage1: bool = True
     run_stage2: bool = True
     stage2_mode: str = "full"
-    force_stage1: bool = True
-    force_narration: bool = True
-    force_slides: bool = True
+    force_stage1: bool = False
+    force_narration: bool = False
+    force_slides: bool = False
     refresh_render_plan: bool = False
     lesson_audio_metadata_only: bool = False
     only_slide: int | None = None
@@ -41,9 +41,9 @@ def build_content_builder_request(
     run_stage1: bool = True,
     run_stage2: bool = True,
     stage2_mode: str = "full",
-    force_stage1: bool = True,
-    force_narration: bool = True,
-    force_slides: bool = True,
+    force_stage1: bool = False,
+    force_narration: bool = False,
+    force_slides: bool = False,
     refresh_render_plan: bool = False,
     lesson_audio_metadata_only: bool = False,
     only_slide: int | None = None,
@@ -52,8 +52,8 @@ def build_content_builder_request(
 ) -> ContentBuilderRequest:
     pipeline = str(pipeline or "").strip()
     lang = str(lang or "").strip().lower()
-    if pipeline != "minna_no_nihongo":
-        raise ValueError("Only minna_no_nihongo is supported by this dev runner for now.")
+    if pipeline not in {"minna_no_nihongo", "integrated_chinese"}:
+        raise ValueError("Supported pipelines: integrated_chinese, minna_no_nihongo")
     if not lang:
         raise ValueError("lang is required")
     start = int(lesson_start or lesson_end or 1)
@@ -65,6 +65,10 @@ def build_content_builder_request(
         raise ValueError("stage2_mode must be full or slides_only")
     if only_slide is not None and int(only_slide) <= 0:
         raise ValueError("only_slide must be positive")
+    if pipeline == "integrated_chinese" and (lesson_audio_metadata_only or only_slide or refresh_render_plan):
+        raise ValueError("Integrated Chinese uses complete validated lessons. Select content regeneration to change the teaching plan.")
+    if pipeline == "integrated_chinese" and mode == "slides_only" and run_stage1:
+        raise ValueError("Image-only refresh requires Stage 1 to be disabled so existing narration is preserved.")
     return ContentBuilderRequest(
         pipeline=pipeline,
         lang=lang,
@@ -166,6 +170,22 @@ def _request_dict(req: ContentBuilderRequest) -> dict[str, Any]:
 
 
 def _commands_for_lesson(req: ContentBuilderRequest, lesson_id: int) -> list[tuple[int, str, list[str]]]:
+    if not req.run_stage1 and not req.run_stage2:
+        return []
+    if req.pipeline == "integrated_chinese":
+        argv = [sys.executable, "-m", "content_builder.zh.integrated_chinese.workflow", "run",
+                "--lesson", str(lesson_id), "--lang", req.lang]
+        if req.run_stage1:
+            argv.extend(["--through", "verify" if req.run_stage2 else "localize"])
+        else:
+            argv.extend(["--from-stage", "slides" if req.stage2_mode == "slides_only" else "narration",
+                         "--through", "verify", "--input-json", str(_lesson_json_path(req, lesson_id))])
+            if req.stage2_mode == "slides_only":
+                argv.append("--images-only")
+        forced = [stage for stage, enabled in (("content", req.force_stage1), ("narration", req.force_narration), ("slides", req.force_slides)) if enabled]
+        if forced:
+            argv.extend(["--force", *forced])
+        return [(lesson_id, "Integrated Chinese workflow + quality checks", argv)]
     lesson_slug = f"lesson{lesson_id:03d}"
     commands: list[tuple[int, str, list[str]]] = []
     if req.run_stage1:
@@ -226,6 +246,11 @@ def _commands_for_lesson(req: ContentBuilderRequest, lesson_id: int) -> list[tup
 
 
 def _lesson_json_path(req: ContentBuilderRequest, lesson_id: int) -> Path:
+    if req.pipeline == "integrated_chinese":
+        root = BACKEND_DIR / "content_builder/zh/integrated_chinese/artifacts"
+        name = f"lesson{lesson_id}_data{'_' + req.lang if req.lang != 'en' else ''}.json"
+        output, synced = (root / folder / req.lang / name for folder in ("output_json", "synced_json"))
+        return output if output.exists() or not synced.exists() else synced
     lesson_slug = f"lesson{lesson_id:03d}"
     artifact_root = BACKEND_DIR / "content_builder" / "ja" / "minna_no_nihongo" / "artifacts"
     output = artifact_root / "output_json" / req.lang / f"{lesson_slug}_data.json"
@@ -243,7 +268,7 @@ def _run_command(argv: list[str], *, lesson_id: int, stage: str) -> Iterator[dic
     env.setdefault("PYTHONIOENCODING", "utf-8")
     process = subprocess.Popen(
         argv,
-        cwd=str(PROJECT_ROOT),
+        cwd=str(BACKEND_DIR),
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
