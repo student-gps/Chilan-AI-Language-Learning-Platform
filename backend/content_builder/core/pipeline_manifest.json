@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "pipelines": [
+    {
+      "pipeline_id": "integrated_chinese",
+      "display_name": "Integrated Chinese",
+      "target_language": "zh",
+      "artifact_relative_path": "content_builder/zh/integrated_chinese/artifacts",
+      "legacy_artifact_relative_path": "content_builder/artifacts/integrated_chinese",
+      "aliases": [
+        "default",
+        "zh_from_en",
+        "integrated-chinese",
+        "zh"
+      ]
+    },
+    {
+      "pipeline_id": "new_concept_english",
+      "display_name": "New Concept English",
+      "target_language": "en",
+      "artifact_relative_path": "content_builder/en/new_concept_english/artifacts",
+      "legacy_artifact_relative_path": "content_builder/artifacts/new_concept_english",
+      "aliases": [
+        "new-concept-english",
+        "nce",
+        "en_from_zh",
+        "en"
+      ]
+    },
+    {
+      "pipeline_id": "minna_no_nihongo",
+      "display_name": "Minna no Nihongo",
+      "target_language": "ja",
+      "artifact_relative_path": "content_builder/ja/minna_no_nihongo/artifacts",
+      "legacy_artifact_relative_path": "content_builder/artifacts/minna_no_nihongo",
+      "aliases": [
+        "minna-no-nihongo",
+        "mnn",
+        "ja_from_zh",
+        "ja"
+      ]
+    }
+  ]
+}

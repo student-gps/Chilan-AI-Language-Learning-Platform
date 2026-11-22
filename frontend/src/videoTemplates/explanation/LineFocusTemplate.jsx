@@ -8,6 +8,11 @@ function RubyLine({ text, pinyin, charSize = 88, pinyinSize = 22 }) {
     if (!text) return null;
     const syllables = extractPinyinSyllables(pinyin);
     const chars = [...text];
+    const glyphs = [];
+    chars.forEach((char, i) => {
+        if (/[，。！？、；：,.!?;:]/.test(char) && glyphs.length) glyphs[glyphs.length - 1].suffix += char;
+        else glyphs.push({ char, i, suffix: '' });
+    });
     // Exclude erhua \u513f (retroflexion suffix, not independent syllable) from expected count
     const cnCount = (() => {
         let si = 0;
@@ -25,7 +30,7 @@ function RubyLine({ text, pinyin, charSize = 88, pinyinSize = 22 }) {
 
     return (
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', lineHeight: 1 }}>
-            {chars.map((char, i) => {
+            {glyphs.map(({ char, i, suffix }) => {
                 const isChinese = /[\u4e00-\u9fff]/.test(char);
                 const isErhua = char === '\u513f' && i > 0 && /[\u4e00-\u9fff]/.test(chars[i - 1])
                     && !/^[e\u0113\u00e9\u011b\u00e8\u00ea]/i.test(syllables[pi] || '');
@@ -35,13 +40,13 @@ function RubyLine({ text, pinyin, charSize = 88, pinyinSize = 22 }) {
                         key={i}
                         style={{
                             display: 'inline-flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
+                            alignItems: 'flex-end',
                             height: cellHeight,
                             justifyContent: 'flex-end',
                             marginRight: isChinese ? 6 : 0,
                         }}
                     >
+                        <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', height: cellHeight }}>
                         {py !== null && (
                             <span style={{
                                 fontSize: pinyinSize,
@@ -63,6 +68,8 @@ function RubyLine({ text, pinyin, charSize = 88, pinyinSize = 22 }) {
                         }}>
                             {char}
                         </span>
+                        </span>
+                        {suffix && <span style={{ fontFamily: fontStack, fontSize: charSize * 0.62, fontWeight: 900, color: chalk.white, lineHeight: 1 }}>{suffix}</span>}
                     </span>
                 );
             })}
@@ -78,7 +85,7 @@ export default function LineFocusTemplate({ segment }) {
     const heroContent = hero?.content || {};
     const teachingContent = teaching?.content || {};
     const highlightWords = teachingContent?.highlight_words || segment?.highlight_words || [];
-    const quickTake = teachingContent?.notes || segment?.visual_notes;
+    const quickTake = teachingContent?.notes;
 
     const focusText = heroContent?.focus_text  || segment?.on_screen_text?.focus_text;
     const pinyin    = heroContent?.focus_pinyin || segment?.on_screen_text?.focus_pinyin;
@@ -107,6 +114,12 @@ export default function LineFocusTemplate({ segment }) {
     if (hasBottom && cnCount > 55) {
         charSize   = Math.max(40, Math.round(charSize   * 0.88));
         pinyinSize = Math.max(12, Math.round(pinyinSize * 0.88));
+    }
+    if (cnCount > 0 && cnCount <= 14) {
+        const otherCount = [...(focusText || '')].length - cnCount;
+        const fitSize = Math.floor((1720 - cnCount * 6) / (cnCount + otherCount * 0.62));
+        charSize = Math.min(charSize, fitSize);
+        pinyinSize = Math.min(pinyinSize, Math.round(charSize * 0.24));
     }
     const glossSize = glossLength > 130 ? 38 : glossLength > 90 ? 44 : roomyLongLine ? 52 : 46;
     const bottomCharSize = highlightWords.length > 3 ? 74 : roomyLongLine ? 88 : 78;
@@ -144,7 +157,8 @@ export default function LineFocusTemplate({ segment }) {
                 flex: 1,
                 padding: '24px 56px 24px 56px',
                 display: 'grid',
-                gridTemplateRows: roomyLongLine ? '1.35fr 0.85fr' : '1fr auto',
+                gridTemplateRows: hasBottom ? 'auto auto' : '1fr',
+                alignContent: roomyLongLine ? 'start' : 'center',
                 gap: roomyLongLine ? 30 : 22,
                 position: 'relative', zIndex: 2,
                 overflow: 'hidden',

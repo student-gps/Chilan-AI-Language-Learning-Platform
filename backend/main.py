@@ -431,9 +431,9 @@ class DevContentBuilderRequest(BaseModel):
     run_stage1: bool = True
     run_stage2: bool = True
     stage2_mode: str = "full"
-    force_stage1: bool = True
-    force_narration: bool = True
-    force_slides: bool = True
+    force_stage1: bool = False
+    force_narration: bool = False
+    force_slides: bool = False
     refresh_render_plan: bool = False
     lesson_audio_metadata_only: bool = False
     only_slide: int | None = None

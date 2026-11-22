@@ -18,7 +18,7 @@ export default function VocabSpotlightTemplate({ segment }) {
         segment?.narration_track?.subtitle_en ||
         segment?.narration_track?.subtitle_zh ||
         '';
-    const teachingNote = noteContent?.notes || segment?.visual_notes;
+    const teachingNote = noteContent?.notes;
     const visibleWords = highlightWords.slice(0, 6);
     const wordCount = visibleWords.length;
     const longestWord = visibleWords.reduce((max, item) => Math.max(max, [...String(item?.word || '')].length), 0);

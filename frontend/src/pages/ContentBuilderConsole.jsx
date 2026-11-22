@@ -28,16 +28,16 @@ const Toggle = ({ label, checked, onChange }) => (
 );
 
 export default function ContentBuilderConsole() {
-    const [pipeline, setPipeline] = useState('minna_no_nihongo');
-    const [lang, setLang] = useState('zh');
-    const [lessonStart, setLessonStart] = useState('001');
-    const [lessonEnd, setLessonEnd] = useState('001');
+    const [pipeline, setPipeline] = useState('integrated_chinese');
+    const [lang, setLang] = useState('en');
+    const [lessonStart, setLessonStart] = useState('101');
+    const [lessonEnd, setLessonEnd] = useState('101');
     const [runStage1, setRunStage1] = useState(true);
     const [runStage2, setRunStage2] = useState(true);
     const [stage2Mode, setStage2Mode] = useState('full');
-    const [forceStage1, setForceStage1] = useState(true);
-    const [forceNarration, setForceNarration] = useState(true);
-    const [forceSlides, setForceSlides] = useState(true);
+    const [forceStage1, setForceStage1] = useState(false);
+    const [forceNarration, setForceNarration] = useState(false);
+    const [forceSlides, setForceSlides] = useState(false);
     const [refreshRenderPlan, setRefreshRenderPlan] = useState(false);
     const [lessonAudioMetadataOnly, setLessonAudioMetadataOnly] = useState(false);
     const [onlySlide, setOnlySlide] = useState('');
@@ -206,7 +206,19 @@ export default function ContentBuilderConsole() {
                             <div className="space-y-3">
                                 <label className="block">
                                     <span className="mb-1 block text-[11px] font-black uppercase tracking-widest text-slate-400">流水线</span>
-                                    <input value={pipeline} onChange={(e) => setPipeline(e.target.value)} className="h-11 w-full rounded-xl border border-slate-200 px-3 text-sm font-bold outline-none focus:border-slate-500" />
+                                    <select value={pipeline} onChange={(e) => {
+                                        const chinese = e.target.value === 'integrated_chinese';
+                                        setPipeline(e.target.value);
+                                        setLang(chinese ? 'en' : 'zh');
+                                        setLessonStart(chinese ? '101' : '001');
+                                        setLessonEnd(chinese ? '101' : '001');
+                                        setOnlySlide('');
+                                        setRefreshRenderPlan(false);
+                                        setLessonAudioMetadataOnly(false);
+                                    }} className="h-11 w-full rounded-xl border border-slate-200 px-3 text-sm font-bold outline-none focus:border-slate-500">
+                                        <option value="integrated_chinese">Integrated Chinese</option>
+                                        <option value="minna_no_nihongo">大家的日语</option>
+                                    </select>
                                 </label>
                                 <div className="grid grid-cols-3 gap-3">
                                     <label className="block">
@@ -231,15 +243,18 @@ export default function ContentBuilderConsole() {
                                 <Toggle label="Stage2 旁白 / Slides" checked={runStage2} onChange={setRunStage2} />
                                 <label className="block">
                                     <span className="mb-1 block text-[11px] font-black uppercase tracking-widest text-slate-400">Stage2 模式</span>
-                                    <select value={stage2Mode} onChange={(e) => setStage2Mode(e.target.value)} className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-slate-500">
+                                    <select value={stage2Mode} onChange={(e) => {
+                                        setStage2Mode(e.target.value);
+                                        if (pipeline === 'integrated_chinese' && e.target.value === 'slides_only') setRunStage1(false);
+                                    }} className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-slate-500">
                                         <option value="full">旁白 + slides</option>
                                         <option value="slides_only">只渲 slides</option>
                                     </select>
                                 </label>
-                                <label className="block">
+                                {pipeline === 'minna_no_nihongo' && <label className="block">
                                     <span className="mb-1 block text-[11px] font-black uppercase tracking-widest text-slate-400">单页重渲</span>
                                     <input value={onlySlide} onChange={(e) => setOnlySlide(e.target.value)} placeholder="留空表示全部" className="h-11 w-full rounded-xl border border-slate-200 px-3 text-sm font-bold outline-none focus:border-slate-500" />
-                                </label>
+                                </label>}
                             </div>
                         </Section>
 
@@ -248,8 +263,11 @@ export default function ContentBuilderConsole() {
                                 <Toggle label="覆盖 Stage1 JSON" checked={forceStage1} onChange={setForceStage1} />
                                 <Toggle label="重生成旁白" checked={forceNarration} onChange={setForceNarration} />
                                 <Toggle label="重渲 slides" checked={forceSlides} onChange={setForceSlides} />
-                                <Toggle label="刷新 render plan" checked={refreshRenderPlan} onChange={setRefreshRenderPlan} />
-                                <Toggle label="跳过课文音频生成" checked={lessonAudioMetadataOnly} onChange={setLessonAudioMetadataOnly} />
+                                {pipeline === 'minna_no_nihongo' && <>
+                                    <Toggle label="刷新 render plan" checked={refreshRenderPlan} onChange={setRefreshRenderPlan} />
+                                    <Toggle label="跳过课文音频生成" checked={lessonAudioMetadataOnly} onChange={setLessonAudioMetadataOnly} />
+                                </>}
+                                {pipeline === 'integrated_chinese' && <p className="text-xs leading-relaxed text-slate-500">默认复用内容一致的产物。课件图片不含旁白字幕，运行完成前会检查教材覆盖、题目、字幕和媒体文件。</p>}
                             </div>
                         </Section>
 

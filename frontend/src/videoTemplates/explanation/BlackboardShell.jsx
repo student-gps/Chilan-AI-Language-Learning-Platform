@@ -1,4 +1,5 @@
 import SubtitleBar from './SubtitleBar';
+import { useSubtitle } from './SubtitleContext';
 
 /**
  * Shared blackboard outer shell used by all explanation templates.
@@ -14,6 +15,7 @@ import SubtitleBar from './SubtitleBar';
  *     main content and giving the subtitle a clean floating appearance.
  */
 export default function BlackboardShell({ children, subtitleText }) {
+    const { showSubtitleBar = true } = useSubtitle();
     return (
         <div style={{
             aspectRatio: '16/9',
@@ -32,8 +34,7 @@ export default function BlackboardShell({ children, subtitleText }) {
                 display: 'flex',
                 flexDirection: 'column',
                 paddingTop: 18,   // same as wooden border width — keeps content below the top frame
-                paddingBottom: 76, // matches subtitle bar height (minHeight 74 + borders) — reserves
-                                   // space so body content doesn't slide behind the floating subtitle bar
+                paddingBottom: showSubtitleBar ? 76 : 22,
             }}>
                 {children}
             </div>
@@ -49,7 +50,7 @@ export default function BlackboardShell({ children, subtitleText }) {
             }} />
 
             {/* ── Subtitle bar — floats above bottom wooden border ── */}
-            <div style={{
+            {showSubtitleBar && <div style={{
                 position: 'absolute',
                 bottom: 0,
                 left: 0,
@@ -57,7 +58,7 @@ export default function BlackboardShell({ children, subtitleText }) {
                 zIndex: 10,
             }}>
                 <SubtitleBar text={subtitleText} />
-            </div>
+            </div>}
         </div>
     );
 }

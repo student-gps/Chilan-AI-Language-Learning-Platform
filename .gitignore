@@ -34,8 +34,11 @@ textbook/
 documents/
 project report/
 
-# content_builder 是本地离线制课工具，生产 API 不依赖该目录。
-backend/content_builder/
+# 教材源码入库，原始教材、媒体、缓存和生成数据留在本地。
+backend/content_builder/**/artifacts/
+frontend/.remotion/
+tmp/
+*.local.json
 
 # Remotion 自动生成文件
 frontend/remotion/generated/

@@ -23,7 +23,7 @@ export default function UsageFocusTemplate({ segment }) {
 
     const highlightWords = segment?.highlight_words || [];
     const focusGloss = content?.focus_gloss_en || '';
-    const notes = content?.notes || segment?.visual_notes || '';
+    const notes = content?.notes || '';
     const narrationText = segment?.narration_track?.subtitle_en || '';
 
     const { correct, incorrect, rule } = parseContrastNotes(notes);
